@@ -1,0 +1,24 @@
+{
+  "task_id": "WCS-011",
+  "status": "qa_pass",
+  "qa_tool": "playwright",
+  "summary": "QA passed. Build completed successfully, Playwright global setup successfully waited for the local server, and the dedicated home page smoke test passed.",
+  "checks_run": [
+    "Ran npm run build",
+    "Ran npm run test:e2e:smoke",
+    "Verified Playwright global setup waited for the local server",
+    "Verified the home page smoke test passed"
+  ],
+  "checks_passed": [
+    "Build passed",
+    "Server readiness polling succeeded",
+    "Home page loaded successfully in Playwright",
+    "Smoke test passed"
+  ],
+  "checks_failed": [],
+  "artifacts": [
+    "Playwright smoke test result"
+  ],
+  "notes": "This task establishes a repeatable local smoke QA path for the WCS home page. It should now be available for future WCS tasks on branches that include this commit.",
+  "completed_at": "2026-03-09T19:36:00-05:00"
+}

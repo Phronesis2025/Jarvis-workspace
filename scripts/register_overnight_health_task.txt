@@ -1,0 +1,12 @@
+Create the scheduled task from an elevated PowerShell window:
+
+schtasks /create /tn "Jarvis Overnight Health Check" /tr "powershell.exe -ExecutionPolicy Bypass -File C:\dev\jarvis-workspace\scripts\run_overnight_health_check.ps1" /sc daily /st 02:00
+
+To run it immediately:
+schtasks /run /tn "Jarvis Overnight Health Check"
+
+To view it:
+schtasks /query /tn "Jarvis Overnight Health Check" /v /fo list
+
+To delete it later:
+schtasks /delete /tn "Jarvis Overnight Health Check" /f

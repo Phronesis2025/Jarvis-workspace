@@ -1,0 +1,18 @@
+{
+  "task_id": "WCS-011",
+  "status": "worker_complete",
+  "executor": "cursor_manual",
+  "summary": "Stabilized Playwright smoke QA by updating global setup to poll for server readiness for up to 90 seconds before verifying page load, adding a dedicated home page smoke test, and adding a test:e2e:smoke script.",
+  "files_changed": [
+    "tests/e2e/helpers/global-setup.ts",
+    "tests/e2e/home.spec.ts",
+    "package.json"
+  ],
+  "commands_run": [
+    "cd c:\\dev\\wcsv2.0-new; npm run build",
+    "cd c:\\dev\\wcsv2.0-new; npm run test:e2e:smoke"
+  ],
+  "issues_encountered": [],
+  "notes": "Scope was limited to Playwright/test/config plumbing and package.json script updates. No production application behavior was changed.",
+  "completed_at": "2026-03-09T19:35:00-05:00"
+}

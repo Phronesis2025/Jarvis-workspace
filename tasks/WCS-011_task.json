@@ -1,0 +1,40 @@
+{
+  "task_id": "WCS-011",
+  "project": "WCS",
+  "title": "Stabilize local Playwright smoke QA for home page",
+  "bucket": "broken",
+  "priority": "P1",
+  "risk": "low",
+  "status": "dispatched",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "branch_name": "jarvis-task-wcs-011",
+  "problem_summary": "Stabilize local Playwright smoke QA for home page.",
+  "goal": "Resolve: Stabilize local Playwright smoke QA for home page, with the smallest safe change that satisfies QA.",
+  "suspected_files": [
+    "tests/e2e",
+    "playwright config",
+    "global setup for http://localhost:3000"
+  ],
+  "acceptance_criteria": [
+    "The scoped issue is resolved: Stabilize local Playwright smoke QA for home page",
+    "App builds successfully with npm run build",
+    "Local app can be opened for verification",
+    "Targeted change is visible or behaves correctly on the relevant page/flow",
+    "Changes remain tightly limited to the suspected files unless a clearly related helper/config file must also be updated"
+  ],
+  "qa_plan": [
+    "Run npm run build",
+    "Start local app with npm run dev",
+    "Run Playwright smoke QA if available",
+    "Verify the targeted change locally in the browser"
+  ],
+  "system_impact": "Low risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: tests/e2e, playwright config, global setup for http://localhost:3000.",
+  "stop_conditions": [
+    "Required file cannot be found",
+    "Build fails for unrelated reasons",
+    "Task scope expands beyond the targeted fix"
+  ],
+  "notes": "tests/e2e, playwright config, global setup for http://localhost:3000",
+  "created_at": "2026-03-09T20:16:25-05:00",
+  "updated_at": "2026-03-09T20:16:25-05:00"
+}

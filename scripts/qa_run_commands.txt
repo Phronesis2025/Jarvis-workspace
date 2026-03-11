@@ -1,0 +1,15 @@
+# From the WCS repo
+
+# If Playwright is not installed yet
+npm install -D @playwright/test
+npx playwright install
+
+# Optional: add a tests folder and copy the starter spec there
+# Example:
+# copy C:\dev\jarvis-workspace\scripts\playwright_home_smoke.spec.ts C:\dev\wcsv2.0-new\tests\home.spec.ts
+
+# Run local dev server first
+npm run dev
+
+# In another terminal
+npx playwright test

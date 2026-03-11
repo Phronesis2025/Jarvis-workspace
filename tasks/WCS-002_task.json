@@ -1,0 +1,38 @@
+{
+  "task_id": "WCS-002",
+  "project": "WCS",
+  "title": "Fix stats section showing 0 for all metrics",
+  "bucket": "broken",
+  "priority": "P1",
+  "risk": "medium",
+  "status": "ready",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "branch_name": "jarvis-task-wcs-002",
+  "problem_summary": "Fix stats section showing 0 for all metrics.",
+  "goal": "Resolve: Fix stats section showing 0 for all metrics, with the smallest safe change that satisfies QA.",
+  "suspected_files": [
+    "src/components/StatsSection.tsx"
+  ],
+  "acceptance_criteria": [
+    "The scoped issue is resolved: Fix stats section showing 0 for all metrics",
+    "App builds successfully with npm run build",
+    "Local app can be opened for verification",
+    "Targeted change is visible or behaves correctly on the relevant page/flow",
+    "Changes remain tightly limited to the suspected files unless a clearly related helper/config file must also be updated"
+  ],
+  "qa_plan": [
+    "Run npm run build",
+    "Start local app with npm run dev",
+    "Run Playwright smoke QA if available",
+    "Verify the targeted change locally in the browser"
+  ],
+  "system_impact": "Medium risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: src/components/StatsSection.tsx.",
+  "stop_conditions": [
+    "Required file cannot be found",
+    "Build fails for unrelated reasons",
+    "Task scope expands beyond the targeted fix"
+  ],
+  "notes": "src/components/StatsSection.tsx",
+  "created_at": "2026-03-09T17:51:10-05:00",
+  "updated_at": "2026-03-09T17:51:10-05:00"
+}

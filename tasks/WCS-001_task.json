@@ -1,0 +1,38 @@
+{
+  "task_id": "WCS-001",
+  "project": "WCS",
+  "title": "Fix testimonial typo in PlayerTestimonials quote",
+  "bucket": "ugly",
+  "priority": "P2",
+  "risk": "low",
+  "status": "ready",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "branch_name": "jarvis-task-wcs-001",
+  "problem_summary": "Michael J.'s quote repeats the phrase 'the player' and reads awkwardly.",
+  "goal": "Replace the duplicate phrase with clearer wording that keeps the testimonial natural and aligned with the site's tone.",
+  "suspected_files": [
+    "src/components/PlayerTestimonials.tsx"
+  ],
+  "acceptance_criteria": [
+    "Quote no longer repeats 'the player' unnecessarily",
+    "App builds successfully with npm run build",
+    "Home page loads locally after the change",
+    "Updated testimonial text appears correctly on the rendered page"
+  ],
+  "qa_plan": [
+    "Start local app",
+    "Open /",
+    "Confirm testimonial text renders with corrected wording",
+    "Confirm no console-breaking behavior from the change",
+    "Confirm build passes"
+  ],
+  "system_impact": "Low risk. Copy change on the home page testimonial component only.",
+  "stop_conditions": [
+    "Required file cannot be found",
+    "Build fails for unrelated reasons",
+    "Testimonial content is loaded from an unexpected remote source"
+  ],
+  "notes": "Suggested replacement: 'The coaches care about the player, not just the performance.'",
+  "created_at": "2026-03-09",
+  "updated_at": "2026-03-09"
+}

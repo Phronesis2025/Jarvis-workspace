@@ -1,0 +1,21 @@
+{
+  "ignore_failed_request_patterns": [
+    {
+      "contains_all": [
+        "_next/image",
+        "net::err_aborted"
+      ],
+      "reason": "Known Next image optimization abort noise during scout navigation."
+    }
+  ],
+  "ignore_console_error_patterns": [
+    {
+      "contains_all": [
+        "realtime/v1/websocket",
+        "http authentication failed"
+      ],
+      "reason": "Known Supabase realtime auth chatter on public pages."
+    }
+  ],
+  "ignore_issue_patterns": []
+}

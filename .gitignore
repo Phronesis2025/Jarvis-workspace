@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# Logs and generated scout artifacts
+logs/
+*.log
+
+# Test outputs / screenshots
+screenshots/
+test-results/
+playwright-report/
+
+# Local environment files
+.env
+.env.*

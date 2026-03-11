@@ -1,0 +1,152 @@
+[
+  {
+    "task_id": "WCS-001",
+    "project": "WCS",
+    "bucket": "ugly",
+    "priority": "P2",
+    "risk": "low",
+    "status": "done",
+    "title": "Fix testimonial typo in PlayerTestimonials quote",
+    "notes": "src/components/PlayerTestimonials.tsx"
+  },
+  {
+    "task_id": "WCS-002",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P1",
+    "risk": "medium",
+    "status": "done",
+    "title": "Fix stats section showing 0 for all metrics",
+    "notes": "src/components/StatsSection.tsx"
+  },
+  {
+    "task_id": "WCS-003",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P1",
+    "risk": "medium",
+    "status": "done",
+    "title": "Add timeout/fallback handling for long loading states",
+    "notes": "TodaysEvents.tsx, LogoMarquee.tsx"
+  },
+  {
+    "task_id": "WCS-004",
+    "project": "WCS",
+    "bucket": "ugly",
+    "priority": "P2",
+    "risk": "low",
+    "status": "done",
+    "title": "Improve empty Around the WCS state",
+    "notes": "src/components/TeamUpdates.tsx"
+  },
+  {
+    "task_id": "WCS-005",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P1",
+    "risk": "medium",
+    "status": "ready",
+    "title": "Make footer email signup form functional",
+    "notes": "src/components/Footer.tsx"
+  },
+  {
+    "task_id": "WCS-006",
+    "project": "WCS",
+    "bucket": "ugly",
+    "priority": "P3",
+    "risk": "low",
+    "status": "ready",
+    "title": "Fix hero headline accessibility spacing/aria label",
+    "notes": "src/components/Hero.tsx"
+  },
+  {
+    "task_id": "WCS-007",
+    "project": "WCS",
+    "bucket": "ugly",
+    "priority": "P3",
+    "risk": "low",
+    "status": "ready",
+    "title": "Hide test site banner in production",
+    "notes": "src/components/TestSiteBanner.tsx"
+  },
+  {
+    "task_id": "WCS-008",
+    "project": "WCS",
+    "bucket": "ugly",
+    "priority": "P3",
+    "risk": "low",
+    "status": "ready",
+    "title": "Clarify navbar Coaches link label for logged-out users",
+    "notes": "src/components/Navbar.tsx"
+  },
+  {
+    "task_id": "WCS-009",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P2",
+    "risk": "medium",
+    "status": "ready",
+    "title": "Improve LogoMarquee response.ok handling and fallback",
+    "notes": "src/components/LogoMarquee.tsx"
+  },
+  {
+    "task_id": "WCS-010",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P2",
+    "risk": "medium",
+    "status": "ready",
+    "title": "Show fallback message instead of hiding TodaysEvents on error",
+    "notes": "src/components/TodaysEvents.tsx"
+  },
+  {
+    "task_id": "WCS-011",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P1",
+    "risk": "low",
+    "status": "done",
+    "title": "Stabilize local Playwright smoke QA for home page",
+    "notes": "tests/e2e, playwright config, global setup for http://localhost:3000"
+  },
+  {
+    "task_id": "WCS-013",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P2",
+    "risk": "low",
+    "status": "ready",
+    "title": "Hide links to unfinished /shop page",
+    "notes": "Public navigation or CTA paths should not expose /shop until the page is built out"
+  },
+  {
+    "task_id": "WCS-014",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P2",
+    "risk": "low",
+    "status": "ready",
+    "title": "Hide links to unfinished /news page",
+    "notes": "Public links should not expose /news until the page is built out"
+  },
+  {
+    "task_id": "WCS-015",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P2",
+    "risk": "medium",
+    "status": "ready",
+    "title": "Investigate /schedules Supabase realtime auth console error",
+    "notes": "Scout detected websocket auth failure on public /schedules page: Supabase realtime connection attempted without valid credentials"
+  },
+  {
+    "task_id": "WCS-016",
+    "project": "WCS",
+    "bucket": "broken",
+    "priority": "P2",
+    "risk": "medium",
+    "status": "ready",
+    "title": "Investigate public /teams scout HTTP 500 failure",
+    "notes": "Scout route: /teams; label: Teams; family: http_status; issues: HTTP status 500 on initial load. || Console errors detected: 1; console: TypeError: Cannot read properties of undefined (reading ''map''); screenshot: C:\\dev\\jarvis-workspace\\logs\\wcs_scout\\synthetic\\public-teams.png; source: C:\\dev\\jarvis-workspace\\logs\\wcs_scout\\synthetic_scout_fail.json"
+  }
+]

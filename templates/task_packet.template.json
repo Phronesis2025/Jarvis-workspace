@@ -1,0 +1,21 @@
+{
+  "task_id": "",
+  "project": "WCS",
+  "title": "",
+  "bucket": "",
+  "priority": "",
+  "risk": "",
+  "status": "ready",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "branch_name": "",
+  "problem_summary": "",
+  "goal": "",
+  "suspected_files": [],
+  "acceptance_criteria": [],
+  "qa_plan": [],
+  "system_impact": "",
+  "stop_conditions": [],
+  "notes": "",
+  "created_at": "",
+  "updated_at": ""
+}

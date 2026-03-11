@@ -1,0 +1,68 @@
+[
+  {
+    "id": "public-home",
+    "label": "Home",
+    "path": "/",
+    "expectations": [
+      "page loads",
+      "main content visible"
+    ]
+  },
+  {
+    "id": "public-about",
+    "label": "About",
+    "path": "/about",
+    "expectations": [
+      "page loads"
+    ]
+  },
+  {
+    "id": "public-teams",
+    "label": "Teams",
+    "path": "/teams",
+    "expectations": [
+      "page loads"
+    ]
+  },
+  {
+    "id": "public-schedules",
+    "label": "Schedules",
+    "path": "/schedules",
+    "expectations": [
+      "page loads"
+    ]
+  },
+  {
+    "id": "public-register",
+    "label": "Register",
+    "path": "/register",
+    "expectations": [
+      "page loads",
+      "registration entry point visible"
+    ]
+  },
+  {
+    "id": "public-club-registration",
+    "label": "Club Registration",
+    "path": "/club-registration",
+    "expectations": [
+      "page loads"
+    ]
+  },
+  {
+    "id": "public-coach-volunteer-signup",
+    "label": "Coach Volunteer Signup",
+    "path": "/coach-volunteer-signup",
+    "expectations": [
+      "page loads"
+    ]
+  },
+  {
+    "id": "public-drills",
+    "label": "Drills",
+    "path": "/drills",
+    "expectations": [
+      "page loads"
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "project": "N8N",
+  "phase1_status": "deferred",
+  "reason": "Needs machine-checkable content quality rubric before autonomous worker activation"
+}

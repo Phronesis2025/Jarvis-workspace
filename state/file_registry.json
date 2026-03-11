@@ -1,0 +1,493 @@
+[
+  {
+    "file": "JARVIS_MULTI_AGENT_SYSTEM_PRD_v3.md",
+    "path": "C:\\dev\\jarvis-workspace\\docs\\JARVIS_MULTI_AGENT_SYSTEM_PRD_v3.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "High-level product requirements for Jarvis rebuild",
+    "updated_by": "user",
+    "notes": "Core planning doc"
+  },
+  {
+    "file": "JARVIS_SYSTEM_DOCUMENTATION_v3.md",
+    "path": "C:\\dev\\jarvis-workspace\\docs\\JARVIS_SYSTEM_DOCUMENTATION_v3.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Detailed architecture and operating documentation",
+    "updated_by": "user",
+    "notes": "Core planning doc"
+  },
+  {
+    "file": "JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3.md",
+    "path": "C:\\dev\\jarvis-workspace\\docs\\JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Current authoritative decisions and system rules",
+    "updated_by": "user",
+    "notes": "Most important design reference"
+  },
+  {
+    "file": "master_backlog.json",
+    "path": "C:\\dev\\jarvis-workspace\\state\\master_backlog.json",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Machine-readable task backlog",
+    "updated_by": "user / jarvis_script",
+    "notes": "Primary backlog source"
+  },
+  {
+    "file": "MASTER_BACKLOG.md",
+    "path": "C:\\dev\\jarvis-workspace\\state\\MASTER_BACKLOG.md",
+    "category": "state",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Human-readable backlog table",
+    "updated_by": "render_master_backlog.py",
+    "notes": "Rendered from master_backlog.json"
+  },
+  {
+    "file": "DAILY_REVIEW.md",
+    "path": "C:\\dev\\jarvis-workspace\\state\\DAILY_REVIEW.md",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Daily execution log and summary",
+    "updated_by": "user / jarvis_script",
+    "notes": "Reconcile appends entries"
+  },
+  {
+    "file": "DAILY_PLAN.md",
+    "path": "C:\\dev\\jarvis-workspace\\state\\DAILY_PLAN.md",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Current planned work for the day",
+    "updated_by": "user",
+    "notes": "Lightly used so far"
+  },
+  {
+    "file": "PROJECT_STATUS_WCS.md",
+    "path": "C:\\dev\\jarvis-workspace\\state\\PROJECT_STATUS_WCS.md",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Human-readable WCS project status",
+    "updated_by": "user / jarvis_script",
+    "notes": "May later be rendered"
+  },
+  {
+    "file": "PROJECT_STATUS_N8N.md",
+    "path": "C:\\dev\\jarvis-workspace\\state\\PROJECT_STATUS_N8N.md",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Human-readable n8n project status",
+    "updated_by": "user",
+    "notes": "n8n worker deferred"
+  },
+  {
+    "file": "file_registry.json",
+    "path": "C:\\dev\\jarvis-workspace\\state\\file_registry.json",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Machine-readable file registry",
+    "updated_by": "user / jarvis_script",
+    "notes": "Source for FILE_REGISTRY.md"
+  },
+  {
+    "file": "FILE_REGISTRY.md",
+    "path": "C:\\dev\\jarvis-workspace\\state\\FILE_REGISTRY.md",
+    "category": "state",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Human-readable file registry",
+    "updated_by": "user / future renderer",
+    "notes": "Registry view"
+  },
+  {
+    "file": "render_master_backlog.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\render_master_backlog.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Renders MASTER_BACKLOG.md from backlog JSON",
+    "updated_by": "user",
+    "notes": "Working"
+  },
+  {
+    "file": "update_master_backlog.ps1",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\update_master_backlog.ps1",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "PowerShell wrapper for backlog renderer",
+    "updated_by": "user",
+    "notes": "Convenience wrapper"
+  },
+  {
+    "file": "generate_task_packet.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\generate_task_packet.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Creates task packet files and blank result files",
+    "updated_by": "user",
+    "notes": "Working"
+  },
+  {
+    "file": "generate_task_packet.ps1",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\generate_task_packet.ps1",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "PowerShell wrapper for task generator",
+    "updated_by": "user",
+    "notes": "Convenience wrapper"
+  },
+  {
+    "file": "reconcile_task_outcome.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\reconcile_task_outcome.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Reconciles worker and QA results into backlog state",
+    "updated_by": "user",
+    "notes": "Working"
+  },
+  {
+    "file": "reconcile_task_outcome.ps1",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\reconcile_task_outcome.ps1",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "PowerShell wrapper for reconciler",
+    "updated_by": "user",
+    "notes": "Convenience wrapper"
+  },
+  {
+    "file": "cursor_completion_contract.txt",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\cursor_completion_contract.txt",
+    "category": "template",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Forces structured Cursor completion summaries",
+    "updated_by": "user",
+    "notes": "Used in worker prompts"
+  },
+  {
+    "file": "overnight_health_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\overnight_health_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only overnight system health watcher",
+    "updated_by": "user",
+    "notes": "Working"
+  },
+  {
+    "file": "run_overnight_health_check.ps1",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_overnight_health_check.ps1",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Wrapper for overnight health watcher",
+    "updated_by": "user",
+    "notes": "Used for manual or scheduled runs"
+  },
+  {
+    "file": "register_overnight_health_task.txt",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\register_overnight_health_task.txt",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Task Scheduler command notes",
+    "updated_by": "user",
+    "notes": "Scheduling helper"
+  },
+  {
+    "file": "run_wcs_scout.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_scout.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Runs public WCS scout and stores results",
+    "updated_by": "user",
+    "notes": "Working"
+  },
+  {
+    "file": "wcs_scout_routes.json",
+    "path": "C:\\dev\\jarvis-workspace\\config\\wcs_scout_routes.json",
+    "category": "config",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Public routes list for WCS scout",
+    "updated_by": "user",
+    "notes": "/shop and /news removed for now"
+  },
+  {
+    "file": "WCS-001_task.md",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-001_task.md",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Human-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "Example completed task"
+  },
+  {
+    "file": "WCS-001_task.json",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-001_task.json",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Machine-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "Example completed task"
+  },
+  {
+    "file": "WCS-002_task.md",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-002_task.md",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Human-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "Example completed task"
+  },
+  {
+    "file": "WCS-002_task.json",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-002_task.json",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Machine-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "Example completed task"
+  },
+  {
+    "file": "WCS-003_task.md",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-003_task.md",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Human-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "Example completed task"
+  },
+  {
+    "file": "WCS-003_task.json",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-003_task.json",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Machine-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "Example completed task"
+  },
+  {
+    "file": "WCS-004_task.md",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-004_task.md",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Human-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "Completed after branch cleanup"
+  },
+  {
+    "file": "WCS-004_task.json",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-004_task.json",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Machine-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "Completed after branch cleanup"
+  },
+  {
+    "file": "WCS-011_task.md",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-011_task.md",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Human-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "QA infrastructure task"
+  },
+  {
+    "file": "WCS-011_task.json",
+    "path": "C:\\dev\\jarvis-workspace\\tasks\\WCS-011_task.json",
+    "category": "task_packet",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Machine-readable task packet",
+    "updated_by": "generate_task_packet.py",
+    "notes": "QA infrastructure task"
+  },
+  {
+    "file": "*_worker_result.json",
+    "path": "C:\\dev\\jarvis-workspace\\results\\*_worker_result.json",
+    "category": "worker_result",
+    "source_type": "runtime_output",
+    "owner": "cursor_worker",
+    "purpose": "Worker completion record per task",
+    "updated_by": "user / cursor_worker",
+    "notes": "Reconciler input"
+  },
+  {
+    "file": "*_qa_result.json",
+    "path": "C:\\dev\\jarvis-workspace\\qa\\*_qa_result.json",
+    "category": "qa_result",
+    "source_type": "runtime_output",
+    "owner": "playwright",
+    "purpose": "QA completion record per task",
+    "updated_by": "user / playwright",
+    "notes": "Reconciler input"
+  },
+  {
+    "file": "*_escalation.json",
+    "path": "C:\\dev\\jarvis-workspace\\logs\\*_escalation.json",
+    "category": "log",
+    "source_type": "runtime_output",
+    "owner": "jarvis_script",
+    "purpose": "Escalation record for blocked or escalated tasks",
+    "updated_by": "user / jarvis_script",
+    "notes": "May be blank for many tasks"
+  },
+  {
+    "file": "overnight_health_*.json",
+    "path": "C:\\dev\\jarvis-workspace\\logs\\overnight_health_*.json",
+    "category": "log",
+    "source_type": "runtime_output",
+    "owner": "jarvis_script",
+    "purpose": "Machine-readable overnight health output",
+    "updated_by": "overnight_health_check.py",
+    "notes": "Working"
+  },
+  {
+    "file": "overnight_health_*.txt",
+    "path": "C:\\dev\\jarvis-workspace\\logs\\overnight_health_*.txt",
+    "category": "log",
+    "source_type": "runtime_output",
+    "owner": "jarvis_script",
+    "purpose": "Human-readable overnight health summary",
+    "updated_by": "overnight_health_check.py",
+    "notes": "Working"
+  },
+  {
+    "file": "public_scout_results.json",
+    "path": "C:\\dev\\jarvis-workspace\\logs\\wcs_scout\\<timestamp>\\public_scout_results.json",
+    "category": "log",
+    "source_type": "runtime_output",
+    "owner": "scout_runner",
+    "purpose": "Structured route scout results",
+    "updated_by": "run_wcs_scout.py / public_scout.spec.ts",
+    "notes": "Latest run currently PASS"
+  },
+  {
+    "file": "public_scout_summary.txt",
+    "path": "C:\\dev\\jarvis-workspace\\logs\\wcs_scout\\<timestamp>\\public_scout_summary.txt",
+    "category": "log",
+    "source_type": "runtime_output",
+    "owner": "scout_runner",
+    "purpose": "Human-readable scout summary",
+    "updated_by": "run_wcs_scout.py",
+    "notes": "Latest run currently PASS"
+  },
+  {
+    "file": "playwright_stdout.txt",
+    "path": "C:\\dev\\jarvis-workspace\\logs\\wcs_scout\\<timestamp>\\playwright_stdout.txt",
+    "category": "log",
+    "source_type": "runtime_output",
+    "owner": "scout_runner",
+    "purpose": "Raw Playwright stdout from scout run",
+    "updated_by": "run_wcs_scout.py",
+    "notes": "Debug support"
+  },
+  {
+    "file": "playwright_stderr.txt",
+    "path": "C:\\dev\\jarvis-workspace\\logs\\wcs_scout\\<timestamp>\\playwright_stderr.txt",
+    "category": "log",
+    "source_type": "runtime_output",
+    "owner": "scout_runner",
+    "purpose": "Raw Playwright stderr from scout run",
+    "updated_by": "run_wcs_scout.py",
+    "notes": "Debug support"
+  },
+  {
+    "file": "public_scout.spec.ts",
+    "path": "C:\\dev\\wcsv2.0-new\\tests\\e2e\\public_scout.spec.ts",
+    "category": "repo_test",
+    "source_type": "source_of_truth",
+    "owner": "playwright",
+    "purpose": "Public route scout spec for WCS",
+    "updated_by": "user",
+    "notes": "Working after noise filtering"
+  },
+  {
+    "file": "home.spec.ts",
+    "path": "C:\\dev\\wcsv2.0-new\\tests\\e2e\\home.spec.ts",
+    "category": "repo_test",
+    "source_type": "source_of_truth",
+    "owner": "playwright",
+    "purpose": "Smoke QA spec for home page",
+    "updated_by": "user",
+    "notes": "Added by WCS-011"
+  },
+  {
+    "file": "global-setup.ts",
+    "path": "C:\\dev\\wcsv2.0-new\\tests\\e2e\\helpers\\global-setup.ts",
+    "category": "repo_test",
+    "source_type": "source_of_truth",
+    "owner": "playwright",
+    "purpose": "Shared Playwright startup and readiness logic",
+    "updated_by": "user",
+    "notes": "Updated in WCS-011"
+  },
+  {
+    "file": "package.json",
+    "path": "C:\\dev\\wcsv2.0-new\\package.json",
+    "category": "repo_test",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Repo scripts including test:e2e:smoke",
+    "updated_by": "user",
+    "notes": "WCS repo-side dependency"
+  },
+,
+  {
+    "file": "normalize_scout_to_backlog.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\normalize_scout_to_backlog.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Normalizes scout defects into backlog-ready tasks and updates backlog state",
+    "updated_by": "user",
+    "notes": "Filters known scout noise, inserts valid tasks, and re-renders MASTER_BACKLOG.md"
+  },
+  {
+    "file": "normalize_scout_to_backlog.ps1",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\normalize_scout_to_backlog.ps1",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "PowerShell wrapper for scout defect normalizer",
+    "updated_by": "user",
+    "notes": "Convenience wrapper"
+  },
+  {
+    "file": "scout_noise_rules.json",
+    "path": "C:\\dev\\jarvis-workspace\\config\\scout_noise_rules.json",
+    "category": "config",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Known scout noise filtering rules for backlog normalization",
+    "updated_by": "user",
+    "notes": "Used by normalize_scout_to_backlog.py"
+  }
+]

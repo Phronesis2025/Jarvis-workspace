@@ -1,0 +1,13 @@
+# Run these in PowerShell from the WCS repo before doing a task in Cursor
+
+cd C:\dev\wcsv2.0-new
+git checkout main
+git pull
+git checkout -b jarvis-task-wcs-001
+
+# After the fix
+npm run build
+git status
+git add .
+git commit -m "WCS-001 fix testimonial typo"
+git push -u origin jarvis-task-wcs-001

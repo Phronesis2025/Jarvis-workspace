@@ -1,0 +1,37 @@
+{
+  "project": "WCS",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "install_command": "npm install",
+  "dev_command": "npm run dev",
+  "build_command": "npm run build",
+  "local_url": "http://localhost:3000",
+  "deploy_target": "Vercel via GitHub push",
+  "priority_routes": [
+    "/",
+    "/about",
+    "/teams"
+  ],
+  "checks_needed": [
+    "python_version",
+    "node_version",
+    "playwright_installed",
+    "testids_present"
+  ],
+,
+  "scout_defect_intake": {
+    "enabled": true,
+    "runner": "run_wcs_scout.py",
+    "normalizer": "normalize_scout_to_backlog.py",
+    "noise_rules": "scout_noise_rules.json",
+    "results_path": "C:\\dev\\jarvis-workspace\\logs\\wcs_scout\\<timestamp>\\public_scout_results.json",
+    "report_path": "C:\\dev\\jarvis-workspace\\logs\\wcs_scout\\<timestamp>\\scout_normalizer_report.json",
+    "backlog_target": "C:\\dev\\jarvis-workspace\\state\\master_backlog.json",
+    "backlog_markdown": "C:\\dev\\jarvis-workspace\\state\\MASTER_BACKLOG.md"
+  },
+  "validation_completed": [
+    "public_scout_clean_noop_path",
+    "public_scout_synthetic_failure_insertion",
+    "public_scout_duplicate_suppression",
+    "integrated_scout_to_normalizer_run"
+  ]
+}
