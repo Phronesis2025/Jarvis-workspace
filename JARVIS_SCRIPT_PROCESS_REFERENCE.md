@@ -100,7 +100,7 @@ WCS-019 is now a full completed/reconciled live loop proof under this hardened p
 
 After QA failures or ambiguous results, `qa_failure_triage.py --task WCS-XXX` can be run as a strictly read-only helper to classify the failure (`environment_setup_failure`, `test_harness_failure`, `application_regression`, or `ambiguous`) and recommend the next bounded action without mutating any state.
 
-For hardening-surface checks (not part of the core task loop), `file_registry_check.py --workspace <path>` can be run as a read-only file-registry drift/coverage checker: it verifies that `file_registry.json` and `FILE_REGISTRY.md` exist, parse, and list the core hardening scripts and docs; it does not modify the registry.
+For hardening-surface checks (not part of the core task loop), `file_registry_check.py --workspace <path>` can be run as a read-only file-registry drift/coverage checker: it verifies that `file_registry.json` and `FILE_REGISTRY.md` exist, parse, and list the core hardening scripts and docs; it does not modify the registry. `naming_drift_check.py --workspace <path>` can be run as a read-only naming-drift helper to detect obvious name mismatches between core scripts/docs and the file registry; it does not rename or rewrite anything.
 
 ## Current process reality
 

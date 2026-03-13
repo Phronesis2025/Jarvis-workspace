@@ -4718,8 +4718,9 @@ They are not the blocker now.
 ## What remains the next priority
 - Dual-stamp / no-draft-stamping core guardrails are now live via `stamp_guard_check.py` as a read-only pre-stamp helper that runs before `stamp_result_timestamp.py`.
 - File-registry drift/coverage checking is now live via `file_registry_check.py` (read-only helper; part of hardening surfaces, not the core task execution loop).
+- Naming-drift detection across core hardening surfaces is now live via `naming_drift_check.py` as a read-only helper that reports obvious inconsistencies between core scripts/docs and the file registry without auto-fixing names.
 - Next hardening focus areas:
-  - naming drift cleanup
+  - manual naming drift cleanup guided by `naming_drift_check.py`
   - optional: further registry automation (e.g. render markdown from JSON)
 
 ## What is explicitly not being prioritized yet

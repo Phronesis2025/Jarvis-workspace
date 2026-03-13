@@ -380,6 +380,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `qa_failure_triage.py` as a read-only helper to classify QA failures and suggest bounded next actions without mutating state
 - [x] Build `stamp_guard_check.py` as a read-only pre-stamp guardrail to prevent stamping placeholder/draft/incomplete worker/QA results
 - [x] Build `file_registry_check.py` as a read-only file-registry drift/coverage checker (helper/hardening surface, not in core task loop) — **live**
+- [x] Build `naming_drift_check.py` as a read-only naming-drift helper for core hardening scripts/docs/registry entries (helper/hardening surface, not in core task loop) — **live**
 - [ ] Only then consider scheduling
 - [ ] Only after that consider more workers
 

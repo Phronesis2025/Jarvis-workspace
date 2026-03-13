@@ -759,5 +759,27 @@
     "updated_by": "user",
     "notes": "Validates QA result fields, list shapes, and simple internal consistency in pre-stamp and post-stamp modes; strictly read-only validator",
     "last_reviewed": "2026-03-12"
+  },
+  {
+    "file": "file_registry_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\file_registry_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only file-registry drift and core-coverage checker for hardened-loop items",
+    "updated_by": "user",
+    "notes": "Verifies that file_registry.json and FILE_REGISTRY.md exist, parse, and contain entries for critical hardened-loop scripts/docs; strictly read-only and does not modify the registry",
+    "last_reviewed": "2026-03-13"
+  },
+  {
+    "file": "naming_drift_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\naming_drift_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only naming drift detector for core hardening scripts/docs/registry entries",
+    "updated_by": "user",
+    "notes": "Checks for obvious name mismatches between core scripts/docs and the file registry; strictly read-only and does not auto-fix names",
+    "last_reviewed": "2026-03-13"
   }
 ]
