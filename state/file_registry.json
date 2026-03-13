@@ -834,7 +834,7 @@
     "owner": "jarvis_script",
     "purpose": "Read-only workflow helper: selects next eligible ready task from backlog",
     "updated_by": "user",
-    "notes": "Reads state/master_backlog.json; reports selected task and ranked candidates; does not mutate backlog, daily plan, or any state",
+    "notes": "Reads state/master_backlog.json; uses progression ladder (execution_lane, test_phase, selector_rank) when present, then fallback priority/risk/task id; reports selected task and ranked candidates; does not mutate backlog, daily plan, or any state",
     "last_reviewed": "2026-03-13"
   },
   {

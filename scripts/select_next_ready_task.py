@@ -9,7 +9,10 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-# Align with jarvis.py selection order
+# Progression ladder (preferred when present in backlog)
+EXECUTION_LANE_ORDER = {"fake_reversible": 1, "real_easy": 2, "real_investigative": 3}
+TEST_PHASE_ORDER = {"phase_a": 1, "phase_b": 2, "phase_c": 3, "phase_d": 4}
+# Fallback order (align with jarvis.py when ladder fields absent)
 PRIORITY_ORDER = {"P1": 1, "P2": 2, "P3": 3, "P4": 4}
 RISK_ORDER = {"low": 1, "medium": 2, "high": 3}
 ELIGIBLE_BUCKETS_WCS = {"broken", "ugly"}
@@ -56,6 +59,24 @@ def parse_task_number(task_id: str) -> int:
     return int(suffix)
 
 
+def execution_lane_rank(task: Dict[str, Any]) -> int:
+    return EXECUTION_LANE_ORDER.get(normalize(task.get("execution_lane")).lower(), 999)
+
+
+def test_phase_rank(task: Dict[str, Any]) -> int:
+    return TEST_PHASE_ORDER.get(normalize(task.get("test_phase")).lower(), 999)
+
+
+def selector_rank_val(task: Dict[str, Any]) -> int:
+    v = task.get("selector_rank")
+    if v is None:
+        return 999999
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return 999999
+
+
 def priority_rank(task: Dict[str, Any]) -> int:
     return PRIORITY_ORDER.get(normalize(task.get("priority")).upper(), 999)
 
@@ -64,8 +85,12 @@ def risk_rank(task: Dict[str, Any]) -> int:
     return RISK_ORDER.get(normalize(task.get("risk")).lower(), 999)
 
 
-def sort_key(task: Dict[str, Any]) -> Tuple[int, int, int]:
+def sort_key(task: Dict[str, Any]) -> Tuple[int, int, int, int, int, int]:
+    """Order: execution_lane, test_phase, selector_rank, then fallback priority, risk, task id."""
     return (
+        execution_lane_rank(task),
+        test_phase_rank(task),
+        selector_rank_val(task),
         priority_rank(task),
         risk_rank(task),
         parse_task_number(normalize(task.get("task_id", ""))),
@@ -191,6 +216,9 @@ def main() -> int:
     bucket = normalize(selected.get("bucket"))
     risk = normalize(selected.get("risk"))
     status = normalize(selected.get("status"))
+    execution_lane = normalize(selected.get("execution_lane"))
+    test_phase = normalize(selected.get("test_phase"))
+    sel_rank = selected.get("selector_rank")
 
     print("SELECT NEXT READY TASK: PASS")
     print(f"Workspace: {workspace}")
@@ -198,10 +226,22 @@ def main() -> int:
     print(f"Selected task id: {task_id}")
     print(f"Selected title: {title}")
     print(f"Priority: {priority}  Bucket: {bucket}  Risk: {risk}  Status: {status}")
-    print(
-        "Reason selected: first eligible ready task by deterministic order "
-        "(priority, then risk, then task id)."
-    )
+    if execution_lane:
+        print(f"Execution lane: {execution_lane}")
+    if test_phase:
+        print(f"Test phase: {test_phase}")
+    if sel_rank is not None:
+        print(f"Selector rank: {sel_rank}")
+    if execution_lane or test_phase or sel_rank is not None:
+        print(
+            "Reason selected: first eligible ready task by progression ladder "
+            "(execution_lane, test_phase, selector_rank), then fallback (priority, risk, task id)."
+        )
+    else:
+        print(
+            "Reason selected: first eligible ready task by deterministic order "
+            "(priority, then risk, then task id)."
+        )
     print(f"Reviewed candidate count: {len(eligible)}")
     print("")
     print("Ranked candidates (up to limit):")
@@ -210,7 +250,14 @@ def main() -> int:
         tit = normalize(t.get("title")) or tid
         pr = normalize(t.get("priority"))
         rk = normalize(t.get("risk"))
-        print(f"  {i}. {tid}  {pr}  {rk}  {tit[:60]}{'...' if len(tit) > 60 else ''}")
+        lane = normalize(t.get("execution_lane"))
+        phase = normalize(t.get("test_phase"))
+        sr = t.get("selector_rank")
+        extra = ""
+        if lane or phase or sr is not None:
+            parts = [f"lane={lane}" if lane else "", f"phase={phase}" if phase else "", f"rank={sr}" if sr is not None else ""]
+            extra = "  " + " ".join(p for p in parts if p)
+        print(f"  {i}. {tid}  {pr}  {rk}{extra}  {tit[:50]}{'...' if len(tit) > 50 else ''}")
 
     # Skipped section: show a few near-candidates or common skip reasons
     print("")
