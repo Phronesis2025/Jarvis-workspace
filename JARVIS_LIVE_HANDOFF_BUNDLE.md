@@ -4721,6 +4721,7 @@ They are not the blocker now.
 - Naming-drift detection across core hardening surfaces is now live via `naming_drift_check.py` as a read-only helper that reports obvious inconsistencies between core scripts/docs and the file registry without auto-fixing names.
 - Registry rendering is now live via `render_file_registry.py` as a helper that renders `state/FILE_REGISTRY.md` from `state/file_registry.json` in the approved registry format.
 - Critical-surface health checking is now live via `critical_surface_health_check.py` as a read-only sanity checker (existence of critical scripts/docs/registry, compile of critical helpers, and file_registry_check + naming_drift_check pass).
+- Cursor handoff building is now live via `build_cursor_handoff.py` as a workflow helper that writes bounded, copy/paste-ready handoff files from task packets (does not execute tasks or mutate state). It fails with exit code 1 and does not write a handoff file when bounded file scope cannot be derived from the task packet.
 - Next hardening focus areas:
   - manual naming drift cleanup guided by `naming_drift_check.py`
   - optional: further registry automation or script wrappers

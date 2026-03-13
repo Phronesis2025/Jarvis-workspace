@@ -1,13 +1,15 @@
 # Cursor Prompt Templates
 
 ## Live Doc Status
-- Last reviewed: 2026-03-12
-- Last updated: 2026-03-12
+- Last reviewed: 2026-03-13
+- Last updated: 2026-03-13
 - Status: active reusable template set for common Jarvis/Cursor actions
 
 ## Purpose
 
 This file stores standard Cursor prompt templates for recurring Jarvis rebuild tasks so prompt structure stays tight, consistent, and resistant to Cursor overreach.
+
+**Workflow helper:** `build_cursor_handoff.py --task WCS-XXX` generates a handoff file under `scratch/cursor_handoffs/` whose Cursor prompt body matches the bounded style of Template 4 (WCS task implementation). The script fails (no file written) when bounded file scope cannot be derived from the task packet. Use the generated handoff as the copy/paste prompt when starting work on a task.
 
 ## Core rules for all Cursor prompts
 
@@ -27,6 +29,19 @@ Use these rules in every prompt unless a specific template intentionally overrid
   - assumptions or edge cases
   - anything intentionally left unchanged and why
 - Refresh timestamps on every touched doc.
+
+### Hardening rules for proof and contracts
+
+Apply these when a task asks for proof, hard contracts, or doc/registry updates:
+
+1. **Proof rule**  
+   When proof is requested, return: actual command run, actual output, actual exit code, and actual PASS/FAIL result. Do not return expected output, suggested proof only, or hypothetical PASS shape.
+
+2. **Hard contract rule**  
+   When a prompt says fail bluntly, do not invent scope, do not broaden scope, do not mutate state (or similar), treat it literally. Do not add permissive fallback behavior unless the prompt explicitly authorizes it.
+
+3. **Timestamp rule**  
+   If any doc or registry surface is touched: refresh the timestamp, never move timestamps backward, and keep all touched live docs aligned to the current hardening date.
 
 ---
 
