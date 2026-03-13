@@ -330,8 +330,8 @@ Only after Phase 3 is stable, turn on more automation carefully.
 ## Phase 4C — System hardening and renderer cleanup
 
 ### Checklist
-- [ ] Build `render_file_registry.py`
-- [ ] Stop hand-maintaining `FILE_REGISTRY.md`
+- [x] Build `render_file_registry.py`
+- [x] Stop hand-maintaining `FILE_REGISTRY.md` (now rendered from file_registry.json by render_file_registry.py)
 - [ ] Add health checks for new critical scripts/configs
 - [ ] Harden all script wrappers
 - [ ] Standardize output log locations

@@ -122,8 +122,8 @@
     "owner": "jarvis_script",
     "purpose": "Human-readable file registry",
     "updated_by": "user / future renderer",
-    "notes": "Human-readable registry view; currently hand-maintained and intended to be rendered from file_registry.json later; aligned to current live hardening state as of 2026-03-12",
-    "last_reviewed": "2026-03-12"
+    "notes": "Human-readable registry view rendered from file_registry.json by render_file_registry.py; aligned to current live hardening state",
+    "last_reviewed": "2026-03-13"
   },
   {
     "file": "render_master_backlog.py",
@@ -780,6 +780,17 @@
     "purpose": "Read-only naming drift detector for core hardening scripts/docs/registry entries",
     "updated_by": "user",
     "notes": "Checks for obvious name mismatches between core scripts/docs and the file registry; strictly read-only and does not auto-fix names",
+    "last_reviewed": "2026-03-13"
+  },
+  {
+    "file": "render_file_registry.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\render_file_registry.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Renderer for FILE_REGISTRY.md from file_registry.json",
+    "updated_by": "user",
+    "notes": "Reads state/file_registry.json and writes state/FILE_REGISTRY.md in the approved registry format; keeps the markdown registry rendered from JSON; strictly read-only except for writing FILE_REGISTRY.md",
     "last_reviewed": "2026-03-13"
   }
 ]

@@ -4719,9 +4719,10 @@ They are not the blocker now.
 - Dual-stamp / no-draft-stamping core guardrails are now live via `stamp_guard_check.py` as a read-only pre-stamp helper that runs before `stamp_result_timestamp.py`.
 - File-registry drift/coverage checking is now live via `file_registry_check.py` (read-only helper; part of hardening surfaces, not the core task execution loop).
 - Naming-drift detection across core hardening surfaces is now live via `naming_drift_check.py` as a read-only helper that reports obvious inconsistencies between core scripts/docs and the file registry without auto-fixing names.
+- Registry rendering is now live via `render_file_registry.py` as a helper that renders `state/FILE_REGISTRY.md` from `state/file_registry.json` in the approved registry format.
 - Next hardening focus areas:
   - manual naming drift cleanup guided by `naming_drift_check.py`
-  - optional: further registry automation (e.g. render markdown from JSON)
+  - optional: further registry automation or small health checks around new critical scripts/configs
 
 ## What is explicitly not being prioritized yet
 - dashboards and “sexy” UI
