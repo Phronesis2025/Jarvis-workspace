@@ -7,7 +7,8 @@
     "owner": "user",
     "purpose": "High-level product requirements for Jarvis rebuild",
     "updated_by": "user",
-    "notes": "Core planning doc"
+    "notes": "Core planning doc (design-era; some sections are historical baseline rather than current live operating truth)",
+    "last_reviewed": "2026-03-12"
   },
   {
     "file": "JARVIS_SYSTEM_DOCUMENTATION_v3.md",
@@ -17,7 +18,8 @@
     "owner": "user",
     "purpose": "Detailed architecture and operating documentation",
     "updated_by": "user",
-    "notes": "Core planning doc"
+    "notes": "Core planning doc (design-era; some sections are historical baseline rather than current live operating truth)",
+    "last_reviewed": "2026-03-12"
   },
   {
     "file": "JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3.md",
@@ -27,7 +29,8 @@
     "owner": "user",
     "purpose": "Current authoritative decisions and system rules",
     "updated_by": "user",
-    "notes": "Most important design reference"
+    "notes": "Most important design reference; some areas still describe earlier-phase assumptions and should be read as baseline when they diverge from JARVIS_LIVE_HANDOFF_BUNDLE.md",
+    "last_reviewed": "2026-03-12"
   },
   {
     "file": "master_backlog.json",
@@ -97,7 +100,8 @@
     "owner": "user",
     "purpose": "Machine-readable file registry",
     "updated_by": "user / jarvis_script",
-    "notes": "Source for FILE_REGISTRY.md"
+    "notes": "Source for FILE_REGISTRY.md; aligned to current live hardening state",
+    "last_reviewed": "2026-03-12"
   },
   {
     "file": "FILE_REGISTRY.md",
@@ -107,7 +111,8 @@
     "owner": "jarvis_script",
     "purpose": "Human-readable file registry",
     "updated_by": "user / future renderer",
-    "notes": "Registry view"
+    "notes": "Human-readable registry view; currently hand-maintained and intended to be rendered from file_registry.json later; aligned to current live hardening state as of 2026-03-12",
+    "last_reviewed": "2026-03-12"
   },
   {
     "file": "render_master_backlog.py",
@@ -427,7 +432,7 @@
     "owner": "playwright",
     "purpose": "Public route scout spec for WCS",
     "updated_by": "user",
-    "notes": "Working after noise filtering"
+    "notes": "External WCS repo Playwright spec at C:\\dev\\wcsv2.0-new\\tests\\e2e"
   },
   {
     "file": "home.spec.ts",
@@ -437,7 +442,7 @@
     "owner": "playwright",
     "purpose": "Smoke QA spec for home page",
     "updated_by": "user",
-    "notes": "Added by WCS-011"
+    "notes": "External WCS repo Playwright spec at C:\\dev\\wcsv2.0-new\\tests\\e2e"
   },
   {
     "file": "global-setup.ts",
@@ -447,7 +452,7 @@
     "owner": "playwright",
     "purpose": "Shared Playwright startup and readiness logic",
     "updated_by": "user",
-    "notes": "Updated in WCS-011"
+    "notes": "External WCS repo Playwright helper at C:\\dev\\wcsv2.0-new\\tests\\e2e\\helpers"
   },
   {
     "file": "package.json",
@@ -457,9 +462,8 @@
     "owner": "user",
     "purpose": "Repo scripts including test:e2e:smoke",
     "updated_by": "user",
-    "notes": "WCS repo-side dependency"
+    "notes": "WCS repo-side dependency in external WCS repo at C:\\dev\\wcsv2.0-new"
   },
-,
   {
     "file": "normalize_scout_to_backlog.py",
     "path": "C:\\dev\\jarvis-workspace\\scripts\\normalize_scout_to_backlog.py",
@@ -489,5 +493,238 @@
     "purpose": "Known scout noise filtering rules for backlog normalization",
     "updated_by": "user",
     "notes": "Used by normalize_scout_to_backlog.py"
+  },
+  {
+    "file": "JARVIS_PHASE_CHECKLIST.md",
+    "path": "C:\\dev\\jarvis-workspace\\JARVIS_PHASE_CHECKLIST.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Phase-by-phase rebuild checklist and status for Jarvis workspace",
+    "updated_by": "user",
+    "notes": "Current canonical overview of phases, missing state surfaces, and next priorities"
+  },
+  {
+    "file": "JARVIS_AGENT_IDEA_BACKLOG.md",
+    "path": "C:\\dev\\jarvis-workspace\\JARVIS_AGENT_IDEA_BACKLOG.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Idea backlog for short-term modules and longer-term agent business concepts",
+    "updated_by": "user",
+    "notes": "Reusable idea backlog aligned with current Jarvis architecture"
+  },
+  {
+    "file": "manual_loop_checklist.md",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\manual_loop_checklist.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Manual proof-loop checklist for running a WCS task through backlog, worker, QA, and reconcile",
+    "updated_by": "user",
+    "notes": "Operator runbook; should be aligned with actual script and state behavior to avoid drift"
+  },
+  {
+    "file": "jarvis.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\jarvis.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Phase 3 foreman; reads backlog and project status, validates task eligibility, prepares and verifies WCS task branch, manages task packets, writes daily_plan and run_log, and records durable escalation state on hard failure",
+    "updated_by": "user",
+    "notes": "Does not perform code changes, QA, commits, stamping, or reconcile; acts as local-first foreman/orchestrator with stronger operator-safety output and durable escalation recording",
+    "last_reviewed": "2026-03-12"
+  },
+  {
+    "file": "prepare_wcs_task_branch.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\prepare_wcs_task_branch.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Prepares WCS task branch for bounded task work",
+    "updated_by": "user",
+    "notes": "Used in task workflow to create or switch to task branch in WCS repo"
+  },
+  {
+    "file": "stamp_result_timestamp.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\stamp_result_timestamp.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Stamps completed_at (or specified field) on worker and QA result JSON files; takes FILE PATH as positional argument",
+    "updated_by": "user",
+    "notes": "Helper to keep result timestamps consistent; run once per result file with path to that file",
+    "last_reviewed": "2026-03-12"
+  },
+  {
+    "file": "daily_plan.json",
+    "path": "C:\\dev\\jarvis-workspace\\state\\daily_plan.json",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Current selected task and plan metadata; machine-readable",
+    "updated_by": "jarvis.py",
+    "notes": "Written by jarvis.py; pairs with DAILY_PLAN.md"
+  },
+  {
+    "file": "run_log.json",
+    "path": "C:\\dev\\jarvis-workspace\\state\\run_log.json",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Append-only machine-readable run history",
+    "updated_by": "jarvis.py",
+    "notes": "Written by jarvis.py when a task is selected"
+  },
+  {
+    "file": "RUN_LOG.md",
+    "path": "C:\\dev\\jarvis-workspace\\state\\RUN_LOG.md",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Append-only human-readable run log",
+    "updated_by": "jarvis.py",
+    "notes": "Written by jarvis.py when a task is selected"
+  },
+  {
+    "file": "project_status_wcs.json",
+    "path": "C:\\dev\\jarvis-workspace\\state\\project_status_wcs.json",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Machine-readable WCS project status",
+    "updated_by": "user",
+    "notes": "Mirror of PROJECT_STATUS_WCS.md; consumed by jarvis.py and scripts"
+  },
+  {
+    "file": "project_status_n8n.json",
+    "path": "C:\\dev\\jarvis-workspace\\state\\project_status_n8n.json",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Machine-readable n8n project status",
+    "updated_by": "user",
+    "notes": "Mirror of PROJECT_STATUS_N8N.md; n8n worker deferred"
+  },
+  {
+    "file": "escalations.json",
+    "path": "C:\\dev\\jarvis-workspace\\state\\escalations.json",
+    "category": "state",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Machine-readable escalation records for Jarvis hard failures",
+    "updated_by": "jarvis.py",
+    "notes": "Authoritative live escalation state; rendered to ESCALATIONS.md",
+    "last_reviewed": "2026-03-12"
+  },
+  {
+    "file": "ESCALATIONS.md",
+    "path": "C:\\dev\\jarvis-workspace\\state\\ESCALATIONS.md",
+    "category": "state",
+    "source_type": "generated",
+    "owner": "jarvis_script",
+    "purpose": "Human-readable escalation log",
+    "updated_by": "jarvis.py",
+    "notes": "Rendered from escalations.json whenever Jarvis records an escalation; reflects durable, active escalation state",
+    "last_reviewed": "2026-03-12"
+  },
+  {
+    "file": "pre_reconcile_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\pre_reconcile_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only pre-reconcile readiness gate for a WCS task",
+    "updated_by": "user",
+    "notes": "Validates task/result/repo prerequisites before running reconcile; strictly read-only guardrail",
+    "last_reviewed": "2026-03-12"
+  },
+  {
+    "file": "post_reconcile_validate.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\post_reconcile_validate.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only post-reconcile validator for a WCS task",
+    "updated_by": "user",
+    "notes": "Confirms the intended task is done and visible in backlog JSON, rendered backlog markdown, DAILY_REVIEW.md, and result files; strictly read-only validator",
+    "last_reviewed": "2026-03-13"
+  },
+  {
+    "file": "commit_gate_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\commit_gate_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only commit-state gate for a WCS task branch and HEAD",
+    "updated_by": "user",
+    "notes": "Validates branch, HEAD, ahead-of-main/master, clean worktree, commit message, and bounded committed-files/line counts before trusting worker/QA results; strictly read-only gate, now proven in a completed/reconciled loop (including WCS-019)",
+    "last_reviewed": "2026-03-13"
+  },
+  {
+    "file": "playwright.config.ts",
+    "path": "C:\\dev\\wcsv2.0-new\\playwright.config.ts",
+    "category": "config",
+    "source_type": "source_of_truth",
+    "owner": "wcs_repo",
+    "purpose": "Local/CI Playwright execution config for WCS smoke QA",
+    "updated_by": "user",
+    "notes": "Local smoke now uses Playwright webServer to start npm run dev automatically when no E2E_BASE_URL / NEXT_PUBLIC_BASE_URL is set; central config for smoke QA server startup/reuse behavior",
+    "last_reviewed": "2026-03-13"
+  },
+  {
+    "file": "qa_failure_triage.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\qa_failure_triage.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only QA failure triage helper for a WCS task",
+    "updated_by": "user",
+    "notes": "Classifies QA failures into environment_setup_failure, test_harness_failure, application_regression, or ambiguous based on QA result summary/notes; prints evidence-based next-step guidance without mutating any state",
+    "last_reviewed": "2026-03-13"
+  },
+  {
+    "file": "stamp_guard_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\stamp_guard_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only pre-stamp guardrail for worker and QA result JSON files",
+    "updated_by": "user",
+    "notes": "Verifies worker and QA result files both exist, parse, have allowed statuses, remain pre-stamp, and are not obvious placeholders before running stamp_result_timestamp.py; strictly read-only and does not stamp or mutate state",
+    "last_reviewed": "2026-03-13"
+  },
+  {
+    "file": "worker_change_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\worker_change_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only worker-boundary validator for changed-file scope and simple diff sanity",
+    "updated_by": "user",
+    "notes": "Validates that changed files stay within task scope and diffs are small before commit/finalization; strictly read-only worker-boundary gate",
+    "last_reviewed": "2026-03-12"
+  },
+  {
+    "file": "worker_result_validate.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\worker_result_validate.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only worker-result schema validator for a WCS task",
+    "updated_by": "user",
+    "notes": "Validates worker result fields and simple task-scope consistency in pre-stamp and post-stamp modes; strictly read-only validator",
+    "last_reviewed": "2026-03-12"
+  },
+  {
+    "file": "qa_result_validate.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\qa_result_validate.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only QA-result schema validator for a WCS task",
+    "updated_by": "user",
+    "notes": "Validates QA result fields, list shapes, and simple internal consistency in pre-stamp and post-stamp modes; strictly read-only validator",
+    "last_reviewed": "2026-03-12"
   }
 ]

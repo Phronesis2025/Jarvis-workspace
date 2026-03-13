@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -42,6 +43,10 @@ def escape_md(value: Any) -> str:
     if value is None:
         return ""
     return str(value).replace("|", "\\|").replace("\n", " ").strip()
+
+
+def normalize_text(value: Any) -> str:
+    return str(value or "").strip()
 
 
 def render_master_backlog_md(backlog_items: list[dict[str, Any]]) -> str:
@@ -113,7 +118,126 @@ def update_backlog_status(backlog_items: list[dict[str, Any]], task_id: str, fin
     raise ReconcileError(f"Task {task_id} not found in backlog")
 
 
-def build_daily_review_entry(task: dict[str, Any], worker: dict[str, Any], qa: dict[str, Any], final_status: str) -> str:
+def run_git(repo_path: Path, args: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", *args],
+        cwd=repo_path,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        shell=False,
+    )
+
+
+def task_branch_name(task_id: str) -> str:
+    return f"jarvis-task-{normalize_text(task_id).lower()}"
+
+
+def load_repo_path_for_project(workspace: Path, project: str) -> Path:
+    project_upper = normalize_text(project).upper()
+    if project_upper == "WCS":
+        status_path = workspace / "state" / "project_status_wcs.json"
+    else:
+        raise ReconcileError(f"Repo verification is not defined for project: {project_upper or '<blank>'}")
+
+    status = load_json(status_path)
+    if not isinstance(status, dict):
+        raise ReconcileError(f"Expected JSON object in {status_path}")
+
+    raw_repo_path = normalize_text(status.get("repo_path"))
+    if not raw_repo_path:
+        raise ReconcileError(f"Missing repo_path in {status_path}")
+
+    repo_path = Path(raw_repo_path)
+    if not repo_path.exists():
+        raise ReconcileError(f"Configured repo path does not exist: {repo_path}")
+    if not (repo_path / ".git").exists():
+        raise ReconcileError(f"Configured repo path is not a git repository: {repo_path}")
+    return repo_path
+
+
+def detect_baseline_branch(repo_path: Path) -> str | None:
+    for candidate in ("main", "master"):
+        result = run_git(repo_path, ["branch", "--list", candidate])
+        if result.returncode != 0:
+            raise ReconcileError(result.stderr.strip() or f"Failed to inspect git branches in {repo_path}")
+        if result.stdout.strip():
+            return candidate
+    return None
+
+
+def verify_done_repo_state(workspace: Path, task: dict[str, Any]) -> dict[str, Any]:
+    task_id = normalize_text(task.get("task_id")).upper()
+    project = normalize_text(task.get("project")).upper()
+    repo_path = load_repo_path_for_project(workspace, project)
+    expected_branch = task_branch_name(task_id)
+
+    current_branch_result = run_git(repo_path, ["branch", "--show-current"])
+    if current_branch_result.returncode != 0:
+        raise ReconcileError(current_branch_result.stderr.strip() or "Failed to detect current git branch.")
+    current_branch = current_branch_result.stdout.strip()
+
+    if current_branch != expected_branch:
+        raise ReconcileError(
+            "Refusing to mark task done because repo is on the wrong branch. "
+            f"Current branch: {current_branch or '<blank>'}. Expected: {expected_branch}."
+        )
+
+    status_result = run_git(repo_path, ["status", "--porcelain"])
+    if status_result.returncode != 0:
+        raise ReconcileError(status_result.stderr.strip() or "Failed to inspect git status.")
+    dirty_lines = [line for line in status_result.stdout.splitlines() if line.strip()]
+    if dirty_lines:
+        raise ReconcileError(
+            "Refusing to mark task done because repo has uncommitted changes.\n"
+            + "\n".join(dirty_lines)
+        )
+
+    baseline_branch = detect_baseline_branch(repo_path)
+    commits_ahead = None
+    if baseline_branch:
+        ahead_result = run_git(repo_path, ["rev-list", "--count", f"{baseline_branch}..HEAD"])
+        if ahead_result.returncode != 0:
+            raise ReconcileError(
+                ahead_result.stderr.strip()
+                or f"Failed to compare {expected_branch} against {baseline_branch}."
+            )
+        try:
+            commits_ahead = int(ahead_result.stdout.strip() or "0")
+        except ValueError as exc:
+            raise ReconcileError(
+                f"Unexpected rev-list output while comparing {expected_branch} against {baseline_branch}: {ahead_result.stdout!r}"
+            ) from exc
+
+        if commits_ahead < 1:
+            raise ReconcileError(
+                "Refusing to mark task done because the task branch has no commits ahead of "
+                f"{baseline_branch}. Expected at least one committed task change on {expected_branch}."
+            )
+
+    head_commit_result = run_git(repo_path, ["rev-parse", "--short", "HEAD"])
+    if head_commit_result.returncode != 0:
+        raise ReconcileError(head_commit_result.stderr.strip() or "Failed to read HEAD commit.")
+
+    return {
+        "repo_path": str(repo_path),
+        "expected_branch": expected_branch,
+        "current_branch": current_branch,
+        "baseline_branch": baseline_branch or "",
+        "commits_ahead_of_baseline": commits_ahead,
+        "head_commit": head_commit_result.stdout.strip(),
+        "verified_at": now_local(),
+    }
+
+
+def build_daily_review_entry(
+    task: dict[str, Any],
+    worker: dict[str, Any],
+    qa: dict[str, Any],
+    final_status: str,
+    repo_verification: dict[str, Any] | None = None,
+) -> str:
     task_id = task.get("task_id", "")
     title = task.get("title", "")
     worker_summary = (worker.get("summary") or "").strip()
@@ -133,13 +257,30 @@ def build_daily_review_entry(task: dict[str, Any], worker: dict[str, Any], qa: d
         lines.append(f"- Files changed: {', '.join(map(str, files_changed))}")
     if commands_run:
         lines.append(f"- Commands run: {', '.join(map(str, commands_run))}")
+    if repo_verification:
+        lines.append(f"- Repo path: {repo_verification.get('repo_path', '')}")
+        lines.append(f"- Verified branch: {repo_verification.get('current_branch', '')}")
+        baseline_branch = normalize_text(repo_verification.get("baseline_branch"))
+        if baseline_branch:
+            lines.append(
+                f"- Commits ahead of {baseline_branch}: {repo_verification.get('commits_ahead_of_baseline', '')}"
+            )
+        lines.append(f"- HEAD commit: {repo_verification.get('head_commit', '')}")
+        lines.append(f"- Branch verified at: {repo_verification.get('verified_at', '')}")
     lines.append(f"- Reconciled at: {now_local()}")
     lines.append("")
     return "\n".join(lines)
 
 
-def append_daily_review(review_path: Path, task: dict[str, Any], worker: dict[str, Any], qa: dict[str, Any], final_status: str) -> None:
-    entry = build_daily_review_entry(task, worker, qa, final_status)
+def append_daily_review(
+    review_path: Path,
+    task: dict[str, Any],
+    worker: dict[str, Any],
+    qa: dict[str, Any],
+    final_status: str,
+    repo_verification: dict[str, Any] | None = None,
+) -> None:
+    entry = build_daily_review_entry(task, worker, qa, final_status, repo_verification=repo_verification)
     if review_path.exists():
         existing = review_path.read_text(encoding="utf-8")
     else:
@@ -237,14 +378,27 @@ def main() -> int:
         raise ReconcileError(f"QA result task_id mismatch in {qa_result_path}")
 
     final_status = decide_final_status(worker, qa, escalation)
+    repo_verification = verify_done_repo_state(workspace, task) if final_status == "done" else None
+
     updated_task = update_backlog_status(backlog, task_id, final_status)
     save_json(backlog_json_path, backlog)
     backlog_md_path.write_text(render_master_backlog_md(backlog), encoding="utf-8")
 
     if not args.skip_review:
-        append_daily_review(daily_review_path, updated_task, worker, qa, final_status)
+        append_daily_review(daily_review_path, updated_task, worker, qa, final_status, repo_verification=repo_verification)
 
     print(f"FINAL STATUS: {final_status}")
+    if repo_verification:
+        print("BRANCH VERIFIED: yes")
+        print(f"REPO PATH: {repo_verification['repo_path']}")
+        print(f"EXPECTED BRANCH: {repo_verification['expected_branch']}")
+        print(f"CURRENT BRANCH: {repo_verification['current_branch']}")
+        if repo_verification.get("baseline_branch"):
+            print(
+                f"COMMITS AHEAD OF {repo_verification['baseline_branch'].upper()}: "
+                f"{repo_verification['commits_ahead_of_baseline']}"
+            )
+        print(f"HEAD COMMIT: {repo_verification['head_commit']}")
     print(f"UPDATED: {backlog_json_path}")
     print(f"RENDERED: {backlog_md_path}")
     if not args.skip_review:

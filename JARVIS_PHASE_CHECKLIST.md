@@ -1,0 +1,405 @@
+# JARVIS_REBUILD_PHASE_CHECKLIST.md
+
+## Live Doc Status
+- Last reviewed: 2026-03-13
+- Last updated: 2026-03-13
+- Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
+- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; next hardening priority advanced)
+
+## Purpose
+
+This checklist summarizes the Jarvis rebuild from the beginning through roughly Phase 3–4, using the project decisions we already locked:
+
+- local-first
+- Jarvis as foreman/orchestrator, not main coder
+- JSON as machine truth
+- Markdown as rendered human view
+- WCS as the first active project
+- Cursor as the current coding worker
+- Playwright as the QA layer
+- parent login deferred
+- voice deferred
+- n8n worker deferred until later
+
+---
+
+# Current broad position
+
+**Current reality:**  
+We are **past the reset/foundation stage** and **well into the WCS proof-loop stage**.
+
+### Rough progress by phase
+- **Phase 0 — reset / architecture lock:** mostly complete
+- **Phase 1 — file/state/script foundation:** mostly complete
+- **Phase 2 — WCS semi-manual proof loop:** strong progress, mostly working
+- **Phase 3 — true Jarvis foreman loop:** foreman built; daily plan/run log active; live cycles; escalation surfaces (`escalations.json` / `ESCALATIONS.md`) are live and in use
+- **Phase 4 — controlled autonomy / more workers:** future
+
+### Short version
+We have built a lot of the rails.  
+The central Jarvis foreman (`jarvis.py`) is **built and in use**; remaining Phase 3 work is state completeness and proving live Jarvis-controlled cycles.
+
+---
+
+# Phase 0 — Reset and architecture lock
+
+## Goal
+Stop chasing fake autonomy and lock the real project shape.
+
+## Checklist
+- [x] Decide Jarvis is a **foreman/orchestrator**, not the main coding worker
+- [x] Decide the system is **local-first**
+- [x] Decide WCS is the **first active proof domain**
+- [x] Decide Cursor remains the current semi-manual coding worker
+- [x] Decide Playwright is the QA truth for WCS
+- [x] Decide phase 1 uses **Python scripts**, not heavy orchestration frameworks
+- [x] Decide state uses **JSON as source of truth** and **Markdown as human view**
+- [x] Defer parent login area for now
+- [x] Defer voice for later phases
+- [x] Defer n8n worker until WCS foundation is stronger
+- [x] Lock “one bounded task at a time” as the phase-1 operating rule
+
+## Deliverable outcome
+- Project direction stopped being vague
+- Scope was reduced to something boring and buildable
+- The rebuild stopped pretending to be fully autonomous on day one
+
+---
+
+# Phase 1 — Core file/state foundation
+
+## Goal
+Create the minimum durable system structure so the project can operate on visible state instead of chat memory.
+
+## Checklist
+- [x] Create core source-of-truth docs
+- [x] Create machine-readable backlog state
+- [x] Create human-readable backlog render
+- [x] Establish file registry concept
+- [x] Establish project status concept
+- [x] Establish logs folder structure
+- [x] Establish scripts/config/state folder pattern
+- [x] Define WCS backlog categories
+- [x] Define “do not mark done without evidence” rule
+- [x] Define escalation/pause philosophy
+- [x] Initialize local Git repo for `C:\dev\jarvis-workspace`
+
+## Expected files / concepts in this phase
+- `master_backlog.json`
+- `MASTER_BACKLOG.md`
+- `file_registry.json`
+- `FILE_REGISTRY.md`
+- `project_status_wcs.json`
+- `PROJECT_STATUS_WCS.md`
+- workspace logs structure
+- source-of-truth docs
+
+## Deliverable outcome
+- The system has visible state
+- The project can now operate from files instead of vague discussion
+- The workspace now has basic version history via Git
+
+---
+
+# Phase 2 — WCS semi-manual proof loop
+
+## Goal
+Prove one boring loop works cleanly before building more agents.
+
+## Core loop to prove
+1. backlog item exists
+2. task packet is generated
+3. Cursor executes the work
+4. result is recorded/reconciled
+5. QA runs
+6. task becomes done or escalated
+7. state updates correctly
+
+---
+
+## Phase 2A — Backlog and packet mechanics
+
+### Checklist
+- [x] Build `render_master_backlog.py`
+- [x] Confirm `MASTER_BACKLOG.md` renders from `master_backlog.json`
+- [x] Build `generate_task_packet.py`
+- [x] Build `reconcile_task_outcome.py`
+- [x] Confirm task packet generation works
+- [x] Confirm reconcile flow works
+- [x] Confirm multiple WCS tasks have already moved through the loop successfully
+
+### Deliverable outcome
+- The backlog-to-packet-to-reconcile loop is real
+- WCS tasks are not just conceptual; they are moving
+
+---
+
+## Phase 2B — QA and scout layer
+
+### Checklist
+- [x] Stabilize Playwright home smoke path
+- [x] Confirm `WCS-011` QA plumbing is in main
+- [x] Build public scout route config
+- [x] Build `public_scout.spec.ts`
+- [x] Build `run_wcs_scout.py`
+- [x] Run public scout successfully
+- [x] Filter false positives so Public Scout v1 returns PASS correctly
+
+### Deliverable outcome
+- WCS now has a repeatable route-checking and defect-detection layer
+- QA/intake is stronger than before
+- Public Scout v1 is working
+
+---
+
+## Phase 2C — Defect-to-backlog normalization
+
+### Checklist
+- [x] Design defect normalizer in same style as current system
+- [x] Build `normalize_scout_to_backlog.py`
+- [x] Build `normalize_scout_to_backlog.ps1`
+- [x] Build `scout_noise_rules.json`
+- [x] Prove clean-run no-op behavior
+- [x] Prove synthetic failure insertion behavior
+- [x] Prove duplicate suppression behavior
+- [x] Integrate normalizer into `run_wcs_scout.py`
+- [x] Confirm integrated scout -> normalizer run works cleanly
+- [x] Log normalizer output into same timestamped scout log folder
+
+### Deliverable outcome
+- Real scout failures can now become backlog-ready tasks
+- Known noise can be filtered
+- Duplicate tasks can be suppressed
+- Defect intake is now partially automated
+
+---
+
+## Phase 2D — Health and operational guardrails
+
+### Checklist
+- [x] Build `overnight_health_check.py`
+- [x] Run overnight health check successfully
+- [x] Confirm overnight health check reports PASS/WARN honestly
+- [x] Confirm warning handling is visible and useful
+- [x] Keep health check read-only instead of pretending it “fixes” things
+
+### Deliverable outcome
+- The system has a basic operational self-check
+- Shutdown/startup confidence is better
+- Guardrails are present
+
+---
+
+## Phase 2 overall status
+### Status: **Mostly complete / strongly working**
+
+### What is proven
+- Backlog rendering works
+- Task packet generation works
+- Reconcile works
+- Public scout works
+- Overnight health check works
+- Defect normalization works
+- Several WCS tasks have already been completed successfully
+
+### What is still missing in Phase 2
+- More live WCS tasks should continue moving through the loop
+- State files still need continued cleanup and consistency work
+- Some original planned phase-1 scripts were replaced by practical equivalents and may still need naming cleanup
+
+---
+
+# Phase 3 — Build the true Jarvis foreman
+
+## Goal
+Stop relying on manual glue between scripts and create the actual Jarvis planning/orchestration script.
+
+## Status: foreman built and in use
+
+### Checklist
+- [x] Build `jarvis.py`
+- [x] Have `jarvis.py` load backlog + WCS project status
+- [x] Have `jarvis.py` choose exactly **one valid bounded WCS task**
+- [x] Enforce pull rules for allowed WCS task categories
+- [x] Write a valid task packet automatically
+- [x] Write/update `DAILY_PLAN.md`
+- [x] Write/update `daily_plan.json`
+- [x] Append to `RUN_LOG.md`
+- [x] Append to `run_log.json`
+- [x] Record the selected task, reason, and timestamp
+- [x] Prevent selecting blocked, done, or invalid tasks
+- [x] Prevent selecting more than one task per cycle
+- [x] Respect initial “max 1 WCS task per day” rule
+- [ ] Record when human/operator action is required
+- [x] Make Jarvis operate from files/state instead of chat memory
+
+## Optional companion cleanup in Phase 3
+- [ ] Decide whether current working scripts keep their present names
+- [ ] Or wrap/re-map them to the original planned script naming model
+- [ ] Clean drift between “working system” and “planned system” terminology
+
+## Deliverable outcome
+- Jarvis becomes a real foreman script
+- The system no longer depends on manual operator stitching between every step
+- The architecture finally matches the core promise of the project
+
+---
+
+# Phase 3B — Complete the missing state model
+
+## Goal
+Finish the state surfaces the docs originally assumed would exist.
+
+### Checklist
+- [x] Make `daily_plan.json` real and active
+- [x] Make `RUN_LOG.md` real and active
+- [x] Make `run_log.json` real and active
+- [x] Make `escalations.json` real and active
+- [x] Make `ESCALATIONS.md` real and active
+- [x] Make `project_status_n8n.json` real even if deferred
+- [ ] Make `AGENT_REGISTRY.md` real if still part of the intended system
+- [ ] Make `OPERATING_RULES.md` real if still part of the intended system
+- [ ] Ensure all state files have a clear source-of-truth relationship
+- [ ] Ensure no state file is lying or stale
+
+## Deliverable outcome
+- The file-based operating model becomes complete
+- The system becomes more self-explanatory and durable
+
+---
+
+# Phase 3C — Live Jarvis-controlled WCS cycles
+
+## Goal
+Run real WCS work through Jarvis control, not just supporting scripts.
+
+### Checklist
+- [x] Jarvis selects a real WCS task
+- [x] Jarvis writes a valid packet
+- [x] Human executes task in Cursor
+- [x] Worker result is captured cleanly
+- [x] QA runs against the changed work
+- [x] Task becomes done or escalated based on evidence
+- [x] Run log updates correctly
+- [ ] Project status updates correctly
+- [x] Repeat successfully across multiple real tasks (currently proven for WCS-016, WCS-017, WCS-018, and WCS-019 as full completed/reconciled loops)
+- [ ] Prove longer-run consecutive-task stability beyond the current four-task proof
+
+## Deliverable outcome
+- The boring core loop is now proven for multiple real WCS tasks under Jarvis control (currently WCS-016, WCS-017, WCS-018, WCS-019)
+
+---
+
+# Phase 4 — Controlled autonomy and expansion
+
+## Goal
+Only after Phase 3 is stable, turn on more automation carefully.
+
+## Phase 4A — Scheduling / timed runs
+
+### Checklist
+- [ ] Enable very limited scheduled cycles
+- [ ] Start with one run at a time
+- [ ] Prevent overlapping cycles
+- [ ] Respect pause/escalation conditions
+- [ ] Confirm scheduling does not create duplicate or conflicting work
+- [ ] Confirm scheduled runs preserve logs and state correctly
+
+## Deliverable outcome
+- Jarvis starts acting on a clock, not just manual launch
+- Still boring, controlled, and auditable
+
+---
+
+## Phase 4B — Additional worker types
+
+### Checklist
+- [ ] Add research scout for debugging support
+- [ ] Add research scout for topic/content gathering if still valuable
+- [ ] Revisit n8n improvement worker once rubric is machine-checkable
+- [ ] Add truth-mapping helpers for other projects if needed
+- [ ] Add additional bounded workers only when packet + output + QA path are clear
+- [ ] Refuse to add “cool” workers that do not have a strict contract
+
+## Deliverable outcome
+- Jarvis grows from one proof loop into a true multi-worker system
+- Expansion happens from stable contracts, not hype
+
+---
+
+## Phase 4C — System hardening and renderer cleanup
+
+### Checklist
+- [ ] Build `render_file_registry.py`
+- [ ] Stop hand-maintaining `FILE_REGISTRY.md`
+- [ ] Add health checks for new critical scripts/configs
+- [ ] Harden all script wrappers
+- [ ] Standardize output log locations
+- [ ] Reduce naming drift across docs/state/scripts
+- [ ] Improve evidence reporting and human review surfaces
+
+## Deliverable outcome
+- The system becomes easier to maintain and trust over time
+
+---
+
+# Later phases — not now
+
+## These are explicitly later, not current focus
+- [ ] voice interface
+- [ ] parent login / private family workflows in WCS
+- [ ] autonomous n8n worker path
+- [ ] broader multi-project scheduling
+- [ ] larger agent fleet
+- [ ] advanced mission-control dashboards
+- [ ] robot/device coordination layers
+
+---
+
+# Practical current checkpoint
+
+## Completed successfully
+- [x] Core architecture decisions locked
+- [x] WCS chosen as phase-1 proof domain
+- [x] Backlog state exists in JSON + Markdown
+- [x] Task packet generation works
+- [x] Reconcile works
+- [x] Playwright QA layer is active
+- [x] Public Scout v1 works
+- [x] Defect normalizer works
+- [x] Overnight health check works
+- [x] Local Git repo created for `jarvis-workspace`
+- [x] Build `jarvis.py` (foreman selects task, writes daily plan and run log, generates packet, prepares branch)
+- [x] Daily plan and run log state files real and active
+
+## Next real priorities
+- [x] Complete escalation state files (`escalations.json` / `ESCALATIONS.md`) and any remaining state surfaces — **live**
+- [x] Run real Jarvis-controlled WCS cycles and prove consecutive-task stability (currently proven for WCS-016, WCS-017, WCS-018, and WCS-019)
+- [x] Harden commit gate helper (commit-state enforcement around worker/QA completion and reconcile) — **live via `commit_gate_check.py`, proven in completed/reconciled loop**
+- [x] QA execution reliability hardening for local WCS smoke QA (Playwright `webServer` now starts `npm run dev` when no E2E_BASE_URL/NEXT_PUBLIC_BASE_URL is set)
+- [x] Build `qa_failure_triage.py` as a read-only helper to classify QA failures and suggest bounded next actions without mutating state
+- [x] Build `stamp_guard_check.py` as a read-only pre-stamp guardrail to prevent stamping placeholder/draft/incomplete worker/QA results
+- [ ] Only then consider scheduling
+- [ ] Only after that consider more workers
+
+---
+
+# Bottom line
+
+We are **not** at the beginning anymore.
+
+We are also **not** at “Jarvis complete.”
+
+We are roughly here:
+
+- **Foundation:** mostly done
+- **WCS support loop:** working
+- **QA and defect intake:** strong
+- **True Jarvis foreman/orchestrator:** built and in use (`jarvis.py` selects task, writes plan/run log, packet, branch)
+- **Scheduling and additional workers:** future
+
+That means the next serious step is not more idea generation.
+
+It is:
+
+## **Run real Jarvis-controlled WCS cycles and complete remaining state (escalations, etc.).**
