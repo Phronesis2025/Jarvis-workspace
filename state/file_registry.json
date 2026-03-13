@@ -816,6 +816,17 @@
     "last_reviewed": "2026-03-13"
   },
   {
+    "file": "run_guarded_task_cycle.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_guarded_task_cycle.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Workflow/orchestration helper for guarded WCS task cycles",
+    "updated_by": "user",
+    "notes": "Runs existing guarded task-cycle helpers in sequence for a single WCS task and stops on the first failure; does not replace their logic, execute worker code directly, or schedule tasks",
+    "last_reviewed": "2026-03-13"
+  },
+  {
     "file": "build_cursor_handoff.py",
     "path": "C:\\dev\\jarvis-workspace\\scripts\\build_cursor_handoff.py",
     "category": "script",

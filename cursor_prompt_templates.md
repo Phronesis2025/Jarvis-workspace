@@ -13,6 +13,8 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Workflow helper:** `build_task_cycle_summary.py --task WCS-XXX` generates a human-readable markdown summary under `scratch/task_cycle_summaries/` that describes the current task/worker/QA evidence for a single WCS task cycle. Use that summary when reviewing a task, preparing a handoff, or deciding the next bounded operator action.
 
+**Workflow helper:** `run_guarded_task_cycle.py --task WCS-XXX --mode pre_worker|post_worker|full` runs the existing guarded task-cycle scripts in order and stops on the first failure. Use this only as an orchestrator around the current helpers; it does not replace their logic, execute worker code directly, or schedule tasks.
+
 ## Core rules for all Cursor prompts
 
 Use these rules in every prompt unless a specific template intentionally overrides them:

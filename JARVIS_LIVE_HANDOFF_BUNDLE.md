@@ -4723,6 +4723,7 @@ They are not the blocker now.
 - Critical-surface health checking is now live via `critical_surface_health_check.py` as a read-only sanity checker (existence of critical scripts/docs/registry, compile of critical helpers, and file_registry_check + naming_drift_check pass).
 - Cursor handoff building is now live via `build_cursor_handoff.py` as a workflow helper that writes bounded, copy/paste-ready handoff files from task packets (does not execute tasks or mutate state). It fails with exit code 1 and does not write a handoff file when bounded file scope cannot be derived from the task packet.
 - Task-cycle summary building is now live via `build_task_cycle_summary.py` as a workflow helper that reads current task packet, worker result, and QA result (when present) and writes a human-readable markdown summary under `scratch/task_cycle_summaries/` for a single WCS task cycle; it does not execute tasks, change task state, or mutate backlog/results.
+- Guarded task-cycle orchestration is now live via `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs the existing guarded task-cycle scripts in order and stops on the first failure; it does not replace their logic, execute worker code directly, or schedule tasks.
 - Next hardening focus areas:
   - manual naming drift cleanup guided by `naming_drift_check.py`
   - optional: further registry automation or script wrappers

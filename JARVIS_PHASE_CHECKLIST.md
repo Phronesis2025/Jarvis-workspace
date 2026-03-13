@@ -384,6 +384,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `critical_surface_health_check.py` as a read-only sanity checker for the critical hardening surface (existence, compile, and registry/naming helper runs) — **live**
 - [x] Build `build_cursor_handoff.py` as a workflow helper that prepares bounded Cursor handoff files from task packets — **live**
 - [x] Build `build_task_cycle_summary.py` as a workflow helper that summarizes current task/worker/QA evidence into a human-readable task-cycle markdown file without executing tasks or mutating state — **live**
+- [x] Build `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs existing guarded task-cycle scripts in order and stops on first failure without changing their logic — **live**
 - [ ] Only then consider scheduling
 - [ ] Only after that consider more workers
 
