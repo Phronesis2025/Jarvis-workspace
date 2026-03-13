@@ -4737,6 +4737,7 @@ They are not the blocker now.
 - Task-cycle summary building is now live via `build_task_cycle_summary.py` as a workflow helper that reads current task packet, worker result, and QA result (when present) and writes a human-readable markdown summary under `scratch/task_cycle_summaries/` for a single WCS task cycle; it does not execute tasks, change task state, or mutate backlog/results.
 - Guarded task-cycle orchestration is now live via `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs the existing guarded task-cycle scripts in order and stops on the first failure; it does not replace their logic, execute worker code directly, or schedule tasks.
 - Next-task selection is now live via `select_next_ready_task.py` as a read-only workflow helper that selects the next eligible ready task from backlog/planning surfaces using deterministic ranking; it does not mutate state or launch execution.
+- Daily execution prep is now live via `build_daily_execution_prep.py` as a workflow helper that prepares an operator-facing daily execution prep package by chaining selection, handoff, and summary helpers; it writes prep markdown and helper outputs only and does not execute tasks or mutate backlog/state.
 - Next hardening focus areas:
   - manual naming drift cleanup guided by `naming_drift_check.py`
   - optional: further registry automation or script wrappers

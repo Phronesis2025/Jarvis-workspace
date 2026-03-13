@@ -838,6 +838,17 @@
     "last_reviewed": "2026-03-13"
   },
   {
+    "file": "build_daily_execution_prep.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\build_daily_execution_prep.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Workflow helper: prepares operator-facing daily execution prep package",
+    "updated_by": "user",
+    "notes": "Chains select_next_ready_task (optional), build_cursor_handoff, and build_task_cycle_summary; writes prep markdown to scratch/daily_execution_prep/; does not execute tasks or mutate backlog/state",
+    "last_reviewed": "2026-03-13"
+  },
+  {
     "file": "build_cursor_handoff.py",
     "path": "C:\\dev\\jarvis-workspace\\scripts\\build_cursor_handoff.py",
     "category": "script",
