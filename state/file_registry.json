@@ -805,6 +805,17 @@
     "last_reviewed": "2026-03-13"
   },
   {
+    "file": "build_task_cycle_summary.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\build_task_cycle_summary.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Workflow helper: builds human-readable task cycle summaries for a WCS task",
+    "updated_by": "user",
+    "notes": "Reads task packet, optional task markdown, worker result, and QA result (when present) and writes scratch/task_cycle_summaries/<task>_task_cycle_summary.md; does not execute tasks, change task state, or mutate backlog/results",
+    "last_reviewed": "2026-03-13"
+  },
+  {
     "file": "build_cursor_handoff.py",
     "path": "C:\\dev\\jarvis-workspace\\scripts\\build_cursor_handoff.py",
     "category": "script",

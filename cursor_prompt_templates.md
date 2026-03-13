@@ -11,6 +11,8 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Workflow helper:** `build_cursor_handoff.py --task WCS-XXX` generates a handoff file under `scratch/cursor_handoffs/` whose Cursor prompt body matches the bounded style of Template 4 (WCS task implementation). The script fails (no file written) when bounded file scope cannot be derived from the task packet. Use the generated handoff as the copy/paste prompt when starting work on a task.
 
+**Workflow helper:** `build_task_cycle_summary.py --task WCS-XXX` generates a human-readable markdown summary under `scratch/task_cycle_summaries/` that describes the current task/worker/QA evidence for a single WCS task cycle. Use that summary when reviewing a task, preparing a handoff, or deciding the next bounded operator action.
+
 ## Core rules for all Cursor prompts
 
 Use these rules in every prompt unless a specific template intentionally overrides them:
