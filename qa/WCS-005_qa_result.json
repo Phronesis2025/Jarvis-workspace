@@ -1,0 +1,20 @@
+{
+  "task_id": "WCS-005",
+  "status": "qa_pass",
+  "qa_tool": "cursor_qa",
+  "summary": "Verified that the footer email signup form now opens a prefilled mailto to info@wcsbasketball.com using the entered address, and that build and home smoke QA still pass.",
+  "checks_run": [
+    "Reviewed Footer.tsx implementation for the email signup form behavior.",
+    "Ran npm run build in the WCS repo.",
+    "Ran npm run test:e2e:smoke in the WCS repo."
+  ],
+  "checks_passed": [
+    "Footer form onSubmit prevents default and, when an email is entered, sets window.location.href to a mailto:info@wcsbasketball.com link with a subject and the entered email address in the body.",
+    "Next.js production build (npm run build) completed successfully after the change.",
+    "Playwright home smoke test (npm run test:e2e:smoke) passed after the change."
+  ],
+  "checks_failed": [],
+  "artifacts": [],
+  "notes": "This implementation is a mailto-based solution: submitting the footer form opens the user's default mail client to send an email to info@wcsbasketball.com with the visitor's address in the email body. It does not store signups in a backend or database.",
+  "completed_at": "2026-03-11T12:50:00-05:00"
+}

@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-03-12T15:04:13-05:00",
+  "selected_task": {
+    "task_id": "WCS-019",
+    "project": "WCS",
+    "bucket": "ugly",
+    "priority": "P1",
+    "risk": "low",
+    "status": "ready",
+    "title": "Flip TestSiteBanner text color from black back to white",
+    "notes": "src/components/TestSiteBanner.tsx"
+  },
+  "selection_reason": {
+    "rule": "priority_risk_task_id",
+    "details": "Selected highest-priority eligible ready WCS task using deterministic ordering (priority, then risk, then numeric task id)."
+  }
+}

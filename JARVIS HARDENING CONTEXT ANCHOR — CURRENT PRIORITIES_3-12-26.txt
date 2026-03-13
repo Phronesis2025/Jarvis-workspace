@@ -1,0 +1,332 @@
+# JARVIS HARDENING CONTEXT ANCHOR — CURRENT PRIORITIES
+
+LAST REVIEWED: 2026-03-13
+LAST UPDATED: 2026-03-13
+STATUS: active current-priorities anchor for Jarvis hardening
+
+We are **not** designing Jarvis from scratch.
+We are **not** prioritizing sexy features, dashboards, more agents, or broad expansion right now.
+
+We are in the middle of **hardening `jarvis.py`** so the system can move toward **little to zero human interaction** without turning into uncontrolled garbage.
+
+## Current truth
+
+The project already has meaningful working pieces:
+- backlog rendering
+- task packet generation
+- reconcile flow
+- public scout / defect normalization
+- overnight health check
+- real WCS tasks already completed through the system
+- `jarvis.py` exists and is active
+
+So the problem is **not** “invent more architecture.”
+The problem is:
+
+> the live loop still depends too much on operator discipline.
+
+That means the next work is to convert fragile human checks into enforced system guardrails.
+
+---
+
+# What we are optimizing for
+
+Primary goal:
+- **low-human-interaction autonomy**
+
+That means Jarvis must be able to:
+1. choose work safely
+2. detect when work is not safe to proceed
+3. validate artifacts truthfully
+4. detect bad repo/task state
+5. pause and escalate cleanly
+6. reconcile state without corruption
+
+We are aiming for:
+- **human exception handling**
+- **not human babysitting**
+
+---
+
+# What "hardening jarvis.py" means right now
+
+## Top priority items
+
+### 1. Escalation state completion
+Jarvis must formally track:
+- blockers
+- repeated failures
+- pause conditions
+- human intervention required
+- escalation notes
+
+This should use real state surfaces such as:
+- `ESCALATIONS.md`
+- `escalations.json`
+
+This is a high priority because autonomy is fake if failures only live in the operator’s head.
+
+---
+
+### 2. Human-action-required recording
+`jarvis.py` should explicitly record when it cannot safely proceed and why.
+
+Examples:
+- task packet missing
+- wrong branch
+- repo dirty
+- repeated QA failure
+- malformed worker result
+- malformed QA result
+- reconcile not safe
+- circuit-breaker condition hit
+
+This should be machine-visible state, not informal terminal commentary.
+
+---
+
+### 3. State-surface completion
+Finish and harden the state files and their relationships.
+
+Examples:
+- `AGENT_REGISTRY.md`
+- `OPERATING_RULES.md`
+- `ESCALATIONS.md`
+- `escalations.json`
+
+Goal:
+- every state surface should have a clear purpose
+- no stale fake placeholders
+- no ambiguity about which file is authoritative for what
+
+---
+
+### 4. Prove repeated live WCS cycles
+We need repeated real-world proof of the boring loop:
+
+1. Jarvis selects task
+2. Jarvis writes packet
+3. correct task branch is prepared
+4. worker executes
+5. worker result is captured
+6. QA runs
+7. QA result is captured
+8. reconcile updates state
+9. task ends as done / failed / escalated
+10. loop repeats across multiple tasks
+
+The goal is not one lucky run.
+The goal is repeatable reliability.
+
+---
+
+### 5. Reuse vs `--force` guardrail
+Jarvis currently risks confusion around reusing today’s selected task versus forcing a fresh selection.
+
+Need:
+- explicit logic
+- explicit messaging
+- explicit guardrails so the wrong task does not get worked accidentally
+
+---
+
+### 6. Branch and repo cleanliness verification
+Before execution, Jarvis should verify:
+- correct task branch
+- repo clean before work starts
+- no unresolved merge/rebase/conflict state
+- branch matches packet task
+- expected repo path is correct
+
+This should be enforced, not assumed.
+
+---
+
+### 7. Packet/repo mismatch detection
+Jarvis should detect when:
+- packet context does not match repo state
+- scope drift has occurred
+- actual changed files do not fit the intended task
+
+This helps stop work before it becomes unrelated repo thrashing.
+
+---
+
+### 8. Diff sanity / changed-file allowlist validation
+Jarvis should detect:
+- suspiciously broad diffs
+- unrelated changed files
+- accidental refactors
+- edits outside expected scope
+
+This is a major anti-stupidity safeguard.
+
+---
+
+### 9. Worker-result schema validation
+Jarvis should reject worker result artifacts that are:
+- missing required fields
+- invalid status
+- fake or placeholder-shaped
+- incorrectly stamped
+- claiming files that do not match reality
+- missing executor identity or evidence
+
+No reconcile should happen from trash artifacts.
+
+---
+
+### 10. QA-result schema validation
+Jarvis should reject QA artifacts that are:
+- placeholder-shaped
+- missing checks
+- fake pass/fail output
+- invalid status
+- not tied to actual build/test evidence
+
+---
+
+### 11. Pre-reconcile readiness check
+Before reconcile, Jarvis should confirm:
+- worker result exists
+- QA result exists
+- both are valid
+- statuses are allowed
+- evidence is real
+- task is actually ready for reconcile
+
+No more blind reconcile.
+
+---
+
+### 12. Post-reconcile state validation
+After reconcile, Jarvis should verify:
+- correct task changed
+- adjacent tasks did not accidentally change
+- JSON state is correct
+- rendered Markdown matches JSON
+- no drift or corruption was introduced
+
+This is critical because the system uses JSON as state and Markdown as rendered human view.
+
+---
+
+### 13. Dedicated Python QA runner
+QA should move away from semi-manual interpretation and toward a controlled entrypoint that:
+- runs build/test commands
+- captures stdout/stderr
+- writes real QA artifacts
+- returns structured pass/fail/escalate status
+
+This should be pulled earlier if possible because it reduces operator dependency.
+
+---
+
+### 14. Commit gate helper
+Before finalizing task work, Jarvis should verify:
+- correct branch
+- no unrelated file changes
+- valid commit exists
+- worktree state is acceptable
+- no post-commit repo mess remains
+
+---
+
+# Implementation priority order
+
+## Build now (current high-priority hardening focus)
+1. QA execution reliability hardening for local WCS smoke QA (make `npm run test:e2e:smoke` start the dev server when needed)
+2. QA failure triage helper planning
+3. dual-stamp / no-draft-stamping guardrails
+4. file registry automation
+5. naming drift cleanup
+
+## Build later
+18. limited scheduling
+19. Research Scout worker
+20. n8n improver worker
+21. additional workers / productization
+
+---
+
+# What we are NOT prioritizing right now
+
+Do **not** derail into:
+- dashboards
+- sexy UI
+- more agents
+- worker marketplaces
+- voice features
+- office copilots
+- sandboxes everywhere
+- generalized platform expansion
+- productization before the loop is trustworthy
+
+Those may matter later.
+They are not the blocker now.
+
+---
+
+# CURRENT STATUS VS NEXT
+
+## What is already proven
+- reconcile branch verification is live
+- reconcile verifies that the task branch is ahead of `main` for done-path completion
+- `jarvis.py` exists and has materially improved operator-safety output
+- task-state execution eligibility validation exists in `jarvis.py`
+- packet/result placeholder contract validation exists in `jarvis.py`
+- repeated live WCS cycles have been proven for `WCS-016`, `WCS-017`, `WCS-018`, and `WCS-019`
+- fake tasks must be baseline-relative when new task branches are created from `main`
+- `jarvis.py` now records durable escalation state on hard failures into `state/escalations.json` and renders `state/ESCALATIONS.md` as the human view
+- `pre_reconcile_check.py` exists and is proven as a read-only readiness gate that validates task/result/repo prerequisites before running reconcile
+- `post_reconcile_validate.py` exists and is proven as a read-only post-reconcile validator that confirms the intended task is done and visible in backlog JSON, rendered backlog markdown, review output, and result files
+- `worker_change_check.py` exists and is proven as a read-only worker-boundary validator that checks changed-file scope and simple diff sanity before commit/finalization (including a successful PASS path on `WCS-019`)
+
+## What remains the next priority
+- QA execution reliability hardening and QA failure triage helper planning
+- dual-stamp / no-draft-stamping guardrails
+- file registry automation
+- naming drift cleanup
+
+## What is explicitly not being prioritized yet
+- dashboards and “sexy” UI
+- additional workers or marketplaces
+- voice features
+- broad multi-project scheduling
+- generalized productization before the current loop is trustworthy
+
+---
+
+# Process documentation rule
+
+Whenever a new process change, guardrail, contract, or script behavior is **locked in and live**, the working process and hardening documentation files in this workspace **must be updated immediately** so they stay aligned with the actual system.
+
+---
+
+# Simple framing for the next assistant
+
+If you are helping on this project, assume this rule:
+
+> The next best work is anything that converts operator discipline into system-enforced guardrails inside or immediately around `jarvis.py`.
+
+Do not propose broad redesign unless it directly helps the above hardening goals.
+
+Do not treat the project as greenfield.
+
+Do not push scheduling or more workers before the current loop is trustworthy.
+
+---
+
+# Immediate coding focus
+
+We are currently hardening `jarvis.py`.
+
+The assistant should help identify and implement:
+- escalation recording
+- human-action-required state
+- branch/repo/packet guardrails
+- artifact schema validation
+- reconcile readiness checks
+- post-reconcile validation
+
+These are the current priorities.

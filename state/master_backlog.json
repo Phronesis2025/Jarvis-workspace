@@ -1,142 +1,382 @@
 [
-  {
-    "task_id": "WCS-001",
-    "project": "WCS",
-    "bucket": "ugly",
-    "priority": "P2",
-    "risk": "low",
-    "status": "done",
-    "title": "Fix testimonial typo in PlayerTestimonials quote",
-    "notes": "src/components/PlayerTestimonials.tsx"
-  },
-  {
-    "task_id": "WCS-002",
-    "project": "WCS",
-    "bucket": "broken",
-    "priority": "P1",
-    "risk": "medium",
-    "status": "done",
-    "title": "Fix stats section showing 0 for all metrics",
-    "notes": "src/components/StatsSection.tsx"
-  },
-  {
-    "task_id": "WCS-003",
-    "project": "WCS",
-    "bucket": "broken",
-    "priority": "P1",
-    "risk": "medium",
-    "status": "done",
-    "title": "Add timeout/fallback handling for long loading states",
-    "notes": "TodaysEvents.tsx, LogoMarquee.tsx"
-  },
-  {
-    "task_id": "WCS-004",
-    "project": "WCS",
-    "bucket": "ugly",
-    "priority": "P2",
-    "risk": "low",
-    "status": "done",
-    "title": "Improve empty Around the WCS state",
-    "notes": "src/components/TeamUpdates.tsx"
-  },
-  {
-    "task_id": "WCS-005",
-    "project": "WCS",
-    "bucket": "broken",
-    "priority": "P1",
-    "risk": "medium",
-    "status": "ready",
-    "title": "Make footer email signup form functional",
-    "notes": "src/components/Footer.tsx"
-  },
-  {
-    "task_id": "WCS-006",
-    "project": "WCS",
-    "bucket": "ugly",
-    "priority": "P3",
-    "risk": "low",
-    "status": "ready",
-    "title": "Fix hero headline accessibility spacing/aria label",
-    "notes": "src/components/Hero.tsx"
-  },
-  {
-    "task_id": "WCS-007",
-    "project": "WCS",
-    "bucket": "ugly",
-    "priority": "P3",
-    "risk": "low",
-    "status": "ready",
-    "title": "Hide test site banner in production",
-    "notes": "src/components/TestSiteBanner.tsx"
-  },
-  {
-    "task_id": "WCS-008",
-    "project": "WCS",
-    "bucket": "ugly",
-    "priority": "P3",
-    "risk": "low",
-    "status": "ready",
-    "title": "Clarify navbar Coaches link label for logged-out users",
-    "notes": "src/components/Navbar.tsx"
-  },
-  {
-    "task_id": "WCS-009",
-    "project": "WCS",
-    "bucket": "broken",
-    "priority": "P2",
-    "risk": "medium",
-    "status": "ready",
-    "title": "Improve LogoMarquee response.ok handling and fallback",
-    "notes": "src/components/LogoMarquee.tsx"
-  },
-  {
-    "task_id": "WCS-010",
-    "project": "WCS",
-    "bucket": "broken",
-    "priority": "P2",
-    "risk": "medium",
-    "status": "ready",
-    "title": "Show fallback message instead of hiding TodaysEvents on error",
-    "notes": "src/components/TodaysEvents.tsx"
-  },
-  {
-    "task_id": "WCS-011",
-    "project": "WCS",
-    "bucket": "broken",
-    "priority": "P1",
-    "risk": "low",
-    "status": "done",
-    "title": "Stabilize local Playwright smoke QA for home page",
-    "notes": "tests/e2e, playwright config, global setup for http://localhost:3000"
-  },
-{
-  "task_id": "WCS-013",
-  "project": "WCS",
-  "bucket": "broken",
-  "priority": "P2",
-  "risk": "low",
-  "status": "ready",
-  "title": "Hide links to unfinished /shop page",
-  "notes": "Public navigation or CTA paths should not expose /shop until the page is built out"
-},
-{
-  "task_id": "WCS-014",
-  "project": "WCS",
-  "bucket": "broken",
-  "priority": "P2",
-  "risk": "low",
-  "status": "ready",
-  "title": "Hide links to unfinished /news page",
-  "notes": "Public links should not expose /news until the page is built out"
-},
-{
-  "task_id": "WCS-015",
-  "project": "WCS",
-  "bucket": "broken",
-  "priority": "P2",
-  "risk": "medium",
-  "status": "ready",
-  "title": "Investigate /schedules Supabase realtime auth console error",
-  "notes": "Scout detected websocket auth failure on public /schedules page: Supabase realtime connection attempted without valid credentials"
-}
+    {
+        "task_id":  "WCS-001",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P2",
+        "risk":  "low",
+        "status":  "done",
+        "title":  "Fix testimonial typo in PlayerTestimonials quote",
+        "notes":  "src/components/PlayerTestimonials.tsx"
+    },
+    {
+        "task_id":  "WCS-002",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P1",
+        "risk":  "medium",
+        "status":  "done",
+        "title":  "Fix stats section showing 0 for all metrics",
+        "notes":  "src/components/StatsSection.tsx"
+    },
+    {
+        "task_id":  "WCS-003",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P1",
+        "risk":  "medium",
+        "status":  "done",
+        "title":  "Add timeout/fallback handling for long loading states",
+        "notes":  "TodaysEvents.tsx, LogoMarquee.tsx"
+    },
+    {
+        "task_id":  "WCS-004",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P2",
+        "risk":  "low",
+        "status":  "done",
+        "title":  "Improve empty Around the WCS state",
+        "notes":  "src/components/TeamUpdates.tsx"
+    },
+    {
+        "task_id":  "WCS-005",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P1",
+        "risk":  "medium",
+        "status":  "done",
+        "title":  "Make footer email signup form functional",
+        "notes":  "src/components/Footer.tsx"
+    },
+    {
+        "task_id":  "WCS-006",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Fix hero headline accessibility spacing/aria label",
+        "notes":  "src/components/Hero.tsx"
+    },
+    {
+        "task_id":  "WCS-007",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Hide test site banner in production",
+        "notes":  "src/components/TestSiteBanner.tsx"
+    },
+    {
+        "task_id":  "WCS-008",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Clarify navbar Coaches link label for logged-out users",
+        "notes":  "src/components/Navbar.tsx"
+    },
+    {
+        "task_id":  "WCS-009",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "medium",
+        "status":  "done",
+        "title":  "Improve LogoMarquee response.ok handling and fallback",
+        "notes":  "src/components/LogoMarquee.tsx"
+    },
+    {
+        "task_id":  "WCS-010",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "medium",
+        "status":  "done",
+        "title":  "Show fallback message instead of hiding TodaysEvents on error",
+        "notes":  "src/components/TodaysEvents.tsx"
+    },
+    {
+        "task_id":  "WCS-011",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P1",
+        "risk":  "low",
+        "status":  "done",
+        "title":  "Stabilize local Playwright smoke QA for home page",
+        "notes":  "tests/e2e, playwright config, global setup for http://localhost:3000"
+    },
+    {
+        "task_id":  "WCS-013",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Hide links to unfinished /shop page",
+        "notes":  "Public navigation or CTA paths should not expose /shop until the page is built out"
+    },
+    {
+        "task_id":  "WCS-014",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Hide links to unfinished /news page",
+        "notes":  "Public links should not expose /news until the page is built out"
+    },
+    {
+        "task_id":  "WCS-015",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "medium",
+        "status":  "ready",
+        "title":  "Investigate /schedules Supabase realtime auth console error",
+        "notes":  "Scout detected websocket auth failure on public /schedules page: Supabase realtime connection attempted without valid credentials"
+    },
+    {
+        "task_id":  "WCS-016",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P1",
+        "risk":  "low",
+        "status":  "done",
+        "title":  "Flip TestSiteBanner background from black to white",
+        "notes":  "src/components/TestSiteBanner.tsx"
+    },
+    {
+        "task_id":  "WCS-017",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P1",
+        "risk":  "low",
+        "status":  "done",
+        "title":  "Flip TestSiteBanner background from white back to black",
+        "notes":  "src/components/TestSiteBanner.tsx"
+    },
+    {
+        "task_id":  "WCS-018",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P1",
+        "risk":  "low",
+        "status":  "done",
+        "title":  "Flip TestSiteBanner text color from white to black",
+        "notes":  "src/components/TestSiteBanner.tsx"
+    },
+    {
+        "task_id":  "WCS-019",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P1",
+        "risk":  "low",
+        "status":  "done",
+        "title":  "Flip TestSiteBanner text color from black back to white",
+        "notes":  "src/components/TestSiteBanner.tsx"
+    },
+    {
+        "task_id":  "WCS-020",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Normalize public footer copyright year across home/about pages",
+        "notes":  "Public footer component or page-level footer rendering for / and /about"
+    },
+    {
+        "task_id":  "WCS-021",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Fix malformed Coach es label rendering on public team cards",
+        "notes":  "Public /teams card label rendering"
+    },
+    {
+        "task_id":  "WCS-022",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "medium",
+        "status":  "ready",
+        "title":  "Fill missing grade labels on public team cards that currently show only Grade",
+        "notes":  "Public /teams team metadata rendering"
+    },
+    {
+        "task_id":  "WCS-023",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "medium",
+        "status":  "ready",
+        "title":  "Correct impossible team grade mappings on public /teams cards",
+        "notes":  "Public /teams data/rendering for Red, Warriors, and similar bad grade labels"
+    },
+    {
+        "task_id":  "WCS-024",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Remove or rename placeholder WCS Errors team from public teams page",
+        "notes":  "Public /teams team list or seeded display data"
+    },
+    {
+        "task_id":  "WCS-025",
+        "project":  "WCS",
+        "bucket":  "broken",
+        "priority":  "P2",
+        "risk":  "medium",
+        "status":  "ready",
+        "title":  "Investigate and fix duplicated calendar rendering on public /schedules page",
+        "notes":  "Public /schedules calendar component/layout"
+    },
+    {
+        "task_id":  "WCS-026",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P2",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Improve empty-state copy for No events today on schedules page",
+        "notes":  "Public /schedules today-events empty state"
+    },
+    {
+        "task_id":  "WCS-027",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P2",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Improve empty-state copy for No drills available on drills page",
+        "notes":  "Public /drills empty state"
+    },
+    {
+        "task_id":  "WCS-028",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Style test: change home hero eyebrow accent color for BUILT FOR",
+        "notes":  "Home hero section /"
+    },
+    {
+        "task_id":  "WCS-029",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Revert home hero eyebrow accent color back to original",
+        "notes":  "Home hero section /"
+    },
+    {
+        "task_id":  "WCS-030",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Style test: adjust home Find a Program button typography",
+        "notes":  "Home primary CTA button /"
+    },
+    {
+        "task_id":  "WCS-031",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Revert home Find a Program button typography back to original",
+        "notes":  "Home primary CTA button /"
+    },
+    {
+        "task_id":  "WCS-032",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Style test: change about mission heading accent treatment",
+        "notes":  "About mission section /about"
+    },
+    {
+        "task_id":  "WCS-033",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Revert about mission heading accent treatment back to original",
+        "notes":  "About mission section /about"
+    },
+    {
+        "task_id":  "WCS-034",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Style test: adjust about Coach Nate Classic date line typography",
+        "notes":  "About event promo /about"
+    },
+    {
+        "task_id":  "WCS-035",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Revert about Coach Nate Classic date line typography back to original",
+        "notes":  "About event promo /about"
+    },
+    {
+        "task_id":  "WCS-036",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Style test: adjust schedules filter label weight and casing",
+        "notes":  "Public /schedules filter controls"
+    },
+    {
+        "task_id":  "WCS-037",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Revert schedules filter label weight and casing back to original",
+        "notes":  "Public /schedules filter controls"
+    },
+    {
+        "task_id":  "WCS-038",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Style test: change drills empty-state heading or color emphasis",
+        "notes":  "Public /drills empty state"
+    },
+    {
+        "task_id":  "WCS-039",
+        "project":  "WCS",
+        "bucket":  "ugly",
+        "priority":  "P3",
+        "risk":  "low",
+        "status":  "ready",
+        "title":  "Revert drills empty-state heading or color emphasis back to original",
+        "notes":  "Public /drills empty state"
+    }
 ]

@@ -1,0 +1,19 @@
+{
+  "task_id": "WCS-030",
+  "status": "qa_fail",
+  "qa_tool": "manual operator QA via Next build and Playwright smoke",
+  "summary": "Smoke QA failed because the locator for the Find a Program button was expected to be visible but was not found.",
+  "checks_run": [
+    "npm run build",
+    "npm run test:e2e:smoke"
+  ],
+  "checks_passed": [
+    "npm run build"
+  ],
+  "checks_failed": [
+    "npm run test:e2e:smoke"
+  ],
+  "artifacts": [],
+  "notes": "Playwright assertion failed. Expected locator to be visible. Timed out waiting for selector on the home page CTA.",
+  "completed_at": ""
+}

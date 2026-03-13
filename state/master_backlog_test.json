@@ -95,7 +95,7 @@
     "bucket": "broken",
     "priority": "P2",
     "risk": "medium",
-    "status": "ready",
+    "status": "done",
     "title": "Show fallback message instead of hiding TodaysEvents on error",
     "notes": "src/components/TodaysEvents.tsx"
   },

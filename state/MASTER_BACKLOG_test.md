@@ -11,7 +11,7 @@
 | WCS-007 | WCS | ugly | P3 | low | ready | Hide test site banner in production | src/components/TestSiteBanner.tsx |
 | WCS-008 | WCS | ugly | P3 | low | ready | Clarify navbar Coaches link label for logged-out users | src/components/Navbar.tsx |
 | WCS-009 | WCS | broken | P2 | medium | ready | Improve LogoMarquee response.ok handling and fallback | src/components/LogoMarquee.tsx |
-| WCS-010 | WCS | broken | P2 | medium | ready | Show fallback message instead of hiding TodaysEvents on error | src/components/TodaysEvents.tsx |
+| WCS-010 | WCS | broken | P2 | medium | done | Show fallback message instead of hiding TodaysEvents on error | src/components/TodaysEvents.tsx |
 | WCS-011 | WCS | broken | P1 | low | done | Stabilize local Playwright smoke QA for home page | tests/e2e, playwright config, global setup for http://localhost:3000 |
 | WCS-013 | WCS | broken | P2 | low | ready | Hide links to unfinished /shop page | Public navigation or CTA paths should not expose /shop until the page is built out |
 | WCS-014 | WCS | broken | P2 | low | ready | Hide links to unfinished /news page | Public links should not expose /news until the page is built out |

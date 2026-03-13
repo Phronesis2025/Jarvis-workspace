@@ -1,0 +1,33 @@
+[
+  {
+    "timestamp": "2026-03-12T13:04:45-05:00",
+    "task_id": "WCS-018",
+    "project": "WCS",
+    "phase": "jarvis_packet_validation",
+    "severity": "error",
+    "status": "open",
+    "human_action_required": true,
+    "reason_code": "packet_contract_mismatch",
+    "summary": "Jarvis detected invalid or mismatched packet/result placeholder contracts.",
+    "details": [
+      "C:\\dev\\jarvis-workspace\\results\\WCS-018_worker_result.json: expected placeholder status 'draft' before execution. Found: worker_complete"
+    ],
+    "recommended_next_action": "Inspect the generated packet and result placeholder files, correct the contract shape, then rerun jarvis.py (optionally with --force-packet)."
+  },
+  {
+    "timestamp": "2026-03-12T14:57:08-05:00",
+    "task_id": "WCS-019",
+    "project": "WCS",
+    "phase": "jarvis_branch_preparation",
+    "severity": "error",
+    "status": "open",
+    "human_action_required": true,
+    "reason_code": "branch_prepare_failed",
+    "summary": "Jarvis branch preparer reported a non-zero exit code.",
+    "details": [
+      "Return code: 1",
+      "STDERR: ERROR: Refusing to switch branches because the WCS repo has uncommitted changes on the wrong branch.\nCurrent branch: jarvis-task-wcs-018\nTarget branch: jarvis-task-wcs-019\nDirty files:\n M src/components/TestSiteBanner.tsx"
+    ],
+    "recommended_next_action": "Inspect prepare_wcs_task_branch.py output and the WCS repo state, fix issues, then rerun jarvis.py."
+  }
+]

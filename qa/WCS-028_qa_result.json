@@ -1,0 +1,19 @@
+{
+  "task_id": "WCS-028",
+  "status": "qa_fail",
+  "qa_tool": "manual operator QA via Next build and Playwright smoke",
+  "summary": "Playwright smoke failed because the server at http://localhost:3000 did not become ready within 90 seconds during global setup.",
+  "checks_run": [
+    "npm run build",
+    "npm run test:e2e:smoke"
+  ],
+  "checks_passed": [
+    "npm run build"
+  ],
+  "checks_failed": [
+    "npm run test:e2e:smoke"
+  ],
+  "artifacts": [],
+  "notes": "Start the app with 'npm run dev' and ensure it is running, then run Playwright again. Connection refused while waiting for localhost:3000.",
+  "completed_at": ""
+}

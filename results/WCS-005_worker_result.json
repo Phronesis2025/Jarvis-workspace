@@ -1,0 +1,16 @@
+{
+  "task_id": "WCS-005",
+  "status": "worker_complete",
+  "executor": "cursor_worker",
+  "summary": "Wired the footer email signup form to open a prefilled mailto to info@wcsbasketball.com using the entered address, and ensured the app still builds and the home smoke Playwright test passes.",
+  "files_changed": [
+    "src/components/Footer.tsx"
+  ],
+  "commands_run": [
+    "npm run build",
+    "npm run test:e2e:smoke"
+  ],
+  "issues_encountered": [],
+  "notes": "Submitting the footer email form now opens the default mail client to email info@wcsbasketball.com with the visitor's address in the body. No backend or database changes were made.",
+  "completed_at": "2026-03-11T12:45:00-05:00"
+}

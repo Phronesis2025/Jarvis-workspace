@@ -23,4 +23,7 @@ playwright-report/
 
 # Local environment files
 .env
-.env.*
+.env.*scratch/
+__pycache__/
+*.pyc
+scratch/

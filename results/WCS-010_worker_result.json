@@ -1,0 +1,16 @@
+{
+  "task_id": "WCS-010",
+  "status": "worker_complete",
+  "executor": "cursor_worker",
+  "summary": "Updated TodaysEvents to show a clear fallback message when an error occurs instead of rendering nothing, while keeping the normal loading and no-events behaviors unchanged.",
+  "files_changed": [
+    "src/components/TodaysEvents.tsx"
+  ],
+  "commands_run": [
+    "npm run build",
+    "npm run test:e2e:smoke"
+  ],
+  "issues_encountered": [],
+  "notes": "If the schedules/teams fetch ultimately fails, the TodaysEvents section now displays a compact message bar saying it cannot load today’s events right now instead of returning null. Loading and empty-state behavior remain as before.",
+  "completed_at": "2026-03-11T15:01:32-05:00"
+}

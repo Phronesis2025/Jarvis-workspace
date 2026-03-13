@@ -1,0 +1,38 @@
+{
+  "task_id": "WCS-010",
+  "project": "WCS",
+  "title": "Show fallback message instead of hiding TodaysEvents on error",
+  "bucket": "broken",
+  "priority": "P2",
+  "risk": "medium",
+  "status": "ready",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "branch_name": "jarvis-task-wcs-010",
+  "problem_summary": "Show fallback message instead of hiding TodaysEvents on error.",
+  "goal": "Resolve: Show fallback message instead of hiding TodaysEvents on error, with the smallest safe change that satisfies QA.",
+  "suspected_files": [
+    "src/components/TodaysEvents.tsx"
+  ],
+  "acceptance_criteria": [
+    "The scoped issue is resolved: Show fallback message instead of hiding TodaysEvents on error",
+    "App builds successfully with npm run build",
+    "Local app can be opened for verification",
+    "Targeted change is visible or behaves correctly on the relevant page/flow",
+    "Changes remain tightly limited to the suspected files unless a clearly related helper/config file must also be updated"
+  ],
+  "qa_plan": [
+    "Run npm run build",
+    "Start local app with npm run dev",
+    "Run Playwright smoke QA if available",
+    "Verify the targeted change locally in the browser"
+  ],
+  "system_impact": "Medium risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: src/components/TodaysEvents.tsx.",
+  "stop_conditions": [
+    "Required file cannot be found",
+    "Build fails for unrelated reasons",
+    "Task scope expands beyond the targeted fix"
+  ],
+  "notes": "src/components/TodaysEvents.tsx",
+  "created_at": "2026-03-11T14:49:02-05:00",
+  "updated_at": "2026-03-11T14:49:02-05:00"
+}

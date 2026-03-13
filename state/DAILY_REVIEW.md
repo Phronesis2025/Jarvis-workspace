@@ -52,10 +52,86 @@ Date: 2026-03-09
 - Commands run: cd c:\dev\wcsv2.0-new; npm run build, cd c:\dev\wcsv2.0-new; npm run test:e2e:smoke
 - Reconciled at: 2026-03-09T20:22:30-05:00
 
-### WCS-004 — blocked
+### WCS-004 — done
 - Title: Improve empty Around the WCS state
 - Worker: Improved the empty 'Around the WCS' state in TeamUpdates by replacing the generic message with friendlier copy and increasing padding so the card looks intentional instead of broken.
 - QA: Partial QA only. Build passed, but automated smoke QA was unavailable in this branch and manual browser verification did not reproduce the empty-state condition for 'Around the WCS', so the acceptance criteria could not be confirmed.
 - Files changed: src/components/TeamUpdates.tsx
 - Commands run: cd c:\dev\wcsv2.0-new; npm run build, cd c:\dev\wcsv2.0-new; npx playwright test tests/e2e/home.spec.ts
 - Reconciled at: 2026-03-09T20:35:32-05:00
+
+### WCS-005 — done
+- Title: Make footer email signup form functional
+- Worker: Wired the footer email signup form to open a prefilled mailto to info@wcsbasketball.com using the entered address, and ensured the app still builds and the home smoke Playwright test passes.
+- QA: Verified that the footer email signup form now opens a prefilled mailto to info@wcsbasketball.com using the entered address, and that build and home smoke QA still pass.
+- Files changed: src/components/Footer.tsx
+- Commands run: npm run build, npm run test:e2e:smoke
+- Reconciled at: 2026-03-11T13:35:42-05:00
+
+### WCS-009 — done
+- Title: Improve LogoMarquee response.ok handling and fallback
+- Worker: Improved LogoMarquee API error handling by logging non-OK responses from the /api/teams endpoint while preserving the existing fallback behavior.
+- QA: Confirmed that LogoMarquee now logs a devError when /api/teams returns a non-OK response while preserving the existing success path and fallback behavior, and that build and home smoke QA still pass.
+- Files changed: src/components/LogoMarquee.tsx
+- Commands run: npm run build, npm run test:e2e:smoke
+- Reconciled at: 2026-03-11T14:19:09-05:00
+
+### WCS-010 — done
+- Title: Show fallback message instead of hiding TodaysEvents on error
+- Worker: Updated TodaysEvents to show a clear fallback message when an error occurs instead of rendering nothing, while keeping the normal loading and no-events behaviors unchanged.
+- QA: Verified that TodaysEvents now shows a visible fallback message when an error occurs instead of disappearing, while the normal loading and no-events behaviors remain unchanged and existing build and smoke QA still pass.
+- Files changed: src/components/TodaysEvents.tsx
+- Commands run: npm run build, npm run test:e2e:smoke
+- Reconciled at: 2026-03-11T15:09:54-05:00
+
+### WCS-016 — done
+- Title: Flip TestSiteBanner background from black to white
+- Worker: Updated src/components/TestSiteBanner.tsx to change the banner background from amber to white for the bounded WCS-016 fake hardening task.
+- QA: Build passed and Playwright home smoke QA passed after updating TestSiteBanner background to white on the WCS-016 task branch.
+- Files changed: src/components/TestSiteBanner.tsx
+- Commands run: git branch --show-current, git status, git add .\src\components\TestSiteBanner.tsx, git commit -m "WCS-016 fake hardening test: flip TestSiteBanner background to white"
+- Repo path: C:\dev\wcsv2.0-new
+- Verified branch: jarvis-task-wcs-016
+- Commits ahead of main: 1
+- HEAD commit: 190060c
+- Branch verified at: 2026-03-12T08:11:07-05:00
+- Reconciled at: 2026-03-12T08:11:07-05:00
+
+### WCS-017 — done
+- Title: Flip TestSiteBanner background from white back to black
+- Worker: Updated src/components/TestSiteBanner.tsx to change the banner background from amber to black for the bounded WCS-017 fake hardening task.
+- QA: Build passed and Playwright home smoke QA passed after updating TestSiteBanner background to black on the WCS-017 task branch.
+- Files changed: src/components/TestSiteBanner.tsx
+- Commands run: git branch --show-current, git status, git add .\src\components\TestSiteBanner.tsx, git commit -m "WCS-017 fake hardening test: flip TestSiteBanner background to black"
+- Repo path: C:\dev\wcsv2.0-new
+- Verified branch: jarvis-task-wcs-017
+- Commits ahead of main: 1
+- HEAD commit: 197dce7
+- Branch verified at: 2026-03-12T11:54:49-05:00
+- Reconciled at: 2026-03-12T11:54:49-05:00
+
+### WCS-018 — done
+- Title: Flip TestSiteBanner text color from white to black
+- Worker: Updated src/components/TestSiteBanner.tsx to change the banner text color to black for the bounded WCS-018 fake hardening task.
+- QA: Build passed and Playwright home smoke QA passed after updating TestSiteBanner text color to black on the WCS-018 task branch.
+- Files changed: src/components/TestSiteBanner.tsx
+- Commands run: git branch --show-current, git status, git add .\src\components\TestSiteBanner.tsx, git commit -m "WCS-018 fake hardening test: flip TestSiteBanner text color to black"
+- Repo path: C:\dev\wcsv2.0-new
+- Verified branch: jarvis-task-wcs-018
+- Commits ahead of main: 1
+- HEAD commit: cd40f04
+- Branch verified at: 2026-03-12T14:21:14-05:00
+- Reconciled at: 2026-03-12T14:21:14-05:00
+
+### WCS-019 — done
+- Title: Flip TestSiteBanner text color from black back to white
+- Worker: Updated TestSiteBanner for WCS-019, verified bounded worker-side file scope, and created a task-scoped commit that passed commit gate validation.
+- QA: Build passed, but Playwright smoke QA failed because the app server at http://localhost:3000 did not become ready within 90 seconds during global setup.
+- Files changed: src/components/TestSiteBanner.tsx
+- Commands run: python .\worker_change_check.py --task WCS-019, python .\commit_gate_check.py --task WCS-019
+- Repo path: C:\dev\wcsv2.0-new
+- Verified branch: jarvis-task-wcs-019
+- Commits ahead of main: 1
+- HEAD commit: 39931ce
+- Branch verified at: 2026-03-12T22:58:37-05:00
+- Reconciled at: 2026-03-12T22:58:37-05:00

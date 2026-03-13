@@ -1,0 +1,19 @@
+{
+  "task_id": "WCS-034",
+  "status": "escalated",
+  "qa_tool": "manual operator QA via Next build and Playwright smoke",
+  "summary": "QA evidence was escalated after Playwright global setup failed and the local app server did not become ready.",
+  "checks_run": [
+    "npm run build",
+    "npm run test:e2e:smoke"
+  ],
+  "checks_passed": [
+    "npm run build"
+  ],
+  "checks_failed": [
+    "npm run test:e2e:smoke"
+  ],
+  "artifacts": [],
+  "notes": "Server at http://localhost:3000 did not become ready within 90 seconds. Start the app with 'npm run dev' and rerun smoke QA.",
+  "completed_at": ""
+}
