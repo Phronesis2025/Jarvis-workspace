@@ -4,7 +4,7 @@
 - Last reviewed: 2026-03-13
 - Last updated: 2026-03-13
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; next hardening priority advanced)
+- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; next hardening priority advanced)
 
 ## Purpose
 
@@ -379,6 +379,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] QA execution reliability hardening for local WCS smoke QA (Playwright `webServer` now starts `npm run dev` when no E2E_BASE_URL/NEXT_PUBLIC_BASE_URL is set)
 - [x] Build `qa_failure_triage.py` as a read-only helper to classify QA failures and suggest bounded next actions without mutating state
 - [x] Build `stamp_guard_check.py` as a read-only pre-stamp guardrail to prevent stamping placeholder/draft/incomplete worker/QA results
+- [x] Build `file_registry_check.py` as a read-only file-registry drift/coverage checker (helper/hardening surface, not in core task loop) — **live**
 - [ ] Only then consider scheduling
 - [ ] Only after that consider more workers
 

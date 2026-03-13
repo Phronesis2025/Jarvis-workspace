@@ -4,8 +4,8 @@
 ## Live Doc Status
 - Last reviewed: 2026-03-13
 - Last updated: 2026-03-13
+- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, and file-registry checker documented as current truth; proven across WCS-016–WCS-019)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, and stamping documented as current truth; proven across WCS-016, WCS-017, WCS-018, and WCS-019)
 
 ## Purpose
 
@@ -99,6 +99,8 @@ WCS-019 is now a full completed/reconciled live loop proof under this hardened p
 - `post_reconcile_validate.py` PASS
 
 After QA failures or ambiguous results, `qa_failure_triage.py --task WCS-XXX` can be run as a strictly read-only helper to classify the failure (`environment_setup_failure`, `test_harness_failure`, `application_regression`, or `ambiguous`) and recommend the next bounded action without mutating any state.
+
+For hardening-surface checks (not part of the core task loop), `file_registry_check.py --workspace <path>` can be run as a read-only file-registry drift/coverage checker: it verifies that `file_registry.json` and `FILE_REGISTRY.md` exist, parse, and list the core hardening scripts and docs; it does not modify the registry.
 
 ## Current process reality
 

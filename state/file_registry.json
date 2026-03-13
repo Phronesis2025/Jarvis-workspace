@@ -33,6 +33,17 @@
     "last_reviewed": "2026-03-12"
   },
   {
+    "file": "JARVIS_SCRIPT_PROCESS_REFERENCE.md",
+    "path": "C:\\dev\\jarvis-workspace\\JARVIS_SCRIPT_PROCESS_REFERENCE.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Live reference for Jarvis WCS task execution process and hardening helpers",
+    "updated_by": "user",
+    "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates and pre-stamp checks",
+    "last_reviewed": "2026-03-13"
+  },
+  {
     "file": "master_backlog.json",
     "path": "C:\\dev\\jarvis-workspace\\state\\master_backlog.json",
     "category": "state",
@@ -101,7 +112,7 @@
     "purpose": "Machine-readable file registry",
     "updated_by": "user / jarvis_script",
     "notes": "Source for FILE_REGISTRY.md; aligned to current live hardening state",
-    "last_reviewed": "2026-03-12"
+    "last_reviewed": "2026-03-13"
   },
   {
     "file": "FILE_REGISTRY.md",
@@ -513,6 +524,28 @@
     "purpose": "Idea backlog for short-term modules and longer-term agent business concepts",
     "updated_by": "user",
     "notes": "Reusable idea backlog aligned with current Jarvis architecture"
+  },
+  {
+    "file": "JARVIS_TASK_EXECUTION_CHECKLIST.md",
+    "path": "C:\\dev\\jarvis-workspace\\JARVIS_TASK_EXECUTION_CHECKLIST.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Live execution checklist for bounded Jarvis WCS tasks",
+    "updated_by": "user",
+    "notes": "Defines current live execution phases for Jarvis-controlled WCS loop, including guardrails and helpers",
+    "last_reviewed": "2026-03-13"
+  },
+  {
+    "file": "JARVIS_LIVE_HANDOFF_BUNDLE.md",
+    "path": "C:\\dev\\jarvis-workspace\\JARVIS_LIVE_HANDOFF_BUNDLE.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Live handoff bundle describing current Jarvis system truth, hardening state, and helper surfaces",
+    "updated_by": "user",
+    "notes": "Aggregates current live system decisions, hardened loop surfaces, and helper scripts for Jarvis rebuild",
+    "last_reviewed": "2026-03-13"
   },
   {
     "file": "manual_loop_checklist.md",
