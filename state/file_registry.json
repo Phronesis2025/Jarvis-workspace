@@ -792,5 +792,16 @@
     "updated_by": "user",
     "notes": "Reads state/file_registry.json and writes state/FILE_REGISTRY.md in the approved registry format; keeps the markdown registry rendered from JSON; strictly read-only except for writing FILE_REGISTRY.md",
     "last_reviewed": "2026-03-13"
+  },
+  {
+    "file": "critical_surface_health_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\critical_surface_health_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only sanity checker for critical Jarvis hardening surface",
+    "updated_by": "user",
+    "notes": "Verifies critical scripts/docs/registry exist, critical helpers compile, and file_registry_check + naming_drift_check pass; does not run full task loop or mutate state",
+    "last_reviewed": "2026-03-13"
   }
 ]

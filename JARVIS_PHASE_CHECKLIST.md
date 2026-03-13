@@ -332,7 +332,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 ### Checklist
 - [x] Build `render_file_registry.py`
 - [x] Stop hand-maintaining `FILE_REGISTRY.md` (now rendered from file_registry.json by render_file_registry.py)
-- [ ] Add health checks for new critical scripts/configs
+- [x] Add health checks for new critical scripts/configs — **live via `critical_surface_health_check.py`** (read-only sanity check: existence, compile, and file_registry_check + naming_drift_check pass)
 - [ ] Harden all script wrappers
 - [ ] Standardize output log locations
 - [ ] Reduce naming drift across docs/state/scripts
@@ -381,6 +381,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `stamp_guard_check.py` as a read-only pre-stamp guardrail to prevent stamping placeholder/draft/incomplete worker/QA results
 - [x] Build `file_registry_check.py` as a read-only file-registry drift/coverage checker (helper/hardening surface, not in core task loop) — **live**
 - [x] Build `naming_drift_check.py` as a read-only naming-drift helper for core hardening scripts/docs/registry entries (helper/hardening surface, not in core task loop) — **live**
+- [x] Build `critical_surface_health_check.py` as a read-only sanity checker for the critical hardening surface (existence, compile, and registry/naming helper runs) — **live**
 - [ ] Only then consider scheduling
 - [ ] Only after that consider more workers
 
