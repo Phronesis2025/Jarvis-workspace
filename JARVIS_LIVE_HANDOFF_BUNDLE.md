@@ -2817,6 +2817,18 @@ The operator verifies:
 * `state/DAILY_REVIEW.md`
 * `state/project_status_wcs.json`
 
+**Local machine-state handling:** `state/project_status_wcs.json` is machine-specific local state and should normally stay out of commits. To avoid Git status noise from local path/config differences, you can run:
+
+```text
+git update-index --skip-worktree .\state\project_status_wcs.json
+```
+
+When you intentionally need to edit or commit this file later, restore tracking with:
+
+```text
+git update-index --no-skip-worktree .\state\project_status_wcs.json
+```
+
 ## Packet and result files
 
 * `tasks/WCS-XXX_task.json`
@@ -4724,6 +4736,7 @@ They are not the blocker now.
 - Cursor handoff building is now live via `build_cursor_handoff.py` as a workflow helper that writes bounded, copy/paste-ready handoff files from task packets (does not execute tasks or mutate state). It fails with exit code 1 and does not write a handoff file when bounded file scope cannot be derived from the task packet.
 - Task-cycle summary building is now live via `build_task_cycle_summary.py` as a workflow helper that reads current task packet, worker result, and QA result (when present) and writes a human-readable markdown summary under `scratch/task_cycle_summaries/` for a single WCS task cycle; it does not execute tasks, change task state, or mutate backlog/results.
 - Guarded task-cycle orchestration is now live via `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs the existing guarded task-cycle scripts in order and stops on the first failure; it does not replace their logic, execute worker code directly, or schedule tasks.
+- Next-task selection is now live via `select_next_ready_task.py` as a read-only workflow helper that selects the next eligible ready task from backlog/planning surfaces using deterministic ranking; it does not mutate state or launch execution.
 - Next hardening focus areas:
   - manual naming drift cleanup guided by `naming_drift_check.py`
   - optional: further registry automation or script wrappers

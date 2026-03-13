@@ -15,6 +15,8 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Workflow helper:** `run_guarded_task_cycle.py --task WCS-XXX --mode pre_worker|post_worker|full` runs the existing guarded task-cycle scripts in order and stops on the first failure. Use this only as an orchestrator around the current helpers; it does not replace their logic, execute worker code directly, or schedule tasks.
 
+**Workflow helper:** `select_next_ready_task.py [--project WCS] [--limit N]` selects the next eligible ready task from the backlog and reports ranked candidates and skip reasons; read-only, does not mutate state.
+
 ## Core rules for all Cursor prompts
 
 Use these rules in every prompt unless a specific template intentionally overrides them:
