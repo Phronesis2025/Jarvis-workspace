@@ -1,0 +1,421 @@
+"""
+Cursor worker execution wrapper for the Jarvis WCS task loop.
+Prefers the real Cursor Agent CLI when available; falls back to the desktop cursor launcher.
+Attempts to run the generated Cursor handoff; fails or blocks clearly if execution is unavailable.
+Does not fabricate worker completion. Bridge between pre-worker prep and post-worker validation.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+from typing import Any, List, Optional, Tuple
+
+
+def normalize_text(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value.strip()
+    return str(value).strip()
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Worker execution wrapper: attempt to run the generated Cursor handoff for a WCS task. "
+            "Fails or blocks clearly if Cursor execution is not available in this environment."
+        )
+    )
+    parser.add_argument("--task", required=True, help="Task id, e.g. WCS-040")
+    parser.add_argument(
+        "--workspace",
+        help="Jarvis workspace root (default: parent of scripts/).",
+    )
+    parser.add_argument(
+        "--handoff",
+        help=(
+            "Path to handoff markdown file. "
+            "Default: scratch/cursor_handoffs/<task>_cursor_handoff.md"
+        ),
+    )
+    return parser.parse_args()
+
+
+def validate_task_id(raw: str) -> str:
+    t = normalize_text(raw).upper()
+    if not re.match(r"^WCS-\d+$", t):
+        raise ValueError(f"Task id must match WCS-NNN. Got: {raw!r}")
+    return t
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def run_git(repo_path: Path, args: List[str]) -> Tuple[int, str]:
+    proc = subprocess.run(
+        ["git", *args],
+        cwd=str(repo_path),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=10,
+    )
+    out = (proc.stdout or "").strip()
+    if proc.stderr:
+        out = f"{out}\n{proc.stderr.strip()}" if out else proc.stderr.strip()
+    return proc.returncode, out
+
+
+def main() -> int:
+    args = parse_args()
+
+    try:
+        task_id = validate_task_id(args.task)
+    except ValueError as e:
+        print("RUN CURSOR WORKER: FAIL")
+        print(f"Task: {normalize_text(args.task).upper() or '(missing)'}")
+        print("Reason: Invalid task id.")
+        print(f"Detail: {e}")
+        return 1
+
+    script_dir = Path(__file__).resolve().parent
+    workspace = Path(args.workspace).resolve() if args.workspace else script_dir.parent
+    if not workspace.exists():
+        print("RUN CURSOR WORKER: FAIL")
+        print(f"Task: {task_id}")
+        print(f"Workspace: {workspace}")
+        print("Reason: Workspace path does not exist.")
+        return 1
+
+    handoff_path: Path
+    if args.handoff:
+        handoff_path = Path(args.handoff).resolve()
+    else:
+        handoff_path = workspace / "scratch" / "cursor_handoffs" / f"{task_id}_cursor_handoff.md"
+
+    if not handoff_path.is_file():
+        print("RUN CURSOR WORKER: FAIL")
+        print(f"Task: {task_id}")
+        print(f"Workspace: {workspace}")
+        print(f"Handoff path: {handoff_path}")
+        print("Reason: Handoff file does not exist.")
+        return 1
+
+    task_packet_path = workspace / "tasks" / f"{task_id}_task.json"
+    if not task_packet_path.is_file():
+        print("RUN CURSOR WORKER: FAIL")
+        print(f"Task: {task_id}")
+        print(f"Workspace: {workspace}")
+        print("Reason: Task packet does not exist.")
+        print(f"Expected: {task_packet_path}")
+        return 1
+
+    try:
+        packet = read_json(task_packet_path)
+    except Exception as e:
+        print("RUN CURSOR WORKER: FAIL")
+        print(f"Task: {task_id}")
+        print(f"Reason: Could not read task packet: {e}")
+        return 1
+
+    if not isinstance(packet, dict):
+        print("RUN CURSOR WORKER: FAIL")
+        print(f"Task: {task_id}")
+        print("Reason: Task packet must be a JSON object.")
+        return 1
+
+    expected_branch = normalize_text(packet.get("branch_name") or "")
+    if not expected_branch:
+        expected_branch = f"jarvis-task-{task_id.lower()}"
+
+    raw_repo = normalize_text(packet.get("repo_path") or "")
+    if not raw_repo:
+        print("RUN CURSOR WORKER: FAIL")
+        print(f"Task: {task_id}")
+        print(f"Workspace: {workspace}")
+        print("Reason: Task packet has no repo_path. Execution requires a valid task repo workspace.")
+        print(f"Expected: repo_path in {task_packet_path}")
+        return 1
+    repo_path = Path(raw_repo).resolve()
+    if not repo_path.exists():
+        print("RUN CURSOR WORKER: FAIL")
+        print(f"Task: {task_id}")
+        print(f"Workspace: {workspace}")
+        print(f"Repo path from packet: {repo_path}")
+        print("Reason: Task repo path does not exist.")
+        return 1
+    if not repo_path.is_dir():
+        print("RUN CURSOR WORKER: FAIL")
+        print(f"Task: {task_id}")
+        print(f"Workspace: {workspace}")
+        print(f"Repo path from packet: {repo_path}")
+        print("Reason: Task repo path is not a directory.")
+        return 1
+
+    current_branch: Optional[str] = None
+    try:
+        code, out = run_git(repo_path, ["branch", "--show-current"])
+        if code == 0 and out:
+            current_branch = out.strip()
+    except Exception:
+        pass
+
+    agent_cmd = _find_agent_cli()
+    if agent_cmd is not None:
+        return _run_via_agent(
+            agent_cmd=agent_cmd,
+            workspace=workspace,
+            handoff_path=handoff_path,
+            task_id=task_id,
+            expected_branch=expected_branch,
+            current_branch=current_branch,
+            repo_path=repo_path,
+        )
+    cursor_cmd = _find_cursor_cli()
+    if cursor_cmd is not None:
+        return _run_via_cursor_launcher(
+            cursor_cmd=cursor_cmd,
+            workspace=workspace,
+            handoff_path=handoff_path,
+            task_id=task_id,
+            expected_branch=expected_branch,
+            current_branch=current_branch,
+            repo_path=repo_path,
+        )
+    print("RUN CURSOR WORKER: BLOCKED")
+    print(f"Task: {task_id}")
+    print(f"Jarvis workspace: {workspace}")
+    print(f"Task repo workspace: {repo_path}")
+    print(f"Handoff path: {handoff_path}")
+    print("Reason: Cursor execution is not available in the current environment.")
+    print("Detail: Neither 'agent' CLI nor 'cursor' launcher found on PATH. Install Cursor Agent CLI or Cursor CLI, or run the handoff manually in the IDE.")
+    print("Worker result: not written (no execution performed).")
+    return 2
+
+
+def _run_via_agent(
+    agent_cmd: str,
+    workspace: Path,
+    handoff_path: Path,
+    task_id: str,
+    expected_branch: str,
+    current_branch: Optional[str],
+    repo_path: Path,
+) -> int:
+    """Run handoff via real Cursor Agent CLI (agent --print --workspace <repo_path> --trust ...)."""
+    # Prefer passing handoff content directly when small enough (Windows cmd limit ~8191)
+    max_prompt_chars = 6000
+    try:
+        content = handoff_path.read_text(encoding="utf-8")
+        if len(content) <= max_prompt_chars:
+            prompt = content
+        else:
+            prompt = (
+                f"Read and execute the 'Cursor implementation prompt' section from the handoff file at: {handoff_path}. "
+                "Implement the WCS task described there; stay bounded to the expected file scope and rules in the handoff."
+            )
+    except OSError:
+        prompt = (
+            f"Read and execute the 'Cursor implementation prompt' section from the handoff file at: {handoff_path}. "
+            "Implement the WCS task described there; stay bounded to the expected file scope and rules in the handoff."
+        )
+    args = [
+        agent_cmd,
+        "--print",
+        "--workspace", str(repo_path),
+        "--trust",
+        prompt,
+    ]
+    timeout_seconds = 600
+    try:
+        proc = subprocess.run(
+            args,
+            cwd=str(repo_path),
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=timeout_seconds,
+        )
+    except subprocess.TimeoutExpired:
+        print("RUN CURSOR WORKER: BLOCKED")
+        print(f"Task: {task_id}")
+        print(f"Jarvis workspace: {workspace}")
+        print(f"Task repo workspace: {repo_path}")
+        print(f"Handoff path: {handoff_path}")
+        print("Reason: Real Agent CLI did not finish within timeout.")
+        print(f"Detail: agent command timed out after {timeout_seconds}s.")
+        print("Worker result: not written (execution did not complete).")
+        return 2
+    except Exception as e:
+        print("RUN CURSOR WORKER: BLOCKED")
+        print(f"Task: {task_id}")
+        print(f"Jarvis workspace: {workspace}")
+        print(f"Task repo workspace: {repo_path}")
+        print(f"Handoff path: {handoff_path}")
+        print("Reason: Real Agent CLI invocation failed.")
+        print(f"Detail: {e}")
+        print("Worker result: not written (no execution performed).")
+        return 2
+    if proc.returncode != 0:
+        print("RUN CURSOR WORKER: BLOCKED")
+        print(f"Task: {task_id}")
+        print(f"Jarvis workspace: {workspace}")
+        print(f"Task repo workspace: {repo_path}")
+        print(f"Handoff path: {handoff_path}")
+        print("Reason: Real Agent CLI returned non-zero exit code.")
+        print(f"Exit code: {proc.returncode}")
+        if proc.stderr:
+            stderr_snippet = proc.stderr.strip()[:500]
+            print(f"Stderr: {stderr_snippet}")
+            if "Authentication required" in proc.stderr or "agent login" in proc.stderr:
+                print("Hint: If authentication is required, run `agent login` and retry.")
+        print("Worker result: not written (execution did not complete successfully).")
+        return 2
+    print("RUN CURSOR WORKER: PASS")
+    print(f"Task: {task_id}")
+    print(f"Jarvis workspace: {workspace}")
+    print(f"Task repo workspace: {repo_path}")
+    print(f"Handoff path: {handoff_path}")
+    print("Cursor execution: Real Agent CLI attempted (exited 0).")
+    print("Worker result: not written (scripted Agent does not provide completion evidence; operator must verify and finalize worker result after reviewing agent output).")
+    if expected_branch:
+        print(f"Expected branch: {expected_branch}")
+    if current_branch:
+        print(f"Current branch: {current_branch}")
+    print("Summary: Handoff was passed to Cursor Agent CLI with task repo workspace. Verify task completion and run post_worker flow (e.g. run_guarded_task_cycle --mode post_worker) to finalize worker result.")
+    return 0
+
+
+def _run_via_cursor_launcher(
+    cursor_cmd: str,
+    workspace: Path,
+    handoff_path: Path,
+    task_id: str,
+    expected_branch: str,
+    current_branch: Optional[str],
+    repo_path: Path,
+) -> int:
+    """Run handoff via desktop cursor launcher (cursor <handoff_path>); cwd is task repo."""
+    proc = subprocess.run(
+        [cursor_cmd, str(handoff_path)],
+        cwd=str(repo_path),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=30,
+    )
+    if proc.returncode != 0:
+        print("RUN CURSOR WORKER: BLOCKED")
+        print(f"Task: {task_id}")
+        print(f"Jarvis workspace: {workspace}")
+        print(f"Task repo workspace: {repo_path}")
+        print(f"Handoff path: {handoff_path}")
+        print("Reason: Desktop launcher process returned non-zero exit code.")
+        print(f"Failed command: {cursor_cmd} {handoff_path}")
+        print(f"Exit code: {proc.returncode}")
+        if proc.stderr:
+            print(f"Stderr: {proc.stderr.strip()[:500]}")
+        print("Worker result: not written (execution did not complete successfully).")
+        return 2
+    print("RUN CURSOR WORKER: PASS")
+    print(f"Task: {task_id}")
+    print(f"Jarvis workspace: {workspace}")
+    print(f"Task repo workspace: {repo_path}")
+    print(f"Handoff path: {handoff_path}")
+    print("Cursor execution: Desktop launcher fallback attempted (exited 0).")
+    print("Worker result: not written (scripted Cursor does not provide completion evidence; operator must finalize worker result after completing the task in the IDE).")
+    if expected_branch:
+        print(f"Expected branch: {expected_branch}")
+    if current_branch:
+        print(f"Current branch: {current_branch}")
+    print("Summary: Handoff was passed to Cursor. Complete the task in the IDE (task repo workspace), then run the post_worker flow (e.g. run_guarded_task_cycle --mode post_worker).")
+    return 0
+
+
+def _find_agent_cli() -> Optional[str]:
+    """Prefer real Cursor Agent CLI when available. Uses Windows-aware detection."""
+    # Try shutil.which with multiple names (works on all platforms)
+    for name in ("agent", "agent.cmd", "agent.exe", "agent.bat"):
+        path = shutil.which(name)
+        if path:
+            return path
+    # On Windows, shutil.which often misses commands that work in PowerShell/cmd
+    if sys.platform == "win32":
+        path = _find_agent_cli_via_where()
+        if path:
+            return path
+    return None
+
+
+def _find_agent_cli_via_where() -> Optional[str]:
+    """Windows fallback: use 'where agent' / 'where agent.cmd' to find first valid path."""
+    for name in ("agent", "agent.cmd"):
+        try:
+            proc = subprocess.run(
+                ["cmd", "/c", "where", name],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                timeout=5,
+            )
+            if proc.returncode != 0:
+                continue
+            for line in (proc.stdout or "").strip().splitlines():
+                candidate = line.strip()
+                if not candidate or candidate.upper().startswith("INFO:"):
+                    continue
+                if Path(candidate).exists():
+                    return candidate
+        except (subprocess.TimeoutExpired, OSError, ValueError):
+            continue
+    # PowerShell sometimes sees agent when cmd/which do not (e.g. profile PATH)
+    try:
+        proc = subprocess.run(
+            [
+                "powershell",
+                "-NoProfile",
+                "-Command",
+                "(Get-Command agent -ErrorAction SilentlyContinue).Source",
+            ],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=10,
+        )
+        if proc.returncode == 0 and proc.stdout:
+            candidate = proc.stdout.strip().splitlines()[0].strip()
+            if candidate and Path(candidate).exists():
+                return candidate
+    except (subprocess.TimeoutExpired, OSError, ValueError):
+        pass
+    return None
+
+
+def _find_cursor_cli() -> Optional[str]:
+    cursor = shutil.which("cursor")
+    if cursor:
+        return cursor
+    cursor = shutil.which("Cursor")
+    if cursor:
+        return cursor
+    if sys.platform == "win32":
+        for name in ("cursor.cmd", "Cursor.cmd", "cursor.exe", "Cursor.exe"):
+            c = shutil.which(name)
+            if c:
+                return c
+    return None
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
