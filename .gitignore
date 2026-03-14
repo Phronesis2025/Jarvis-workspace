@@ -27,3 +27,6 @@ playwright-report/
 __pycache__/
 *.pyc
 scratch/
+
+# Generated handoff bundle snapshots
+JARVIS_NEW_CHAT_HANDOFF_BUNDLE*.md
