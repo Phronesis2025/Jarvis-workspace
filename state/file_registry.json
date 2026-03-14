@@ -41,7 +41,7 @@
     "purpose": "Live reference for Jarvis WCS task execution process and hardening helpers",
     "updated_by": "user",
     "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates and pre-stamp checks",
-    "last_reviewed": "2026-03-13"
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "master_backlog.json",
@@ -112,7 +112,7 @@
     "purpose": "Machine-readable file registry",
     "updated_by": "user / jarvis_script",
     "notes": "Source for FILE_REGISTRY.md; aligned to current live hardening state",
-    "last_reviewed": "2026-03-13"
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "FILE_REGISTRY.md",
@@ -123,7 +123,7 @@
     "purpose": "Human-readable file registry",
     "updated_by": "user / future renderer",
     "notes": "Human-readable registry view rendered from file_registry.json by render_file_registry.py; aligned to current live hardening state",
-    "last_reviewed": "2026-03-13"
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "render_master_backlog.py",
@@ -545,7 +545,7 @@
     "purpose": "Live handoff bundle describing current Jarvis system truth, hardening state, and helper surfaces",
     "updated_by": "user",
     "notes": "Aggregates current live system decisions, hardened loop surfaces, and helper scripts for Jarvis rebuild",
-    "last_reviewed": "2026-03-13"
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "manual_loop_checklist.md",
@@ -757,7 +757,7 @@
     "owner": "jarvis_script",
     "purpose": "Draft truthful worker result JSON from task packet and repo evidence",
     "updated_by": "user",
-    "notes": "Does not stamp, reconcile, or fabricate completion; operator reviews draft before post-worker; live and proven (e.g. WCS-042)",
+    "notes": "Does not stamp, reconcile, or fabricate completion; supports repeatable explicit --command values to populate truthful commands_run, trims/drops empty values, rejects placeholder-only command evidence, and requires at least one meaningful command for worker_complete; operator reviews draft before post-worker; live and proven on WCS-042",
     "last_reviewed": "2026-03-14"
   },
   {

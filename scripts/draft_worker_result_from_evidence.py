@@ -53,6 +53,13 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Write results/WCS-XXX_worker_result.json; without this, dry-run only.",
     )
+    parser.add_argument(
+        "--command",
+        action="append",
+        default=[],
+        metavar="TEXT",
+        help="Truthful command or step run (repeatable). Required when drafting worker_complete result.",
+    )
     return parser.parse_args()
 
 
@@ -128,6 +135,22 @@ def get_changed_files_head_commit(repo_path: Path) -> List[str]:
         return []
     lines = [ln.strip().replace("\\", "/") for ln in out.splitlines() if ln.strip()]
     return lines
+
+
+PLACEHOLDER_COMMANDS = {"todo", "tbd", "placeholder"}
+
+
+def normalize_commands(raw: List[str]) -> List[str]:
+    """Trim, drop empty, and drop obvious placeholders. Does not invent or derive."""
+    out: List[str] = []
+    for item in raw:
+        s = normalize_text(item)
+        if not s:
+            continue
+        if s.lower() in PLACEHOLDER_COMMANDS:
+            continue
+        out.append(s)
+    return out
 
 
 def main() -> int:
@@ -260,17 +283,29 @@ def main() -> int:
 
     notes = f"Evidence from {evidence_source}. Drafted by script; operator should review before post-worker."
 
+    commands_run = normalize_commands(args.command or [])
+
     draft = {
         "task_id": task_id,
         "status": "worker_complete",
         "executor": normalize_text(args.executor) or "cursor_agent",
         "summary": summary,
         "files_changed": sorted(changed),
-        "commands_run": [],
+        "commands_run": commands_run,
         "issues_encountered": [],
         "notes": notes,
         "completed_at": "",
     }
+
+    if draft["status"] == "worker_complete" and not commands_run:
+        print("DRAFT WORKER RESULT: FAIL")
+        print(f"Task: {task_id}")
+        print(f"Workspace: {workspace}")
+        print(
+            "Reason: Worker result status is worker_complete; at least one meaningful --command is required for stamp guard. "
+            "Provide one or more --command <text> with actual commands run."
+        )
+        return 1
 
     out_path = workspace / "results" / f"{task_id}_worker_result.json"
     written = False

@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: guarded-flow optional QA-draft in run_guarded_task_cycle)
+- Last updated: 2026-03-14 (doc pass: worker-result command-evidence hardening for draft_worker_result_from_evidence.py)
 - Status: active reusable template set for common Jarvis/Cursor actions
 
 ## Purpose
@@ -21,7 +21,9 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Workflow helper:** `run_cursor_worker.py --task WCS-XXX [--workspace <path>] [--handoff <path>]` is the Cursor invocation bridge: runs Agent (or cursor launcher) against the task repo workspace from the packet (`repo_path`); uses `--trust` for non-interactive Agent execution; reports PASS/BLOCKED/FAIL honestly; does not prove completion or write worker_complete; operator still verifies completion and finalizes worker-result evidence.
 
-**Workflow helper:** `draft_worker_result_from_evidence.py --task WCS-XXX [--workspace <path>] [--executor <label>] [--mode working_tree|head_auto] [--write]` drafts a truthful worker result JSON from task packet and repo evidence (branch, changed files). Does not stamp or fabricate completion; operator should review before post-worker.
+**Workflow helper:** `draft_worker_result_from_evidence.py --task WCS-XXX [--workspace <path>] [--executor <label>] [--mode working_tree|head_auto] --command "<truthful step>" [--command "<truthful step>"] [--write]` drafts a truthful worker result JSON from task packet and repo evidence (branch, changed files). Explicit `--command` values populate `commands_run`; entries are trimmed, empty values are dropped, and placeholder-only values like `todo`, `tbd`, and `placeholder` are rejected. For `worker_complete`, at least one meaningful `--command` is required or the draft fails. Does not stamp or fabricate completion; operator should review before post-worker.
+
+**Worker-result drafting example:** `python scripts/draft_worker_result_from_evidence.py --task WCS-XXX --command "Implemented bounded change on task branch jarvis-task-wcs-xxx" [--write]`
 
 **Workflow helper:** `draft_qa_result_from_evidence.py --task WCS-XXX [--workspace <path>] [--build-status pass|fail|skip|unknown] [--smoke-status ...] [--manual-status ...] [--manual-check <text>] [--artifact <path>] [--note <text>] [--write]` drafts a truthful pre-stamp QA result JSON from operator-supplied evidence. Dry-run by default; does not stamp, reconcile, or fabricate evidence; operator should review before post-worker.
 

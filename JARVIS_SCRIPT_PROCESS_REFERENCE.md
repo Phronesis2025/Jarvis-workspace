@@ -3,8 +3,8 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: guarded-flow optional QA-draft integration; pre_worker unchanged; post_worker/full accept --draft-qa-result and QA evidence passthrough)
-- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker; proven across WCS-016–WCS-019 and full guarded cycle WCS-042; QA result drafting helper live and validator-proven)
+- Last updated: 2026-03-14 (doc pass: worker-result command-evidence hardening for draft_worker_result_from_evidence.py)
+- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker; proven across WCS-016–WCS-019 and full guarded cycle WCS-042; worker-result drafting now supports truthful explicit command evidence; QA result drafting helper live and validator-proven)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycle succeeded on WCS-042 (Agent-first run_cursor_worker, task repo workspace, draft_worker_result_from_evidence, stamp, QA, reconcile). draft_qa_result_from_evidence.py is built and validated (dry-run, write, qa_result_validate --mode pre-stamp for WCS-042).
 
@@ -667,25 +667,28 @@ This script is the Cursor invocation bridge: it runs Agent (or cursor launcher) 
 
 ### Role
 
-Worker-result drafting helper: builds a truthful `worker_result.json` from real task-packet and repo evidence (branch, changed files). Does not stamp, reconcile, or fabricate completion; operator should review the drafted result before guarded post-worker if appropriate.
+Worker-result drafting helper: builds a truthful `worker_result.json` from real task-packet and repo evidence (branch, changed files), plus explicit operator-supplied command evidence. Does not stamp, reconcile, or fabricate completion; operator should review the drafted result before guarded post-worker if appropriate.
 
 ### Current behavior
 
-- `--task WCS-XXX` required; `--workspace`, `--executor` (default `cursor_agent`), `--mode` (default `head_auto`: working tree if changed, else HEAD commit), `--write` (optional; without it, dry-run only)
+- `--task WCS-XXX` required; `--workspace`, `--executor` (default `cursor_agent`), `--mode` (default `head_auto`: working tree if changed, else HEAD commit), repeatable `--command <text>`, `--write` (optional; without it, dry-run only)
 - Loads task packet; requires valid `repo_path` and expected branch; requires current branch matches expected task branch
 - Derives expected file scope from packet (target_files, suspected_files, notes, etc.); determines changed files from working tree or HEAD commit per `--mode`
 - Fails if no changed files or if any changed file is outside expected scope; does not guess `files_changed`
-- Drafts JSON with `task_id`, `status` (worker_complete when evidence present), `executor`, `summary` (evidence-based), `files_changed` (from repo), `commands_run` (empty; script does not invent commands), `issues_encountered` ([]), `notes` (evidence source), `completed_at` (left blank; script does not stamp)
+- Normalizes `--command` entries by trimming whitespace, dropping empty values, and rejecting obvious placeholders such as `todo`, `tbd`, and `placeholder`
+- Drafts JSON with `task_id`, `status` (worker_complete when evidence present), `executor`, `summary` (evidence-based), `files_changed` (from repo), `commands_run` (from explicit meaningful `--command` values only), `issues_encountered` ([]), `notes` (evidence source), `completed_at` (left blank; script does not stamp)
+- For `worker_complete`, requires one or more meaningful `--command` values or fails clearly before writing; this closes the practical gap where `worker_result_validate.py --mode pre-stamp` could pass but `stamp_guard_check.py` could still fail on empty `commands_run`
+- Does not auto-infer or fabricate commands from `evidence_source`; `commands_run` only reflects operator-supplied `--command` text
 - Without `--write`: prints PASS and drafted JSON to stdout, reports `Written: no`. With `--write`: writes `results/WCS-XXX_worker_result.json`
 
 ### Output
 
 - On success: `DRAFT WORKER RESULT: PASS`, task, workspace, repo path, expected/current branch, evidence source, output path, written yes/no, then the drafted JSON
-- On failure: `DRAFT WORKER RESULT: FAIL`, reason (e.g. missing packet, wrong branch, no changed files, file outside scope)
+- On failure: `DRAFT WORKER RESULT: FAIL`, reason (e.g. missing packet, wrong branch, no changed files, file outside scope, or missing meaningful `--command` evidence for `worker_complete`)
 
 ### Why it exists
 
-Provides a single helper to draft a truthful worker result from repo evidence so the operator does not have to hand-write it every time. Does not fabricate completion, commands, or QA/build claims; operator still reviews before post-worker.
+Provides a single helper to draft a truthful worker result from repo evidence plus explicit command evidence so the operator does not have to hand-write it every time. Does not fabricate completion, commands, or QA/build claims; operator still reviews before post-worker.
 
 ---
 

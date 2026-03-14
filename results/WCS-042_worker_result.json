@@ -6,7 +6,9 @@
   "files_changed": [
     "src/app/about/page.tsx"
   ],
-  "commands_run": [],
+  "commands_run": [
+    "Implemented change via Cursor agent on task branch jarvis-task-wcs-042"
+  ],
   "issues_encountered": [],
   "notes": "Evidence from head_commit. Drafted by script; operator should review before post-worker.",
   "completed_at": ""

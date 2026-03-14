@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: guarded-flow optional QA-draft integration)
+- Last updated: 2026-03-14 (doc pass: worker-result command-evidence hardening for draft_worker_result_from_evidence.py)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven)
 
@@ -390,6 +390,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `build_daily_execution_prep.py` as a workflow helper that prepares operator-facing daily execution prep by ensuring packet availability (invoking `generate_task_packet.py` when needed), then chaining handoff and summary helpers, without executing tasks or mutating state beyond approved helper outputs — **live**
 - [x] **Next major milestone:** Build Cursor invocation bridge (`run_cursor_worker.py`) — prefers real Agent CLI (`agent`) when available (Windows-hardened detection: which/where/PowerShell), falls back to desktop cursor launcher; attempts execution of generated handoff; reports PASS/BLOCKED/FAIL honestly; does not prove completion or write worker_complete; operator still verifies completion and finalizes worker-result evidence; system remains operator-assisted at the worker completion/evidence stage — **live**
 - [x] Build `draft_worker_result_from_evidence.py` as a worker-result drafting helper from task packet and repo evidence (branch, changed files); does not stamp, reconcile, or fabricate completion; operator reviews draft before post-worker — **live**
+- [x] Harden `draft_worker_result_from_evidence.py` so `worker_complete` drafting requires one or more meaningful repeatable `--command <text>` entries, populates `commands_run` from those explicit values only, rejects placeholder-only command evidence, and closes the validator/stamp-guard `commands_run` gap — **live and proven on WCS-042** (`worker_result_validate.py --mode pre-stamp` PASS, `stamp_guard_check.py` PASS)
 - [x] Real guarded end-to-end task cycle succeeded on WCS-042 (Agent-first run_cursor_worker, task repo workspace, draft_worker_result_from_evidence, stamp, QA, reconcile)
 - [x] Build `draft_qa_result_from_evidence.py` as a QA-result drafting helper from operator-supplied evidence (CLI: build/smoke/manual status); dry-run by default, `--write` to persist; pre-stamp only; does not stamp, reconcile, or fabricate evidence; operator reviews draft before post-worker — **live** (validator-proven, e.g. WCS-042 pre-stamp)
 - [ ] Only then consider scheduling
