@@ -119,12 +119,31 @@ def save_json(path: Path, data: Any) -> None:
 
 
 
+def is_path_like(value: str) -> bool:
+    """
+    Treat only clear repo-path-looking values as bounded file scope.
+    Examples: 'src/components/Hero.tsx', 'app/about/page.tsx'.
+    """
+    v = value.strip()
+    if not v:
+        return False
+    lower = v.lower()
+    if "/" in v:
+        return True
+    for ext in (".tsx", ".ts", ".jsx", ".js", ".css", ".scss", ".md"):
+        if lower.endswith(ext):
+            return True
+    return False
+
+
+
 def parse_notes_to_files(notes: str) -> list[str]:
     if not notes:
         return []
     cleaned = notes.replace("`", "").strip()
     parts = [part.strip() for part in re.split(r",|;", cleaned) if part.strip()]
-    return parts
+    # Only keep values that clearly look like bounded repo paths.
+    return [part for part in parts if is_path_like(part)]
 
 
 
@@ -194,6 +213,10 @@ def build_packet_json(item: dict[str, Any], project_cfg: dict[str, Any], dispatc
     project = item["project"]
     notes = str(item.get("notes", "") or "")
     suspected_files = parse_notes_to_files(notes)
+    if not suspected_files:
+        raise PacketGenerationError(
+            f"Unable to derive bounded file scope for task packet generation for {task_id}."
+        )
     ts = now_local()
     status = "dispatched" if dispatch else str(item.get("status", "ready") or "ready")
     if status not in VALID_STATUSES:
