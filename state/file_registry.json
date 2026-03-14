@@ -739,6 +739,39 @@
     "last_reviewed": "2026-03-12"
   },
   {
+    "file": "run_cursor_worker.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_cursor_worker.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Agent-first Cursor invocation bridge: prefers agent CLI, then cursor launcher; runs handoff against task repo workspace",
+    "updated_by": "user",
+    "notes": "Execution targets task repo (repo_path from packet); Agent uses --workspace and --trust; handoff content as prompt when small; does not fabricate worker completion; proven on WCS-042",
+    "last_reviewed": "2026-03-14"
+  },
+  {
+    "file": "draft_worker_result_from_evidence.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\draft_worker_result_from_evidence.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Draft truthful worker result JSON from task packet and repo evidence",
+    "updated_by": "user",
+    "notes": "Does not stamp, reconcile, or fabricate completion; operator reviews draft before post-worker; live and proven (e.g. WCS-042)",
+    "last_reviewed": "2026-03-14"
+  },
+  {
+    "file": "draft_qa_result_from_evidence.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\draft_qa_result_from_evidence.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Draft truthful QA result JSON from operator-supplied evidence (CLI: build/smoke/manual status)",
+    "updated_by": "user",
+    "notes": "Pre-stamp only; does not stamp or reconcile; does not fabricate checks/artifacts; operator reviews draft before post-worker; live and validator-proven (e.g. WCS-042)",
+    "last_reviewed": "2026-03-14"
+  },
+  {
     "file": "worker_result_validate.py",
     "path": "C:\\dev\\jarvis-workspace\\scripts\\worker_result_validate.py",
     "category": "script",

@@ -52,8 +52,8 @@ def render_markdown(entries: List[Dict[str, Any]]) -> str:
     header = """# FILE REGISTRY
 
 ## Live Doc Status
-- Last reviewed: 2026-03-13
-- Last updated: 2026-03-13
+- Last reviewed: 2026-03-14
+- Last updated: 2026-03-14
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state; registry mirrors file_registry.json and is rendered by render_file_registry.py
 

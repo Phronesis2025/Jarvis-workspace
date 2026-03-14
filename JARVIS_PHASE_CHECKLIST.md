@@ -1,10 +1,10 @@
 # JARVIS_REBUILD_PHASE_CHECKLIST.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-13
-- Last updated: 2026-03-13
+- Last reviewed: 2026-03-14
+- Last updated: 2026-03-14 (doc pass: draft_qa_result_from_evidence.py completed and validator-proven)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; next hardening priority advanced)
+- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven)
 
 ## Purpose
 
@@ -387,6 +387,10 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs existing guarded task-cycle scripts in order and stops on first failure without changing their logic — **live**
 - [x] Build `select_next_ready_task.py` as a read-only workflow helper that selects the next eligible ready task from backlog/planning surfaces using progression ladder (execution_lane, test_phase, selector_rank) when present, without mutating state — **live**
 - [x] Build `build_daily_execution_prep.py` as a workflow helper that prepares operator-facing daily execution prep by ensuring packet availability (invoking `generate_task_packet.py` when needed), then chaining handoff and summary helpers, without executing tasks or mutating state beyond approved helper outputs — **live**
+- [x] **Next major milestone:** Build Cursor invocation bridge (`run_cursor_worker.py`) — prefers real Agent CLI (`agent`) when available (Windows-hardened detection: which/where/PowerShell), falls back to desktop cursor launcher; attempts execution of generated handoff; reports PASS/BLOCKED/FAIL honestly; does not prove completion or write worker_complete; operator still verifies completion and finalizes worker-result evidence; system remains operator-assisted at the worker completion/evidence stage — **live**
+- [x] Build `draft_worker_result_from_evidence.py` as a worker-result drafting helper from task packet and repo evidence (branch, changed files); does not stamp, reconcile, or fabricate completion; operator reviews draft before post-worker — **live**
+- [x] Real guarded end-to-end task cycle succeeded on WCS-042 (Agent-first run_cursor_worker, task repo workspace, draft_worker_result_from_evidence, stamp, QA, reconcile)
+- [x] Build `draft_qa_result_from_evidence.py` as a QA-result drafting helper from operator-supplied evidence (CLI: build/smoke/manual status); dry-run by default, `--write` to persist; pre-stamp only; does not stamp, reconcile, or fabricate evidence; operator reviews draft before post-worker — **live** (validator-proven, e.g. WCS-042 pre-stamp)
 - [ ] Only then consider scheduling
 - [ ] Only after that consider more workers
 

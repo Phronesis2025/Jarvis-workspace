@@ -2,10 +2,11 @@
 # JARVIS_SCRIPT_PROCESS_REFERENCE_v2.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-13
-- Last updated: 2026-03-13
-- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, and file-registry checker documented as current truth; proven across WCS-016–WCS-019)
+- Last reviewed: 2026-03-14
+- Last updated: 2026-03-14 (doc pass: draft_qa_result_from_evidence.py live; WCS-042 guarded cycle and QA draft helper validated)
+- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker; proven across WCS-016–WCS-019 and full guarded cycle WCS-042; QA result drafting helper live and validator-proven)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
+- Proof: Real guarded end-to-end task cycle succeeded on WCS-042 (Agent-first run_cursor_worker, task repo workspace, draft_worker_result_from_evidence, stamp, QA, reconcile). draft_qa_result_from_evidence.py is built and validated (dry-run, write, qa_result_validate --mode pre-stamp for WCS-042).
 
 ## Current local state / follow-up
 - `state/master_backlog.json` and `state/MASTER_BACKLOG.md` have local backlog-ladder changes that were intentionally left out of the selector-ladder commit.
@@ -75,7 +76,7 @@ The current **proven live WCS task loop** is:
 15. QA is run in the WCS repo using:
     - `npm run build`
     - `npm run test:e2e:smoke` (Playwright config now starts the local dev server via `webServer` when no E2E_BASE_URL/NEXT_PUBLIC_BASE_URL is set)
-16. The QA result JSON is finalized truthfully (placeholders replaced with factual data).
+16. The QA result JSON is finalized truthfully (placeholders replaced with factual data). Optionally, the operator can use `draft_qa_result_from_evidence.py --task WCS-XXX` (with build/smoke/manual status and `--write`) to draft a truthful pre-stamp QA result from CLI evidence before validation; the script does not stamp, reconcile, or fabricate evidence.
 17. `qa_result_validate.py --task WCS-XXX --mode pre-stamp` is run as a read-only QA-result schema validator.
 18. `stamp_guard_check.py --task WCS-XXX` is run as a read-only pre-stamp guardrail to confirm worker and QA results are both present, pre-stamp, and not obvious placeholders.
 19. `stamp_result_timestamp.py` is run once per file: pass the **file path** to the worker result JSON, then the **file path** to the QA result JSON (e.g. `results/WCS-XXX_worker_result.json` and `qa/WCS-XXX_qa_result.json`).
@@ -136,6 +137,10 @@ For hardening-surface checks (not part of the core task loop), `file_registry_ch
 - full pre-reconcile readiness checking before script execution
 - richer operator-safety prompts and recovery guidance
 - unattended end-to-end execution
+
+### Cursor invocation bridge (live)
+
+`run_cursor_worker.py` is live as a **Cursor invocation bridge**: it prefers the **real Cursor Agent CLI** (`agent`) when available; if not, it falls back to the **desktop cursor launcher**. Execution runs against the **task repo workspace** (from the task packet), not the Jarvis workspace; Agent uses `--trust` for non-interactive use. It reports PASS / BLOCKED / FAIL honestly. It does not by itself prove task completion or write a truthful worker_complete result. The operator still verifies completion and finalizes worker-result evidence. The system remains **operator-assisted at the worker completion/evidence stage**; full autonomy is not achieved.
 
 ---
 
@@ -626,6 +631,87 @@ For a task id like `WCS-016`, it:
 ### Why it exists
 
 This script provides a blunt, local-first, read-only worker-boundary validator that can be run before commit/finalization to catch obvious scope drift and suspiciously large diffs for a bounded WCS task.
+
+---
+
+## 8b. `scripts/run_cursor_worker.py`
+
+### Role
+
+Cursor invocation bridge: prefers the real Cursor Agent CLI (`agent`) when available; falls back to the desktop cursor launcher. Execution runs against the **task repo workspace** (from the task packet), not the Jarvis workspace. Does not by itself prove task completion or write a truthful worker_complete result; operator still verifies completion and finalizes worker-result evidence.
+
+### Current behavior
+
+- requires `--task WCS-XXX`
+- optional `--workspace` (default: Jarvis workspace root), optional `--handoff` (default: `scratch/cursor_handoffs/<task>_cursor_handoff.md`)
+- validates: task id, Jarvis workspace, handoff file exists, task packet exists; **reads and validates `repo_path` from task packet** (required; must exist and be a directory; FAIL if missing or invalid)
+- **Agent CLI detection (Windows-hardened):** tries `shutil.which("agent")`, then `agent.cmd`, `agent.exe`, `agent.bat`; on Windows only, if none found, runs `where agent` / `where agent.cmd` and uses first existing path, then tries PowerShell `Get-Command agent`. If Agent CLI still cannot be found in the process environment, falls back to cursor and reports which path was used.
+- **Execution target:** Agent and desktop launcher both use the **task repo workspace** (`repo_path` from packet): Agent is run with `--workspace <repo_path>`, `--trust` (non-interactive trust for that repo), and subprocess cwd = `repo_path`; desktop launcher subprocess cwd = `repo_path`. Handoff file remains in Jarvis workspace; execution context is the task repo.
+- **Execution priority:** (1) if `agent` CLI is detected, runs `agent --print --workspace <repo_path> --trust "<prompt>"` with cwd = repo_path (prompt is handoff file content when ≤6000 chars, else path-based instruction); (2) else if `cursor` launcher is on PATH, runs `cursor <handoff_path>` with cwd = repo_path; (3) if neither found, exits BLOCKED (exit 2). When agent returns non-zero and stderr mentions authentication, a hint suggests running `agent login`.
+- does not fabricate worker completion; does not write a worker result unless execution is truthfully successful (scripted execution does not provide completion evidence; operator must finalize the worker result)
+- exit codes: 0 PASS (agent or cursor process started and exited 0), 2 BLOCKED (neither agent nor cursor found, or process failed/timeout), 1 FAIL (malformed input, missing handoff/packet, missing or invalid repo_path, or validation failure)
+
+### Output
+
+- On PASS: `RUN CURSOR WORKER: PASS`, task id, **Jarvis workspace**, **Task repo workspace**, handoff path, whether **Real Agent CLI** or **Desktop launcher fallback** was used, that worker result was not written (no completion evidence), summary
+- On BLOCKED: `RUN CURSOR WORKER: BLOCKED`, reason, **Jarvis workspace**, **Task repo workspace**, worker result not written
+- On FAIL: `RUN CURSOR WORKER: FAIL`, reason (e.g. handoff file does not exist; task packet has no repo_path; repo path does not exist or is not a directory)
+
+### Why it exists
+
+This script is the Cursor invocation bridge: it runs Agent (or cursor launcher) against the task repo workspace from the packet, with non-interactive trust for that repo when using Agent. It does not prove task completion or write a truthful worker_complete result; the operator still verifies completion and finalizes worker-result evidence. The system remains operator-assisted at the worker completion/evidence stage.
+
+---
+
+## 8c. `scripts/draft_worker_result_from_evidence.py`
+
+### Role
+
+Worker-result drafting helper: builds a truthful `worker_result.json` from real task-packet and repo evidence (branch, changed files). Does not stamp, reconcile, or fabricate completion; operator should review the drafted result before guarded post-worker if appropriate.
+
+### Current behavior
+
+- `--task WCS-XXX` required; `--workspace`, `--executor` (default `cursor_agent`), `--mode` (default `head_auto`: working tree if changed, else HEAD commit), `--write` (optional; without it, dry-run only)
+- Loads task packet; requires valid `repo_path` and expected branch; requires current branch matches expected task branch
+- Derives expected file scope from packet (target_files, suspected_files, notes, etc.); determines changed files from working tree or HEAD commit per `--mode`
+- Fails if no changed files or if any changed file is outside expected scope; does not guess `files_changed`
+- Drafts JSON with `task_id`, `status` (worker_complete when evidence present), `executor`, `summary` (evidence-based), `files_changed` (from repo), `commands_run` (empty; script does not invent commands), `issues_encountered` ([]), `notes` (evidence source), `completed_at` (left blank; script does not stamp)
+- Without `--write`: prints PASS and drafted JSON to stdout, reports `Written: no`. With `--write`: writes `results/WCS-XXX_worker_result.json`
+
+### Output
+
+- On success: `DRAFT WORKER RESULT: PASS`, task, workspace, repo path, expected/current branch, evidence source, output path, written yes/no, then the drafted JSON
+- On failure: `DRAFT WORKER RESULT: FAIL`, reason (e.g. missing packet, wrong branch, no changed files, file outside scope)
+
+### Why it exists
+
+Provides a single helper to draft a truthful worker result from repo evidence so the operator does not have to hand-write it every time. Does not fabricate completion, commands, or QA/build claims; operator still reviews before post-worker.
+
+---
+
+## 8d. `scripts/draft_qa_result_from_evidence.py`
+
+### Role
+
+QA-result drafting helper: drafts a truthful `qa_result.json` from operator-supplied evidence (build/smoke/manual status via CLI). Dry-run by default; `--write` to persist. Pre-stamp only: does not stamp `completed_at`, does not reconcile, does not fabricate checks or artifacts. Operator should review the drafted result before guarded post-worker if appropriate.
+
+### Current behavior
+
+- `--task WCS-XXX` required; `--workspace` optional; `--write` optional (without it, dry-run only)
+- `--build-status`, `--smoke-status`, `--manual-status` with choices `pass|fail|skip|unknown`; `--manual-check` (repeatable); `--artifact` (repeatable; paths must exist or script fails); `--note` (repeatable)
+- Reads task packet; fails if missing or invalid. Artifact paths must exist or script fails bluntly.
+- Builds `checks_run` / `checks_passed` / `checks_failed` from evidence; sets `status` to `qa_pass`, `qa_fail`, or `escalated` per evidence; leaves `completed_at` blank (pre-stamp only)
+- Output JSON matches validator contract (task_id, status, qa_tool, summary, checks_run, checks_passed, checks_failed, artifacts, notes, completed_at). v1 is CLI-evidence-driven; does not auto-parse build/test logs.
+- Without `--write`: prints PASS and drafted JSON to stdout, reports `Written: no`. With `--write`: writes `qa/WCS-XXX_qa_result.json`
+
+### Output
+
+- On success: `DRAFT QA RESULT: PASS`, task, workspace, output path, written yes/no, then the drafted JSON
+- On failure: `DRAFT QA RESULT: FAIL`, reason (e.g. missing packet, artifact path does not exist)
+
+### Why it exists
+
+QA-side twin of `draft_worker_result_from_evidence.py`: drafts truthful pre-stamp QA result JSON from evidence so the operator can avoid hand-writing it when evidence is from CLI. Does not stamp, reconcile, or fabricate; operator still reviews before post-worker. Validator-proven (e.g. qa_result_validate.py --mode pre-stamp for WCS-042).
 
 ---
 

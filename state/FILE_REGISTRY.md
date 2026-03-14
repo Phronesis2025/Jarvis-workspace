@@ -1,8 +1,8 @@
 # FILE REGISTRY
 
 ## Live Doc Status
-- Last reviewed: 2026-03-13
-- Last updated: 2026-03-13
+- Last reviewed: 2026-03-14
+- Last updated: 2026-03-14
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state; registry mirrors file_registry.json and is rendered by render_file_registry.py
 
@@ -129,6 +129,9 @@ This markdown file is the human-readable view rendered from file_registry.json.
 | qa_failure_triage.py | C:\dev\jarvis-workspace\scripts\qa_failure_triage.py | script | source_of_truth | jarvis_script | Read-only QA failure triage helper for a WCS task | user | Classifies QA failures into environment_setup_failure, test_harness_failure, application_regression, or ambiguous based on QA result summary/notes; prints evidence-based next-step guidance without mutating any state |
 | stamp_guard_check.py | C:\dev\jarvis-workspace\scripts\stamp_guard_check.py | script | source_of_truth | jarvis_script | Read-only pre-stamp guardrail for worker and QA result JSON files | user | Verifies worker and QA result files both exist, parse, have allowed statuses, remain pre-stamp, and are not obvious placeholders before running stamp_result_timestamp.py; strictly read-only and does not stamp or mutate state |
 | worker_change_check.py | C:\dev\jarvis-workspace\scripts\worker_change_check.py | script | source_of_truth | jarvis_script | Read-only worker-boundary validator for changed-file scope and simple diff sanity | user | Validates that changed files stay within task scope and diffs are small; uses working tree or HEAD commit when clean so post_worker flow is consistent; strictly read-only worker-boundary gate |
+| run_cursor_worker.py | C:\dev\jarvis-workspace\scripts\run_cursor_worker.py | script | source_of_truth | jarvis_script | Agent-first Cursor invocation bridge: prefers agent CLI, then cursor launcher; runs handoff against task repo workspace | user | Execution targets task repo (repo_path from packet); Agent uses --workspace and --trust; handoff content as prompt when small; does not fabricate worker completion; proven on WCS-042 |
+| draft_worker_result_from_evidence.py | C:\dev\jarvis-workspace\scripts\draft_worker_result_from_evidence.py | script | source_of_truth | jarvis_script | Draft truthful worker result JSON from task packet and repo evidence | user | Does not stamp, reconcile, or fabricate completion; operator reviews draft before post-worker; live and proven (e.g. WCS-042) |
+| draft_qa_result_from_evidence.py | C:\dev\jarvis-workspace\scripts\draft_qa_result_from_evidence.py | script | source_of_truth | jarvis_script | Draft truthful QA result JSON from operator-supplied evidence (CLI: build/smoke/manual status) | user | Pre-stamp only; does not stamp or reconcile; does not fabricate checks/artifacts; operator reviews draft before post-worker; live and validator-proven (e.g. WCS-042) |
 | worker_result_validate.py | C:\dev\jarvis-workspace\scripts\worker_result_validate.py | script | source_of_truth | jarvis_script | Read-only worker-result schema validator for a WCS task | user | Validates worker result fields and simple task-scope consistency in pre-stamp and post-stamp modes; strictly read-only validator |
 | qa_result_validate.py | C:\dev\jarvis-workspace\scripts\qa_result_validate.py | script | source_of_truth | jarvis_script | Read-only QA-result schema validator for a WCS task | user | Validates QA result fields, list shapes, and simple internal consistency in pre-stamp and post-stamp modes; strictly read-only validator |
 | file_registry_check.py | C:\dev\jarvis-workspace\scripts\file_registry_check.py | script | source_of_truth | jarvis_script | Read-only file-registry drift and core-coverage checker for hardened-loop items | user | Verifies that file_registry.json and FILE_REGISTRY.md exist, parse, and contain entries for critical hardened-loop scripts/docs; strictly read-only and does not modify the registry |

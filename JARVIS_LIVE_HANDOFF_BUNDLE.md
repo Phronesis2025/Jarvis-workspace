@@ -1,8 +1,8 @@
 # JARVIS_LIVE_HANDOFF_BUNDLE.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-13
-- Last updated: 2026-03-13
+- Last reviewed: 2026-03-14
+- Last updated: 2026-03-14 (doc pass: draft_qa_result_from_evidence.py live and validator-proven)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
@@ -4743,9 +4743,17 @@ They are not the blocker now.
 - Guarded task-cycle orchestration is now live via `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs the existing guarded task-cycle scripts in order and stops on the first failure; it does not replace their logic, execute worker code directly, or schedule tasks.
 - Next-task selection is now live via `select_next_ready_task.py` as a read-only workflow helper that selects the next eligible ready task from backlog/planning surfaces using the explicit progression ladder (execution_lane, test_phase, selector_rank) when present, supporting fake/reversible-first testing; it does not mutate state or launch execution.
 - Daily execution prep is now live via `build_daily_execution_prep.py` as a workflow helper that prepares an operator-facing daily execution prep package by chaining selection, ensuring task packet availability by invoking `generate_task_packet.py` when needed, then handoff and summary helpers; it writes prep markdown and helper outputs only, does not execute the task itself, and does not mutate backlog/state beyond approved helper outputs (e.g. packet generation when missing).
-- Next hardening focus areas:
-  - manual naming drift cleanup guided by `naming_drift_check.py`
-  - optional: further registry automation or script wrappers
+- **draft_qa_result_from_evidence.py** is built and live: drafts truthful pre-stamp QA result JSON from operator-supplied evidence (CLI: build/smoke/manual status); dry-run by default, `--write` to persist; does not stamp, reconcile, or fabricate evidence; validated in pre-stamp mode (e.g. WCS-042 with qa_result_validate.py). v1 is CLI-evidence-driven and does not auto-parse build/test logs; operator still reviews before post-worker.
+- A real guarded end-to-end task cycle has succeeded on **WCS-042** (Agent-first run_cursor_worker, task repo workspace, draft_worker_result_from_evidence, stamp, QA, reconcile).
+- Other hardening focus areas: manual naming drift cleanup guided by `naming_drift_check.py`; optional further registry automation or script wrappers.
+
+## Cursor worker execution wrapper (live)
+
+The current workflow stack is strong through task selection, packet generation, daily execution prep, handoff generation, and the guarded pre/post-worker flow. `run_cursor_worker.py` is live as an **Agent-first Cursor invocation bridge**: it prefers the real **agent** CLI when available (Windows-hardened detection), then falls back to the desktop cursor launcher. Execution runs against the **task repo workspace** (`repo_path` from the task packet), not the Jarvis workspace; Agent is invoked with `--workspace <repo_path>` and `--trust`; handoff content is passed as prompt when small enough. It reports PASS / BLOCKED / FAIL honestly; output includes both Jarvis workspace and task repo workspace. It does not fabricate completion or write a fake worker_complete result. The operator still verifies completion and finalizes worker-result evidence. The system remains **operator-assisted at the completion/evidence stage**; full autonomy is not claimed.
+
+**Worker-result drafting:** `draft_worker_result_from_evidence.py` is live and proven. It drafts a truthful `worker_result.json` from task packet and repo evidence (branch, changed files). It does not stamp, reconcile, or fabricate completion; the operator should review the drafted result before running the guarded post-worker flow if appropriate.
+
+**QA-result drafting:** `draft_qa_result_from_evidence.py` is live and validator-proven. It drafts a truthful pre-stamp `qa_result.json` from operator-supplied evidence (CLI: build/smoke/manual status). Dry-run by default; `--write` to persist. It does not stamp, reconcile, or fabricate checks/artifacts; v1 does not auto-parse build/test logs. The operator should review the drafted result before stamp and guarded post-worker flow.
 
 ## What is explicitly not being prioritized yet
 - dashboards and “sexy” UI
