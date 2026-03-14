@@ -135,3 +135,29 @@ Date: 2026-03-09
 - HEAD commit: 39931ce
 - Branch verified at: 2026-03-12T22:58:37-05:00
 - Reconciled at: 2026-03-12T22:58:37-05:00
+
+### WCS-040 — done
+- Title: Style test: change home hero subheading letter spacing
+- Worker: Adjusted the home hero subheading letter spacing by adding tracking-wide in src/components/Hero.tsx.
+- QA: Build and Playwright smoke QA passed after the home hero subheading letter spacing change.
+- Files changed: src/components/Hero.tsx
+- Commands run: Updated Hero.tsx to add tracking-wide to the home hero subheading
+- Repo path: C:\dev\wcsv2.0-new
+- Verified branch: jarvis-task-wcs-040
+- Commits ahead of main: 1
+- HEAD commit: 20fe9d5
+- Branch verified at: 2026-03-14T09:55:33-05:00
+- Reconciled at: 2026-03-14T09:55:33-05:00
+
+### WCS-042 — done
+- Title: Fake test: add temporary TEST MODE badge on about page
+- Worker: Added a temporary TEST MODE badge to the About page in src/app/about/page.tsx.
+- QA: Build passed, Playwright smoke passed, and the TEST MODE badge was visually confirmed on the About page.
+- Files changed: src/app/about/page.tsx
+- Commands run: run_cursor_worker.py --task WCS-042, npm run build, npm run test:e2e:smoke
+- Repo path: C:\dev\wcsv2.0-new
+- Verified branch: jarvis-task-wcs-042
+- Commits ahead of main: 1
+- HEAD commit: 614fb22
+- Branch verified at: 2026-03-14T14:09:33-05:00
+- Reconciled at: 2026-03-14T14:09:33-05:00
