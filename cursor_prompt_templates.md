@@ -17,7 +17,7 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Workflow helper:** `select_next_ready_task.py [--project WCS] [--limit N]` selects the next eligible ready task from the backlog using the progression ladder (execution_lane, test_phase, selector_rank) when present; read-only, does not mutate state.
 
-**Workflow helper:** `build_daily_execution_prep.py [--project WCS] [--task WCS-XXX] [--output <path>]` prepares a daily execution prep package (selection, handoff, summary) and writes a prep markdown file; does not execute tasks or mutate state.
+**Workflow helper:** `build_daily_execution_prep.py [--project WCS] [--task WCS-XXX] [--output <path>]` prepares a daily execution prep package (selection, packet if missing, handoff, summary) and writes a prep markdown file; does not execute tasks or mutate state beyond approved helper outputs.
 
 ## Core rules for all Cursor prompts
 

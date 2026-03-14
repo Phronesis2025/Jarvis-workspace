@@ -205,6 +205,27 @@ def main() -> int:
             return 1
 
     scripts_dir = workspace / "scripts"
+    packet_path = workspace / "tasks" / f"{task_id}_task.json"
+    packet_status = "already present"
+    if not packet_path.is_file():
+        gen_cmd = [
+            sys.executable,
+            str(scripts_dir / "generate_task_packet.py"),
+            "--task",
+            task_id,
+            "--workspace",
+            str(workspace),
+        ]
+        g_code, g_out = run_helper("generate_task_packet", gen_cmd, workspace)
+        if g_code != 0:
+            print("DAILY EXECUTION PREP: FAIL")
+            print(f"Workspace: {workspace}")
+            print(f"Project: {project}")
+            print("Failed step: generate_task_packet")
+            print(f"Failed command: {' '.join(gen_cmd)}")
+            print(f"Reason: Packet generation failed (exit {g_code}).")
+            return 1
+        packet_status = "generated during this run"
 
     # Build handoff
     handoff_cmd = [
@@ -250,7 +271,6 @@ def main() -> int:
     summary_path = workspace / "scratch" / "task_cycle_summaries" / f"{task_id}_task_cycle_summary.md"
 
     # Resolve title and branch for prep file
-    packet_path = workspace / "tasks" / f"{task_id}_task.json"
     title = ""
     if packet_path.is_file():
         try:
@@ -295,6 +315,7 @@ def main() -> int:
     print(f"Workspace: {workspace}")
     print(f"Project: {project}")
     print(f"Selected task id: {task_id}")
+    print(f"Task packet: {packet_status}")
     print(f"Output prep file: {prep_path}")
     print(f"Handoff file: {handoff_path}")
     print(f"Task-cycle summary: {summary_path}")

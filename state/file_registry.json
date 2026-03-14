@@ -845,7 +845,7 @@
     "owner": "jarvis_script",
     "purpose": "Workflow helper: prepares operator-facing daily execution prep package",
     "updated_by": "user",
-    "notes": "Chains select_next_ready_task (optional), build_cursor_handoff, and build_task_cycle_summary; writes prep markdown to scratch/daily_execution_prep/; does not execute tasks or mutate backlog/state",
+    "notes": "Ensures task packet exists by invoking generate_task_packet when needed; chains select_next_ready_task (optional), build_cursor_handoff, and build_task_cycle_summary; writes prep markdown to scratch/daily_execution_prep/; does not execute tasks or mutate backlog/state beyond approved helper outputs",
     "last_reviewed": "2026-03-13"
   },
   {

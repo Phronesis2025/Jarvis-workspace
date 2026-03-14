@@ -386,7 +386,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `build_task_cycle_summary.py` as a workflow helper that summarizes current task/worker/QA evidence into a human-readable task-cycle markdown file without executing tasks or mutating state — **live**
 - [x] Build `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs existing guarded task-cycle scripts in order and stops on first failure without changing their logic — **live**
 - [x] Build `select_next_ready_task.py` as a read-only workflow helper that selects the next eligible ready task from backlog/planning surfaces using progression ladder (execution_lane, test_phase, selector_rank) when present, without mutating state — **live**
-- [x] Build `build_daily_execution_prep.py` as a workflow helper that prepares operator-facing daily execution prep by chaining selection, handoff, and summary helpers without executing tasks or mutating state — **live**
+- [x] Build `build_daily_execution_prep.py` as a workflow helper that prepares operator-facing daily execution prep by ensuring packet availability (invoking `generate_task_packet.py` when needed), then chaining handoff and summary helpers, without executing tasks or mutating state beyond approved helper outputs — **live**
 - [ ] Only then consider scheduling
 - [ ] Only after that consider more workers
 
