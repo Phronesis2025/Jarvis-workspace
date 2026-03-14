@@ -1,0 +1,38 @@
+{
+  "task_id": "WCS-040",
+  "project": "WCS",
+  "title": "Style test: change home hero subheading letter spacing",
+  "bucket": "ugly",
+  "priority": "P3",
+  "risk": "low",
+  "status": "ready",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "branch_name": "jarvis-task-wcs-040",
+  "problem_summary": "Style test: change home hero subheading letter spacing.",
+  "goal": "Resolve: Style test: change home hero subheading letter spacing, with the smallest safe change that satisfies QA.",
+  "suspected_files": [
+    "src/components/Hero.tsx"
+  ],
+  "acceptance_criteria": [
+    "The scoped issue is resolved: Style test: change home hero subheading letter spacing",
+    "App builds successfully with npm run build",
+    "Local app can be opened for verification",
+    "Targeted change is visible or behaves correctly on the relevant page/flow",
+    "Changes remain tightly limited to the suspected files unless a clearly related helper/config file must also be updated"
+  ],
+  "qa_plan": [
+    "Run npm run build",
+    "Start local app with npm run dev",
+    "Run Playwright smoke QA if available",
+    "Verify the targeted change locally in the browser"
+  ],
+  "system_impact": "Low risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: src/components/Hero.tsx.",
+  "stop_conditions": [
+    "Required file cannot be found",
+    "Build fails for unrelated reasons",
+    "Task scope expands beyond the targeted fix"
+  ],
+  "notes": "src/components/Hero.tsx",
+  "created_at": "2026-03-14T08:23:11-05:00",
+  "updated_at": "2026-03-14T08:23:11-05:00"
+}

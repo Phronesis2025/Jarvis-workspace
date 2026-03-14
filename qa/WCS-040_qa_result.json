@@ -1,0 +1,18 @@
+{
+  "task_id": "WCS-040",
+  "status": "qa_pass",
+  "qa_tool": "manual operator QA via Next build and Playwright smoke",
+  "summary": "Build and Playwright smoke QA passed after the home hero subheading letter spacing change.",
+  "checks_run": [
+    "npm run build",
+    "npm run test:e2e:smoke"
+  ],
+  "checks_passed": [
+    "npm run build",
+    "npm run test:e2e:smoke"
+  ],
+  "checks_failed": [],
+  "artifacts": [],
+  "notes": "Build completed successfully and Playwright smoke passed on the local app.",
+  "completed_at": "2026-03-14T09:55:32-05:00"
+}
