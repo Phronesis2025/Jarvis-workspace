@@ -80,12 +80,15 @@ def determine_expected_files(task_json_path: Path, failures: List[str]) -> Set[s
 
     expected: Set[str] = set()
 
-    target_files = data.get("target_files")
-    if isinstance(target_files, list):
-        for item in target_files:
-            path = normalize_text(item)
-            if path:
-                expected.add(path.replace("\\", "/"))
+    for key in ("target_files", "suspected_files"):
+        files_val = data.get(key)
+        if isinstance(files_val, list):
+            for item in files_val:
+                path = normalize_text(item)
+                if path:
+                    expected.add(path.replace("\\", "/"))
+            if expected:
+                break
 
     if not expected:
         for key in ("target_file", "file_path", "file"):
@@ -132,7 +135,12 @@ def resolve_repo_path(workspace: Path, failures: List[str]) -> Path | None:
     return repo_path
 
 
-def gather_changed_files(repo_path: Path, failures: List[str]) -> Set[str]:
+def gather_changed_files(repo_path: Path, failures: List[str]) -> Tuple[Set[str], bool]:
+    """
+    Return (changed_file_paths, from_head_commit).
+    If working tree has changes, use those and from_head_commit=False.
+    If working tree is clean, use files changed in HEAD commit and from_head_commit=True.
+    """
     changed: Set[str] = set()
 
     status_result = run_git(repo_path, ["status", "--short"])
@@ -162,7 +170,17 @@ def gather_changed_files(repo_path: Path, failures: List[str]) -> Set[str]:
             if path:
                 changed.add(path.replace("\\", "/"))
 
-    return changed
+    if changed:
+        return changed, False
+
+    head_diff = run_git(repo_path, ["diff", "--name-only", "HEAD~1", "HEAD"])
+    if head_diff.returncode == 0:
+        for line in head_diff.stdout.splitlines():
+            path = normalize_text(line)
+            if path:
+                changed.add(path.replace("\\", "/"))
+
+    return changed, bool(changed)
 
 
 def check_branch(repo_path: Path, task_id: str, failures: List[str]) -> Tuple[str, str | None]:
@@ -187,14 +205,22 @@ def check_branch(repo_path: Path, task_id: str, failures: List[str]) -> Tuple[st
     return expected_branch, current_branch
 
 
-def check_diff_sanity(repo_path: Path, changed_files: Set[str], failures: List[str]) -> None:
+def check_diff_sanity(
+    repo_path: Path,
+    changed_files: Set[str],
+    failures: List[str],
+    from_head_commit: bool = False,
+) -> None:
     if len(changed_files) > 3:
         failures.append(
             f"Too many changed files for a bounded task. Expected at most 3, found {len(changed_files)}."
         )
 
     for path in sorted(changed_files):
-        diff_result = run_git(repo_path, ["diff", "--unified=0", "--", path])
+        if from_head_commit:
+            diff_result = run_git(repo_path, ["diff", "--unified=0", "HEAD~1", "HEAD", "--", path])
+        else:
+            diff_result = run_git(repo_path, ["diff", "--unified=0", "--", path])
         if diff_result.returncode != 0:
             failures.append(
                 f"git diff --unified=0 failed for {path} in {repo_path}: "
@@ -258,12 +284,15 @@ def main() -> int:
     current_branch: str | None = None
 
     changed_files: Set[str] = set()
+    from_head_commit = False
     if repo_path is not None:
         expected_branch, current_branch = check_branch(repo_path, task_id, failures)
-        changed_files = gather_changed_files(repo_path, failures)
+        changed_files, from_head_commit = gather_changed_files(repo_path, failures)
 
         if not changed_files:
-            failures.append("No changed files detected in the WCS repo for this task.")
+            failures.append(
+                "No changed files detected in the WCS repo (working tree or HEAD commit)."
+            )
 
         if expected_files:
             for path in sorted(changed_files):
@@ -273,7 +302,7 @@ def main() -> int:
                     )
 
         if changed_files:
-            check_diff_sanity(repo_path, changed_files, failures)
+            check_diff_sanity(repo_path, changed_files, failures, from_head_commit)
 
     if failures:
         print("WORKER CHANGE CHECK: FAIL")

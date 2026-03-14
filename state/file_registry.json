@@ -735,7 +735,7 @@
     "owner": "jarvis_script",
     "purpose": "Read-only worker-boundary validator for changed-file scope and simple diff sanity",
     "updated_by": "user",
-    "notes": "Validates that changed files stay within task scope and diffs are small before commit/finalization; strictly read-only worker-boundary gate",
+    "notes": "Validates that changed files stay within task scope and diffs are small; uses working tree or HEAD commit when clean so post_worker flow is consistent; strictly read-only worker-boundary gate",
     "last_reviewed": "2026-03-12"
   },
   {

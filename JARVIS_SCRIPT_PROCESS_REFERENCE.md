@@ -576,7 +576,7 @@ For a task id like `WCS-016`, it:
 - requires `--task WCS-XXX`
 - optionally accepts `--workspace` (defaults from script location)
 - reads `tasks/WCS-XXX_task.json` to determine expected file scope using a simple Phase 1 rule:
-  - prefers an explicit `target_files` list when present
+  - prefers an explicit `target_files` or `suspected_files` list when present
   - otherwise uses a single `target_file` / `file_path` / `file` field when present
   - as a last resort, uses a `notes` field that looks like a single path
 - fails bluntly when it cannot determine expected file scope from the task packet
@@ -584,16 +584,16 @@ For a task id like `WCS-016`, it:
 - verifies the repo path exists
 - verifies:
   - `git status --short` works
-  - `git diff --name-only` works
+  - `git diff --name-only` works (and when working tree is clean, `git diff --name-only HEAD~1 HEAD`)
   - `git branch --show-current` works
   - expected branch is `jarvis-task-wcs-XXX`
   - current branch matches the expected branch
-- gathers changed files from `git status` and `git diff`
+- gathers changed files: from working tree (`git status` and `git diff`) when there are uncommitted changes; when the working tree is clean, from the HEAD commit (`git diff --name-only HEAD~1 HEAD`) so the check works both before and after the task commit and aligns with the post_worker flow
 - validates changed files:
   - at least one changed file exists
   - every changed file is within the expected file scope derived from the task packet
 - validates diff sanity:
-  - runs `git diff --unified=0` for each changed file
+  - runs `git diff --unified=0` (working tree) or `git diff --unified=0 HEAD~1 HEAD` (when using HEAD commit) for each changed file
   - counts simple changed lines per file
   - fails if more than 3 files are changed
   - fails if any single file has more than 40 changed lines (adds+deletes)
