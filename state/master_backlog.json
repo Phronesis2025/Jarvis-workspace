@@ -530,7 +530,7 @@
     "bucket": "ugly",
     "priority": "P3",
     "risk": "low",
-    "status": "ready",
+    "status": "done",
     "title": "Fake test: add visible TEST: prefix to drills page heading",
     "notes": "src/app/drills/page.tsx",
     "difficulty": 1,

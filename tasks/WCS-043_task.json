@@ -1,0 +1,38 @@
+{
+  "task_id": "WCS-043",
+  "project": "WCS",
+  "title": "Fake test: add visible TEST: prefix to drills page heading",
+  "bucket": "ugly",
+  "priority": "P3",
+  "risk": "low",
+  "status": "ready",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "branch_name": "jarvis-task-wcs-043",
+  "problem_summary": "Fake test: add visible TEST: prefix to drills page heading.",
+  "goal": "Resolve: Fake test: add visible TEST: prefix to drills page heading, with the smallest safe change that satisfies QA.",
+  "suspected_files": [
+    "src/app/drills/page.tsx"
+  ],
+  "acceptance_criteria": [
+    "The scoped issue is resolved: Fake test: add visible TEST: prefix to drills page heading",
+    "App builds successfully with npm run build",
+    "Local app can be opened for verification",
+    "Targeted change is visible or behaves correctly on the relevant page/flow",
+    "Changes remain tightly limited to the suspected files unless a clearly related helper/config file must also be updated"
+  ],
+  "qa_plan": [
+    "Run npm run build",
+    "Start local app with npm run dev",
+    "Run Playwright smoke QA if available",
+    "Verify the targeted change locally in the browser"
+  ],
+  "system_impact": "Low risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: src/app/drills/page.tsx.",
+  "stop_conditions": [
+    "Required file cannot be found",
+    "Build fails for unrelated reasons",
+    "Task scope expands beyond the targeted fix"
+  ],
+  "notes": "src/app/drills/page.tsx",
+  "created_at": "2026-03-14T18:01:23-05:00",
+  "updated_at": "2026-03-14T18:01:23-05:00"
+}
