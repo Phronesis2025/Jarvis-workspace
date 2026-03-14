@@ -854,9 +854,9 @@
     "category": "script",
     "source_type": "source_of_truth",
     "owner": "jarvis_script",
-    "purpose": "Workflow/orchestration helper for guarded WCS task cycles; optional --draft-qa-result in post_worker/full",
+    "purpose": "Workflow/orchestration helper for guarded WCS task cycles; optional worker and QA drafting in post_worker/full",
     "updated_by": "user",
-    "notes": "Runs existing guarded task-cycle helpers in sequence and stops on first failure. In post_worker/full, optional --draft-qa-result plus QA evidence args inserts draft_qa_result_from_evidence.py --write before qa_result_validate pre-stamp; without it, QA result JSON is required. Does not replace helper logic, execute worker code directly, or schedule tasks",
+    "notes": "Runs existing guarded task-cycle helpers in sequence and stops on first failure. pre_worker is unchanged. In post_worker/full, optional --draft-worker-result plus truthful repeatable --worker-command values (and optional --worker-executor) inserts draft_worker_result_from_evidence.py --write immediately before worker_result_validate pre-stamp; worker result JSON may be missing only when this worker-draft flag is supplied, and missing meaningful worker-command evidence fails at the inserted worker-draft step. Existing optional --draft-qa-result QA wiring remains intact and unchanged in this step. Does not replace helper logic, execute worker code directly, or schedule tasks",
     "last_reviewed": "2026-03-14"
   },
   {

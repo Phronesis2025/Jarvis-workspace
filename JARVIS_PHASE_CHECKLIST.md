@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: worker-result command-evidence hardening for draft_worker_result_from_evidence.py)
+- Last updated: 2026-03-14 (doc pass: guarded-flow optional worker-result drafting integration)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven)
 
@@ -386,6 +386,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `build_task_cycle_summary.py` as a workflow helper that summarizes current task/worker/QA evidence into a human-readable task-cycle markdown file without executing tasks or mutating state — **live**
 - [x] Build `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs existing guarded task-cycle scripts in order and stops on first failure without changing their logic — **live**
 - [x] Wire optional QA-result drafting into guarded post_worker/full via `run_guarded_task_cycle.py --draft-qa-result` and QA evidence passthrough; draft step runs before `qa_result_validate.py --mode pre-stamp`; without `--draft-qa-result`, QA result JSON still required — **live**
+- [x] Wire optional worker-result drafting into guarded post_worker/full via `run_guarded_task_cycle.py --draft-worker-result` plus truthful repeatable `--worker-command <text>` (and optional `--worker-executor` passthrough); inserted worker-draft step runs immediately before `worker_result_validate.py --mode pre-stamp`, pre_worker remains unchanged, and WCS-042 proved the safe boundary through worker draft PASS + worker pre-stamp validation PASS before intentionally stopping ahead of stamp/reconcile — **live**
 - [x] Build `select_next_ready_task.py` as a read-only workflow helper that selects the next eligible ready task from backlog/planning surfaces using progression ladder (execution_lane, test_phase, selector_rank) when present, without mutating state — **live**
 - [x] Build `build_daily_execution_prep.py` as a workflow helper that prepares operator-facing daily execution prep by ensuring packet availability (invoking `generate_task_packet.py` when needed), then chaining handoff and summary helpers, without executing tasks or mutating state beyond approved helper outputs — **live**
 - [x] **Next major milestone:** Build Cursor invocation bridge (`run_cursor_worker.py`) — prefers real Agent CLI (`agent`) when available (Windows-hardened detection: which/where/PowerShell), falls back to desktop cursor launcher; attempts execution of generated handoff; reports PASS/BLOCKED/FAIL honestly; does not prove completion or write worker_complete; operator still verifies completion and finalizes worker-result evidence; system remains operator-assisted at the worker completion/evidence stage — **live**

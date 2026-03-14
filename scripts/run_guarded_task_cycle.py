@@ -33,6 +33,23 @@ def parse_args() -> argparse.Namespace:
         help="Cycle mode: pre_worker, post_worker, or full (default: post_worker).",
     )
     parser.add_argument(
+        "--draft-worker-result",
+        action="store_true",
+        help="Optional: run draft_worker_result_from_evidence.py with --write before worker validation (post_worker/full only).",
+    )
+    parser.add_argument(
+        "--worker-command",
+        action="append",
+        default=[],
+        metavar="TEXT",
+        help="Worker evidence: repeatable truthful command/step text (used only with --draft-worker-result).",
+    )
+    parser.add_argument(
+        "--worker-executor",
+        metavar="TEXT",
+        help="Optional worker executor label passthrough (used only with --draft-worker-result).",
+    )
+    parser.add_argument(
         "--draft-qa-result",
         action="store_true",
         help="Optional: run draft_qa_result_from_evidence.py with --write before QA validation (post_worker/full only).",
@@ -215,9 +232,35 @@ def build_draft_qa_result_cmd(
     return cmd
 
 
+def build_draft_worker_result_cmd(
+    workspace: Path,
+    task_id: str,
+    args: argparse.Namespace,
+) -> List[str]:
+    """Build command line for draft_worker_result_from_evidence.py with --write and worker evidence passthrough."""
+    scripts_dir = workspace / "scripts"
+    py = sys.executable
+    cmd: List[str] = [
+        py,
+        str(scripts_dir / "draft_worker_result_from_evidence.py"),
+        "--task",
+        task_id,
+        "--workspace",
+        str(workspace),
+        "--write",
+    ]
+    if args.worker_executor is not None:
+        cmd.extend(["--executor", args.worker_executor])
+    for v in args.worker_command or []:
+        cmd.extend(["--command", v])
+    return cmd
+
+
 def build_post_worker_steps(
     workspace: Path,
     task_id: str,
+    draft_worker_result: bool = False,
+    draft_worker_args: Optional[argparse.Namespace] = None,
     draft_qa_result: bool = False,
     draft_qa_args: Optional[argparse.Namespace] = None,
 ) -> List[Tuple[str, List[str]]]:
@@ -256,6 +299,13 @@ def build_post_worker_steps(
             ],
         )
     )
+    if draft_worker_result and draft_worker_args is not None:
+        steps.append(
+            (
+                "draft_worker_result_from_evidence",
+                build_draft_worker_result_cmd(workspace, task_id, draft_worker_args),
+            )
+        )
     steps.append(
         (
             "worker_result_validate_pre_stamp",
@@ -460,17 +510,20 @@ def main() -> int:
 
     mode = args.mode
     steps: List[Tuple[str, List[str]]] = []
+    draft_worker = getattr(args, "draft_worker_result", False)
     draft_qa = getattr(args, "draft_qa_result", False)
 
     if mode == "pre_worker":
         steps = build_pre_worker_steps(workspace, task_id)
     elif mode == "post_worker":
-        if not paths["worker_result"].is_file():
+        if not paths["worker_result"].is_file() and not draft_worker:
             print("RUN GUARDED TASK CYCLE: FAIL")
             print(f"Task: {task_id}")
             print(f"Mode: {mode}")
             print(f"Workspace: {workspace}")
-            print("Reason: worker result JSON must exist for post_worker mode.")
+            print(
+                "Reason: worker result JSON must exist for post_worker mode (or use --draft-worker-result to create it from evidence)."
+            )
             return 1
         if not paths["qa_result"].is_file() and not draft_qa:
             print("RUN GUARDED TASK CYCLE: FAIL")
@@ -482,17 +535,24 @@ def main() -> int:
             )
             return 1
         steps = build_post_worker_steps(
-            workspace, task_id, draft_qa_result=draft_qa, draft_qa_args=args if draft_qa else None
+            workspace,
+            task_id,
+            draft_worker_result=draft_worker,
+            draft_worker_args=args if draft_worker else None,
+            draft_qa_result=draft_qa,
+            draft_qa_args=args if draft_qa else None,
         )
     elif mode == "full":
         pre = build_pre_worker_steps(workspace, task_id)
         steps.extend(pre)
-        if not paths["worker_result"].is_file():
+        if not paths["worker_result"].is_file() and not draft_worker:
             print("RUN GUARDED TASK CYCLE: FAIL")
             print(f"Task: {task_id}")
             print(f"Mode: {mode}")
             print(f"Workspace: {workspace}")
-            print("Reason: worker result JSON must exist for post-worker steps in full mode.")
+            print(
+                "Reason: worker result JSON must exist for post-worker steps in full mode (or use --draft-worker-result to create it from evidence)."
+            )
             return 1
         if not paths["qa_result"].is_file() and not draft_qa:
             print("RUN GUARDED TASK CYCLE: FAIL")
@@ -504,7 +564,12 @@ def main() -> int:
             )
             return 1
         post = build_post_worker_steps(
-            workspace, task_id, draft_qa_result=draft_qa, draft_qa_args=args if draft_qa else None
+            workspace,
+            task_id,
+            draft_worker_result=draft_worker,
+            draft_worker_args=args if draft_worker else None,
+            draft_qa_result=draft_qa,
+            draft_qa_args=args if draft_qa else None,
         )
         steps.extend(post)
     else:

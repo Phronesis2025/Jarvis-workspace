@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: worker-result command-evidence hardening for draft_worker_result_from_evidence.py)
+- Last updated: 2026-03-14 (doc pass: guarded-flow optional worker-result drafting integration)
 - Status: active reusable template set for common Jarvis/Cursor actions
 
 ## Purpose
@@ -13,7 +13,7 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Workflow helper:** `build_task_cycle_summary.py --task WCS-XXX` generates a human-readable markdown summary under `scratch/task_cycle_summaries/` that describes the current task/worker/QA evidence for a single WCS task cycle. Use that summary when reviewing a task, preparing a handoff, or deciding the next bounded operator action.
 
-**Workflow helper:** `run_guarded_task_cycle.py --task WCS-XXX --mode pre_worker|post_worker|full` runs the existing guarded task-cycle scripts in order and stops on the first failure. Optional for post_worker/full: add `--draft-qa-result` plus QA evidence (e.g. `--build-status pass --smoke-status pass --manual-status pass --manual-check "Manual browser verification of /about"`) to have the flow run `draft_qa_result_from_evidence.py --write` before pre-stamp QA validation; without `--draft-qa-result`, QA result JSON must already exist. Use only as an orchestrator; it does not replace helper logic, execute worker code directly, or schedule tasks.
+**Workflow helper:** `run_guarded_task_cycle.py --task WCS-XXX --mode pre_worker|post_worker|full` runs the existing guarded task-cycle scripts in order and stops on the first failure. `pre_worker` is unchanged. Optional for post_worker/full: add `--draft-worker-result --worker-command "<truthful step>"` (repeatable, with optional `--worker-executor <label>`) to have the flow run `draft_worker_result_from_evidence.py --write` immediately before pre-stamp worker validation; without `--draft-worker-result`, worker result JSON must already exist. Optional for post_worker/full: add `--draft-qa-result` plus QA evidence (e.g. `--build-status pass --smoke-status pass --manual-status pass --manual-check "Manual browser verification of /about"`) to have the flow run `draft_qa_result_from_evidence.py --write` before pre-stamp QA validation; without `--draft-qa-result`, QA result JSON must already exist. If meaningful `--worker-command` input is missing, the inserted worker-draft step fails and the guarded run stops there. Use only as an orchestrator; it does not replace helper logic, execute worker code directly, or schedule tasks.
 
 **Workflow helper:** `select_next_ready_task.py [--project WCS] [--limit N]` selects the next eligible ready task from the backlog using the progression ladder (execution_lane, test_phase, selector_rank) when present; read-only, does not mutate state.
 
@@ -24,6 +24,8 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 **Workflow helper:** `draft_worker_result_from_evidence.py --task WCS-XXX [--workspace <path>] [--executor <label>] [--mode working_tree|head_auto] --command "<truthful step>" [--command "<truthful step>"] [--write]` drafts a truthful worker result JSON from task packet and repo evidence (branch, changed files). Explicit `--command` values populate `commands_run`; entries are trimmed, empty values are dropped, and placeholder-only values like `todo`, `tbd`, and `placeholder` are rejected. For `worker_complete`, at least one meaningful `--command` is required or the draft fails. Does not stamp or fabricate completion; operator should review before post-worker.
 
 **Worker-result drafting example:** `python scripts/draft_worker_result_from_evidence.py --task WCS-XXX --command "Implemented bounded change on task branch jarvis-task-wcs-xxx" [--write]`
+
+**Guarded-flow worker-draft example:** `python scripts/run_guarded_task_cycle.py --task WCS-XXX --mode post_worker --draft-worker-result --worker-command "Implemented bounded change on task branch jarvis-task-wcs-xxx"`
 
 **Workflow helper:** `draft_qa_result_from_evidence.py --task WCS-XXX [--workspace <path>] [--build-status pass|fail|skip|unknown] [--smoke-status ...] [--manual-status ...] [--manual-check <text>] [--artifact <path>] [--note <text>] [--write]` drafts a truthful pre-stamp QA result JSON from operator-supplied evidence. Dry-run by default; does not stamp, reconcile, or fabricate evidence; operator should review before post-worker.
 
