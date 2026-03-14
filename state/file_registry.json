@@ -854,10 +854,10 @@
     "category": "script",
     "source_type": "source_of_truth",
     "owner": "jarvis_script",
-    "purpose": "Workflow/orchestration helper for guarded WCS task cycles",
+    "purpose": "Workflow/orchestration helper for guarded WCS task cycles; optional --draft-qa-result in post_worker/full",
     "updated_by": "user",
-    "notes": "Runs existing guarded task-cycle helpers in sequence for a single WCS task and stops on the first failure; does not replace their logic, execute worker code directly, or schedule tasks",
-    "last_reviewed": "2026-03-13"
+    "notes": "Runs existing guarded task-cycle helpers in sequence and stops on first failure. In post_worker/full, optional --draft-qa-result plus QA evidence args inserts draft_qa_result_from_evidence.py --write before qa_result_validate pre-stamp; without it, QA result JSON is required. Does not replace helper logic, execute worker code directly, or schedule tasks",
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "select_next_ready_task.py",

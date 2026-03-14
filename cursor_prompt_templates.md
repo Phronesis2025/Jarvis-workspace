@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: draft_qa_result_from_evidence.py workflow helper)
+- Last updated: 2026-03-14 (doc pass: guarded-flow optional QA-draft in run_guarded_task_cycle)
 - Status: active reusable template set for common Jarvis/Cursor actions
 
 ## Purpose
@@ -13,7 +13,7 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Workflow helper:** `build_task_cycle_summary.py --task WCS-XXX` generates a human-readable markdown summary under `scratch/task_cycle_summaries/` that describes the current task/worker/QA evidence for a single WCS task cycle. Use that summary when reviewing a task, preparing a handoff, or deciding the next bounded operator action.
 
-**Workflow helper:** `run_guarded_task_cycle.py --task WCS-XXX --mode pre_worker|post_worker|full` runs the existing guarded task-cycle scripts in order and stops on the first failure. Use this only as an orchestrator around the current helpers; it does not replace their logic, execute worker code directly, or schedule tasks.
+**Workflow helper:** `run_guarded_task_cycle.py --task WCS-XXX --mode pre_worker|post_worker|full` runs the existing guarded task-cycle scripts in order and stops on the first failure. Optional for post_worker/full: add `--draft-qa-result` plus QA evidence (e.g. `--build-status pass --smoke-status pass --manual-status pass --manual-check "Manual browser verification of /about"`) to have the flow run `draft_qa_result_from_evidence.py --write` before pre-stamp QA validation; without `--draft-qa-result`, QA result JSON must already exist. Use only as an orchestrator; it does not replace helper logic, execute worker code directly, or schedule tasks.
 
 **Workflow helper:** `select_next_ready_task.py [--project WCS] [--limit N]` selects the next eligible ready task from the backlog using the progression ladder (execution_lane, test_phase, selector_rank) when present; read-only, does not mutate state.
 
