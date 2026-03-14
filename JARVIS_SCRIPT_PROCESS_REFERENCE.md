@@ -3,15 +3,13 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: guarded-flow optional worker-result drafting integration)
-- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker; proven across WCS-016–WCS-019 and full guarded cycle WCS-042; worker-result drafting now supports truthful explicit command evidence; guarded flow now optionally inserts worker-result drafting before pre-stamp worker validation; QA result drafting helper live and validator-proven)
+- Last updated: 2026-03-14 (doc pass: packet lifecycle/status cleanup live)
+- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, and packet lifecycle/status cleanup during reconcile; proven across WCS-016–WCS-019, full guarded cycle WCS-042, and fresh integrated-loop proof WCS-043)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Proof: Real guarded end-to-end task cycle succeeded on WCS-042 (Agent-first run_cursor_worker, task repo workspace, draft_worker_result_from_evidence, stamp, QA, reconcile). draft_qa_result_from_evidence.py is built and validated (dry-run, write, qa_result_validate --mode pre-stamp for WCS-042).
+- Proof: Real guarded end-to-end task cycles succeeded on WCS-042 and WCS-043. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`.
 
 ## Current local state / follow-up
-- `state/master_backlog.json` and `state/MASTER_BACKLOG.md` have local backlog-ladder changes that were intentionally left out of the selector-ladder commit.
-- Local backup: `state/master_backlog.backup_2026-03-13_17-29-32.json`.
-- Resolve in a later dedicated backlog-state commit or explicit revert.
+- No special local follow-up is required for the packet lifecycle/status cleanup beyond normal review and commit discipline.
 
 ## Purpose
 
@@ -90,7 +88,9 @@ The current **proven live WCS task loop** is:
     - task branch has committed work and is ahead of `main`
     - repo/task evidence is sufficient
 22. Backlog JSON and rendered Markdown are updated from reconcile output.
-23. `post_reconcile_validate.py` is run as a read-only validator of final state surfaces.
+23. If task packet artifacts exist, reconcile also syncs task packet JSON and task packet markdown to the same terminal outcome (`done`, `blocked`, or `escalated`) so packet files do not remain misleadingly `ready`.
+24. Backlog/state remains authoritative; task packet artifacts remain generated/operator-facing views that are kept aligned during reconcile.
+25. `post_reconcile_validate.py` is run as a read-only validator of final state surfaces.
 
 WCS-019 is now a full completed/reconciled live loop proof under this hardened process. The hardened live WCS loop is currently proven across WCS-016, WCS-017, WCS-018, and WCS-019, including:
 - correct task/branch activation
@@ -381,6 +381,7 @@ Final evidence validator and backlog reconciler.
 - verifies task branch commit state
 - updates backlog/state if all conditions pass
 - re-renders the backlog markdown view
+- syncs existing task packet JSON and task packet markdown to the reconciled terminal outcome when packet artifacts exist
 - updates review output where applicable
 
 ### Current required worker result statuses
@@ -412,7 +413,11 @@ For a done-path reconcile, the script verifies:
 Typically updates:
 - `state/master_backlog.json`
 - `state/MASTER_BACKLOG.md`
+- `tasks/WCS-XXX_task.json` (status + updated_at when packet exists)
+- `tasks/WCS-XXX_task.md` (re-rendered from the updated packet when packet exists)
 - `state/DAILY_REVIEW.md`
+
+Backlog/state remains the authoritative source of truth. Task packet artifacts remain generated/operator-facing surfaces that are kept aligned after reconcile so they do not lie about terminal status.
 
 ### What this script does not currently do
 - it does not guess the task if `--task` is omitted

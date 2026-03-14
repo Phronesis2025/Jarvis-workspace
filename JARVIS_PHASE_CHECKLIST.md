@@ -2,9 +2,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: guarded-flow optional worker-result drafting integration)
+- Last updated: 2026-03-14 (doc pass: packet lifecycle/status cleanup + future-option parking)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven)
+- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned)
 
 ## Purpose
 
@@ -257,6 +257,7 @@ Finish the state surfaces the docs originally assumed would exist.
 - [x] Make `escalations.json` real and active
 - [x] Make `ESCALATIONS.md` real and active
 - [x] Make `project_status_n8n.json` real even if deferred
+- [x] Tighten task packet lifecycle/status consistency so reconciled packet JSON + markdown no longer remain misleadingly `ready`; safely proved on WCS-043 (`tasks/WCS-043_task.json` now shows `status: done`, `tasks/WCS-043_task.md` now shows `Status: done`)
 - [ ] Make `AGENT_REGISTRY.md` real if still part of the intended system
 - [ ] Make `OPERATING_RULES.md` real if still part of the intended system
 - [ ] Ensure all state files have a clear source-of-truth relationship

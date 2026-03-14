@@ -3,7 +3,8 @@
 
 **Version:** 3.0  
 **Date:** March 9, 2026  
-**Last updated:** 2026-03-12  
+**Last updated:** 2026-03-14  
+**Last reviewed:** 2026-03-14  
 **Status:** Rebuild baseline; design-era. For **current live execution loop and scripts**, see **JARVIS_LIVE_HANDOFF_BUNDLE.md** and **JARVIS_SCRIPT_PROCESS_REFERENCE.md**.  
 **Type:** Product definition and implementation direction
 
@@ -549,6 +550,10 @@ Likely future workers:
 - n8n workflow/content improver
 - local machine maintenance worker
 - voice interaction layer
+
+Deferred future options to keep parked cleanly:
+- **LiveKit** is the leading future candidate for a voice transport / realtime voice interface layer, not Jarvis's brain and not a replacement for Jarvis core planning, orchestration, state, or execution flow. Voice remains deferred for the current phase.
+- **LibreCrawl** is a future optional crawl-audit companion for bounded supporting evidence such as broken links, crawl coverage, metadata issues, content/asset discovery, and broad regression scanning. It does not replace Playwright and must not decide task completion by itself.
 
 Expansion happens only after the phase-1 loop is stable.
 

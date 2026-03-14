@@ -7,8 +7,8 @@
     "owner": "user",
     "purpose": "High-level product requirements for Jarvis rebuild",
     "updated_by": "user",
-    "notes": "Core planning doc (design-era; some sections are historical baseline rather than current live operating truth)",
-    "last_reviewed": "2026-03-12"
+    "notes": "Core planning doc (design-era baseline; now also records deferred LiveKit and LibreCrawl options without making them current-phase commitments)",
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "JARVIS_SYSTEM_DOCUMENTATION_v3.md",
@@ -18,8 +18,8 @@
     "owner": "user",
     "purpose": "Detailed architecture and operating documentation",
     "updated_by": "user",
-    "notes": "Core planning doc (design-era; some sections are historical baseline rather than current live operating truth)",
-    "last_reviewed": "2026-03-12"
+    "notes": "Core planning doc (design-era baseline; now includes compact deferred notes for future LiveKit voice layering and LibreCrawl audit support)",
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3.md",
@@ -29,8 +29,8 @@
     "owner": "user",
     "purpose": "Current authoritative decisions and system rules",
     "updated_by": "user",
-    "notes": "Most important design reference; some areas still describe earlier-phase assumptions and should be read as baseline when they diverge from JARVIS_LIVE_HANDOFF_BUNDLE.md",
-    "last_reviewed": "2026-03-12"
+    "notes": "Most important design reference; some areas still describe earlier-phase assumptions and should be read as baseline when they diverge from JARVIS_LIVE_HANDOFF_BUNDLE.md; deferred LiveKit and LibreCrawl options are parked here as future-only notes",
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "JARVIS_SCRIPT_PROCESS_REFERENCE.md",
@@ -40,7 +40,7 @@
     "owner": "user",
     "purpose": "Live reference for Jarvis WCS task execution process and hardening helpers",
     "updated_by": "user",
-    "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates and pre-stamp checks",
+    "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates, pre-stamp checks, and packet-status sync during reconcile",
     "last_reviewed": "2026-03-14"
   },
   {
@@ -133,7 +133,7 @@
     "owner": "jarvis_script",
     "purpose": "Renders MASTER_BACKLOG.md from backlog JSON",
     "updated_by": "user",
-    "notes": "Working"
+    "notes": "Working; reconcile now also syncs existing task packet artifacts to the reconciled terminal outcome"
   },
   {
     "file": "update_master_backlog.ps1",
@@ -173,7 +173,7 @@
     "owner": "jarvis_script",
     "purpose": "Reconciles worker and QA results into backlog state",
     "updated_by": "user",
-    "notes": "Working"
+    "notes": "Working; reconcile now also syncs existing task packet artifacts to the reconciled terminal outcome"
   },
   {
     "file": "reconcile_task_outcome.ps1",
@@ -513,7 +513,8 @@
     "owner": "user",
     "purpose": "Phase-by-phase rebuild checklist and status for Jarvis workspace",
     "updated_by": "user",
-    "notes": "Current canonical overview of phases, missing state surfaces, and next priorities"
+    "notes": "Current canonical overview of phases, missing state surfaces, and next priorities",
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "JARVIS_AGENT_IDEA_BACKLOG.md",
@@ -544,7 +545,7 @@
     "owner": "user",
     "purpose": "Live handoff bundle describing current Jarvis system truth, hardening state, and helper surfaces",
     "updated_by": "user",
-    "notes": "Aggregates current live system decisions, hardened loop surfaces, and helper scripts for Jarvis rebuild",
+    "notes": "Aggregates current live system decisions, hardened loop surfaces, helper scripts, and current packet lifecycle/status cleanup truth for Jarvis rebuild",
     "last_reviewed": "2026-03-14"
   },
   {

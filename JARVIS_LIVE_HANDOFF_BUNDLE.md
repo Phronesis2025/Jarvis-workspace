@@ -2,13 +2,17 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: guarded-flow optional worker-result drafting integration)
+- Last updated: 2026-03-14 (doc pass: packet lifecycle/status cleanup live)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
-- `state/master_backlog.json` and `state/MASTER_BACKLOG.md` have local backlog-ladder changes that were intentionally left out of the selector-ladder commit.
-- Local backup exists: `state/master_backlog.backup_2026-03-13_17-29-32.json`.
-- Resolve in a later dedicated backlog-state commit or explicit revert.
+- No special local follow-up is required for the packet lifecycle/status cleanup beyond normal review and commit discipline.
+
+## Recent live truth
+- Option A packet lifecycle/status cleanup is now live.
+- `scripts/reconcile_task_outcome.py` now syncs existing task packet JSON and task packet markdown to the reconciled terminal outcome when those packet artifacts exist.
+- Backlog/state remains authoritative; task packet artifacts remain generated/operator-facing views that are kept aligned after reconcile.
+- Safe proof: completed `WCS-043` now shows `status: done` in `tasks/WCS-043_task.json` and `Status: done` in `tasks/WCS-043_task.md` after reconcile, instead of lingering at `ready`.
 
 ## FILE: JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3
 ````md
@@ -1796,7 +1800,9 @@ The current **proven live WCS task loop** is:
     - task branch has committed work and is ahead of `main`
     - repo/task evidence is sufficient
 19. Backlog JSON and rendered Markdown are updated from reconcile output.
-20. `post_reconcile_validate.py` is run as a read-only validator of final state surfaces.
+20. If task packet artifacts exist, reconcile also syncs task packet JSON and task packet markdown to the same terminal outcome (`done`, `blocked`, or `escalated`) so packet files do not remain misleadingly `ready`.
+21. Backlog/state remains authoritative; task packet artifacts remain generated/operator-facing views that are kept aligned during reconcile.
+22. `post_reconcile_validate.py` is run as a read-only validator of final state surfaces.
 
 ## Current process reality
 
@@ -2066,6 +2072,7 @@ Final evidence validator and backlog reconciler.
 - verifies task branch commit state
 - updates backlog/state if all conditions pass
 - re-renders the backlog markdown view
+- syncs existing task packet JSON and task packet markdown to the reconciled terminal outcome when packet artifacts exist
 - updates review output where applicable
 
 ### Current required worker result statuses
@@ -2097,7 +2104,11 @@ For a done-path reconcile, the script verifies:
 Typically updates:
 - `state/master_backlog.json`
 - `state/MASTER_BACKLOG.md`
+- `tasks/WCS-XXX_task.json` (status + updated_at when packet exists)
+- `tasks/WCS-XXX_task.md` (re-rendered from the updated packet when packet exists)
 - `state/DAILY_REVIEW.md`
+
+Backlog/state remains the authoritative source of truth. Task packet artifacts remain generated/operator-facing surfaces that are kept aligned after reconcile so they do not lie about terminal status.
 
 ### What this script does not currently do
 - it does not guess the task if `--task` is omitted

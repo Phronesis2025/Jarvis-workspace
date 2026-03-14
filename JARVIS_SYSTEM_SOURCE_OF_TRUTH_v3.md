@@ -3,7 +3,8 @@
 
 **Version:** v3.0  
 **Date:** March 9, 2026  
-**Last updated:** 2026-03-12  
+**Last updated:** 2026-03-14  
+**Last reviewed:** 2026-03-14  
 **Status:** Authoritative decisions; design-era baseline. For **current live process and script list** (validators, stamping, reconcile gates), see **JARVIS_LIVE_HANDOFF_BUNDLE.md** and **JARVIS_SCRIPT_PROCESS_REFERENCE.md**.  
 **Use:** Final reference for architecture, constraints, and phase-1 rules
 
@@ -393,6 +394,44 @@ The voice layer does not solve the hard problem.
 The hard problem is trustworthy orchestration and verification.
 
 Only when the boring loop works should voice be added.
+
+---
+
+## 18A. Deferred Future Interface And Audit Options
+
+### 18A.1 LiveKit
+LiveKit is the leading future candidate for a Jarvis voice transport / realtime voice interface layer.
+
+If used later, LiveKit is not Jarvis's brain and does not replace Jarvis core planning, orchestration, state, or execution flow.
+
+Preferred layering if voice is activated later:
+- speech-to-text
+- intent/router layer
+- Jarvis command adapter
+- Jarvis core
+- text-to-speech
+
+Early voice support should stay read-only / low-risk:
+- what's next
+- summarize status
+- read escalations
+- read today's plan
+
+Voice remains deferred in the current phase.
+
+### 18A.2 LibreCrawl
+LibreCrawl is a future optional crawl-audit companion, not a replacement for Playwright.
+
+If used later, it should stay a bounded supporting audit layer for:
+- broken links
+- crawl coverage
+- metadata issues
+- content/asset discovery
+- broad regression scanning
+
+LibreCrawl evidence should feed QA/review, not decide task completion by itself. It should not be allowed to create noisy low-value alert spam.
+
+Playwright remains the primary QA path in the current phase.
 
 ---
 

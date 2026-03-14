@@ -3,7 +3,8 @@
 
 **Version:** v3.0  
 **Date:** March 9, 2026  
-**Last updated:** 2026-03-12  
+**Last updated:** 2026-03-14  
+**Last reviewed:** 2026-03-14  
 **Status:** Operating documentation for the rebuild; design-era baseline. For **current live hardened loop** (validation gates, stamping, reconcile, post-reconcile validation), see **JARVIS_LIVE_HANDOFF_BUNDLE.md** and **JARVIS_SCRIPT_PROCESS_REFERENCE.md**.  
 **Audience:** Operator / developer / future maintainer
 
@@ -592,6 +593,12 @@ Future workers are allowed, but only if each new worker defines:
 - n8n content improver
 - local machine maintenance worker
 - voice interface layer
+
+### Deferred interface and audit options
+
+**LiveKit:** leading future candidate for a voice transport / realtime voice interface layer. If used later, it sits around Jarvis, not in place of Jarvis: speech-to-text -> intent/router -> Jarvis command adapter -> Jarvis core -> text-to-speech. Voice remains deferred in the current phase, and any early support should start with read-only / low-risk commands such as "what's next", "summarize status", "read escalations", and "read today's plan".
+
+**LibreCrawl:** future optional crawl-audit companion for broad supporting checks such as broken links, crawl coverage, metadata issues, content/asset discovery, and broader regression scanning. It does not replace Playwright, and it must feed QA/review evidence rather than decide task completion by itself. No noisy low-value alert spam.
 
 ### Expansion rule
 
