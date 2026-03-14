@@ -8,6 +8,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from generate_task_packet import build_packet_markdown
+
 FINAL_STATUSES = {
     "done",
     "blocked",
@@ -295,6 +297,24 @@ def append_daily_review(
     review_path.write_text(content, encoding="utf-8")
 
 
+def sync_task_packet_artifacts(tasks_dir: Path, task_id: str, final_status: str) -> list[Path]:
+    task_json_path = tasks_dir / f"{task_id}_task.json"
+    if not task_json_path.exists():
+        return []
+
+    packet = load_json(task_json_path)
+    if not isinstance(packet, dict):
+        raise ReconcileError(f"Expected JSON object in {task_json_path}")
+
+    packet["status"] = final_status
+    packet["updated_at"] = now_local()
+    save_json(task_json_path, packet)
+
+    task_md_path = tasks_dir / f"{task_id}_task.md"
+    task_md_path.write_text(build_packet_markdown(packet), encoding="utf-8")
+    return [task_json_path, task_md_path]
+
+
 CURSOR_COMPLETION_CONTRACT = """When you finish the task, return your summary in this exact structure:
 
 1. What changed
@@ -351,6 +371,7 @@ def main() -> int:
     results_dir = workspace / "results"
     qa_dir = workspace / "qa"
     logs_dir = workspace / "logs"
+    tasks_dir = workspace / "tasks"
 
     task_id = args.task.strip().upper()
     backlog_json_path = state_dir / "master_backlog.json"
@@ -383,6 +404,7 @@ def main() -> int:
     updated_task = update_backlog_status(backlog, task_id, final_status)
     save_json(backlog_json_path, backlog)
     backlog_md_path.write_text(render_master_backlog_md(backlog), encoding="utf-8")
+    updated_packet_paths = sync_task_packet_artifacts(tasks_dir, task_id, final_status)
 
     if not args.skip_review:
         append_daily_review(daily_review_path, updated_task, worker, qa, final_status, repo_verification=repo_verification)
@@ -401,6 +423,9 @@ def main() -> int:
         print(f"HEAD COMMIT: {repo_verification['head_commit']}")
     print(f"UPDATED: {backlog_json_path}")
     print(f"RENDERED: {backlog_md_path}")
+    for updated_packet_path in updated_packet_paths:
+        label = "RENDERED" if updated_packet_path.suffix.lower() == ".md" else "UPDATED"
+        print(f"{label}: {updated_packet_path}")
     if not args.skip_review:
         print(f"UPDATED: {daily_review_path}")
     return 0

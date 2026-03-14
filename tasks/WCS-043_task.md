@@ -7,7 +7,7 @@
 - Bucket: ugly
 - Priority: P3
 - Risk: low
-- Status: ready
+- Status: done
 
 ## Repo
 - Repo Path: `C:\dev\wcsv2.0-new`

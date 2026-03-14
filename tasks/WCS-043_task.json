@@ -5,7 +5,7 @@
   "bucket": "ugly",
   "priority": "P3",
   "risk": "low",
-  "status": "ready",
+  "status": "done",
   "repo_path": "C:\\dev\\wcsv2.0-new",
   "branch_name": "jarvis-task-wcs-043",
   "problem_summary": "Fake test: add visible TEST: prefix to drills page heading.",
@@ -34,5 +34,5 @@
   ],
   "notes": "src/app/drills/page.tsx",
   "created_at": "2026-03-14T18:01:23-05:00",
-  "updated_at": "2026-03-14T18:01:23-05:00"
+  "updated_at": "2026-03-14T18:25:38-05:00"
 }
