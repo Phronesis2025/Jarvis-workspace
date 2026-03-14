@@ -744,9 +744,9 @@
     "category": "script",
     "source_type": "source_of_truth",
     "owner": "jarvis_script",
-    "purpose": "Agent-first Cursor invocation bridge: prefers agent CLI, then cursor launcher; runs handoff against task repo workspace",
+    "purpose": "Agent-first Cursor execution bridge for the current WCS worker surface; prefers agent CLI, then cursor launcher",
     "updated_by": "user",
-    "notes": "Execution targets task repo (repo_path from packet); Agent uses --workspace and --trust; handoff content as prompt when small; does not fabricate worker completion; proven on WCS-042",
+    "notes": "Execution targets the task repo (repo_path from packet) as the current Cursor execution surface for the WCS worker; Agent uses --workspace and --trust; handoff content as prompt when small; does not fabricate worker completion; proven on WCS-042",
     "last_reviewed": "2026-03-14"
   },
   {

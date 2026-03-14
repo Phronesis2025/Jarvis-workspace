@@ -15,7 +15,7 @@ This checklist summarizes the Jarvis rebuild from the beginning through roughly 
 - JSON as machine truth
 - Markdown as rendered human view
 - WCS as the first active project
-- Cursor as the current coding worker
+- WCS worker as the current coding worker, executed through Cursor in this phase
 - Playwright as the QA layer
 - parent login deferred
 - voice deferred
@@ -50,7 +50,7 @@ Stop chasing fake autonomy and lock the real project shape.
 - [x] Decide Jarvis is a **foreman/orchestrator**, not the main coding worker
 - [x] Decide the system is **local-first**
 - [x] Decide WCS is the **first active proof domain**
-- [x] Decide Cursor remains the current semi-manual coding worker
+- [x] Decide the WCS worker remains the current coding worker and Cursor remains the current execution surface for that worker
 - [x] Decide Playwright is the QA truth for WCS
 - [x] Decide phase 1 uses **Python scripts**, not heavy orchestration frameworks
 - [x] Decide state uses **JSON as source of truth** and **Markdown as human view**

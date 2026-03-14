@@ -69,7 +69,7 @@ Everything below follows from that rule.
 **Chosen:** markdown + JSON sidecars
 
 ### 4.3 Phase-1 coding execution truth
-**Chosen:** semi-manual Cursor worker for WCS
+**Chosen:** WCS worker as the coding worker for WCS, executed semi-manually through Cursor in this phase
 
 ### 4.4 Phase-1 verification truth
 **Chosen:** Playwright for WCS
@@ -637,7 +637,7 @@ A boring script that survives real use is better than a “smart” framework th
 **Chosen:** markdown + JSON sidecars
 
 ### Phase-1 WCS worker truth
-**Chosen:** semi-manual Cursor worker with Jarvis-generated task packets
+**Chosen:** WCS worker with Jarvis-generated task packets, executed semi-manually through Cursor in this phase
 
 ### First proof-of-work sequence
 1. planning loop
@@ -678,7 +678,7 @@ Run log / project status / escalation record
 
 - **Jarvis planner/orchestrator**
 - **WCS task packet flow**
-- **WCS semi-manual Cursor worker**
+- **WCS coding worker executed through Cursor**
 - **WCS QA worker**
 - **truth-mapping scripts**
 - **logging + escalation flow**
@@ -1754,7 +1754,8 @@ The current Phase 1 architecture is intentionally simple:
 - local Python scripts
 - JSON as source-of-truth
 - Markdown as rendered human-readable view
-- Cursor as the current semi-manual worker
+- the WCS worker as the current coding worker for WCS tasks
+- Cursor as the current execution surface for that WCS worker
 - Playwright as the QA layer
 - one bounded task at a time
 - Git branch correctness enforced as part of task completion
@@ -1812,7 +1813,7 @@ The current **proven live WCS task loop** is:
 - branch verification during reconcile
 
 ### Semi-manual now
-- worker implementation in Cursor or by operator
+- WCS worker implementation through Cursor or by direct operator action
 - worker result JSON content fill-in
 - QA command execution
 - QA result JSON content fill-in
@@ -2733,7 +2734,7 @@ The repo should be:
 
 ### Step 5 — Perform worker implementation
 
-The worker implementation currently happens in Cursor or by direct operator action.
+The WCS worker implementation currently runs through Cursor or by direct operator action.
 
 The code change must stay bounded to the task scope.
 
@@ -3238,7 +3239,7 @@ Confirm:
 
 ### Current action
 
-Perform the bounded code change in Cursor or by direct operator edit.
+Perform the bounded WCS worker change through Cursor or by direct operator edit.
 
 ### Current success condition
 
@@ -3260,7 +3261,7 @@ Stop if:
 
 The worker implementation is currently semi-manual.
 
-Cursor may help perform the change, but the operator still validates the result.
+Cursor is currently the execution surface for the WCS worker, but the operator still validates the result.
 
 ### Intended future automation
 
@@ -4066,7 +4067,7 @@ This checklist summarizes the Jarvis rebuild from the beginning through roughly 
 - JSON as machine truth
 - Markdown as rendered human view
 - WCS as the first active project
-- Cursor as the current coding worker
+- WCS worker as the current coding worker, executed through Cursor in this phase
 - Playwright as the QA layer
 - parent login deferred
 - voice deferred
@@ -4750,7 +4751,7 @@ They are not the blocker now.
 
 ## Cursor worker execution wrapper (live)
 
-The current workflow stack is strong through task selection, packet generation, daily execution prep, handoff generation, and the guarded pre/post-worker flow. `run_cursor_worker.py` is live as an **Agent-first Cursor invocation bridge**: it prefers the real **agent** CLI when available (Windows-hardened detection), then falls back to the desktop cursor launcher. Execution runs against the **task repo workspace** (`repo_path` from the task packet), not the Jarvis workspace; Agent is invoked with `--workspace <repo_path>` and `--trust`; handoff content is passed as prompt when small enough. It reports PASS / BLOCKED / FAIL honestly; output includes both Jarvis workspace and task repo workspace. It does not fabricate completion or write a fake worker_complete result. The operator still verifies completion and finalizes worker-result evidence. The system remains **operator-assisted at the completion/evidence stage**; full autonomy is not claimed.
+The current workflow stack is strong through task selection, packet generation, daily execution prep, handoff generation, and the guarded pre/post-worker flow. `run_cursor_worker.py` is live as an **Agent-first Cursor invocation bridge** for the current WCS worker execution surface: it prefers the real **agent** CLI when available (Windows-hardened detection), then falls back to the desktop cursor launcher. Execution runs against the **task repo workspace** (`repo_path` from the task packet), not the Jarvis workspace; Agent is invoked with `--workspace <repo_path>` and `--trust`; handoff content is passed as prompt when small enough. It reports PASS / BLOCKED / FAIL honestly; output includes both Jarvis workspace and task repo workspace. It does not fabricate completion or write a fake worker_complete result. The operator still verifies completion and finalizes worker-result evidence. The system remains **operator-assisted at the completion/evidence stage**; full autonomy is not claimed.
 
 **Worker-result drafting:** `draft_worker_result_from_evidence.py` is live and proven. It drafts a truthful `worker_result.json` from task packet and repo evidence (branch, changed files), plus explicit operator-supplied `--command <text>` entries for `commands_run`. Those command entries are trimmed, empty values are dropped, and obvious placeholders like `todo`, `tbd`, and `placeholder` are rejected. For `worker_complete`, at least one meaningful `--command` is now required or the draft fails clearly before writing. The script does not auto-infer commands from `evidence_source`, does not fabricate shell history, and does not stamp or reconcile. WCS-042 proved the negative cases (no `--command`, placeholder-only `--command`) and the positive path (dry-run, write, `worker_result_validate.py --mode pre-stamp`, and `stamp_guard_check.py` PASS).
 
@@ -4865,8 +4866,8 @@ jarvis-workspace/
 
 ### `results/`
 
-- **Purpose:** One worker result file per task, e.g. `WCS-010_worker_result.json`. What the worker (e.g. Cursor) did.
-- **Owner:** Operator / Cursor worker; timestamps can be set via `stamp_result_timestamp.py`.
+- **Purpose:** One worker result file per task, e.g. `WCS-010_worker_result.json`. What the WCS worker did.
+- **Owner:** Operator / WCS worker evidence capture; timestamps can be set via `stamp_result_timestamp.py`.
 
 ### `scripts/`
 

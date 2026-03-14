@@ -44,7 +44,8 @@ The current Phase 1 architecture is intentionally simple:
 - local Python scripts
 - JSON as source-of-truth
 - Markdown as rendered human-readable view
-- Cursor as the current semi-manual worker
+- the WCS worker as the current coding worker for WCS tasks
+- Cursor as the current execution surface for that WCS worker
 - Playwright as the QA layer
 - one bounded task at a time
 - Git branch correctness enforced as part of task completion
@@ -123,7 +124,7 @@ For hardening-surface checks (not part of the core task loop), `file_registry_ch
 - branch verification during reconcile
 
 ### Semi-manual now
-- worker implementation in Cursor or by operator
+- WCS worker implementation through Cursor or by direct operator action
 - worker result JSON content fill-in
 - QA command execution
 - QA result JSON content fill-in
@@ -638,7 +639,7 @@ This script provides a blunt, local-first, read-only worker-boundary validator t
 
 ### Role
 
-Cursor invocation bridge: prefers the real Cursor Agent CLI (`agent`) when available; falls back to the desktop cursor launcher. Execution runs against the **task repo workspace** (from the task packet), not the Jarvis workspace. Does not by itself prove task completion or write a truthful worker_complete result; operator still verifies completion and finalizes worker-result evidence.
+Cursor execution bridge for the WCS worker: prefers the real Cursor Agent CLI (`agent`) when available; falls back to the desktop cursor launcher. Execution runs against the **task repo workspace** (from the task packet), not the Jarvis workspace. Does not by itself prove task completion or write a truthful worker_complete result; operator still verifies completion and finalizes worker-result evidence.
 
 ### Current behavior
 
@@ -659,7 +660,7 @@ Cursor invocation bridge: prefers the real Cursor Agent CLI (`agent`) when avail
 
 ### Why it exists
 
-This script is the Cursor invocation bridge: it runs Agent (or cursor launcher) against the task repo workspace from the packet, with non-interactive trust for that repo when using Agent. It does not prove task completion or write a truthful worker_complete result; the operator still verifies completion and finalizes worker-result evidence. The system remains operator-assisted at the worker completion/evidence stage.
+This script is the Cursor invocation bridge for the current WCS worker execution surface: it runs Agent (or cursor launcher) against the task repo workspace from the packet, with non-interactive trust for that repo when using Agent. It does not prove task completion or write a truthful worker_complete result; the operator still verifies completion and finalizes worker-result evidence. The system remains operator-assisted at the worker completion/evidence stage.
 
 ---
 
@@ -1132,7 +1133,7 @@ The repo should be:
 
 ### Step 5 — Perform worker implementation
 
-The worker implementation currently happens in Cursor or by direct operator action.
+The WCS worker implementation currently runs through Cursor or by direct operator action.
 
 The code change must stay bounded to the task scope.
 

@@ -214,7 +214,7 @@ Return:
 ## Template 4 — WCS task implementation prompt
 
 ### Use when
-- Cursor is acting as the worker for a bounded WCS task.
+- Cursor is the current execution surface for a bounded WCS worker task.
 - A task packet already exists.
 
 ### Template
