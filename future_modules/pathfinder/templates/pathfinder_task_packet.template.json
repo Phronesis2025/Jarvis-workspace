@@ -1,0 +1,50 @@
+{
+  "task_id": "PF-001",
+  "project": "WCS",
+  "worker": "pathfinder",
+  "title": "Investigate a bounded issue before implementation",
+  "problem_summary": "Describe the issue or unknown clearly and narrowly.",
+  "goal": "Produce an evidence-backed research summary with concrete next steps and no code edits.",
+  "scope": "Bounded repo/doc investigation only for the named issue.",
+  "repo_path": "",
+  "branch_name": "",
+  "suspected_files": [],
+  "known_artifacts": [],
+  "research_questions": [],
+  "allowed_sources": [
+    "task_artifacts",
+    "repo_files",
+    "project_docs",
+    "official_external_docs"
+  ],
+  "acceptance_criteria": [
+    "Findings are evidence-backed",
+    "Recommended next actions are concrete",
+    "No production code is edited",
+    "Scope remains bounded to the packet"
+  ],
+  "qa_method": "Manual review against evidence, structure, and scope compliance",
+  "qa_plan": [
+    "Validate result JSON structure",
+    "Check that major findings cite evidence",
+    "Confirm files_changed is empty",
+    "Confirm recommendations stay bounded"
+  ],
+  "risk": "low",
+  "system_impact": "Read-only research task; no production code edits allowed.",
+  "stop_conditions": [
+    "Required artifacts are missing",
+    "Scope expands beyond the packet",
+    "Task would require code edits to proceed",
+    "Evidence quality is too weak for a safe recommendation"
+  ],
+  "must_not_do": [
+    "Do not edit code",
+    "Do not install dependencies",
+    "Do not broaden scope",
+    "Do not claim certainty without evidence"
+  ],
+  "status": "ready",
+  "created_at": "",
+  "updated_at": ""
+}

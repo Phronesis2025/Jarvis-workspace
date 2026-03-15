@@ -1,0 +1,25 @@
+{
+  "task_id": "PF-001",
+  "status": "worker_complete",
+  "executor": "pathfinder",
+  "summary": "Concise evidence-backed summary of what Pathfinder found.",
+  "findings": [
+    {
+      "id": "F1",
+      "claim": "State the finding clearly.",
+      "evidence": [
+        "Artifact, file path, doc section, or source used to support the finding."
+      ],
+      "confidence": "medium"
+    }
+  ],
+  "artifacts_reviewed": [],
+  "external_sources_reviewed": [],
+  "recommended_next_actions": [],
+  "open_questions": [],
+  "files_changed": [],
+  "commands_run": [],
+  "issues_encountered": [],
+  "notes": "Use notes for review guidance, caveats, or escalation context.",
+  "completed_at": ""
+}

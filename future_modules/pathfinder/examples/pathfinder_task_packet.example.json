@@ -1,0 +1,62 @@
+{
+  "task_id": "PF-001",
+  "project": "WCS",
+  "worker": "pathfinder",
+  "title": "Investigate recurring local WCS smoke readiness failure before implementation",
+  "problem_summary": "The local WCS smoke flow intermittently fails because the app does not appear ready in time for verification. We need a bounded research pass before changing code or scripts.",
+  "goal": "Review the existing artifacts and likely touchpoints, identify the most likely causes, and recommend the next safest implementation or QA step without editing code.",
+  "scope": "Read-only investigation of the existing WCS smoke/verification path and directly related task artifacts.",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "branch_name": "jarvis-task-wcs-043",
+  "suspected_files": [
+    "package.json",
+    "playwright.config.ts",
+    "tests/e2e/smoke.spec.ts"
+  ],
+  "known_artifacts": [
+    "tasks/WCS-043_task.json",
+    "results/WCS-043_worker_result.json",
+    "qa/WCS-043_qa_result.json",
+    "scratch/task_cycle_summaries/WCS-043_task_cycle_summary.md"
+  ],
+  "research_questions": [
+    "What artifact or config path most likely controls local smoke readiness?",
+    "Does the current evidence point to app startup timing, Playwright setup timing, or a broader environment issue?",
+    "What is the next smallest safe change or test to run?"
+  ],
+  "allowed_sources": [
+    "task_artifacts",
+    "repo_files",
+    "project_docs",
+    "official_external_docs"
+  ],
+  "acceptance_criteria": [
+    "Findings are tied to actual artifacts or files",
+    "Recommendations are concrete and bounded",
+    "No production code is edited",
+    "Output clearly distinguishes evidence from inference"
+  ],
+  "qa_method": "Manual review against evidence, structure, and scope compliance",
+  "qa_plan": [
+    "Review findings against named artifacts",
+    "Check that files_changed remains empty",
+    "Confirm recommendations are bounded and actionable"
+  ],
+  "risk": "low",
+  "system_impact": "Read-only research task; no production code edits allowed.",
+  "stop_conditions": [
+    "Required artifacts are missing",
+    "Scope expands beyond local smoke readiness investigation",
+    "The task would require code edits to continue",
+    "Evidence quality is too weak for a safe recommendation"
+  ],
+  "must_not_do": [
+    "Do not edit code",
+    "Do not install dependencies",
+    "Do not broaden scope",
+    "Do not claim the issue is proven if it is only inferred"
+  ],
+  "status": "ready",
+  "created_at": "2026-03-14T19:20:00-05:00",
+  "updated_at": "2026-03-14T19:20:00-05:00"
+}

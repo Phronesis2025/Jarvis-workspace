@@ -1,0 +1,12 @@
+{
+  "task_id": "PF-001",
+  "worker": "pathfinder",
+  "status": "escalated",
+  "reason": "State clearly why Pathfinder could not proceed safely or why operator review is required.",
+  "evidence": [],
+  "recommended_next_action": "",
+  "pause_recommended": false,
+  "notes": "",
+  "created_at": "",
+  "updated_at": ""
+}
