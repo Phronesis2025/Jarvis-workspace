@@ -545,7 +545,7 @@
     "bucket": "ugly",
     "priority": "P3",
     "risk": "low",
-    "status": "ready",
+    "status": "done",
     "title": "Fake test: add temporary emoji to about page section divider",
     "notes": "src/app/about/page.tsx",
     "difficulty": 1,
