@@ -40,7 +40,7 @@
     "owner": "user",
     "purpose": "Live reference for Jarvis WCS task execution process and hardening helpers",
     "updated_by": "user",
-    "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates, pre-stamp checks, and packet-status sync during reconcile",
+    "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates, pre-stamp checks, packet-status sync during reconcile, and the thin Option B WCS operator wrapper for prep/post",
     "last_reviewed": "2026-03-14"
   },
   {
@@ -513,7 +513,7 @@
     "owner": "user",
     "purpose": "Phase-by-phase rebuild checklist and status for Jarvis workspace",
     "updated_by": "user",
-    "notes": "Current canonical overview of phases, missing state surfaces, and next priorities",
+    "notes": "Current canonical overview of phases, missing state surfaces, and next priorities; now records Option B V1 wrapper as live with fresh WCS-044 prep/post proof while launch-cursor proof remains deferred",
     "last_reviewed": "2026-03-14"
   },
   {
@@ -534,8 +534,8 @@
     "owner": "user",
     "purpose": "Live execution checklist for bounded Jarvis WCS tasks",
     "updated_by": "user",
-    "notes": "Defines current live execution phases for Jarvis-controlled WCS loop, including guardrails and helpers",
-    "last_reviewed": "2026-03-13"
+    "notes": "Defines current live execution phases for Jarvis-controlled WCS loop, including guardrails, helpers, and the thin operator-facing prep/post wrapper without overstating automation",
+    "last_reviewed": "2026-03-14"
   },
   {
     "file": "JARVIS_LIVE_HANDOFF_BUNDLE.md",
@@ -545,7 +545,7 @@
     "owner": "user",
     "purpose": "Live handoff bundle describing current Jarvis system truth, hardening state, and helper surfaces",
     "updated_by": "user",
-    "notes": "Aggregates current live system decisions, hardened loop surfaces, helper scripts, and current packet lifecycle/status cleanup truth for Jarvis rebuild",
+    "notes": "Aggregates current live system decisions, hardened loop surfaces, helper scripts, current packet lifecycle/status cleanup truth, and the live Option B V1 wrapper truth for Jarvis rebuild",
     "last_reviewed": "2026-03-14"
   },
   {
@@ -858,6 +858,17 @@
     "purpose": "Workflow/orchestration helper for guarded WCS task cycles; optional worker and QA drafting in post_worker/full",
     "updated_by": "user",
     "notes": "Runs existing guarded task-cycle helpers in sequence and stops on first failure. pre_worker is unchanged. In post_worker/full, optional --draft-worker-result plus truthful repeatable --worker-command values (and optional --worker-executor) inserts draft_worker_result_from_evidence.py --write immediately before worker_result_validate pre-stamp; worker result JSON may be missing only when this worker-draft flag is supplied, and missing meaningful worker-command evidence fails at the inserted worker-draft step. Existing optional --draft-qa-result QA wiring remains intact and unchanged in this step. Does not replace helper logic, execute worker code directly, or schedule tasks",
+    "last_reviewed": "2026-03-14"
+  },
+  {
+    "file": "run_wcs_operator_entrypoint.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_operator_entrypoint.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Thin operator-facing wrapper for the current WCS prep/post flow",
+    "updated_by": "user",
+    "notes": "Delegates to existing helpers instead of replacing them. prep ensures packet existence, runs guarded pre_worker, prints artifact paths, and may optionally attempt run_cursor_worker.py. post delegates to run_guarded_task_cycle.py --mode post_worker and passes worker/QA evidence flags through unchanged. prep and post are freshly proven on WCS-044; optional prep --launch-cursor remains intentionally deferred as a clean proof surface",
     "last_reviewed": "2026-03-14"
   },
   {

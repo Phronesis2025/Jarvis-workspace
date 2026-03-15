@@ -2,9 +2,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: packet lifecycle/status cleanup + future-option parking)
+- Last updated: 2026-03-14 (doc pass: Option B V1 wrapper live)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned)
+- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof)
 
 ## Purpose
 
@@ -386,6 +386,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `build_cursor_handoff.py` as a workflow helper that prepares bounded Cursor handoff files from task packets — **live**
 - [x] Build `build_task_cycle_summary.py` as a workflow helper that summarizes current task/worker/QA evidence into a human-readable task-cycle markdown file without executing tasks or mutating state — **live**
 - [x] Build `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs existing guarded task-cycle scripts in order and stops on first failure without changing their logic — **live**
+- [x] Build `run_wcs_operator_entrypoint.py` as a thin operator-facing WCS wrapper over existing helpers with `prep` and `post` only; `prep` and `post` are freshly proven on `WCS-044`, while optional `prep --launch-cursor` remains intentionally deferred as a clean proof surface
 - [x] Wire optional QA-result drafting into guarded post_worker/full via `run_guarded_task_cycle.py --draft-qa-result` and QA evidence passthrough; draft step runs before `qa_result_validate.py --mode pre-stamp`; without `--draft-qa-result`, QA result JSON still required — **live**
 - [x] Wire optional worker-result drafting into guarded post_worker/full via `run_guarded_task_cycle.py --draft-worker-result` plus truthful repeatable `--worker-command <text>` (and optional `--worker-executor` passthrough); inserted worker-draft step runs immediately before `worker_result_validate.py --mode pre-stamp`, pre_worker remains unchanged, and WCS-042 proved the safe boundary through worker draft PASS + worker pre-stamp validation PASS before intentionally stopping ahead of stamp/reconcile — **live**
 - [x] Build `select_next_ready_task.py` as a read-only workflow helper that selects the next eligible ready task from backlog/planning surfaces using progression ladder (execution_lane, test_phase, selector_rank) when present, without mutating state — **live**

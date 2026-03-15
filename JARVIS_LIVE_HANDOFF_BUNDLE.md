@@ -2,17 +2,25 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: packet lifecycle/status cleanup live)
+- Last updated: 2026-03-14 (doc pass: Option B V1 wrapper live)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
-- No special local follow-up is required for the packet lifecycle/status cleanup beyond normal review and commit discipline.
+- Option B V1 is now live via `scripts/run_wcs_operator_entrypoint.py` as a thin operator-facing wrapper for `prep` and `post`.
+- The optional `prep --launch-cursor` bridge remains intentionally deferred as a clean proof surface; it is available for operator-assisted use but is not yet trusted as proof-backed automation.
 
 ## Recent live truth
 - Option A packet lifecycle/status cleanup is now live.
 - `scripts/reconcile_task_outcome.py` now syncs existing task packet JSON and task packet markdown to the reconciled terminal outcome when those packet artifacts exist.
 - Backlog/state remains authoritative; task packet artifacts remain generated/operator-facing views that are kept aligned after reconcile.
 - Safe proof: completed `WCS-043` now shows `status: done` in `tasks/WCS-043_task.json` and `Status: done` in `tasks/WCS-043_task.md` after reconcile, instead of lingering at `ready`.
+- Option B V1 is now live via `scripts/run_wcs_operator_entrypoint.py`.
+- V1 scope is intentionally small: `prep` and `post` only.
+- `prep` ensures the packet exists when missing, runs guarded `pre_worker`, prints key artifact paths, and may optionally attempt `--launch-cursor`.
+- `post` delegates to `run_guarded_task_cycle.py --mode post_worker` and passes worker/QA evidence flags through unchanged.
+- Existing validated helpers remain the real execution engines underneath the wrapper.
+- Fresh proof succeeded on `WCS-044` for wrapper `prep` and wrapper `post`.
+- `--launch-cursor` remains intentionally deferred as a clean proof surface after an unsafe out-of-scope mutation was observed during a delegated proof attempt.
 
 ## FILE: JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3
 ````md

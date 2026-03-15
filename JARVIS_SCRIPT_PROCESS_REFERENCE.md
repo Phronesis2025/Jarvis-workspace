@@ -3,13 +3,14 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: packet lifecycle/status cleanup live)
-- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, and packet lifecycle/status cleanup during reconcile; proven across WCS-016–WCS-019, full guarded cycle WCS-042, and fresh integrated-loop proof WCS-043)
+- Last updated: 2026-03-14 (doc pass: Option B V1 wrapper live)
+- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, and a thin operator-facing WCS wrapper for prep/post; proven across WCS-016–WCS-019, full guarded cycle WCS-042, fresh integrated-loop proof WCS-043, and fresh wrapper proof WCS-044 for prep/post)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycles succeeded on WCS-042 and WCS-043. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`.
 
 ## Current local state / follow-up
-- No special local follow-up is required for the packet lifecycle/status cleanup beyond normal review and commit discipline.
+- Option B V1 is live via `scripts/run_wcs_operator_entrypoint.py` for operator-facing `prep` and `post`.
+- `--launch-cursor` is available on `prep`, but it is not yet counted as a clean proof-backed path because a delegated proof attempt produced an unsafe out-of-scope repo mutation and was intentionally deferred.
 
 ## Purpose
 
@@ -104,6 +105,8 @@ WCS-019 is now a full completed/reconciled live loop proof under this hardened p
 - `pre_reconcile_check.py` PASS
 - `reconcile_task_outcome.py` success
 - `post_reconcile_validate.py` PASS
+
+For operator-facing consolidation, `run_wcs_operator_entrypoint.py --task WCS-XXX --workspace <path> prep|post ...` is now live as a thin wrapper over the existing validated helpers. In **prep**, it ensures the task packet exists (delegating to `generate_task_packet.py` only when missing), then delegates to `run_guarded_task_cycle.py --mode pre_worker`, and prints the key artifact paths for the packet, Cursor handoff, and task-cycle summary. In **post**, it delegates to `run_guarded_task_cycle.py --mode post_worker` and passes worker/QA evidence flags through unchanged. It does not select tasks automatically, create commits, run build/Playwright itself, invent evidence, schedule work, or run an autonomous full loop. Fresh proof succeeded on `WCS-044` for the wrapper's **prep** and **post** paths. The optional `prep --launch-cursor` bridge remains operator-assisted and intentionally deferred as a clean proof surface.
 
 After QA failures or ambiguous results, `qa_failure_triage.py --task WCS-XXX` can be run as a strictly read-only helper to classify the failure (`environment_setup_failure`, `test_harness_failure`, `application_regression`, or `ambiguous`) and recommend the next bounded action without mutating any state.
 
@@ -666,6 +669,65 @@ Cursor execution bridge for the WCS worker: prefers the real Cursor Agent CLI (`
 ### Why it exists
 
 This script is the Cursor invocation bridge for the current WCS worker execution surface: it runs Agent (or cursor launcher) against the task repo workspace from the packet, with non-interactive trust for that repo when using Agent. It does not prove task completion or write a truthful worker_complete result; the operator still verifies completion and finalizes worker-result evidence. The system remains operator-assisted at the worker completion/evidence stage.
+
+---
+
+## 8ba. `scripts/run_wcs_operator_entrypoint.py`
+
+### Role
+
+Thin operator-facing wrapper for the current Phase 1 WCS lane.
+
+### Current behavior
+
+- uses argparse subcommands: `prep` and `post`
+- requires `--task WCS-XXX`; accepts optional `--workspace`
+- **prep**:
+  - checks whether `tasks/WCS-XXX_task.json` exists
+  - if missing, delegates to `generate_task_packet.py --task WCS-XXX`
+  - delegates to `run_guarded_task_cycle.py --mode pre_worker`
+  - prints the key artifact paths for task packet JSON, task packet markdown, Cursor handoff, and task-cycle summary
+  - may optionally attempt `--launch-cursor` by delegating to `run_cursor_worker.py`
+- **post**:
+  - delegates to `run_guarded_task_cycle.py --mode post_worker`
+  - passes worker/QA evidence flags through unchanged, including:
+    - `--draft-worker-result`
+    - `--worker-command`
+    - `--worker-executor`
+    - `--draft-qa-result`
+    - `--build-status`
+    - `--smoke-status`
+    - `--manual-status`
+    - `--manual-check`
+    - `--artifact`
+    - `--qa-note`
+- prints the exact delegated helper command and does not hide helper output
+- stops on the first failed delegated step and reports FAIL honestly
+
+### Important current truth
+
+This wrapper is **not** a new engine. The existing validated helpers remain the true execution logic underneath. The wrapper is only an operator-facing consolidation layer for the already-proven prep/post path.
+
+Fresh proof succeeded on `WCS-044` for:
+
+- `prep`
+- `post`
+
+The optional `prep --launch-cursor` path is available, but it is **not yet counted as a clean proof-backed path**. A delegated proof attempt produced an unsafe out-of-scope repo mutation, so that surface remains intentionally deferred for proof purposes.
+
+### What this script does not currently do
+
+- it does not select tasks automatically
+- it does not create commits
+- it does not run QA commands itself
+- it does not invent worker or QA evidence
+- it does not schedule work
+- it does not run an autonomous full loop
+- it does not replace `generate_task_packet.py`, `run_guarded_task_cycle.py`, or `run_cursor_worker.py`
+
+### Why it exists
+
+It reduces operator glue for the current WCS lane while preserving the validated helper contracts and guardrails already in place.
 
 ---
 

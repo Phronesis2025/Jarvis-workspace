@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: guarded-flow optional worker-result drafting integration)
+- Last updated: 2026-03-14 (doc pass: Option B V1 wrapper live)
 - Status: active reusable template set for common Jarvis/Cursor actions
 
 ## Purpose
@@ -15,6 +15,8 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Workflow helper:** `run_guarded_task_cycle.py --task WCS-XXX --mode pre_worker|post_worker|full` runs the existing guarded task-cycle scripts in order and stops on the first failure. `pre_worker` is unchanged. Optional for post_worker/full: add `--draft-worker-result --worker-command "<truthful step>"` (repeatable, with optional `--worker-executor <label>`) to have the flow run `draft_worker_result_from_evidence.py --write` immediately before pre-stamp worker validation; without `--draft-worker-result`, worker result JSON must already exist. Optional for post_worker/full: add `--draft-qa-result` plus QA evidence (e.g. `--build-status pass --smoke-status pass --manual-status pass --manual-check "Manual browser verification of /about"`) to have the flow run `draft_qa_result_from_evidence.py --write` before pre-stamp QA validation; without `--draft-qa-result`, QA result JSON must already exist. If meaningful `--worker-command` input is missing, the inserted worker-draft step fails and the guarded run stops there. Use only as an orchestrator; it does not replace helper logic, execute worker code directly, or schedule tasks.
 
+**Workflow helper:** `run_wcs_operator_entrypoint.py prep|post --task WCS-XXX [--workspace <path>] ...` is the thin operator-facing wrapper for the current WCS lane. `prep` ensures the packet exists when missing, delegates to guarded `pre_worker`, prints key artifact paths, and may optionally attempt `--launch-cursor`. `post` delegates to guarded `post_worker` and passes worker/QA evidence flags through unchanged. Existing helpers remain the true engines underneath. Fresh proof succeeded on `WCS-044` for `prep` and `post`. Optional `prep --launch-cursor` remains intentionally deferred as a clean proof surface.
+
 **Workflow helper:** `select_next_ready_task.py [--project WCS] [--limit N]` selects the next eligible ready task from the backlog using the progression ladder (execution_lane, test_phase, selector_rank) when present; read-only, does not mutate state.
 
 **Workflow helper:** `build_daily_execution_prep.py [--project WCS] [--task WCS-XXX] [--output <path>]` prepares a daily execution prep package (selection, packet if missing, handoff, summary) and writes a prep markdown file; does not execute tasks or mutate state beyond approved helper outputs.
@@ -26,6 +28,10 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 **Worker-result drafting example:** `python scripts/draft_worker_result_from_evidence.py --task WCS-XXX --command "Implemented bounded change on task branch jarvis-task-wcs-xxx" [--write]`
 
 **Guarded-flow worker-draft example:** `python scripts/run_guarded_task_cycle.py --task WCS-XXX --mode post_worker --draft-worker-result --worker-command "Implemented bounded change on task branch jarvis-task-wcs-xxx"`
+
+**Operator-wrapper prep example:** `python scripts/run_wcs_operator_entrypoint.py prep --task WCS-XXX`
+
+**Operator-wrapper post example:** `python scripts/run_wcs_operator_entrypoint.py post --task WCS-XXX --draft-worker-result --worker-command "Implemented bounded change on task branch jarvis-task-wcs-xxx" --draft-qa-result --build-status pass --smoke-status pass --manual-status pass --manual-check "Manual browser verification of the targeted change"`
 
 **Workflow helper:** `draft_qa_result_from_evidence.py --task WCS-XXX [--workspace <path>] [--build-status pass|fail|skip|unknown] [--smoke-status ...] [--manual-status ...] [--manual-check <text>] [--artifact <path>] [--note <text>] [--write]` drafts a truthful pre-stamp QA result JSON from operator-supplied evidence. Dry-run by default; does not stamp, reconcile, or fabricate evidence; operator should review before post-worker.
 

@@ -2,10 +2,10 @@
 # JARVIS_TASK_EXECUTION_CHECKLIST_v2.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-13
-- Last updated: 2026-03-13
+- Last reviewed: 2026-03-14
+- Last updated: 2026-03-14
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop)
+- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrapper now live for prep/post)
 
 ## Purpose
 
@@ -119,6 +119,50 @@ The terminal output should clearly identify:
 * stronger summary output
 * explicit next-step guidance after task selection
 * automatic handoff package generation for worker and QA
+
+---
+
+## Phase 1B — Optional operator wrapper for prep/post
+
+### Current action
+
+Use `run_wcs_operator_entrypoint.py` when you want a tighter operator entrypoint for the current WCS lane without replacing the real helper scripts underneath.
+
+### Current commands
+
+Prep example:
+
+```powershell
+python .\scripts\run_wcs_operator_entrypoint.py prep --task WCS-XXX
+```
+
+Post example:
+
+```powershell
+python .\scripts\run_wcs_operator_entrypoint.py post --task WCS-XXX --draft-worker-result --worker-command "Implemented bounded change on task branch jarvis-task-wcs-xxx" --draft-qa-result --build-status pass --smoke-status pass --manual-status pass --manual-check "Manual browser verification of the targeted change"
+```
+
+### Important current truth
+
+- `prep` ensures the packet exists when missing, delegates to guarded `pre_worker`, and prints key artifact paths
+- `post` delegates to guarded `post_worker` and passes worker/QA evidence through unchanged
+- existing helpers remain the true engines underneath
+- the wrapper does not run build or smoke itself, does not create commits, does not select tasks automatically, and does not invent evidence
+- optional `prep --launch-cursor` exists, but it is not yet counted as a clean proof-backed path and remains intentionally deferred for proof purposes
+
+### Current success condition
+
+* the wrapper delegates to the expected helper command
+* helper output remains visible
+* the delegated step passes honestly
+
+### Current failure condition
+
+Stop if:
+
+* the wrapper hides a helper failure
+* the wrapper reinterprets evidence instead of passing it through
+* the wrapper is treated as autonomous execution rather than operator-assisted orchestration
 
 ---
 
