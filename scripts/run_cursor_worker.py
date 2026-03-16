@@ -43,6 +43,15 @@ def parse_args() -> argparse.Namespace:
             "Default: scratch/cursor_handoffs/<task>_cursor_handoff.md"
         ),
     )
+    parser.add_argument(
+        "--require-auditable-delta",
+        action="store_true",
+        help=(
+            "After a successful launch attempt, require an immediate auditable "
+            "working-tree delta on the expected branch and fail if changed files "
+            "are missing or outside task scope."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -71,6 +80,129 @@ def run_git(repo_path: Path, args: List[str]) -> Tuple[int, str]:
     if proc.stderr:
         out = f"{out}\n{proc.stderr.strip()}" if out else proc.stderr.strip()
     return proc.returncode, out
+
+
+def derive_expected_scope(packet: dict[str, Any]) -> List[str]:
+    suspected = packet.get("suspected_files")
+    if isinstance(suspected, list) and suspected:
+        return [normalize_text(item) for item in suspected if normalize_text(item)]
+
+    target_files = packet.get("target_files")
+    if isinstance(target_files, list) and target_files:
+        return [normalize_text(item) for item in target_files if normalize_text(item)]
+
+    for key in ("target_file", "file_path", "file"):
+        value = normalize_text(packet.get(key))
+        if value:
+            return [value]
+
+    notes = normalize_text(packet.get("notes"))
+    if notes and (
+        "/" in notes
+        or notes.endswith(".tsx")
+        or notes.endswith(".ts")
+        or notes.endswith(".jsx")
+        or notes.endswith(".js")
+    ):
+        return [notes]
+
+    return []
+
+
+def parse_worktree_changed_files(status_output: str) -> List[str]:
+    changed: List[str] = []
+    seen: set[str] = set()
+
+    for raw_line in status_output.splitlines():
+        if not raw_line.strip() or len(raw_line) < 4:
+            continue
+
+        path_text = raw_line[3:].strip()
+        candidates = [path_text]
+        if " -> " in path_text:
+            old_path, new_path = path_text.split(" -> ", 1)
+            candidates = [old_path, new_path]
+
+        for candidate in candidates:
+            normalized = candidate.strip().strip('"')
+            if normalized and normalized not in seen:
+                seen.add(normalized)
+                changed.append(normalized)
+
+    return changed
+
+
+def path_in_scope(path: str, expected_scope: List[str]) -> bool:
+    normalized = path.replace("\\", "/")
+    for scope_item in expected_scope:
+        scoped = scope_item.replace("\\", "/").rstrip("/")
+        if normalized == scoped or normalized.startswith(f"{scoped}/"):
+            return True
+    return False
+
+
+def audit_post_launch(
+    repo_path: Path,
+    expected_branch: str,
+    packet: dict[str, Any],
+) -> Tuple[Optional[str], List[str], List[str], List[str]]:
+    failures: List[str] = []
+
+    branch_code, branch_output = run_git(repo_path, ["branch", "--show-current"])
+    branch_after = branch_output.strip() if branch_code == 0 and branch_output.strip() else None
+    if branch_after is None:
+        failures.append("Unable to determine current branch after launch.")
+    elif branch_after != expected_branch:
+        failures.append(
+            f"Branch drift detected after launch. Expected {expected_branch}, got {branch_after}."
+        )
+
+    status_code, status_output = run_git(repo_path, ["status", "--porcelain", "--untracked-files=all"])
+    changed_files = parse_worktree_changed_files(status_output) if status_code == 0 else []
+    if status_code != 0:
+        failures.append("Unable to inspect working tree after launch.")
+    elif not changed_files:
+        failures.append("No auditable working-tree delta detected after launch.")
+
+    expected_scope = derive_expected_scope(packet)
+    if not expected_scope:
+        failures.append("Unable to derive expected file scope from task packet for strict audit.")
+    elif changed_files:
+        out_of_scope = [path for path in changed_files if not path_in_scope(path, expected_scope)]
+        if out_of_scope:
+            failures.append("Changed files fell outside task scope: " + ", ".join(out_of_scope))
+
+    return branch_after, changed_files, expected_scope, failures
+
+
+def print_changed_files(changed_files: List[str]) -> None:
+    print("Changed files detected:")
+    if changed_files:
+        for path in changed_files:
+            print(f"- {path}")
+    else:
+        print("- (none)")
+
+
+def print_strict_audit_result(
+    *,
+    branch_after: Optional[str],
+    changed_files: List[str],
+    expected_scope: List[str],
+    failures: List[str],
+) -> None:
+    print(f"Branch after launch: {branch_after if branch_after else '(unable to resolve)'}")
+    print(
+        "Expected file scope: "
+        + (", ".join(expected_scope) if expected_scope else "(unable to derive)")
+    )
+    print_changed_files(changed_files)
+    in_scope = not any("outside task scope" in failure for failure in failures)
+    print(f"In scope: {'yes' if in_scope else 'no'}")
+    if failures:
+        print("Audit failures:")
+        for failure in failures:
+            print(f"- {failure}")
 
 
 def main() -> int:
@@ -177,6 +309,8 @@ def main() -> int:
             expected_branch=expected_branch,
             current_branch=current_branch,
             repo_path=repo_path,
+            packet=packet,
+            require_auditable_delta=args.require_auditable_delta,
         )
     cursor_cmd = _find_cursor_cli()
     if cursor_cmd is not None:
@@ -188,6 +322,8 @@ def main() -> int:
             expected_branch=expected_branch,
             current_branch=current_branch,
             repo_path=repo_path,
+            packet=packet,
+            require_auditable_delta=args.require_auditable_delta,
         )
     print("RUN CURSOR WORKER: BLOCKED")
     print(f"Task: {task_id}")
@@ -208,6 +344,8 @@ def _run_via_agent(
     expected_branch: str,
     current_branch: Optional[str],
     repo_path: Path,
+    packet: dict[str, Any],
+    require_auditable_delta: bool,
 ) -> int:
     """Run handoff via real Cursor Agent CLI (agent --print --workspace <repo_path> --trust ...)."""
     # Prefer passing handoff content directly when small enough (Windows cmd limit ~8191)
@@ -279,12 +417,47 @@ def _run_via_agent(
                 print("Hint: If authentication is required, run `agent login` and retry.")
         print("Worker result: not written (execution did not complete successfully).")
         return 2
+    if require_auditable_delta:
+        branch_after, changed_files, expected_scope, failures = audit_post_launch(
+            repo_path=repo_path,
+            expected_branch=expected_branch,
+            packet=packet,
+        )
+        if failures:
+            print("RUN CURSOR WORKER: FAIL")
+            print(f"Task: {task_id}")
+            print(f"Jarvis workspace: {workspace}")
+            print(f"Task repo workspace: {repo_path}")
+            print(f"Handoff path: {handoff_path}")
+            print("Cursor execution: Real Agent CLI attempted (exited 0).")
+            print("Reason: Strict post-launch audit failed.")
+            print_strict_audit_result(
+                branch_after=branch_after,
+                changed_files=changed_files,
+                expected_scope=expected_scope,
+                failures=failures,
+            )
+            print("Worker result: not written (launch was attempted, but immediate repo state is not trustworthy enough to treat as an auditable operator surface).")
+            return 1
     print("RUN CURSOR WORKER: PASS")
     print(f"Task: {task_id}")
     print(f"Jarvis workspace: {workspace}")
     print(f"Task repo workspace: {repo_path}")
     print(f"Handoff path: {handoff_path}")
     print("Cursor execution: Real Agent CLI attempted (exited 0).")
+    if require_auditable_delta:
+        branch_after, changed_files, expected_scope, failures = audit_post_launch(
+            repo_path=repo_path,
+            expected_branch=expected_branch,
+            packet=packet,
+        )
+        print("Post-launch audit: PASS")
+        print_strict_audit_result(
+            branch_after=branch_after,
+            changed_files=changed_files,
+            expected_scope=expected_scope,
+            failures=failures,
+        )
     print("Worker result: not written (scripted Agent does not provide completion evidence; operator must verify and finalize worker result after reviewing agent output).")
     if expected_branch:
         print(f"Expected branch: {expected_branch}")
@@ -302,6 +475,8 @@ def _run_via_cursor_launcher(
     expected_branch: str,
     current_branch: Optional[str],
     repo_path: Path,
+    packet: dict[str, Any],
+    require_auditable_delta: bool,
 ) -> int:
     """Run handoff via desktop cursor launcher (cursor <handoff_path>); cwd is task repo."""
     proc = subprocess.run(
@@ -326,12 +501,47 @@ def _run_via_cursor_launcher(
             print(f"Stderr: {proc.stderr.strip()[:500]}")
         print("Worker result: not written (execution did not complete successfully).")
         return 2
+    if require_auditable_delta:
+        branch_after, changed_files, expected_scope, failures = audit_post_launch(
+            repo_path=repo_path,
+            expected_branch=expected_branch,
+            packet=packet,
+        )
+        if failures:
+            print("RUN CURSOR WORKER: FAIL")
+            print(f"Task: {task_id}")
+            print(f"Jarvis workspace: {workspace}")
+            print(f"Task repo workspace: {repo_path}")
+            print(f"Handoff path: {handoff_path}")
+            print("Cursor execution: Desktop launcher fallback attempted (exited 0).")
+            print("Reason: Strict post-launch audit failed.")
+            print_strict_audit_result(
+                branch_after=branch_after,
+                changed_files=changed_files,
+                expected_scope=expected_scope,
+                failures=failures,
+            )
+            print("Worker result: not written (launch was attempted, but immediate repo state is not trustworthy enough to treat as an auditable operator surface).")
+            return 1
     print("RUN CURSOR WORKER: PASS")
     print(f"Task: {task_id}")
     print(f"Jarvis workspace: {workspace}")
     print(f"Task repo workspace: {repo_path}")
     print(f"Handoff path: {handoff_path}")
     print("Cursor execution: Desktop launcher fallback attempted (exited 0).")
+    if require_auditable_delta:
+        branch_after, changed_files, expected_scope, failures = audit_post_launch(
+            repo_path=repo_path,
+            expected_branch=expected_branch,
+            packet=packet,
+        )
+        print("Post-launch audit: PASS")
+        print_strict_audit_result(
+            branch_after=branch_after,
+            changed_files=changed_files,
+            expected_scope=expected_scope,
+            failures=failures,
+        )
     print("Worker result: not written (scripted Cursor does not provide completion evidence; operator must finalize worker result after completing the task in the IDE).")
     if expected_branch:
         print(f"Expected branch: {expected_branch}")

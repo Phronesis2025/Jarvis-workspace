@@ -46,7 +46,10 @@ def parse_args() -> argparse.Namespace:
     prep.add_argument(
         "--launch-cursor",
         action="store_true",
-        help="After successful prep, call run_cursor_worker.py for this task.",
+        help=(
+            "After successful prep, call run_cursor_worker.py for this task "
+            "with strict post-launch audit."
+        ),
     )
 
     post = subparsers.add_parser(
@@ -236,6 +239,7 @@ def handle_prep(args: argparse.Namespace) -> int:
             task_id,
             "--workspace",
             str(workspace),
+            "--require-auditable-delta",
         ]
         code, output = run_helper(launch_cmd, workspace)
         print_helper_result(launch_cmd, output)
