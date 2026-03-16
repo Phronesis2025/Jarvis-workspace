@@ -5,7 +5,7 @@
 - Last reviewed: 2026-03-14
 - Last updated: 2026-03-14
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrapper now live for prep/post)
+- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrapper now live for prep/post; launch path now supports strict post-launch auditing)
 
 ## Purpose
 
@@ -136,6 +136,12 @@ Prep example:
 python .\scripts\run_wcs_operator_entrypoint.py prep --task WCS-XXX
 ```
 
+Strict launch example:
+
+```powershell
+python .\scripts\run_wcs_operator_entrypoint.py prep --task WCS-XXX --launch-cursor
+```
+
 Post example:
 
 ```powershell
@@ -145,10 +151,12 @@ python .\scripts\run_wcs_operator_entrypoint.py post --task WCS-XXX --draft-work
 ### Important current truth
 
 - `prep` ensures the packet exists when missing, delegates to guarded `pre_worker`, and prints key artifact paths
+- when `prep --launch-cursor` is used, the wrapper now calls `run_cursor_worker.py` with strict post-launch audit enabled
 - `post` delegates to guarded `post_worker` and passes worker/QA evidence through unchanged
 - existing helpers remain the true engines underneath
 - the wrapper does not run build or smoke itself, does not create commits, does not select tasks automatically, and does not invent evidence
-- optional `prep --launch-cursor` exists, but it is not yet counted as a clean proof-backed path and remains intentionally deferred for proof purposes
+- launch still does not prove task completion, semantic correctness, commit readiness, QA completion, or finalized worker evidence
+- strict launch failure is acceptable and expected when launch is not immediately auditable, for example when no working-tree delta exists or changed files fall outside scope
 
 ### Current success condition
 

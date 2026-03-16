@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: Option B V1 wrapper live)
+- Last updated: 2026-03-14 (doc pass: launch-safety hardening live)
 - Status: active reusable template set for common Jarvis/Cursor actions
 
 ## Purpose
@@ -15,13 +15,13 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Workflow helper:** `run_guarded_task_cycle.py --task WCS-XXX --mode pre_worker|post_worker|full` runs the existing guarded task-cycle scripts in order and stops on the first failure. `pre_worker` is unchanged. Optional for post_worker/full: add `--draft-worker-result --worker-command "<truthful step>"` (repeatable, with optional `--worker-executor <label>`) to have the flow run `draft_worker_result_from_evidence.py --write` immediately before pre-stamp worker validation; without `--draft-worker-result`, worker result JSON must already exist. Optional for post_worker/full: add `--draft-qa-result` plus QA evidence (e.g. `--build-status pass --smoke-status pass --manual-status pass --manual-check "Manual browser verification of /about"`) to have the flow run `draft_qa_result_from_evidence.py --write` before pre-stamp QA validation; without `--draft-qa-result`, QA result JSON must already exist. If meaningful `--worker-command` input is missing, the inserted worker-draft step fails and the guarded run stops there. Use only as an orchestrator; it does not replace helper logic, execute worker code directly, or schedule tasks.
 
-**Workflow helper:** `run_wcs_operator_entrypoint.py prep|post --task WCS-XXX [--workspace <path>] ...` is the thin operator-facing wrapper for the current WCS lane. `prep` ensures the packet exists when missing, delegates to guarded `pre_worker`, prints key artifact paths, and may optionally attempt `--launch-cursor`. `post` delegates to guarded `post_worker` and passes worker/QA evidence flags through unchanged. Existing helpers remain the true engines underneath. Fresh proof succeeded on `WCS-044` for `prep` and `post`. Optional `prep --launch-cursor` remains intentionally deferred as a clean proof surface.
+**Workflow helper:** `run_wcs_operator_entrypoint.py prep|post --task WCS-XXX [--workspace <path>] ...` is the thin operator-facing wrapper for the current WCS lane. `prep` ensures the packet exists when missing, delegates to guarded `pre_worker`, prints key artifact paths, and may optionally attempt `--launch-cursor`. `post` delegates to guarded `post_worker` and passes worker/QA evidence flags through unchanged. Existing helpers remain the true engines underneath. Fresh proof succeeded on `WCS-044` for `prep` and `post`. In the current live build, `prep --launch-cursor` uses strict post-launch auditing and can fail honestly when no immediate auditable in-scope repo delta exists. Launch still does not prove completion, commit readiness, QA, or finalized worker evidence.
 
 **Workflow helper:** `select_next_ready_task.py [--project WCS] [--limit N]` selects the next eligible ready task from the backlog using the progression ladder (execution_lane, test_phase, selector_rank) when present; read-only, does not mutate state.
 
 **Workflow helper:** `build_daily_execution_prep.py [--project WCS] [--task WCS-XXX] [--output <path>]` prepares a daily execution prep package (selection, packet if missing, handoff, summary) and writes a prep markdown file; does not execute tasks or mutate state beyond approved helper outputs.
 
-**Workflow helper:** `run_cursor_worker.py --task WCS-XXX [--workspace <path>] [--handoff <path>]` is the Cursor invocation bridge: runs Agent (or cursor launcher) against the task repo workspace from the packet (`repo_path`); uses `--trust` for non-interactive Agent execution; reports PASS/BLOCKED/FAIL honestly; does not prove completion or write worker_complete; operator still verifies completion and finalizes worker-result evidence.
+**Workflow helper:** `run_cursor_worker.py --task WCS-XXX [--workspace <path>] [--handoff <path>] [--require-auditable-delta]` is the Cursor invocation bridge: runs Agent (or cursor launcher) against the task repo workspace from the packet (`repo_path`); uses `--trust` for non-interactive Agent execution; reports PASS/BLOCKED/FAIL honestly; does not prove completion or write worker_complete; operator still verifies completion and finalizes worker-result evidence. In strict mode, it immediately audits the task repo working tree after a successful external launch exit and fails if branch drift occurs, no working-tree delta exists, or changed files fall outside packet scope.
 
 **Workflow helper:** `draft_worker_result_from_evidence.py --task WCS-XXX [--workspace <path>] [--executor <label>] [--mode working_tree|head_auto] --command "<truthful step>" [--command "<truthful step>"] [--write]` drafts a truthful worker result JSON from task packet and repo evidence (branch, changed files). Explicit `--command` values populate `commands_run`; entries are trimmed, empty values are dropped, and placeholder-only values like `todo`, `tbd`, and `placeholder` are rejected. For `worker_complete`, at least one meaningful `--command` is required or the draft fails. Does not stamp or fabricate completion; operator should review before post-worker.
 
@@ -29,7 +29,11 @@ This file stores standard Cursor prompt templates for recurring Jarvis rebuild t
 
 **Guarded-flow worker-draft example:** `python scripts/run_guarded_task_cycle.py --task WCS-XXX --mode post_worker --draft-worker-result --worker-command "Implemented bounded change on task branch jarvis-task-wcs-xxx"`
 
+**Strict launch bridge example:** `python scripts/run_cursor_worker.py --task WCS-XXX --require-auditable-delta`
+
 **Operator-wrapper prep example:** `python scripts/run_wcs_operator_entrypoint.py prep --task WCS-XXX`
+
+**Operator-wrapper strict launch example:** `python scripts/run_wcs_operator_entrypoint.py prep --task WCS-XXX --launch-cursor`
 
 **Operator-wrapper post example:** `python scripts/run_wcs_operator_entrypoint.py post --task WCS-XXX --draft-worker-result --worker-command "Implemented bounded change on task branch jarvis-task-wcs-xxx" --draft-qa-result --build-status pass --smoke-status pass --manual-status pass --manual-check "Manual browser verification of the targeted change"`
 

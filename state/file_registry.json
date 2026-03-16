@@ -747,7 +747,7 @@
     "owner": "jarvis_script",
     "purpose": "Agent-first Cursor execution bridge for the current WCS worker surface; prefers agent CLI, then cursor launcher",
     "updated_by": "user",
-    "notes": "Execution targets the task repo (repo_path from packet) as the current Cursor execution surface for the WCS worker; Agent uses --workspace and --trust; handoff content as prompt when small; does not fabricate worker completion; proven on WCS-042",
+    "notes": "Execution targets the task repo (repo_path from packet) as the current Cursor execution surface for the WCS worker; Agent uses --workspace and --trust; handoff content as prompt when small; does not fabricate worker completion. Now supports --require-auditable-delta for immediate post-launch working-tree audit (expected branch, real delta, in-scope changed files). Strict failure path safely proved; strict real-Agent success path not yet proven",
     "last_reviewed": "2026-03-14"
   },
   {
@@ -868,7 +868,7 @@
     "owner": "jarvis_script",
     "purpose": "Thin operator-facing wrapper for the current WCS prep/post flow",
     "updated_by": "user",
-    "notes": "Delegates to existing helpers instead of replacing them. prep ensures packet existence, runs guarded pre_worker, prints artifact paths, and may optionally attempt run_cursor_worker.py. post delegates to run_guarded_task_cycle.py --mode post_worker and passes worker/QA evidence flags through unchanged. prep and post are freshly proven on WCS-044; optional prep --launch-cursor remains intentionally deferred as a clean proof surface",
+    "notes": "Delegates to existing helpers instead of replacing them. prep ensures packet existence, runs guarded pre_worker, prints artifact paths, and may optionally attempt run_cursor_worker.py. In the current live build, prep --launch-cursor opts into strict post-launch audit via run_cursor_worker.py --require-auditable-delta. post delegates to run_guarded_task_cycle.py --mode post_worker and passes worker/QA evidence flags through unchanged. prep and post are freshly proven on WCS-044; strict launch failure path safely proved; strict real-Agent success path not yet proven",
     "last_reviewed": "2026-03-14"
   },
   {

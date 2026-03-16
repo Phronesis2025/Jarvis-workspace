@@ -2,12 +2,14 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: Option B V1 wrapper live)
+- Last updated: 2026-03-14 (doc pass: launch-safety hardening live)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
 - Option B V1 is now live via `scripts/run_wcs_operator_entrypoint.py` as a thin operator-facing wrapper for `prep` and `post`.
-- The optional `prep --launch-cursor` bridge remains intentionally deferred as a clean proof surface; it is available for operator-assisted use but is not yet trusted as proof-backed automation.
+- Launch-safety hardening is now in place for the Cursor bridge/operator-wrapper path.
+- `prep --launch-cursor` now uses strict post-launch auditing and can fail honestly when launch is not immediately auditable.
+- Strict real-Agent success is still not yet proven in this pass.
 
 ## Recent live truth
 - Option A packet lifecycle/status cleanup is now live.
@@ -20,7 +22,12 @@
 - `post` delegates to `run_guarded_task_cycle.py --mode post_worker` and passes worker/QA evidence flags through unchanged.
 - Existing validated helpers remain the real execution engines underneath the wrapper.
 - Fresh proof succeeded on `WCS-044` for wrapper `prep` and wrapper `post`.
-- `--launch-cursor` remains intentionally deferred as a clean proof surface after an unsafe out-of-scope mutation was observed during a delegated proof attempt.
+- `scripts/run_cursor_worker.py` now supports `--require-auditable-delta`.
+- In strict mode, a successful external launch exit is followed immediately by repo audit: expected branch must still match, an auditable working-tree delta must exist, and changed files must stay within packet scope.
+- `scripts/run_wcs_operator_entrypoint.py prep --launch-cursor` now uses the strict audit mode.
+- Safe proof completed for the strict failure path using a temporary no-op agent shim: normal `prep` still passed, strict launch failed honestly because no auditable working-tree delta existed after launch, and manual cross-check matched the helper output.
+- Strict real-Agent success path remains unproven in this pass.
+- Even with launch-safety hardening, launch is still not completion proof, semantic correctness proof, commit readiness proof, QA proof, or finalized worker-evidence proof.
 
 ## FILE: JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3
 ````md

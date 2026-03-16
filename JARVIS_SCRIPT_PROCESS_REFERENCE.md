@@ -3,14 +3,16 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: Option B V1 wrapper live)
-- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, and a thin operator-facing WCS wrapper for prep/post; proven across WCS-016–WCS-019, full guarded cycle WCS-042, fresh integrated-loop proof WCS-043, and fresh wrapper proof WCS-044 for prep/post)
+- Last updated: 2026-03-14 (doc pass: launch-safety hardening live)
+- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycles succeeded on WCS-042 and WCS-043. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`.
 
 ## Current local state / follow-up
 - Option B V1 is live via `scripts/run_wcs_operator_entrypoint.py` for operator-facing `prep` and `post`.
-- `--launch-cursor` is available on `prep`, but it is not yet counted as a clean proof-backed path because a delegated proof attempt produced an unsafe out-of-scope repo mutation and was intentionally deferred.
+- `prep --launch-cursor` now uses strict post-launch auditing through `run_cursor_worker.py --require-auditable-delta`.
+- Strict launch failure is now honestly proven: launch can exit `0` and still fail overall when no immediate auditable in-scope repo delta exists.
+- Strict real-Agent success is still not yet proven in this pass.
 
 ## Purpose
 
@@ -106,7 +108,7 @@ WCS-019 is now a full completed/reconciled live loop proof under this hardened p
 - `reconcile_task_outcome.py` success
 - `post_reconcile_validate.py` PASS
 
-For operator-facing consolidation, `run_wcs_operator_entrypoint.py --task WCS-XXX --workspace <path> prep|post ...` is now live as a thin wrapper over the existing validated helpers. In **prep**, it ensures the task packet exists (delegating to `generate_task_packet.py` only when missing), then delegates to `run_guarded_task_cycle.py --mode pre_worker`, and prints the key artifact paths for the packet, Cursor handoff, and task-cycle summary. In **post**, it delegates to `run_guarded_task_cycle.py --mode post_worker` and passes worker/QA evidence flags through unchanged. It does not select tasks automatically, create commits, run build/Playwright itself, invent evidence, schedule work, or run an autonomous full loop. Fresh proof succeeded on `WCS-044` for the wrapper's **prep** and **post** paths. The optional `prep --launch-cursor` bridge remains operator-assisted and intentionally deferred as a clean proof surface.
+For operator-facing consolidation, `run_wcs_operator_entrypoint.py --task WCS-XXX --workspace <path> prep|post ...` is now live as a thin wrapper over the existing validated helpers. In **prep**, it ensures the task packet exists (delegating to `generate_task_packet.py` only when missing), then delegates to `run_guarded_task_cycle.py --mode pre_worker`, and prints the key artifact paths for the packet, Cursor handoff, and task-cycle summary. In **post**, it delegates to `run_guarded_task_cycle.py --mode post_worker` and passes worker/QA evidence flags through unchanged. It does not select tasks automatically, create commits, run build/Playwright itself, invent evidence, schedule work, or run an autonomous full loop. Fresh proof succeeded on `WCS-044` for the wrapper's **prep** and **post** paths. In the current live build, `prep --launch-cursor` now opts into strict post-launch auditing through `run_cursor_worker.py --require-auditable-delta`: launch may report success only when the branch remains correct, an immediate working-tree delta exists, and changed files stay within packet scope. This still does not prove task completion, semantic correctness, commit readiness, QA completion, or finalized worker evidence.
 
 After QA failures or ambiguous results, `qa_failure_triage.py --task WCS-XXX` can be run as a strictly read-only helper to classify the failure (`environment_setup_failure`, `test_harness_failure`, `application_regression`, or `ambiguous`) and recommend the next bounded action without mutating any state.
 
@@ -144,7 +146,7 @@ For hardening-surface checks (not part of the core task loop), `file_registry_ch
 
 ### Cursor invocation bridge (live)
 
-`run_cursor_worker.py` is live as a **Cursor invocation bridge**: it prefers the **real Cursor Agent CLI** (`agent`) when available; if not, it falls back to the **desktop cursor launcher**. Execution runs against the **task repo workspace** (from the task packet), not the Jarvis workspace; Agent uses `--trust` for non-interactive use. It reports PASS / BLOCKED / FAIL honestly. It does not by itself prove task completion or write a truthful worker_complete result. The operator still verifies completion and finalizes worker-result evidence. The system remains **operator-assisted at the worker completion/evidence stage**; full autonomy is not achieved.
+`run_cursor_worker.py` is live as a **Cursor invocation bridge**: it prefers the **real Cursor Agent CLI** (`agent`) when available; if not, it falls back to the **desktop cursor launcher**. Execution runs against the **task repo workspace** (from the task packet), not the Jarvis workspace; Agent uses `--trust` for non-interactive use. It reports PASS / BLOCKED / FAIL honestly. In its stricter launch-safety mode, `--require-auditable-delta`, a successful external launch exit is followed by an immediate working-tree audit: current branch must still match the expected branch, a real working-tree delta must exist, and changed files must stay within packet scope. If any of those checks fail, the launch now fails honestly instead of reporting a misleading PASS. It still does not by itself prove task completion or write a truthful worker_complete result. The operator still verifies completion and finalizes worker-result evidence. The system remains **operator-assisted at the worker completion/evidence stage**; full autonomy is not achieved.
 
 ---
 
@@ -652,23 +654,28 @@ Cursor execution bridge for the WCS worker: prefers the real Cursor Agent CLI (`
 ### Current behavior
 
 - requires `--task WCS-XXX`
-- optional `--workspace` (default: Jarvis workspace root), optional `--handoff` (default: `scratch/cursor_handoffs/<task>_cursor_handoff.md`)
+- optional `--workspace` (default: Jarvis workspace root), optional `--handoff` (default: `scratch/cursor_handoffs/<task>_cursor_handoff.md`), optional `--require-auditable-delta`
 - validates: task id, Jarvis workspace, handoff file exists, task packet exists; **reads and validates `repo_path` from task packet** (required; must exist and be a directory; FAIL if missing or invalid)
 - **Agent CLI detection (Windows-hardened):** tries `shutil.which("agent")`, then `agent.cmd`, `agent.exe`, `agent.bat`; on Windows only, if none found, runs `where agent` / `where agent.cmd` and uses first existing path, then tries PowerShell `Get-Command agent`. If Agent CLI still cannot be found in the process environment, falls back to cursor and reports which path was used.
 - **Execution target:** Agent and desktop launcher both use the **task repo workspace** (`repo_path` from packet): Agent is run with `--workspace <repo_path>`, `--trust` (non-interactive trust for that repo), and subprocess cwd = `repo_path`; desktop launcher subprocess cwd = `repo_path`. Handoff file remains in Jarvis workspace; execution context is the task repo.
 - **Execution priority:** (1) if `agent` CLI is detected, runs `agent --print --workspace <repo_path> --trust "<prompt>"` with cwd = repo_path (prompt is handoff file content when ≤6000 chars, else path-based instruction); (2) else if `cursor` launcher is on PATH, runs `cursor <handoff_path>` with cwd = repo_path; (3) if neither found, exits BLOCKED (exit 2). When agent returns non-zero and stderr mentions authentication, a hint suggests running `agent login`.
+- **Strict post-launch audit mode:** when `--require-auditable-delta` is supplied and the external launch exits `0`, the script immediately inspects the task repo **working tree only** and requires all of the following:
+  - current branch still matches the expected branch
+  - a real working-tree delta exists
+  - changed files remain within the task packet scope
+  If any of those checks fail, the script returns FAIL instead of a misleading PASS.
 - does not fabricate worker completion; does not write a worker result unless execution is truthfully successful (scripted execution does not provide completion evidence; operator must finalize the worker result)
-- exit codes: 0 PASS (agent or cursor process started and exited 0), 2 BLOCKED (neither agent nor cursor found, or process failed/timeout), 1 FAIL (malformed input, missing handoff/packet, missing or invalid repo_path, or validation failure)
+- exit codes: 0 PASS (launch succeeded and, when strict mode is used, the immediate audit also passed), 2 BLOCKED (neither agent nor cursor found, or process failed/timeout), 1 FAIL (malformed input, missing handoff/packet, missing or invalid repo_path, or strict audit failure)
 
 ### Output
 
-- On PASS: `RUN CURSOR WORKER: PASS`, task id, **Jarvis workspace**, **Task repo workspace**, handoff path, whether **Real Agent CLI** or **Desktop launcher fallback** was used, that worker result was not written (no completion evidence), summary
+- On PASS: `RUN CURSOR WORKER: PASS`, task id, **Jarvis workspace**, **Task repo workspace**, handoff path, whether **Real Agent CLI** or **Desktop launcher fallback** was used, and when strict mode is active, explicit post-launch audit output (branch after launch, changed files detected, and in-scope result)
 - On BLOCKED: `RUN CURSOR WORKER: BLOCKED`, reason, **Jarvis workspace**, **Task repo workspace**, worker result not written
-- On FAIL: `RUN CURSOR WORKER: FAIL`, reason (e.g. handoff file does not exist; task packet has no repo_path; repo path does not exist or is not a directory)
+- On FAIL: `RUN CURSOR WORKER: FAIL`, reason (e.g. handoff file does not exist; task packet has no repo_path; repo path does not exist or is not a directory; no auditable working-tree delta detected after launch; branch drift; or changed files outside task scope)
 
 ### Why it exists
 
-This script is the Cursor invocation bridge for the current WCS worker execution surface: it runs Agent (or cursor launcher) against the task repo workspace from the packet, with non-interactive trust for that repo when using Agent. It does not prove task completion or write a truthful worker_complete result; the operator still verifies completion and finalizes worker-result evidence. The system remains operator-assisted at the worker completion/evidence stage.
+This script is the Cursor invocation bridge for the current WCS worker execution surface: it runs Agent (or cursor launcher) against the task repo workspace from the packet, with non-interactive trust for that repo when using Agent. The new strict audit mode makes the launch surface more trustworthy by refusing PASS when the immediate repo state is not auditable. It still does not prove task completion or write a truthful worker_complete result; the operator still verifies completion and finalizes worker-result evidence. The system remains operator-assisted at the worker completion/evidence stage.
 
 ---
 
@@ -687,7 +694,7 @@ Thin operator-facing wrapper for the current Phase 1 WCS lane.
   - if missing, delegates to `generate_task_packet.py --task WCS-XXX`
   - delegates to `run_guarded_task_cycle.py --mode pre_worker`
   - prints the key artifact paths for task packet JSON, task packet markdown, Cursor handoff, and task-cycle summary
-  - may optionally attempt `--launch-cursor` by delegating to `run_cursor_worker.py`
+  - may optionally attempt `--launch-cursor` by delegating to `run_cursor_worker.py --require-auditable-delta`
 - **post**:
   - delegates to `run_guarded_task_cycle.py --mode post_worker`
   - passes worker/QA evidence flags through unchanged, including:
@@ -713,7 +720,7 @@ Fresh proof succeeded on `WCS-044` for:
 - `prep`
 - `post`
 
-The optional `prep --launch-cursor` path is available, but it is **not yet counted as a clean proof-backed path**. A delegated proof attempt produced an unsafe out-of-scope repo mutation, so that surface remains intentionally deferred for proof purposes.
+The optional `prep --launch-cursor` path remains operator-assisted. It now uses strict post-launch auditing so the wrapper fails honestly when launch is not immediately auditable. The strict failure path is safely proved. The strict real-Agent success path is still not yet proven in this pass.
 
 ### What this script does not currently do
 
@@ -723,6 +730,7 @@ The optional `prep --launch-cursor` path is available, but it is **not yet count
 - it does not invent worker or QA evidence
 - it does not schedule work
 - it does not run an autonomous full loop
+- it does not claim task completion, semantic correctness, commit readiness, QA completion, or finalized worker evidence from launch alone
 - it does not replace `generate_task_packet.py`, `run_guarded_task_cycle.py`, or `run_cursor_worker.py`
 
 ### Why it exists
