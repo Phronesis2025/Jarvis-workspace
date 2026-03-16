@@ -24,6 +24,13 @@ def normalize_text(value: Any) -> str:
     return str(value).strip()
 
 
+def positive_int(raw: str) -> int:
+    value = int(raw)
+    if value < 1:
+        raise argparse.ArgumentTypeError("Value must be a positive integer.")
+    return value
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -50,6 +57,16 @@ def parse_args() -> argparse.Namespace:
             "After a successful launch attempt, require an immediate auditable "
             "working-tree delta on the expected branch and fail if changed files "
             "are missing or outside task scope."
+        ),
+    )
+    parser.add_argument(
+        "--agent-timeout-seconds",
+        type=positive_int,
+        default=600,
+        metavar="SECONDS",
+        help=(
+            "Timeout for the real Agent CLI path only. Default: 600. "
+            "Does not weaken strict post-launch audit behavior."
         ),
     )
     return parser.parse_args()
@@ -114,10 +131,18 @@ def parse_worktree_changed_files(status_output: str) -> List[str]:
     seen: set[str] = set()
 
     for raw_line in status_output.splitlines():
-        if not raw_line.strip() or len(raw_line) < 4:
+        if not raw_line.strip() or len(raw_line) < 3:
             continue
 
-        path_text = raw_line[3:].strip()
+        # `run_git()` trims the full stdout string, which can remove the leading
+        # space from a single porcelain line like " M path". Handle both the
+        # normal "XY path" shape and the trimmed "Y path" shape safely.
+        if len(raw_line) >= 3 and raw_line[2] == " ":
+            path_text = raw_line[3:].strip()
+        elif len(raw_line) >= 2 and raw_line[1] == " ":
+            path_text = raw_line[2:].strip()
+        else:
+            path_text = raw_line.strip()
         candidates = [path_text]
         if " -> " in path_text:
             old_path, new_path = path_text.split(" -> ", 1)
@@ -311,6 +336,7 @@ def main() -> int:
             repo_path=repo_path,
             packet=packet,
             require_auditable_delta=args.require_auditable_delta,
+            agent_timeout_seconds=args.agent_timeout_seconds,
         )
     cursor_cmd = _find_cursor_cli()
     if cursor_cmd is not None:
@@ -346,6 +372,7 @@ def _run_via_agent(
     repo_path: Path,
     packet: dict[str, Any],
     require_auditable_delta: bool,
+    agent_timeout_seconds: int,
 ) -> int:
     """Run handoff via real Cursor Agent CLI (agent --print --workspace <repo_path> --trust ...)."""
     # Prefer passing handoff content directly when small enough (Windows cmd limit ~8191)
@@ -371,7 +398,7 @@ def _run_via_agent(
         "--trust",
         prompt,
     ]
-    timeout_seconds = 600
+    timeout_seconds = agent_timeout_seconds
     try:
         proc = subprocess.run(
             args,

@@ -40,8 +40,8 @@
     "owner": "user",
     "purpose": "Live reference for Jarvis WCS task execution process and hardening helpers",
     "updated_by": "user",
-    "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates, pre-stamp checks, packet-status sync during reconcile, and the thin Option B WCS operator wrapper for prep/post",
-    "last_reviewed": "2026-03-14"
+    "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates, pre-stamp checks, packet-status sync during reconcile, strict launch proof status, timeout control for the Agent path, and the thin Option B WCS operator wrapper for prep/post",
+    "last_reviewed": "2026-03-16"
   },
   {
     "file": "master_backlog.json",
@@ -513,8 +513,8 @@
     "owner": "user",
     "purpose": "Phase-by-phase rebuild checklist and status for Jarvis workspace",
     "updated_by": "user",
-    "notes": "Current canonical overview of phases, missing state surfaces, and next priorities; now records Option B V1 wrapper as live with fresh WCS-044 prep/post proof while launch-cursor proof remains deferred",
-    "last_reviewed": "2026-03-14"
+    "notes": "Current canonical overview of phases, missing state surfaces, and next priorities; now records strict launch hardening as live with strict failure, blocked/timeout, and strict real-Agent success proof status reflected honestly",
+    "last_reviewed": "2026-03-16"
   },
   {
     "file": "JARVIS_AGENT_IDEA_BACKLOG.md",
@@ -534,8 +534,8 @@
     "owner": "user",
     "purpose": "Live execution checklist for bounded Jarvis WCS tasks",
     "updated_by": "user",
-    "notes": "Defines current live execution phases for Jarvis-controlled WCS loop, including guardrails, helpers, and the thin operator-facing prep/post wrapper without overstating automation",
-    "last_reviewed": "2026-03-14"
+    "notes": "Defines current live execution phases for Jarvis-controlled WCS loop, including guardrails, helpers, the thin operator-facing prep/post wrapper, strict launch behavior, and timeout passthrough without overstating automation",
+    "last_reviewed": "2026-03-16"
   },
   {
     "file": "JARVIS_LIVE_HANDOFF_BUNDLE.md",
@@ -545,8 +545,8 @@
     "owner": "user",
     "purpose": "Live handoff bundle describing current Jarvis system truth, hardening state, and helper surfaces",
     "updated_by": "user",
-    "notes": "Aggregates current live system decisions, hardened loop surfaces, helper scripts, current packet lifecycle/status cleanup truth, and the live Option B V1 wrapper truth for Jarvis rebuild",
-    "last_reviewed": "2026-03-14"
+    "notes": "Aggregates current live system decisions, hardened loop surfaces, helper scripts, current packet lifecycle/status cleanup truth, live strict launch proof status, and the current operator-facing WCS wrapper truth for Jarvis rebuild",
+    "last_reviewed": "2026-03-16"
   },
   {
     "file": "manual_loop_checklist.md",
@@ -747,8 +747,8 @@
     "owner": "jarvis_script",
     "purpose": "Agent-first Cursor execution bridge for the current WCS worker surface; prefers agent CLI, then cursor launcher",
     "updated_by": "user",
-    "notes": "Execution targets the task repo (repo_path from packet) as the current Cursor execution surface for the WCS worker; Agent uses --workspace and --trust; handoff content as prompt when small; does not fabricate worker completion. Now supports --require-auditable-delta for immediate post-launch working-tree audit (expected branch, real delta, in-scope changed files). Strict failure path safely proved; strict real-Agent success path not yet proven",
-    "last_reviewed": "2026-03-14"
+    "notes": "Execution targets the task repo (repo_path from packet) as the current Cursor execution surface for the WCS worker; Agent uses --workspace and --trust; handoff content as prompt when small; does not fabricate worker completion. Supports --require-auditable-delta for immediate post-launch working-tree audit (expected branch, real delta, in-scope changed files) and --agent-timeout-seconds for the real Agent CLI path only. Strict failure path, blocked/timeout path, and strict real-Agent success path are now all honestly proved",
+    "last_reviewed": "2026-03-16"
   },
   {
     "file": "draft_worker_result_from_evidence.py",
@@ -868,8 +868,8 @@
     "owner": "jarvis_script",
     "purpose": "Thin operator-facing wrapper for the current WCS prep/post flow",
     "updated_by": "user",
-    "notes": "Delegates to existing helpers instead of replacing them. prep ensures packet existence, runs guarded pre_worker, prints artifact paths, and may optionally attempt run_cursor_worker.py. In the current live build, prep --launch-cursor opts into strict post-launch audit via run_cursor_worker.py --require-auditable-delta. post delegates to run_guarded_task_cycle.py --mode post_worker and passes worker/QA evidence flags through unchanged. prep and post are freshly proven on WCS-044; strict launch failure path safely proved; strict real-Agent success path not yet proven",
-    "last_reviewed": "2026-03-14"
+    "notes": "Delegates to existing helpers instead of replacing them. prep ensures packet existence, runs guarded pre_worker, prints artifact paths, and may optionally attempt run_cursor_worker.py. In the current live build, prep --launch-cursor opts into strict post-launch audit via run_cursor_worker.py --require-auditable-delta and can pass through --agent-timeout-seconds for the real Agent CLI path. post delegates to run_guarded_task_cycle.py --mode post_worker and passes worker/QA evidence flags through unchanged. prep and post are proven on WCS-044; strict launch failure, blocked/timeout, and strict real-Agent success are now honestly proved",
+    "last_reviewed": "2026-03-16"
   },
   {
     "file": "select_next_ready_task.py",

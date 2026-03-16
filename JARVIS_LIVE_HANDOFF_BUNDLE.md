@@ -1,15 +1,15 @@
 # JARVIS_LIVE_HANDOFF_BUNDLE.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: launch-safety hardening live)
+- Last reviewed: 2026-03-16
+- Last updated: 2026-03-16 (doc pass: strict real-agent launch success and timeout control live)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
 - Option B V1 is now live via `scripts/run_wcs_operator_entrypoint.py` as a thin operator-facing wrapper for `prep` and `post`.
 - Launch-safety hardening is now in place for the Cursor bridge/operator-wrapper path.
 - `prep --launch-cursor` now uses strict post-launch auditing and can fail honestly when launch is not immediately auditable.
-- Strict real-Agent success is still not yet proven in this pass.
+- Strict real-Agent success is now proven on `WCS-041`.
 
 ## Recent live truth
 - Option A packet lifecycle/status cleanup is now live.
@@ -23,11 +23,14 @@
 - Existing validated helpers remain the real execution engines underneath the wrapper.
 - Fresh proof succeeded on `WCS-044` for wrapper `prep` and wrapper `post`.
 - `scripts/run_cursor_worker.py` now supports `--require-auditable-delta`.
+- `scripts/run_cursor_worker.py` now also supports configurable real-Agent timeout via `--agent-timeout-seconds`.
 - In strict mode, a successful external launch exit is followed immediately by repo audit: expected branch must still match, an auditable working-tree delta must exist, and changed files must stay within packet scope.
-- `scripts/run_wcs_operator_entrypoint.py prep --launch-cursor` now uses the strict audit mode.
+- `scripts/run_wcs_operator_entrypoint.py prep --launch-cursor` now uses the strict audit mode and can pass through `--agent-timeout-seconds`.
 - Safe proof completed for the strict failure path using a temporary no-op agent shim: normal `prep` still passed, strict launch failed honestly because no auditable working-tree delta existed after launch, and manual cross-check matched the helper output.
-- Strict real-Agent success path remains unproven in this pass.
+- Blocked/timeout behavior is also now proven: the real Agent CLI path can return `BLOCKED` honestly when the agent does not finish before the configured timeout.
+- Strict real-Agent success path is now proven: `WCS-041` completed as `done` after a strict `--launch-cursor` success path with in-scope delta, commit/QA/post-worker completion, and reconcile.
 - Even with launch-safety hardening, launch is still not completion proof, semantic correctness proof, commit readiness proof, QA proof, or finalized worker-evidence proof.
+- Earlier disposable `WCS-045` prep/proof debris was intentionally deleted and should not be treated as durable proof evidence.
 
 ## FILE: JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3
 ````md

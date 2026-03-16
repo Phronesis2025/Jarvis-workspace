@@ -2,8 +2,8 @@
 # JARVIS_TASK_EXECUTION_CHECKLIST_v2.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-14
-- Last updated: 2026-03-14
+- Last reviewed: 2026-03-16
+- Last updated: 2026-03-16
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrapper now live for prep/post; launch path now supports strict post-launch auditing)
 
@@ -142,6 +142,12 @@ Strict launch example:
 python .\scripts\run_wcs_operator_entrypoint.py prep --task WCS-XXX --launch-cursor
 ```
 
+Strict launch with longer Agent timeout example:
+
+```powershell
+python .\scripts\run_wcs_operator_entrypoint.py prep --task WCS-XXX --launch-cursor --agent-timeout-seconds 1200
+```
+
 Post example:
 
 ```powershell
@@ -152,11 +158,14 @@ python .\scripts\run_wcs_operator_entrypoint.py post --task WCS-XXX --draft-work
 
 - `prep` ensures the packet exists when missing, delegates to guarded `pre_worker`, and prints key artifact paths
 - when `prep --launch-cursor` is used, the wrapper now calls `run_cursor_worker.py` with strict post-launch audit enabled
+- optional `--agent-timeout-seconds <n>` can be passed through during strict launch to give the real Agent CLI path more time without weakening audit truth
 - `post` delegates to guarded `post_worker` and passes worker/QA evidence through unchanged
 - existing helpers remain the true engines underneath
 - the wrapper does not run build or smoke itself, does not create commits, does not select tasks automatically, and does not invent evidence
 - launch still does not prove task completion, semantic correctness, commit readiness, QA completion, or finalized worker evidence
 - strict launch failure is acceptable and expected when launch is not immediately auditable, for example when no working-tree delta exists or changed files fall outside scope
+- blocked/timeout launch is also an honest outcome when the real Agent CLI does not finish before the configured timeout
+- strict real-Agent success is now proven on `WCS-041`, but operator review, commit, QA, and post-worker truthfulness are still required after launch
 
 ### Current success condition
 

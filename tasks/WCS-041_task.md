@@ -3,27 +3,27 @@
 ## Header
 - Task ID: WCS-041
 - Project: WCS
-- Title: Revert home hero subheading letter spacing back to original
+- Title: Fake test: add trophy emoji to hero CTA button label
 - Bucket: ugly
 - Priority: P3
 - Risk: low
-- Status: ready
+- Status: done
 
 ## Repo
 - Repo Path: `C:\dev\wcsv2.0-new`
 - Branch Name: `jarvis-task-wcs-041`
 
 ## Problem Summary
-Revert home hero subheading letter spacing back to original.
+Fake test: add trophy emoji to hero CTA button label.
 
 ## Goal
-Resolve: Revert home hero subheading letter spacing back to original, with the smallest safe change that satisfies QA.
+Resolve: Fake test: add trophy emoji to hero CTA button label, with the smallest safe change that satisfies QA.
 
 ## Suspected Files
 - src/components/Hero.tsx
 
 ## Acceptance Criteria
-- The scoped issue is resolved: Revert home hero subheading letter spacing back to original
+- The scoped issue is resolved: Fake test: add trophy emoji to hero CTA button label
 - App builds successfully with npm run build
 - Local app can be opened for verification
 - Targeted change is visible or behaves correctly on the relevant page/flow

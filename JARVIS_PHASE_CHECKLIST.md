@@ -1,8 +1,8 @@
 # JARVIS_REBUILD_PHASE_CHECKLIST.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: Option B V1 wrapper live)
+- Last reviewed: 2026-03-16
+- Last updated: 2026-03-16 (doc pass: strict real-agent launch success and timeout control live)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof)
 
@@ -392,7 +392,8 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `select_next_ready_task.py` as a read-only workflow helper that selects the next eligible ready task from backlog/planning surfaces using progression ladder (execution_lane, test_phase, selector_rank) when present, without mutating state — **live**
 - [x] Build `build_daily_execution_prep.py` as a workflow helper that prepares operator-facing daily execution prep by ensuring packet availability (invoking `generate_task_packet.py` when needed), then chaining handoff and summary helpers, without executing tasks or mutating state beyond approved helper outputs — **live**
 - [x] **Next major milestone:** Build Cursor invocation bridge (`run_cursor_worker.py`) — prefers real Agent CLI (`agent`) when available (Windows-hardened detection: which/where/PowerShell), falls back to desktop cursor launcher; attempts execution of generated handoff; reports PASS/BLOCKED/FAIL honestly; does not prove completion or write worker_complete; operator still verifies completion and finalizes worker-result evidence; system remains operator-assisted at the worker completion/evidence stage — **live**
-- [x] Harden launch safety on the Cursor bridge/operator-wrapper path so `run_cursor_worker.py --require-auditable-delta` now fails honestly when branch drift occurs, no immediate working-tree delta exists, or changed files fall outside task scope; `run_wcs_operator_entrypoint.py prep --launch-cursor` now uses that strict audit mode; strict failure path safely proved, strict real-Agent success path still unproven
+- [x] Harden launch safety on the Cursor bridge/operator-wrapper path so `run_cursor_worker.py --require-auditable-delta` now fails honestly when branch drift occurs, no immediate working-tree delta exists, or changed files fall outside task scope; `run_wcs_operator_entrypoint.py prep --launch-cursor` now uses that strict audit mode; strict failure path safely proved, blocked/timeout path also honestly proved, and strict real-Agent success path is now proved on `WCS-041`
+- [x] Add configurable real-Agent timeout control for the strict launch path via `run_cursor_worker.py --agent-timeout-seconds` with passthrough from `run_wcs_operator_entrypoint.py prep --launch-cursor`; strict audit truth remains unchanged
 - [x] Build `draft_worker_result_from_evidence.py` as a worker-result drafting helper from task packet and repo evidence (branch, changed files); does not stamp, reconcile, or fabricate completion; operator reviews draft before post-worker — **live**
 - [x] Harden `draft_worker_result_from_evidence.py` so `worker_complete` drafting requires one or more meaningful repeatable `--command <text>` entries, populates `commands_run` from those explicit values only, rejects placeholder-only command evidence, and closes the validator/stamp-guard `commands_run` gap — **live and proven on WCS-042** (`worker_result_validate.py --mode pre-stamp` PASS, `stamp_guard_check.py` PASS)
 - [x] Real guarded end-to-end task cycle succeeded on WCS-042 (Agent-first run_cursor_worker, task repo workspace, draft_worker_result_from_evidence, stamp, QA, reconcile)

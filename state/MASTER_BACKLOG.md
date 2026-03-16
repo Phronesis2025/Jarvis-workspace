@@ -41,7 +41,7 @@
 | WCS-038 | WCS | ugly | P3 | low | ready | Fake test: add calendar emoji to schedules empty-state message | src/app/schedules/page.tsx |
 | WCS-039 | WCS | ugly | P3 | low | ready | Fake test: add basketball emoji to schedules page title or filter label | src/app/schedules/page.tsx |
 | WCS-040 | WCS | ugly | P3 | low | done | Style test: change home hero subheading letter spacing | src/components/Hero.tsx |
-| WCS-041 | WCS | ugly | P3 | low | ready | Fake test: add trophy emoji to hero CTA button label | src/components/Hero.tsx |
+| WCS-041 | WCS | ugly | P3 | low | done | Fake test: add trophy emoji to hero CTA button label | src/components/Hero.tsx |
 | WCS-042 | WCS | ugly | P3 | low | done | Fake test: add temporary TEST MODE badge on about page | src/app/about/page.tsx |
 | WCS-043 | WCS | ugly | P3 | low | done | Fake test: add visible TEST: prefix to drills page heading | src/app/drills/page.tsx |
 | WCS-044 | WCS | ugly | P3 | low | done | Fake test: add temporary emoji to about page section divider | src/app/about/page.tsx |

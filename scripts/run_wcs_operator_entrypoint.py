@@ -25,6 +25,13 @@ def normalize_task_id(raw: str) -> str:
     return task_id
 
 
+def positive_int(raw: str) -> int:
+    value = int(raw)
+    if value < 1:
+        raise argparse.ArgumentTypeError("Value must be a positive integer.")
+    return value
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -49,6 +56,15 @@ def parse_args() -> argparse.Namespace:
         help=(
             "After successful prep, call run_cursor_worker.py for this task "
             "with strict post-launch audit."
+        ),
+    )
+    prep.add_argument(
+        "--agent-timeout-seconds",
+        type=positive_int,
+        metavar="SECONDS",
+        help=(
+            "Optional passthrough for run_cursor_worker.py real Agent CLI timeout. "
+            "Used only with --launch-cursor."
         ),
     )
 
@@ -241,6 +257,10 @@ def handle_prep(args: argparse.Namespace) -> int:
             str(workspace),
             "--require-auditable-delta",
         ]
+        if args.agent_timeout_seconds is not None:
+            launch_cmd.extend(
+                ["--agent-timeout-seconds", str(args.agent_timeout_seconds)]
+            )
         code, output = run_helper(launch_cmd, workspace)
         print_helper_result(launch_cmd, output)
         if code != 0:
