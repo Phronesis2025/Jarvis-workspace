@@ -801,7 +801,7 @@
     "bucket": "ugly",
     "priority": "P3",
     "risk": "low",
-    "status": "ready",
+    "status": "done",
     "title": "Fake test: add temporary TEST MODE text to footer",
     "notes": "src/components/Footer.tsx",
     "difficulty": 4,

@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import socket
@@ -158,27 +159,27 @@ def ensure_workspace_exists(workspace: Path) -> None:
         raise FullCycleError(f"Workspace path does not exist: {workspace}")
 
 
-def run_helper(cmd: Sequence[str], cwd: Path, *, shell: bool = False) -> Tuple[int, str]:
+def run_helper(
+    cmd: Sequence[str],
+    cwd: Path,
+    *,
+    shell: bool = False,
+    env: Optional[dict[str, str]] = None,
+) -> Tuple[int, str]:
+    kwargs: dict[str, Any] = {
+        "cwd": str(cwd),
+        "capture_output": True,
+        "text": True,
+        "encoding": "utf-8",
+        "errors": "replace",
+    }
+    if env is not None:
+        kwargs["env"] = env
     if shell:
         cmd_str = subprocess.list2cmdline(cmd) if cmd else ""
-        proc = subprocess.run(
-            cmd_str,
-            cwd=str(cwd),
-            shell=True,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-        )
+        proc = subprocess.run(cmd_str, shell=True, **kwargs)
     else:
-        proc = subprocess.run(
-            list(cmd),
-            cwd=str(cwd),
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-        )
+        proc = subprocess.run(list(cmd), **kwargs)
     output = ""
     if proc.stdout:
         output += proc.stdout
@@ -189,7 +190,12 @@ def run_helper(cmd: Sequence[str], cwd: Path, *, shell: bool = False) -> Tuple[i
     return proc.returncode, output.rstrip()
 
 
-def run_node_cmd(cmd: Sequence[str], cwd: Path) -> Tuple[int, str]:
+def run_node_cmd(
+    cmd: Sequence[str],
+    cwd: Path,
+    *,
+    env: Optional[dict[str, str]] = None,
+) -> Tuple[int, str]:
     """
     Run node/npm/npx command with Windows-safe resolution.
     On Windows, npm/npx are .cmd batch files and must run via shell for PATH resolution.
@@ -199,12 +205,12 @@ def run_node_cmd(cmd: Sequence[str], cwd: Path) -> Tuple[int, str]:
     name = cmd[0].lower()
     if sys.platform == "win32":
         if name in ("npm", "npx"):
-            return run_helper(cmd, cwd, shell=True)
+            return run_helper(cmd, cwd, shell=True, env=env)
         if name == "node":
             resolved = shutil.which("node")
             if resolved:
                 cmd = [resolved] + list(cmd[1:])
-    return run_helper(cmd, cwd)
+    return run_helper(cmd, cwd, env=env)
 
 
 def print_helper_result(cmd: Sequence[str], output: str) -> None:
@@ -422,7 +428,8 @@ def capture_screenshot(
 ) -> Tuple[Optional[Path], str]:
     """
     Capture screenshot of URL. Returns (artifact_path, message).
-    Uses Node script with Playwright from WCS repo (cwd=repo_path).
+    Uses Node script with Playwright from WCS repo. Sets NODE_PATH so require('playwright')
+    resolves from repo_path/node_modules (same env as npm run test:e2e:smoke).
     """
     artifact_dir = workspace / "qa" / "artifacts"
     artifact_dir.mkdir(parents=True, exist_ok=True)
@@ -430,9 +437,13 @@ def capture_screenshot(
     capture_script = scripts_dir / "capture_screenshot.js"
     if not capture_script.is_file():
         return None, f"Capture script not found: {capture_script}"
+    wcs_node_modules = repo_path / "node_modules"
+    env = os.environ.copy()
+    env["NODE_PATH"] = str(wcs_node_modules)
     code, out = run_node_cmd(
         ["node", str(capture_script), url, str(out_path)],
         repo_path,
+        env=env,
     )
     if code != 0:
         return None, f"Screenshot capture failed: {out}"

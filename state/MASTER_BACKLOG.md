@@ -61,4 +61,4 @@
 | WCS-058 | WCS | ugly | P3 | low | ready | Fake test: add temporary bright marker to schedules empty state | src/app/schedules/page.tsx |
 | WCS-059 | WCS | ugly | P3 | low | ready | Fake test: add temporary bright marker to drills empty state | src/app/drills/page.tsx |
 | WCS-060 | WCS | ugly | P3 | low | ready | Fake test: add temporary emoji to about page CTA or link | src/app/about/page.tsx |
-| WCS-061 | WCS | ugly | P3 | low | ready | Fake test: add temporary TEST MODE text to footer | src/components/Footer.tsx |
+| WCS-061 | WCS | ugly | P3 | low | done | Fake test: add temporary TEST MODE text to footer | src/components/Footer.tsx |

@@ -890,7 +890,7 @@
     "owner": "jarvis_script",
     "purpose": "Full one-command single-task closeout wrapper for the active Jarvis/WCS lane",
     "updated_by": "user",
-    "notes": "Extends run_one_task_cycle approach: runs prep, optional strict launch, then operator-controlled commit/build/smoke/manual/post. Requires --confirm-commit to proceed past diff review and --manual-check for post. --manage-dev-server: reuse existing server on --dev-port; --force-restart-dev-server kills only process on port; only kills on exit if wrapper started server. --capture-screenshot saves to qa/artifacts/<TASK_ID>_manual_check.png and wires into QA artifacts; does NOT imply manual pass. Uses run_node_cmd for Windows-safe npm/npx/node resolution (shell for npm/npx, which for node). Current smoke test is limited; page-specific coverage should be improved later. One task only; no fabrication. Delegates to run_wcs_operator_entrypoint.py for prep and post",
+    "notes": "Extends run_one_task_cycle approach: runs prep, optional strict launch, then operator-controlled commit/build/smoke/manual/post. Requires --confirm-commit to proceed past diff review and --manual-check for post. --manage-dev-server: reuse existing server on --dev-port; --force-restart-dev-server kills only process on port; only kills on exit if wrapper started server. --capture-screenshot saves to qa/artifacts/<TASK_ID>_manual_check.png and wires into QA artifacts; sets NODE_PATH to WCS repo node_modules so capture_screenshot.js resolves Playwright (same env as smoke). Proven on WCS-061 through prep, strict launch, commit, build, managed dev server, smoke, and screenshot capture; stops honestly before manual verification; final closure still requires separate truthful manual verification and run_wcs_operator_entrypoint.py post. Current smoke test is limited; page-specific task coverage should be improved later. One task only; no fabrication. Delegates to run_wcs_operator_entrypoint.py for prep and post",
     "last_reviewed": "2026-03-17"
   },
   {
@@ -899,9 +899,9 @@
     "category": "script",
     "source_type": "source_of_truth",
     "owner": "jarvis_script",
-    "purpose": "Capture screenshot of URL using Playwright; run from WCS repo cwd",
+    "purpose": "Capture screenshot of URL using Playwright",
     "updated_by": "user",
-    "notes": "Used by run_one_task_full_cycle.py --capture-screenshot. Requires Playwright in WCS repo node_modules.",
+    "notes": "Used by run_one_task_full_cycle.py --capture-screenshot. Wrapper sets NODE_PATH to WCS repo node_modules so require('playwright') resolves (same as npm run test:e2e:smoke). Screenshot capture proven on WCS-061.",
     "last_reviewed": "2026-03-17"
   },
   {

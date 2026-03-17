@@ -3,9 +3,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: WCS-046 proof, one-task wrapper proven)
+- Last updated: 2026-03-17 (doc pass: WCS-061 proof, full-cycle wrapper proven)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers now live for prep/post and one-task cycle flow; launch path now supports strict post-launch auditing)
+- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 through prep, strict launch, commit, build, managed dev server, smoke, screenshot capture; honest stop before manual verification; final closure still requires separate truthful manual verification and post; launch path supports strict post-launch auditing)
 
 ## Purpose
 
@@ -240,7 +240,7 @@ Stop if:
 
 ### Current action
 
-Use `run_one_task_full_cycle.py` when you want one command to run the full single-task cycle: prep, optional strict launch, commit, build, smoke, manual verification, and post. Requires operator confirmation flags; does not fabricate evidence.
+Use `run_one_task_full_cycle.py` when you want one command to run the full single-task cycle: prep, optional strict launch, commit, build, smoke, manual verification, and post. Requires operator confirmation flags; does not fabricate evidence. Proven on WCS-061 through prep, strict launch, commit, build, managed dev server, smoke, and screenshot capture; stops honestly before manual verification; final closure still requires separate truthful manual verification and `run_wcs_operator_entrypoint.py post`.
 
 ### Current commands
 

@@ -2,16 +2,16 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: full-cycle wrapper added)
+- Last updated: 2026-03-17 (doc pass: WCS-061 proof, full-cycle wrapper proven)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
 - Option B V1 is now live via `scripts/run_wcs_operator_entrypoint.py` as a thin operator-facing wrapper for `prep` and `post`.
 - `scripts/run_one_task_cycle.py` is now live as a one-task-only wrapper that selects or accepts exactly one bounded WCS task, delegates prep/optional strict launch, and prints operator next actions without claiming completion.
-- `scripts/run_one_task_full_cycle.py` is now live as a full one-command single-task closeout wrapper: prep, optional strict launch, commit (with --confirm-commit), build, smoke (after starting npm run dev), and post (with --manual-check). No fabrication; operator must provide confirmation flags. Supports --manage-dev-server (reuse existing server on port; --force-restart-dev-server kills only process on port), --capture-screenshot (saves to qa/artifacts/<TASK_ID>_manual_check.png; wires into QA artifacts; does NOT imply manual pass), and --manual-url. Current smoke test is limited; page-specific coverage should be improved later.
+- `scripts/run_one_task_full_cycle.py` is now live and proven on `WCS-061` through prep, strict launch, diff review, commit, build, managed dev server, smoke, and screenshot capture. It stops honestly before manual verification; final closure still requires separate truthful manual verification and `run_wcs_operator_entrypoint.py post`. No fabrication; operator must provide `--confirm-commit` and `--manual-check`. Supports --manage-dev-server, --capture-screenshot (proven on WCS-061), and --manual-url. Current smoke test is limited; page-specific task coverage should be improved later.
 - Launch-safety hardening is now in place for the Cursor bridge/operator-wrapper path.
 - `prep --launch-cursor` now uses strict post-launch auditing and can fail honestly when launch is not immediately auditable.
-- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`; task completion still required operator commit, QA, manual verification, and post-worker truth.
+- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`; task completion still required operator commit, QA, manual verification, and post-worker truth. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061`; screenshot capture proven; final closure still requires operator manual verification and post.
 
 ## Recent live truth
 - Option A packet lifecycle/status cleanup is now live.
@@ -31,7 +31,7 @@
 - `scripts/run_one_task_cycle.py` now provides a one-command single-task wrapper over selection plus `run_wcs_operator_entrypoint.py prep`, then prints the exact remaining operator steps still required for commit, QA, manual verification, and post-worker finalization.
 - Safe proof completed for the strict failure path using a temporary no-op agent shim: normal `prep` still passed, strict launch failed honestly because no auditable working-tree delta existed after launch, and manual cross-check matched the helper output.
 - Blocked/timeout behavior is also now proven: the real Agent CLI path can return `BLOCKED` honestly when the agent does not finish before the configured timeout.
-- Strict real-Agent success path is proven: `WCS-041` and `WCS-046` completed as `done` after strict `--launch-cursor` success path with in-scope delta, operator commit/QA/post-worker completion, and reconcile. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`.
+- Strict real-Agent success path is proven: `WCS-041` and `WCS-046` completed as `done` after strict `--launch-cursor` success path with in-scope delta, operator commit/QA/post-worker completion, and reconcile. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` through prep, strict launch, commit, build, managed dev server, smoke, and screenshot capture; it stops honestly before manual verification; final closure still required operator manual verification and `run_wcs_operator_entrypoint.py post`. Screenshot capture proven on WCS-061.
 - Even with launch-safety hardening, launch is still not completion proof, semantic correctness proof, commit readiness proof, QA proof, or finalized worker-evidence proof.
 - Earlier disposable `WCS-045` prep/proof debris was intentionally deleted and should not be treated as durable proof evidence.
 

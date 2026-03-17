@@ -2,9 +2,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: WCS-046 proof, one-task wrapper proven)
+- Last updated: 2026-03-17 (doc pass: WCS-061 proof, full-cycle wrapper proven)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper now live and proven on WCS-046)
+- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper proven on WCS-046; full-cycle wrapper proven on WCS-061 through prep, strict launch, commit, build, managed dev server, smoke, screenshot capture; honest stop before manual verification; final closure still requires separate truthful manual verification and run_wcs_operator_entrypoint.py post)
 
 ## Purpose
 
@@ -388,6 +388,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `run_guarded_task_cycle.py` as a workflow/orchestration helper that runs existing guarded task-cycle scripts in order and stops on first failure without changing their logic — **live**
 - [x] Build `run_wcs_operator_entrypoint.py` as a thin operator-facing WCS wrapper over existing helpers with `prep` and `post` only; `prep` and `post` are freshly proven on `WCS-044`
 - [x] Build `run_one_task_cycle.py` as a one-task-only operator wrapper that either accepts `--task WCS-XXX` or selects one ready bounded WCS task, delegates prep/optional strict launch to existing wrappers, and prints the remaining operator steps without claiming completion — **live and proven on WCS-046**
+- [x] Build `run_one_task_full_cycle.py` as a full one-command single-task closeout wrapper (prep, strict launch, commit, build, managed dev server, smoke, screenshot capture, honest stop before manual verification); requires `--confirm-commit` and `--manual-check`; final closure still requires separate truthful manual verification and `run_wcs_operator_entrypoint.py post` — **live and proven on WCS-061** (screenshot capture proven; current smoke test is limited; page-specific task coverage should be improved later)
 - [x] Wire optional QA-result drafting into guarded post_worker/full via `run_guarded_task_cycle.py --draft-qa-result` and QA evidence passthrough; draft step runs before `qa_result_validate.py --mode pre-stamp`; without `--draft-qa-result`, QA result JSON still required — **live**
 - [x] Wire optional worker-result drafting into guarded post_worker/full via `run_guarded_task_cycle.py --draft-worker-result` plus truthful repeatable `--worker-command <text>` (and optional `--worker-executor` passthrough); inserted worker-draft step runs immediately before `worker_result_validate.py --mode pre-stamp`, pre_worker remains unchanged, and WCS-042 proved the safe boundary through worker draft PASS + worker pre-stamp validation PASS before intentionally stopping ahead of stamp/reconcile — **live**
 - [x] Build `select_next_ready_task.py` as a read-only workflow helper that selects the next eligible ready task from backlog/planning surfaces using progression ladder (execution_lane, test_phase, selector_rank) when present, without mutating state — **live**

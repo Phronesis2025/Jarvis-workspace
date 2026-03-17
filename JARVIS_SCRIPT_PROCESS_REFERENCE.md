@@ -3,17 +3,17 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: WCS-046 proof, one-task wrapper proven)
+- Last updated: 2026-03-17 (doc pass: WCS-061 proof, full-cycle wrapper proven)
 - Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, and WCS-046. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py --task WCS-046 --launch-cursor`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth.
+- Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, and WCS-061. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth. On WCS-061, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved through prep, strict launch, diff review, commit, build, managed dev server, smoke, and screenshot capture; it stops honestly before manual verification; final closure still required separate truthful manual verification and `run_wcs_operator_entrypoint.py post`.
 
 ## Current local state / follow-up
 - Option B V1 is live via `scripts/run_wcs_operator_entrypoint.py` for operator-facing `prep` and `post`.
 - `prep --launch-cursor` now uses strict post-launch auditing through `run_cursor_worker.py --require-auditable-delta`.
 - Strict launch failure is now honestly proven: launch can exit `0` and still fail overall when no immediate auditable in-scope repo delta exists.
 - Blocked/timeout behavior is also honestly proven: the real Agent CLI path returns `BLOCKED` when the agent does not finish before the configured timeout.
-- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`.
+- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` through prep, strict launch, commit, build, managed dev server, smoke, and screenshot capture; it does not auto-complete—final closure still requires operator manual verification and post.
 
 ## Purpose
 
@@ -725,7 +725,7 @@ Fresh proof succeeded on `WCS-044` for:
 - `prep`
 - `post`
 
-The optional `prep --launch-cursor` path remains operator-assisted. It now uses strict post-launch auditing so the wrapper fails honestly when launch is not immediately auditable, and it can pass through `--agent-timeout-seconds <n>` and `--agent-model <id>`. The strict failure path is safely proved. Blocked/timeout behavior is also proved. The strict real-Agent success path is proved on `WCS-041` and `WCS-046`. The one-command single-task wrapper (`run_one_task_cycle.py`) is proved on `WCS-046`; task completion still requires operator commit, QA, manual verification, and post-worker truth.
+The optional `prep --launch-cursor` path remains operator-assisted. It now uses strict post-launch auditing so the wrapper fails honestly when launch is not immediately auditable, and it can pass through `--agent-timeout-seconds <n>` and `--agent-model <id>`. The strict failure path is safely proved. Blocked/timeout behavior is also proved. The strict real-Agent success path is proved on `WCS-041` and `WCS-046`. The one-command single-task wrapper (`run_one_task_cycle.py`) is proved on `WCS-046`; task completion still requires operator commit, QA, manual verification, and post-worker truth. The full-cycle wrapper (`run_one_task_full_cycle.py`) is proved on `WCS-061` through prep, strict launch, commit, build, managed dev server, smoke, and screenshot capture; it stops honestly before manual verification; final closure still requires separate truthful manual verification and `run_wcs_operator_entrypoint.py post`. Screenshot capture is proven on WCS-061. Current smoke test is limited; page-specific task coverage should be improved later.
 
 ### What this script does not currently do
 

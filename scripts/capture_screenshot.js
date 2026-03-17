@@ -1,6 +1,7 @@
 /**
  * Capture a screenshot of a URL using Playwright.
- * Must be run from a directory that has Playwright installed (e.g. WCS repo).
+ * Requires Playwright in node_modules. Caller must set NODE_PATH to WCS repo
+ * node_modules (e.g. NODE_PATH=<repo>/node_modules) so require('playwright') resolves.
  * Usage: node capture_screenshot.js <url> <output_path>
  * Exit 0 on success, 1 on failure.
  */
