@@ -3,7 +3,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: WCS-008 proof, full-cycle + finalize proven)
+- Last updated: 2026-03-17 (doc pass: WCS-008 live truth, WCS-033 not proof, next target sequential)
 - Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, WCS-061, and WCS-008. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth. On WCS-061 and WCS-008, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
@@ -13,7 +13,7 @@
 - `prep --launch-cursor` now uses strict post-launch auditing through `run_cursor_worker.py --require-auditable-delta`.
 - Strict launch failure is now honestly proven: launch can exit `0` and still fail overall when no immediate auditable in-scope repo delta exists.
 - Blocked/timeout behavior is also honestly proven: the real Agent CLI path returns `BLOCKED` when the agent does not finish before the configured timeout.
-- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration.
+- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration. WCS-033 was a bad proof target; do not present as proof. Next logical build target: sequential single-task execution across multiple tasks, not concurrency.
 
 ## Purpose
 
