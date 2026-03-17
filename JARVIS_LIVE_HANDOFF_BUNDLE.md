@@ -2,12 +2,13 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: WCS-046 proof, one-task wrapper proven)
+- Last updated: 2026-03-17 (doc pass: full-cycle wrapper added)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
 - Option B V1 is now live via `scripts/run_wcs_operator_entrypoint.py` as a thin operator-facing wrapper for `prep` and `post`.
 - `scripts/run_one_task_cycle.py` is now live as a one-task-only wrapper that selects or accepts exactly one bounded WCS task, delegates prep/optional strict launch, and prints operator next actions without claiming completion.
+- `scripts/run_one_task_full_cycle.py` is now live as a full one-command single-task closeout wrapper: prep, optional strict launch, commit (with --confirm-commit), build, smoke (after starting npm run dev), and post (with --manual-check). No fabrication; operator must provide confirmation flags. Supports --manage-dev-server (reuse existing server on port; --force-restart-dev-server kills only process on port), --capture-screenshot (saves to qa/artifacts/<TASK_ID>_manual_check.png; wires into QA artifacts; does NOT imply manual pass), and --manual-url. Current smoke test is limited; page-specific coverage should be improved later.
 - Launch-safety hardening is now in place for the Cursor bridge/operator-wrapper path.
 - `prep --launch-cursor` now uses strict post-launch auditing and can fail honestly when launch is not immediately auditable.
 - Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`; task completion still required operator commit, QA, manual verification, and post-worker truth.

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -52,8 +53,8 @@ def render_markdown(entries: List[Dict[str, Any]]) -> str:
     header = """# FILE REGISTRY
 
 ## Live Doc Status
-- Last reviewed: 2026-03-14
-- Last updated: 2026-03-14
+- Last reviewed: {today}
+- Last updated: {today}
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state; registry mirrors file_registry.json and is rendered by render_file_registry.py
 
@@ -107,7 +108,7 @@ This markdown file is the human-readable view rendered from file_registry.json.
 
 | File | Path | Category | Source Type | Owner | Purpose | Updated By | Notes |
 |---|---|---|---|---|---|---|---|
-"""
+""".format(today=date.today().strftime("%Y-%m-%d"))
 
     lines: List[str] = [header]
 

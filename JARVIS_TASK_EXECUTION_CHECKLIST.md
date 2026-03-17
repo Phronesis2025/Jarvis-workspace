@@ -236,6 +236,57 @@ Stop if:
 
 ---
 
+## Phase 1D — Full one-task closeout wrapper
+
+### Current action
+
+Use `run_one_task_full_cycle.py` when you want one command to run the full single-task cycle: prep, optional strict launch, commit, build, smoke, manual verification, and post. Requires operator confirmation flags; does not fabricate evidence.
+
+### Current commands
+
+Prep and launch only (stops before commit; review diff first):
+
+```powershell
+python .\scripts\run_one_task_full_cycle.py --task WCS-XXX --launch-cursor --agent-timeout-seconds 1200 --agent-model composer-1.5
+```
+
+Full closeout with managed dev server and optional screenshot:
+
+```powershell
+python .\scripts\run_one_task_full_cycle.py --task WCS-XXX --launch-cursor --agent-timeout-seconds 1200 --agent-model composer-1.5 --manage-dev-server --confirm-commit --manual-check "Verified the targeted change locally in the browser for WCS-XXX."
+```
+
+With screenshot capture (saves to qa/artifacts/<TASK_ID>_manual_check.png; does NOT imply manual pass):
+
+```powershell
+python .\scripts\run_one_task_full_cycle.py --task WCS-048 --launch-cursor --manage-dev-server --capture-screenshot --manual-url "http://localhost:3000/schedules" --confirm-commit --manual-check "Verified calendar emoji on schedules page."
+```
+
+### Important current truth
+
+- one task only; no batching or scheduling; operator-truthful
+- reuses `run_wcs_operator_entrypoint.py prep` and `post`; does not duplicate business logic
+- `--confirm-commit` required to proceed past diff review; commit is idempotent if working tree already clean
+- `--manual-check "..."` required to run post; operator must provide truthful verification note
+- `--manage-dev-server`: reuses existing server on `--dev-port` if in use; `--force-restart-dev-server` kills only process on that port; only kills on exit if wrapper started the server
+- `--capture-screenshot` saves to qa/artifacts/<TASK_ID>_manual_check.png and wires into QA artifacts; does NOT imply manual verification passed
+- runs `npm run build` and `npm run test:e2e:smoke`; current smoke test is limited and should be improved later for page-specific task coverage
+- stops immediately on prep/launch/build/smoke failure; no fabrication of worker/QA/manual evidence
+
+### Current failure condition
+
+Stop if:
+
+* selection fails or returns no eligible task
+* delegated prep fails
+* strict launch fails or blocks
+* git add/commit fails (when --confirm-commit used)
+* npm run build fails
+* npm run test:e2e:smoke fails
+* post delegation fails
+
+---
+
 ## Phase 2 — Verify branch and repo cleanliness before touching code
 
 ### Current action

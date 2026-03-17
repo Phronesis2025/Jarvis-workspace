@@ -31,7 +31,7 @@
 | WCS-028 | WCS | ugly | P3 | low | ready | Fake test: add basketball emoji to hero subtitle | src/components/Hero.tsx |
 | WCS-029 | WCS | ugly | P3 | low | ready | Fake test: add fire emoji to hero CTA button label | src/components/Hero.tsx |
 | WCS-030 | WCS | ugly | P3 | low | ready | Fake test: add temporary TEST MODE badge below hero headline | src/components/Hero.tsx |
-| WCS-031 | WCS | ugly | P3 | low | ready | Fake test: add trophy emoji to about page promo heading | src/app/about/page.tsx |
+| WCS-031 | WCS | ugly | P3 | low | done | Fake test: add trophy emoji to about page promo heading | src/app/about/page.tsx |
 | WCS-032 | WCS | ugly | P3 | low | ready | Fake test: add visible TEST: prefix to schedules empty-state heading | src/app/schedules/page.tsx |
 | WCS-033 | WCS | ugly | P3 | low | ready | Fake test: add visible TEST: prefix to drills empty-state heading | src/app/drills/page.tsx |
 | WCS-034 | WCS | ugly | P3 | low | ready | Fake test: add temporary emoji to public team card label | src/components/ClientTeams.tsx |
@@ -48,7 +48,7 @@
 | WCS-045 | WCS | ugly | P3 | low | ready | Fake test: add temporary highlight border to about page section | src/app/about/page.tsx |
 | WCS-046 | WCS | ugly | P3 | low | done | Fake test: add temporary test badge to one team card | src/components/ClientTeams.tsx |
 | WCS-047 | WCS | ugly | P3 | low | ready | Fake test: add temporary emoji to team card metadata label | src/components/ClientTeams.tsx |
-| WCS-048 | WCS | ugly | P3 | low | ready | Fake test: add calendar emoji to schedules page empty-state | src/app/schedules/page.tsx |
+| WCS-048 | WCS | ugly | P3 | low | done | Fake test: add calendar emoji to schedules page empty-state | src/app/schedules/page.tsx |
 | WCS-049 | WCS | ugly | P3 | low | ready | Fake test: add visible TEST: to schedules empty-state heading | src/app/schedules/page.tsx |
 | WCS-050 | WCS | ugly | P3 | low | ready | Fake test: add drill emoji to drills empty-state heading | src/app/drills/page.tsx |
 | WCS-051 | WCS | ugly | P3 | low | ready | Fake test: add visible TEST: to drills empty-state message | src/app/drills/page.tsx |

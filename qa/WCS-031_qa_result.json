@@ -1,0 +1,20 @@
+{
+  "task_id": "WCS-031",
+  "status": "qa_pass",
+  "qa_tool": "manual operator QA via Next build and Playwright smoke and manual browser verification",
+  "summary": "Build passed, Playwright smoke passed, manual verification passed for the targeted change.",
+  "checks_run": [
+    "npm run build",
+    "npm run test:e2e:smoke",
+    "Verified in the browser that the About page promo heading shows the trophy emoji for WCS-031."
+  ],
+  "checks_passed": [
+    "npm run build",
+    "npm run test:e2e:smoke",
+    "Verified in the browser that the About page promo heading shows the trophy emoji for WCS-031."
+  ],
+  "checks_failed": [],
+  "artifacts": [],
+  "notes": "Drafted by script from CLI evidence. Operator should review before guarded post-worker flow.",
+  "completed_at": "2026-03-17T10:59:07-05:00"
+}
