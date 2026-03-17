@@ -252,3 +252,16 @@ Date: 2026-03-09
 - HEAD commit: 58a394c
 - Branch verified at: 2026-03-17T12:48:11-05:00
 - Reconciled at: 2026-03-17T12:48:11-05:00
+
+### WCS-008 — done
+- Title: Clarify navbar Coaches link label for logged-out users
+- Worker: Implemented bounded changes for WCS-008 in src/components/Navbar.tsx on branch jarvis-task-wcs-008.
+- QA: Build passed, Playwright smoke passed, manual verification passed for the targeted change.
+- Files changed: src/components/Navbar.tsx
+- Commands run: Implemented bounded WCS-008 change in src/components/Navbar.tsx on the task branch
+- Repo path: C:\dev\wcsv2.0-new
+- Verified branch: jarvis-task-wcs-008
+- Commits ahead of main: 1
+- HEAD commit: 5a8fa25
+- Branch verified at: 2026-03-17T13:22:58-05:00
+- Reconciled at: 2026-03-17T13:22:58-05:00

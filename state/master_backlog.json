@@ -75,7 +75,7 @@
     "bucket": "ugly",
     "priority": "P3",
     "risk": "low",
-    "status": "ready",
+    "status": "done",
     "title": "Clarify navbar Coaches link label for logged-out users",
     "notes": "src/components/Navbar.tsx"
   },

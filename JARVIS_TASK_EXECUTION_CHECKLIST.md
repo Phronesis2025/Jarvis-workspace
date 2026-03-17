@@ -3,9 +3,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: WCS-061 proof, full-cycle wrapper proven)
+- Last updated: 2026-03-17 (doc pass: WCS-008 proof, full-cycle + finalize proven)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 through prep, strict launch, commit, build, managed dev server, smoke, screenshot capture; honest stop before manual verification; final closure still requires separate truthful manual verification and post; launch path supports strict post-launch auditing)
+- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; current smoke test still limited; launch path supports strict post-launch auditing)
 
 ## Purpose
 
@@ -240,7 +240,7 @@ Stop if:
 
 ### Current action
 
-Use `run_one_task_full_cycle.py` when you want one command to run the full single-task cycle: prep, optional strict launch, commit, build, smoke, manual verification, and post. Requires operator confirmation flags; does not fabricate evidence. Proven on WCS-061 through prep, strict launch, commit, build, managed dev server, smoke, and screenshot capture; stops honestly before manual verification; final closure still requires separate truthful manual verification and `run_wcs_operator_entrypoint.py post`.
+Use `run_one_task_full_cycle.py` when you want one command to run the full single-task cycle: prep, optional strict launch, commit, build, smoke, manual verification, and post. Requires operator confirmation flags; does not fabricate evidence. Proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
 
 ### Current commands
 
@@ -262,6 +262,18 @@ With screenshot capture (saves to qa/artifacts/<TASK_ID>_manual_check.png; does 
 python .\scripts\run_one_task_full_cycle.py --task WCS-048 --launch-cursor --manage-dev-server --capture-screenshot --manual-url "http://localhost:3000/schedules" --confirm-commit --manual-check "Verified calendar emoji on schedules page."
 ```
 
+Resume/finalize mode (task already committed and smoke-tested; skip prep/launch/commit/build/smoke):
+
+```powershell
+python .\scripts\run_one_task_full_cycle.py --finalize --task WCS-XXX --manual-check "Verified the targeted change locally in the browser for WCS-XXX."
+```
+
+With optional screenshot artifact (if captured in prior run):
+
+```powershell
+python .\scripts\run_one_task_full_cycle.py --finalize --task WCS-XXX --manual-check "Verified ..." --artifact qa/artifacts/WCS-XXX_manual_check.png
+```
+
 ### Important current truth
 
 - one task only; no batching or scheduling; operator-truthful
@@ -270,7 +282,8 @@ python .\scripts\run_one_task_full_cycle.py --task WCS-048 --launch-cursor --man
 - `--manual-check "..."` required to run post; operator must provide truthful verification note
 - `--manage-dev-server`: reuses existing server on `--dev-port` if in use; `--force-restart-dev-server` kills only process on that port; only kills on exit if wrapper started the server
 - `--capture-screenshot` saves to qa/artifacts/<TASK_ID>_manual_check.png and wires into QA artifacts; does NOT imply manual verification passed
-- runs `npm run build` and `npm run test:e2e:smoke`; current smoke test is limited and should be improved later for page-specific task coverage
+- runs `npm run build` and `npm run test:e2e:smoke`; current smoke test is limited and should be improved later, especially for page-specific task coverage
+- `--finalize`: resume mode for task already committed and smoke-tested; skips prep/launch/commit/build/smoke; delegates to post only; requires `--task` and `--manual-check`; optional `--artifact` for screenshot path(s)
 - stops immediately on prep/launch/build/smoke failure; no fabrication of worker/QA/manual evidence
 
 ### Current failure condition

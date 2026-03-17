@@ -9,6 +9,10 @@ Preserves live truth: no fabrication of worker completion, QA pass, or manual
 verification. Operator must provide --confirm-commit and --manual-check to proceed
 past those checkpoints. One task only; no batching, scheduling, or fake autonomy.
 
+Resume/finalize mode (--finalize): for a task already committed and smoke-tested,
+skip prep/launch/commit/build/smoke and delegate directly to post. Requires
+--task and --manual-check. Optional --artifact for screenshot path(s).
+
 Dev-server management: with --manage-dev-server, reuses existing server on port
 unless --force-restart-dev-server. Screenshot capture (--capture-screenshot) saves
 to qa/artifacts/<TASK_ID>_manual_check.png and wires into QA artifacts; does NOT
@@ -143,6 +147,25 @@ def parse_args() -> argparse.Namespace:
         help=(
             "URL for manual verification page (e.g. http://localhost:3000/schedules). "
             "Required when --capture-screenshot is used. Default port from --dev-port."
+        ),
+    )
+    parser.add_argument(
+        "--finalize",
+        action="store_true",
+        help=(
+            "Resume/finalize mode: skip prep, launch, commit, build, smoke. "
+            "For a task already committed and smoke-tested. Requires --task and --manual-check. "
+            "Delegates directly to run_wcs_operator_entrypoint.py post."
+        ),
+    )
+    parser.add_argument(
+        "--artifact",
+        action="append",
+        default=[],
+        metavar="PATH",
+        help=(
+            "Optional screenshot or QA artifact path to wire into post. "
+            "Repeatable. In --finalize mode, defaults to qa/artifacts/<TASK_ID>_manual_check.png if present."
         ),
     )
     return parser.parse_args()
@@ -507,6 +530,55 @@ def main() -> int:
         print(f"Reason: {e}")
         return 1
 
+    # --- Finalize/resume mode: skip prep/launch/commit/build/smoke, delegate to post only ---
+    if args.finalize:
+        if not args.task:
+            return fail("--finalize requires --task", "<task>", "finalize")
+        if not args.manual_check:
+            return fail("--finalize requires --manual-check", args.task or "<task>", "finalize")
+        try:
+            task_id = normalize_task_id(args.task)
+        except ValueError as e:
+            return fail(str(e), args.task or "<task>", "finalize")
+        packet_path = workspace / "tasks" / f"{task_id}_task.json"
+        if not packet_path.is_file():
+            return fail(f"Expected task packet missing: {packet_path}", task_id, "finalize")
+        try:
+            packet = read_json(packet_path)
+        except Exception as e:
+            return fail(f"Could not read task packet: {e}", task_id, "finalize")
+        if not isinstance(packet, dict):
+            return fail("Task packet must be a JSON object", task_id, "finalize")
+        scope_paths = derive_expected_scope(packet)
+        first_scope = scope_paths[0] if scope_paths else "<expected file scope from task packet>"
+        artifact_paths: List[str] = list(args.artifact) if args.artifact else []
+        if not artifact_paths:
+            default_artifact = workspace / "qa" / "artifacts" / f"{task_id}_manual_check.png"
+            if default_artifact.is_file():
+                artifact_paths = [str(default_artifact)]
+        print("")
+        print("RUN ONE TASK FULL CYCLE: FINALIZE MODE")
+        print(f"Task: {task_id}")
+        print("Skipping: prep, launch, diff review, commit, build, smoke.")
+        print("Delegating to run_wcs_operator_entrypoint.py post.")
+        print("")
+        post_cmd = build_post_command(
+            workspace=workspace,
+            task_id=task_id,
+            first_scope=first_scope,
+            manual_check=args.manual_check,
+            artifact_paths=artifact_paths if artifact_paths else None,
+        )
+        post_code, post_out = run_helper(post_cmd, workspace)
+        print_helper_result(post_cmd, post_out)
+        if post_code != 0:
+            return fail("run_wcs_operator_entrypoint post failed", task_id, "post")
+        print("")
+        print("RUN ONE TASK FULL CYCLE: PASS (finalize)")
+        print(f"Task: {task_id}")
+        print("Status: post completed (reconcile ran as part of post; backlog updated).")
+        return 0
+
     # --- Task selection ---
     if args.task:
         try:
@@ -722,10 +794,11 @@ def main() -> int:
         print(f"Task: {task_id}")
         print("Phase: closeout (before post)")
         print("")
-        print("Manually verify the targeted change in the browser. Then re-run with:")
-        print(f'  --confirm-commit --manual-check "Verified the targeted change locally for {task_id}."')
+        print("Manually verify the targeted change in the browser. Then either:")
+        print("  (A) Re-run full cycle: --confirm-commit --manual-check \"Verified ...\"")
+        print("  (B) Finalize only (skip prep/commit/build/smoke): --finalize --task " + task_id + ' --manual-check "Verified ..."')
         print("")
-        print("Note: You must include --confirm-commit even if already committed; the script will skip commit if working tree is clean.")
+        print("Note: Use (B) if already committed and smoke-tested.")
         return 0
 
     # --- Post ---

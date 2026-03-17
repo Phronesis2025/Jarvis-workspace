@@ -9,7 +9,7 @@
 | WCS-005 | WCS | broken | P1 | medium | done | Make footer email signup form functional | src/components/Footer.tsx |
 | WCS-006 | WCS | ugly | P3 | low | ready | Fix hero headline accessibility spacing/aria label | src/components/Hero.tsx |
 | WCS-007 | WCS | ugly | P3 | low | ready | Hide test site banner in production | src/components/TestSiteBanner.tsx |
-| WCS-008 | WCS | ugly | P3 | low | ready | Clarify navbar Coaches link label for logged-out users | src/components/Navbar.tsx |
+| WCS-008 | WCS | ugly | P3 | low | done | Clarify navbar Coaches link label for logged-out users | src/components/Navbar.tsx |
 | WCS-009 | WCS | broken | P2 | medium | done | Improve LogoMarquee response.ok handling and fallback | src/components/LogoMarquee.tsx |
 | WCS-010 | WCS | broken | P2 | medium | done | Show fallback message instead of hiding TodaysEvents on error | src/components/TodaysEvents.tsx |
 | WCS-011 | WCS | broken | P1 | low | done | Stabilize local Playwright smoke QA for home page | tests/e2e, playwright config, global setup for http://localhost:3000 |
