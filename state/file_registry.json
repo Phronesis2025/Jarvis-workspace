@@ -153,7 +153,7 @@
     "owner": "jarvis_script",
     "purpose": "Creates task packet files and blank result files",
     "updated_by": "user",
-    "notes": "Working"
+    "notes": "Working; copies optional implementation_instruction from backlog into packet when present"
   },
   {
     "file": "generate_task_packet.ps1",
@@ -747,8 +747,8 @@
     "owner": "jarvis_script",
     "purpose": "Agent-first Cursor execution bridge for the current WCS worker surface; prefers agent CLI, then cursor launcher",
     "updated_by": "user",
-    "notes": "Execution targets the task repo (repo_path from packet) as the current Cursor execution surface for the WCS worker; Agent uses --workspace and --trust; handoff content as prompt when small; does not fabricate worker completion. Supports --require-auditable-delta for immediate post-launch working-tree audit (expected branch, real delta, in-scope changed files) and --agent-timeout-seconds for the real Agent CLI path only. Strict failure path, blocked/timeout path, and strict real-Agent success path are now all honestly proved",
-    "last_reviewed": "2026-03-16"
+    "notes": "Execution targets the task repo (repo_path from packet) as the current Cursor execution surface for the WCS worker; Agent uses --workspace and --trust; full task spec written to scratch/agent_prompts/<task>_prompt.txt, short CLI-safe instruction passed to agent (avoids Windows cmd-line truncation); does not fabricate worker completion. Supports --require-auditable-delta for immediate post-launch working-tree audit (expected branch, real delta, in-scope changed files), --agent-timeout-seconds for the real Agent CLI path only, and --agent-model for explicit model selection (e.g. composer-1.5 when default Opus hits usage limit). Writes Agent CLI stdout/stderr to scratch/agent_outputs/<task>_agent_output.txt for operator review (PASS, BLOCKED, FAIL). Strict failure path, blocked/timeout path, and strict real-Agent success path are all honestly proved; proven on WCS-046",
+    "last_reviewed": "2026-03-17"
   },
   {
     "file": "draft_worker_result_from_evidence.py",
@@ -868,8 +868,19 @@
     "owner": "jarvis_script",
     "purpose": "Thin operator-facing wrapper for the current WCS prep/post flow",
     "updated_by": "user",
-    "notes": "Delegates to existing helpers instead of replacing them. prep ensures packet existence, runs guarded pre_worker, prints artifact paths, and may optionally attempt run_cursor_worker.py. In the current live build, prep --launch-cursor opts into strict post-launch audit via run_cursor_worker.py --require-auditable-delta and can pass through --agent-timeout-seconds for the real Agent CLI path. post delegates to run_guarded_task_cycle.py --mode post_worker and passes worker/QA evidence flags through unchanged. prep and post are proven on WCS-044; strict launch failure, blocked/timeout, and strict real-Agent success are now honestly proved",
-    "last_reviewed": "2026-03-16"
+    "notes": "Delegates to existing helpers instead of replacing them. prep ensures packet existence, runs guarded pre_worker, prints artifact paths, and may optionally attempt run_cursor_worker.py. In the current live build, prep --launch-cursor opts into strict post-launch audit via run_cursor_worker.py --require-auditable-delta and can pass through --agent-timeout-seconds and --agent-model for the real Agent CLI path. post delegates to run_guarded_task_cycle.py --mode post_worker and passes worker/QA evidence flags through unchanged. prep and post are proven on WCS-044; strict launch failure, blocked/timeout, and strict real-Agent success are honestly proved; WCS-046 completed via one-task wrapper path",
+    "last_reviewed": "2026-03-17"
+  },
+  {
+    "file": "run_one_task_cycle.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_one_task_cycle.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Thin operator-facing wrapper for exactly one bounded WCS task cycle",
+    "updated_by": "user",
+    "notes": "Accepts either --task WCS-XXX or --select-ready, delegates selection to select_next_ready_task.py when needed, delegates prep and optional strict launch to run_wcs_operator_entrypoint.py prep, passes through --agent-timeout-seconds and --agent-model when --launch-cursor is used, stops on first failed/blocked delegated step, and prints the remaining operator commands for diff review, commit, QA, manual verification, and post-worker finalization without claiming completion. Proven on WCS-046 for one-command single-task prep/launch orchestration",
+    "last_reviewed": "2026-03-17"
   },
   {
     "file": "select_next_ready_task.py",
@@ -901,7 +912,7 @@
     "owner": "jarvis_script",
     "purpose": "Workflow helper: builds copy/paste-ready Cursor handoff file for a WCS task",
     "updated_by": "user",
-    "notes": "Reads task packet and writes scratch/cursor_handoffs/<task>_cursor_handoff.md when bounded file scope can be derived; fails (no file written) when scope cannot be derived; does not execute task, modify WCS code, or mutate backlog/state",
-    "last_reviewed": "2026-03-13"
+    "notes": "Reads task packet and writes scratch/cursor_handoffs/<task>_cursor_handoff.md when bounded file scope can be derived; uses packet implementation_instruction when present for explicit Cursor prompt; adds 'must make at least one code edit' line; fails (no file written) when scope cannot be derived; does not execute task, modify WCS code, or mutate backlog/state",
+    "last_reviewed": "2026-03-14"
   }
 ]

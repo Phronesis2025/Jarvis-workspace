@@ -2,18 +2,18 @@
 # JARVIS_SCRIPT_PROCESS_REFERENCE_v2.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-16
-- Last updated: 2026-03-16 (doc pass: strict real-agent launch success and timeout control live)
+- Last reviewed: 2026-03-17
+- Last updated: 2026-03-17 (doc pass: WCS-046 proof, one-task wrapper proven)
 - Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, and WCS-041. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is now also proved.
+- Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, and WCS-046. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py --task WCS-046 --launch-cursor`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth.
 
 ## Current local state / follow-up
 - Option B V1 is live via `scripts/run_wcs_operator_entrypoint.py` for operator-facing `prep` and `post`.
 - `prep --launch-cursor` now uses strict post-launch auditing through `run_cursor_worker.py --require-auditable-delta`.
 - Strict launch failure is now honestly proven: launch can exit `0` and still fail overall when no immediate auditable in-scope repo delta exists.
 - Blocked/timeout behavior is also honestly proven: the real Agent CLI path returns `BLOCKED` when the agent does not finish before the configured timeout.
-- Strict real-Agent success is now proven on `WCS-041`.
+- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`.
 
 ## Purpose
 
@@ -298,6 +298,8 @@ Future work for `jarvis.py` is focused on:
 Task packet generator.
 
 ### Current behavior
+When a backlog item has optional `implementation_instruction`, it is copied into the task packet for use by `build_cursor_handoff.py` to make the Cursor prompt more explicit.
+
 For a task like `WCS-016`, it generates:
 - `tasks/WCS-016_task.json`
 - `tasks/WCS-016_task.md`
@@ -655,11 +657,12 @@ Cursor execution bridge for the WCS worker: prefers the real Cursor Agent CLI (`
 ### Current behavior
 
 - requires `--task WCS-XXX`
-- optional `--workspace` (default: Jarvis workspace root), optional `--handoff` (default: `scratch/cursor_handoffs/<task>_cursor_handoff.md`), optional `--require-auditable-delta`, optional `--agent-timeout-seconds <n>` for the real Agent CLI path only
+- optional `--workspace` (default: Jarvis workspace root), optional `--handoff` (default: `scratch/cursor_handoffs/<task>_cursor_handoff.md`), optional `--require-auditable-delta`, optional `--agent-timeout-seconds <n>` for the real Agent CLI path only, optional `--agent-model <id>` (e.g. composer-1.5) passed as `--model <value>` to the Agent CLI when provided
 - validates: task id, Jarvis workspace, handoff file exists, task packet exists; **reads and validates `repo_path` from task packet** (required; must exist and be a directory; FAIL if missing or invalid)
 - **Agent CLI detection (Windows-hardened):** tries `shutil.which("agent")`, then `agent.cmd`, `agent.exe`, `agent.bat`; on Windows only, if none found, runs `where agent` / `where agent.cmd` and uses first existing path, then tries PowerShell `Get-Command agent`. If Agent CLI still cannot be found in the process environment, falls back to cursor and reports which path was used.
 - **Execution target:** Agent and desktop launcher both use the **task repo workspace** (`repo_path` from packet): Agent is run with `--workspace <repo_path>`, `--trust` (non-interactive trust for that repo), and subprocess cwd = `repo_path`; desktop launcher subprocess cwd = `repo_path`. Handoff file remains in Jarvis workspace; execution context is the task repo.
-- **Execution priority:** (1) if `agent` CLI is detected, runs `agent --print --workspace <repo_path> --trust "<prompt>"` with cwd = repo_path (prompt is handoff file content when ≤6000 chars, else path-based instruction) and uses `--agent-timeout-seconds` (default `600`) for the subprocess timeout; (2) else if `cursor` launcher is on PATH, runs `cursor <handoff_path>` with cwd = repo_path; (3) if neither found, exits BLOCKED (exit 2). When agent returns non-zero and stderr mentions authentication, a hint suggests running `agent login`.
+- **Execution priority:** (1) if `agent` CLI is detected, runs `agent [--model <id>] --print --workspace <repo_path> --trust "<prompt>"` with cwd = repo_path; the full task spec (preamble + handoff) is written to `scratch/agent_prompts/<task>_prompt.txt`, and a short CLI-safe instruction is passed as the prompt (telling the agent to read that file), avoiding Windows command-line truncation/escaping of long multi-line prompts; uses `--agent-timeout-seconds` (default `600`) for the subprocess timeout, and passes `--model <value>` when `--agent-model` is supplied; (2) else if `cursor` launcher is on PATH, runs `cursor <handoff_path>` with cwd = repo_path; (3) if neither found, exits BLOCKED (exit 2). When agent returns non-zero and stderr mentions authentication, a hint suggests running `agent login`.
+- **Agent output artifact:** when the real Agent CLI path runs, stdout and stderr are written to `scratch/agent_outputs/<task>_agent_output.txt` for operator review; the path is printed on PASS, BLOCKED (non-zero exit), and FAIL (strict audit). Helps debug when exit is 0 but no in-scope delta is found.
 - **Strict post-launch audit mode:** when `--require-auditable-delta` is supplied and the external launch exits `0`, the script immediately inspects the task repo **working tree only** and requires all of the following:
   - current branch still matches the expected branch
   - a real working-tree delta exists
@@ -670,9 +673,9 @@ Cursor execution bridge for the WCS worker: prefers the real Cursor Agent CLI (`
 
 ### Output
 
-- On PASS: `RUN CURSOR WORKER: PASS`, task id, **Jarvis workspace**, **Task repo workspace**, handoff path, whether **Real Agent CLI** or **Desktop launcher fallback** was used, and when strict mode is active, explicit post-launch audit output (branch after launch, changed files detected, and in-scope result)
-- On BLOCKED: `RUN CURSOR WORKER: BLOCKED`, reason, **Jarvis workspace**, **Task repo workspace**, worker result not written. For the real Agent path this includes timeout output when the agent does not finish before `--agent-timeout-seconds`.
-- On FAIL: `RUN CURSOR WORKER: FAIL`, reason (e.g. handoff file does not exist; task packet has no repo_path; repo path does not exist or is not a directory; no auditable working-tree delta detected after launch; branch drift; or changed files outside task scope)
+- On PASS: `RUN CURSOR WORKER: PASS`, task id, **Jarvis workspace**, **Task repo workspace**, handoff path, whether **Real Agent CLI** or **Desktop launcher fallback** was used, path to `scratch/agent_outputs/<task>_agent_output.txt` (Agent path only), and when strict mode is active, explicit post-launch audit output (branch after launch, changed files detected, and in-scope result)
+- On BLOCKED: `RUN CURSOR WORKER: BLOCKED`, reason, **Jarvis workspace**, **Task repo workspace**, path to agent output artifact (Agent path only), worker result not written. For the real Agent path this includes timeout output when the agent does not finish before `--agent-timeout-seconds`.
+- On FAIL: `RUN CURSOR WORKER: FAIL`, reason (e.g. handoff file does not exist; task packet has no repo_path; repo path does not exist or is not a directory; no auditable working-tree delta detected after launch; branch drift; or changed files outside task scope), path to agent output artifact (Agent path only when audit failed after exit 0)
 
 ### Why it exists
 
@@ -696,7 +699,7 @@ Thin operator-facing wrapper for the current Phase 1 WCS lane.
   - delegates to `run_guarded_task_cycle.py --mode pre_worker`
   - prints the key artifact paths for task packet JSON, task packet markdown, Cursor handoff, and task-cycle summary
   - may optionally attempt `--launch-cursor` by delegating to `run_cursor_worker.py --require-auditable-delta`
-  - supports optional passthrough `--agent-timeout-seconds <n>` for the real Agent CLI path when `--launch-cursor` is used
+  - supports optional passthrough `--agent-timeout-seconds <n>` and `--agent-model <id>` for the real Agent CLI path when `--launch-cursor` is used
 - **post**:
   - delegates to `run_guarded_task_cycle.py --mode post_worker`
   - passes worker/QA evidence flags through unchanged, including:
@@ -722,7 +725,7 @@ Fresh proof succeeded on `WCS-044` for:
 - `prep`
 - `post`
 
-The optional `prep --launch-cursor` path remains operator-assisted. It now uses strict post-launch auditing so the wrapper fails honestly when launch is not immediately auditable, and it can pass through `--agent-timeout-seconds <n>` to give the real Agent CLI path a fairer chance to finish without weakening audit truth. The strict failure path is safely proved. Blocked/timeout behavior is also proved. The strict real-Agent success path is now proved on `WCS-041`.
+The optional `prep --launch-cursor` path remains operator-assisted. It now uses strict post-launch auditing so the wrapper fails honestly when launch is not immediately auditable, and it can pass through `--agent-timeout-seconds <n>` and `--agent-model <id>`. The strict failure path is safely proved. Blocked/timeout behavior is also proved. The strict real-Agent success path is proved on `WCS-041` and `WCS-046`. The one-command single-task wrapper (`run_one_task_cycle.py`) is proved on `WCS-046`; task completion still requires operator commit, QA, manual verification, and post-worker truth.
 
 ### What this script does not currently do
 
@@ -738,6 +741,51 @@ The optional `prep --launch-cursor` path remains operator-assisted. It now uses 
 ### Why it exists
 
 It reduces operator glue for the current WCS lane while preserving the validated helper contracts and guardrails already in place.
+
+---
+
+## 8bb. `scripts/run_one_task_cycle.py`
+
+### Role
+
+Thin operator-facing wrapper for exactly one bounded WCS task cycle.
+
+### Current behavior
+
+- accepts either:
+  - `--task WCS-XXX`
+  - `--select-ready` to select exactly one eligible ready WCS task through `select_next_ready_task.py`
+- accepts optional `--workspace`
+- accepts optional `--launch-cursor`
+- accepts optional `--agent-timeout-seconds <n>` and `--agent-model <id>` and passes them through only when `--launch-cursor` is used
+- delegates task selection to `select_next_ready_task.py` when `--select-ready` is used
+- delegates prep and optional strict launch to `run_wcs_operator_entrypoint.py prep`
+- stops immediately and reports FAIL honestly when selection, prep, or strict launch fails/blocks
+- after a successful prep path, prints a clean operator next-actions block for:
+  - git diff review
+  - `git add` / `git commit`
+  - `npm run build`
+  - `npm run test:e2e:smoke`
+  - manual verification
+  - `run_wcs_operator_entrypoint.py post ...`
+
+### Important current truth
+
+This script is still only an operator-facing wrapper. It does not claim that launch success equals task completion. The operator still verifies the diff, creates the commit, runs QA, and finalizes truthful post-worker evidence before reconcile. Proven on `WCS-046` for one-command single-task prep/launch orchestration; task completion still required operator commit, QA, manual verification, and post-worker truth.
+
+### What this script does not currently do
+
+- it does not run multiple tasks
+- it does not schedule work
+- it does not create commits
+- it does not run build/smoke automatically
+- it does not finalize worker or QA evidence
+- it does not call post-worker automatically
+- it does not weaken strict launch audit behavior
+
+### Why it exists
+
+It reduces operator glue for exactly one bounded WCS task while preserving the already-proven helper contracts and the one-task-at-a-time Phase 1 stance.
 
 ---
 

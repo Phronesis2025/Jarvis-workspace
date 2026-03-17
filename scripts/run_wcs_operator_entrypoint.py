@@ -67,6 +67,14 @@ def parse_args() -> argparse.Namespace:
             "Used only with --launch-cursor."
         ),
     )
+    prep.add_argument(
+        "--agent-model",
+        metavar="MODEL",
+        help=(
+            "Optional passthrough for run_cursor_worker.py real Agent CLI model (e.g. composer-1.5). "
+            "Used only with --launch-cursor."
+        ),
+    )
 
     post = subparsers.add_parser(
         "post",
@@ -261,6 +269,8 @@ def handle_prep(args: argparse.Namespace) -> int:
             launch_cmd.extend(
                 ["--agent-timeout-seconds", str(args.agent_timeout_seconds)]
             )
+        if args.agent_model:
+            launch_cmd.extend(["--agent-model", args.agent_model])
         code, output = run_helper(launch_cmd, workspace)
         print_helper_result(launch_cmd, output)
         if code != 0:

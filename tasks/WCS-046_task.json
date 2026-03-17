@@ -1,0 +1,39 @@
+{
+  "task_id": "WCS-046",
+  "project": "WCS",
+  "title": "Fake test: add temporary test badge to one team card",
+  "bucket": "ugly",
+  "priority": "P3",
+  "risk": "low",
+  "status": "done",
+  "repo_path": "C:\\dev\\wcsv2.0-new",
+  "branch_name": "jarvis-task-wcs-046",
+  "problem_summary": "Fake test: add temporary test badge to one team card.",
+  "goal": "Resolve: Fake test: add temporary test badge to one team card, with the smallest safe change that satisfies QA.",
+  "suspected_files": [
+    "src/components/ClientTeams.tsx"
+  ],
+  "acceptance_criteria": [
+    "The scoped issue is resolved: Fake test: add temporary test badge to one team card",
+    "App builds successfully with npm run build",
+    "Local app can be opened for verification",
+    "Targeted change is visible or behaves correctly on the relevant page/flow",
+    "Changes remain tightly limited to the suspected files unless a clearly related helper/config file must also be updated"
+  ],
+  "qa_plan": [
+    "Run npm run build",
+    "Start local app with npm run dev",
+    "Run Playwright smoke QA if available",
+    "Verify the targeted change locally in the browser"
+  ],
+  "system_impact": "Low risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: src/components/ClientTeams.tsx.",
+  "stop_conditions": [
+    "Required file cannot be found",
+    "Build fails for unrelated reasons",
+    "Task scope expands beyond the targeted fix"
+  ],
+  "notes": "src/components/ClientTeams.tsx",
+  "created_at": "2026-03-16T17:54:07-05:00",
+  "updated_at": "2026-03-17T10:00:05-05:00",
+  "implementation_instruction": "In src/components/ClientTeams.tsx, add a temporary test badge (e.g. a span with text 'TEST' or similar) to the first team card in the Teams Grid. Inside the map over uniqueTeams, for index === 0, add a small badge element before or wrapping the TeamCard. Edit only this file."
+}

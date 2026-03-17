@@ -243,6 +243,9 @@ def build_packet_json(item: dict[str, Any], project_cfg: dict[str, Any], dispatc
         "created_at": ts,
         "updated_at": ts,
     }
+    impl = item.get("implementation_instruction")
+    if impl and isinstance(impl, str) and impl.strip():
+        packet["implementation_instruction"] = impl.strip()
     return packet
 
 

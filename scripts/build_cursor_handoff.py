@@ -125,7 +125,7 @@ def build_handoff_content(
     acceptance_text = "\n".join(f"- {a}" for a in acceptance) if acceptance else "- (see task packet)"
     stop_text = "\n".join(f"- {s}" for s in stop_conditions) if stop_conditions else "- (see task packet)"
 
-    content = f"""# Cursor handoff: {task_id}
+    content = f"""# Implementation task: {task_id}
 
 ## Task
 - **ID:** {task_id}
@@ -149,27 +149,32 @@ def build_handoff_content(
     if system_impact:
         content += f"\n## System impact\n{system_impact}\n"
 
+    impl_instruction = packet.get("implementation_instruction")
+    concrete_action = impl_instruction if impl_instruction else title
     content += """
 ---
 
 ## Cursor implementation prompt
 
-Implement the assigned WCS task in a bounded way.
+**Concrete action:** """ + concrete_action + """
+
+Implement this task in a bounded way. You must make at least one code edit in the scoped file(s); do not complete without modifying the file unless a stop condition applies.
 
 **Task:** """ + task_id + """
 
 **Source of truth:**
-- This handoff and the task packet
+- This task brief and the repo code
 - Current repo state and existing code patterns in the WCS repo
 
 **Rules:**
 - Do only the assigned task; do not broaden scope.
 - Do not refactor unrelated files.
 - Preserve current architecture unless the task explicitly requires otherwise.
-- Keep changes bounded to the expected file scope above.
+- Edit ONLY the file(s) listed in Expected file scope above. Do NOT create any new files.
+- Do NOT create docs/, HANDOFF_*.md, or any documentation or summary file in the repo. Any file outside the scope will fail the audit.
 - Do not claim QA was run unless it was actually run; do not fabricate status or evidence.
 
-**Required output from Cursor:**
+**Required output (in your response only; do not create files):**
 1. Files changed
 2. Concise implementation summary
 3. Assumptions made

@@ -2,10 +2,10 @@
 # JARVIS_TASK_EXECUTION_CHECKLIST_v2.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-16
-- Last updated: 2026-03-16
+- Last reviewed: 2026-03-17
+- Last updated: 2026-03-17 (doc pass: WCS-046 proof, one-task wrapper proven)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrapper now live for prep/post; launch path now supports strict post-launch auditing)
+- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers now live for prep/post and one-task cycle flow; launch path now supports strict post-launch auditing)
 
 ## Purpose
 
@@ -158,14 +158,14 @@ python .\scripts\run_wcs_operator_entrypoint.py post --task WCS-XXX --draft-work
 
 - `prep` ensures the packet exists when missing, delegates to guarded `pre_worker`, and prints key artifact paths
 - when `prep --launch-cursor` is used, the wrapper now calls `run_cursor_worker.py` with strict post-launch audit enabled
-- optional `--agent-timeout-seconds <n>` can be passed through during strict launch to give the real Agent CLI path more time without weakening audit truth
+- optional `--agent-timeout-seconds <n>` and `--agent-model <id>` can be passed through during strict launch (timeout gives the real Agent CLI path more time; agent-model selects the model, e.g. composer-1.5 when default Opus hits usage limit)
 - `post` delegates to guarded `post_worker` and passes worker/QA evidence through unchanged
 - existing helpers remain the true engines underneath
 - the wrapper does not run build or smoke itself, does not create commits, does not select tasks automatically, and does not invent evidence
 - launch still does not prove task completion, semantic correctness, commit readiness, QA completion, or finalized worker evidence
 - strict launch failure is acceptable and expected when launch is not immediately auditable, for example when no working-tree delta exists or changed files fall outside scope
 - blocked/timeout launch is also an honest outcome when the real Agent CLI does not finish before the configured timeout
-- strict real-Agent success is now proven on `WCS-041`, but operator review, commit, QA, and post-worker truthfulness are still required after launch
+- strict real-Agent success is proven on `WCS-041` and `WCS-046`; one-command single-task wrapper is proven on `WCS-046`; operator review, commit, QA, and post-worker truthfulness are still required after launch
 
 ### Current success condition
 
@@ -180,6 +180,59 @@ Stop if:
 * the wrapper hides a helper failure
 * the wrapper reinterprets evidence instead of passing it through
 * the wrapper is treated as autonomous execution rather than operator-assisted orchestration
+
+---
+
+## Phase 1C — One-task cycle wrapper
+
+### Current action
+
+Use `run_one_task_cycle.py` when you want one command to drive exactly one bounded WCS task through selection-or-explicit-task plus prep/optional strict launch, while still keeping commit/QA/post-worker truth operator-assisted.
+
+### Current commands
+
+Explicit task example:
+
+```powershell
+python .\scripts\run_one_task_cycle.py --task WCS-XXX
+```
+
+Select-one-ready example:
+
+```powershell
+python .\scripts\run_one_task_cycle.py --select-ready
+```
+
+Strict launch example:
+
+```powershell
+python .\scripts\run_one_task_cycle.py --task WCS-XXX --launch-cursor --agent-timeout-seconds 1200
+```
+
+Strict launch with explicit Agent model (e.g. when default Opus hits usage limit):
+
+```powershell
+python .\scripts\run_one_task_cycle.py --task WCS-XXX --launch-cursor --agent-timeout-seconds 1200 --agent-model composer-1.5
+```
+
+### Important current truth
+
+- this wrapper still handles exactly one task only
+- it delegates selection to `select_next_ready_task.py` when `--select-ready` is used
+- it delegates prep and optional strict launch to `run_wcs_operator_entrypoint.py prep`
+- it stops on first failed or blocked delegated step
+- after a successful prep path, it prints the exact remaining operator steps for diff review, commit, QA, manual verification, and `post`
+- launch success still does not equal completion
+- the operator still owns diff review, commit creation, QA truth, manual verification, and post-worker truthfulness
+
+### Current failure condition
+
+Stop if:
+
+* selection fails or returns no eligible task
+* delegated prep fails
+* strict launch fails or blocks
+* the wrapper is treated as a multi-task or autonomous loop tool
 
 ---
 

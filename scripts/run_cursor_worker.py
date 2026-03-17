@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import datetime
 import re
 import shutil
 import subprocess
@@ -67,6 +68,14 @@ def parse_args() -> argparse.Namespace:
         help=(
             "Timeout for the real Agent CLI path only. Default: 600. "
             "Does not weaken strict post-launch audit behavior."
+        ),
+    )
+    parser.add_argument(
+        "--agent-model",
+        metavar="MODEL",
+        help=(
+            "Model to use for the real Agent CLI path only (e.g. composer-1.5, sonnet-4.6). "
+            "Passed as --model <value> to the agent command. When omitted, Agent CLI uses its default."
         ),
     )
     return parser.parse_args()
@@ -337,6 +346,7 @@ def main() -> int:
             packet=packet,
             require_auditable_delta=args.require_auditable_delta,
             agent_timeout_seconds=args.agent_timeout_seconds,
+            agent_model=args.agent_model,
         )
     cursor_cmd = _find_cursor_cli()
     if cursor_cmd is not None:
@@ -362,6 +372,83 @@ def main() -> int:
     return 2
 
 
+def _write_agent_output_artifact(
+    workspace: Path,
+    task_id: str,
+    proc: subprocess.CompletedProcess[str],
+) -> Path:
+    """Write Agent CLI stdout/stderr to scratch artifact for operator review."""
+    out_dir = workspace / "scratch" / "agent_outputs"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"{task_id}_agent_output.txt"
+    ts = datetime.now().astimezone().isoformat(timespec="seconds")
+    parts = [
+        "---",
+        "Agent CLI output artifact",
+        f"Task: {task_id}",
+        f"Exit code: {proc.returncode}",
+        f"Captured at: {ts}",
+        "---",
+        "",
+        "stdout:",
+        proc.stdout if proc.stdout else "(empty)",
+        "",
+        "---",
+        "",
+        "stderr:",
+        proc.stderr if proc.stderr else "(empty)",
+        "",
+        "---",
+    ]
+    out_path.write_text("\n".join(parts), encoding="utf-8", errors="replace")
+    return out_path
+
+
+def _build_agent_prompt(
+    workspace: Path,
+    handoff_path: Path,
+    packet: dict[str, Any],
+    task_id: str,
+) -> str:
+    """Build full prompt and write to file; return short CLI-safe instruction for agent.
+
+    Windows command-line limits and escaping can truncate or mangle long multi-line
+    prompts. We write the full spec to a file and pass a short instruction that
+    tells the agent to read it. The agent receives the full content via the file.
+    """
+    scope = derive_expected_scope(packet)
+    scope_list = ", ".join(scope) if scope else "(see file)"
+    impl = packet.get("implementation_instruction") or packet.get("title") or task_id
+    preamble = f"""=== TASK SPECIFICATION (DO NOT SEARCH REPO — THE FILE BELOW IS THE COMPLETE SPEC) ===
+
+Task ID: {task_id}
+Allowed file scope (edit ONLY these): {scope_list}
+Concrete action: {impl}
+
+Rules: Edit ONLY the file(s) listed above. Do NOT create any new files. Do NOT search the repo for a spec. Do NOT ask for more spec. Execute the task now.
+
+---
+"""
+    try:
+        content = handoff_path.read_text(encoding="utf-8")
+        full_prompt = preamble + content
+    except OSError:
+        full_prompt = preamble + (
+            f"Read handoff at {handoff_path} for full context. "
+            "Execute the concrete action above."
+        )
+    prompt_dir = workspace / "scratch" / "agent_prompts"
+    prompt_dir.mkdir(parents=True, exist_ok=True)
+    prompt_file = prompt_dir / f"{task_id}_prompt.txt"
+    prompt_file.write_text(full_prompt, encoding="utf-8", errors="replace")
+    path_str = prompt_file.resolve().as_posix()
+    return (
+        f"Read and execute the complete task specification from this file: {path_str}. "
+        f"The file contains the full task (task id {task_id}, scope {scope_list}, concrete action). "
+        "Do NOT search the repo for a spec. Execute the task now."
+    )
+
+
 def _run_via_agent(
     agent_cmd: str,
     workspace: Path,
@@ -373,24 +460,10 @@ def _run_via_agent(
     packet: dict[str, Any],
     require_auditable_delta: bool,
     agent_timeout_seconds: int,
+    agent_model: Optional[str] = None,
 ) -> int:
     """Run handoff via real Cursor Agent CLI (agent --print --workspace <repo_path> --trust ...)."""
-    # Prefer passing handoff content directly when small enough (Windows cmd limit ~8191)
-    max_prompt_chars = 6000
-    try:
-        content = handoff_path.read_text(encoding="utf-8")
-        if len(content) <= max_prompt_chars:
-            prompt = content
-        else:
-            prompt = (
-                f"Read and execute the 'Cursor implementation prompt' section from the handoff file at: {handoff_path}. "
-                "Implement the WCS task described there; stay bounded to the expected file scope and rules in the handoff."
-            )
-    except OSError:
-        prompt = (
-            f"Read and execute the 'Cursor implementation prompt' section from the handoff file at: {handoff_path}. "
-            "Implement the WCS task described there; stay bounded to the expected file scope and rules in the handoff."
-        )
+    prompt = _build_agent_prompt(workspace, handoff_path, packet, task_id)
     args = [
         agent_cmd,
         "--print",
@@ -398,6 +471,9 @@ def _run_via_agent(
         "--trust",
         prompt,
     ]
+    if agent_model and normalize_text(agent_model):
+        args.insert(1, "--model")
+        args.insert(2, normalize_text(agent_model))
     timeout_seconds = agent_timeout_seconds
     try:
         proc = subprocess.run(
@@ -429,6 +505,7 @@ def _run_via_agent(
         print(f"Detail: {e}")
         print("Worker result: not written (no execution performed).")
         return 2
+    artifact_path = _write_agent_output_artifact(workspace, task_id, proc)
     if proc.returncode != 0:
         print("RUN CURSOR WORKER: BLOCKED")
         print(f"Task: {task_id}")
@@ -442,6 +519,7 @@ def _run_via_agent(
             print(f"Stderr: {stderr_snippet}")
             if "Authentication required" in proc.stderr or "agent login" in proc.stderr:
                 print("Hint: If authentication is required, run `agent login` and retry.")
+        print(f"Agent output saved to: {artifact_path}")
         print("Worker result: not written (execution did not complete successfully).")
         return 2
     if require_auditable_delta:
@@ -464,6 +542,7 @@ def _run_via_agent(
                 expected_scope=expected_scope,
                 failures=failures,
             )
+            print(f"Agent output saved to: {artifact_path}")
             print("Worker result: not written (launch was attempted, but immediate repo state is not trustworthy enough to treat as an auditable operator surface).")
             return 1
     print("RUN CURSOR WORKER: PASS")
@@ -472,6 +551,7 @@ def _run_via_agent(
     print(f"Task repo workspace: {repo_path}")
     print(f"Handoff path: {handoff_path}")
     print("Cursor execution: Real Agent CLI attempted (exited 0).")
+    print(f"Agent output saved to: {artifact_path}")
     if require_auditable_delta:
         branch_after, changed_files, expected_scope, failures = audit_post_launch(
             repo_path=repo_path,

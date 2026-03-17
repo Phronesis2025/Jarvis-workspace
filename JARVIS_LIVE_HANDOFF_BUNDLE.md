@@ -1,15 +1,16 @@
 # JARVIS_LIVE_HANDOFF_BUNDLE.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-16
-- Last updated: 2026-03-16 (doc pass: strict real-agent launch success and timeout control live)
+- Last reviewed: 2026-03-17
+- Last updated: 2026-03-17 (doc pass: WCS-046 proof, one-task wrapper proven)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
 - Option B V1 is now live via `scripts/run_wcs_operator_entrypoint.py` as a thin operator-facing wrapper for `prep` and `post`.
+- `scripts/run_one_task_cycle.py` is now live as a one-task-only wrapper that selects or accepts exactly one bounded WCS task, delegates prep/optional strict launch, and prints operator next actions without claiming completion.
 - Launch-safety hardening is now in place for the Cursor bridge/operator-wrapper path.
 - `prep --launch-cursor` now uses strict post-launch auditing and can fail honestly when launch is not immediately auditable.
-- Strict real-Agent success is now proven on `WCS-041`.
+- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`; task completion still required operator commit, QA, manual verification, and post-worker truth.
 
 ## Recent live truth
 - Option A packet lifecycle/status cleanup is now live.
@@ -22,13 +23,14 @@
 - `post` delegates to `run_guarded_task_cycle.py --mode post_worker` and passes worker/QA evidence flags through unchanged.
 - Existing validated helpers remain the real execution engines underneath the wrapper.
 - Fresh proof succeeded on `WCS-044` for wrapper `prep` and wrapper `post`.
-- `scripts/run_cursor_worker.py` now supports `--require-auditable-delta`.
-- `scripts/run_cursor_worker.py` now also supports configurable real-Agent timeout via `--agent-timeout-seconds`.
+- `scripts/run_cursor_worker.py` now supports `--require-auditable-delta`, `--agent-timeout-seconds`, and `--agent-model`.
+- Agent CLI prompt delivery uses a file-based flow (`scratch/agent_prompts/<task>_prompt.txt`) to avoid Windows command-line truncation; Agent CLI output is written to `scratch/agent_outputs/<task>_agent_output.txt` for operator review.
 - In strict mode, a successful external launch exit is followed immediately by repo audit: expected branch must still match, an auditable working-tree delta must exist, and changed files must stay within packet scope.
-- `scripts/run_wcs_operator_entrypoint.py prep --launch-cursor` now uses the strict audit mode and can pass through `--agent-timeout-seconds`.
+- `scripts/run_wcs_operator_entrypoint.py prep --launch-cursor` now uses the strict audit mode and can pass through `--agent-timeout-seconds` and `--agent-model`.
+- `scripts/run_one_task_cycle.py` now provides a one-command single-task wrapper over selection plus `run_wcs_operator_entrypoint.py prep`, then prints the exact remaining operator steps still required for commit, QA, manual verification, and post-worker finalization.
 - Safe proof completed for the strict failure path using a temporary no-op agent shim: normal `prep` still passed, strict launch failed honestly because no auditable working-tree delta existed after launch, and manual cross-check matched the helper output.
 - Blocked/timeout behavior is also now proven: the real Agent CLI path can return `BLOCKED` honestly when the agent does not finish before the configured timeout.
-- Strict real-Agent success path is now proven: `WCS-041` completed as `done` after a strict `--launch-cursor` success path with in-scope delta, commit/QA/post-worker completion, and reconcile.
+- Strict real-Agent success path is proven: `WCS-041` and `WCS-046` completed as `done` after strict `--launch-cursor` success path with in-scope delta, operator commit/QA/post-worker completion, and reconcile. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`.
 - Even with launch-safety hardening, launch is still not completion proof, semantic correctness proof, commit readiness proof, QA proof, or finalized worker-evidence proof.
 - Earlier disposable `WCS-045` prep/proof debris was intentionally deleted and should not be treated as durable proof evidence.
 

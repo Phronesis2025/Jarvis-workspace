@@ -46,7 +46,7 @@
 | WCS-043 | WCS | ugly | P3 | low | done | Fake test: add visible TEST: prefix to drills page heading | src/app/drills/page.tsx |
 | WCS-044 | WCS | ugly | P3 | low | done | Fake test: add temporary emoji to about page section divider | src/app/about/page.tsx |
 | WCS-045 | WCS | ugly | P3 | low | ready | Fake test: add temporary highlight border to about page section | src/app/about/page.tsx |
-| WCS-046 | WCS | ugly | P3 | low | ready | Fake test: add temporary test badge to one team card | src/components/ClientTeams.tsx |
+| WCS-046 | WCS | ugly | P3 | low | done | Fake test: add temporary test badge to one team card | src/components/ClientTeams.tsx |
 | WCS-047 | WCS | ugly | P3 | low | ready | Fake test: add temporary emoji to team card metadata label | src/components/ClientTeams.tsx |
 | WCS-048 | WCS | ugly | P3 | low | ready | Fake test: add calendar emoji to schedules page empty-state | src/app/schedules/page.tsx |
 | WCS-049 | WCS | ugly | P3 | low | ready | Fake test: add visible TEST: to schedules empty-state heading | src/app/schedules/page.tsx |
