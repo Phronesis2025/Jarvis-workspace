@@ -2,7 +2,7 @@
 
 **Read this file first when continuing the Jarvis rebuild in a new chat.**
 
-- **Last updated:** 2026-03-17 (page-specific smoke support recorded)
+- **Last updated:** 2026-03-17 (multi-task sequential proof recorded for WCS-029 and WCS-030)
 - **Purpose:** Self-contained handoff for new chat; reflects current live truth only.
 
 ---
@@ -50,6 +50,8 @@ The wrapper family can truthfully close a single task end-to-end via: mechanical
 | **WCS-061** | Full-cycle wrapper mechanical path (prep through screenshot capture); Footer.tsx; honest stop before manual verification |
 | **WCS-008** | Full-cycle + `--finalize`; screenshot artifact support; Navbar.tsx; wrapper can close a single task end-to-end |
 | **WCS-028** | Initial operator-gated sequential runner (`run_task_sequence.py`); one-task sequential proof completed cleanly; task identity pinned per iteration; checkpoint exit-code contract; manual verification checkpoint preserved; Hero.tsx |
+| **WCS-029** | Multi-task back-to-back sequential proof (first of two); fire emoji on hero CTA; Hero.tsx; run_task_sequence.py with operator checkpoints |
+| **WCS-030** | Multi-task back-to-back sequential proof (second of two); TEST MODE badge below hero; Hero.tsx; run_task_sequence.py with operator checkpoints |
 | **WCS-032** | Page-specific smoke support; task-scoped smoke for `/schedules` when scope maps to schedules/page.tsx; schedules/page.tsx |
 
 **WCS-033 was a bad proof target** (empty-state visibility; target not visible in default local app state). Its proof debris was cleaned up. **Do not treat WCS-033 as proof.**
@@ -66,7 +68,7 @@ We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.
 
 - **Page-specific smoke** is implemented for /about, /schedules, /drills when task scope maps; proven on WCS-032. Overall smoke coverage is still limited; broader route coverage not yet done.
 - **No batching or scheduling** is live yet.
-- **Sequential runner** (`run_task_sequence.py`) is proven on WCS-028; sequential only, operator-gated, no scheduling/unattended/concurrency/session persistence.
+- **Sequential runner** (`run_task_sequence.py`) is proven on WCS-028 (one-task) and WCS-029 + WCS-030 (multi-task back-to-back in one session); sequential only, operator-gated, no scheduling/unattended/concurrency/session persistence.
 
 ---
 
@@ -83,7 +85,7 @@ We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.
 
 | Script | Role |
 |--------|------|
-| `scripts/run_task_sequence.py` | Sequential multi-task runner; operator-gated; proven on WCS-028 |
+| `scripts/run_task_sequence.py` | Sequential multi-task runner; operator-gated; proven on WCS-028 (one-task) and WCS-029 + WCS-030 (multi-task back-to-back) |
 | `scripts/run_one_task_full_cycle.py` | Full single-task closeout; supports `--finalize` for post-only |
 | `scripts/run_one_task_cycle.py` | Prep + optional launch; prints remaining operator steps |
 | `scripts/run_wcs_operator_entrypoint.py` | Thin wrapper for `prep` and `post` |

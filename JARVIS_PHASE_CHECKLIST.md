@@ -2,9 +2,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: page-specific smoke support recorded)
+- Last updated: 2026-03-17 (doc pass: multi-task sequential proof recorded for WCS-029 and WCS-030)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper proven on WCS-046; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; WCS-033 was bad proof target, debris cleaned up, do not present as proof; sequential runner run_task_sequence.py proven on WCS-028; page-specific smoke support implemented and proven on WCS-032 for /schedules; no scheduling, unattended mode, concurrency, or session persistence; overall smoke coverage still limited)
+- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper proven on WCS-046; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; WCS-033 was bad proof target, debris cleaned up, do not present as proof; sequential runner run_task_sequence.py proven on WCS-028 (one-task) and WCS-029 + WCS-030 (multi-task back-to-back in one session); page-specific smoke support implemented and proven on WCS-032 for /schedules; no scheduling, unattended mode, concurrency, or session persistence; overall smoke coverage still limited)
 
 ## Purpose
 

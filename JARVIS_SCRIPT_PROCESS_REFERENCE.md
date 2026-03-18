@@ -3,7 +3,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: page-specific smoke support recorded)
+- Last updated: 2026-03-17 (doc pass: multi-task sequential proof recorded for WCS-029 and WCS-030)
 - Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, WCS-061, and WCS-008. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth. On WCS-061 and WCS-008, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
@@ -797,7 +797,7 @@ It reduces operator glue for exactly one bounded WCS task while preserving the a
 
 ### Role
 
-Initial sequential multi-task runner. Runs multiple WCS tasks one after another by reusing `run_one_task_full_cycle.py`. Proven on WCS-028 (one-task sequential proof completed cleanly; task identity pinned per iteration; checkpoint exit-code contract used; manual verification checkpoint preserved).
+Sequential multi-task runner. Runs multiple WCS tasks one after another by reusing `run_one_task_full_cycle.py`. Proven on WCS-028 (one-task sequential proof) and WCS-029 + WCS-030 (multi-task back-to-back in one live session with honest operator checkpoints preserved between tasks).
 
 ### Current behavior
 
@@ -811,7 +811,7 @@ Initial sequential multi-task runner. Runs multiple WCS tasks one after another 
 
 ### Important current truth
 
-Sequential only. Operator-gated. No scheduling, unattended mode, concurrency, or session persistence. Proven on WCS-028.
+The operator-gated sequential runner is now proven for multiple tasks back-to-back in one live session. Proof was completed on WCS-029 and WCS-030 using `run_task_sequence.py` with honest operator checkpoints preserved between tasks. The system remains sequential only. No scheduling, unattended mode, concurrency, or session persistence. Current smoke coverage is still limited and should be improved later, especially for broader route/page coverage.
 
 ### What this script does not currently do
 

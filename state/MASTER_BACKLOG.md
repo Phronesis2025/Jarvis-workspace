@@ -29,8 +29,8 @@
 | WCS-026 | WCS | ugly | P2 | low | ready | Improve empty-state copy for No events today on schedules page | Public /schedules today-events empty state |
 | WCS-027 | WCS | ugly | P2 | low | ready | Improve empty-state copy for No drills available on drills page | Public /drills empty state |
 | WCS-028 | WCS | ugly | P3 | low | done | Fake test: add basketball emoji to hero subtitle | src/components/Hero.tsx |
-| WCS-029 | WCS | ugly | P3 | low | ready | Fake test: add fire emoji to hero CTA button label | src/components/Hero.tsx |
-| WCS-030 | WCS | ugly | P3 | low | ready | Fake test: add temporary TEST MODE badge below hero headline | src/components/Hero.tsx |
+| WCS-029 | WCS | ugly | P3 | low | done | Fake test: add fire emoji to hero CTA button label | src/components/Hero.tsx |
+| WCS-030 | WCS | ugly | P3 | low | done | Fake test: add temporary TEST MODE badge below hero headline | src/components/Hero.tsx |
 | WCS-031 | WCS | ugly | P3 | low | done | Fake test: add trophy emoji to about page promo heading | src/app/about/page.tsx |
 | WCS-032 | WCS | ugly | P3 | low | done | Fake test: add visible TEST: prefix to schedules empty-state heading | src/app/schedules/page.tsx |
 | WCS-033 | WCS | ugly | P3 | low | ready | Fake test: add visible TEST: prefix to drills empty-state heading | src/app/drills/page.tsx |

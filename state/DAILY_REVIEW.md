@@ -291,3 +291,29 @@ Date: 2026-03-09
 - HEAD commit: 319c57b
 - Branch verified at: 2026-03-17T22:05:00-05:00
 - Reconciled at: 2026-03-17T22:05:00-05:00
+
+### WCS-029 — done
+- Title: Fake test: add fire emoji to hero CTA button label
+- Worker: Implemented bounded changes for WCS-029 in src/components/Hero.tsx on branch jarvis-task-wcs-029.
+- QA: Build passed, Playwright smoke passed, manual verification passed for the targeted change.
+- Files changed: src/components/Hero.tsx
+- Commands run: Implemented bounded WCS-029 change in src/components/Hero.tsx on the task branch
+- Repo path: C:\dev\wcsv2.0-new
+- Verified branch: jarvis-task-wcs-029
+- Commits ahead of main: 1
+- HEAD commit: 0ca6efc
+- Branch verified at: 2026-03-17T22:57:37-05:00
+- Reconciled at: 2026-03-17T22:57:37-05:00
+
+### WCS-030 — done
+- Title: Fake test: add temporary TEST MODE badge below hero headline
+- Worker: Implemented bounded changes for WCS-030 in src/components/Hero.tsx on branch jarvis-task-wcs-030.
+- QA: Build passed, Playwright smoke passed, manual verification passed for the targeted change.
+- Files changed: src/components/Hero.tsx
+- Commands run: Implemented bounded WCS-030 change in src/components/Hero.tsx on the task branch
+- Repo path: C:\dev\wcsv2.0-new
+- Verified branch: jarvis-task-wcs-030
+- Commits ahead of main: 1
+- HEAD commit: 6206f0e
+- Branch verified at: 2026-03-17T22:59:25-05:00
+- Reconciled at: 2026-03-17T22:59:25-05:00
