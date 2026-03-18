@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: WCS-008 live truth, WCS-033 not proof, next target sequential)
+- Last updated: 2026-03-17 (doc pass: sequential runner implemented, proof pending)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
@@ -35,7 +35,15 @@
 - Even with launch-safety hardening, launch is still not completion proof, semantic correctness proof, commit readiness proof, QA proof, or finalized worker-evidence proof.
 - Earlier disposable `WCS-045` prep/proof debris was intentionally deleted and should not be treated as durable proof evidence.
 - WCS-033 was a bad proof target (empty-state visibility); its proof debris was cleaned up; do not present WCS-033 as proof.
-- Next logical build target: sequential single-task execution across multiple tasks, not concurrency.
+- `scripts/run_task_sequence.py` is now built as the initial sequential single-command multi-task runner. It is sequential only, operator-gated, reuses the proven single-task path (`run_one_task_full_cycle.py`), pins task identity per iteration, and uses explicit checkpoint exit codes instead of fragile stdout parsing. Not yet documented as fully proven until live execution proof is completed. No scheduling, unattended mode, concurrency, or session persistence. Current smoke test still limited; page-specific task coverage should be improved later.
+
+## New-chat handoff rule (live process)
+
+Every new Jarvis chat must include:
+- the current context anchor
+- the current Jarvis Rebuild — Handoff Checklist (`JARVIS_TASK_EXECUTION_CHECKLIST.md`)
+
+The checklist is a required companion artifact for new-chat continuity. This is a live process rule, not a product or architecture rule.
 
 ## FILE: JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3
 ````md

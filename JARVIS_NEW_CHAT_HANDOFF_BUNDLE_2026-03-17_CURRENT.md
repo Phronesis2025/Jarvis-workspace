@@ -2,7 +2,7 @@
 
 **Read this file first when continuing the Jarvis rebuild in a new chat.**
 
-- **Last updated:** 2026-03-17
+- **Last updated:** 2026-03-17 (sequential runner implemented, proof pending)
 - **Purpose:** Self-contained handoff for new chat; reflects current live truth only.
 
 ---
@@ -56,7 +56,7 @@ The wrapper family can truthfully close a single task end-to-end via: mechanical
 
 ## 5. Current Process Position (Plain Language)
 
-We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.py`) can run one task from prep through post when the operator provides `--confirm-commit` and `--manual-check`. The flow stops honestly before manual verification; the operator then runs with `--finalize` to complete post (which includes reconcile). No batching or scheduling is live yet. The next logical build target is a **sequential single-command multi-task runner**: run one task after another in sequence, not concurrently.
+We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.py`) can run one task from prep through post when the operator provides `--confirm-commit` and `--manual-check`. The flow stops honestly before manual verification; the operator then runs with `--finalize` to complete post (which includes reconcile). The initial sequential multi-task runner (`run_task_sequence.py`) is now built: sequential only, operator-gated, reuses the proven single-task path, pins task identity per iteration, uses explicit checkpoint exit codes. Not yet documented as fully proven until live execution proof is completed. No scheduling, unattended mode, concurrency, or session persistence.
 
 ---
 
@@ -64,7 +64,7 @@ We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.
 
 - **Current smoke test** is limited and should be improved later, especially for page-specific task coverage.
 - **No batching or scheduling** is live yet.
-- **Next target:** Sequential single-task execution across multiple tasks (one after another), not concurrency.
+- **Sequential runner** (`run_task_sequence.py`) is implemented; proof pending.
 
 ---
 
@@ -73,6 +73,7 @@ We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.
 - **Before every Cursor prompt,** provide the exact model to use (e.g. `composer-1.5`).
 - **Keep prompts tight and constrained.**
 - **Prefer boring, durable steps** over flashy redesign.
+- **Jarvis build-step responses** should use this format: exact model to use; code/prompt block; brief "what to expect"; wait for operator response before proceeding.
 
 ---
 
@@ -80,6 +81,7 @@ We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.
 
 | Script | Role |
 |--------|------|
+| `scripts/run_task_sequence.py` | Sequential multi-task runner; operator-gated; proof pending |
 | `scripts/run_one_task_full_cycle.py` | Full single-task closeout; supports `--finalize` for post-only |
 | `scripts/run_one_task_cycle.py` | Prep + optional launch; prints remaining operator steps |
 | `scripts/run_wcs_operator_entrypoint.py` | Thin wrapper for `prep` and `post` |

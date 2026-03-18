@@ -36,6 +36,11 @@ class FullCycleError(Exception):
     pass
 
 
+# Exit codes for callers (e.g. run_task_sequence) to detect checkpoint stops without parsing stdout
+EXIT_STOP_COMMIT = 10  # Stopped at commit checkpoint; re-run with --confirm-commit
+EXIT_STOP_MANUAL = 11  # Stopped at manual checkpoint; re-run with --finalize --manual-check
+
+
 def normalize_task_id(raw: str) -> str:
     task_id = raw.strip().upper()
     if not re.match(r"^WCS-\d+$", task_id):
@@ -672,7 +677,7 @@ def main() -> int:
         print("")
         print("To also complete post, add:")
         print(f'  --manual-check "Verified the targeted change locally in the browser for {task_id}."')
-        return 0
+        return EXIT_STOP_COMMIT
 
     # --- Commit ---
     print("--- CLOSEOUT: commit (operator confirmed) ---")
@@ -799,7 +804,7 @@ def main() -> int:
         print("  (B) Finalize only (skip prep/commit/build/smoke): --finalize --task " + task_id + ' --manual-check "Verified ..."')
         print("")
         print("Note: Use (B) if already committed and smoke-tested.")
-        return 0
+        return EXIT_STOP_MANUAL
 
     # --- Post ---
     print("")

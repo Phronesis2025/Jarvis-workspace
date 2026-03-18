@@ -2,9 +2,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: WCS-008 live truth, WCS-033 not proof, next target sequential)
+- Last updated: 2026-03-17 (doc pass: sequential runner implemented, proof pending)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper proven on WCS-046; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; WCS-033 was bad proof target, debris cleaned up, do not present as proof; next logical build target: sequential single-task execution across multiple tasks, not concurrency; current smoke test still limited; page-specific task coverage should be improved later)
+- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper proven on WCS-046; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; WCS-033 was bad proof target, debris cleaned up, do not present as proof; sequential runner run_task_sequence.py implemented, proof pending; no scheduling, unattended mode, concurrency, or session persistence; current smoke test still limited; page-specific task coverage should be improved later)
 
 ## Purpose
 
