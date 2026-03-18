@@ -50,7 +50,7 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 
 ## Pages
 
-- **Overview:** System status, phase/milestone, module cards, recent runs, quick counts.
+- **Overview:** Module-centered operations summary (Jarvis Core, WCS Code Module, Pathfinder) with metrics, next steps, and Mermaid process diagrams.
 - **Task Board:** Tasks grouped by status (ready, running, awaiting operator, blocked, escalated, done).
 - **Recent Runs:** Table of run_id, module, script, outcome, llm_used, etc.
 - **Pathfinder:** Table of Pathfinder cases with synthesis_source, confidence, backlog candidate.

@@ -81,13 +81,37 @@ export const mockRuns: DashboardRun[] = [
     operator_checkpoints: null,
     created_at: "2026-03-17T11:39:45Z",
   },
+  {
+    id: "3",
+    run_id: "WCS-006-cycle",
+    module: "wcs",
+    script_name: "run_one_task_cycle.py",
+    task_ids: ["WCS-006"],
+    started_at: "2026-03-18T10:00:00Z",
+    ended_at: "2026-03-18T10:15:00Z",
+    outcome: "complete",
+    stop_reason: null,
+    llm_used: false,
+    operator_checkpoints: null,
+    created_at: "2026-03-18T10:15:00Z",
+  },
 ];
 
 export const mockModuleStatus: DashboardModuleStatus[] = [
   {
+    id: "0",
+    module_id: "jarvis_core",
+    name: "Jarvis Core",
+    status: "active",
+    phase: "Phase 3",
+    milestone_summary: "Foreman loop live; daily plan and run log active.",
+    updated_at: "2026-03-18T09:00:00Z",
+    created_at: "2026-03-18T09:00:00Z",
+  },
+  {
     id: "1",
     module_id: "wcs",
-    name: "WCS",
+    name: "WCS Code Module",
     status: "active",
     phase: "Phase 3",
     milestone_summary: "Foreman loop live; task cycles proven.",

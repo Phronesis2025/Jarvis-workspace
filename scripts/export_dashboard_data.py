@@ -172,11 +172,18 @@ def _gather_runs() -> list[dict]:
 
 
 def _gather_module_status() -> list[dict]:
-    """Static v1 mapping."""
+    """Static v1 mapping. Add jarvis_core for Overview module cards."""
     return [
         {
+            "module_id": "jarvis_core",
+            "name": "Jarvis Core",
+            "status": "active",
+            "phase": "Phase 3",
+            "milestone_summary": "Foreman loop live; daily plan and run log active.",
+        },
+        {
             "module_id": "wcs",
-            "name": "WCS",
+            "name": "WCS Code Module",
             "status": "active",
             "phase": "Phase 3",
             "milestone_summary": "Foreman loop live; task cycles proven.",
