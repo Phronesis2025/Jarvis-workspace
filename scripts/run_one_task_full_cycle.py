@@ -669,7 +669,7 @@ def main() -> int:
     print(f"git diff -- {shell_join_paths(scope_paths)}")
     if diff_out:
         print("--- diff output begin ---")
-        print(diff_out)
+        _safe_print(diff_out)
         print("--- diff output end ---")
     else:
         print("(no diff or empty)")
