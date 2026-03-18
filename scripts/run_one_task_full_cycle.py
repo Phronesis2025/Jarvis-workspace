@@ -241,11 +241,19 @@ def run_node_cmd(
     return run_helper(cmd, cwd, env=env)
 
 
+def _safe_print(text: str) -> None:
+    """Print text; on Windows cp1252 UnicodeEncodeError, fall back to ASCII-safe output."""
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        print(text.encode("ascii", errors="replace").decode("ascii"))
+
+
 def print_helper_result(cmd: Sequence[str], output: str) -> None:
     print(f"Running helper command: {' '.join(cmd)}")
     if output:
         print("--- helper output begin ---")
-        print(output)
+        _safe_print(output)
         print("--- helper output end ---")
 
 
