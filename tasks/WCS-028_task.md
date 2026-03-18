@@ -3,27 +3,27 @@
 ## Header
 - Task ID: WCS-028
 - Project: WCS
-- Title: Style test: change home hero eyebrow accent color for BUILT FOR
+- Title: Fake test: add basketball emoji to hero subtitle
 - Bucket: ugly
 - Priority: P3
 - Risk: low
-- Status: ready
+- Status: done
 
 ## Repo
 - Repo Path: `C:\dev\wcsv2.0-new`
 - Branch Name: `jarvis-task-wcs-028`
 
 ## Problem Summary
-Style test: change home hero eyebrow accent color for BUILT FOR.
+Fake test: add basketball emoji to hero subtitle.
 
 ## Goal
-Resolve: Style test: change home hero eyebrow accent color for BUILT FOR, with the smallest safe change that satisfies QA.
+Resolve: Fake test: add basketball emoji to hero subtitle, with the smallest safe change that satisfies QA.
 
 ## Suspected Files
-- Home hero section /
+- src/components/Hero.tsx
 
 ## Acceptance Criteria
-- The scoped issue is resolved: Style test: change home hero eyebrow accent color for BUILT FOR
+- The scoped issue is resolved: Fake test: add basketball emoji to hero subtitle
 - App builds successfully with npm run build
 - Local app can be opened for verification
 - Targeted change is visible or behaves correctly on the relevant page/flow
@@ -36,7 +36,7 @@ Resolve: Style test: change home hero eyebrow accent color for BUILT FOR, with t
 - Verify the targeted change locally in the browser
 
 ## System Impact
-Low risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: Home hero section /.
+Low risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: src/components/Hero.tsx.
 
 ## Stop Conditions
 - Required file cannot be found
@@ -44,4 +44,4 @@ Low risk. This should avoid unrelated production-facing behavior changes unless 
 - Task scope expands beyond the targeted fix
 
 ## Notes
-Home hero section /
+src/components/Hero.tsx

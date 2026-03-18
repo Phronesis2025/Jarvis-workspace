@@ -1,20 +1,20 @@
 {
   "task_id": "WCS-028",
   "project": "WCS",
-  "title": "Style test: change home hero eyebrow accent color for BUILT FOR",
+  "title": "Fake test: add basketball emoji to hero subtitle",
   "bucket": "ugly",
   "priority": "P3",
   "risk": "low",
-  "status": "ready",
+  "status": "done",
   "repo_path": "C:\\dev\\wcsv2.0-new",
   "branch_name": "jarvis-task-wcs-028",
-  "problem_summary": "Style test: change home hero eyebrow accent color for BUILT FOR.",
-  "goal": "Resolve: Style test: change home hero eyebrow accent color for BUILT FOR, with the smallest safe change that satisfies QA.",
+  "problem_summary": "Fake test: add basketball emoji to hero subtitle.",
+  "goal": "Resolve: Fake test: add basketball emoji to hero subtitle, with the smallest safe change that satisfies QA.",
   "suspected_files": [
-    "Home hero section /"
+    "src/components/Hero.tsx"
   ],
   "acceptance_criteria": [
-    "The scoped issue is resolved: Style test: change home hero eyebrow accent color for BUILT FOR",
+    "The scoped issue is resolved: Fake test: add basketball emoji to hero subtitle",
     "App builds successfully with npm run build",
     "Local app can be opened for verification",
     "Targeted change is visible or behaves correctly on the relevant page/flow",
@@ -26,13 +26,13 @@
     "Run Playwright smoke QA if available",
     "Verify the targeted change locally in the browser"
   ],
-  "system_impact": "Low risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: Home hero section /.",
+  "system_impact": "Low risk. This should avoid unrelated production-facing behavior changes unless strictly necessary. Primary expected scope: src/components/Hero.tsx.",
   "stop_conditions": [
     "Required file cannot be found",
     "Build fails for unrelated reasons",
     "Task scope expands beyond the targeted fix"
   ],
-  "notes": "Home hero section /",
-  "created_at": "2026-03-13T19:25:52-05:00",
-  "updated_at": "2026-03-13T19:25:52-05:00"
+  "notes": "src/components/Hero.tsx",
+  "created_at": "2026-03-17T19:42:48-05:00",
+  "updated_at": "2026-03-17T19:50:56-05:00"
 }

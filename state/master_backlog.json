@@ -305,7 +305,7 @@
     "bucket": "ugly",
     "priority": "P3",
     "risk": "low",
-    "status": "ready",
+    "status": "done",
     "title": "Fake test: add basketball emoji to hero subtitle",
     "notes": "src/components/Hero.tsx",
     "difficulty": 1,

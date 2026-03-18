@@ -901,7 +901,7 @@
     "owner": "jarvis_script",
     "purpose": "Sequential multi-task runner; runs multiple WCS tasks one after another by reusing run_one_task_full_cycle",
     "updated_by": "user",
-    "notes": "Selects one ready task per iteration, runs full-cycle path for that exact task (pins task identity), operator checkpoint for commit and manual verification, stops on failure/abort; uses explicit checkpoint exit codes; sequential only, operator-gated; proof pending; no scheduling, unattended mode, concurrency, or session persistence",
+    "notes": "Selects one ready task per iteration, runs full-cycle path for that exact task (pins task identity), operator checkpoint for commit and manual verification, stops on failure/abort; uses explicit checkpoint exit codes; sequential only, operator-gated; proven on WCS-028; no scheduling, unattended mode, concurrency, or session persistence",
     "last_reviewed": "2026-03-17"
   },
   {

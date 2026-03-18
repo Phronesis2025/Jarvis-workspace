@@ -2,7 +2,7 @@
 
 **Read this file first when continuing the Jarvis rebuild in a new chat.**
 
-- **Last updated:** 2026-03-17 (sequential runner implemented, proof pending)
+- **Last updated:** 2026-03-17 (sequential runner proven on WCS-028)
 - **Purpose:** Self-contained handoff for new chat; reflects current live truth only.
 
 ---
@@ -49,6 +49,7 @@ The wrapper family can truthfully close a single task end-to-end via: mechanical
 | **WCS-048** | Schedules page flow; schedules/page.tsx |
 | **WCS-061** | Full-cycle wrapper mechanical path (prep through screenshot capture); Footer.tsx; honest stop before manual verification |
 | **WCS-008** | Full-cycle + `--finalize`; screenshot artifact support; Navbar.tsx; wrapper can close a single task end-to-end |
+| **WCS-028** | Initial operator-gated sequential runner (`run_task_sequence.py`); one-task sequential proof completed cleanly; task identity pinned per iteration; checkpoint exit-code contract; manual verification checkpoint preserved; Hero.tsx |
 
 **WCS-033 was a bad proof target** (empty-state visibility; target not visible in default local app state). Its proof debris was cleaned up. **Do not treat WCS-033 as proof.**
 
@@ -56,7 +57,7 @@ The wrapper family can truthfully close a single task end-to-end via: mechanical
 
 ## 5. Current Process Position (Plain Language)
 
-We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.py`) can run one task from prep through post when the operator provides `--confirm-commit` and `--manual-check`. The flow stops honestly before manual verification; the operator then runs with `--finalize` to complete post (which includes reconcile). The initial sequential multi-task runner (`run_task_sequence.py`) is now built: sequential only, operator-gated, reuses the proven single-task path, pins task identity per iteration, uses explicit checkpoint exit codes. Not yet documented as fully proven until live execution proof is completed. No scheduling, unattended mode, concurrency, or session persistence.
+We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.py`) can run one task from prep through post when the operator provides `--confirm-commit` and `--manual-check`. The flow stops honestly before manual verification; the operator then runs with `--finalize` to complete post (which includes reconcile). The initial operator-gated sequential runner (`scripts/run_task_sequence.py`) is now proven on a clean live run. It remains sequential only, preserves honest operator checkpoints, pins task identity per iteration, and advances only after truthful single-task closure. No scheduling, unattended mode, concurrency, or session persistence. Current smoke coverage is still limited and should be improved later, especially for page-specific task coverage. Proven on WCS-028 (one-task sequential proof completed cleanly).
 
 ---
 
@@ -64,7 +65,7 @@ We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.
 
 - **Current smoke test** is limited and should be improved later, especially for page-specific task coverage.
 - **No batching or scheduling** is live yet.
-- **Sequential runner** (`run_task_sequence.py`) is implemented; proof pending.
+- **Sequential runner** (`run_task_sequence.py`) is proven on WCS-028; sequential only, operator-gated, no scheduling/unattended/concurrency/session persistence.
 
 ---
 
@@ -81,7 +82,7 @@ We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.
 
 | Script | Role |
 |--------|------|
-| `scripts/run_task_sequence.py` | Sequential multi-task runner; operator-gated; proof pending |
+| `scripts/run_task_sequence.py` | Sequential multi-task runner; operator-gated; proven on WCS-028 |
 | `scripts/run_one_task_full_cycle.py` | Full single-task closeout; supports `--finalize` for post-only |
 | `scripts/run_one_task_cycle.py` | Prep + optional launch; prints remaining operator steps |
 | `scripts/run_wcs_operator_entrypoint.py` | Thin wrapper for `prep` and `post` |
