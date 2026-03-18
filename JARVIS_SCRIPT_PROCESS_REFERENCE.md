@@ -1179,6 +1179,28 @@ Proven 2026-03-18 with `--packet future_modules/pathfinder/examples/pathfinder_i
 
 ---
 
+## 7c. `scripts/export_dashboard_data.py`
+
+### Role
+
+One-way export of local Jarvis source-of-truth files into Supabase dashboard tables. Populates the read model for the Jarvis Dashboard v1 (deployed on Vercel).
+
+### Current behavior
+
+* CLI: `python scripts/export_dashboard_data.py`
+* Requires env: `SUPABASE_URL` (or `NEXT_PUBLIC_SUPABASE_URL`), `SUPABASE_SERVICE_KEY` (or `SUPABASE_SERVICE_ROLE_KEY`)
+* Reads: `state/master_backlog.json`, `state/escalations.json`, `tasks/*_task.json`, `results/*_worker_result.json`, `scratch/pathfinder/*.json`, `scratch/pathfinder_ab/*.json`
+* Upserts into: `dashboard_task_state`, `dashboard_runs`, `dashboard_module_status`, `dashboard_pathfinder_cases`
+* Never mutates Jarvis truth files
+
+### What this script does not do
+
+* does not edit local JSON/Markdown
+* does not run the dashboard app
+* does not provide automatic/scheduled sync (manual runs only)
+
+---
+
 ## 8. `scripts/normalize_scout_to_backlog.py`
 
 ### Role

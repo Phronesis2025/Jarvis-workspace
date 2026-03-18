@@ -247,6 +247,28 @@
     "last_reviewed": "2026-03-18"
   },
   {
+    "file": "export_dashboard_data.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\export_dashboard_data.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "One-way export of local Jarvis state to Supabase dashboard tables",
+    "updated_by": "user",
+    "notes": "Reads master_backlog, results, Pathfinder outputs; upserts into dashboard_task_state, dashboard_runs, dashboard_module_status, dashboard_pathfinder_cases; requires SUPABASE_URL and SUPABASE_SERVICE_KEY; never mutates Jarvis truth files",
+    "last_reviewed": "2026-03-18"
+  },
+  {
+    "file": "dashboard/README.md",
+    "path": "C:\\dev\\jarvis-workspace\\dashboard\\README.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Jarvis Dashboard v1 setup and deployment notes",
+    "updated_by": "user",
+    "notes": "Read-only Next.js dashboard on Vercel; Supabase read model; data populated by export_dashboard_data.py; no write-back, scheduling, or command execution",
+    "last_reviewed": "2026-03-18"
+  },
+  {
     "file": "PATHFINDER_V1_BUILD_BRIEF.md",
     "path": "C:\\dev\\jarvis-workspace\\future_modules\\pathfinder\\PATHFINDER_V1_BUILD_BRIEF.md",
     "category": "doc",
