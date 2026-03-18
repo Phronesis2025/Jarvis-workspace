@@ -1,8 +1,8 @@
 # Cursor Prompt Templates
 
 ## Live Doc Status
-- Last reviewed: 2026-03-14
-- Last updated: 2026-03-14 (doc pass: launch-safety hardening live)
+- Last reviewed: 2026-03-17
+- Last updated: 2026-03-17 (doc pass: build-step response format)
 - Status: active reusable template set for common Jarvis/Cursor actions
 
 ## Purpose
@@ -70,6 +70,16 @@ Apply these when a task asks for proof, hard contracts, or doc/registry updates:
 
 3. **Timestamp rule**  
    If any doc or registry surface is touched: refresh the timestamp, never move timestamps backward, and keep all touched live docs aligned to the current hardening date.
+
+### Standard build-step response format
+
+When providing Jarvis/Cursor execution prompts, present:
+- Model
+- Prompt/code
+- What to expect
+- Then wait for the user's response/results before issuing the next step
+
+Use this format for Jarvis/Cursor workflow steps unless a different format is explicitly requested.
 
 ---
 
@@ -406,6 +416,24 @@ Return:
 
 ---
 
+## Template 9 — New-chat handoff / context anchor
+
+### Use when
+- Starting a new Jarvis chat window.
+- Continuing the Jarvis rebuild in a fresh Cursor session.
+
+### Template
+
+```text
+When starting a new Jarvis chat, include or attach with the context anchor:
+- the current context anchor
+- the latest Jarvis Rebuild — Handoff Checklist (JARVIS_TASK_EXECUTION_CHECKLIST.md)
+
+The checklist is a required companion artifact for new-chat continuity. This is a live process rule.
+```
+
+---
+
 ## Recommended standard sections for future templates
 
 Use this section order whenever practical:
@@ -428,7 +456,6 @@ Add more only when they become recurring enough to justify standardization:
 
 - backlog/task packet generation prompt
 - reconcile/review prompt
-- new chat handoff/context-anchor prompt
 - QA reliability hardening prompt
 - agent/module spec drafting prompt
 
