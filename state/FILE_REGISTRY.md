@@ -1,8 +1,8 @@
 # FILE REGISTRY
 
 ## Live Doc Status
-- Last reviewed: 2026-03-17
-- Last updated: 2026-03-17
+- Last reviewed: 2026-03-18
+- Last updated: 2026-03-18
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state; registry mirrors file_registry.json and is rendered by render_file_registry.py
 
@@ -80,6 +80,10 @@ This markdown file is the human-readable view rendered from file_registry.json.
 | run_overnight_health_check.ps1 | C:\dev\jarvis-workspace\scripts\run_overnight_health_check.ps1 | script | source_of_truth | user | Wrapper for overnight health watcher | user | Used for manual or scheduled runs |
 | register_overnight_health_task.txt | C:\dev\jarvis-workspace\scripts\register_overnight_health_task.txt | doc | source_of_truth | user | Task Scheduler command notes | user | Scheduling helper |
 | run_wcs_scout.py | C:\dev\jarvis-workspace\scripts\run_wcs_scout.py | script | source_of_truth | jarvis_script | Runs public WCS scout and stores results | user | Working |
+| run_pathfinder.py | C:\dev\jarvis-workspace\scripts\run_pathfinder.py | script | source_of_truth | jarvis_script | Pathfinder v1: bounded read-only WCS intake/investigation worker | user | Accepts minimal intake or full task packet; gathers workspace artifacts and WCS repo suspected files; produces structured result with synthesis, optional draft backlog candidate, or escalation; proven 2026-03-18 |
+| PATHFINDER_V1_BUILD_BRIEF.md | C:\dev\jarvis-workspace\future_modules\pathfinder\PATHFINDER_V1_BUILD_BRIEF.md | doc | source_of_truth | user | Pathfinder v1 implementation brief and scope | user | Defines v1 purpose, inputs, outputs, boundaries, first proof target; Pathfinder v1 proven 2026-03-18 |
+| pathfinder_intake.template.json | C:\dev\jarvis-workspace\future_modules\pathfinder\templates\pathfinder_intake.template.json | template | source_of_truth | user | Minimal intake packet contract for Pathfinder v1 | user | issue_summary, page_or_route, evidence_paths, suspected_files, wcs_repo_path, severity, type |
+| pathfinder_intake.example.json | C:\dev\jarvis-workspace\future_modules\pathfinder\examples\pathfinder_intake.example.json | template | source_of_truth | user | Example minimal intake for Pathfinder v1 proof | user | WCS schedules page empty-state example; used for live proof 2026-03-18 |
 | wcs_scout_routes.json | C:\dev\jarvis-workspace\config\wcs_scout_routes.json | config | source_of_truth | user | Public routes list for WCS scout | user | /shop and /news removed for now |
 | WCS-001_task.md | C:\dev\jarvis-workspace\tasks\WCS-001_task.md | task_packet | generated | jarvis_script | Human-readable task packet | generate_task_packet.py | Example completed task |
 | WCS-001_task.json | C:\dev\jarvis-workspace\tasks\WCS-001_task.json | task_packet | generated | jarvis_script | Machine-readable task packet | generate_task_packet.py | Example completed task |

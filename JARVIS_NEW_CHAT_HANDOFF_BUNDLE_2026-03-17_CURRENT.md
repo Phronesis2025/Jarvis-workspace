@@ -2,7 +2,7 @@
 
 **Read this file first when continuing the Jarvis rebuild in a new chat.**
 
-- **Last updated:** 2026-03-17 (multi-task sequential proof recorded for WCS-029 and WCS-030)
+- **Last updated:** 2026-03-18 (Pathfinder v1 proof recorded)
 - **Purpose:** Self-contained handoff for new chat; reflects current live truth only.
 
 ---
@@ -34,6 +34,7 @@
 | **Full-cycle wrapper mechanical path** (`run_one_task_full_cycle.py`) | Proven |
 | **`--finalize`** (resume mode for post after manual verification) | Proven |
 | **Screenshot artifact support** | Proven |
+| **Pathfinder v1** (read-only WCS intake/investigation) | Proven |
 
 The wrapper family can truthfully close a single task end-to-end via: mechanical path (prep, strict launch, diff review, commit, build, managed dev server, smoke, optional page-smoke for /about|/schedules|/drills when scope maps, screenshot capture) → honest manual-check stop → `--finalize` for post. Page-specific smoke proven on WCS-032 for `/schedules`.
 
@@ -53,6 +54,7 @@ The wrapper family can truthfully close a single task end-to-end via: mechanical
 | **WCS-029** | Multi-task back-to-back sequential proof (first of two); fire emoji on hero CTA; Hero.tsx; run_task_sequence.py with operator checkpoints |
 | **WCS-030** | Multi-task back-to-back sequential proof (second of two); TEST MODE badge below hero; Hero.tsx; run_task_sequence.py with operator checkpoints |
 | **WCS-032** | Page-specific smoke support; task-scoped smoke for `/schedules` when scope maps to schedules/page.tsx; schedules/page.tsx |
+| **Pathfinder v1** | Bounded read-only WCS intake; `run_pathfinder.py --packet` with minimal intake; gathers workspace artifacts and WCS repo files; produces structured result with optional draft backlog candidate; proven 2026-03-18 |
 
 **WCS-033 was a bad proof target** (empty-state visibility; target not visible in default local app state). Its proof debris was cleaned up. **Do not treat WCS-033 as proof.**
 
@@ -68,6 +70,7 @@ We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.
 
 - **Page-specific smoke** is implemented for /about, /schedules, /drills when task scope maps; proven on WCS-032. Overall smoke coverage is still limited; broader route coverage not yet done.
 - **No batching or scheduling** is live yet.
+- **Pathfinder v1** is proven: read-only WCS intake worker; manual CLI; no code edits, no git actions, no unattended mode.
 - **Sequential runner** (`run_task_sequence.py`) is proven on WCS-028 (one-task) and WCS-029 + WCS-030 (multi-task back-to-back in one session); sequential only, operator-gated, no scheduling/unattended/concurrency/session persistence.
 
 ---

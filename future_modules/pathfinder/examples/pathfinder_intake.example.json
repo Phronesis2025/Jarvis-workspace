@@ -1,0 +1,14 @@
+{
+  "issue_summary": "Schedules page empty-state shows generic placeholder; needs bounded improvement similar to WCS-048.",
+  "page_or_route": "/schedules",
+  "evidence_paths": [
+    "results/WCS-048_worker_result.json",
+    "tasks/WCS-048_task.json"
+  ],
+  "suspected_files": [
+    "src/app/schedules/page.tsx"
+  ],
+  "wcs_repo_path": "C:\\dev\\wcsv2.0-new",
+  "severity": "low",
+  "type": "change_request"
+}

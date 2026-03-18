@@ -236,6 +236,48 @@
     "notes": "Working"
   },
   {
+    "file": "run_pathfinder.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_pathfinder.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Pathfinder v1: bounded read-only WCS intake/investigation worker",
+    "updated_by": "user",
+    "notes": "Accepts minimal intake or full task packet; gathers workspace artifacts and WCS repo suspected files; produces structured result with synthesis, optional draft backlog candidate, or escalation; proven 2026-03-18",
+    "last_reviewed": "2026-03-18"
+  },
+  {
+    "file": "PATHFINDER_V1_BUILD_BRIEF.md",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\pathfinder\\PATHFINDER_V1_BUILD_BRIEF.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Pathfinder v1 implementation brief and scope",
+    "updated_by": "user",
+    "notes": "Defines v1 purpose, inputs, outputs, boundaries, first proof target; Pathfinder v1 proven 2026-03-18",
+    "last_reviewed": "2026-03-18"
+  },
+  {
+    "file": "pathfinder_intake.template.json",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\pathfinder\\templates\\pathfinder_intake.template.json",
+    "category": "template",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Minimal intake packet contract for Pathfinder v1",
+    "updated_by": "user",
+    "notes": "issue_summary, page_or_route, evidence_paths, suspected_files, wcs_repo_path, severity, type"
+  },
+  {
+    "file": "pathfinder_intake.example.json",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\pathfinder\\examples\\pathfinder_intake.example.json",
+    "category": "template",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Example minimal intake for Pathfinder v1 proof",
+    "updated_by": "user",
+    "notes": "WCS schedules page empty-state example; used for live proof 2026-03-18"
+  },
+  {
     "file": "wcs_scout_routes.json",
     "path": "C:\\dev\\jarvis-workspace\\config\\wcs_scout_routes.json",
     "category": "config",

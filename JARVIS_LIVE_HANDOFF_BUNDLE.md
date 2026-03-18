@@ -1,8 +1,8 @@
 # JARVIS_LIVE_HANDOFF_BUNDLE.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: multi-task sequential proof recorded for WCS-029 and WCS-030)
+- Last reviewed: 2026-03-18
+- Last updated: 2026-03-18 (Pathfinder v1 proof recorded)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
@@ -12,6 +12,7 @@
 - Launch-safety hardening is now in place for the Cursor bridge/operator-wrapper path.
 - `prep --launch-cursor` now uses strict post-launch auditing and can fail honestly when launch is not immediately auditable.
 - Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration.
+- Pathfinder v1 is now proven as a bounded read-only intake/investigation worker for WCS. Proof was completed with a successful live run of `run_pathfinder.py` using a realistic WCS intake packet. Pathfinder accepts minimal intake or full task-packet input, gathers bounded context from workspace artifacts and WCS repo files, and produces structured result output with an optional draft backlog candidate. It remains manual/CLI-invoked, read-only, and intentionally limited: no code edits, no git actions, no unattended mode, no scheduling, and no broad repo crawl.
 
 ## Recent live truth
 - Option A packet lifecycle/status cleanup is now live.
@@ -36,6 +37,7 @@
 - Earlier disposable `WCS-045` prep/proof debris was intentionally deleted and should not be treated as durable proof evidence.
 - WCS-033 was a bad proof target (empty-state visibility); its proof debris was cleaned up; do not present WCS-033 as proof.
 - The operator-gated sequential runner is now proven for multiple tasks back-to-back in one live session. Proof was completed on WCS-029 and WCS-030 using `run_task_sequence.py` with honest operator checkpoints preserved between tasks. The system remains sequential only. No scheduling, unattended mode, concurrency, or session persistence. Current smoke coverage is still limited and should be improved later, especially for broader route/page coverage. Earlier one-task sequential proof: WCS-028. Page-specific smoke support is implemented and proven on WCS-032 for `/schedules`.
+- Pathfinder v1 is now proven. Proof was completed with a successful live run of `run_pathfinder.py --packet future_modules/pathfinder/examples/pathfinder_intake.example.json`. Pathfinder accepts minimal intake or full task packet, gathers bounded context from workspace artifacts and WCS repo suspected files, and produces structured result output (synthesis, findings, optional draft backlog candidate) or escalation when blocked. Read-only only; no code edits, no git actions, no unattended mode, no scheduling, no broad repo crawl.
 
 ## New-chat handoff rule (live process)
 
@@ -832,11 +834,11 @@ Every worker contract must answer:
 
 ---
 
-### 8.4 Research Scout (recognized, not phase-1 active)
+### 8.4 Pathfinder (Research Scout) — v1 proven
 
-**Purpose:** Investigate errors, docs, and implementation options without editing production code.
+**Purpose:** Investigate WCS defects and change requests without editing production code. Bounded read-only intake/investigation worker.
 
-**Current status:** Deferred until the planning loop and WCS loop are proven.
+**Current status:** Pathfinder v1 is proven. Proof was completed with a successful live run of `run_pathfinder.py` using a realistic WCS intake packet. Pathfinder accepts minimal intake or full task-packet input, gathers bounded context from workspace artifacts and WCS repo files, and produces structured result output with an optional draft backlog candidate or escalation when blocked. It remains manual/CLI-invoked, read-only, and intentionally limited: no code edits, no git actions, no unattended mode, no scheduling, and no broad repo crawl.
 
 ---
 
@@ -4747,7 +4749,7 @@ Before finalizing task work, Jarvis should verify:
 
 ## Build later
 18. limited scheduling
-19. Research Scout worker
+19. Research Scout worker — Pathfinder v1 now proven (bounded read-only intake; manual CLI)
 20. n8n improver worker
 21. additional workers / productization
 

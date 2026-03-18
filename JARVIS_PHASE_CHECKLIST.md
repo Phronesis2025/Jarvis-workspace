@@ -1,10 +1,10 @@
 # JARVIS_REBUILD_PHASE_CHECKLIST.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: multi-task sequential proof recorded for WCS-029 and WCS-030)
+- Last reviewed: 2026-03-18
+- Last updated: 2026-03-18 (Pathfinder v1 proof recorded)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper proven on WCS-046; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; WCS-033 was bad proof target, debris cleaned up, do not present as proof; sequential runner run_task_sequence.py proven on WCS-028 (one-task) and WCS-029 + WCS-030 (multi-task back-to-back in one session); page-specific smoke support implemented and proven on WCS-032 for /schedules; no scheduling, unattended mode, concurrency, or session persistence; overall smoke coverage still limited)
+- Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper proven on WCS-046; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; WCS-033 was bad proof target, debris cleaned up, do not present as proof; sequential runner run_task_sequence.py proven on WCS-028 (one-task) and WCS-029 + WCS-030 (multi-task back-to-back in one session); page-specific smoke support implemented and proven on WCS-032 for /schedules; Pathfinder v1 proven 2026-03-18 as bounded read-only WCS intake worker; no scheduling, unattended mode, concurrency, or session persistence; overall smoke coverage still limited)
 
 ## Purpose
 
@@ -315,7 +315,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 ## Phase 4B — Additional worker types
 
 ### Checklist
-- [ ] Add research scout for debugging support
+- [x] Add research scout for debugging support — Pathfinder v1 proven (bounded read-only WCS intake; manual CLI; 2026-03-18)
 - [ ] Add research scout for topic/content gathering if still valuable
 - [ ] Revisit n8n improvement worker once rubric is machine-checkable
 - [ ] Add truth-mapping helpers for other projects if needed
