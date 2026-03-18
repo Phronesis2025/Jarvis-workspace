@@ -60,3 +60,12 @@ export interface DashboardPathfinderCase {
   omitted_reason: string | null;
   created_at: string;
 }
+
+export interface DashboardExportLog {
+  id: string;
+  exported_at: string;
+  task_count: number | null;
+  run_count: number | null;
+  module_count: number | null;
+  pathfinder_count: number | null;
+}

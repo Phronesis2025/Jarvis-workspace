@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import "./globals.css";
+import { NavBar } from "@/components/NavBar";
 
 export const metadata: Metadata = {
   title: "Jarvis Dashboard",
@@ -14,38 +14,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
-        <header className="border-b border-slate-200 bg-white">
+      <body className="min-h-screen bg-[#0a0e17] text-slate-200 antialiased">
+        <header className="border-b border-cyan-500/20 bg-[#0a0e17] shadow-[0_0_24px_rgba(34,211,238,0.06)]">
           <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
-            <h1 className="text-lg font-semibold text-slate-800">
-              Jarvis Dashboard
-            </h1>
-            <nav className="mt-2 flex gap-4 text-sm">
-              <Link
-                href="/"
-                className="text-slate-600 hover:text-slate-900 underline-offset-2 hover:underline"
-              >
-                Overview
-              </Link>
-              <Link
-                href="/tasks"
-                className="text-slate-600 hover:text-slate-900 underline-offset-2 hover:underline"
-              >
-                Task Board
-              </Link>
-              <Link
-                href="/runs"
-                className="text-slate-600 hover:text-slate-900 underline-offset-2 hover:underline"
-              >
-                Recent Runs
-              </Link>
-              <Link
-                href="/pathfinder"
-                className="text-slate-600 hover:text-slate-900 underline-offset-2 hover:underline"
-              >
-                Pathfinder
-              </Link>
-            </nav>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h1 className="text-lg font-semibold tracking-tight text-cyan-100">
+                Jarvis Dashboard
+              </h1>
+              <NavBar />
+            </div>
           </div>
         </header>
         <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">{children}</main>

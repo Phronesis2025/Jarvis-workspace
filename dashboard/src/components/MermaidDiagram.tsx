@@ -16,8 +16,24 @@ export function MermaidDiagram({ code }: { code: string }) {
       .then(({ default: mermaid }) => {
         mermaid.initialize({
           startOnLoad: false,
-          theme: "neutral",
+          theme: "base",
           securityLevel: "loose",
+          themeVariables: {
+            primaryColor: "#0f172a",
+            primaryTextColor: "#e2e8f0",
+            primaryBorderColor: "#22d3ee",
+            lineColor: "#22d3ee",
+            secondaryColor: "#1e293b",
+            tertiaryColor: "#334155",
+            background: "#020617",
+            mainBkg: "#0f172a",
+            nodeBorder: "#22d3ee",
+            clusterBkg: "#0f172a",
+            clusterBorder: "#22d3ee",
+            titleColor: "#22d3ee",
+            edgeLabelBackground: "#0f172a",
+            nodeTextColor: "#e2e8f0",
+          },
         });
         return mermaid.render(idRef.current, code);
       })
@@ -36,7 +52,7 @@ export function MermaidDiagram({ code }: { code: string }) {
 
   if (error) {
     return (
-      <div className="rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+      <div className="rounded border border-cyan-500/30 bg-slate-900/50 p-3 text-sm text-amber-400">
         Diagram unavailable: {error}
       </div>
     );
@@ -44,7 +60,7 @@ export function MermaidDiagram({ code }: { code: string }) {
   return (
     <div
       ref={containerRef}
-      className="mermaid-container flex justify-center overflow-x-auto py-2 [&_svg]:max-w-full"
+      className="mermaid-container flex justify-center overflow-x-auto py-2 [&_svg]:max-w-full [&_svg]:opacity-90"
     />
   );
 }

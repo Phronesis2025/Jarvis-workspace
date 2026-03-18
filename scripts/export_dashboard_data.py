@@ -297,6 +297,19 @@ def main() -> int:
                 in_val = "(" + ",".join(f'"{r}"' for r in pf_run_ids) + ")"
                 client.table("dashboard_pathfinder_cases").delete().filter("run_id", "in", in_val).execute()
             client.table("dashboard_pathfinder_cases").insert(pathfinder).execute()
+
+        # Record export freshness for Overview "Last dashboard update"
+        client.table("dashboard_export_log").upsert(
+            [{
+                "id": "latest",
+                "exported_at": datetime.now().isoformat(),
+                "task_count": len(tasks),
+                "run_count": len(runs),
+                "module_count": len(modules),
+                "pathfinder_count": len(pathfinder),
+            }],
+            on_conflict="id",
+        ).execute()
     except Exception as e:
         _fail(f"Supabase write failed: {e}")
 

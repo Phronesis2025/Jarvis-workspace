@@ -64,4 +64,4 @@ Data is read from Supabase. Populate it by running the export script from the wo
 python scripts/export_dashboard_data.py
 ```
 
-The exporter reads local Jarvis source-of-truth files and upserts into the dashboard tables. One-way only; never mutates Jarvis files.
+The exporter reads local Jarvis source-of-truth files and upserts into the dashboard tables. It also records the last export time in `dashboard_export_log` for the Overview "Last dashboard update" field. One-way only; never mutates Jarvis files.

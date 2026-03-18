@@ -254,7 +254,7 @@
     "owner": "jarvis_script",
     "purpose": "One-way export of local Jarvis state to Supabase dashboard tables",
     "updated_by": "user",
-    "notes": "Reads master_backlog, results, Pathfinder outputs; upserts into dashboard_task_state, dashboard_runs, dashboard_module_status, dashboard_pathfinder_cases; requires SUPABASE_URL and SUPABASE_SERVICE_KEY; never mutates Jarvis truth files",
+    "notes": "Reads master_backlog, results, Pathfinder outputs; upserts into dashboard_task_state, dashboard_runs, dashboard_module_status, dashboard_pathfinder_cases, dashboard_export_log; requires SUPABASE_URL and SUPABASE_SERVICE_KEY; never mutates Jarvis truth files",
     "last_reviewed": "2026-03-18"
   },
   {
@@ -265,7 +265,7 @@
     "owner": "user",
     "purpose": "Jarvis Dashboard v1 setup and deployment notes",
     "updated_by": "user",
-    "notes": "Read-only Next.js dashboard on Vercel; Supabase read model; data populated by export_dashboard_data.py; no write-back, scheduling, or command execution",
+    "notes": "Read-only Next.js dashboard on Vercel; Supabase read model; exporter working; dashboard reads real data from Supabase; Overview upgraded to module-centered command-console layout; no write-back, scheduling, or command execution",
     "last_reviewed": "2026-03-18"
   },
   {

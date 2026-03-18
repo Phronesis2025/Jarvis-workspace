@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* HUD / command-center design tokens */
+:root {
+  --hud-bg: #0a0e17;
+  --hud-panel: rgba(15, 23, 42, 0.8);
+  --hud-border: rgba(34, 211, 238, 0.25);
+  --hud-accent: #22d3ee;
+  --hud-accent-dim: rgba(34, 211, 238, 0.5);
+  --hud-healthy: #2dd4bf;
+  --hud-warning: #fbbf24;
+  --hud-text: #e2e8f0;
+  --hud-text-muted: #94a3b8;
+}
+
+/* HUD panel with luminous border */
+@layer components {
+  .hud-panel {
+    @apply rounded-lg;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.6) 100%);
+    border: 1px solid var(--hud-border);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  .hud-panel-glow {
+    box-shadow: 0 0 24px rgba(34, 211, 238, 0.12), 0 0 48px rgba(34, 211, 238, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .hud-metric {
+    @apply rounded-md border;
+    border-color: rgba(34, 211, 238, 0.15);
+    background: rgba(15, 23, 42, 0.5);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .hud-process-panel {
+    @apply rounded-lg;
+    background: rgba(2, 6, 23, 0.9);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.4), 0 0 16px rgba(34, 211, 238, 0.06);
+  }
+}

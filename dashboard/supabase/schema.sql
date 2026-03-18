@@ -68,3 +68,13 @@ CREATE TABLE IF NOT EXISTS dashboard_pathfinder_cases (
 
 CREATE INDEX IF NOT EXISTS idx_pathfinder_created ON dashboard_pathfinder_cases(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_pathfinder_synthesis ON dashboard_pathfinder_cases(synthesis_source);
+
+-- Export freshness for Overview "Last dashboard update"
+CREATE TABLE IF NOT EXISTS dashboard_export_log (
+  id text PRIMARY KEY DEFAULT 'latest',
+  exported_at timestamptz NOT NULL DEFAULT now(),
+  task_count int,
+  run_count int,
+  module_count int,
+  pathfinder_count int
+);

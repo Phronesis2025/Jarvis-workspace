@@ -2,7 +2,7 @@
 
 **Read this file first when continuing the Jarvis rebuild in a new chat.**
 
-- **Last updated:** 2026-03-18 (Pathfinder v1 proof recorded)
+- **Last updated:** 2026-03-18 (Dashboard command-console layout and live data flow recorded)
 - **Purpose:** Self-contained handoff for new chat; reflects current live truth only.
 
 ---
@@ -35,6 +35,7 @@
 | **`--finalize`** (resume mode for post after manual verification) | Proven |
 | **Screenshot artifact support** | Proven |
 | **Pathfinder v1** (read-only WCS intake/investigation) | Proven |
+| **Jarvis Dashboard v1** (read-only Supabase-backed, module-centered command-console Overview) | Live on Vercel |
 
 The wrapper family can truthfully close a single task end-to-end via: mechanical path (prep, strict launch, diff review, commit, build, managed dev server, smoke, optional page-smoke for /about|/schedules|/drills when scope maps, screenshot capture) → honest manual-check stop → `--finalize` for post. Page-specific smoke proven on WCS-032 for `/schedules`.
 

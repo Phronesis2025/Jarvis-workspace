@@ -14,6 +14,7 @@ import type {
   DashboardRun,
   DashboardModuleStatus,
   DashboardPathfinderCase,
+  DashboardExportLog,
 } from "./types";
 
 export async function getTasks(): Promise<DashboardTaskState[]> {
@@ -66,4 +67,18 @@ export async function getPathfinderCases(
     return (data ?? []) as DashboardPathfinderCase[];
   }
   return mockPathfinderCases;
+}
+
+/** Last successful dashboard export. Returns null when unavailable (e.g. mock mode, table empty). */
+export async function getLastExportTime(): Promise<DashboardExportLog | null> {
+  if (hasSupabase() && supabase) {
+    const { data, error } = await supabase
+      .from("dashboard_export_log")
+      .select("*")
+      .eq("id", "latest")
+      .maybeSingle();
+    if (error || !data) return null;
+    return data as DashboardExportLog;
+  }
+  return null;
 }
