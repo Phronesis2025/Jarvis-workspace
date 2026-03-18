@@ -2,13 +2,13 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: sequential runner proven on WCS-028)
+- Last updated: 2026-03-17 (doc pass: page-specific smoke support recorded)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
 - Option B V1 is now live via `scripts/run_wcs_operator_entrypoint.py` as a thin operator-facing wrapper for `prep` and `post`.
 - `scripts/run_one_task_cycle.py` is now live as a one-task-only wrapper that selects or accepts exactly one bounded WCS task, delegates prep/optional strict launch, and prints operator next actions without claiming completion.
-- `scripts/run_one_task_full_cycle.py` is now live and proven on `WCS-061` and `WCS-008`. Wrapper family can truthfully close a single task end-to-end: mechanical path (prep, strict launch, diff review, commit, build, managed dev server, smoke, screenshot capture), honest manual-check stop, then `--finalize` for post. Screenshot artifact support and `--finalize` proven on WCS-008. No fabrication; operator must provide `--confirm-commit` and `--manual-check`. Supports --manage-dev-server, --capture-screenshot, --manual-url, and --finalize with optional --artifact. Current smoke test still limited; page-specific task coverage should be improved later.
+- `scripts/run_one_task_full_cycle.py` is now live and proven on `WCS-061` and `WCS-008`. Wrapper family can truthfully close a single task end-to-end: mechanical path (prep, strict launch, diff review, commit, build, managed dev server, smoke, optional page-smoke, screenshot capture), honest manual-check stop, then `--finalize` for post. Screenshot artifact support and `--finalize` proven on WCS-008. Page-specific smoke support is implemented: when task scope maps to `/about`, `/schedules`, or `/drills`, runs `test:e2e:smoke:page` for that route; proven on WCS-032 for `/schedules`. Base smoke still runs; page-smoke is additive and route-scoped. Overall smoke coverage is still limited; broader route coverage not yet done. No fabrication; operator must provide `--confirm-commit` and `--manual-check`. Supports --manage-dev-server, --capture-screenshot, --manual-url, and --finalize with optional --artifact.
 - Launch-safety hardening is now in place for the Cursor bridge/operator-wrapper path.
 - `prep --launch-cursor` now uses strict post-launch auditing and can fail honestly when launch is not immediately auditable.
 - Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration.
@@ -35,7 +35,7 @@
 - Even with launch-safety hardening, launch is still not completion proof, semantic correctness proof, commit readiness proof, QA proof, or finalized worker-evidence proof.
 - Earlier disposable `WCS-045` prep/proof debris was intentionally deleted and should not be treated as durable proof evidence.
 - WCS-033 was a bad proof target (empty-state visibility); its proof debris was cleaned up; do not present WCS-033 as proof.
-- The initial operator-gated sequential runner (`scripts/run_task_sequence.py`) is now proven on a clean live run. It remains sequential only, preserves honest operator checkpoints, pins task identity per iteration, and advances only after truthful single-task closure. No scheduling, unattended mode, concurrency, or session persistence. Current smoke coverage is still limited and should be improved later, especially for page-specific task coverage. Proven on WCS-028 (one-task sequential proof completed cleanly; task identity pinned per iteration; checkpoint exit-code contract used; manual verification checkpoint preserved).
+- The initial operator-gated sequential runner (`scripts/run_task_sequence.py`) is now proven on a clean live run. It remains sequential only, preserves honest operator checkpoints, pins task identity per iteration, and advances only after truthful single-task closure. No scheduling, unattended mode, concurrency, or session persistence. Page-specific smoke support is implemented and proven on WCS-032 for `/schedules`; overall smoke coverage is still limited; broader route coverage not yet done. Proven on WCS-028 (one-task sequential proof completed cleanly; task identity pinned per iteration; checkpoint exit-code contract used; manual verification checkpoint preserved).
 
 ## New-chat handoff rule (live process)
 
@@ -44,6 +44,18 @@ Every new Jarvis chat must include:
 - the current Jarvis Rebuild — Handoff Checklist (`JARVIS_TASK_EXECUTION_CHECKLIST.md`)
 
 The checklist is a required companion artifact for new-chat continuity. This is a live process rule, not a product or architecture rule.
+
+## Post-milestone doc audit (live workflow rule)
+
+After each meaningful milestone, explicitly check:
+
+- Did live state update? (backlog, DAILY_REVIEW, task packets, results)
+- Did file registry update? (state/file_registry.json, state/FILE_REGISTRY.md)
+- Did handoff/current-state docs update? (JARVIS_LIVE_HANDOFF_BUNDLE, JARVIS_NEW_CHAT_HANDOFF_BUNDLE, JARVIS_PHASE_CHECKLIST, JARVIS_SCRIPT_PROCESS_REFERENCE)
+- Does this change require canon-doc updates (source-of-truth, PRD), or should those remain unchanged?
+- If canon docs are unchanged, state that explicitly.
+
+This is a doc-audit checkpoint for live execution, not a product architecture rule. Use it before recommending commit/push after a milestone.
 
 ## FILE: JARVIS_SYSTEM_SOURCE_OF_TRUTH_v3
 ````md

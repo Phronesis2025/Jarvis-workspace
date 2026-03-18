@@ -3,9 +3,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: WCS-008 live truth, WCS-033 not proof, next target sequential)
+- Last updated: 2026-03-17 (doc pass: post-milestone doc-audit rule added)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; WCS-033 was bad proof target, do not present as proof; next logical build target: sequential single-task across multiple tasks, not concurrency; current smoke test still limited; launch path supports strict post-launch auditing)
+- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 and WCS-008; sequential runner proven on WCS-028; post-milestone doc-audit checkpoint added; current smoke test still limited; launch path supports strict post-launch auditing)
 
 ## Purpose
 
@@ -1204,6 +1204,22 @@ Confirm:
 
 * tighter integration with reconcile outcome reporting
 * automatic drift detection when backlog JSON and rendered markdown disagree
+
+---
+
+## Phase 15 — Post-milestone doc audit (checkpoint)
+
+### Current action
+
+Before recommending commit/push after a meaningful milestone, run the doc-audit checkpoint:
+
+- Did live state update? (backlog, DAILY_REVIEW, task packets, results)
+- Did file registry update? (state/file_registry.json, state/FILE_REGISTRY.md)
+- Did handoff/current-state docs update? (JARVIS_LIVE_HANDOFF_BUNDLE, JARVIS_NEW_CHAT_HANDOFF_BUNDLE, JARVIS_PHASE_CHECKLIST, JARVIS_SCRIPT_PROCESS_REFERENCE)
+- Does this change require canon-doc updates (source-of-truth, PRD), or should those remain unchanged?
+- If canon docs are unchanged, state that explicitly.
+
+This is a doc-audit checkpoint for live execution, not a product architecture rule.
 
 ---
 

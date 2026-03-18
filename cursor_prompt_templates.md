@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: build-step response format)
+- Last updated: 2026-03-17 (doc pass: post-milestone doc-audit rule added)
 - Status: active reusable template set for common Jarvis/Cursor actions
 
 ## Purpose
@@ -70,6 +70,10 @@ Apply these when a task asks for proof, hard contracts, or doc/registry updates:
 
 3. **Timestamp rule**  
    If any doc or registry surface is touched: refresh the timestamp, never move timestamps backward, and keep all touched live docs aligned to the current hardening date.
+
+### Milestone wrap-up: doc/state coverage check
+
+Before recommending commit/push after a meaningful milestone, run the doc-audit checkpoint: Did live state update? Did file registry update? Did handoff/current-state docs update? Does this change require canon-doc updates (source-of-truth, PRD), or should those remain unchanged? If canon docs are unchanged, state that explicitly. Check doc/state coverage before recommending commit/push.
 
 ### Standard build-step response format
 

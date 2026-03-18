@@ -302,6 +302,24 @@ def shell_join_paths(paths: List[str]) -> str:
     return " ".join(f'"{path}"' for path in paths)
 
 
+def scope_to_page_route(scope_paths: List[str]) -> Optional[str]:
+    """
+    Map task scope to a non-home route for page-specific smoke.
+    Returns None when scope is home or unknown (skip page-smoke).
+    Reuses same mapping as screenshot capture logic.
+    """
+    if not scope_paths:
+        return None
+    first = scope_paths[0]
+    if "schedules" in first:
+        return "/schedules"
+    if "about" in first:
+        return "/about"
+    if "drills" in first:
+        return "/drills"
+    return None
+
+
 def select_task_via_helper(workspace: Path) -> Tuple[Optional[str], int, str]:
     scripts_dir = workspace / "scripts"
     cmd = [
@@ -765,6 +783,38 @@ def main() -> int:
             except Exception:
                 pass
         return fail("npm run test:e2e:smoke failed", task_id, "smoke")
+
+    # --- Page-specific smoke (when task scope maps to non-home route) ---
+    page_route = scope_to_page_route(scope_paths)
+    if page_route is not None:
+        print("")
+        print(f"--- CLOSEOUT: page-smoke (task scope maps to {page_route}) ---")
+        page_env = os.environ.copy()
+        page_env["E2E_SMOKE_PAGE"] = page_route
+        page_smoke_code, page_smoke_out = run_node_cmd(
+            ["npm", "run", "test:e2e:smoke:page"],
+            repo_path,
+            env=page_env,
+        )
+        print_helper_result(
+            ["npm", "run", "test:e2e:smoke:page", f"E2E_SMOKE_PAGE={page_route}"],
+            page_smoke_out,
+        )
+        if page_smoke_code != 0:
+            if we_started_dev_server and dev_proc is not None:
+                try:
+                    dev_proc.terminate()
+                except Exception:
+                    pass
+            return fail(
+                f"npm run test:e2e:smoke:page failed for {page_route}",
+                task_id,
+                "page-smoke",
+            )
+        print(f"Page-smoke PASS for {page_route}")
+    else:
+        print("")
+        print("--- CLOSEOUT: page-smoke (skipped; task scope is home or unknown) ---")
 
     # --- Optional screenshot capture (dev server still running) ---
     screenshot_artifact_path: Optional[Path] = None

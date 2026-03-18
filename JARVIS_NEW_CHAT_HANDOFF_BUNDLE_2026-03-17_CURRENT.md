@@ -2,7 +2,7 @@
 
 **Read this file first when continuing the Jarvis rebuild in a new chat.**
 
-- **Last updated:** 2026-03-17 (sequential runner proven on WCS-028)
+- **Last updated:** 2026-03-17 (page-specific smoke support recorded)
 - **Purpose:** Self-contained handoff for new chat; reflects current live truth only.
 
 ---
@@ -35,7 +35,7 @@
 | **`--finalize`** (resume mode for post after manual verification) | Proven |
 | **Screenshot artifact support** | Proven |
 
-The wrapper family can truthfully close a single task end-to-end via: mechanical path (prep, strict launch, diff review, commit, build, managed dev server, smoke, screenshot capture) → honest manual-check stop → `--finalize` for post.
+The wrapper family can truthfully close a single task end-to-end via: mechanical path (prep, strict launch, diff review, commit, build, managed dev server, smoke, optional page-smoke for /about|/schedules|/drills when scope maps, screenshot capture) → honest manual-check stop → `--finalize` for post. Page-specific smoke proven on WCS-032 for `/schedules`.
 
 ---
 
@@ -50,6 +50,7 @@ The wrapper family can truthfully close a single task end-to-end via: mechanical
 | **WCS-061** | Full-cycle wrapper mechanical path (prep through screenshot capture); Footer.tsx; honest stop before manual verification |
 | **WCS-008** | Full-cycle + `--finalize`; screenshot artifact support; Navbar.tsx; wrapper can close a single task end-to-end |
 | **WCS-028** | Initial operator-gated sequential runner (`run_task_sequence.py`); one-task sequential proof completed cleanly; task identity pinned per iteration; checkpoint exit-code contract; manual verification checkpoint preserved; Hero.tsx |
+| **WCS-032** | Page-specific smoke support; task-scoped smoke for `/schedules` when scope maps to schedules/page.tsx; schedules/page.tsx |
 
 **WCS-033 was a bad proof target** (empty-state visibility; target not visible in default local app state). Its proof debris was cleaned up. **Do not treat WCS-033 as proof.**
 
@@ -57,13 +58,13 @@ The wrapper family can truthfully close a single task end-to-end via: mechanical
 
 ## 5. Current Process Position (Plain Language)
 
-We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.py`) can run one task from prep through post when the operator provides `--confirm-commit` and `--manual-check`. The flow stops honestly before manual verification; the operator then runs with `--finalize` to complete post (which includes reconcile). The initial operator-gated sequential runner (`scripts/run_task_sequence.py`) is now proven on a clean live run. It remains sequential only, preserves honest operator checkpoints, pins task identity per iteration, and advances only after truthful single-task closure. No scheduling, unattended mode, concurrency, or session persistence. Current smoke coverage is still limited and should be improved later, especially for page-specific task coverage. Proven on WCS-028 (one-task sequential proof completed cleanly).
+We are past single-task proof. The full-cycle wrapper (`run_one_task_full_cycle.py`) can run one task from prep through post when the operator provides `--confirm-commit` and `--manual-check`. The flow stops honestly before manual verification; the operator then runs with `--finalize` to complete post (which includes reconcile). The initial operator-gated sequential runner (`scripts/run_task_sequence.py`) is now proven on a clean live run. It remains sequential only, preserves honest operator checkpoints, pins task identity per iteration, and advances only after truthful single-task closure. No scheduling, unattended mode, concurrency, or session persistence. Page-specific smoke support is implemented and proven on WCS-032 for `/schedules`; overall smoke coverage is still limited; broader route coverage not yet done. Proven on WCS-028 (one-task sequential proof completed cleanly).
 
 ---
 
 ## 6. Known Gaps and Constraints
 
-- **Current smoke test** is limited and should be improved later, especially for page-specific task coverage.
+- **Page-specific smoke** is implemented for /about, /schedules, /drills when task scope maps; proven on WCS-032. Overall smoke coverage is still limited; broader route coverage not yet done.
 - **No batching or scheduling** is live yet.
 - **Sequential runner** (`run_task_sequence.py`) is proven on WCS-028; sequential only, operator-gated, no scheduling/unattended/concurrency/session persistence.
 

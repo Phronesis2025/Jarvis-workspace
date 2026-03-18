@@ -365,7 +365,7 @@
     "bucket": "ugly",
     "priority": "P3",
     "risk": "low",
-    "status": "ready",
+    "status": "done",
     "title": "Fake test: add visible TEST: prefix to schedules empty-state heading",
     "notes": "src/app/schedules/page.tsx",
     "difficulty": 1,
