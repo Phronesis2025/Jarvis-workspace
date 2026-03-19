@@ -60,6 +60,10 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 - **Recent Runs:** Table of run_id, module, script, outcome, trust (B/S/P for WCS runs), stop_reason, llm_used, etc.
 - **Pathfinder:** Table of Pathfinder cases with synthesis_source, confidence, backlog candidate.
 
+## Exporter verification
+
+Run `python scripts/export_dashboard_data.py --dry-run` from the workspace root to verify payload and env health without Supabase writes. Safe mode gathers local data and prints a summary; no client import or writes.
+
 ## Data flow (v1)
 
 Data is read from Supabase. Populate it by running the export script from the workspace root:

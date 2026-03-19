@@ -3,7 +3,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-19
-- Last updated: 2026-03-19 (Pathfinder fallback + LLM path proven)
+- Last updated: 2026-03-19 (exporter safe-mode hardening)
 - Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, WCS-061, and WCS-008. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth. On WCS-061 and WCS-008, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
@@ -1192,11 +1192,19 @@ One-way export of local Jarvis source-of-truth files into Supabase dashboard tab
 
 ### Current behavior
 
-* CLI: `python scripts/export_dashboard_data.py`
-* Requires env: `SUPABASE_URL` (or `NEXT_PUBLIC_SUPABASE_URL`), `SUPABASE_SERVICE_KEY` (or `SUPABASE_SERVICE_ROLE_KEY`)
+* CLI: `python scripts/export_dashboard_data.py` (live export) or `python scripts/export_dashboard_data.py --dry-run` (safe verification)
+* Requires env (for live export): `SUPABASE_URL` (or `NEXT_PUBLIC_SUPABASE_URL`), `SUPABASE_SERVICE_KEY` (or `SUPABASE_SERVICE_ROLE_KEY`)
 * Reads: `state/master_backlog.json`, `state/escalations.json`, `tasks/*_task.json`, `results/*_worker_result.json`, `scratch/pathfinder/*.json`, `scratch/pathfinder_ab/*.json`
-* Upserts into: `dashboard_task_state`, `dashboard_runs`, `dashboard_module_status`, `dashboard_pathfinder_cases`
+* Upserts into (live only): `dashboard_task_state`, `dashboard_runs`, `dashboard_module_status`, `dashboard_pathfinder_cases`
 * Never mutates Jarvis truth files
+
+### `--dry-run` (safe verification mode)
+
+* Loads env requirements and gathers local export data
+* Prints compact summary: task/run/module/pathfinder counts, env presence, export-safe status
+* Does **not** import Supabase or create a client; does **not** perform any writes
+* Exit 0 when env vars present and local source data valid
+* Exit 1 when required env vars missing or local source data invalid (e.g. missing/malformed `master_backlog.json`)
 
 ### What this script does not do
 

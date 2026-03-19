@@ -12,10 +12,12 @@ Requires: pip install supabase
 
 Usage:
   python scripts/export_dashboard_data.py
+  python scripts/export_dashboard_data.py --dry-run   # verify without Supabase writes
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import sys
@@ -413,7 +415,52 @@ def _gather_pathfinder_cases() -> list[dict]:
     return cases[:100]
 
 
+def _run_dry_run() -> int:
+    """Gather data, print summary, no Supabase writes. Returns 0 if export-safe, 1 if blocked."""
+    url = _env("SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_URL")
+    key = _env("SUPABASE_SERVICE_KEY", "SUPABASE_SERVICE_ROLE_KEY")
+    env_ok = bool(url and key)
+
+    backlog_path = WORKSPACE / "state" / "master_backlog.json"
+    if not backlog_path.is_file():
+        print("EXPORT_DASHBOARD: DRY-RUN FAIL", file=sys.stderr)
+        print(f"Source file not found: {backlog_path}", file=sys.stderr)
+        return 1
+
+    tasks = _gather_task_state()
+    runs = _gather_runs()
+    modules = _gather_module_status()
+    pathfinder = _gather_pathfinder_cases()
+
+    backlog_data = _load_json(backlog_path)
+    if backlog_data is None:
+        print("EXPORT_DASHBOARD: DRY-RUN FAIL", file=sys.stderr)
+        print(f"Source file malformed or unreadable: {backlog_path}", file=sys.stderr)
+        return 1
+    if not isinstance(backlog_data, list):
+        print("EXPORT_DASHBOARD: DRY-RUN FAIL", file=sys.stderr)
+        print(f"Source file must be a JSON array: {backlog_path}", file=sys.stderr)
+        return 1
+
+    print("EXPORT_DASHBOARD: DRY-RUN")
+    print(f"  task rows gathered: {len(tasks)}")
+    print(f"  run rows gathered: {len(runs)}")
+    print(f"  module status rows gathered: {len(modules)}")
+    print(f"  pathfinder cases gathered: {len(pathfinder)}")
+    print(f"  env SUPABASE_URL: {'present' if url else 'absent'}")
+    print(f"  env SUPABASE_SERVICE_KEY: {'present' if key else 'absent'}")
+    print(f"  export safe to attempt live: {'yes' if env_ok else 'no'}")
+    return 0 if env_ok else 1
+
+
 def main() -> int:
+    parser = argparse.ArgumentParser(description="Export Jarvis data to Supabase dashboard")
+    parser.add_argument("--dry-run", action="store_true", help="Verify without Supabase writes")
+    args = parser.parse_args()
+
+    if args.dry_run:
+        return _run_dry_run()
+
     url = _env("SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_URL")
     key = _env("SUPABASE_SERVICE_KEY", "SUPABASE_SERVICE_ROLE_KEY")
     if not url or not key:
