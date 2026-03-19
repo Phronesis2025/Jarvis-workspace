@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-19
-- Last updated: 2026-03-19 (Pathfinder fallback + LLM path proven)
+- Last updated: 2026-03-19 (full-system sweep; Pathfinder confidence normalization; dashboard verification hardening)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper proven on WCS-046; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; WCS-033 was bad proof target, debris cleaned up, do not present as proof; sequential runner run_task_sequence.py proven on WCS-028 (one-task) and WCS-029 + WCS-030 (multi-task back-to-back in one session); page-specific smoke support implemented and proven on WCS-032 for /schedules; Pathfinder v1 proven 2026-03-18 as bounded read-only WCS intake worker; Pathfinder optional LLM synthesis fallback + LLM path proven 2026-03-19; broader Pathfinder expansion deferred; Jarvis Dashboard v1 live on Vercel as read-only Supabase-backed dashboard; exporter working; WCS trust-metrics lane implemented; broader route/page-smoke coverage and unattended execution remain later work; no write-back, scheduling, or automatic sync; no scheduling, unattended mode, concurrency, or session persistence; overall smoke coverage still limited)
 
@@ -316,7 +316,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 
 ### Checklist
 - [x] Add research scout for debugging support — Pathfinder v1 proven (bounded read-only WCS intake; manual CLI; 2026-03-18)
-- [x] Pathfinder optional LLM synthesis — fallback + LLM path proven; `--no-llm` and `--model`; safe fallback to rule-based when module/API key absent or synthesis fails; result includes `synthesis_source` and `llm_skipped_reason`; validation diagnostics preserve `validation_failure:<reason>`; broader Pathfinder expansion deferred
+- [x] Pathfinder optional LLM synthesis — fallback + LLM path proven; `--no-llm` and `--model`; safe fallback to rule-based when module/API key absent or synthesis fails; result includes `synthesis_source` and `llm_skipped_reason`; validation diagnostics preserve `validation_failure:<reason>`; broader Pathfinder expansion deferred; confidence normalization hardening complete, stable enough for broader testing
 - [ ] Add research scout for topic/content gathering if still valuable
 - [ ] Revisit n8n improvement worker once rubric is machine-checkable
 - [ ] Add truth-mapping helpers for other projects if needed
@@ -335,7 +335,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Build `render_file_registry.py`
 - [x] Stop hand-maintaining `FILE_REGISTRY.md` (now rendered from file_registry.json by render_file_registry.py)
 - [x] Add health checks for new critical scripts/configs — **live via `critical_surface_health_check.py`** (read-only sanity check: existence, compile, and file_registry_check + naming_drift_check pass)
-- [x] WCS trust-metrics dashboard surfacing — **live**; exporter derives build/smoke/page-smoke/route/stop_reason from local evidence; Overview and Recent Runs show trust signals; current route/page-smoke trust is better surfaced but broader coverage remains later work
+- [x] WCS trust-metrics dashboard surfacing — **live**; exporter derives build/smoke/page-smoke/route/stop_reason from local evidence; Overview and Recent Runs show trust signals; current route/page-smoke trust is better surfaced but broader coverage remains later work; full-system sweep mostly passed with bounded blockers; dashboard lint blocker fixed; dashboard build proof remains environment-blocked on Windows (EPERM on Next trace file); exporter safe dry-run/validate mode still missing
 - [ ] Harden all script wrappers
 - [ ] Standardize output log locations
 - [ ] Reduce naming drift across docs/state/scripts

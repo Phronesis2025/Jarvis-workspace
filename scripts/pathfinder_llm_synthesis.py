@@ -40,6 +40,26 @@ def _normalize(v: Any) -> str:
     return str(v).strip() if isinstance(v, str) else str(v).strip()
 
 
+def _normalize_confidence(v: Any) -> str | None:
+    """Normalize confidence to low/medium/high. Returns None if invalid."""
+    if v is None:
+        return None
+    s = _normalize(str(v)).lower()
+    if s in ("low", "medium", "high"):
+        return s
+    try:
+        f = float(v)
+        if 0 <= f <= 0.33:
+            return "low"
+        if f <= 0.66:
+            return "medium"
+        if f <= 1.0:
+            return "high"
+    except (TypeError, ValueError):
+        pass
+    return None
+
+
 def _extract_topic_terms(text: str) -> set[str]:
     """Extract meaningful terms (4+ chars, not stop words) for alignment check."""
     words = re.findall(r"[a-zA-Z0-9]+", (text or "").lower())
@@ -208,9 +228,10 @@ def validate_llm_output(output: dict, valid_evidence_ids: set[str]) -> tuple[boo
         for eid in evidence_ids:
             if eid not in valid_evidence_ids:
                 return False, f"Finding {i} cites invalid evidence_id: {eid}"
-        confidence = _normalize(f.get("confidence", "")).lower()
-        if confidence not in ("low", "medium", "high"):
-            return False, f"Finding {i} has invalid confidence: {confidence}"
+        normalized_conf = _normalize_confidence(f.get("confidence"))
+        if normalized_conf is None:
+            return False, f"Finding {i} has invalid confidence: {f.get('confidence')}"
+        f["confidence"] = normalized_conf
 
     # Forbidden-content check on recommendations
     actions = output.get("recommended_next_actions") or []

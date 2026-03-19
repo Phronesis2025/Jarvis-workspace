@@ -1,4 +1,6 @@
 import { getTasks } from "@/lib/data";
+
+export const dynamic = "force-dynamic";
 import type { TaskStatus } from "@/lib/types";
 
 const COLUMNS: { status: TaskStatus; label: string }[] = [

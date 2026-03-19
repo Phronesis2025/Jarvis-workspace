@@ -1,5 +1,7 @@
 import { getPathfinderCases } from "@/lib/data";
 
+export const dynamic = "force-dynamic";
+
 export default async function PathfinderPage() {
   const cases = await getPathfinderCases(50);
 

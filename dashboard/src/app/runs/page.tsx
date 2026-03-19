@@ -1,4 +1,6 @@
 import { getRuns } from "@/lib/data";
+
+export const dynamic = "force-dynamic";
 import type { DashboardRun, OperatorCheckpoints } from "@/lib/types";
 
 function RunTrustCell({ run }: { run: DashboardRun }) {

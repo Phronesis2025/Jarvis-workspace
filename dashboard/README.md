@@ -38,6 +38,11 @@ npm run dev
 
 Open [http://localhost:3001](http://localhost:3001). The app uses mock data when Supabase env vars are absent.
 
+## Verification
+
+- **Lint:** Runs non-interactively and passes (`npm run lint`).
+- **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM on `.next`).
+
 ## Vercel deployment
 
 1. Push the repo to GitHub.

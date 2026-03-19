@@ -1,4 +1,6 @@
 import { getTasks, getRuns, getModuleStatus, getPathfinderCases, getLastExportTime } from "@/lib/data";
+
+export const dynamic = "force-dynamic";
 import type { DashboardRun, OperatorCheckpoints } from "@/lib/types";
 import { MermaidDiagram } from "@/components/MermaidDiagram";
 import { SystemPulse } from "@/components/SystemPulse";
