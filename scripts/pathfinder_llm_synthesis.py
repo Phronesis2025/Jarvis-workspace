@@ -314,7 +314,7 @@ def synthesize(
 
     valid, reason = validate_llm_output(output, valid_ids)
     if not valid:
-        return None, "validation_failure"
+        return None, f"validation_failure:{reason}"
 
     # Confidence downgrade for overconfident findings
     output["findings"] = downgrade_overconfident_findings(output["findings"], valid_ids)

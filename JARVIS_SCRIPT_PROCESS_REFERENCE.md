@@ -3,7 +3,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-19
-- Last updated: 2026-03-19 (Pathfinder optional LLM synthesis fallback path proven)
+- Last updated: 2026-03-19 (Pathfinder fallback + LLM path proven)
 - Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, WCS-061, and WCS-008. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth. On WCS-061 and WCS-008, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
@@ -13,7 +13,7 @@
 - `prep --launch-cursor` now uses strict post-launch auditing through `run_cursor_worker.py --require-auditable-delta`.
 - Strict launch failure is now honestly proven: launch can exit `0` and still fail overall when no immediate auditable in-scope repo delta exists.
 - Blocked/timeout behavior is also honestly proven: the real Agent CLI path returns `BLOCKED` when the agent does not finish before the configured timeout.
-- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration. WCS-033 was a bad proof target; do not present as proof. Sequential runner (`run_task_sequence.py`) is proven on WCS-028. Page-specific smoke support is implemented and proven on WCS-032 for `/schedules`; overall smoke coverage still limited. Pathfinder v1 is proven: `run_pathfinder.py` accepts minimal intake or full task packet, gathers bounded context from workspace artifacts and WCS repo files, produces structured result with optional draft backlog candidate; read-only only. Optional LLM synthesis fallback path proven 2026-03-19; result includes `synthesis_source` and `llm_skipped_reason`; LLM path not yet proven.
+- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration. WCS-033 was a bad proof target; do not present as proof. Sequential runner (`run_task_sequence.py`) is proven on WCS-028. Page-specific smoke support is implemented and proven on WCS-032 for `/schedules`; overall smoke coverage still limited. Pathfinder v1 is proven: `run_pathfinder.py` accepts minimal intake or full task packet, gathers bounded context from workspace artifacts and WCS repo files, produces structured result with optional draft backlog candidate; read-only only. Optional LLM synthesis fallback + LLM path proven 2026-03-19; result includes `synthesis_source` and `llm_skipped_reason`; validation failure diagnostics preserve specific reason via `validation_failure:<reason>`.
 
 ## Post-milestone doc audit (live workflow rule)
 
@@ -1166,7 +1166,7 @@ Pathfinder v1: bounded read-only WCS intake/investigation worker. Accepts minima
 * Resolves paths: workspace-relative for evidence; workspace then WCS repo for suspected files
 * Rule-based synthesis always runs first: normalized issue type, evidence summary, missing context, likely next action, confidence
 * Optional LLM synthesis: when not `--no-llm`, imports and uses `pathfinder_llm_synthesis.py` if available; safe fallback to rule-based when module unavailable, package missing, API key missing, or synthesis fails; records `llm_skipped_reason` when skipped
-* Result output includes `synthesis_source` (e.g. `rule_based` or `llm`) and, when applicable, `llm_skipped_reason` (e.g. `no_llm`, `validation_failure`)
+* Result output includes `synthesis_source` (e.g. `rule_based` or `llm`) and, when applicable, `llm_skipped_reason` (e.g. `no_llm`, `validation_failure`, or `validation_failure:<reason>` for specific diagnostics)
 * Writes result to `scratch/pathfinder/` or `--out` path
 
 ### What this script does not do
@@ -1180,7 +1180,7 @@ Pathfinder v1: bounded read-only WCS intake/investigation worker. Accepts minima
 
 ### Proof
 
-Proven 2026-03-18 with `--packet future_modules/pathfinder/examples/pathfinder_intake.example.json`. Fallback path proven 2026-03-19: `--no-llm` run produced `synthesis_source=rule_based`, `llm_skipped_reason=no_llm`; LLM-enabled run fell back with `synthesis_source=rule_based`, `llm_skipped_reason=validation_failure`. LLM path not yet proven.
+Proven 2026-03-18 with `--packet future_modules/pathfinder/examples/pathfinder_intake.example.json`. Fallback path proven 2026-03-19: `--no-llm` run produced `synthesis_source=rule_based`, `llm_skipped_reason=no_llm`; LLM-enabled run fell back with `synthesis_source=rule_based`, `llm_skipped_reason=validation_failure`. LLM path proven 2026-03-19: LLM-enabled run succeeded with `synthesis_source=llm`. Validation failure diagnostics now preserve specific reason via `validation_failure:<reason>`.
 
 ---
 
