@@ -1,0 +1,5 @@
+{
+  "/:missing_critical_section:route / missing critical selector(s): main": "2026-03-19T21:34:23.798265Z",
+  "/schedules:missing_critical_section:route /schedules missing critical selector(s): [data-testid='schedules-content']": "2026-03-19T21:34:23.799182Z",
+  "/schedules:console_error:console error on /schedules: websocket connection to 'wss://htgkddahhgugesktujds": "2026-03-19T21:34:23.799669Z"
+}

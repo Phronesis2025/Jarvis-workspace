@@ -1,0 +1,70 @@
+{
+  "run_id": "B1-20260319-143022",
+  "watcher_id": "B1-WCS-v1",
+  "watcher_version": "1.0",
+  "target_site": "https://www.wcsbasketball.site/",
+  "started_at": "2026-03-19T14:30:22Z",
+  "completed_at": "2026-03-19T14:30:45Z",
+  "status": "completed",
+  "findings": [
+    {
+      "finding_id": "B1-FND-20260319-001",
+      "defect_type": "missing_critical_section",
+      "severity": "high",
+      "summary": "Route /schedules missing critical selector(s): main",
+      "affected_route": "/schedules",
+      "critical": true,
+      "evidence": [
+        {
+          "evidence_type": "screenshot",
+          "path": "scratch/local_website_defect_watcher/B1-WCS-v1/B1-20260319-143022/screenshots/schedules.png",
+          "note": "/schedules page at time of check"
+        },
+        {
+          "evidence_type": "selector_missing",
+          "path": "main",
+          "note": "Critical selector absent from DOM"
+        }
+      ],
+      "duplicate_key": "schedules:missing_critical_section:route /schedules missing critical selector(s): main",
+      "recommended_followup": "Verify schedules page renders; check for empty-state, data fetch failure, or build issue",
+      "requires_operator_review": true
+    }
+  ],
+  "checked_routes": [
+    {
+      "route": "/",
+      "checked_at": "2026-03-19T14:30:25Z",
+      "load_status": "pass",
+      "nav_status": "pass",
+      "critical_selector_status": "pass",
+      "screenshot_path": "scratch/local_website_defect_watcher/B1-WCS-v1/B1-20260319-143022/screenshots/root.png"
+    },
+    {
+      "route": "/schedules",
+      "checked_at": "2026-03-19T14:30:35Z",
+      "load_status": "pass",
+      "nav_status": "pass",
+      "critical_selector_status": "fail",
+      "screenshot_path": "scratch/local_website_defect_watcher/B1-WCS-v1/B1-20260319-143022/screenshots/schedules.png"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "scratch/local_website_defect_watcher/B1-WCS-v1/B1-20260319-143022/screenshots/root.png",
+      "route": "/",
+      "captured_at": "2026-03-19T14:30:25Z",
+      "purpose": "route_check"
+    },
+    {
+      "path": "scratch/local_website_defect_watcher/B1-WCS-v1/B1-20260319-143022/screenshots/schedules.png",
+      "route": "/schedules",
+      "captured_at": "2026-03-19T14:30:35Z",
+      "purpose": "evidence"
+    }
+  ],
+  "console_errors": [],
+  "proposed_packet_count": 1,
+  "recommended_action": "review",
+  "requires_operator_review": true
+}

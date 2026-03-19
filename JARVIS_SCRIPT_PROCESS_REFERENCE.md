@@ -3,7 +3,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-19
-- Last updated: 2026-03-19 (exporter safe-mode hardening)
+- Last updated: 2026-03-19 (B1 v1 watcher docs alignment)
 - Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, WCS-061, and WCS-008. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth. On WCS-061 and WCS-008, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
@@ -1184,7 +1184,37 @@ Proven 2026-03-18 with `--packet future_modules/pathfinder/examples/pathfinder_i
 
 ---
 
-## 7c. `scripts/export_dashboard_data.py`
+## 7c. `scripts/run_local_website_defect_watcher.py`
+
+### Role
+
+B1 v1 Local Website Defect Watcher. Bounded read-only watcher for visible website defects on a configured live site.
+
+### Current behavior
+
+* CLI: `python scripts/run_local_website_defect_watcher.py --config <path>`
+* Config-driven: loads watcher config JSON (target_site, allowed_routes, critical_routes, critical_selectors, etc.)
+* Uses Playwright. First target site: https://www.wcsbasketball.site/
+* Writes under `scratch/local_website_defect_watcher/<watcher_id>/<run_id>/`: run_result.json, screenshots/, console_errors.json, evidence_manifest.json, proposed_defect_packets/
+* Dedupe: state/local_website_defect_watcher_dedupe.json
+* Creates proposed defect packet JSON only; never auto-approves or creates backlog items
+* v1 verifies direct route reachability (no nav-link clicking)
+* Third-party console noise (Supabase, WebSocket, realtime, etc.) filtered
+
+### Proof status
+
+Proven 2026-03-19. First run exposed false positives; signal hardening corrected config/spec/noise; fresh proof run passed with 0 findings, 0 proposed packets, 4 screenshots, 0 console errors, recommended_action=dismiss. Requires: `pip install playwright` and `python -m playwright install chromium`.
+
+### What this script does not do
+
+* does not click nav links (v1)
+* does not auto-approve packets
+* does not create backlog items
+* does not schedule or run multi-site
+
+---
+
+## 7d. `scripts/export_dashboard_data.py`
 
 ### Role
 

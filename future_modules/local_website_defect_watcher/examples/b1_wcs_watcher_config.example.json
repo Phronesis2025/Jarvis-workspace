@@ -1,0 +1,20 @@
+{
+  "watcher_id": "B1-WCS-v1",
+  "watcher_version": "1.0",
+  "target_site": "https://www.wcsbasketball.site/",
+  "allowed_routes": ["/", "/schedules", "/drills", "/about"],
+  "critical_routes": ["/", "/schedules"],
+  "critical_selectors": {
+    "/": ["nav"],
+    "/schedules": ["nav", "main"],
+    "/drills": ["nav", "main"],
+    "/about": ["nav", "main"]
+  },
+  "run_mode": "bounded",
+  "max_routes": 4,
+  "capture_screenshot": true,
+  "capture_console": true,
+  "dedupe_window_hours": 24,
+  "output_dir": "scratch/local_website_defect_watcher",
+  "notes": "WCS production site defect check. Critical selectors verified 2026-03-19: / has nav only; /schedules, /drills, /about have nav+main."
+}

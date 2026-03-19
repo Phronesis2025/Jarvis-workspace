@@ -1,0 +1,25 @@
+{
+  "packet_id": "B1-FND-20260319-001",
+  "source": "B1-WCS-v1",
+  "target_site": "https://www.wcsbasketball.site/",
+  "defect_type": "missing_critical_section",
+  "severity": "high",
+  "summary": "Route /schedules missing critical selector(s): main",
+  "affected_route": "/schedules",
+  "reproduction_hint": "Load https://www.wcsbasketball.site/schedules; expected selector main not found in DOM",
+  "evidence": [
+    {
+      "evidence_type": "screenshot",
+      "path": "scratch/local_website_defect_watcher/B1-WCS-v1/B1-20260319-143022/screenshots/schedules.png",
+      "note": "/schedules page at time of check"
+    },
+    {
+      "evidence_type": "selector_missing",
+      "path": "main",
+      "note": "Critical selector absent from DOM"
+    }
+  ],
+  "duplicate_key": "schedules:missing_critical_section:route /schedules missing critical selector(s): main",
+  "recommended_followup": "Verify schedules page renders; check for empty-state, data fetch failure, or build issue",
+  "operator_status": "pending_review"
+}

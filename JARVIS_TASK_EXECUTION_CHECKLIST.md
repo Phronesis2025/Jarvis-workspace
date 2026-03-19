@@ -3,7 +3,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-19
-- Last updated: 2026-03-19 (exporter safe-mode hardening)
+- Last updated: 2026-03-19 (B1 v1 watcher docs alignment)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 and WCS-008; sequential runner proven on WCS-028; post-milestone doc-audit checkpoint added; WCS trust visibility now live in dashboard Overview and Recent Runs; Pathfinder optional LLM synthesis fallback + LLM path proven; broader Pathfinder expansion still pending; current smoke test still limited; launch path supports strict post-launch auditing; scheduling and unattended execution remain deferred)
 
@@ -1328,7 +1328,7 @@ The current process still relies on operator discipline in these areas:
 
 * WCS trust visibility in dashboard (build, smoke, page-smoke, route, stop reason) — **live**; exporter populates operator_checkpoints and stop_reason from local evidence; Overview and Recent Runs surface trust signals
 * Pathfinder optional LLM synthesis — **fallback + LLM path proven**; `run_pathfinder.py` supports `--no-llm` and `--model`; safe fallback to rule-based when module/API key absent or synthesis fails; result includes `synthesis_source` and `llm_skipped_reason`; validation failure diagnostics preserve `validation_failure:<reason>`; broader Pathfinder expansion still pending
-* **Full-system sweep 2026-03-19:** WCS verification passed (build, base smoke, page-smoke `/schedules`, dev server). Pathfinder verification passed (no-LLM, LLM-enabled, result validation). Dashboard lint fixed and passes; dashboard build proof remains environment-blocked on Windows. Exporter safe mode (`--dry-run`) now live; unattended execution still not live.
+* **Full-system sweep 2026-03-19:** WCS verification passed (build, base smoke, page-smoke `/schedules`, dev server). Pathfinder verification passed (no-LLM, LLM-enabled, result validation). Dashboard lint fixed and passes; dashboard build proof remains environment-blocked on Windows. Exporter safe mode (`--dry-run`) now live; unattended execution still not live. B1 v1 Local Website Defect Watcher now exists; bounded read-only; proof run clean after signal hardening.
 * more explicit terminal guidance after each stage
 * better daily review reporting
 * stronger JSON/Markdown drift detection

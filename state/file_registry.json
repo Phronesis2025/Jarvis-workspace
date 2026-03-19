@@ -269,6 +269,83 @@
     "last_reviewed": "2026-03-18"
   },
   {
+    "file": "run_local_website_defect_watcher.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_local_website_defect_watcher.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "B1 v1 Local Website Defect Watcher: bounded read-only watcher for visible website defects",
+    "updated_by": "user",
+    "notes": "CLI --config <path>; Playwright; first site https://www.wcsbasketball.site/; writes run_result, screenshots, console_errors, evidence_manifest, proposed_defect_packets; dedupe in state/local_website_defect_watcher_dedupe.json; proven 2026-03-19 after signal hardening",
+    "last_reviewed": "2026-03-19"
+  },
+  {
+    "file": "B1_WCS_DEFECT_WATCHER_V1_SPEC.md",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\local_website_defect_watcher\\B1_WCS_DEFECT_WATCHER_V1_SPEC.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "B1 v1 watcher contract and frozen design",
+    "updated_by": "user",
+    "notes": "Detection surfaces, config/output schemas, noise filtering, dedupe, operator gate; v1 direct route reachability only (no nav-link clicking)",
+    "last_reviewed": "2026-03-19"
+  },
+  {
+    "file": "local_website_defect_watcher/README.md",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\local_website_defect_watcher\\README.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "B1 v1 watcher operator usage notes",
+    "updated_by": "user",
+    "notes": "Usage, output layout, Playwright dependency; proposed packets only, no auto-approve",
+    "last_reviewed": "2026-03-19"
+  },
+  {
+    "file": "b1_wcs_watcher_config.example.json",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\local_website_defect_watcher\\examples\\b1_wcs_watcher_config.example.json",
+    "category": "template",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Example B1 watcher config for WCS site",
+    "updated_by": "user",
+    "notes": "Selectors verified against live https://www.wcsbasketball.site/ 2026-03-19",
+    "last_reviewed": "2026-03-19"
+  },
+  {
+    "file": "b1_wcs_defect_packet.example.json",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\local_website_defect_watcher\\examples\\b1_wcs_defect_packet.example.json",
+    "category": "template",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Example proposed defect packet schema",
+    "updated_by": "user",
+    "notes": "Schema example for when watcher produces a finding",
+    "last_reviewed": "2026-03-19"
+  },
+  {
+    "file": "b1_wcs_defect_run.example.json",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\local_website_defect_watcher\\examples\\b1_wcs_defect_run.example.json",
+    "category": "template",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Example run result schema",
+    "updated_by": "user",
+    "notes": "Schema example for watcher run output",
+    "last_reviewed": "2026-03-19"
+  },
+  {
+    "file": "local_website_defect_watcher_dedupe.json",
+    "path": "C:\\dev\\jarvis-workspace\\state\\local_website_defect_watcher_dedupe.json",
+    "category": "state",
+    "source_type": "runtime_output",
+    "owner": "run_local_website_defect_watcher",
+    "purpose": "B1 watcher duplicate_key history for deduplication",
+    "updated_by": "run_local_website_defect_watcher.py",
+    "notes": "duplicate_key -> last_seen_iso8601; used to suppress duplicate findings within dedupe window",
+    "last_reviewed": "2026-03-19"
+  },
+  {
     "file": "dashboard/README.md",
     "path": "C:\\dev\\jarvis-workspace\\dashboard\\README.md",
     "category": "doc",
