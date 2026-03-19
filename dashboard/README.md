@@ -41,7 +41,7 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 ## Verification
 
 - **Lint:** Runs non-interactively and passes (`npm run lint`).
-- **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM on `.next`).
+- **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM on `.next` or `.next-build/trace`).
 
 ## Vercel deployment
 
@@ -55,7 +55,7 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 
 ## Pages
 
-- **Overview:** Module-centered operations summary (Jarvis Core, WCS Code Module, Pathfinder) with metrics, next steps, and Mermaid process diagrams. WCS module card includes a compact "Latest WCS run trust" section (build, smoke, page-smoke, route, stop reason).
+- **Overview:** Module-centered operations summary (Jarvis Core, WCS Code Module, Pathfinder, B1 Local Website Defect Watcher) with metrics, next steps, and Mermaid process diagrams. WCS module card includes a compact "Latest WCS run trust" section (build, smoke, page-smoke, route, stop reason). B1 module section shows bounded read-only watcher status, first site, proof summary, and a separate B1 process chart (Watcher Config → Route Checks → Evidence Capture → Noise Filter/Dedupe → Proposed Defect Packets → Operator Review). Exporter health surface shows dry-run availability, dry-run proof status, and live export as separate proof surface.
 - **Task Board:** Tasks grouped by status (ready, running, awaiting operator, blocked, escalated, done).
 - **Recent Runs:** Table of run_id, module, script, outcome, trust (B/S/P for WCS runs), stop_reason, llm_used, etc.
 - **Pathfinder:** Table of Pathfinder cases with synthesis_source, confidence, backlog candidate.

@@ -441,6 +441,27 @@ export default async function OverviewPage() {
                 Run the export when you’ve made local changes. Check the Task
                 Board for ready work. Run Pathfinder for new research requests.
               </div>
+              <div className="mb-4 rounded border border-cyan-500/20 bg-cyan-500/5 p-3">
+                <div className="mb-2 text-xs font-medium uppercase tracking-wider text-cyan-400/80">
+                  Exporter health
+                </div>
+                <div className="grid grid-cols-1 gap-2 text-sm sm:grid-cols-3">
+                  <div>
+                    <span className="text-slate-500">Dry-run available:</span>{" "}
+                    <span className="text-teal-400">yes</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500">Dry-run proof:</span>{" "}
+                    <span className="text-teal-400">payload/env OK</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500">Live export:</span>{" "}
+                    <span className="text-slate-400">
+                      separate proof surface
+                    </span>
+                  </div>
+                </div>
+              </div>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <HudMetricCard
                   label="Work sessions (today)"
@@ -596,6 +617,77 @@ export default async function OverviewPage() {
     D --> E[Optional LLM Synthesis]
     E --> F[Validate Output]
     F --> G[Result / Draft Backlog / Escalation]`}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* B1 Local Website Defect Watcher */}
+        <section className="hud-panel p-5">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <h3 className="text-lg font-semibold text-cyan-100">
+                  B1 Local Website Defect Watcher
+                </h3>
+                {moduleStatusPill("active")}
+              </div>
+              <p className="mb-2 text-sm leading-relaxed text-slate-400">
+                Bounded read-only watcher for visible website defects.
+                Config-driven, Playwright-based. v1 checks direct route
+                reachability only (no nav-link clicking).
+              </p>
+              <p className="mb-4 text-sm text-cyan-300/90">
+                First monitored site:{" "}
+                <span className="font-mono">https://www.wcsbasketball.site/</span>
+              </p>
+              <div className="mb-4 rounded border border-teal-500/20 bg-teal-500/5 p-3">
+                <div className="mb-2 text-xs font-medium uppercase tracking-wider text-teal-400/80">
+                  Last known proof (after signal hardening)
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
+                  <div>
+                    <span className="text-slate-500">Findings:</span>{" "}
+                    <span className="text-teal-400">0</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500">Proposed packets:</span>{" "}
+                    <span className="text-teal-400">0</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500">Screenshots:</span>{" "}
+                    <span className="text-teal-400">4</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500">Console errors:</span>{" "}
+                    <span className="text-teal-400">0</span>
+                  </div>
+                </div>
+                <div className="mt-2 text-sm">
+                  <span className="text-slate-500">Recommended action:</span>{" "}
+                  <span className="text-teal-400">dismiss</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                <HudMetricCard label="Routes checked" value="4" />
+                <HudMetricCard label="Findings" value={0} />
+                <HudMetricCard label="Proposed packets" value={0} />
+                <HudMetricCard label="Recommended action" value="dismiss" variant="healthy" />
+              </div>
+            </div>
+            <div className="lg:col-span-5">
+              <div className="hud-process-panel p-4">
+                <div className="mb-2 text-xs font-medium uppercase tracking-wider text-cyan-400/70">
+                  B1 process reference
+                </div>
+                <MermaidDiagram
+                  code={`flowchart TB
+    A[Watcher Config] --> B[Route Checks]
+    B --> C[Evidence Capture]
+    C --> D[Noise Filter / Dedupe]
+    D --> E[Proposed Defect Packets]
+    E --> F[Operator Review]`}
                 />
               </div>
             </div>
