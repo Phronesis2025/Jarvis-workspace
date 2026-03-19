@@ -40,8 +40,8 @@
     "owner": "user",
     "purpose": "Live reference for Jarvis WCS task execution process and hardening helpers",
     "updated_by": "user",
-    "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates, pre-stamp checks, packet-status sync during reconcile, strict launch proof status, timeout control for the Agent path, and the thin Option B WCS operator wrapper for prep/post",
-    "last_reviewed": "2026-03-16"
+    "notes": "Documents current live Jarvis operating loop, guardrails, and helpers such as commit gates, pre-stamp checks, packet-status sync during reconcile, strict launch proof status, timeout control for the Agent path, the thin Option B WCS operator wrapper for prep/post, and Pathfinder optional LLM synthesis",
+    "last_reviewed": "2026-03-18"
   },
   {
     "file": "master_backlog.json",
@@ -112,7 +112,7 @@
     "purpose": "Machine-readable file registry",
     "updated_by": "user / jarvis_script",
     "notes": "Source for FILE_REGISTRY.md; aligned to current live hardening state",
-    "last_reviewed": "2026-03-14"
+    "last_reviewed": "2026-03-18"
   },
   {
     "file": "FILE_REGISTRY.md",
@@ -243,7 +243,18 @@
     "owner": "jarvis_script",
     "purpose": "Pathfinder v1: bounded read-only WCS intake/investigation worker",
     "updated_by": "user",
-    "notes": "Accepts minimal intake or full task packet; gathers workspace artifacts and WCS repo suspected files; produces structured result with synthesis, optional draft backlog candidate, or escalation; proven 2026-03-18",
+    "notes": "Accepts minimal intake or full task packet; gathers workspace artifacts and WCS repo suspected files; produces structured result with rule-based synthesis first; optional LLM synthesis via pathfinder_llm_synthesis.py with safe fallback; --no-llm and --model flags; result includes synthesis_source and llm_skipped_reason; proven 2026-03-18",
+    "last_reviewed": "2026-03-18"
+  },
+  {
+    "file": "pathfinder_llm_synthesis.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\pathfinder_llm_synthesis.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Optional LLM synthesis for Pathfinder rule-based result enrichment",
+    "updated_by": "user",
+    "notes": "Imported by run_pathfinder.py when LLM synthesis enabled; requires API key; safe fallback when module/package/API absent or synthesis fails",
     "last_reviewed": "2026-03-18"
   },
   {

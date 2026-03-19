@@ -442,6 +442,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--packet", required=True, help="Path to minimal intake or full task packet JSON.")
     parser.add_argument("--workspace", help="Jarvis workspace root (default: parent of scripts/).")
     parser.add_argument("--out", help="Output path for result or escalation JSON (default: scratch/pathfinder/).")
+    parser.add_argument("--no-llm", action="store_true", help="Skip LLM synthesis; use rule-based only.")
+    parser.add_argument("--model", help="Override LLM model (default: gpt-4o-mini).")
     return parser.parse_args()
 
 
@@ -493,6 +495,40 @@ def main() -> int:
         out_path = out_path.parent / out_path.name.replace("_result_", "_escalation_")
     else:
         result = build_result(packet, context, workspace, run_id, ptype)
+        synthesis_source = "rule_based"
+        llm_skipped_reason = None
+
+        if args.no_llm:
+            llm_skipped_reason = "no_llm"
+        else:
+            _synthesis_mod = None
+            if str(script_dir) not in sys.path:
+                sys.path.insert(0, str(script_dir))
+            try:
+                import pathfinder_llm_synthesis as _synthesis_mod
+            except ImportError:
+                llm_skipped_reason = "missing_package"
+
+            if _synthesis_mod and llm_skipped_reason is None:
+                import os as _os
+                if not _os.environ.get("OPENAI_API_KEY", "").strip():
+                    llm_skipped_reason = "missing_api_key"
+
+            if _synthesis_mod and llm_skipped_reason is None:
+                llm_out, skip_reason = _synthesis_mod.synthesize(
+                    context, packet, model=args.model, no_llm=False
+                )
+                if llm_out:
+                    result = _synthesis_mod.merge_llm_synthesis_into_result(
+                        result, llm_out, context
+                    )
+                    synthesis_source = "llm"
+                else:
+                    llm_skipped_reason = skip_reason or "call_error_or_timeout"
+
+        result["synthesis_source"] = synthesis_source
+        if llm_skipped_reason:
+            result["llm_skipped_reason"] = llm_skipped_reason
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(result, indent=2), encoding="utf-8")

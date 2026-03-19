@@ -3,9 +3,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-18
-- Last updated: 2026-03-18 (WCS trust-metrics dashboard surfacing recorded)
+- Last updated: 2026-03-18 (Pathfinder optional LLM synthesis documented)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 and WCS-008; sequential runner proven on WCS-028; post-milestone doc-audit checkpoint added; WCS trust visibility now live in dashboard Overview and Recent Runs; current smoke test still limited; launch path supports strict post-launch auditing; scheduling and unattended execution remain deferred)
+- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 and WCS-008; sequential runner proven on WCS-028; post-milestone doc-audit checkpoint added; WCS trust visibility now live in dashboard Overview and Recent Runs; Pathfinder optional LLM synthesis implemented with safe fallback to rule-based; current smoke test still limited; launch path supports strict post-launch auditing; scheduling and unattended execution remain deferred)
 
 ## Purpose
 
@@ -1327,6 +1327,7 @@ The current process still relies on operator discipline in these areas:
 ## State and reporting improvements
 
 * WCS trust visibility in dashboard (build, smoke, page-smoke, route, stop reason) — **live**; exporter populates operator_checkpoints and stop_reason from local evidence; Overview and Recent Runs surface trust signals
+* Pathfinder optional LLM synthesis — **live**; `run_pathfinder.py` supports `--no-llm` and `--model`; safe fallback to rule-based when module/API key absent; result includes `synthesis_source` and `llm_skipped_reason`
 * more explicit terminal guidance after each stage
 * better daily review reporting
 * stronger JSON/Markdown drift detection

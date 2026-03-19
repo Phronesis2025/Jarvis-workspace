@@ -3,7 +3,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-18
-- Last updated: 2026-03-18 (Pathfinder v1 proof recorded)
+- Last updated: 2026-03-18 (Pathfinder optional LLM synthesis documented)
 - Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, WCS-061, and WCS-008. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth. On WCS-061 and WCS-008, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
@@ -13,7 +13,7 @@
 - `prep --launch-cursor` now uses strict post-launch auditing through `run_cursor_worker.py --require-auditable-delta`.
 - Strict launch failure is now honestly proven: launch can exit `0` and still fail overall when no immediate auditable in-scope repo delta exists.
 - Blocked/timeout behavior is also honestly proven: the real Agent CLI path returns `BLOCKED` when the agent does not finish before the configured timeout.
-- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration. WCS-033 was a bad proof target; do not present as proof. Sequential runner (`run_task_sequence.py`) is proven on WCS-028. Page-specific smoke support is implemented and proven on WCS-032 for `/schedules`; overall smoke coverage still limited. Pathfinder v1 is proven: `run_pathfinder.py` accepts minimal intake or full task packet, gathers bounded context from workspace artifacts and WCS repo files, produces structured result with optional draft backlog candidate; read-only only.
+- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration. WCS-033 was a bad proof target; do not present as proof. Sequential runner (`run_task_sequence.py`) is proven on WCS-028. Page-specific smoke support is implemented and proven on WCS-032 for `/schedules`; overall smoke coverage still limited. Pathfinder v1 is proven: `run_pathfinder.py` accepts minimal intake or full task packet, gathers bounded context from workspace artifacts and WCS repo files, produces structured result with optional draft backlog candidate; read-only only. Optional LLM synthesis lane implemented with safe fallback to rule-based when module/API key absent; result includes `synthesis_source` and `llm_skipped_reason`.
 
 ## Post-milestone doc audit (live workflow rule)
 
@@ -1159,10 +1159,14 @@ Pathfinder v1: bounded read-only WCS intake/investigation worker. Accepts minima
 
 ### Current behavior
 
-* CLI: `python scripts/run_pathfinder.py --packet <path-to-json>`
+* CLI: `python scripts/run_pathfinder.py --packet <path-to-json>` [ `--no-llm` ] [ `--model <model-id>` ] [ `--out <path>` ]
+* `--no-llm`: skip optional LLM synthesis; use rule-based synthesis only
+* `--model`: model ID for LLM synthesis when enabled (default from env or synthesis module)
 * Validates packet (minimal or full task packet)
 * Resolves paths: workspace-relative for evidence; workspace then WCS repo for suspected files
-* Rule-based synthesis: normalized issue type, evidence summary, missing context, likely next action, confidence
+* Rule-based synthesis always runs first: normalized issue type, evidence summary, missing context, likely next action, confidence
+* Optional LLM synthesis: when not `--no-llm`, imports and uses `pathfinder_llm_synthesis.py` if available; safe fallback to rule-based when module unavailable, package missing, API key missing, or synthesis fails; records `llm_skipped_reason` when skipped
+* Result output includes `synthesis_source` (e.g. `rule` or `llm`) and, when applicable, `llm_skipped_reason`
 * Writes result to `scratch/pathfinder/` or `--out` path
 
 ### What this script does not do
@@ -1172,10 +1176,11 @@ Pathfinder v1: bounded read-only WCS intake/investigation worker. Accepts minima
 * does not schedule or run unattended
 * does not crawl the repo broadly
 * does not autonomously create backlog items (draft candidate requires operator review)
+* does not become a broad autonomous agent (LLM synthesis is optional enrichment only)
 
 ### Proof
 
-Proven 2026-03-18 with `--packet future_modules/pathfinder/examples/pathfinder_intake.example.json`.
+Proven 2026-03-18 with `--packet future_modules/pathfinder/examples/pathfinder_intake.example.json`. Optional LLM synthesis lane implemented; not yet proven with live command/output.
 
 ---
 
