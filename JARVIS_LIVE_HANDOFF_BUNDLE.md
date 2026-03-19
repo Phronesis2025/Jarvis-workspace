@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-18
-- Last updated: 2026-03-18 (Dashboard command-console layout and live data flow recorded)
+- Last updated: 2026-03-18 (WCS trust-metrics export and dashboard surfacing recorded)
 - Status: active live handoff bundle for current Jarvis hardening state
 
 ## Current local state / follow-up
@@ -13,7 +13,7 @@
 - `prep --launch-cursor` now uses strict post-launch auditing and can fail honestly when launch is not immediately auditable.
 - Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration.
 - Pathfinder v1 is now proven as a bounded read-only intake/investigation worker for WCS. Proof was completed with a successful live run of `run_pathfinder.py` using a realistic WCS intake packet. Pathfinder accepts minimal intake or full task-packet input, gathers bounded context from workspace artifacts and WCS repo files, and produces structured result output with an optional draft backlog candidate. It remains manual/CLI-invoked, read-only, and intentionally limited: no code edits, no git actions, no unattended mode, no scheduling, and no broad repo crawl.
-- Jarvis Dashboard v1 is now live on Vercel as a read-only Supabase-backed dashboard. Local JSON/Markdown files remain the source of truth; Supabase is used only as a dashboard read model. The manual exporter (`export_dashboard_data.py`) is working and the dashboard is reading real data from Supabase. The Overview has been upgraded into a more polished module-centered command-console layout. No write-back editing, command execution, scheduling controls, or automatic sync are live in the dashboard.
+- Jarvis Dashboard v1 is now live on Vercel as a read-only Supabase-backed dashboard. Local JSON/Markdown files remain the source of truth; Supabase is used only as a dashboard read model. The manual exporter (`export_dashboard_data.py`) is working and the dashboard is reading real data from Supabase. The exporter now populates WCS trust metrics from local evidence: build status, smoke status, page-smoke status, page route when applicable, stop reason, and operator_checkpoints (manual_check, screenshot). Overview shows a compact "Latest WCS run trust" section; Recent Runs exposes trust signals (B/S/P) for WCS rows. This improves operator trust visibility for WCS runs. No write-back editing, command execution, scheduling controls, or automatic sync are live in the dashboard. Clean dashboard build proof was environment-blocked during this pass (`.next` file-permission issues); implementation is complete and documented.
 
 ## Recent live truth
 - Option A packet lifecycle/status cleanup is now live.

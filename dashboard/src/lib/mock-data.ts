@@ -78,7 +78,13 @@ export const mockRuns: DashboardRun[] = [
     outcome: "complete",
     stop_reason: null,
     llm_used: false,
-    operator_checkpoints: null,
+    operator_checkpoints: {
+      build: { status: "pass" },
+      smoke: { status: "pass" },
+      page_smoke: { status: "pass", route: "/schedules" },
+      manual_check: { status: "present" },
+      screenshot: { status: "unknown" },
+    },
     created_at: "2026-03-17T11:39:45Z",
   },
   {
@@ -92,7 +98,13 @@ export const mockRuns: DashboardRun[] = [
     outcome: "complete",
     stop_reason: null,
     llm_used: false,
-    operator_checkpoints: null,
+    operator_checkpoints: {
+      build: { status: "pass" },
+      smoke: { status: "pass" },
+      page_smoke: { status: "skipped", route: null },
+      manual_check: { status: "present" },
+      screenshot: { status: "unknown" },
+    },
     created_at: "2026-03-18T10:15:00Z",
   },
 ];

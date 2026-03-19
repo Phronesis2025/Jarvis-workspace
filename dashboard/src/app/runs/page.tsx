@@ -1,4 +1,26 @@
 import { getRuns } from "@/lib/data";
+import type { DashboardRun, OperatorCheckpoints } from "@/lib/types";
+
+function RunTrustCell({ run }: { run: DashboardRun }) {
+  if (run.module !== "wcs") return <td className="px-4 py-3 text-sm text-slate-400">—</td>;
+  const cp = (run.operator_checkpoints ?? {}) as OperatorCheckpoints;
+  const b = cp.build?.status ?? "?";
+  const s = cp.smoke?.status ?? "?";
+  const p = cp.page_smoke?.status ?? "?";
+  const route = cp.page_smoke?.route;
+  const color = (v: string) =>
+    v === "pass" ? "text-emerald-600" : v === "fail" ? "text-amber-600" : "text-slate-500";
+  return (
+    <td className="px-4 py-3 text-sm">
+      <span className="font-mono">
+        <span className={color(b)}>B:{b}</span>{" "}
+        <span className={color(s)}>S:{s}</span>{" "}
+        <span className={color(p)}>P:{p}</span>
+        {route && <span className="ml-1 text-slate-500">({route})</span>}
+      </span>
+    </td>
+  );
+}
 
 export default async function RecentRunsPage() {
   const runs = await getRuns(50);
@@ -36,6 +58,9 @@ export default async function RecentRunsPage() {
                   outcome
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-slate-500">
+                  trust
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-500">
                   stop_reason
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-slate-500">
@@ -71,6 +96,7 @@ export default async function RecentRunsPage() {
                   <td className="px-4 py-3 text-sm text-slate-600">
                     {r.outcome ?? "—"}
                   </td>
+                  <RunTrustCell run={r} />
                   <td className="max-w-[200px] truncate px-4 py-3 text-sm text-slate-500">
                     {r.stop_reason ?? "—"}
                   </td>

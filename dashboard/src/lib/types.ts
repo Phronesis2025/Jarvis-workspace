@@ -22,6 +22,18 @@ export interface DashboardTaskState {
   created_at: string;
 }
 
+/** Trust checkpoints derived from QA/worker evidence. WCS runs only. */
+export interface OperatorCheckpoints {
+  build?: { status: "pass" | "fail" | "unknown" };
+  smoke?: { status: "pass" | "fail" | "unknown" };
+  page_smoke?: {
+    status: "pass" | "fail" | "skipped" | "unknown";
+    route: string | null;
+  };
+  manual_check?: { status: "present" | "missing" | "unknown" };
+  screenshot?: { status: "captured" | "missing" | "unknown" };
+}
+
 export interface DashboardRun {
   id: string;
   run_id: string;
@@ -33,7 +45,7 @@ export interface DashboardRun {
   outcome: string | null;
   stop_reason: string | null;
   llm_used: boolean;
-  operator_checkpoints: unknown;
+  operator_checkpoints: OperatorCheckpoints | null;
   created_at: string;
 }
 

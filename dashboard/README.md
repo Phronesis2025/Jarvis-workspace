@@ -50,9 +50,9 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 
 ## Pages
 
-- **Overview:** Module-centered operations summary (Jarvis Core, WCS Code Module, Pathfinder) with metrics, next steps, and Mermaid process diagrams.
+- **Overview:** Module-centered operations summary (Jarvis Core, WCS Code Module, Pathfinder) with metrics, next steps, and Mermaid process diagrams. WCS module card includes a compact "Latest WCS run trust" section (build, smoke, page-smoke, route, stop reason).
 - **Task Board:** Tasks grouped by status (ready, running, awaiting operator, blocked, escalated, done).
-- **Recent Runs:** Table of run_id, module, script, outcome, llm_used, etc.
+- **Recent Runs:** Table of run_id, module, script, outcome, trust (B/S/P for WCS runs), stop_reason, llm_used, etc.
 - **Pathfinder:** Table of Pathfinder cases with synthesis_source, confidence, backlog candidate.
 
 ## Data flow (v1)
@@ -64,4 +64,4 @@ Data is read from Supabase. Populate it by running the export script from the wo
 python scripts/export_dashboard_data.py
 ```
 
-The exporter reads local Jarvis source-of-truth files and upserts into the dashboard tables. It also records the last export time in `dashboard_export_log` for the Overview "Last dashboard update" field. One-way only; never mutates Jarvis files.
+The exporter reads local Jarvis source-of-truth files and upserts into the dashboard tables. For WCS runs, it derives and populates trust checkpoints (build, smoke, page-smoke, route, manual_check, screenshot) and stop_reason from qa_result, worker_result, task packet, and escalations. It also records the last export time in `dashboard_export_log` for the Overview "Last dashboard update" field. One-way only; never mutates Jarvis files.

@@ -254,7 +254,7 @@
     "owner": "jarvis_script",
     "purpose": "One-way export of local Jarvis state to Supabase dashboard tables",
     "updated_by": "user",
-    "notes": "Reads master_backlog, results, Pathfinder outputs; upserts into dashboard_task_state, dashboard_runs, dashboard_module_status, dashboard_pathfinder_cases, dashboard_export_log; requires SUPABASE_URL and SUPABASE_SERVICE_KEY; never mutates Jarvis truth files",
+    "notes": "Reads master_backlog, results, Pathfinder outputs; upserts into dashboard_task_state, dashboard_runs, dashboard_module_status, dashboard_pathfinder_cases, dashboard_export_log; for WCS runs derives and exports trust metrics (build, smoke, page-smoke, route, stop_reason, operator_checkpoints) from qa_result, worker_result, task packet, escalations; requires SUPABASE_URL and SUPABASE_SERVICE_KEY; never mutates Jarvis truth files",
     "last_reviewed": "2026-03-18"
   },
   {
@@ -265,7 +265,7 @@
     "owner": "user",
     "purpose": "Jarvis Dashboard v1 setup and deployment notes",
     "updated_by": "user",
-    "notes": "Read-only Next.js dashboard on Vercel; Supabase read model; exporter working; dashboard reads real data from Supabase; Overview upgraded to module-centered command-console layout; no write-back, scheduling, or command execution",
+    "notes": "Read-only Next.js dashboard on Vercel; Supabase read model; exporter working; WCS trust visibility in Overview and Recent Runs (build, smoke, page-smoke, route, stop reason); no write-back, scheduling, or command execution",
     "last_reviewed": "2026-03-18"
   },
   {
@@ -577,8 +577,8 @@
     "owner": "user",
     "purpose": "Phase-by-phase rebuild checklist and status for Jarvis workspace",
     "updated_by": "user",
-    "notes": "Current canonical overview of phases, missing state surfaces, and next priorities; now records strict launch hardening as live with strict failure, blocked/timeout, and strict real-Agent success proof status reflected honestly",
-    "last_reviewed": "2026-03-16"
+    "notes": "Current canonical overview of phases, missing state surfaces, and next priorities; WCS trust-metrics dashboard surfacing live; broader route coverage and unattended execution remain later work",
+    "last_reviewed": "2026-03-18"
   },
   {
     "file": "JARVIS_AGENT_IDEA_BACKLOG.md",
@@ -598,8 +598,8 @@
     "owner": "user",
     "purpose": "Live execution checklist for bounded Jarvis WCS tasks",
     "updated_by": "user",
-    "notes": "Defines current live execution phases for Jarvis-controlled WCS loop, including guardrails, helpers, the thin operator-facing prep/post wrapper, strict launch behavior, and timeout passthrough without overstating automation",
-    "last_reviewed": "2026-03-16"
+    "notes": "Defines current live execution phases for Jarvis-controlled WCS loop; WCS trust visibility now live in dashboard; scheduling and unattended execution remain deferred",
+    "last_reviewed": "2026-03-18"
   },
   {
     "file": "JARVIS_LIVE_HANDOFF_BUNDLE.md",
@@ -609,8 +609,19 @@
     "owner": "user",
     "purpose": "Live handoff bundle describing current Jarvis system truth, hardening state, and helper surfaces",
     "updated_by": "user",
-    "notes": "Aggregates current live system decisions, hardened loop surfaces, helper scripts, current packet lifecycle/status cleanup truth, live strict launch proof status, and the current operator-facing WCS wrapper truth for Jarvis rebuild",
-    "last_reviewed": "2026-03-16"
+    "notes": "Aggregates current live system decisions; WCS trust-metrics export and dashboard surfacing recorded; clean build proof environment-blocked during pass",
+    "last_reviewed": "2026-03-18"
+  },
+  {
+    "file": "JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md",
+    "path": "C:\\dev\\jarvis-workspace\\JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Current new-chat handoff; attach to new chat for context continuity",
+    "updated_by": "user",
+    "notes": "Regenerated from live docs; reflects current paths, proven capabilities, gaps, key scripts, and new-chat rule",
+    "last_reviewed": "2026-03-18"
   },
   {
     "file": "manual_loop_checklist.md",

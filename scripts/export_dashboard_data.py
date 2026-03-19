@@ -106,6 +106,165 @@ def _gather_task_state() -> list[dict]:
     return list(task_by_id.values())
 
 
+def _route_from_suspected_files(suspected: list) -> str | None:
+    """Derive route from task suspected_files (e.g. src/app/schedules/page.tsx -> /schedules)."""
+    if not isinstance(suspected, list):
+        return None
+    for f in suspected:
+        if not isinstance(f, str):
+            continue
+        f = f.strip().replace("\\", "/")
+        if "/schedules/page" in f or "schedules/page" in f:
+            return "/schedules"
+        if "/drills/page" in f or "drills/page" in f:
+            return "/drills"
+        if "/about/page" in f or "about/page" in f:
+            return "/about"
+        if f.endswith("/page.tsx") and "/app/" in f and "schedules" not in f and "drills" not in f and "about" not in f:
+            return "/"
+    return None
+
+
+def _derive_operator_checkpoints(tid: str) -> dict:
+    """Derive trust checkpoints from qa_result, worker_result, task packet. Uses only real evidence."""
+    out: dict = {
+        "build": {"status": "unknown"},
+        "smoke": {"status": "unknown"},
+        "page_smoke": {"status": "unknown", "route": None},
+        "manual_check": {"status": "unknown"},
+        "screenshot": {"status": "unknown"},
+    }
+
+    qa_path = WORKSPACE / "qa" / f"{tid}_qa_result.json"
+    qa = _load_json(qa_path) if qa_path.is_file() else None
+    if not isinstance(qa, dict):
+        return out
+
+    checks_passed = qa.get("checks_passed") or []
+    checks_failed = qa.get("checks_failed") or []
+    checks_run = qa.get("checks_run") or []
+    artifacts = qa.get("artifacts") or []
+    if not isinstance(checks_passed, list):
+        checks_passed = []
+    if not isinstance(checks_failed, list):
+        checks_failed = []
+    if not isinstance(checks_run, list):
+        checks_run = []
+    if not isinstance(artifacts, list):
+        artifacts = []
+
+    def _has(coll: list, *substrs: str) -> bool:
+        for c in coll:
+            s = (c or "").lower() if isinstance(c, str) else ""
+            for sub in substrs:
+                if sub in s:
+                    return True
+        return False
+
+    # Build
+    if _has(checks_passed, "npm run build", "ran npm run build", "build passed"):
+        out["build"]["status"] = "pass"
+    elif _has(checks_failed, "npm run build", "build"):
+        out["build"]["status"] = "fail"
+    else:
+        out["build"]["status"] = "unknown"
+
+    # Smoke
+    if _has(checks_passed, "test:e2e:smoke", "playwright smoke", "smoke test"):
+        out["smoke"]["status"] = "pass"
+    elif _has(checks_failed, "test:e2e:smoke", "smoke"):
+        out["smoke"]["status"] = "fail"
+    else:
+        out["smoke"]["status"] = "unknown"
+
+    # Page-smoke + route (only when check explicitly mentions page smoke, not manual verification)
+    page_route: str | None = None
+    page_smoke_evidence = False
+    if _has(checks_passed, "schedules page smoke", "page smoke", "drills page smoke", "home page smoke"):
+        out["page_smoke"]["status"] = "pass"
+        page_smoke_evidence = True
+        if _has(checks_passed, "schedules page smoke", "schedules page"):
+            page_route = "/schedules"
+        elif _has(checks_passed, "drills page smoke", "drills page"):
+            page_route = "/drills"
+        elif _has(checks_passed, "home page smoke"):
+            page_route = "/"
+    elif _has(checks_failed, "page smoke"):
+        out["page_smoke"]["status"] = "fail"
+        page_smoke_evidence = True
+    if not page_route:
+        pkt_path = WORKSPACE / "tasks" / f"{tid}_task.json"
+        pkt = _load_json(pkt_path) if pkt_path.is_file() else None
+        if isinstance(pkt, dict):
+            sus = pkt.get("suspected_files") or []
+            page_route = _route_from_suspected_files(sus)
+    if not page_smoke_evidence:
+        out["page_smoke"]["status"] = "skipped"
+    out["page_smoke"]["route"] = page_route
+
+    # Manual check
+    manual_checks = [c for c in checks_passed + checks_run if c and isinstance(c, str)
+                     and "npm run build" not in c.lower() and "test:e2e:smoke" not in c.lower()
+                     and ("manual" in c.lower() or "verified" in c.lower() or "browser" in c.lower())]
+    if manual_checks:
+        out["manual_check"]["status"] = "present"
+    elif qa.get("status") == "qa_pass" and (checks_passed or checks_run):
+        out["manual_check"]["status"] = "missing"
+    else:
+        out["manual_check"]["status"] = "unknown"
+
+    # Screenshot
+    if artifacts and any(
+        (a or "").lower().find("screenshot") >= 0 or (a or "").lower().endswith(".png")
+        for a in artifacts if isinstance(a, str)
+    ):
+        out["screenshot"]["status"] = "captured"
+    elif artifacts:
+        out["screenshot"]["status"] = "missing"
+    else:
+        out["screenshot"]["status"] = "unknown"
+
+    return out
+
+
+def _derive_stop_reason(tid: str) -> str | None:
+    """Derive stop/failure reason from worker_result, qa_result, escalations. Returns None if none found."""
+    reasons: list[str] = []
+
+    wres_path = WORKSPACE / "results" / f"{tid}_worker_result.json"
+    wres = _load_json(wres_path) if wres_path.is_file() else None
+    if isinstance(wres, dict):
+        issues = wres.get("issues_encountered") or []
+        if isinstance(issues, list) and issues:
+            for i in issues:
+                if isinstance(i, str) and i.strip():
+                    reasons.append(i.strip())
+
+    qa_path = WORKSPACE / "qa" / f"{tid}_qa_result.json"
+    qa = _load_json(qa_path) if qa_path.is_file() else None
+    if isinstance(qa, dict) and (qa.get("status") or "").lower() != "qa_pass":
+        failed = qa.get("checks_failed") or []
+        if isinstance(failed, list) and failed:
+            for f in failed:
+                if isinstance(f, str) and f.strip():
+                    reasons.append(f.strip())
+        summary = (qa.get("summary") or "").strip()
+        if summary and summary not in reasons:
+            reasons.append(summary)
+
+    esc_path = WORKSPACE / "state" / "escalations.json"
+    esc_data = _load_json(esc_path)
+    if isinstance(esc_data, list):
+        for e in esc_data:
+            if isinstance(e, dict) and e.get("task_id") == tid:
+                s = (e.get("summary") or "").strip()
+                if s:
+                    reasons.append(s)
+                break
+
+    return "; ".join(reasons) if reasons else None
+
+
 def _gather_runs() -> list[dict]:
     """From worker results (WCS cycles) + Pathfinder results."""
     runs: list[dict] = []
@@ -125,6 +284,9 @@ def _gather_runs() -> list[dict]:
             dt = datetime.fromisoformat(completed.replace("Z", "+00:00"))
         except ValueError:
             continue
+        stop_reason = _derive_stop_reason(tid)
+        checkpoints = _derive_operator_checkpoints(tid)
+        outcome = status or "complete"
         runs.append({
             "run_id": f"{tid}-cycle",
             "module": "wcs",
@@ -132,9 +294,10 @@ def _gather_runs() -> list[dict]:
             "task_ids": [tid],
             "started_at": dt.isoformat(),
             "ended_at": completed,
-            "outcome": status or "complete",
-            "stop_reason": None,
+            "outcome": outcome,
+            "stop_reason": stop_reason,
             "llm_used": False,
+            "operator_checkpoints": checkpoints,
         })
 
     for base in [WORKSPACE / "scratch" / "pathfinder", WORKSPACE / "scratch" / "pathfinder_ab"]:
@@ -165,6 +328,7 @@ def _gather_runs() -> list[dict]:
                 "outcome": (data.get("status") or "worker_complete").strip(),
                 "stop_reason": None,
                 "llm_used": llm,
+                "operator_checkpoints": None,
             })
 
     runs.sort(key=lambda r: r["started_at"], reverse=True)

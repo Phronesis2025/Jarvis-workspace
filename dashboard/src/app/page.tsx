@@ -1,7 +1,53 @@
 import { getTasks, getRuns, getModuleStatus, getPathfinderCases, getLastExportTime } from "@/lib/data";
+import type { DashboardRun, OperatorCheckpoints } from "@/lib/types";
 import { MermaidDiagram } from "@/components/MermaidDiagram";
 import { SystemPulse } from "@/components/SystemPulse";
 import { HudMetricCard } from "@/components/HudMetricCard";
+
+function TrustPill({ status }: { status: string }) {
+  const s = (status || "unknown").toLowerCase();
+  const color =
+    s === "pass"
+      ? "text-teal-400"
+      : s === "fail"
+        ? "text-amber-400"
+        : s === "skipped"
+          ? "text-slate-500"
+          : "text-slate-400";
+  return <span className={color}>{s}</span>;
+}
+
+function WcsTrustSection({ run }: { run: DashboardRun }) {
+  const cp = (run.operator_checkpoints ?? {}) as OperatorCheckpoints;
+  return (
+    <div className="mt-4 rounded border border-cyan-500/20 bg-cyan-500/5 p-3">
+      <div className="mb-2 text-xs font-medium uppercase tracking-wider text-cyan-400/80">
+        Latest WCS run trust
+      </div>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+        <span>
+          Build: <TrustPill status={cp.build?.status ?? "unknown"} />
+        </span>
+        <span>
+          Smoke: <TrustPill status={cp.smoke?.status ?? "unknown"} />
+        </span>
+        <span>
+          Page-smoke: <TrustPill status={cp.page_smoke?.status ?? "unknown"} />
+          {cp.page_smoke?.route && (
+            <span className="ml-1 font-mono text-cyan-300">
+              ({cp.page_smoke.route})
+            </span>
+          )}
+        </span>
+        {run.stop_reason && (
+          <span className="w-full truncate text-amber-400/90">
+            Stop: {run.stop_reason}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function isToday(iso: string): boolean {
   const d = new Date(iso);
@@ -82,6 +128,7 @@ export default async function OverviewPage() {
         (r.outcome ?? "").toLowerCase().includes("worker_complete"))
   );
   const lastSuccessfulWcs = wcsSuccessful[0];
+  const latestWcsRun = runs.find((r) => r.module === "wcs") ?? null;
   const tasksCompletedTotal = tasks.filter((t) => t.status === "done").length;
 
   const aiAssistedReviews = pathfinderCases.filter(
@@ -468,6 +515,9 @@ export default async function OverviewPage() {
                   </div>
                 </div>
               </div>
+              {latestWcsRun && (
+                <WcsTrustSection run={latestWcsRun} />
+              )}
             </div>
             <div className="lg:col-span-5">
               <div className="hud-process-panel p-4">
