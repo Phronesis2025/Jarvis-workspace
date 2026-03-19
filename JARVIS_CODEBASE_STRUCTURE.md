@@ -1,5 +1,9 @@
 # Jarvis Workspace — Codebase Structure
 
+## Live Doc Status
+
+- Last updated: 2026-03-18
+
 ## Purpose
 
 This document describes the layout and conventions of the Jarvis workspace so you can find things quickly and understand how folders and files relate. For a full list of registered files and their roles, see `state\FILE_REGISTRY.md` and `state\file_registry.json`.
@@ -18,6 +22,8 @@ This document describes the layout and conventions of the Jarvis workspace so yo
 ```
 jarvis-workspace/
 ├── config/           # Configuration (scout routes, noise rules)
+├── dashboard/        # Next.js read-only dashboard (Vercel; Supabase read model)
+├── future_modules/   # Future modules (e.g. Pathfinder)
 ├── logs/             # All runtime logs (scout, health check, escalation)
 ├── qa/               # QA result JSONs per task (e.g. WCS-010_qa_result.json)
 ├── results/          # Worker result JSONs per task (e.g. WCS-010_worker_result.json)
@@ -29,8 +35,11 @@ jarvis-workspace/
 ├── README_START_HERE.md
 ├── JARVIS_PHASE_CHECKLIST.md
 ├── JARVIS_AGENT_IDEA_BACKLOG.md
-├── CODEBASE_STRUCTURE.md   # this file
-└── (handoff/other root docs as needed)
+├── JARVIS_CODEBASE_STRUCTURE.md   # this file
+├── JARVIS_LIVE_HANDOFF_BUNDLE.md
+├── JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md   # Attach to new chats for context
+├── JARVIS_TASK_EXECUTION_CHECKLIST.md
+└── JARVIS_SCRIPT_PROCESS_REFERENCE.md
 ```
 
 ---
@@ -43,6 +52,14 @@ jarvis-workspace/
 - **Key files:**
   - `scout_noise_rules.json` — Rules for filtering known scout noise in defect normalization.
   - `wcs_scout_routes.json` — Routes and options for the WCS public scout run.
+
+### `dashboard/`
+
+- **Purpose:** Next.js read-only dashboard deployed on Vercel. Supabase is the read model; local JSON/Markdown remain source of truth. Run `scripts/export_dashboard_data.py` to refresh data.
+
+### `future_modules/`
+
+- **Purpose:** Future modules (e.g. Pathfinder v1: bounded read-only WCS intake worker).
 
 ### `logs/`
 
@@ -119,5 +136,6 @@ Scout path: **Scout run** → `logs\wcs_scout\<timestamp>\` → **normalizer** (
 
 - **First-time setup and one manual loop:** `README_START_HERE.md`
 - **Phase status and what’s done next:** `JARVIS_PHASE_CHECKLIST.md`
+- **New chat:** attach `JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md` and `JARVIS_TASK_EXECUTION_CHECKLIST.md`
 - **Every registered file and its role:** `state\FILE_REGISTRY.md` (and `state\file_registry.json` for tooling)
 - **WCS repo path and local URL:** `README_START_HERE.md` (e.g. `C:\dev\wcsv2.0-new`, `http://localhost:3000`)

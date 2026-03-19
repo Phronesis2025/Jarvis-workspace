@@ -1,8 +1,9 @@
 # Cursor Prompt Templates
 
 ## Live Doc Status
-- Last reviewed: 2026-03-17
-- Last updated: 2026-03-17 (doc pass: post-milestone doc-audit rule added)
+
+- Last reviewed: 2026-03-18
+- Last updated: 2026-03-18 (handoff checklist aligned to WCS trust metrics live)
 - Status: active reusable template set for common Jarvis/Cursor actions
 
 ## Purpose
@@ -78,6 +79,7 @@ Before recommending commit/push after a meaningful milestone, run the doc-audit 
 ### Standard build-step response format
 
 When providing Jarvis/Cursor execution prompts, present:
+
 - Model
 - Prompt/code
 - What to expect
@@ -90,6 +92,7 @@ Use this format for Jarvis/Cursor workflow steps unless a different format is ex
 ## Template 1 — Documentation alignment pass
 
 ### Use when
+
 - Live truth changed and docs need to catch up.
 - A task proof status changed.
 - A script moved from planned to live.
@@ -138,6 +141,7 @@ Return at the end:
 ## Template 2 — New hardening script build
 
 ### Use when
+
 - Adding a new validator, gate, helper, or bounded script.
 - Hardening the current task loop.
 
@@ -193,6 +197,7 @@ Return:
 ## Template 3 — Existing script hardening/refactor pass
 
 ### Use when
+
 - Tightening an existing Jarvis script.
 - Improving guardrails without changing the broader architecture.
 - Fixing contract drift or adding stricter validation.
@@ -238,6 +243,7 @@ Return:
 ## Template 4 — WCS task implementation prompt
 
 ### Use when
+
 - Cursor is the current execution surface for a bounded WCS worker task.
 - A task packet already exists.
 
@@ -275,6 +281,7 @@ Required output:
 ## Template 5 — QA or defect follow-up task creation
 
 ### Use when
+
 - A real failure needs to become a new backlog task.
 - QA uncovered a separate issue that should not be folded into the current task.
 
@@ -319,6 +326,7 @@ Return:
 ## Template 6 — QA failure triage analysis
 
 ### Use when
+
 - QA failed and you want Cursor to classify the failure without lying about status.
 - You want a bounded next-step recommendation.
 
@@ -355,6 +363,7 @@ Return:
 ## Template 7 — Branch-safe doc update pass
 
 ### Use when
+
 - You want docs updated without Cursor touching code.
 - You need a low-risk housekeeping pass.
 
@@ -392,6 +401,7 @@ Return:
 ## Template 8 — Proof-summary request after a successful loop
 
 ### Use when
+
 - A task completed a meaningful proof path.
 - You want Cursor to update docs or write a concise status summary.
 
@@ -423,6 +433,7 @@ Return:
 ## Template 9 — New-chat handoff / context anchor
 
 ### Use when
+
 - Starting a new Jarvis chat window.
 - Continuing the Jarvis rebuild in a fresh Cursor session.
 
@@ -454,6 +465,172 @@ This keeps prompts consistent and makes it easier to spot when Cursor ignored so
 
 ---
 
+## Context Anchor Template
+
+We are continuing an existing live Jarvis rebuild. Do not restart from theory.
+
+Read all attached materials first and use them as the source of truth for this chat.
+
+Attached in this order:
+
+1. Context anchor
+2. Handoff checklist
+3. Handoff bundle
+
+Current reality:
+
+- Jarvis workspace root: `C:\dev\jarvis-workspace`
+- WCS repo root: `C:\dev\wcsv2.0-new`
+- Dashboard app root: `C:\dev\jarvis-workspace\dashboard`
+- Jarvis is the foreman/orchestrator
+- Cursor is the execution surface for the coding worker
+- WCS is the first active proof domain
+- Pathfinder is an active bounded read-only investigation worker
+- Dashboard v1 is live on Vercel as a read-only Supabase-backed dashboard
+- Local JSON/Markdown remain the source of truth
+- Supabase is a read model only
+- Dashboard data is updated by the exporter script, not live sync
+
+Working preferences:
+
+- Before every Cursor prompt, give me the exact model to use
+- Keep Cursor prompts tight, constrained, and low-overreach
+- Do not broad-redesign the system
+- Prefer boring, durable steps over clever architecture
+- Use this response format for Jarvis/Cursor workflow steps:
+  1. Model
+  2. Prompt/code
+  3. What to expect
+  4. Then wait for my response before continuing
+
+Your first job in this new chat:
+
+1. read the attached materials fully
+2. confirm the current live state in a tight summary
+3. tell me the exact current process position
+4. identify any missing context only if truly necessary
+5. recommend the smallest next high-value build step
+
+---
+
+## Handoff Checklist Template
+
+# Jarvis Rebuild — Handoff Checklist
+
+**Current status:** active  
+**Current phase:** [fill in exact current phase]  
+**Workspace root:** `C:\dev\jarvis-workspace`  
+**WCS repo root:** `C:\dev\wcsv2.0-new`  
+**Dashboard root:** `C:\dev\jarvis-workspace\dashboard`
+
+---
+
+## 1) Architecture lock
+
+- [x] Jarvis is the foreman/orchestrator, not the main coding agent
+- [x] Cursor is the coding execution surface
+- [x] WCS is the first active proof domain
+- [x] Pathfinder is a bounded read-only investigation worker
+- [x] Dashboard is read-only
+- [x] Local JSON + Markdown remain source of truth
+- [x] Supabase is read model only
+- [ ] Scheduling live
+- [ ] Automatic sync live
+- [ ] Dashboard write-back live
+
+---
+
+## 2) Core proof status
+
+- [x] Core loop proven
+- [x] Strict launch path proven
+- [x] One-task wrapper proven
+- [x] Full-cycle wrapper proven
+- [x] Finalize mode proven
+- [x] Screenshot support proven
+- [x] Single-task truthful closure proven
+
+---
+
+## 3) Sequential execution status
+
+- [x] Sequential runner built
+- [x] Sequential runner proven
+- [x] Multi-task back-to-back live session proven
+- [x] Operator checkpoints preserved
+- [x] Sequential only
+- [ ] Scheduling/unattended execution live
+- [ ] Concurrency live
+
+---
+
+## 4) QA depth status
+
+- [x] Base smoke path exists
+- [x] Page-smoke support exists
+- [x] Non-home route page-smoke proof completed
+- [x] WCS trust metrics exported to dashboard (build, smoke, page-smoke, route, stop reason)
+- [ ] Broader route/page coverage complete
+
+---
+
+## 5) Pathfinder status
+
+- [x] Pathfinder v1 built
+- [x] Pathfinder v1 proven
+- [x] LLM-assisted synthesis added
+- [x] Weak-context hardening added
+- [x] Result validator added
+- [x] Strong/weak proof examples preserved
+- [x] Pathfinder paused at good checkpoint
+
+---
+
+## 6) Dashboard status
+
+- [x] Dashboard v1 built
+- [x] Supabase schema created
+- [x] Exporter built and working
+- [x] Vercel deployment live
+- [x] Dashboard reads real Supabase data
+- [x] Overview redesigned into command-console style
+- [x] Export freshness added
+- [x] WCS trust metrics exported and surfaced (Overview, Recent Runs)
+- [ ] Automatic sync live
+- [ ] Write-back/control-plane actions live
+
+---
+
+## 7) Current exact process position
+
+### Completed
+
+- [x] Core orchestration proof
+- [x] Sequential multi-task proof
+- [x] Pathfinder proof
+- [x] Dashboard live deployment
+- [x] Dashboard visual redesign
+- [x] WCS trust metrics in dashboard
+
+### Current step
+
+- [ ] [fill in exact next lane]
+
+---
+
+## 8) Best likely next lanes
+
+- [x] WCS trust metrics
+- [ ] Scheduling / unattended cadence
+- [ ] Another useful module
+- [ ] Pathfinder revisit later only if needed
+
+---
+
+## 9) One-line honest status
+
+## **[fill in one-line current truth]**
+
 ## Next templates to add later
 
 Add more only when they become recurring enough to justify standardization:
@@ -462,4 +639,3 @@ Add more only when they become recurring enough to justify standardization:
 - reconcile/review prompt
 - QA reliability hardening prompt
 - agent/module spec drafting prompt
-
