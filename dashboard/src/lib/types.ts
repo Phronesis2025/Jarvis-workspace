@@ -81,3 +81,46 @@ export interface DashboardExportLog {
   module_count: number | null;
   pathfinder_count: number | null;
 }
+
+/** Module checklist item status */
+export type ChecklistItemStatus =
+  | "done"
+  | "in_progress"
+  | "not_started"
+  | "deferred"
+  | "blocked";
+
+/** Single checklist item within a phase */
+export interface ModuleChecklistItem {
+  id: string;
+  label: string;
+  status: ChecklistItemStatus;
+  notes?: string;
+}
+
+/** Phase within a module checklist */
+export interface ModuleChecklistPhase {
+  phase_id: string;
+  phase_name: string;
+  goal: string;
+  status: ChecklistItemStatus;
+  items: ModuleChecklistItem[];
+}
+
+/** Module build-path checklist */
+export interface ModuleChecklist {
+  module_id: string;
+  module_name: string;
+  purpose: string;
+  status: ChecklistItemStatus;
+  current_phase: string;
+  current_step: string;
+  final_version_definition: string;
+  phases: ModuleChecklistPhase[];
+}
+
+/** Root structure of state/module_checklists.json */
+export interface ModuleChecklistsData {
+  generated_at: string;
+  modules: ModuleChecklist[];
+}

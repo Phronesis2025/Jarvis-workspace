@@ -44,6 +44,7 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 
 - **Lint:** Runs non-interactively and passes (`npm run lint`).
 - **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM on `.next` or `.next-build/trace`). Do not overclaim build success when environment-blocked.
+- **Local dev:** `npm run dev` on port 3001 serves the dashboard with correct shell/styling. Overview and Module Checklists both render as expected. Use `npm run dev` for local development; `npm run start` serves the production build (if build succeeds) and may behave differently.
 
 ## Troubleshooting
 
@@ -65,6 +66,7 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 - **Task Board:** Tasks grouped by status (ready, running, awaiting operator, blocked, escalated, done).
 - **Recent Runs:** Table of run_id, module, script, outcome, trust (B/S/P for WCS runs), stop_reason, llm_used, etc.
 - **Pathfinder:** Table of Pathfinder cases with synthesis_source, confidence, backlog candidate.
+- **Module Checklists:** Route `/checklists`. Read-only build-path view per module. Canonical source: `state/module_checklists.json` (and `state/MODULE_CHECKLISTS.md` for human view). Page shows module name, purpose, status, current phase/step, final version definition, phase-by-phase checklist, done vs remaining counts. Renders from canonical JSON when dashboard runs locally with workspace state; shows "unavailable" when file cannot be read (e.g. deployed without workspace). Local dev rendering verified (Overview and Checklists both render with correct shell/styling when `npm run dev` on port 3001).
 
 ## Exporter verification
 

@@ -2,6 +2,8 @@
  * Data access layer — Supabase when configured, mock otherwise.
  */
 
+import { readFile } from "fs/promises";
+import { join } from "path";
 import { supabase, hasSupabase } from "./supabase";
 import {
   mockTasks,
@@ -15,6 +17,7 @@ import type {
   DashboardModuleStatus,
   DashboardPathfinderCase,
   DashboardExportLog,
+  ModuleChecklistsData,
 } from "./types";
 
 export async function getTasks(): Promise<DashboardTaskState[]> {
@@ -81,4 +84,22 @@ export async function getLastExportTime(): Promise<DashboardExportLog | null> {
     return data as DashboardExportLog;
   }
   return null;
+}
+
+/**
+ * Read module checklists from canonical state file.
+ * Works when dashboard runs from workspace (e.g. cwd is dashboard/, state is ../state/).
+ * Returns null when file is unavailable (e.g. deployed without workspace state).
+ */
+export async function getModuleChecklists(): Promise<ModuleChecklistsData | null> {
+  try {
+    const workspaceRoot = join(process.cwd(), "..");
+    const filePath = join(workspaceRoot, "state", "module_checklists.json");
+    const raw = await readFile(filePath, "utf-8");
+    const data = JSON.parse(raw) as ModuleChecklistsData;
+    if (!data?.modules || !Array.isArray(data.modules)) return null;
+    return data;
+  } catch {
+    return null;
+  }
 }

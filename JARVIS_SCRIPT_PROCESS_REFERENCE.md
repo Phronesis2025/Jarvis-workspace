@@ -3,8 +3,8 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-20
-- Last updated: 2026-03-20 (workflow-hardening milestone: 5-task fake-task batch proof)
-- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, thin operator-facing WCS wrapper for prep/post, stricter launch-safety auditing on the Cursor bridge path, post-task export after successful reconcile, post-success cleanup-to-main)
+- Last updated: 2026-03-20 (Module Checklists dashboard lane)
+- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, thin operator-facing WCS wrapper for prep/post, stricter launch-safety auditing on the Cursor bridge path, post-task export after successful reconcile, post-success cleanup-to-main; Module Checklists dashboard lane live)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, WCS-061, and WCS-008. 5-task fake-task batch proof passed (WCS-037 through WCS-049) via `run_task_sequence.py`; live export after each completed task; WCS returned to clean `main` after success. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved. On WCS-061 and WCS-008, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
 
@@ -1261,6 +1261,34 @@ Post-task dashboard export hook. Runs automatically after each completed task (r
 ### Why it exists
 
 Keeps dashboard data fresh after each completed task without coupling task success to export success.
+
+---
+
+## 7f. Module Checklists (canonical state + dashboard page)
+
+### Role
+
+Canonical source-of-truth for per-module build-path checklists. Dashboard reads this state and renders it read-only.
+
+### Canonical state files
+
+* `state/module_checklists.json` — machine-readable schema (generated_at, modules[], phases[], items[])
+* `state/MODULE_CHECKLISTS.md` — human-readable rendered view
+
+### Dashboard behavior
+
+* Route: `/checklists`
+* Nav: Checklists entry in dashboard nav bar
+* Data access: Dashboard reads `state/module_checklists.json` from workspace when running locally (server-side file read)
+* Renders per module: name, purpose, status, current phase, current step, final version definition, phase-by-phase checklist, done vs remaining counts
+* Read-only: no edit controls, no write-back
+* When file unavailable (e.g. deployed without workspace state): page shows "Checklist data unavailable" message
+
+### What this does not do
+
+* does not export checklist data to Supabase (exporter does not touch it)
+* does not provide edit/update controls
+* does not create a second source-of-truth
 
 ---
 

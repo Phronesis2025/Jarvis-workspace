@@ -1,0 +1,252 @@
+{
+  "generated_at": "2026-03-20T00:00:00Z",
+  "modules": [
+    {
+      "module_id": "wcs",
+      "module_name": "WCS Code Module",
+      "purpose": "Prove one bounded WCS task loop; operator-assisted coding worker via Cursor; sequential only.",
+      "status": "in_progress",
+      "current_phase": "phase_3c",
+      "current_step": "workflow_hardening_complete",
+      "final_version_definition": "Trustworthy sequential WCS task loop: select, prep, worker, commit, QA, reconcile, export; one task at a time; no fabrication.",
+      "phases": [
+        {
+          "phase_id": "phase_0",
+          "phase_name": "Reset and architecture lock",
+          "goal": "Lock project shape; WCS as first proof domain.",
+          "status": "done",
+          "items": [
+            { "id": "p0-1", "label": "Jarvis as foreman/orchestrator, not main coder", "status": "done" },
+            { "id": "p0-2", "label": "Local-first; JSON as source of truth", "status": "done" },
+            { "id": "p0-3", "label": "WCS as first active proof domain", "status": "done" },
+            { "id": "p0-4", "label": "Playwright as QA truth for WCS", "status": "done" },
+            { "id": "p0-5", "label": "One bounded task at a time", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_1",
+          "phase_name": "Core file/state foundation",
+          "goal": "Durable system structure; visible state.",
+          "status": "done",
+          "items": [
+            { "id": "p1-1", "label": "master_backlog.json + MASTER_BACKLOG.md", "status": "done" },
+            { "id": "p1-2", "label": "Task packet generation and reconcile", "status": "done" },
+            { "id": "p1-3", "label": "Escalation state (escalations.json / ESCALATIONS.md)", "status": "done" },
+            { "id": "p1-4", "label": "File registry and project status", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_2",
+          "phase_name": "WCS semi-manual proof loop",
+          "goal": "Prove backlog → packet → worker → reconcile → QA loop.",
+          "status": "done",
+          "items": [
+            { "id": "p2-1", "label": "Backlog rendering; packet generation; reconcile", "status": "done" },
+            { "id": "p2-2", "label": "Playwright home smoke path; public scout", "status": "done" },
+            { "id": "p2-3", "label": "Defect normalizer; scout noise rules", "status": "done" },
+            { "id": "p2-4", "label": "Overnight health check", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_3",
+          "phase_name": "Jarvis foreman and live cycles",
+          "goal": "jarvis.py selects task; real WCS cycles under Jarvis control.",
+          "status": "done",
+          "items": [
+            { "id": "p3-1", "label": "jarvis.py foreman; daily plan; run log", "status": "done" },
+            { "id": "p3-2", "label": "Commit gate helper; stamp guard; worker/QA result validation", "status": "done" },
+            { "id": "p3-3", "label": "run_wcs_operator_entrypoint.py prep/post", "status": "done" },
+            { "id": "p3-4", "label": "run_one_task_cycle.py; run_one_task_full_cycle.py", "status": "done" },
+            { "id": "p3-5", "label": "run_task_sequence.py; 5-task batch proof", "status": "done" },
+            { "id": "p3-6", "label": "Post-task export; cleanup-to-main after success", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_3c",
+          "phase_name": "Workflow hardening",
+          "goal": "Strict launch; page-specific smoke; sequential runner proven.",
+          "status": "in_progress",
+          "items": [
+            { "id": "p3c-1", "label": "run_cursor_worker.py strict post-launch audit", "status": "done" },
+            { "id": "p3c-2", "label": "Page-specific smoke for /about, /schedules, /drills", "status": "done" },
+            { "id": "p3c-3", "label": "5-task fake-task batch proof (WCS-037 through WCS-049)", "status": "done" },
+            { "id": "p3c-4", "label": "Broader route/page-smoke coverage", "status": "not_started", "notes": "Current smoke test still limited" },
+            { "id": "p3c-5", "label": "Record when human/operator action required", "status": "not_started" }
+          ]
+        },
+        {
+          "phase_id": "phase_4",
+          "phase_name": "Controlled autonomy (deferred)",
+          "goal": "Scheduling, unattended execution — only after Phase 3 stable.",
+          "status": "deferred",
+          "items": [
+            { "id": "p4-1", "label": "Limited scheduled cycles", "status": "deferred" },
+            { "id": "p4-2", "label": "Unattended end-to-end execution", "status": "deferred" }
+          ]
+        }
+      ]
+    },
+    {
+      "module_id": "pathfinder",
+      "module_name": "Pathfinder",
+      "purpose": "Bounded read-only intake/investigation worker for WCS; no code edits, no git actions.",
+      "status": "in_progress",
+      "current_phase": "phase_proof",
+      "current_step": "v1_proven",
+      "final_version_definition": "Trustworthy read-only research scout: intake packet → bounded context → structured result; optional LLM synthesis with safe fallback.",
+      "phases": [
+        {
+          "phase_id": "phase_design",
+          "phase_name": "Design",
+          "goal": "Define intake/output contract; read-only scope.",
+          "status": "done",
+          "items": [
+            { "id": "pf-1", "label": "Intake packet format; minimal or full task packet", "status": "done" },
+            { "id": "pf-2", "label": "Output: synthesis, findings, optional draft backlog candidate", "status": "done" },
+            { "id": "pf-3", "label": "Read-only only; no code edits, no git", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_impl",
+          "phase_name": "Implementation",
+          "goal": "run_pathfinder.py; bounded context from workspace and WCS repo.",
+          "status": "done",
+          "items": [
+            { "id": "pf-4", "label": "run_pathfinder.py CLI; config-driven", "status": "done" },
+            { "id": "pf-5", "label": "Optional LLM synthesis via pathfinder_llm_synthesis.py", "status": "done" },
+            { "id": "pf-6", "label": "Fallback to rule-based when LLM unavailable/API key missing", "status": "done" },
+            { "id": "pf-7", "label": "synthesis_source and llm_skipped_reason in result", "status": "done" },
+            { "id": "pf-8", "label": "validation_failure:<reason> diagnostics", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_proof",
+          "phase_name": "Proof",
+          "goal": "Live run proven; fallback + LLM path proven.",
+          "status": "in_progress",
+          "items": [
+            { "id": "pf-9", "label": "Live run with realistic WCS intake packet", "status": "done" },
+            { "id": "pf-10", "label": "--no-llm => rule_based/no_llm proof", "status": "done" },
+            { "id": "pf-11", "label": "LLM-enabled success path proven", "status": "done" },
+            { "id": "pf-12", "label": "Confidence normalization hardening", "status": "done" },
+            { "id": "pf-13", "label": "Broader Pathfinder expansion", "status": "deferred" }
+          ]
+        }
+      ]
+    },
+    {
+      "module_id": "dashboard",
+      "module_name": "Jarvis Dashboard",
+      "purpose": "Read-only web dashboard for Jarvis system progress; Supabase as read model.",
+      "status": "in_progress",
+      "current_phase": "phase_deploy",
+      "current_step": "v1_live_on_vercel",
+      "final_version_definition": "Trustworthy read-only dashboard: Overview, Task Board, Recent Runs, Pathfinder; live data from exporter; no write-back, no scheduling, no automatic sync.",
+      "phases": [
+        {
+          "phase_id": "phase_setup",
+          "phase_name": "Setup",
+          "goal": "Next.js app; Supabase schema; mock data fallback.",
+          "status": "done",
+          "items": [
+            { "id": "d-1", "label": "dashboard_task_state, dashboard_runs, dashboard_module_status", "status": "done" },
+            { "id": "d-2", "label": "Mock data when Supabase env vars absent", "status": "done" },
+            { "id": "d-3", "label": "RLS policies for anon read", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_impl",
+          "phase_name": "Implementation",
+          "goal": "Overview, Task Board, Recent Runs, Pathfinder pages.",
+          "status": "done",
+          "items": [
+            { "id": "d-4", "label": "Overview: module status, metrics, next steps", "status": "done" },
+            { "id": "d-5", "label": "WCS trust metrics (B/S/P) in Overview and Recent Runs", "status": "done" },
+            { "id": "d-6", "label": "B1 module section and B1 process chart on Overview", "status": "done" },
+            { "id": "d-7", "label": "Exporter health surface on Overview", "status": "done" },
+            { "id": "d-8", "label": "fetchCache force-no-store for live Overview data", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_deploy",
+          "phase_name": "Deployment and verification",
+          "goal": "Vercel live; lint passes; build proof.",
+          "status": "in_progress",
+          "items": [
+            { "id": "d-9", "label": "Deploy to Vercel", "status": "done" },
+            { "id": "d-10", "label": "Lint passes", "status": "done" },
+            { "id": "d-11", "label": "Build proof (npm run build)", "status": "blocked", "notes": "Environment-blocked on some Windows setups: EPERM on Next trace file" }
+          ]
+        }
+      ]
+    },
+    {
+      "module_id": "b1",
+      "module_name": "B1 Local Website Defect Watcher",
+      "purpose": "Read-only watcher: route checks, evidence capture, proposed defect packets for operator review.",
+      "status": "in_progress",
+      "current_phase": "phase_proof",
+      "current_step": "v1_proven",
+      "final_version_definition": "Trustworthy v1 watcher: config-driven; Watcher Config → Route Checks → Evidence Capture → Noise Filter/Dedupe → Proposed Defect Packets → Operator Review; no operator approval workflow in v1.",
+      "phases": [
+        {
+          "phase_id": "phase_impl",
+          "phase_name": "Implementation",
+          "goal": "run_local_website_defect_watcher.py; Playwright; config-driven.",
+          "status": "done",
+          "items": [
+            { "id": "b1-1", "label": "CLI: --config <path>; first site wcsbasketball.site", "status": "done" },
+            { "id": "b1-2", "label": "Route checks; direct reachability; no nav-link clicking", "status": "done" },
+            { "id": "b1-3", "label": "Evidence: run_result, screenshots, console_errors, evidence_manifest", "status": "done" },
+            { "id": "b1-4", "label": "Proposed defect packets; dedupe in state", "status": "done" },
+            { "id": "b1-5", "label": "Signal hardening: Supabase/WebSocket/realtime noise filtered", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_proof",
+          "phase_name": "Proof",
+          "goal": "Fresh proof run; 0 findings after signal hardening.",
+          "status": "in_progress",
+          "items": [
+            { "id": "b1-6", "label": "Fresh proof run: 0 findings, 0 proposed packets, 4 screenshots", "status": "done" },
+            { "id": "b1-7", "label": "Operator approval workflow", "status": "deferred", "notes": "Watcher creates proposed packets only; not implemented" }
+          ]
+        }
+      ]
+    },
+    {
+      "module_id": "exporter",
+      "module_name": "Dashboard Exporter",
+      "purpose": "One-way export of local Jarvis state to Supabase dashboard tables; never mutates Jarvis truth files.",
+      "status": "in_progress",
+      "current_phase": "phase_verification",
+      "current_step": "dry_run_proven",
+      "final_version_definition": "Trustworthy one-way sync: master_backlog, results, Pathfinder outputs → dashboard tables; WCS trust metrics from qa_result/worker_result; dry-run and live export both proven.",
+      "phases": [
+        {
+          "phase_id": "phase_impl",
+          "phase_name": "Implementation",
+          "goal": "export_dashboard_data.py; gather and upsert.",
+          "status": "done",
+          "items": [
+            { "id": "ex-1", "label": "Gather task state from master_backlog + task packets", "status": "done" },
+            { "id": "ex-2", "label": "Gather runs from logs; Pathfinder cases from outputs", "status": "done" },
+            { "id": "ex-3", "label": "WCS trust metrics: build, smoke, page-smoke, route, stop_reason", "status": "done" },
+            { "id": "ex-4", "label": "operator_checkpoints from qa_result", "status": "done" },
+            { "id": "ex-5", "label": "dashboard_export_log for Last dashboard update", "status": "done" }
+          ]
+        },
+        {
+          "phase_id": "phase_verification",
+          "phase_name": "Verification",
+          "goal": "Dry-run available; live export separate proof surface.",
+          "status": "in_progress",
+          "items": [
+            { "id": "ex-6", "label": "--dry-run for payload/env health without writes", "status": "done" },
+            { "id": "ex-7", "label": "Live export connectivity/write success", "status": "in_progress", "notes": "Separate proof surface; post-task export hook runs when env vars present" }
+          ]
+        }
+      ]
+    }
+  ]
+}
