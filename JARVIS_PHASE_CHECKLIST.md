@@ -1,8 +1,8 @@
 # JARVIS_REBUILD_PHASE_CHECKLIST.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-19
-- Last updated: 2026-03-19 (dashboard B1/exporter docs alignment)
+- Last reviewed: 2026-03-20
+- Last updated: 2026-03-20 (dashboard stale-data fix docs alignment)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
 - Status: aligned to current live hardening state (escalation surfaces live; commit gate helper live and proven; file registry drift/coverage checker live; QA result drafting helper live and validator-proven; packet lifecycle/status cleanup now keeps reconciled task packet artifacts aligned; Option B V1 wrapper live with fresh WCS-044 prep/post proof; one-task cycle wrapper proven on WCS-046; full-cycle wrapper proven on WCS-061 and WCS-008; wrapper family can truthfully close a single task end-to-end via mechanical path plus --finalize; screenshot artifact support and --finalize proven on WCS-008; WCS-033 was bad proof target, debris cleaned up, do not present as proof; sequential runner run_task_sequence.py proven on WCS-028 (one-task) and WCS-029 + WCS-030 (multi-task back-to-back in one session); page-specific smoke support implemented and proven on WCS-032 for /schedules; Pathfinder v1 proven 2026-03-18 as bounded read-only WCS intake worker; Pathfinder optional LLM synthesis fallback + LLM path proven 2026-03-19; broader Pathfinder expansion deferred; Jarvis Dashboard v1 live on Vercel as read-only Supabase-backed dashboard; exporter working; WCS trust-metrics lane implemented; broader route/page-smoke coverage and unattended execution remain later work; no write-back, scheduling, or automatic sync; no scheduling, unattended mode, concurrency, or session persistence; overall smoke coverage still limited)
 
@@ -337,6 +337,7 @@ Only after Phase 3 is stable, turn on more automation carefully.
 - [x] Stop hand-maintaining `FILE_REGISTRY.md` (now rendered from file_registry.json by render_file_registry.py)
 - [x] Add health checks for new critical scripts/configs — **live via `critical_surface_health_check.py`** (read-only sanity check: existence, compile, and file_registry_check + naming_drift_check pass)
 - [x] WCS trust-metrics dashboard surfacing — **live**; exporter derives build/smoke/page-smoke/route/stop_reason from local evidence; Overview and Recent Runs show trust signals; current route/page-smoke trust is better surfaced but broader coverage remains later work; full-system sweep mostly passed with bounded blockers; dashboard lint passes; dashboard build proof remains environment-blocked on Windows (EPERM on Next trace file); exporter safe dry-run mode now complete
+- [x] Dashboard stale-data/cache fix — **complete**; Overview route uses `fetchCache = "force-no-store"`; after restart and export refresh, Overview shows live data (Last dashboard update, What happened today, Recent activity, WCS task totals); build env blocker separate and still open
 - [x] Dashboard update for B1/operator visibility — **complete**; Overview now surfaces B1 module section (bounded, read-only, first site, proof summary), separate B1 process chart (Watcher Config → Route Checks → Evidence Capture → Noise Filter/Dedupe → Proposed Defect Packets → Operator Review), and exporter health surface (dry-run available, dry-run proof, live export separate proof surface); B1 surfaced on Overview only; no dedicated B1 page or nav item; no new Supabase-backed B1 data model; no write-back or control-plane additions; operator approval workflow and nav-link checking remain out of scope
 - [ ] Harden all script wrappers
 - [ ] Standardize output log locations

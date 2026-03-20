@@ -1,6 +1,7 @@
 import { getTasks, getRuns, getModuleStatus, getPathfinderCases, getLastExportTime } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 import type { DashboardRun, OperatorCheckpoints } from "@/lib/types";
 import { MermaidDiagram } from "@/components/MermaidDiagram";
 import { SystemPulse } from "@/components/SystemPulse";

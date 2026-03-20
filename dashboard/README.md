@@ -26,6 +26,8 @@ If these are not set, the dashboard uses mock data so pages can render before th
    # Copy contents of supabase/schema.sql and run in Supabase SQL editor
    ```
 
+   The schema includes RLS policies so the dashboard (anon key) can SELECT from dashboard tables. The exporter writes with the service role key (bypasses RLS).
+
 3. Add env vars to your deployment (see below).
 
 ## Local run
@@ -42,6 +44,10 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 
 - **Lint:** Runs non-interactively and passes (`npm run lint`).
 - **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM on `.next` or `.next-build/trace`).
+
+## Troubleshooting
+
+- **Overview stale data:** The Overview route uses `fetchCache = "force-no-store"` so Supabase reads are not cached. If Overview shows old values, restart the dev server and run a fresh export (`python scripts/export_dashboard_data.py` from the workspace root).
 
 ## Vercel deployment
 
