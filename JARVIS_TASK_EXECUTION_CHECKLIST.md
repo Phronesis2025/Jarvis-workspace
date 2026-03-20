@@ -3,9 +3,9 @@
 
 ## Live Doc Status
 - Last reviewed: 2026-03-20
-- Last updated: 2026-03-20 (dashboard stale-data fix docs alignment)
+- Last updated: 2026-03-20 (workflow-hardening milestone: 5-task fake-task batch proof)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven in completed/reconciled loop; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 and WCS-008; sequential runner proven on WCS-028; post-milestone doc-audit checkpoint added; WCS trust visibility now live in dashboard Overview and Recent Runs; B1 module section and B1 process chart now live in dashboard Overview; exporter health surface now live in Overview; Pathfinder optional LLM synthesis fallback + LLM path proven; broader Pathfinder expansion still pending; current smoke test still limited; launch path supports strict post-launch auditing; scheduling and unattended execution remain deferred)
+- Status: aligned to current live hardening state (phases match handoff bundle; completed_at blank until stamping; stamp takes FILE PATH; validators/gates read-only; commit gate helper live and proven; thin operator-facing wrappers live for prep/post and one-task cycle flow; full-cycle wrapper proven on WCS-061 and WCS-008; sequential runner proven on WCS-028, WCS-029+WCS-030, and 5-task batch WCS-037 through WCS-049; sequence non-interactive passthrough live: `--confirm-commit`, `--manual-check`; post-task export live after successful reconcile; post-success cleanup-to-main live; 5-task fake-task proof passed; WCS trust visibility live in dashboard Overview and Recent Runs; B1 module section and B1 process chart live in Overview; exporter health surface live in Overview; Pathfinder optional LLM synthesis fallback + LLM path proven; broader Pathfinder expansion still pending; current smoke test still limited; launch path supports strict post-launch auditing; scheduling and unattended execution remain deferred)
 
 ## Purpose
 
@@ -280,6 +280,7 @@ python .\scripts\run_one_task_full_cycle.py --finalize --task WCS-XXX --manual-c
 - reuses `run_wcs_operator_entrypoint.py prep` and `post`; does not duplicate business logic
 - `--confirm-commit` required to proceed past diff review; commit is idempotent if working tree already clean
 - `--manual-check "..."` required to run post; operator must provide truthful verification note
+- after successful post/reconcile: post-task export hook runs (live when env vars present; non-fatal on export failure); then WCS repo returned to clean `main`
 - `--manage-dev-server`: reuses existing server on `--dev-port` if in use; `--force-restart-dev-server` kills only process on that port; only kills on exit if wrapper started the server
 - `--capture-screenshot` saves to qa/artifacts/<TASK_ID>_manual_check.png and wires into QA artifacts; does NOT imply manual verification passed
 - runs `npm run build` and `npm run test:e2e:smoke`; current smoke test is limited and should be improved later, especially for page-specific task coverage
@@ -1328,6 +1329,7 @@ The current process still relies on operator discipline in these areas:
 
 * WCS trust visibility in dashboard (build, smoke, page-smoke, route, stop reason) — **live**; exporter populates operator_checkpoints and stop_reason from local evidence; Overview and Recent Runs surface trust signals
 * Dashboard stale-data seam — **fixed**; Overview route uses `fetchCache = "force-no-store"` to avoid cached Supabase reads; live Overview monitoring (Last dashboard update, What happened today, Recent activity, WCS task totals) is now trustworthy enough for workflow use after restart and export refresh
+* **Workflow-hardening milestone: 5-task fake-task batch proof passed (2026-03-20):** sequence non-interactive passthrough live (`--confirm-commit`, `--manual-check`); post-task export runs after each successful reconcile; post-success cleanup returns WCS to clean `main`; all 5 tasks completed through reconcile with live export; page-smoke exercised on non-home routes
 * Pathfinder optional LLM synthesis — **fallback + LLM path proven**; `run_pathfinder.py` supports `--no-llm` and `--model`; safe fallback to rule-based when module/API key absent or synthesis fails; result includes `synthesis_source` and `llm_skipped_reason`; validation failure diagnostics preserve `validation_failure:<reason>`; broader Pathfinder expansion still pending
 * **Full-system sweep 2026-03-19:** WCS verification passed (build, base smoke, page-smoke `/schedules`, dev server). Pathfinder verification passed (no-LLM, LLM-enabled, result validation). Dashboard lint passes; dashboard build proof remains environment-blocked on Windows. Exporter safe mode (`--dry-run`) now live; unattended execution still not live. B1 v1 Local Website Defect Watcher now exists; bounded read-only; proof run clean after signal hardening. **Dashboard Overview now surfaces B1 module section, B1 process chart, and exporter health**; B1 visibility no longer pending. Dedicated B1 page, live B1 data pipeline, write-back, and unattended controls remain out of scope.
 * more explicit terminal guidance after each stage

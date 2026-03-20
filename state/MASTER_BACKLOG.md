@@ -7,7 +7,7 @@
 | WCS-003 | WCS | broken | P1 | medium | done | Add timeout/fallback handling for long loading states | TodaysEvents.tsx, LogoMarquee.tsx |
 | WCS-004 | WCS | ugly | P2 | low | done | Improve empty Around the WCS state | src/components/TeamUpdates.tsx |
 | WCS-005 | WCS | broken | P1 | medium | done | Make footer email signup form functional | src/components/Footer.tsx |
-| WCS-006 | WCS | ugly | P3 | low | ready | Fix hero headline accessibility spacing/aria label | src/components/Hero.tsx |
+| WCS-006 | WCS | ugly | P3 | low | done | Fix hero headline accessibility spacing/aria label | src/components/Hero.tsx |
 | WCS-007 | WCS | ugly | P3 | low | ready | Hide test site banner in production | src/components/TestSiteBanner.tsx |
 | WCS-008 | WCS | ugly | P3 | low | done | Clarify navbar Coaches link label for logged-out users | src/components/Navbar.tsx |
 | WCS-009 | WCS | broken | P2 | medium | done | Improve LogoMarquee response.ok handling and fallback | src/components/LogoMarquee.tsx |
@@ -33,23 +33,23 @@
 | WCS-030 | WCS | ugly | P3 | low | done | Fake test: add temporary TEST MODE badge below hero headline | src/components/Hero.tsx |
 | WCS-031 | WCS | ugly | P3 | low | done | Fake test: add trophy emoji to about page promo heading | src/app/about/page.tsx |
 | WCS-032 | WCS | ugly | P3 | low | done | Fake test: add visible TEST: prefix to schedules empty-state heading | src/app/schedules/page.tsx |
-| WCS-033 | WCS | ugly | P3 | low | ready | Fake test: add visible TEST: prefix to drills empty-state heading | src/app/drills/page.tsx |
-| WCS-034 | WCS | ugly | P3 | low | ready | Fake test: add temporary emoji to public team card label | src/components/ClientTeams.tsx |
-| WCS-035 | WCS | ugly | P3 | low | ready | Fake test: add temporary highlight border to hero section | src/components/Hero.tsx |
-| WCS-036 | WCS | ugly | P3 | low | ready | Fake test: add star emoji to about mission heading | src/app/about/page.tsx |
-| WCS-037 | WCS | ugly | P3 | low | ready | Fake test: add medal emoji to about page section heading | src/app/about/page.tsx |
-| WCS-038 | WCS | ugly | P3 | low | ready | Fake test: add calendar emoji to schedules empty-state message | src/app/schedules/page.tsx |
-| WCS-039 | WCS | ugly | P3 | low | ready | Fake test: add basketball emoji to schedules page title or filter label | src/app/schedules/page.tsx |
+| WCS-033 | WCS | ugly | P3 | low | blocked | Fake test: add visible TEST: prefix to drills empty-state heading | src/app/drills/page.tsx |
+| WCS-034 | WCS | ugly | P3 | low | done | Fake test: add temporary emoji to public team card label | src/components/ClientTeams.tsx |
+| WCS-035 | WCS | ugly | P3 | low | done | Fake test: add temporary highlight border to hero section | src/components/Hero.tsx |
+| WCS-036 | WCS | ugly | P3 | low | done | Fake test: add star emoji to about mission heading | src/app/about/page.tsx |
+| WCS-037 | WCS | ugly | P3 | low | done | Fake test: add medal emoji to about page section heading | src/app/about/page.tsx |
+| WCS-038 | WCS | ugly | P3 | low | done | Fake test: add calendar emoji to schedules empty-state message | src/app/schedules/page.tsx |
+| WCS-039 | WCS | ugly | P3 | low | done | Fake test: add basketball emoji to schedules page title or filter label | src/app/schedules/page.tsx |
 | WCS-040 | WCS | ugly | P3 | low | done | Style test: change home hero subheading letter spacing | src/components/Hero.tsx |
 | WCS-041 | WCS | ugly | P3 | low | done | Fake test: add trophy emoji to hero CTA button label | src/components/Hero.tsx |
 | WCS-042 | WCS | ugly | P3 | low | done | Fake test: add temporary TEST MODE badge on about page | src/app/about/page.tsx |
 | WCS-043 | WCS | ugly | P3 | low | done | Fake test: add visible TEST: prefix to drills page heading | src/app/drills/page.tsx |
 | WCS-044 | WCS | ugly | P3 | low | done | Fake test: add temporary emoji to about page section divider | src/app/about/page.tsx |
-| WCS-045 | WCS | ugly | P3 | low | ready | Fake test: add temporary highlight border to about page section | src/app/about/page.tsx |
+| WCS-045 | WCS | ugly | P3 | low | done | Fake test: add temporary highlight border to about page section | src/app/about/page.tsx |
 | WCS-046 | WCS | ugly | P3 | low | done | Fake test: add temporary test badge to one team card | src/components/ClientTeams.tsx |
-| WCS-047 | WCS | ugly | P3 | low | ready | Fake test: add temporary emoji to team card metadata label | src/components/ClientTeams.tsx |
+| WCS-047 | WCS | ugly | P3 | low | done | Fake test: add temporary emoji to team card metadata label | src/components/ClientTeams.tsx |
 | WCS-048 | WCS | ugly | P3 | low | done | Fake test: add calendar emoji to schedules page empty-state | src/app/schedules/page.tsx |
-| WCS-049 | WCS | ugly | P3 | low | ready | Fake test: add visible TEST: to schedules empty-state heading | src/app/schedules/page.tsx |
+| WCS-049 | WCS | ugly | P3 | low | done | Fake test: add visible TEST: to schedules empty-state heading | src/app/schedules/page.tsx |
 | WCS-050 | WCS | ugly | P3 | low | ready | Fake test: add drill emoji to drills empty-state heading | src/app/drills/page.tsx |
 | WCS-051 | WCS | ugly | P3 | low | ready | Fake test: add visible TEST: to drills empty-state message | src/app/drills/page.tsx |
 | WCS-052 | WCS | ugly | P3 | low | ready | Fake test: add temporary emoji to home section heading | src/components/Hero.tsx |

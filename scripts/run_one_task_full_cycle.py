@@ -377,6 +377,48 @@ def run_git_status_porcelain(repo_path: Path) -> Tuple[int, str]:
     return run_helper(["git", "status", "--porcelain"], repo_path)
 
 
+def load_wcs_repo_path(workspace: Path) -> Optional[Path]:
+    """Load WCS repo path from project_status_wcs.json. Returns None if missing/invalid."""
+    status_path = workspace / "state" / "project_status_wcs.json"
+    if not status_path.is_file():
+        return None
+    try:
+        data = read_json(status_path)
+    except Exception:
+        return None
+    if not isinstance(data, dict):
+        return None
+    raw = normalize_text(data.get("repo_path"))
+    if not raw:
+        return None
+    repo_path = Path(raw).resolve()
+    if not repo_path.exists() or not (repo_path / ".git").exists():
+        return None
+    return repo_path
+
+
+def return_wcs_to_clean_main(repo_path: Path) -> Tuple[bool, str]:
+    """
+    After successful task completion, return WCS repo to clean main.
+    Returns (success, message). Does not mark task as failed on cleanup failure.
+    """
+    checkout_code, checkout_out = run_helper(["git", "checkout", "main"], repo_path)
+    if checkout_code != 0:
+        return False, f"git checkout main failed: {checkout_out}"
+    branch_code, branch_out = run_helper(["git", "branch", "--show-current"], repo_path)
+    if branch_code != 0:
+        return False, f"could not verify branch: {branch_out}"
+    current = branch_out.strip()
+    if current != "main":
+        return False, f"expected branch main, got: {current}"
+    status_code, status_out = run_helper(["git", "status", "--porcelain"], repo_path)
+    if status_code != 0:
+        return False, f"could not verify working tree: {status_out}"
+    if status_out.strip():
+        return False, f"working tree not clean after checkout: {status_out.strip()}"
+    return True, "repo returned to clean main"
+
+
 def run_git_add_commit(
     repo_path: Path,
     scope_paths: List[str],
@@ -604,6 +646,29 @@ def main() -> int:
         print_helper_result(post_cmd, post_out)
         if post_code != 0:
             return fail("run_wcs_operator_entrypoint post failed", task_id, "post")
+        # --- Exporter hook (after reconcile/post success; does not fail task on export failure) ---
+        print("")
+        print("--- CLOSEOUT: post-task export (dashboard) ---")
+        export_cmd = [
+            sys.executable,
+            str(workspace / "scripts" / "run_post_task_export.py"),
+            "--workspace",
+            str(workspace),
+        ]
+        export_code, export_out = run_helper(export_cmd, workspace)
+        print_helper_result(export_cmd, export_out)
+        if export_code != 0:
+            print("POST-TASK EXPORT: task completed; export failed (non-fatal)", file=sys.stderr)
+        repo_path = load_wcs_repo_path(workspace)
+        if repo_path:
+            ok, msg = return_wcs_to_clean_main(repo_path)
+            if ok:
+                print("")
+                print("POST-SUCCESS CLEANUP: repo returned to clean main")
+            else:
+                print("", file=sys.stderr)
+                print("POST-SUCCESS CLEANUP: FAIL (task completed; cleanup failed)", file=sys.stderr)
+                print(f"  {msg}", file=sys.stderr)
         print("")
         print("RUN ONE TASK FULL CYCLE: PASS (finalize)")
         print(f"Task: {task_id}")
@@ -881,6 +946,31 @@ def main() -> int:
     print_helper_result(post_cmd, post_out)
     if post_code != 0:
         return fail("run_wcs_operator_entrypoint post failed", task_id, "post")
+
+    # --- Exporter hook (after reconcile/post success; does not fail task on export failure) ---
+    print("")
+    print("--- CLOSEOUT: post-task export (dashboard) ---")
+    export_cmd = [
+        sys.executable,
+        str(workspace / "scripts" / "run_post_task_export.py"),
+        "--workspace",
+        str(workspace),
+    ]
+    export_code, export_out = run_helper(export_cmd, workspace)
+    print_helper_result(export_cmd, export_out)
+    if export_code != 0:
+        print("POST-TASK EXPORT: task completed; export failed (non-fatal)", file=sys.stderr)
+
+    repo_path = load_wcs_repo_path(workspace)
+    if repo_path:
+        ok, msg = return_wcs_to_clean_main(repo_path)
+        if ok:
+            print("")
+            print("POST-SUCCESS CLEANUP: repo returned to clean main")
+        else:
+            print("", file=sys.stderr)
+            print("POST-SUCCESS CLEANUP: FAIL (task completed; cleanup failed)", file=sys.stderr)
+            print(f"  {msg}", file=sys.stderr)
 
     print("")
     print("RUN ONE TASK FULL CYCLE: PASS")

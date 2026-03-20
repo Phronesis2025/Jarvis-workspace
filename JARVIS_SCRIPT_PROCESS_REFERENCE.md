@@ -2,18 +2,18 @@
 # JARVIS_SCRIPT_PROCESS_REFERENCE_v2.md
 
 ## Live Doc Status
-- Last reviewed: 2026-03-19
-- Last updated: 2026-03-19 (B1 v1 watcher docs alignment)
-- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, a thin operator-facing WCS wrapper for prep/post, and stricter launch-safety auditing on the Cursor bridge path)
+- Last reviewed: 2026-03-20
+- Last updated: 2026-03-20 (workflow-hardening milestone: 5-task fake-task batch proof)
+- Status: aligned to current live hardening state (hardened loop with validation gates, commit gate, stamping, file-registry checker, packet lifecycle/status cleanup during reconcile, thin operator-facing WCS wrapper for prep/post, stricter launch-safety auditing on the Cursor bridge path, post-task export after successful reconcile, post-success cleanup-to-main)
 - Verified against: JARVIS_LIVE_HANDOFF_BUNDLE.md
-- Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, WCS-061, and WCS-008. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved through prep, Agent CLI launch, and completion; task completion still required operator commit, QA, manual verification, and post-worker truth. On WCS-061 and WCS-008, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
+- Proof: Real guarded end-to-end task cycles succeeded on WCS-042, WCS-043, WCS-041, WCS-046, WCS-061, and WCS-008. 5-task fake-task batch proof passed (WCS-037 through WCS-049) via `run_task_sequence.py`; live export after each completed task; WCS returned to clean `main` after success. On WCS-043, reconcile safely proved that task packet JSON and task packet markdown now sync to the terminal outcome instead of remaining misleadingly `ready`. On WCS-041, the strict real-Agent `--launch-cursor` success path is proved. On WCS-046, the one-command single-task wrapper (`run_one_task_cycle.py`) is proved. On WCS-061 and WCS-008, the full-cycle wrapper (`run_one_task_full_cycle.py`) is proved; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; screenshot artifact support and `--finalize` proven on WCS-008.
 
 ## Current local state / follow-up
 - Option B V1 is live via `scripts/run_wcs_operator_entrypoint.py` for operator-facing `prep` and `post`.
 - `prep --launch-cursor` now uses strict post-launch auditing through `run_cursor_worker.py --require-auditable-delta`.
 - Strict launch failure is now honestly proven: launch can exit `0` and still fail overall when no immediate auditable in-scope repo delta exists.
 - Blocked/timeout behavior is also honestly proven: the real Agent CLI path returns `BLOCKED` when the agent does not finish before the configured timeout.
-- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; no batching or autonomy exaggeration. WCS-033 was a bad proof target; do not present as proof. Sequential runner (`run_task_sequence.py`) is proven on WCS-028. Page-specific smoke support is implemented and proven on WCS-032 for `/schedules`; overall smoke coverage still limited. Pathfinder v1 is proven: `run_pathfinder.py` accepts minimal intake or full task packet, gathers bounded context from workspace artifacts and WCS repo files, produces structured result with optional draft backlog candidate; read-only only. Optional LLM synthesis fallback + LLM path proven 2026-03-19; result includes `synthesis_source` and `llm_skipped_reason`; validation failure diagnostics preserve specific reason via `validation_failure:<reason>`.
+- Strict real-Agent success is proven on `WCS-041` and `WCS-046`. One-command single-task wrapper (`run_one_task_cycle.py`) is proven on `WCS-046`. Full-cycle wrapper (`run_one_task_full_cycle.py`) is proven on `WCS-061` and `WCS-008`; wrapper can close a single task end-to-end; after successful post/reconcile runs post-task export then returns WCS to clean `main`; failure/debug path leaves task branch intact. Sequential runner (`run_task_sequence.py`) is proven on WCS-028, WCS-029+WCS-030, and 5-task batch WCS-037 through WCS-049; supports `--confirm-commit` and `--manual-check` for non-interactive passthrough. WCS-033 was a bad proof target; do not present as proof. Page-specific smoke support is implemented and proven; overall smoke coverage still limited. Pathfinder v1 is proven: `run_pathfinder.py` accepts minimal intake or full task packet, gathers bounded context from workspace artifacts and WCS repo files, produces structured result with optional draft backlog candidate; read-only only. Optional LLM synthesis fallback + LLM path proven 2026-03-19; result includes `synthesis_source` and `llm_skipped_reason`; validation failure diagnostics preserve specific reason via `validation_failure:<reason>`.
 
 ## Post-milestone doc audit (live workflow rule)
 
@@ -729,7 +729,7 @@ Fresh proof succeeded on `WCS-044` for:
 - `prep`
 - `post`
 
-The optional `prep --launch-cursor` path remains operator-assisted. It now uses strict post-launch auditing so the wrapper fails honestly when launch is not immediately auditable, and it can pass through `--agent-timeout-seconds <n>` and `--agent-model <id>`. The strict failure path is safely proved. Blocked/timeout behavior is also proved. The strict real-Agent success path is proved on `WCS-041` and `WCS-046`. The one-command single-task wrapper (`run_one_task_cycle.py`) is proved on `WCS-046`; task completion still requires operator commit, QA, manual verification, and post-worker truth. The full-cycle wrapper (`run_one_task_full_cycle.py`) is proved on `WCS-061` and `WCS-008`; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`. Screenshot artifact support and `--finalize` proven on WCS-008. `--finalize`: resume mode for task already committed and smoke-tested; skips prep/launch/commit/build/smoke; delegates to post only; requires `--task` and `--manual-check`; optional `--artifact` for screenshot path(s). Current smoke test still limited; page-specific task coverage should be improved later.
+The optional `prep --launch-cursor` path remains operator-assisted. It now uses strict post-launch auditing so the wrapper fails honestly when launch is not immediately auditable, and it can pass through `--agent-timeout-seconds <n>` and `--agent-model <id>`. The strict failure path is safely proved. Blocked/timeout behavior is also proved. The strict real-Agent success path is proved on `WCS-041` and `WCS-046`. The one-command single-task wrapper (`run_one_task_cycle.py`) is proved on `WCS-046`; task completion still requires operator commit, QA, manual verification, and post-worker truth. The full-cycle wrapper (`run_one_task_full_cycle.py`) is proved on `WCS-061` and `WCS-008`; wrapper family can truthfully close a single task end-to-end via mechanical path plus `--finalize`; after successful post/reconcile, post-task export runs (live when env vars present; non-fatal on export failure), then WCS repo is returned to clean `main`; failure/debug path leaves task branch intact. Screenshot artifact support and `--finalize` proven on WCS-008. `--finalize`: resume mode for task already committed and smoke-tested; skips prep/launch/commit/build/smoke; delegates to post only; requires `--task` and `--manual-check`; optional `--artifact` for screenshot path(s). Current smoke test still limited; page-specific task coverage should be improved later.
 
 ### What this script does not currently do
 
@@ -797,21 +797,22 @@ It reduces operator glue for exactly one bounded WCS task while preserving the a
 
 ### Role
 
-Sequential multi-task runner. Runs multiple WCS tasks one after another by reusing `run_one_task_full_cycle.py`. Proven on WCS-028 (one-task sequential proof) and WCS-029 + WCS-030 (multi-task back-to-back in one live session with honest operator checkpoints preserved between tasks).
+Sequential multi-task runner. Runs multiple WCS tasks one after another by reusing `run_one_task_full_cycle.py`. Proven on WCS-028 (one-task), WCS-029 + WCS-030 (multi-task back-to-back), and 5-task batch WCS-037 through WCS-049 (2026-03-20).
 
 ### Current behavior
 
 - selects exactly one next ready task via `select_next_ready_task.py` at the start of each iteration
 - runs the full-cycle path for that exact task (pins task identity; no internal reselection)
-- operator checkpoint for commit; operator checkpoint for manual verification note
+- operator checkpoint for commit; operator checkpoint for manual verification note; supports non-interactive passthrough: `--confirm-commit` and `--manual-check "Verified targeted fake change for {task_id}."`
 - finalizes that same task; only then advances to the next task
 - stops immediately on failure, block, abort, or gate failure
 - uses explicit checkpoint exit codes from `run_one_task_full_cycle.py` (EXIT_STOP_COMMIT=10, EXIT_STOP_MANUAL=11) instead of fragile stdout parsing
 - `--max-tasks` (default 3); pass-through of launch/dev-server/screenshot flags
+- each completed task triggers post-task export (live when env vars present) and post-success cleanup (WCS returned to clean `main`)
 
 ### Important current truth
 
-The operator-gated sequential runner is now proven for multiple tasks back-to-back in one live session. Proof was completed on WCS-029 and WCS-030 using `run_task_sequence.py` with honest operator checkpoints preserved between tasks. The system remains sequential only. No scheduling, unattended mode, concurrency, or session persistence. Current smoke coverage is still limited and should be improved later, especially for broader route/page coverage.
+The operator-gated sequential runner is proven for multiple tasks back-to-back. 5-task fake-task batch proof passed: all 5 tasks completed through reconcile; live export ran after each completed task; successful runs return WCS to clean `main`. The system remains sequential only. No scheduling, unattended mode, concurrency, or session persistence.
 
 ### What this script does not currently do
 
@@ -1218,7 +1219,7 @@ Proven 2026-03-19. First run exposed false positives; signal hardening corrected
 
 ### Role
 
-One-way export of local Jarvis source-of-truth files into Supabase dashboard tables. Populates the read model for the Jarvis Dashboard v1 (deployed on Vercel).
+One-way export of local Jarvis source-of-truth files into Supabase dashboard tables. Populates the read model for the Jarvis Dashboard v1 (deployed on Vercel). Invoked automatically by `run_post_task_export.py` after each successful task reconcile in the full-cycle and sequence paths.
 
 ### Current behavior
 
@@ -1241,6 +1242,25 @@ One-way export of local Jarvis source-of-truth files into Supabase dashboard tab
 * does not edit local JSON/Markdown
 * does not run the dashboard app
 * does not provide automatic/scheduled sync (manual runs only)
+
+---
+
+## 7e. `scripts/run_post_task_export.py`
+
+### Role
+
+Post-task dashboard export hook. Runs automatically after each completed task (reconciled) in the full-cycle and sequence paths. Uses live export when env vars present, otherwise dry-run. Export failure does not retroactively fail the completed task.
+
+### Current behavior
+
+- invoked by `run_one_task_full_cycle.py` after successful post/reconcile, before returning WCS to clean `main`
+- calls `export_dashboard_data.py` (live or `--dry-run` per env)
+- prints `POST-TASK EXPORT: live export - PASS` or `POST-TASK EXPORT: dry-run (env missing) - PASS/FAIL`
+- exit code non-zero on export failure; caller does not fail the task on export failure
+
+### Why it exists
+
+Keeps dashboard data fresh after each completed task without coupling task success to export success.
 
 ---
 

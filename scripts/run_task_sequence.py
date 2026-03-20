@@ -88,6 +88,16 @@ def parse_args() -> argparse.Namespace:
         metavar="TEXT",
         help="Pass through: custom commit message template.",
     )
+    parser.add_argument(
+        "--confirm-commit",
+        action="store_true",
+        help="Non-interactive: auto-proceed at commit checkpoint.",
+    )
+    parser.add_argument(
+        "--manual-check",
+        metavar="TEXT",
+        help='Non-interactive: use this note at manual checkpoint. Supports {task_id} placeholder.',
+    )
     return parser.parse_args()
 
 
@@ -266,22 +276,27 @@ def main() -> int:
 
         # 3. Checkpoint: commit (code == _EXIT_STOP_COMMIT)
         if code == _EXIT_STOP_COMMIT:
-            try:
-                reply = input(f"Continue with commit for {task_id}? (y/n): ").strip().lower()
-            except (EOFError, KeyboardInterrupt):
-                stop_reason = "operator aborted at commit checkpoint"
-                print_session_result(tasks_attempted, tasks_completed, last_task, stop_reason)
-                return 1
-            if reply != "y":
-                stop_reason = "operator declined commit"
-                print_session_result(tasks_attempted, tasks_completed, last_task, stop_reason)
-                return 0
+            if not args.confirm_commit:
+                try:
+                    reply = input(f"Continue with commit for {task_id}? (y/n): ").strip().lower()
+                except (EOFError, KeyboardInterrupt):
+                    stop_reason = "operator aborted at commit checkpoint"
+                    print_session_result(tasks_attempted, tasks_completed, last_task, stop_reason)
+                    return 1
+                if reply != "y":
+                    stop_reason = "operator declined commit"
+                    print_session_result(tasks_attempted, tasks_completed, last_task, stop_reason)
+                    return 0
 
             code, output = run_full_cycle(
                 workspace=workspace,
                 task_id=task_id,
                 confirm_commit=True,
-                manual_check=None,
+                manual_check=(
+                    (args.manual_check or "").replace("{task_id}", task_id).strip()
+                    if args.manual_check
+                    else None
+                ),
                 finalize=False,
                 passthrough=passthrough,
             )
@@ -298,15 +313,18 @@ def main() -> int:
 
         # 4. Checkpoint: manual verification (code == _EXIT_STOP_MANUAL)
         if code == _EXIT_STOP_MANUAL:
-            try:
-                note = input(
-                    f"Manual verification note for {task_id} (or 'n' to abort): "
-                ).strip()
-            except (EOFError, KeyboardInterrupt):
-                stop_reason = "operator aborted at manual checkpoint"
-                print_session_result(tasks_attempted, tasks_completed, last_task, stop_reason)
-                return 1
-            if note.lower() == "n" or not note:
+            if args.manual_check:
+                note = (args.manual_check or "").replace("{task_id}", task_id).strip()
+            else:
+                try:
+                    note = input(
+                        f"Manual verification note for {task_id} (or 'n' to abort): "
+                    ).strip()
+                except (EOFError, KeyboardInterrupt):
+                    stop_reason = "operator aborted at manual checkpoint"
+                    print_session_result(tasks_attempted, tasks_completed, last_task, stop_reason)
+                    return 1
+            if not args.manual_check and (note.lower() == "n" or not note):
                 stop_reason = "operator declined manual verification"
                 print_session_result(tasks_attempted, tasks_completed, last_task, stop_reason)
                 return 0

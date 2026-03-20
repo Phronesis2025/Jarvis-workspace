@@ -43,11 +43,11 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 ## Verification
 
 - **Lint:** Runs non-interactively and passes (`npm run lint`).
-- **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM on `.next` or `.next-build/trace`).
+- **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM on `.next` or `.next-build/trace`). Do not overclaim build success when environment-blocked.
 
 ## Troubleshooting
 
-- **Overview stale data:** The Overview route uses `fetchCache = "force-no-store"` so Supabase reads are not cached. If Overview shows old values, restart the dev server and run a fresh export (`python scripts/export_dashboard_data.py` from the workspace root).
+- **Overview stale data:** The Overview route uses `fetchCache = "force-no-store"` so Supabase reads are not cached. If Overview shows old values, restart the dev server and run a fresh export (`python scripts/export_dashboard_data.py` from the workspace root). **Overview is now trustworthy enough for live workflow monitoring** after restart and export refresh; exporter/live activity can be observed through the current read-only dashboard surfaces.
 
 ## Vercel deployment
 
