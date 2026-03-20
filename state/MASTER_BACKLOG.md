@@ -33,7 +33,7 @@
 | WCS-030 | WCS | ugly | P3 | low | done | Fake test: add temporary TEST MODE badge below hero headline | src/components/Hero.tsx |
 | WCS-031 | WCS | ugly | P3 | low | done | Fake test: add trophy emoji to about page promo heading | src/app/about/page.tsx |
 | WCS-032 | WCS | ugly | P3 | low | done | Fake test: add visible TEST: prefix to schedules empty-state heading | src/app/schedules/page.tsx |
-| WCS-033 | WCS | ugly | P3 | low | blocked | Fake test: add visible TEST: prefix to drills empty-state heading | src/app/drills/page.tsx |
+| WCS-033 | WCS | ugly | P3 | low | done | Fake test: add visible TEST: prefix to drills empty-state heading | src/app/drills/page.tsx |
 | WCS-034 | WCS | ugly | P3 | low | done | Fake test: add temporary emoji to public team card label | src/components/ClientTeams.tsx |
 | WCS-035 | WCS | ugly | P3 | low | done | Fake test: add temporary highlight border to hero section | src/components/Hero.tsx |
 | WCS-036 | WCS | ugly | P3 | low | done | Fake test: add star emoji to about mission heading | src/app/about/page.tsx |

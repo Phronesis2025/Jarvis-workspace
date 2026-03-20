@@ -380,7 +380,7 @@
     "bucket": "ugly",
     "priority": "P3",
     "risk": "low",
-    "status": "blocked",
+    "status": "done",
     "exclusion_reason": "Already satisfied in codebase; not a valid fake-task proof specimen",
     "title": "Fake test: add visible TEST: prefix to drills empty-state heading",
     "notes": "src/app/drills/page.tsx",
