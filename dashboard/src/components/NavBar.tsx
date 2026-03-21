@@ -8,6 +8,7 @@ const navItems = [
   { href: "/tasks", label: "Task Board" },
   { href: "/runs", label: "Recent Runs" },
   { href: "/pathfinder", label: "Pathfinder" },
+  { href: "/research-swarm", label: "Research Swarm" },
   { href: "/checklists", label: "Checklists" },
 ] as const;
 

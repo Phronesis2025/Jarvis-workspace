@@ -1,17 +1,23 @@
 # Research Swarm — Side Quest Context Anchor
 
-**Last updated:** 2026-03-20  
-**Purpose:** New-chat handoff anchor for Research Swarm continuation work.
+**Last updated:** 2026-03-21  
+**Purpose:** New-chat handoff anchor for Research Swarm continuation work.  
+**R55:** Dashboard Research Swarm review page added at `/research-swarm`.
 
 ---
 
 ## What This Side Quest Is
 
 - **Research Swarm** — planned Jarvis input-learning engine
-- Transforms raw research sources (YouTube, Reddit, GitHub) into structured, evaluated knowledge
-- Manual flow: source packet → extract → evaluate → archive
-- Extractor API v1 scaffold exists, hardened, and locally smoke-proven
-- Side-by-side stage decision: **QUALIFIED PASS** (bounded assistive drafting only)
+- Transforms raw research sources (GitHub, article/webpage) into structured knowledge for evaluation and archiving
+- **Phase A:** Unattended bounded collector — runs on operator URL list + optional bounded discovery; writes run summary + cumulative ledger
+- **Extractor API v1** — scaffold hardened, QUALIFIED PASS (bounded assistive drafting)
+- **Discovery / Intake** — implemented for GitHub + generic article/webpage
+- **Content Acquisition** — implemented for GitHub + generic article/webpage
+- **Single-run automation** — `run_pipeline.py` (operator-triggered)
+- **Batch runner** — `run_batch.py` (up to 10 runs)
+- **Broader corpus eval** — `run_broader_corpus_eval.py` (uses operator URL list)
+- Human review still mandatory after collection
 - Evaluator and archivist remain manual
 
 ---
@@ -20,10 +26,9 @@
 
 - Not an active Jarvis runtime module
 - Not integrated with Jarvis Dashboard, export, or orchestration
-- Not transcript acquisition automation
 - Not evaluator or archivist API automation
-- Not a one-line command wrapper
-- Not safe for unattended use
+- Not video/X/Twitter/Reddit source support
+- Not broad production trust (collector is bounded, for learning)
 
 ---
 
@@ -31,12 +36,16 @@
 
 | Label | Status |
 |-------|--------|
-| **Manual flow proven** | Yes — two end-to-end runs with archive entries |
-| **Extractor API v1** | Smoke-proven locally; side-by-side QUALIFIED PASS |
-| **Second-source validation** | Completed — first_run and second_run both SOFT PASS |
-| **Proven** | Manual flow + API assistive drafting (bounded, operator-reviewed) |
-| **Integrated with Jarvis** | No |
+| **Phase A collector** | Implemented — unattended bounded collection |
+| **Extractor API v1** | QUALIFIED PASS — bounded assistive drafting |
+| **Discovery** | Implemented — GitHub + article/webpage |
+| **Acquisition** | Implemented — GitHub + article/webpage |
+| **Supported sources** | GitHub + article/webpage only |
+| **Dashboard review page** | Yes — `/research-swarm` reads summary + ledger |
+| **Integrated with Jarvis export** | No |
 | **Human review** | Mandatory |
+| **Evaluator / Archivist** | Manual |
+| **Scheduling** | Hourly possible via ops scripts (no-overlap) |
 
 ---
 
@@ -44,69 +53,53 @@
 
 | Role | Path |
 |------|------|
-| Module root | `C:\dev\jarvis-workspace\future_modules\research_swarm\` |
-| Schemas | `future_modules/research_swarm/schemas/` |
-| Prompts | `future_modules/research_swarm/prompts/` |
+| Module root | `future_modules/research_swarm/` |
 | Scripts | `future_modules/research_swarm/scripts/` |
 | Outputs | `future_modules/research_swarm/outputs/` |
+| Examples | `future_modules/research_swarm/examples/` |
+| Ops | `future_modules/research_swarm/ops/` |
 | Docs | `future_modules/research_swarm/docs/` |
 
 ---
 
-## Related Module Files
+## Phase A Collector
 
 | File | Purpose |
 |------|---------|
-| `module_spec.md` | Module purpose, scope, non-goals |
-| `README.md` | Current v1 role set, operating stance |
-| `docs/MANUAL_RUN_CHECKLIST.md` | Operator checklist for manual runs |
-| `docs/EXTRACTOR_API_V1_BUILD_PACKET.md` | Execution build checklist |
-| `docs/EXTRACTOR_API_REVIEW_GATE.md` | Manual acceptance gate for API output |
-| `scripts/run_extractor_api.py` | Extractor API CLI entry point |
-| `scripts/extractor_api_client.py` | OpenAI API client for extraction |
-| `scripts/extractor_api_validate.py` | Schema validator for extraction output |
-| `outputs/extractor_api_stage_decision.md` | Side-by-side stage decision (QUALIFIED PASS) |
+| `scripts/run_phase_a_collector.py` | Main entrypoint: URL list + optional discovery → collect → ledger |
+| `examples/phase_a_discovery_queries.json` | Bounded discovery query file |
+| `examples/phase_a_smoke_urls.txt` | Smoke-test URL subset |
+| `ops/run_phase_a_collector_once.ps1` | Run once (no-overlap lock) |
+| `ops/register_phase_a_hourly_task.ps1` | Register hourly scheduled task |
+| `outputs/phase_a_collection_ledger.jsonl` | Cumulative per-item ledger |
+| `outputs/phase_a_run_summary_*.json` | Per-run summary |
 
 ---
 
 ## Current Direction
 
-- **Post-validation / bounded-quality-improvement-or-hold**
-- API v1 is locally operational for assistive drafting
-- Human review remains mandatory
-- Known weakness profile (generic methods/patterns, thinner key claims, abstract open questions)
-- Evaluator and archivist remain manual
-- Not integrated with Jarvis
+- **Phase A focus:** Unattended bounded collector for durable collection data
+- Runs on operator URL list + optional bounded discovery
+- Scheduling goal: hourly, no overlap
+- **Collection review:** Files (summary JSON/MD, ledger) + dashboard page `/research-swarm`
+- Primary bottleneck: **extraction schema** (LLM enum drift) and restricted/paywalled skips
+- Purpose: gather durable collection data for later human review and learning
 
 ---
 
-## Known API Weakness Profile
+## Known Weakness Profile
 
-- Generic methods/pattern labels vs concrete implementation patterns
-- Thinner key claims than manual baseline
-- Weaker technical nuance (e.g., sign-then-post, yes/no tokens, phased validation)
-- Abstract open questions vs implementation-specific
-- Acceptable as first draft; operator must supplement
+- **Acquisition reliability:** Restricted/paywalled articles (e.g. Medium HTTP 403) — skip/log
+- **Extraction schema:** LLM sometimes outputs category values outside enum (strategy, agent vs method/tool/pattern)
+- **Video/X/Twitter/Reddit:** Not supported; classified and skipped
+- **Evaluator/archivist:** Manual; no automation
 
 ---
 
 ## Locked Constraints
 
 - Manual review gate remains mandatory
-- Manual extraction is fallback at all times
 - No evaluator/archivist automation in scope
-- No transcript acquisition in Extractor API v1 scope
-- No unattended use; no broad production trust
-- Schema contracts preserved; no drift
-
----
-
-## What the Next Chat Should Do First
-
-1. Read `SIDE_QUEST_HANDOFF_BUNDLE_RESEARCH_SWARM_LATEST.md`
-2. Inspect `outputs/extractor_api_stage_decision.md` and comparison notes (`extractor_api_comparison_second_run.md`, `extractor_api_comparison_first_run.md`)
-3. Decide next bounded move:
-   - **Option A:** Prompt-tuning pass targeting concrete implementation patterns and technical claims
-   - **Option B:** Operator decision to leave API v1 at qualified-pass assistive status for now
-
-Do not assume broader activation. The next step is the smallest bounded move.
+- No video/X/Twitter/Reddit support
+- Schema contracts preserved
+- Collector is bounded; no broad autonomous research judgment

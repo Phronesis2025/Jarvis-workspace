@@ -103,3 +103,106 @@ export async function getModuleChecklists(): Promise<ModuleChecklistsData | null
     return null;
   }
 }
+
+/** Phase A run summary shape (from phase_a_run_summary_*.json) */
+export interface PhaseARunSummary {
+  run_id: string;
+  started_at: string;
+  urls_file: string | null;
+  queries_file: string | null;
+  discovery_queries_used: Array<{ query: string; source_class: string; found: number }>;
+  raw_from_list: number;
+  after_merge_dedup: number;
+  github: number;
+  article: number;
+  unsupported_video: number;
+  unsupported_other: number;
+  processed: number;
+  success: number;
+  partial: number;
+  fail: number;
+  skipped_restricted: number;
+  skipped_unsupported: number;
+  recurring_failures: Array<{ reason: string; count: number }>;
+  results?: Array<{
+    source_url: string;
+    source_class: string;
+    outcome: string;
+    usefulness?: string;
+    failure_reason?: string | null;
+  }>;
+}
+
+/** Ledger row shape (phase_a_collection_ledger.jsonl) */
+export interface PhaseALedgerRow {
+  run_id: string;
+  timestamp: string;
+  source_url: string;
+  source_class: string;
+  input_origin: string;
+  outcome: string;
+  failure_reason?: string | null;
+  usefulness?: string;
+}
+
+/**
+ * Read latest Phase A run summary from research_swarm outputs.
+ * Returns null when no summary files exist.
+ */
+export async function getResearchSwarmLatestRun(): Promise<PhaseARunSummary | null> {
+  try {
+    const { readdir } = await import("fs/promises");
+    const workspaceRoot = join(process.cwd(), "..");
+    const outputsDir = join(
+      workspaceRoot,
+      "future_modules",
+      "research_swarm",
+      "outputs"
+    );
+    const files = await readdir(outputsDir);
+    const summaries = files
+      .filter((f) => f.startsWith("phase_a_run_summary_") && f.endsWith(".json"))
+      .sort()
+      .reverse();
+    if (summaries.length === 0) return null;
+    const raw = await readFile(join(outputsDir, summaries[0]), "utf-8");
+    return JSON.parse(raw) as PhaseARunSummary;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Read latest N rows from Phase A collection ledger.
+ * Returns empty array when ledger unavailable.
+ */
+export async function getResearchSwarmLedgerRows(
+  limit = 25
+): Promise<PhaseALedgerRow[]> {
+  try {
+    const workspaceRoot = join(process.cwd(), "..");
+    const ledgerPath = join(
+      workspaceRoot,
+      "future_modules",
+      "research_swarm",
+      "outputs",
+      "phase_a_collection_ledger.jsonl"
+    );
+    const raw = await readFile(ledgerPath, "utf-8");
+    const lines = raw
+      .trim()
+      .split("\n")
+      .filter((l) => l.trim());
+    const rows: PhaseALedgerRow[] = [];
+    for (let i = lines.length - 1; i >= 0 && rows.length < limit; i--) {
+      try {
+        rows.push(JSON.parse(lines[i]) as PhaseALedgerRow);
+      } catch {
+        /* skip malformed */
+      }
+    }
+    return rows;
+  } catch {
+    return [];
+  }
+}

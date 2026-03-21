@@ -1,0 +1,7 @@
+{
+  "queries": [
+    {"query": "AI trading agent Python GitHub", "source_class": "github", "max": 5},
+    {"query": "trading agents LLM framework", "source_class": "article", "max": 5}
+  ],
+  "max_total_discovery": 20
+}

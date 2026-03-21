@@ -66,6 +66,7 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 - **Task Board:** Tasks grouped by status (ready, running, awaiting operator, blocked, escalated, done).
 - **Recent Runs:** Table of run_id, module, script, outcome, trust (B/S/P for WCS runs), stop_reason, llm_used, etc.
 - **Pathfinder:** Table of Pathfinder cases with synthesis_source, confidence, backlog candidate.
+- **Research Swarm:** Route `/research-swarm`. Read-only Phase A collector review. Reads `phase_a_run_summary_*.json` and `phase_a_collection_ledger.jsonl` from `future_modules/research_swarm/outputs/`. Shows latest run ID, counts (raw, deduped, supported, unsupported, success, partial, fail, skipped), source-class breakdown, bottleneck summary, and recent ledger table. Empty state when no collector output exists (R55).
 - **Module Checklists:** Route `/checklists`. Read-only build-path view per module. Canonical source: `state/module_checklists.json` (and `state/MODULE_CHECKLISTS.md` for human view). Page shows module name, purpose, status, current phase/step, final version definition, phase-by-phase checklist, done vs remaining counts. Renders from canonical JSON when dashboard runs locally with workspace state; shows "unavailable" when file cannot be read (e.g. deployed without workspace). Local dev rendering verified (Overview and Checklists both render with correct shell/styling when `npm run dev` on port 3001).
 
 ## Exporter verification

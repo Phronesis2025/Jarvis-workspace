@@ -1,0 +1,6 @@
+# Phase A smoke test - small subset
+https://github.com/KylinMountain/TradingAgents-AShare
+https://github.com/Dendyuui/vn-stock-ai-hedgefund
+https://www.digitalocean.com/community/conceptual-articles/tradingagents
+https://www.youtube.com/watch?v=F-V71VQp_Og
+https://medium.com/@gwrx2005/from-trading-bot-to-trading-agent-how-to-build-an-ai-based-investment-system-313d4c370c60

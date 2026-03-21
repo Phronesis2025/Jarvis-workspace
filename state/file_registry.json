@@ -353,8 +353,19 @@
     "owner": "user",
     "purpose": "Jarvis Dashboard v1 setup and deployment notes",
     "updated_by": "user",
-    "notes": "Read-only Next.js dashboard on Vercel; Supabase read model; exporter working; WCS trust visibility in Overview and Recent Runs (build, smoke, page-smoke, route, stop reason); no write-back, scheduling, or command execution",
-    "last_reviewed": "2026-03-18"
+    "notes": "Read-only Next.js dashboard on Vercel; Supabase read model; exporter working; WCS trust visibility in Overview and Recent Runs (build, smoke, page-smoke, route, stop reason); Research Swarm page at /research-swarm (R55); no write-back, scheduling, or command execution",
+    "last_reviewed": "2026-03-21"
+  },
+  {
+    "file": "dashboard/src/app/research-swarm/page.tsx",
+    "path": "C:\\dev\\jarvis-workspace\\dashboard\\src\\app\\research-swarm\\page.tsx",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Research Swarm Phase A collector review page; reads phase_a_run_summary + ledger from outputs",
+    "updated_by": "user",
+    "notes": "Route /research-swarm; R55; displays latest run, counts, source breakdown, bottleneck, recent ledger; empty state when no outputs",
+    "last_reviewed": "2026-03-21"
   },
   {
     "file": "PATHFINDER_V1_BUILD_BRIEF.md",
@@ -1110,5 +1121,104 @@
     "updated_by": "user",
     "notes": "Reads task packet and writes scratch/cursor_handoffs/<task>_cursor_handoff.md when bounded file scope can be derived; uses packet implementation_instruction when present for explicit Cursor prompt; adds 'must make at least one code edit' line; fails (no file written) when scope cannot be derived; does not execute task, modify WCS code, or mutate backlog/state",
     "last_reviewed": "2026-03-14"
+  },
+  {
+    "file": "SIDE_QUEST_CONTEXT_ANCHOR_RESEARCH_SWARM_CURRENT.md",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\docs\\SIDE_QUEST_CONTEXT_ANCHOR_RESEARCH_SWARM_CURRENT.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Research Swarm side-quest context anchor for new-chat handoff",
+    "updated_by": "user",
+    "notes": "Phase A unattended bounded collector; supported GitHub + article; acquisition reliability bottleneck; not integrated with Jarvis",
+    "last_reviewed": "2026-03-21"
+  },
+  {
+    "file": "SIDE_QUEST_PROCESS_CHECKLIST_RESEARCH_SWARM.md",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\docs\\SIDE_QUEST_PROCESS_CHECKLIST_RESEARCH_SWARM.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Research Swarm side-quest process checklist",
+    "updated_by": "user",
+    "notes": "Phase A collector done; evaluator/archivist manual; deferred: video, Jarvis",
+    "last_reviewed": "2026-03-21"
+  },
+  {
+    "file": "SIDE_QUEST_HANDOFF_BUNDLE_RESEARCH_SWARM_LATEST.md",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\docs\\SIDE_QUEST_HANDOFF_BUNDLE_RESEARCH_SWARM_LATEST.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Research Swarm side-quest handoff bundle for new chat",
+    "updated_by": "user",
+    "notes": "Phase A collector, ops scripts, run commands; attach to new chat for context",
+    "last_reviewed": "2026-03-21"
+  },
+  {
+    "file": "run_phase_a_collector.py",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\scripts\\run_phase_a_collector.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Phase A unattended bounded collector; URL list + optional discovery; skip/log restricted and unsupported; ledger",
+    "updated_by": "user",
+    "notes": "Supported: GitHub + article only",
+    "last_reviewed": "2026-03-21"
+  },
+  {
+    "file": "run_phase_a_collector_once.ps1",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\ops\\run_phase_a_collector_once.ps1",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Run Phase A collector once with no-overlap lock",
+    "updated_by": "user",
+    "notes": "Windows PowerShell; uses phase_a_collector.lock for no-overlap",
+    "last_reviewed": "2026-03-21"
+  },
+  {
+    "file": "register_phase_a_hourly_task.ps1",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\ops\\register_phase_a_hourly_task.ps1",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Register hourly scheduled task for Phase A collector",
+    "updated_by": "user",
+    "notes": "Run as Administrator",
+    "last_reviewed": "2026-03-21"
+  },
+  {
+    "file": "run_extractor_api.py",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\scripts\\run_extractor_api.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Extractor API v1 CLI entry point; source packet in, extraction report out",
+    "updated_by": "user",
+    "notes": "Requires OPENAI_API_KEY, openai, jsonschema; manual review gate mandatory; not yet smoke-tested",
+    "last_reviewed": "2026-03-20"
+  },
+  {
+    "file": "extractor_api_client.py",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\scripts\\extractor_api_client.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Extractor API v1 OpenAI client; bounded extraction request",
+    "updated_by": "user",
+    "notes": "generate_extraction(packet, model) -> dict",
+    "last_reviewed": "2026-03-20"
+  },
+  {
+    "file": "extractor_api_validate.py",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\scripts\\extractor_api_validate.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Extractor API v1 schema validator for extraction report",
+    "updated_by": "user",
+    "notes": "validate_extraction_report(data) -> None; raises on failure",
+    "last_reviewed": "2026-03-20"
   }
 ]
