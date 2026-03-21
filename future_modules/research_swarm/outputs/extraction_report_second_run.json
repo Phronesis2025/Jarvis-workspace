@@ -1,0 +1,108 @@
+{
+  "report_id": "rs-extract-second-run-001",
+  "packet_id": "rs-intake-second-run-001",
+  "source_url": "https://www.youtube.com/watch?v=dTyY6rft5kg",
+  "created_at": "2026-03-20T18:00:00Z",
+  "summary": "Tutorial on using the Polymarket API with Python. Covers public vs private API boundaries (market data, user data, order book without auth; order placement requires authentication), the py-clob-client third-party library vs direct requests to gamma and data APIs, authentication via fund address and private key, and the sign-then-post order workflow. Demonstrates market orders, limit orders, order management (get open, cancel), and automation hooks (price tracking, user position tracker). Includes security cautions on private keys and risk disclaimers.",
+  "methods_tools_patterns": [
+    {
+      "name": "Public vs private API boundary",
+      "description": "Market data, user data, order book fetchable without authentication; order placement and private operations require fund address and private key",
+      "evidence": "the market data, the user data, etc. This is public knowledge if you want. So you don't need to authenticate to do that... further API calls where we place a trade, we need this private authentication.",
+      "category": "pattern"
+    },
+    {
+      "name": "Sign-then-post order flow",
+      "description": "Create order and sign with authentication; then post to execute. Signing does not place the order.",
+      "evidence": "this is just creating the order and signing it... but it's not placing it to place it is a you once it's signed we see market order sign then we do a post.",
+      "category": "pattern"
+    },
+    {
+      "name": "Yes/no token model",
+      "description": "Polymarket orders use yes and no tokens; place yes bet with yes token ID, no bet with no token ID",
+      "evidence": "Everything works with tokens. So if you want to place a bet and say yes, you'll use the yes token. If you want to place a bet and you want to say no, you use the no token.",
+      "category": "pattern"
+    },
+    {
+      "name": "Third-party library vs direct API requests",
+      "description": "py-clob-client for order placement and clob API; direct requests to gamma API (markets) and data API (user info, positions) for other operations",
+      "evidence": "we are directly requesting the API of poly market... gamma API for the markets... and data is that we will see is where you if you want to get user information... this by the way is not using that GitHub third party this I'm doing a request directly... to the data API so no third party directly with this code",
+      "category": "pattern"
+    },
+    {
+      "name": "Price tracking as automation hook",
+      "description": "Poll yes token price at interval for entry/exit conditions in automation",
+      "evidence": "tracking the the price of the yes token just saying you will do that for 10 seconds with an interval of one... in an automation scheme, maybe you would be checking every minute or every 5 seconds... if you want to put conditions when you want to enter or exit.",
+      "category": "method"
+    },
+    {
+      "name": "User position tracker via data API",
+      "description": "Fetch positions of a wallet address using data API with direct request; no third-party library",
+      "evidence": "user position tracker. So you might want to track the activities, the position of somebody, etc... copy address. So that's their like fund fun address... we see all the positions that user has... this by the way is not using that GitHub third party this I'm doing a request directly... to the data API",
+      "category": "method"
+    },
+    {
+      "name": "Private key confidentiality rule",
+      "description": "Never share private key with third party or AI; treat as highly confidential; enables fund transfer and bets",
+      "evidence": "This obviously gives the right to a person to come and use transfer your funds or do bets etc. So this is very super confidential information and you should never share with any third party or even give to an AI or whatever. You need to be very careful about this.",
+      "category": "method"
+    }
+  ],
+  "key_claims": [
+    {
+      "claim": "Market data, user data, and order book can be fetched without authentication",
+      "evidence": "the market data, the user data, etc. This is public knowledge if you want. So you don't need to authenticate to do that.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Order placement requires private authentication (fund address and private key)",
+      "evidence": "further API calls where we place a trade, we need this private authentication... we need to give the fun address and private key.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Polymarket creates derived API keys; client uses those, not raw keys you provide",
+      "evidence": "they're actually these are not technically speaking exactly API keys that you gave them. So we are using this derived API key that poly market creates them for you already and then we set them in our client",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Polymarket uses cents for amounts; displayed values can be confusing—e.g., 4465 represents $4.65 USDC.",
+      "evidence": "note that it can be a bit confusing but they everything is in sent on poly market so that's why you see 4 465 is but in USDC it is 4.65 65",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Get balance verifies authentication; error indicates misconfiguration",
+      "evidence": "if there was some misconfiguration or whatever, we would get an error here saying that it's just not working or invalid something, whatever. So, that kind of verifies that we did the job properly here.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Limit order places live order that may not execute immediately; status live means open",
+      "evidence": "Status live. That means it was placed and it's not executed. You can see that now we don't have the bit placed. We have a open order.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "py-clob-client is third-party open source code; speaker offers to build from scratch for clients",
+      "evidence": "I'm using this code that a bunch of people have coded is open source. It is third party... if you want somebody to code this for you entirely from scratch using directly the API of poly market you're welcome to ask me.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Video is not financial advice; trading and betting can lose all capital",
+      "evidence": "this video is not financial advice... But trading, betting, all of that is very risky because you can lose all your capital. So keep that in mind.",
+      "confidence": "stated"
+    }
+  ],
+  "hype_signals": [
+    "super easy",
+    "We're going from zero to placing a real trade in about 10 minutes",
+    "No complicated blockchain stuff, just clean simple Python code",
+    "even if you don't know much about Python, it'll be super easy",
+    "$2 million in profits. The volume insane",
+    "biggest prediction market in the world"
+  ],
+  "open_questions": [
+    "What are the exact base URLs for gamma API and data API?",
+    "What is the py-clob-client GitHub repository URL?",
+    "What are the signature types for MetaMask vs hardware wallet vs email?",
+    "How does the derived API key creation flow work with Polymarket?",
+    "Are there rate limits or throttling on the public vs private endpoints?"
+  ]
+}

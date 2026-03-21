@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "future_modules/research_swarm/schemas/archive_update",
+  "title": "Archive Update",
+  "description": "Knowledge-base entry produced from validated extraction",
+  "type": "object",
+  "required": ["entry_id", "source_metadata", "summary", "created_at"],
+  "properties": {
+    "entry_id": {
+      "type": "string",
+      "description": "Unique identifier for this archive entry"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    "source_metadata": {
+      "type": "object",
+      "required": ["url", "source_type", "title", "captured_at", "evaluation_passed"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "source_type": { "type": "string", "enum": ["youtube", "reddit", "github"] },
+        "title": { "type": "string" },
+        "author": { "type": "string" },
+        "captured_at": { "type": "string", "format": "date-time" },
+        "evaluation_passed": { "type": "boolean" }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "description": "2–4 sentence summary"
+    },
+    "useful_methods_tools_patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "evidence": { "type": "string" }
+        }
+      }
+    },
+    "hype_warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "build_ideas": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "module_mapping": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Suggested consuming modules"
+    },
+    "follow_up_questions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

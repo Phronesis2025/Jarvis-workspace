@@ -1,0 +1,158 @@
+{
+  "query": "python prediction market API",
+  "discovered_at": "2026-03-21T04:03:14.178589Z",
+  "source_class": "github",
+  "freshness_ranking": "pushed_at desc (most recent first)",
+  "candidates": [
+    {
+      "source_url": "https://github.com/elsantos305/predmarket",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "high",
+      "freshness_signal": "pushed_at: 2026-03-21T03:53:31Z",
+      "metadata": {
+        "full_name": "elsantos305/predmarket",
+        "description": "🔗 Unify prediction market APIs with `predmarket`, a Python library that simplifies access to Kalshi and Polymarket for seamless data integration.",
+        "stars": 8,
+        "language": "Python",
+        "pushed_at": "2026-03-21T03:53:31Z",
+        "updated_at": "2026-03-21T03:53:34Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/rockit2ya/nba_prediction_engine",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "high",
+      "freshness_signal": "pushed_at: 2026-03-20T17:31:01Z",
+      "metadata": {
+        "full_name": "rockit2ya/nba_prediction_engine",
+        "description": "A possession-based NBA analytical suite built in Python 3.14 to identify market inefficiencies. Leverages the Four-Factor Model, Pace-Adjusted scoring, and a Fatigue Adjuster to generate \"Fair Lines.\" Features a dynamic terminal UI with real-time data ingestion via nba_api. Designed for data-driven edge detection. 🏀💻📈",
+        "stars": 1,
+        "language": "Python",
+        "pushed_at": "2026-03-20T17:31:01Z",
+        "updated_at": "2026-03-20T17:31:05Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/arshka/pykalshi",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "high",
+      "freshness_signal": "pushed_at: 2026-03-19T00:34:51Z",
+      "metadata": {
+        "full_name": "arshka/pykalshi",
+        "description": "Unofficial Python client for Kalshi's prediction markets API",
+        "stars": 60,
+        "language": "Python",
+        "pushed_at": "2026-03-19T00:34:51Z",
+        "updated_at": "2026-03-20T18:24:39Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/vesper-astrena/polymarket-scanner-api",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "medium",
+      "freshness_signal": "pushed_at: 2026-03-14T07:51:05Z",
+      "metadata": {
+        "full_name": "vesper-astrena/polymarket-scanner-api",
+        "description": "REST API for real-time prediction market arbitrage detection. Scans 12,000+ Polymarket markets. Free tier available. Built with FastAPI + Python.",
+        "stars": 1,
+        "language": "Python",
+        "pushed_at": "2026-03-14T07:51:05Z",
+        "updated_at": "2026-03-14T07:51:08Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/jarvismaximum-hue/profitplay-starter",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "medium",
+      "freshness_signal": "pushed_at: 2026-03-14T04:01:25Z",
+      "metadata": {
+        "full_name": "jarvismaximum-hue/profitplay-starter",
+        "description": "Open prediction market arena for AI agents — register with one API call, compete on 9 live game types",
+        "stars": 4,
+        "language": "Python",
+        "pushed_at": "2026-03-14T04:01:25Z",
+        "updated_at": "2026-03-17T02:22:40Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/santannajp/polymarket-scraper-data",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "medium",
+      "freshness_signal": "pushed_at: 2026-03-13T19:06:40Z",
+      "metadata": {
+        "full_name": "santannajp/polymarket-scraper-data",
+        "description": "This project is a Python-based scraper for the Polymarket prediction market platform. It fetches data from the Polymarket APIs, processes it, and stores it in a PostgreSQL database with the TimescaleDB extension for efficient time-series data handling.",
+        "stars": 0,
+        "language": "Python",
+        "pushed_at": "2026-03-13T19:06:40Z",
+        "updated_at": "2026-03-13T19:06:44Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/vesper-astrena/polymarket-scanner",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "medium",
+      "freshness_signal": "pushed_at: 2026-03-12T00:51:34Z",
+      "metadata": {
+        "full_name": "vesper-astrena/polymarket-scanner",
+        "description": "Open-source Python scanner for Polymarket prediction market mispricings. Detects exclusive outcome deviations, ladder contradictions, and cross-market conflicts. No API key needed.",
+        "stars": 0,
+        "language": "Python",
+        "pushed_at": "2026-03-12T00:51:34Z",
+        "updated_at": "2026-03-12T03:43:50Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/Muhammad-Farooq13/Stock-market-prediction",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "low",
+      "freshness_signal": "pushed_at: 2026-03-11T10:21:34Z",
+      "metadata": {
+        "full_name": "Muhammad-Farooq13/Stock-market-prediction",
+        "description": "Production-ready Stock Market Prediction System with MLOps pipeline, Flask REST API, Docker deployment, and comprehensive ML models (XGBoost, LightGBM, Random Forest) for time series forecasting",
+        "stars": 0,
+        "language": "Python",
+        "pushed_at": "2026-03-11T10:21:34Z",
+        "updated_at": "2026-03-13T10:45:57Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/OddsPipe/oddspipe-python",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "low",
+      "freshness_signal": "pushed_at: 2026-03-08T03:33:08Z",
+      "metadata": {
+        "full_name": "OddsPipe/oddspipe-python",
+        "description": "Python client for the OddsPipe prediction market API",
+        "stars": 0,
+        "language": "Python",
+        "pushed_at": "2026-03-08T03:33:08Z",
+        "updated_at": "2026-03-08T03:33:11Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/mehdihbgi3/germany-energy-ml",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "low",
+      "freshness_signal": "pushed_at: 2026-03-08T00:01:12Z",
+      "metadata": {
+        "full_name": "mehdihbgi3/germany-energy-ml",
+        "description": "Machine learning platform for German energy market forecasting, analytics, and anomaly detection, featuring load & price prediction, interactive dashboards, and REST APIs.",
+        "stars": 0,
+        "language": "Python",
+        "pushed_at": "2026-03-08T00:01:12Z",
+        "updated_at": "2026-03-08T10:19:54Z"
+      }
+    }
+  ]
+}

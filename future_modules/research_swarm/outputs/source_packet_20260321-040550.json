@@ -1,0 +1,15 @@
+{
+  "packet_id": "rs-acq-20260321-bccb8062",
+  "source_url": "https://github.com/Polymarket/py-builder-relayer-client",
+  "source_type": "github",
+  "raw_content": "# py-builder-relayer-client\n\nPython client library for interacting with the Polymarket Relayer infrastructure\n\n## Installation\n\n```bash\npip install py-builder-relayer-client\n```\n\n## Configuration\n\nCreate a `.env` file based on .env.example with credentials:\n\n```env\nRELAYER_URL=https://relayer-v2-staging.polymarket.dev/\nCHAIN_ID=80002\nPK=your_private_key_here\nBUILDER_API_KEY=your_api_key\nBUILDER_SECRET=your_api_secret\nBUILDER_PASS_PHRASE=your_passphrase\n```",
+  "metadata": {
+    "repo": "Polymarket/py-builder-relayer-client",
+    "source": "readme",
+    "url": "https://github.com/Polymarket/py-builder-relayer-client"
+  },
+  "content_completeness": "full",
+  "raw_content_format": "markdown",
+  "created_at": "2026-03-21T04:05:50.057573Z",
+  "captured_at": "2026-03-21T04:05:50.057573Z"
+}

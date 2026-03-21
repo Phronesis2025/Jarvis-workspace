@@ -1,0 +1,38 @@
+{
+  "query": "polymarket API Python client",
+  "discovered_at": "2026-03-21T04:05:43.854537Z",
+  "source_class": "github",
+  "freshness_ranking": "sort=updated desc (most recent first); freshness_signal from pushed_at",
+  "candidates": [
+    {
+      "source_url": "https://github.com/J-Verwey/pm_access_example",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "high",
+      "freshness_signal": "pushed_at: 2026-03-04T01:07:12Z",
+      "metadata": {
+        "full_name": "J-Verwey/pm_access_example",
+        "description": "Quickstart for Polymarket in Python: py-clob-client, websocket, and gamma-api",
+        "stars": 0,
+        "language": "Jupyter Notebook",
+        "pushed_at": "2026-03-04T01:07:12Z",
+        "updated_at": "2026-03-04T01:07:15Z"
+      }
+    },
+    {
+      "source_url": "https://github.com/Polymarket/py-builder-relayer-client",
+      "source_class": "github",
+      "selection_reason": "Matches query; recently updated; README likely",
+      "priority": "high",
+      "freshness_signal": "pushed_at: 2026-02-22T14:59:57Z",
+      "metadata": {
+        "full_name": "Polymarket/py-builder-relayer-client",
+        "description": "Python Client for the Polymarket Relayer API",
+        "stars": 27,
+        "language": "Python",
+        "pushed_at": "2026-02-22T14:59:57Z",
+        "updated_at": "2026-03-19T12:14:28Z"
+      }
+    }
+  ]
+}

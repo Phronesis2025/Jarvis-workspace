@@ -1,0 +1,40 @@
+{
+  "report_id": "rs-extract-rs-acq-20260321-bccb8062",
+  "packet_id": "rs-acq-20260321-bccb8062",
+  "source_url": "https://github.com/Polymarket/py-builder-relayer-client",
+  "created_at": "2025-03-20T12:00:00Z",
+  "summary": "The py-builder-relayer-client is a Python library designed to facilitate interactions with the Polymarket Relayer infrastructure. Users can install the library via pip and configure it using a provided example environment file.",
+  "methods_tools_patterns": [
+    {
+      "name": "Installation process",
+      "description": "Steps to install the library using pip.",
+      "evidence": "pip install py-builder-relayer-client",
+      "category": "method"
+    },
+    {
+      "name": "Configuration setup",
+      "description": "Instructions to create a .env file for using the client with appropriate credentials.",
+      "evidence": "Create a .env file based on .env.example with credentials:",
+      "category": "method"
+    }
+  ],
+  "key_claims": [
+    {
+      "claim": "py-builder-relayer-client is a Python client library.",
+      "evidence": "Python client library for interacting with the Polymarket Relayer infrastructure",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Users can configure the client with specific environment variables.",
+      "evidence": "Create a .env file based on .env.example with credentials:",
+      "confidence": "stated"
+    }
+  ],
+  "hype_signals": [
+    "interacting with the Polymarket Relayer infrastructure"
+  ],
+  "open_questions": [
+    "What specific functionalities does the client library provide beyond basic interactions?",
+    "Are there any examples of usage or functionality in the documentation?"
+  ]
+}

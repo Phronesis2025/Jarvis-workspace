@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "future_modules/research_swarm/schemas/knowledge_archive_entry",
+  "title": "Knowledge Archive Entry",
+  "description": "Structured research-memory record for archived sources. Supports search, comparison, and future module synthesis.",
+  "type": "object",
+  "required": [
+    "archive_entry_id",
+    "packet_id",
+    "report_id",
+    "source_url",
+    "source_type",
+    "archived_at",
+    "archive_decision",
+    "title",
+    "source_metadata",
+    "summary",
+    "useful_patterns",
+    "key_claims",
+    "hype_warnings",
+    "build_ideas",
+    "module_mapping",
+    "open_questions"
+  ],
+  "properties": {
+    "archive_entry_id": {
+      "type": "string",
+      "description": "Unique identifier for this archive entry"
+    },
+    "packet_id": {
+      "type": "string",
+      "description": "ID of the source intake packet"
+    },
+    "report_id": {
+      "type": "string",
+      "description": "ID of the extraction report"
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical URL of the source"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["youtube", "reddit", "github"],
+      "description": "Type of source"
+    },
+    "archived_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when entry was archived"
+    },
+    "archive_decision": {
+      "type": "string",
+      "enum": ["archive", "archive_with_warning", "skip_archive"],
+      "description": "Decision applied: archive (clean), archive_with_warning (useful but flagged), skip_archive (audit record only)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Source title"
+    },
+    "source_metadata": {
+      "type": "object",
+      "description": "Source-specific metadata",
+      "properties": {
+        "author": { "type": "string" },
+        "channel": { "type": "string" },
+        "subreddit": { "type": "string" },
+        "repo_name": { "type": "string" },
+        "published_at": { "type": "string", "format": "date-time" },
+        "captured_at": { "type": "string", "format": "date-time" },
+        "content_completeness": { "type": "string", "enum": ["full", "partial", "summary_only"] },
+        "raw_content_format": { "type": "string", "enum": ["transcript", "markdown", "plain_text", "code", "mixed"] }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "description": "2–4 sentence summary of the source"
+    },
+    "useful_patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "category", "description", "evidence", "reuse_value"],
+        "properties": {
+          "name": { "type": "string" },
+          "category": { "type": "string", "enum": ["method", "tool", "pattern"] },
+          "description": { "type": "string" },
+          "evidence": { "type": "string" },
+          "reuse_value": { "type": "string", "enum": ["high", "medium", "low"] }
+        }
+      },
+      "description": "Extracted methods, tools, or patterns with evidence"
+    },
+    "key_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim", "evidence", "confidence"],
+        "properties": {
+          "claim": { "type": "string" },
+          "evidence": { "type": "string" },
+          "confidence": { "type": "string", "enum": ["stated", "inferred", "speculative"] }
+        }
+      },
+      "description": "Key claims with evidence and confidence level"
+    },
+    "hype_warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["signal", "why_flagged", "severity"],
+        "properties": {
+          "signal": { "type": "string" },
+          "why_flagged": { "type": "string" },
+          "severity": { "type": "string", "enum": ["low", "medium", "high"] }
+        }
+      },
+      "description": "Hype or overclaim signals with severity"
+    },
+    "build_ideas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["idea", "why_it_matters", "suggested_stage"],
+        "properties": {
+          "idea": { "type": "string" },
+          "why_it_matters": { "type": "string" },
+          "suggested_stage": {
+            "type": "string",
+            "enum": ["research_only", "future_module_refinement", "backlog_candidate_later"]
+          },
+          "status_note": { "type": "string" }
+        }
+      },
+      "description": "Potential applications. NOT approved tasks."
+    },
+    "module_mapping": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["module_name", "relevance_reason", "priority_hint"],
+        "properties": {
+          "module_name": { "type": "string" },
+          "relevance_reason": { "type": "string" },
+          "priority_hint": { "type": "string", "enum": ["now", "next", "future", "parked"] }
+        }
+      },
+      "description": "Suggested consuming modules and relevance"
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Unresolved items for future research"
+    },
+    "archive_notes": {
+      "type": "string",
+      "description": "Optional operator notes"
+    }
+  }
+}

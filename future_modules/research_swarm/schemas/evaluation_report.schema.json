@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "future_modules/research_swarm/schemas/evaluation_report",
+  "title": "Evaluation Report",
+  "description": "Credibility and hype evaluation of an extraction",
+  "type": "object",
+  "required": ["report_id", "extraction_report_id", "created_at", "credibility_score", "hype_level", "archive_recommendation"],
+  "properties": {
+    "report_id": {
+      "type": "string",
+      "description": "Unique identifier for this evaluation"
+    },
+    "extraction_report_id": {
+      "type": "string",
+      "description": "ID of the extraction report being evaluated"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    "credibility_score": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "Overall credibility of the source content"
+    },
+    "credibility_evidence": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific evidence supporting the credibility score"
+    },
+    "hype_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "Level of hype or overclaim detected"
+    },
+    "hype_evidence": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific phrases or patterns indicating hype"
+    },
+    "usefulness": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "Usefulness for knowledge base"
+    },
+    "archive_recommendation": {
+      "type": "string",
+      "enum": ["archive", "archive_with_warnings", "do_not_archive"],
+      "description": "Whether to produce an archive entry"
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Caveats to attach to archive entry if archived"
+    }
+  }
+}

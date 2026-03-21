@@ -1,0 +1,37 @@
+{
+  "report_id": "rs-extract-001",
+  "packet_id": "rs-intake-001",
+  "source_url": "https://www.youtube.com/watch?v=example123",
+  "created_at": "2026-03-20T10:05:00Z",
+  "summary": "Video covers Python local development setup using venv and pyproject.toml. Emphasizes activating virtual environments before installing and avoiding system/project Python mixing.",
+  "methods_tools_patterns": [
+    {
+      "name": "venv for virtual environments",
+      "description": "Use python -m venv .venv to create, then activate before installing",
+      "evidence": "I recommend venv for most cases. You run python -m venv .venv and then activate it.",
+      "category": "method"
+    },
+    {
+      "name": "pyproject.toml for dependencies",
+      "description": "Preferred over requirements.txt for structured dependency management",
+      "evidence": "pyproject.toml for dependency management. It's becoming the standard.",
+      "category": "tool"
+    }
+  ],
+  "key_claims": [
+    {
+      "claim": "venv is recommended for most Python projects",
+      "evidence": "I recommend venv for most cases",
+      "confidence": "stated"
+    },
+    {
+      "claim": "pyproject.toml is becoming the standard",
+      "evidence": "It's becoming the standard",
+      "confidence": "inferred"
+    }
+  ],
+  "hype_signals": [],
+  "open_questions": [
+    "What specific pyproject.toml structure does the video recommend?"
+  ]
+}

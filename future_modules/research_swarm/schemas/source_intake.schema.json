@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "future_modules/research_swarm/schemas/source_intake",
+  "title": "Source Intake Packet",
+  "description": "Input packet for Research Swarm: raw source content ready for extraction",
+  "type": "object",
+  "required": ["packet_id", "source_url", "source_type", "raw_content", "created_at"],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "description": "Unique identifier for this intake packet"
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical URL of the source"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["youtube", "reddit", "github"],
+      "description": "Type of source"
+    },
+    "raw_content": {
+      "type": "string",
+      "description": "Transcript, post body, README, or other raw text"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Source-specific metadata",
+      "properties": {
+        "title": { "type": "string" },
+        "author": { "type": "string" },
+        "published_at": { "type": "string", "format": "date-time" },
+        "subreddit": { "type": "string" },
+        "channel": { "type": "string" },
+        "repo_name": { "type": "string" }
+      }
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Optional: why this source was selected"
+    },
+    "content_completeness": {
+      "type": "string",
+      "enum": ["full", "partial", "summary_only"],
+      "description": "Whether raw_content is complete or truncated"
+    },
+    "raw_content_format": {
+      "type": "string",
+      "enum": ["transcript", "markdown", "plain_text", "code", "mixed"],
+      "description": "Format of the raw_content field"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when content was captured from source"
+    }
+  }
+}

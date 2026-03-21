@@ -1,0 +1,84 @@
+{
+  "archive_entry_id": "rs-archive-001",
+  "packet_id": "rs-intake-042",
+  "report_id": "rs-extract-042",
+  "source_url": "https://www.youtube.com/watch?v=example-ai-agents",
+  "source_type": "youtube",
+  "archived_at": "2026-03-20T16:00:00Z",
+  "archive_decision": "archive_with_warning",
+  "title": "Building AI Research Agents for Market Analysis",
+  "source_metadata": {
+    "author": "Quant Research Labs",
+    "channel": "Quant Research Labs",
+    "published_at": "2025-11-15T00:00:00Z",
+    "captured_at": "2026-03-20T15:45:00Z",
+    "content_completeness": "full",
+    "raw_content_format": "transcript"
+  },
+  "summary": "Video covers a multi-agent research workflow for market analysis: a collector agent fetches sources, an analyst agent extracts catalysts and risks, and a synthesizer produces structured briefs. Emphasizes prompt chaining and evidence citation. Also discusses backtesting agent outputs against historical data.",
+  "useful_patterns": [
+    {
+      "name": "Three-stage research pipeline",
+      "category": "pattern",
+      "description": "Collector → Analyst → Synthesizer. Each stage has bounded input/output and passes structured JSON.",
+      "evidence": "We use a three-stage pipeline. The collector fetches and normalizes. The analyst extracts. The synthesizer produces the final brief.",
+      "reuse_value": "high"
+    },
+    {
+      "name": "Evidence citation in prompts",
+      "category": "method",
+      "description": "Require every claim in analyst output to include a source quote or paraphrase.",
+      "evidence": "Every catalyst and risk in our analyst output must cite the source. We put that in the system prompt.",
+      "reuse_value": "high"
+    }
+  ],
+  "key_claims": [
+    {
+      "claim": "Structured prompts reduce hallucination in multi-step research",
+      "evidence": "When we switched to structured output with required evidence fields, our false-positive rate dropped.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Backtesting agent outputs improves prompt design",
+      "evidence": "We backtest our briefs against what actually happened. That feedback loop changed how we write the synthesizer prompt.",
+      "confidence": "inferred"
+    }
+  ],
+  "hype_warnings": [
+    {
+      "signal": "90% accuracy on catalyst prediction",
+      "why_flagged": "No methodology, sample size, or time period specified",
+      "severity": "medium"
+    }
+  ],
+  "build_ideas": [
+    {
+      "idea": "Adapt three-stage pipeline for Research Swarm: collector already exists; extractor and evaluator map to analyst; archivist maps to synthesizer",
+      "why_it_matters": "Validates our existing role split; suggests we add explicit evidence fields to prompts",
+      "suggested_stage": "future_module_refinement",
+      "status_note": "Align with current extractor_prompt.md evidence requirements"
+    },
+    {
+      "idea": "Backtest archived entries: compare extracted catalysts to subsequent events",
+      "why_it_matters": "Could improve evaluator and archivist prompts over time",
+      "suggested_stage": "backlog_candidate_later",
+      "status_note": "Requires event data and time-series; out of scope for v1"
+    }
+  ],
+  "module_mapping": [
+    {
+      "module_name": "research_swarm",
+      "relevance_reason": "Pipeline structure and evidence citation align with extractor/evaluator/archivist roles",
+      "priority_hint": "now"
+    },
+    {
+      "module_name": "stock_module",
+      "relevance_reason": "Structured brief format and catalyst/risk extraction could inform research brief design",
+      "priority_hint": "next"
+    }
+  ],
+  "open_questions": [
+    "What backtest methodology did they use? No details in transcript.",
+    "How do they handle conflicting sources in the analyst stage?"
+  ]
+}

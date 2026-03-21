@@ -1,0 +1,14 @@
+{
+  "packet_id": "rs-intake-001",
+  "source_url": "https://www.youtube.com/watch?v=example123",
+  "source_type": "youtube",
+  "raw_content": "In this video we'll cover how to set up a local development environment for Python projects. The key is using virtual environments. I recommend venv for most cases. You run python -m venv .venv and then activate it. On Windows that's .venv\\Scripts\\activate. One thing that trips people up is mixing system Python with project Python. Always activate before installing. We'll also touch on pyproject.toml for dependency management. It's becoming the standard. Some people still use requirements.txt but pyproject.toml gives you more structure. Let me show you the basic structure...",
+  "created_at": "2026-03-20T10:00:00Z",
+  "metadata": {
+    "title": "Python Local Dev Setup in 10 Minutes",
+    "author": "DevTips Channel",
+    "channel": "DevTips",
+    "published_at": "2025-06-15T00:00:00Z"
+  },
+  "purpose": "Extract Python dev setup patterns for knowledge base"
+}

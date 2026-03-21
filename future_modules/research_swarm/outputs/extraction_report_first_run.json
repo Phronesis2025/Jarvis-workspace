@@ -1,0 +1,94 @@
+{
+  "report_id": "rs-extract-first-run-001",
+  "packet_id": "rs-intake-first-run-001",
+  "source_url": "https://www.youtube.com/watch?v=i3ZlLmYn584",
+  "created_at": "2026-03-20T14:00:00Z",
+  "summary": "The video shows how the speaker built a Polymarket trading bot using OpenClaw (an AI agent named Max). The process involved feeding the AI articles about Polymarket bots, having it categorize money streams (referrals vs actual trading), adopting a phased validation approach ($100 funding, 3–5 day P&L tracking), and exploiting Binance–Chainlink price-feed lag for arbitrage. The speaker emphasizes the operator–AI relationship and that viewers should learn thinking strategies rather than copying prompts verbatim. The transcript acknowledges losses, V2/V3 iterations, and that the first bet was a 50/50 coin flip.",
+  "methods_tools_patterns": [
+    {
+      "name": "Phased validation approach",
+      "description": "Week 1: validate with $100, track P&L for 3–5 days; Phase 2: scale or pivot; Phase 3: document",
+      "evidence": "Phase one, let's validate. Let's spend this week on validation... Let's fund this with $100. Let's track P profit and loss for three to five days. Phase two, let's scale and or pivot. Phase three, let's document.",
+      "category": "method"
+    },
+    {
+      "name": "Chainlink–Binance lag arbitrage",
+      "description": "Watch Binance in real time; when Chainlink hasn't updated, Polymarket odds are stale; buy up cheap before odds adjust",
+      "evidence": "the real edge is exploiting the lag between Binance and chain link... Poly Market results based on chain link price feed, but chain link updates slower than Binance. So, the play is watch Binance in real time. See Bitcoin moving up hard. Chain link hasn't updated yet. Poly market odds are stale. Buy up cheap before odds adjust. Chain link catches up. You win.",
+      "category": "method"
+    },
+    {
+      "name": "Sniperbot V2 strategy",
+      "description": "Record price at start of window; snipe in last 30 seconds; compare current vs start price",
+      "evidence": "V2 new strategy records price at start of window snipes in last 30 seconds compares current versus start price",
+      "category": "pattern"
+    },
+    {
+      "name": "Operator–agent workflow",
+      "description": "Operator defines goal and parameters; AI agent executes; operator provides API access, VPS preference, risk tolerance",
+      "evidence": "You are the operator. Your AI agent is the engine... I need a poly market account funded. I need a VPS preference... And what's your risk tolerance? And I answered these questions for it.",
+      "category": "pattern"
+    },
+    {
+      "name": "Operator-led clarification loop",
+      "description": "When operator notices gaps (missing orders, unexplained decisions), ask the agent to explain instead of guessing",
+      "evidence": "why wasn't there an order in the last 15 minutes? This was more me trying to understand how it works... you lit don't have to guess. You don't have to make your life hard. You can literally just ask it for things and it will answer you.",
+      "category": "pattern"
+    }
+  ],
+  "key_claims": [
+    {
+      "claim": "Of the articles the speaker and agent reviewed about Polymarket bots and OpenClaw, referral monetization dominated over actual bot trading",
+      "evidence": "Polymarket referrals. Those are people who just preach that they can make money, but the real way that they're making money is through the poly market referral that they put in their articles. So, they're not really making money.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "From the articles the agent reviewed, it concluded the real edge is exploiting Binance–Chainlink price-feed lag",
+      "evidence": "From those articles, the real edge is exploiting the lag between Binance and chain link",
+      "confidence": "stated"
+    },
+    {
+      "claim": "The first trade was a 50/50 coin flip but won $20",
+      "evidence": "It was still a 5050 chance... It was literally a coin flip that he was betting on... he still managed to make $20 off of his first literal bet",
+      "confidence": "stated"
+    },
+    {
+      "claim": "V1 bot placed bets as soon as market opened, before odds were favorable",
+      "evidence": "I set up my Poly Market bot wrong because what it ended up doing is it placed the bet as soon as the market opened",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Lag detection wasn't working well in some version, causing losses",
+      "evidence": "the lag detection wasn't quite working well. It made some losses",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Week one is about testing, hypothesizing, and proof of concept",
+      "evidence": "week one is about testing, hypothesizing, and getting proof of concept, proof that this actually works",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Copying prompts verbatim will not yield the same results",
+      "evidence": "I don't want you to look at this and literally copy paste what I said to it word by word because odds are it's going to reply to you differently. You're not going to get the exact same results.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "V3 was created after five consecutive losing trades in volatile markets",
+      "evidence": "there was a V1, there was a V2 and yesterday it managed to lose five trades consecutively when the market went extremely volatile",
+      "confidence": "stated"
+    }
+  ],
+  "hype_signals": [
+    "it's made you $15 in your sleep",
+    "that just works on its own",
+    "This is the perfect play",
+    "Finally found a way to pay for my claw subscription"
+  ],
+  "open_questions": [
+    "What are the actual win rates or P&L figures for the bot over extended periods?",
+    "What is the specific Chainlink update lag (seconds or minutes) that enables the arbitrage?",
+    "How does the V3 strategy differ from V2 in implementation?",
+    "What VPS setup (Mac mini vs Digital Ocean) was used and why?",
+    "How does OpenClaw authenticate with the Polymarket API?"
+  ]
+}

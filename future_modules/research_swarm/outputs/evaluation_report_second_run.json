@@ -1,0 +1,30 @@
+{
+  "report_id": "rs-eval-second-run-001",
+  "extraction_report_id": "rs-extract-second-run-001",
+  "created_at": "2026-03-20T19:00:00Z",
+  "credibility_score": "medium",
+  "credibility_evidence": [
+    "Public vs private API boundary and sign-then-post order flow provide reusable implementation patterns; signing does not place order, post does",
+    "Token model (yes/no) and gamma vs data vs clob API split are actionable for building integrations; direct-request alternative shown for data API",
+    "Derived API key model explained: Polymarket creates keys, client uses those not raw keys",
+    "Price tracking and position tracker via data API demonstrate concrete automation hooks with evidence",
+    "Speaker explicitly cautions on private key confidentiality and capital loss risk; not financial advice disclaimer"
+  ],
+  "hype_level": "medium",
+  "hype_evidence": [
+    "super easy",
+    "We're going from zero to placing a real trade in about 10 minutes",
+    "No complicated blockchain stuff, just clean simple Python code",
+    "even if you don't know much about Python, it'll be super easy",
+    "$2 million in profits. The volume insane",
+    "biggest prediction market in the world"
+  ],
+  "usefulness": "high",
+  "archive_recommendation": "archive_with_warning",
+  "warnings": [
+    "Source contains self-promotion and affiliate framing; speaker offers to build custom implementation for clients",
+    "Order placement depends on py-clob-client; reproducibility limited without that dependency—no direct-signing workflow shown",
+    "Missing implementation details: exact base URLs for gamma and data API, rate limits, signature types for MetaMask vs hardware wallet vs email",
+    "\"Super easy\" and \"10 minutes\" framing may understate setup complexity for inexperienced users"
+  ]
+}

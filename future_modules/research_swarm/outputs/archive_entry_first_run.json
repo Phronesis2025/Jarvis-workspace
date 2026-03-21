@@ -1,0 +1,161 @@
+{
+  "archive_entry_id": "rs-archive-first-run-001",
+  "packet_id": "rs-intake-first-run-001",
+  "report_id": "rs-extract-first-run-001",
+  "source_url": "https://www.youtube.com/watch?v=i3ZlLmYn584",
+  "source_type": "youtube",
+  "archived_at": "2026-03-20T16:00:00Z",
+  "archive_decision": "archive_with_warning",
+  "title": "How To Build A Polymarket Trading Bot (With OpenClaw)",
+  "source_metadata": {
+    "author": "Sharbel A.",
+    "channel": "Sharbel A.",
+    "content_completeness": "partial",
+    "raw_content_format": "transcript"
+  },
+  "summary": "The video shows how the speaker built a Polymarket trading bot using OpenClaw (an AI agent named Max). The process involved feeding the AI articles about Polymarket bots, having it categorize money streams (referrals vs actual trading), adopting a phased validation approach ($100 funding, 3–5 day P&L tracking), and exploiting Binance–Chainlink price-feed lag for arbitrage. The speaker emphasizes the operator–AI relationship and that viewers should learn thinking strategies rather than copying prompts verbatim. The transcript acknowledges losses, V2/V3 iterations, and that the first bet was a 50/50 coin flip.",
+  "useful_patterns": [
+    {
+      "name": "Phased validation approach",
+      "category": "method",
+      "description": "Week 1: validate with $100, track P&L for 3–5 days; Phase 2: scale or pivot; Phase 3: document",
+      "evidence": "Phase one, let's validate. Let's spend this week on validation... Let's fund this with $100. Let's track P profit and loss for three to five days. Phase two, let's scale and or pivot. Phase three, let's document.",
+      "reuse_value": "high"
+    },
+    {
+      "name": "Chainlink–Binance lag arbitrage",
+      "category": "method",
+      "description": "Watch Binance in real time; when Chainlink hasn't updated, Polymarket odds are stale; buy up cheap before odds adjust",
+      "evidence": "the real edge is exploiting the lag between Binance and chain link... Poly Market results based on chain link price feed, but chain link updates slower than Binance.",
+      "reuse_value": "medium"
+    },
+    {
+      "name": "Sniperbot V2 strategy",
+      "category": "pattern",
+      "description": "Record price at start of window; snipe in last 30 seconds; compare current vs start price",
+      "evidence": "V2 new strategy records price at start of window snipes in last 30 seconds compares current versus start price",
+      "reuse_value": "medium"
+    },
+    {
+      "name": "Operator–agent workflow",
+      "category": "pattern",
+      "description": "Operator defines goal and parameters; AI agent executes; operator provides API access, VPS preference, risk tolerance",
+      "evidence": "You are the operator. Your AI agent is the engine... I need a poly market account funded. I need a VPS preference... And what's your risk tolerance? And I answered these questions for it.",
+      "reuse_value": "high"
+    },
+    {
+      "name": "Operator-led clarification loop",
+      "category": "pattern",
+      "description": "When operator notices gaps (missing orders, unexplained decisions), ask the agent to explain instead of guessing",
+      "evidence": "why wasn't there an order in the last 15 minutes? This was more me trying to understand how it works... you lit don't have to guess. You can literally just ask it for things and it will answer you.",
+      "reuse_value": "high"
+    }
+  ],
+  "key_claims": [
+    {
+      "claim": "Of the articles the speaker and agent reviewed about Polymarket bots and OpenClaw, referral monetization dominated over actual bot trading",
+      "evidence": "Polymarket referrals. Those are people who just preach that they can make money, but the real way that they're making money is through the poly market referral that they put in their articles. So, they're not really making money.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "From the articles the agent reviewed, it concluded the real edge is exploiting Binance–Chainlink price-feed lag",
+      "evidence": "From those articles, the real edge is exploiting the lag between Binance and chain link",
+      "confidence": "stated"
+    },
+    {
+      "claim": "The first trade was a 50/50 coin flip but won $20",
+      "evidence": "It was still a 5050 chance... It was literally a coin flip that he was betting on... he still managed to make $20 off of his first literal bet",
+      "confidence": "stated"
+    },
+    {
+      "claim": "V1 bot placed bets as soon as market opened, before odds were favorable",
+      "evidence": "I set up my Poly Market bot wrong because what it ended up doing is it placed the bet as soon as the market opened",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Lag detection wasn't working well in some version, causing losses",
+      "evidence": "the lag detection wasn't quite working well. It made some losses",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Week one is about testing, hypothesizing, and proof of concept",
+      "evidence": "week one is about testing, hypothesizing, and getting proof of concept, proof that this actually works",
+      "confidence": "stated"
+    },
+    {
+      "claim": "Copying prompts verbatim will not yield the same results",
+      "evidence": "I don't want you to look at this and literally copy paste what I said to it word by word because odds are it's going to reply to you differently. You're not going to get the exact same results.",
+      "confidence": "stated"
+    },
+    {
+      "claim": "V3 was created after five consecutive losing trades in volatile markets",
+      "evidence": "there was a V1, there was a V2 and yesterday it managed to lose five trades consecutively when the market went extremely volatile",
+      "confidence": "stated"
+    }
+  ],
+  "hype_warnings": [
+    {
+      "signal": "it's made you $15 in your sleep",
+      "evidence": "the Poly Market trading bot that just works on its own that you just wake up and it's made you $15 in your sleep",
+      "why_flagged": "Passive-income framing; anecdotal; no verified P&L",
+      "severity": "medium"
+    },
+    {
+      "signal": "that just works on its own",
+      "evidence": "the Poly Market trading bot that just works on its own that you just wake up and it's made you $15 in your sleep",
+      "why_flagged": "Implies hands-off automation without caveats",
+      "severity": "low"
+    },
+    {
+      "signal": "This is the perfect play",
+      "evidence": "This is the perfect play. We already started the the bot.",
+      "why_flagged": "AI conclusion presented as definitive",
+      "severity": "medium"
+    },
+    {
+      "signal": "Finally found a way to pay for my claw subscription",
+      "evidence": "Finally found a way to pay for my claw subscription.",
+      "why_flagged": "Implies sustained profitability; no P&L data in source",
+      "severity": "medium"
+    }
+  ],
+  "build_ideas": [
+    {
+      "idea": "Adapt phased validation (validate → scale/pivot → document) for Research Swarm first-run and future module build pathways",
+      "why_it_matters": "Source's phased approach aligns with BUILD_CHECKLIST structure; reinforces manual-first validation",
+      "suggested_stage": "future_module_refinement",
+      "status_note": "Already reflected in first-run docs; refine as more runs complete"
+    },
+    {
+      "idea": "Operator-led clarification loop as standard pattern for agent workflow docs",
+      "why_it_matters": "Transcript shows value of asking agent to explain gaps instead of operator guessing",
+      "suggested_stage": "research_only",
+      "status_note": "Document in operator guides; not implementation"
+    },
+    {
+      "idea": "Chainlink–Binance lag arbitrage as research topic for prediction-market information flows",
+      "why_it_matters": "Source describes information asymmetry between data feeds; conceptually relevant to research workflow",
+      "suggested_stage": "backlog_candidate_later",
+      "status_note": "May inform stock_module catalyst/risk evidence-weighting; backlog for research"
+    }
+  ],
+  "module_mapping": [
+    {
+      "module_name": "research_swarm",
+      "relevance_reason": "Workflow patterns (phased validation, operator-agent, clarification loop) align with extractor/evaluator/archivist; first-run validated",
+      "priority_hint": "now"
+    },
+    {
+      "module_name": "stock_module",
+      "relevance_reason": "Market-research workflow (agent analyzes articles, categorizes catalysts/risks); operator-agent trading-research process; information-asymmetry and arbitrage research; P&L and risk-tolerance framing",
+      "priority_hint": "next"
+    }
+  ],
+  "open_questions": [
+    "What are the actual win rates or P&L figures for the bot over extended periods?",
+    "What is the specific Chainlink update lag (seconds or minutes) that enables the arbitrage?",
+    "How does the V3 strategy differ from V2 in implementation?",
+    "What VPS setup (Mac mini vs Digital Ocean) was used and why?",
+    "How does OpenClaw authenticate with the Polymarket API?"
+  ]
+}

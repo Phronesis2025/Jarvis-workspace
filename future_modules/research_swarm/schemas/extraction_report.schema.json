@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "future_modules/research_swarm/schemas/extraction_report",
+  "title": "Extraction Report",
+  "description": "Structured extraction from a research source",
+  "type": "object",
+  "required": ["report_id", "packet_id", "source_url", "created_at", "summary", "methods_tools_patterns", "key_claims", "hype_signals", "open_questions"],
+  "properties": {
+    "report_id": {
+      "type": "string",
+      "description": "Unique identifier for this report"
+    },
+    "packet_id": {
+      "type": "string",
+      "description": "ID of the source intake packet"
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Source URL"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    "summary": {
+      "type": "string",
+      "description": "2–4 sentence summary of the source"
+    },
+    "methods_tools_patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description", "evidence"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "evidence": { "type": "string", "description": "Quote or paraphrase from source" },
+          "category": { "type": "string", "enum": ["method", "tool", "pattern"] }
+        }
+      },
+      "description": "Extracted methods, tools, or patterns with evidence"
+    },
+    "key_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim": { "type": "string" },
+          "evidence": { "type": "string" },
+          "confidence": { "type": "string", "enum": ["stated", "inferred", "speculative"] }
+        }
+      },
+      "description": "Key claims with evidence and confidence level"
+    },
+    "hype_signals": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Phrases or patterns that may indicate hype or overclaim"
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Unresolved or unclear points"
+    }
+  }
+}

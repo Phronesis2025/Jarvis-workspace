@@ -1,0 +1,29 @@
+{
+  "report_id": "rs-eval-first-run-001",
+  "extraction_report_id": "rs-extract-first-run-001",
+  "created_at": "2026-03-20T15:00:00Z",
+  "credibility_score": "medium",
+  "credibility_evidence": [
+    "Extraction cites evidence for all methods and claims; no fabricated content",
+    "Speaker acknowledges losses, V2/V3 iterations, and that first bet was 50/50 coin flip",
+    "Phased validation, operator-agent workflow, and clarification loop are clearly described with transcript support",
+    "Transcript is partial; technical implementation details (lag duration, API auth, VPS) are vague or absent",
+    "Usefulness high: workflow patterns are actionable and reusable; hype and anecdotal framing do not invalidate core method extraction"
+  ],
+  "hype_level": "medium",
+  "hype_evidence": [
+    "it's made you $15 in your sleep",
+    "that just works on its own",
+    "This is the perfect play",
+    "Finally found a way to pay for my claw subscription"
+  ],
+  "usefulness": "high",
+  "archive_recommendation": "archive_with_warning",
+  "warnings": [
+    "Profit examples ($15, $20) are anecdotal; no verified P&L or win rates",
+    "Transcript is partial; technical specifics (Chainlink lag duration, V2/V3 differences) are underspecified",
+    "Five consecutive losses in volatile markets noted; strategy fragility evident",
+    "Single speaker's experience only; no comparison to failed attempts in source",
+    "Lag detection reportedly failed at times; implementation robustness unknown"
+  ]
+}
