@@ -1,11 +1,47 @@
-import { getLatestStockResearchBrief } from "@/lib/data";
+import {
+  getLatestStockResearchBrief,
+  getRiskGateReviewForLatestBrief,
+} from "@/lib/data";
+import type { RiskGateReview } from "@/lib/data";
 import { HudMetricCard } from "@/components/HudMetricCard";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
+/** Short label for the risk-gate status card */
+function riskGateCardValue(review: RiskGateReview | null): string {
+  if (!review?.overall_status) return "—";
+  switch (review.overall_status) {
+    case "pass":
+      return "Pass";
+    case "caution":
+      return "Caution";
+    case "flag":
+      return "Flag";
+    default:
+      return String(review.overall_status);
+  }
+}
+
+/** One-line plain-English meaning for overall_status */
+function riskGateStatusMeaning(status: string | undefined): string {
+  switch (status) {
+    case "pass":
+      return "No major issues were raised in this review.";
+    case "caution":
+      return "Some concerns were raised and should be checked by a person.";
+    case "flag":
+      return "A stronger warning was raised and needs human review before moving forward.";
+    default:
+      return "Unknown status.";
+  }
+}
+
 export default async function StockBriefsPage() {
-  const brief = await getLatestStockResearchBrief();
+  const [brief, riskGate] = await Promise.all([
+    getLatestStockResearchBrief(),
+    getRiskGateReviewForLatestBrief(),
+  ]);
 
   if (!brief || !brief.briefs?.length) {
     return (
@@ -40,6 +76,12 @@ python run_research_brief.py --packet ../inputs/confirmed_watchlist_packet_aapl.
   const reviewRec = b.review_recommendation ?? "—";
   const evidenceSources = b.evidence_sources ?? [];
   const openQuestions = b.open_questions ?? [];
+  const hasRiskGate = Boolean(
+    riskGate &&
+      riskGate.overall_status &&
+      ["pass", "caution", "flag"].includes(riskGate.overall_status)
+  );
+  const flags = riskGate?.flags ?? [];
 
   return (
     <div className="space-y-6">
@@ -55,7 +97,7 @@ python run_research_brief.py --packet ../inputs/confirmed_watchlist_packet_aapl.
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         <HudMetricCard label="Brief files found" value="1" />
         <HudMetricCard label="Latest symbol reviewed" value={symbol} />
         <div className="hud-metric p-3">
@@ -82,7 +124,117 @@ python run_research_brief.py --packet ../inputs/confirmed_watchlist_packet_aapl.
             decides the real next move.
           </p>
         </div>
+        <div className="hud-metric p-3">
+          <div className="text-xs uppercase tracking-wider text-slate-500">
+            Risk gate status
+          </div>
+          <div className="mt-1 text-xl font-semibold text-cyan-200">
+            {hasRiskGate ? riskGateCardValue(riskGate) : "Not run yet"}
+          </div>
+          <p className="mt-0.5 text-[11px] text-slate-600">
+            A simple review result based on the brief. This is advisory only.
+          </p>
+        </div>
       </div>
+
+      <p className="text-xs text-slate-500">
+        <span className="font-medium text-slate-400">Risk gate terms:</span>{" "}
+        <strong className="text-slate-400">Pass</strong> — no major issues were
+        raised in this review. <strong className="text-slate-400">Caution</strong>{" "}
+        — some concerns were raised and should be checked by a person.{" "}
+        <strong className="text-slate-400">Flag</strong> — a stronger warning was
+        raised and needs human review before moving forward.
+      </p>
+
+      {!hasRiskGate && (
+        <div className="hud-panel p-4">
+          <h3 className="mb-1 text-xs font-medium uppercase tracking-widest text-amber-400/80">
+            Risk gate review
+          </h3>
+          <p className="text-sm text-slate-300">
+            No risk gate file was found for the latest research brief. This page
+            looks for a file whose name matches the brief: same suffix after{" "}
+            <code className="rounded bg-slate-900/60 px-1 font-mono text-xs">
+              stock_research_brief_
+            </code>{" "}
+            and{" "}
+            <code className="rounded bg-slate-900/60 px-1 font-mono text-xs">
+              risk_gate_review_
+            </code>
+            .
+          </p>
+          <p className="mt-2 text-sm text-slate-500">
+            Run the risk gate step manually (not automated, not trade execution):
+          </p>
+          <pre className="mt-2 overflow-x-auto rounded bg-slate-900/50 p-3 font-mono text-xs text-slate-300">
+            {`cd future_modules/stock_module/scripts
+python run_risk_gate.py --brief ../outputs/stock_research_brief_confirmed_watchlist_packet_aapl.json`}
+          </pre>
+          <p className="mt-2 text-[11px] text-slate-600">
+            Use the same filename stem as your latest brief: after{" "}
+            <code className="font-mono">stock_research_brief_</code>, the risk file
+            must be{" "}
+            <code className="font-mono">risk_gate_review_</code> + that stem +
+            <code className="font-mono">.json</code>.
+          </p>
+        </div>
+      )}
+
+      {hasRiskGate && riskGate && (
+        <div className="hud-panel p-4">
+          <h3 className="mb-1 text-xs font-medium uppercase tracking-widest text-cyan-400/80">
+            Risk gate review
+          </h3>
+          <p className="mb-3 text-xs text-slate-500">
+            Advisory check on the brief below. Not an automated decision and not
+            trade execution.
+          </p>
+          <div className="space-y-4">
+            <div>
+              <div className="text-xs text-slate-500">Overall status</div>
+              <p className="mt-1 font-medium text-cyan-200">
+                {riskGate.overall_status}
+              </p>
+              <p className="mt-0.5 text-sm text-slate-400">
+                {riskGateStatusMeaning(riskGate.overall_status)}
+              </p>
+            </div>
+            {riskGate.summary && (
+              <div>
+                <div className="text-xs text-slate-500">Summary</div>
+                <p className="mt-1 text-sm text-slate-300">{riskGate.summary}</p>
+              </div>
+            )}
+            <div>
+              <div className="text-xs text-slate-500">Flags</div>
+              <p className="mt-0.5 text-[11px] text-slate-600">
+                Specific concerns the review identified.
+              </p>
+              {flags.length === 0 ? (
+                <p className="mt-1 text-sm text-slate-400">
+                  No risk flags were raised in this review.
+                </p>
+              ) : (
+                <ul className="mt-2 space-y-2">
+                  {flags.map((f, i) => (
+                    <li
+                      key={i}
+                      className="rounded border border-slate-700/40 bg-slate-900/30 px-3 py-2 text-sm text-slate-300"
+                    >
+                      <span className="font-mono text-cyan-200/90">
+                        {f.symbol}
+                      </span>
+                      <span className="text-slate-500"> · </span>
+                      <span className="text-slate-400">{f.rule}</span>
+                      <p className="mt-1 text-slate-400">{f.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="hud-panel p-4">
         <h3 className="mb-1 text-xs font-medium uppercase tracking-widest text-cyan-400/80">
@@ -175,9 +327,9 @@ python run_research_brief.py --packet ../inputs/confirmed_watchlist_packet_aapl.
           Manual review required
         </h3>
         <p className="mt-1 text-sm text-slate-300">
-          This brief was generated for operator review. It does not execute
-          trades. It is not real-time market data. A person still has to decide
-          what to do next.
+          This brief and any risk gate output were generated for operator review.
+          Nothing here executes trades or places orders. It is not real-time
+          market data. A person still decides every next step.
         </p>
       </div>
     </div>

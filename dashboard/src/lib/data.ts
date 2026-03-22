@@ -3,7 +3,7 @@
  */
 
 import { readFile, readdir, stat } from "fs/promises";
-import { join } from "path";
+import { basename, join } from "path";
 import { supabase, hasSupabase } from "./supabase";
 import {
   mockTasks,
@@ -386,17 +386,28 @@ export interface StockResearchBrief {
   }>;
 }
 
+const STOCK_MODULE_OUTPUTS_SEGMENTS = [
+  "future_modules",
+  "stock_module",
+  "outputs",
+] as const;
+
+const STOCK_RESEARCH_BRIEF_PREFIX = "stock_research_brief_";
+const RISK_GATE_REVIEW_PREFIX = "risk_gate_review_";
+
 /**
- * Read the most recent stock research brief from stock_module outputs.
- * Returns null when no brief file exists or read fails.
+ * Absolute path to the newest stock_research_brief_*.json by mtime, or null.
  */
-export async function getLatestStockResearchBrief(): Promise<StockResearchBrief | null> {
+async function getLatestStockResearchBriefFilePath(): Promise<string | null> {
   try {
     const workspaceRoot = join(process.cwd(), "..");
-    const outputsDir = join(workspaceRoot, "future_modules", "stock_module", "outputs");
+    const outputsDir = join(workspaceRoot, ...STOCK_MODULE_OUTPUTS_SEGMENTS);
     const entries = await readdir(outputsDir, { withFileTypes: true });
     const briefFiles = entries.filter(
-      (e) => e.isFile() && e.name.startsWith("stock_research_brief_") && e.name.endsWith(".json")
+      (e) =>
+        e.isFile() &&
+        e.name.startsWith(STOCK_RESEARCH_BRIEF_PREFIX) &&
+        e.name.endsWith(".json")
     );
     if (briefFiles.length === 0) return null;
     const withStat = await Promise.all(
@@ -407,8 +418,69 @@ export async function getLatestStockResearchBrief(): Promise<StockResearchBrief 
       })
     );
     withStat.sort((a, b) => b.mtime - a.mtime);
-    const raw = await readFile(withStat[0].path, "utf-8");
+    return withStat[0].path;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Read the most recent stock research brief from stock_module outputs.
+ * Returns null when no brief file exists or read fails.
+ */
+export async function getLatestStockResearchBrief(): Promise<StockResearchBrief | null> {
+  try {
+    const path = await getLatestStockResearchBriefFilePath();
+    if (!path) return null;
+    const raw = await readFile(path, "utf-8");
     return JSON.parse(raw) as StockResearchBrief;
+  } catch {
+    return null;
+  }
+}
+
+/** One row in risk_gate_review.flags */
+export interface RiskGateFlagRow {
+  symbol: string;
+  rule: string;
+  description: string;
+}
+
+/** Risk gate review JSON (risk_gate_review_*.json), paired by filename suffix with the brief */
+export interface RiskGateReview {
+  review_id?: string;
+  report_id?: string;
+  created_at?: string;
+  overall_status?: "pass" | "caution" | "flag";
+  flags?: RiskGateFlagRow[];
+  summary?: string;
+}
+
+/**
+ * Load risk_gate_review_<suffix>.json for the same suffix as the latest
+ * stock_research_brief_<suffix>.json (by mtime). Returns null if the paired
+ * file is missing or invalid.
+ */
+export async function getRiskGateReviewForLatestBrief(): Promise<RiskGateReview | null> {
+  try {
+    const briefPath = await getLatestStockResearchBriefFilePath();
+    if (!briefPath) return null;
+    const name = basename(briefPath);
+    if (
+      !name.startsWith(STOCK_RESEARCH_BRIEF_PREFIX) ||
+      !name.endsWith(".json")
+    ) {
+      return null;
+    }
+    const stem = name.slice(0, -".json".length);
+    const suffix = stem.startsWith(STOCK_RESEARCH_BRIEF_PREFIX)
+      ? stem.slice(STOCK_RESEARCH_BRIEF_PREFIX.length)
+      : stem;
+    const workspaceRoot = join(process.cwd(), "..");
+    const outputsDir = join(workspaceRoot, ...STOCK_MODULE_OUTPUTS_SEGMENTS);
+    const riskPath = join(outputsDir, `${RISK_GATE_REVIEW_PREFIX}${suffix}.json`);
+    const raw = await readFile(riskPath, "utf-8");
+    return JSON.parse(raw) as RiskGateReview;
   } catch {
     return null;
   }

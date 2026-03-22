@@ -1,44 +1,43 @@
 # Stock Module Handoff Bundle — Current State
 
-**Last updated:** 2026-03-22 (doc-lock after Prompt #98)
+**Last updated:** 2026-03-23 (doc-lock after Prompt #109)
 
 ## 1. Purpose
 
-This bundle reconstructs the real current state of the stock-module/dashboard lane and its linked Research Swarm intake. It is meant to restart a new chat at the actual implemented state after Prompt #98, without theory or guesswork. Attach it to a new chat so ChatGPT can continue without the lost conversation.
+This bundle reconstructs the real current state of the stock-module/dashboard lane and its linked Research Swarm intake. Use it to restart a new chat at the actual implemented state (through `/stock-briefs` brief + risk-gate visibility), without theory or guesswork.
 
 ---
 
 ## 2. Current verified state
 
 **Implemented:**
-- Dashboard route `/stock-intake` at `dashboard/src/app/stock-intake/page.tsx`. Reads `stock_symbol_review_summary.json` and `draft_watchlist_packet_from_rs.json` from `future_modules/research_swarm/outputs/`. Shows candidate symbols table, draft watchlist, status cards, "What happens next."
-- Manual confirm/copy bridge: `confirm_watchlist_symbol.py`. Reads RS draft, requires `--symbol`, writes one-symbol packet to `inputs/`. Proven with AAPL → `inputs/confirmed_watchlist_packet_aapl.json`.
-- First one-symbol brief run proven: `run_research_brief.py --packet ../inputs/confirmed_watchlist_packet_aapl.json`. Output at `outputs/stock_research_brief_confirmed_watchlist_packet_aapl.json`.
-- Dashboard route `/stock-briefs` at `dashboard/src/app/stock-briefs/page.tsx`. Reads latest `stock_research_brief_*.json` from `outputs/`. Shows brief summary, evidence sources, confidence band, review recommendation, manual-review callout.
+- Dashboard `/stock-intake` (`dashboard/src/app/stock-intake/page.tsx`). Reads `stock_symbol_review_summary.json` and `draft_watchlist_packet_from_rs.json` from `future_modules/research_swarm/outputs/`. Symbols table, draft watchlist, status cards, "What happens next."
+- `confirm_watchlist_symbol.py` — RS draft → one-symbol packet under `inputs/`. Proven: `inputs/confirmed_watchlist_packet_aapl.json`.
+- `run_research_brief.py` — one-symbol packet → brief JSON. Proven: `outputs/stock_research_brief_confirmed_watchlist_packet_aapl.json`.
+- `run_risk_gate.py` — brief JSON → risk gate review JSON. Proven: `outputs/risk_gate_review_confirmed_watchlist_packet_aapl.json`.
+- Dashboard `/stock-briefs` (`dashboard/src/app/stock-briefs/page.tsx`) with `getLatestStockResearchBrief()` and `getRiskGateReviewForLatestBrief()` in `dashboard/src/lib/data.ts`. Shows latest brief by mtime; loads paired `risk_gate_review_<suffix>.json` when the suffix matches the latest `stock_research_brief_<suffix>.json` (same naming rule as `run_risk_gate.py`). Plain-English pass/caution/flag; missing gate → operator instruction to run `run_risk_gate.py`; explicit manual-review-only / not trade execution copy.
 
-**Verified:** Prompts #94–#98; flow RS intake → confirm → run brief → review brief is end-to-end proven.  
-**Still manual:** Operator approval at each step; one symbol at a time; no risk gate; no batch; no history/switcher for multiple brief files.
+**Verified:** RS intake → confirm → brief → risk gate → review both on `/stock-briefs` is the live manual lane (Prompts through #109 on dashboard follow-up).  
+**Still manual:** Every CLI step; one symbol per brief; no `run_pipeline.py`; no multi-file browser; no live market data; no execution.
 
 ---
 
 ## 3. Current process position
 
 **Done:**
-- Stock Module v1 spec, schemas, prompts.
-- Research Swarm `build_stock_symbol_review.py` producing `stock_symbol_review_summary.json`.
-- Dashboard `/stock-intake` showing RS→Stock intake state.
-- `confirm_watchlist_symbol.py` — RS draft → one-symbol packet (proven).
-- `run_research_brief.py` — one-symbol packet → research brief (proven).
-- Dashboard `/stock-briefs` showing latest brief output.
-- Proof artifacts: `inputs/confirmed_watchlist_packet_aapl.json`, `outputs/stock_research_brief_confirmed_watchlist_packet_aapl.json`.
+- Stock Module v1 spec, schemas, prompts (incl. risk gate schema + prompt).
+- RS `build_stock_symbol_review.py` → `stock_symbol_review_summary.json`.
+- `/stock-intake`, `/stock-briefs` as above.
+- Scripts: `confirm_watchlist_symbol.py`, `run_research_brief.py`, `run_risk_gate.py` (all proven on AAPL path).
+- Proof trio: `inputs/confirmed_watchlist_packet_aapl.json`, `outputs/stock_research_brief_confirmed_watchlist_packet_aapl.json`, `outputs/risk_gate_review_confirmed_watchlist_packet_aapl.json`.
 
 **Not done:**
-- `run_risk_gate.py` and `run_pipeline.py` not implemented.
-- No automation for `draft_watchlist_packet_from_rs.json` creation.
-- No batch flow; no history/switcher for multiple brief files.
-- Brief content is advisory, not real-time market data.
+- `run_pipeline.py` (chained CLI convenience only — not implemented).
+- No automation for creating `draft_watchlist_packet_from_rs.json`.
+- No batch flow; no history/switcher; pairing is filename/mtime based, not `report_id`.
+- Brief and gate output remain advisory; not real-time data.
 
-**Immediate next bounded move:** Add risk-gate output when the brief schema supports it, or add a small brief-file switcher only if multiple brief files justify it.
+**Immediate next bounded move:** Implement `run_pipeline.py` as a thin, explicit chain (watchlist packet path → brief → risk gate) with the same manual-review banners — **or** defer that and add a brief/risk switcher **only** when multiple brief files in `outputs/` make the “latest by mtime” rule painful.
 
 ---
 
@@ -48,8 +47,8 @@ This bundle reconstructs the real current state of the stock-module/dashboard la
 | Path | Why it matters |
 |------|----------------|
 | `dashboard/src/app/stock-intake/page.tsx` | Stock Intake Review page; status cards, symbols table, draft watchlist, "What happens next" |
-| `dashboard/src/app/stock-briefs/page.tsx` | Stock Brief Review page; latest brief output, catalyst, risks, evidence, confidence band |
-| `dashboard/src/lib/data.ts` | Defines `getStockSymbolReviewSummary`, `getDraftWatchlistPacket`, `getLatestStockResearchBrief`, types |
+| `dashboard/src/app/stock-briefs/page.tsx` | Stock Brief Review: latest brief + paired risk gate; pass/caution/flag copy; missing-gate guidance |
+| `dashboard/src/lib/data.ts` | `getStockSymbolReviewSummary`, `getDraftWatchlistPacket`, `getLatestStockResearchBrief`, `getRiskGateReviewForLatestBrief`, types |
 | `dashboard/src/components/NavBar.tsx` | Nav includes "Stock Intake" → `/stock-intake`, "Stock Briefs" → `/stock-briefs` |
 | `dashboard/src/components/HudMetricCard.tsx` | Reused by Stock Intake and Stock Briefs for status cards |
 
@@ -58,11 +57,13 @@ This bundle reconstructs the real current state of the stock-module/dashboard la
 |------|----------------|
 | `future_modules/stock_module/module_spec.md` | Spec: inputs, outputs, workflow, first viable slice |
 | `future_modules/stock_module/scripts/confirm_watchlist_symbol.py` | RS draft → one-symbol packet; proven |
-| `future_modules/stock_module/scripts/run_research_brief.py` | First viable slice: one symbol → one research brief |
-| `future_modules/stock_module/scripts/README.md` | Run instructions for both scripts |
+| `future_modules/stock_module/scripts/run_research_brief.py` | One symbol → one research brief |
+| `future_modules/stock_module/scripts/run_risk_gate.py` | One brief JSON → one risk gate review JSON |
+| `future_modules/stock_module/scripts/README.md` | Run instructions for confirm, brief, risk gate |
 | `future_modules/stock_module/schemas/watchlist_packet.schema.json` | Watchlist packet schema |
 | `future_modules/stock_module/inputs/confirmed_watchlist_packet_aapl.json` | Proof: confirmed AAPL packet |
 | `future_modules/stock_module/outputs/stock_research_brief_confirmed_watchlist_packet_aapl.json` | Proof: AAPL brief output |
+| `future_modules/stock_module/outputs/risk_gate_review_confirmed_watchlist_packet_aapl.json` | Proof: AAPL risk gate review |
 | `future_modules/stock_module/examples/example_watchlist_packet_single.json` | Example one-symbol packet |
 
 ### Research Swarm
@@ -288,12 +289,20 @@ python build_stock_symbol_review.py
           <li>Review the candidate symbols above</li>
           <li>Confirm the draft watchlist</li>
           <li>Run the first stock research brief (one symbol at a time)</li>
+          <li>Run risk gate on the brief (`run_risk_gate.py`)</li>
+          <li>Review brief + risk gate on dashboard `/stock-briefs`</li>
         </ol>
       </div>
     </div>
   );
 }
 ```
+
+### dashboard/src/app/stock-briefs (behavior summary; full source on disk)
+
+- Loads `getLatestStockResearchBrief()` + `getRiskGateReviewForLatestBrief()` in parallel.
+- Risk gate file must pair by suffix with the latest brief filename (`risk_gate_review_` + stem after `stock_research_brief_`).
+- UI: risk gate status card, glossary for pass/caution/flag, section for overall status / summary / flags or “no flags”; amber panel if gate file missing with example `run_risk_gate.py` command; footer manual-review-only.
 
 ### dashboard/src/lib/data.ts (stock intake section only)
 
@@ -422,6 +431,7 @@ Produce bounded market research briefs from ticker/watchlist packets. Summarize 
 - **Do not invent** market data, prices, returns, scores, or confidence metrics.
 - **Manual review required** — explicit callout on draft watchlist.
 - Stock Intake page reads **current repo truth only** from the two JSON artifacts.
+- `/stock-briefs` reads brief + paired risk-gate JSON from disk; **no** invented prices or execution.
 - `run_research_brief.py` enforces **exactly one symbol** (first viable slice).
 - No Stock Module scripts or Research Swarm extractor logic were modified in Prompt #94.
 - Keep intake lane **tightly bounded**; no filters, sorting, charts, fake analytics.
@@ -432,8 +442,9 @@ Produce bounded market research briefs from ticker/watchlist packets. Summarize 
 
 - **draft_watchlist_packet_from_rs.json creation:** No script; manual or ad-hoc.
 - **Path assumption:** Dashboard assumes `process.cwd()` = dashboard root; `join(process.cwd(), "..")` = workspace root. May fail if dashboard runs with different cwd.
-- **Risk gate / pipeline:** `run_risk_gate.py` and `run_pipeline.py` not implemented.
-- **Brief file switcher:** Page shows only latest brief by mtime; no history or symbol switcher when multiple brief files exist.
+- **Pipeline:** `run_pipeline.py` not implemented (three separate CLI steps).
+- **Brief / risk pairing:** Latest brief by mtime; risk gate only if paired filename exists — not validated against `report_id` inside JSON.
+- **Brief file switcher:** No history or symbol switcher when multiple brief files exist.
 - **Single-symbol constraint:** One symbol per run; operator must run confirm + brief for each symbol.
 - **Advisory only:** Brief content is not real-time market data; no trades executed.
 
@@ -441,7 +452,7 @@ Produce bounded market research briefs from ticker/watchlist packets. Summarize 
 
 ## 8. Recommended next move
 
-**Add risk gate when output schema supports it:** If the brief schema gains risk-gate fields, surface them on `/stock-briefs`. Otherwise, only add a small brief-file switcher if multiple brief files justify it (e.g. operator runs briefs for MSFT, NVDA, QQQ). Do not add theory or speculative roadmap.
+**`run_pipeline.py`:** One bounded script that chains existing steps (same inputs/outputs, same schemas), prints the same manual-review warnings — only if you want less copy-paste between three CLIs. Alternative when pain is real: a **minimal brief/risk switcher** on `/stock-briefs` after multiple `outputs/` files exist.
 
 ---
 
@@ -454,7 +465,7 @@ We are continuing an existing stock-module effort. Do not restart from theory.
 
 Use it as the source of truth unless repo evidence overrides an outdated claim.
 
-**Last verified checkpoint:** Prompt #98 — Full flow proven: `/stock-intake` (RS intake) → `confirm_watchlist_symbol.py` → `run_research_brief.py` → `/stock-briefs` (brief review). One-symbol path live. Manual approval at each step.
+**Last verified checkpoint:** Prompt #109 — Flow proven: `/stock-intake` → `confirm_watchlist_symbol.py` → `run_research_brief.py` → `run_risk_gate.py` → `/stock-briefs` (brief + paired risk gate, or missing-gate guidance). One symbol per brief. Manual only. Not a trading engine.
 
-**Current focus:** Stock-module/dashboard/Research Swarm intake lane. Next bounded move: risk-gate output on `/stock-briefs` if schema supports it, or brief-file switcher only if justified.
+**Current focus:** Stock-module / dashboard / RS intake lane. Next bounded move: `run_pipeline.py` (optional chain) or brief/risk switcher only if multiple output files justify it.
 ```
