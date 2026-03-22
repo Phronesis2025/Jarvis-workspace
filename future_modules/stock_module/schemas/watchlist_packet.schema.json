@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "future_modules/stock_module/schemas/watchlist_packet",
+  "title": "Watchlist Packet",
+  "description": "Input packet for Stock Module: symbols and context for research",
+  "type": "object",
+  "required": ["packet_id", "created_at", "symbols"],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "description": "Unique identifier for this packet"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    "symbols": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Ticker symbols to research"
+    },
+    "watch_reason": {
+      "type": "string",
+      "description": "Why these symbols are being watched"
+    },
+    "time_horizon": {
+      "type": "string",
+      "description": "e.g., short-term, long-term"
+    },
+    "risk_tolerance": {
+      "type": "string",
+      "description": "e.g., conservative, moderate"
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Additional limits or filters"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Human-readable context"
+    }
+  }
+}

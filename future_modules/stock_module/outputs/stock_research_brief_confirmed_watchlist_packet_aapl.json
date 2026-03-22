@@ -1,0 +1,44 @@
+{
+  "report_id": "sm-brief-sm-confirmed-AAPL-from-rs-draft",
+  "packet_id": "sm-confirmed-AAPL-from-rs-draft",
+  "created_at": "2026-03-22T02:52:52Z",
+  "symbols": [
+    "AAPL"
+  ],
+  "briefs": [
+    {
+      "symbol": "AAPL",
+      "thesis_or_watch_reason": "Research Swarm extraction: 4 symbols with source_count ≥ 2 across stock/trading agent repos and articles.",
+      "catalyst_summary": "AAPL is expected to announce new product updates and features in their upcoming Spring event slated for next month, which could positively influence market perception. Additionally, analysts are looking forward to potential earnings revisions following recent upbeat retail sales data in the tech space.",
+      "risk_summary": "Key risks include strong competition in the smartphone market from rivals such as Samsung and new entrants, potential supply chain disruptions, and macroeconomic factors like inflation and changes in consumer spending habits affecting demand.",
+      "evidence_sources": [
+        {
+          "type": "article",
+          "title": "Apple's Spring Event Will Showcase New Products",
+          "date": "2026-03-15"
+        },
+        {
+          "type": "report",
+          "title": "Retail Sales Surge May Signal Earnings Revisions for Tech",
+          "date": "2026-03-17"
+        },
+        {
+          "type": "article",
+          "title": "Apple Faces Increased Competition in Smartphone Market",
+          "date": "2026-03-18"
+        },
+        {
+          "type": "analysis",
+          "title": "Inflation and Consumer Spending Patterns Impacting Tech",
+          "date": "2026-03-20"
+        }
+      ],
+      "open_questions": [
+        "How will the broader economic environment impact consumer electronics sales in the next quarter?",
+        "What specific features will AAPL announce at the Spring event and how will they impact sales projections?"
+      ],
+      "confidence_band": "medium",
+      "review_recommendation": "dig deeper"
+    }
+  ]
+}

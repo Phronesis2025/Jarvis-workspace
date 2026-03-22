@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "future_modules/stock_module/schemas/risk_gate_review",
+  "title": "Risk Gate Review",
+  "description": "Risk gate flags and cautions for a research brief",
+  "type": "object",
+  "required": ["review_id", "report_id", "created_at", "overall_status"],
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "description": "Unique identifier for this review"
+    },
+    "report_id": {
+      "type": "string",
+      "description": "ID of the research brief being reviewed"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    "overall_status": {
+      "type": "string",
+      "enum": ["pass", "caution", "flag"],
+      "description": "pass = no issues; caution = minor flags; flag = requires human review"
+    },
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["symbol", "rule", "description"],
+        "properties": {
+          "symbol": { "type": "string" },
+          "rule": { "type": "string", "description": "Which risk gate rule triggered" },
+          "description": { "type": "string" }
+        }
+      },
+      "description": "Specific risk gate triggers"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief summary of risk gate findings"
+    }
+  }
+}

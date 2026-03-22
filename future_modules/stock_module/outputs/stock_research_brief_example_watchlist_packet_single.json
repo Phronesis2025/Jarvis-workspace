@@ -1,0 +1,39 @@
+{
+  "report_id": "sm-brief-sm-watch-single-001",
+  "packet_id": "sm-watch-single-001",
+  "created_at": "2026-03-21T12:00:00Z",
+  "symbols": [
+    "AAPL"
+  ],
+  "briefs": [
+    {
+      "symbol": "AAPL",
+      "thesis_or_watch_reason": "First viable slice test; tech earnings.",
+      "catalyst_summary": "Upcoming earnings report scheduled for April 2026, which is expected to provide insights into product sales and services growth. Additionally, recent product launches may influence performance.",
+      "risk_summary": "Key risks include competitive pressures from other tech firms, potential supply chain disruptions, and macroeconomic factors such as inflation affecting consumer spending.",
+      "evidence_sources": [
+        {
+          "type": "news",
+          "title": "Apple's Earnings Pressures Ahead of Q2",
+          "date": "2026-03-15"
+        },
+        {
+          "type": "report",
+          "title": "Tech Sector Earnings Forecast",
+          "date": "2026-03-10"
+        },
+        {
+          "type": "analysis",
+          "title": "Apple's Competitive Landscape in 2026",
+          "date": "2026-03-12"
+        }
+      ],
+      "open_questions": [
+        "How will the upcoming earnings compare year-over-year?",
+        "What impact will competition have on Apple's market share in the imminent quarter?"
+      ],
+      "confidence_band": "medium",
+      "review_recommendation": "monitor"
+    }
+  ]
+}

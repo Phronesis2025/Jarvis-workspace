@@ -1,0 +1,11 @@
+{
+  "packet_id": "sm-confirmed-AAPL-from-rs-draft",
+  "created_at": "2026-03-22T02:52:52Z",
+  "symbols": [
+    "AAPL"
+  ],
+  "watch_reason": "Research Swarm extraction: 4 symbols with source_count ≥ 2 across stock/trading agent repos and articles. First draft from RS→Stock bridge. (manually confirmed for first brief; one symbol)",
+  "time_horizon": "short-term",
+  "risk_tolerance": "moderate",
+  "notes": "MANUAL REVIEW REQUIRED. Draft from stock_symbol_review_summary.json. Selection: source_count primary, occurrence_count secondary. Included: AAPL (4 src), MSFT (3), NVDA (3), QQQ (2). Excluded: IBKR (broker scope), INFY/TCS/ICICI (non-US), GOOGL/TSLA/SPY/AMZN/XLE (source_count=1). Source: 7 RS extraction reports, 5 distinct URLs. | Manually confirmed AAPL for first brief."
+}
