@@ -1,6 +1,6 @@
 # Stock Module Scripts
 
-**Status:** First viable slice + risk gate + `/stock-briefs` review surface proven. **Last updated:** 2026-03-23 (doc-lock Prompt #109).
+**Status:** First viable slice + risk gate + `/stock-briefs` review surface proven. **Last updated:** 2026-03-23 (doc-lock Prompt #114).
 
 ## Implemented
 
@@ -80,9 +80,17 @@ python run_risk_gate.py --brief ../outputs/stock_research_brief_confirmed_watchl
 
 **Dashboard:** `/stock-briefs` reads the paired file next to the latest brief (same suffix rule). If you skip this step, the page still shows the brief and tells you to run this script.
 
-## Not yet implemented
+### run_pipeline.py
 
-- `run_pipeline.py` — Optional single entrypoint to chain watchlist → brief → risk gate (still manual review; not started)
+Thin manual orchestrator: confirmed one-symbol watchlist packet → research brief → risk gate review.
+
+**Command:**
+```bash
+cd future_modules/stock_module/scripts
+python run_pipeline.py --packet ../inputs/confirmed_watchlist_packet_aapl.json
+```
+
+**Manual-review-only:** Advisory output for a person; no trade execution.
 
 ## Conventions
 
