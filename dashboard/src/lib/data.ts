@@ -486,6 +486,97 @@ export async function getRiskGateReviewForLatestBrief(): Promise<RiskGateReview 
   }
 }
 
+export interface StockBriefReviewPair {
+  /** Suffix after `stock_research_brief_` used for pairing with risk gate filename */
+  suffix: string;
+  /** Absolute path to stock_research_brief_<suffix>.json */
+  briefPath: string;
+  /** The parsed research brief JSON */
+  brief: StockResearchBrief;
+  /** Absolute path to risk_gate_review_<suffix>.json when it exists */
+  riskGatePath: string | null;
+  /** Parsed risk gate review JSON when it exists */
+  riskGate: RiskGateReview | null;
+
+  /** Selector fields derived from brief JSON (first symbol in `briefs[]`) */
+  symbol: string;
+  createdAt: string | null;
+  confidenceBand: string | null;
+}
+
+/**
+ * List available stock brief outputs and pair each with its matching
+ * risk gate review output (paired by filename suffix).
+ *
+ * Returns newest-first (by brief file mtime).
+ */
+export async function getAvailableStockBriefReviewPairs(): Promise<StockBriefReviewPair[]> {
+  try {
+    const workspaceRoot = join(process.cwd(), "..");
+    const outputsDir = join(workspaceRoot, ...STOCK_MODULE_OUTPUTS_SEGMENTS);
+    const entries = await readdir(outputsDir, { withFileTypes: true });
+    const briefFiles = entries.filter(
+      (e) =>
+        e.isFile() &&
+        e.name.startsWith(STOCK_RESEARCH_BRIEF_PREFIX) &&
+        e.name.endsWith(".json")
+    );
+
+    const withStat = await Promise.all(
+      briefFiles.map(async (e) => {
+        const briefPath = join(outputsDir, e.name);
+        const s = e.name.slice(0, -".json".length);
+        const suffix = s.startsWith(STOCK_RESEARCH_BRIEF_PREFIX)
+          ? s.slice(STOCK_RESEARCH_BRIEF_PREFIX.length)
+          : s;
+
+        const st = await stat(briefPath);
+
+        let brief: StockResearchBrief | null = null;
+        try {
+          const raw = await readFile(briefPath, "utf-8");
+          brief = JSON.parse(raw) as StockResearchBrief;
+        } catch {
+          brief = null;
+        }
+
+        const first = brief?.briefs?.[0];
+        const symbol = first?.symbol ?? "—";
+        const createdAt = (brief?.created_at ?? null) as string | null;
+        const confidenceBand = (first?.confidence_band ?? null) as string | null;
+
+        const riskGatePath = join(outputsDir, `${RISK_GATE_REVIEW_PREFIX}${suffix}.json`);
+        let riskGate: RiskGateReview | null = null;
+        try {
+          const raw = await readFile(riskGatePath, "utf-8");
+          riskGate = JSON.parse(raw) as RiskGateReview;
+        } catch {
+          riskGate = null;
+        }
+
+        return {
+          mtimeMs: st.mtimeMs,
+          item: {
+            suffix,
+            briefPath,
+            brief: brief ?? { briefs: [] },
+            riskGatePath: riskGate ? riskGatePath : null,
+            riskGate,
+            symbol,
+            createdAt,
+            confidenceBand,
+          } as StockBriefReviewPair,
+        };
+      })
+    );
+
+    withStat.sort((a, b) => b.mtimeMs - a.mtimeMs);
+    return withStat.map((x) => x.item);
+  } catch {
+    return [];
+  }
+}
+
 /**
  * Derive most useful links from ledger: outcome=success, usefulness=useful.
  * Dedupes by source_url; newest successful useful row wins.

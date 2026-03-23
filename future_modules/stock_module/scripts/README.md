@@ -1,6 +1,6 @@
 # Stock Module Scripts
 
-**Status:** First viable slice + risk gate + `/stock-briefs` review surface proven. **Last updated:** 2026-03-23 (doc-lock Prompt #114).
+**Status:** First viable slice + risk gate + `/stock-briefs` review surface proven. **Last updated:** 2026-03-23 (doc-lock Prompt #119).
 
 ## Implemented
 
@@ -53,7 +53,7 @@ python run_research_brief.py --packet ../inputs/confirmed_watchlist_packet_aapl.
 
 **Proof output:** `outputs/stock_research_brief_confirmed_watchlist_packet_aapl.json`
 
-**Dashboard:** `/stock-briefs` loads the newest `stock_research_brief_*.json` by mtime and shows that brief; if a paired `risk_gate_review_<suffix>.json` exists for the same suffix, it shows that too (see `dashboard/src/lib/data.ts`).
+**Dashboard:** `/stock-briefs` loads available brief/risk review pairs from `outputs/` (defaulting to the newest by brief file mtime). If a paired `risk_gate_review_<suffix>.json` exists for the selected brief’s suffix, it shows that too (see `dashboard/src/lib/data.ts`).
 
 ### run_risk_gate.py
 
@@ -78,7 +78,7 @@ python run_risk_gate.py --brief ../outputs/stock_research_brief_confirmed_watchl
 
 **Proof output:** `outputs/risk_gate_review_confirmed_watchlist_packet_aapl.json`
 
-**Dashboard:** `/stock-briefs` reads the paired file next to the latest brief (same suffix rule). If you skip this step, the page still shows the brief and tells you to run this script.
+**Dashboard:** `/stock-briefs` reads the paired file next to the selected brief (same suffix rule; default selection is newest by brief file mtime). If you skip this step, the page still shows the brief and tells you to run this script.
 
 ### run_pipeline.py
 
