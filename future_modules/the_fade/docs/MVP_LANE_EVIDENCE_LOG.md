@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 42  
+**Prompt #:** 45  
 **Phase #:** 2  
 **Tranche #:** 12  
 
-Updated: 2026-03-25T11:59:30.0019846-05:00
+Updated: 2026-03-25T12:17:12.4174296-05:00
 
 ## Purpose
 
@@ -122,7 +122,7 @@ Evidence captured in this tranche:
 
 Scope: `lane_b_official_disclosure` only. This section records **actual constrained harness stdout** from one Protocol A rehearsal and one Protocol B rehearsal, using operator-authored JSON inputs under:
 
-`future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/tranche12_first_real_run/`
+`future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/tranche12_simulated_rehearsal/`
 
 Classification (Prompt #42 correction):
 - **Simulated harness rehearsal only** (operator-authored inputs; **no external/vendor data** fetched by the harness).

@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "title": "tranche12_protocol_a_scenario",
+    "run_id": "T12_LANE_B_PROTO_A_001"
+  },
+  "stale_window_definition": "Lane B evidence older than 48h is stale for this controlled run.",
+  "unavailable_condition_definition": "Simulated: disclosure feed returned HTTP 503 for 120s during replay window.",
+  "observed_behavior": "downgrade"
+}

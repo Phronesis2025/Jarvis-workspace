@@ -1,0 +1,8 @@
+{
+  "_meta": {
+    "title": "tranche12_protocol_b_scenario",
+    "run_id": "T12_LANE_B_PROTO_B_001"
+  },
+  "conflict_description": "Controlled conflict: lane B direction disagrees with context-only enrichment for this run.",
+  "precedence_result": "lane_b_remained_primary"
+}
