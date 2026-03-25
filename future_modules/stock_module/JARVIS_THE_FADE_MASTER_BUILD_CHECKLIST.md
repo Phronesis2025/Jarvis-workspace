@@ -2,8 +2,8 @@
 
 **Document Type:** Master Build Checklist  
 **Status:** Proposed Canonical Control Checklist (live progress below)  
-**Version:** 1.4  
-**Last Updated:** 2026-03-25T15:19:04.3322791-05:00  
+**Version:** 1.5  
+**Last Updated:** 2026-03-25T15:28:00.4152726-05:00  
 **Owner:** Jason  
 **Project Context:** Jarvis future worker / stock intelligence side quest
 
@@ -25,10 +25,10 @@ The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **mu
 | Phase 3 (Universe Scanner) | **Not started** |
 | Phase 3 unlock | **Blocked** until MVP gate satisfied; no automatic unlock from bounded evidence |
 | Lane B vs gate sufficiency | **Not close** — lane-level evidence remains **partial**; MVP approval **not** justified |
-| Reliability vs `required_reliability_threshold` (0.8) | **No honest comparison yet** — **`reliability`** dimension is **partial** after **Tranche 20** (documented micro-sample only; no defined calendar pre-audit window) |
+| Reliability vs `required_reliability_threshold` (0.8) | **No honest comparison yet** — **`reliability`** dimension is **partial** after **Tranche 20** (protocol for a defined pre-audit window exists from **Tranche 21**, but no window comparison has been run yet) |
 | Lane B MVP disclosure **provider** | **Not locked** — `mvp_lane_approval.json` **`TBD_OFFICIAL_DISCLOSURE_PROVIDER`**. Tranche **19** clarified mixed URLs (Federal Register vs SEC vs issuer IR) are **not** one provider path. |
 
-**Phase 2 work completed and committed (checkpoint list):** approval gate prep; deferred approval decision; lane B evidence pack + refinement passes; honest blocker documentation; controlled evidence protocol; minimal harness build + hardening; simulated rehearsal + correction + reproducibility cleanup; real evidence path audit; minimal real evidence path spec + correction; lane B real observation slice build; canon recovery from stash snapshot into `future_modules/stock_module/`; post-canon dirty-state cleanup (registry/log/contra alignment); **Tranche 18** reliability-window honesty pass (`docs/MVP_LANE_EVIDENCE_LOG.md`, `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` — four countable `observe` tries in one session; **no** valid 0.8 gate statistic); **Tranche 19** lane B provider/source class clarification (log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` — **one** source class per reliability pass; provisional next target **Federal Register API** only for that pass, not mixed with SEC/issuer); **Tranche 20** single-source reliability pass (Federal Register API only; 5 attempts / 5 successes / 0 failures; still **no** honest comparison to 0.8 yet).
+**Phase 2 work completed and committed (checkpoint list):** approval gate prep; deferred approval decision; lane B evidence pack + refinement passes; honest blocker documentation; controlled evidence protocol; minimal harness build + hardening; simulated rehearsal + correction + reproducibility cleanup; real evidence path audit; minimal real evidence path spec + correction; lane B real observation slice build; canon recovery from stash snapshot into `future_modules/stock_module/`; post-canon dirty-state cleanup (registry/log/contra alignment); **Tranche 18** reliability-window honesty pass (`docs/MVP_LANE_EVIDENCE_LOG.md`, `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` — four countable `observe` tries in one session; **no** valid 0.8 gate statistic); **Tranche 19** lane B provider/source class clarification (log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` — **one** source class per reliability pass; provisional next target **Federal Register API** only for that pass, not mixed with SEC/issuer); **Tranche 20** single-source reliability pass (Federal Register API only; 5 attempts / 5 successes / 0 failures; still **no** honest comparison to 0.8 yet); **Tranche 21** pre-audit reliability window protocol defined (Federal Register API-only; 48h UTC window; 2h cadence; count normalized_signal_event as success vs scout_failure as failure; compare to 0.8 only after >=20 counted attempts).
 
 **Real observation slice:** implemented (`lane_b_real_observation_slice.py`) — **does not** justify approval re-evaluation or MVP lane selection by itself.
 

@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 63  
+**Prompt #:** 65  
 **Phase #:** 2  
-**Tranche #:** 20  
+**Tranche #:** 21  
 
-Updated: 2026-03-25T15:11:26.1862208-05:00
+Updated: 2026-03-25T15:28:00.4152726-05:00
 
 ## Purpose
 
@@ -79,4 +79,46 @@ This tranche documents **single provider / source-class** reliability evidence o
 
 Comparison to `required_reliability_threshold` (0.8):
 - **Not honestly justified yet**: this pass does **not** evidence a **calendar pre-audit window** or comparable adapter/source draws as required by the gate standard. Reliability remains **partial / conservative** for approval purposes.
+
+## Lane B pre-audit reliability window protocol (Tranche 21 — Prompt #65)
+
+**Scope:** Lane B reliability dimension only; **single** source-class discipline.
+
+**Locked source class for this protocol:** U.S. Federal Register public API only.
+
+**Exact endpoint family allowed (use this exact URL each attempt):**
+`https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`
+
+### Window length (UTC, strict)
+- **Window length:** exactly **48 hours**
+- **Window start (`window_start_utc`):** the operator records the **ISO8601 UTC timestamp** when the **first** `observe` attempt of the window starts.
+- **Window end (`window_end_utc`):** `window_start_utc + 48h`
+
+### Attempt cadence (UTC, strict)
+- **Attempt cadence:** exactly **1 attempt every 2 hours**
+- **Attempt schedule:** attempt `i` is executed at `window_start_utc + (i * 2h)` for `i = 0..23`
+- **Inclusion rule:** only attempts that complete and produce a valid tool JSON object on stdout are **counted**. If the local run fails (tool crash / no JSON), that attempt is **not** counted and must be re-run before `window_end_utc` (so the operator can still reach the minimum counted-attempt requirement below).
+
+### Success vs failure counting rule (what is counted)
+Count based on the **tool outcome class** returned by `lane_b_real_observation_slice.py observe`:
+- **Success:** the attempt returns a `normalized_signal_event` (i.e. no `scout_failure` object).
+- **Failure:** the attempt returns a `scout_failure` (this includes timeout, TLS/DNS failures, HTTP `>= 400`, empty body, and any other fetch/normalization failure as encoded by the script).
+
+### Handling timeouts, HTTP errors, malformed responses
+Use the tool’s encoded outcome class:
+- Any timeout / TLS / DNS / HTTP `>= 400` / empty body / fetch exception that results in `scout_failure` counts as **failure**.
+- If the tool emits malformed/unparseable output (no valid JSON), that attempt is **not counted** (treated as operator execution invalid) and should be re-run within the window.
+
+### What “honest comparison to 0.8” requires
+- **Minimum counted attempts required:** at least **20** counted attempts (successes + failures) from the window schedule.
+- **Reliability metric used for the comparison:** `reliability = successes / counted_attempts`
+- **Comparison is allowed only if** `counted_attempts >= 20`. Otherwise, do **not** compute or claim pass/fail vs `required_reliability_threshold` **0.8**.
+
+### Minimum evidence needed before any 0.8 claim
+- The operator must record in `docs/MVP_LANE_EVIDENCE_LOG.md`:
+  - `window_start_utc`, `window_end_utc`
+  - total counted attempts
+  - successes vs failures (with task ids or a compact list)
+
+**Approval remains NOT granted** by this protocol definition alone; it only makes future reliability comparisons honest and repeatable.
 
