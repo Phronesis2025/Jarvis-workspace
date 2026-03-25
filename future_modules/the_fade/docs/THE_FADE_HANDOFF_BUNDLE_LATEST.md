@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 30  
+**Prompt #:** 42  
 **Phase #:** 2  
-**Tranche #:** 8  
-**Updated:** 2026-03-25T11:34:06.3163526-05:00
+**Tranche #:** 12  
+**Updated:** 2026-03-25T11:59:30.0019846-05:00  
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
@@ -17,20 +17,18 @@
   - reliability: recorded_partial
   - freshness: recorded
   - normalization_viability: recorded
-  - stale_outage_behavior: partial
+  - stale_outage_behavior: partial (Tranche 12 was **simulated harness rehearsal only** — not real lane evidence)
   - conflict_handling: recorded
-  - context_dominance_risk: partial
+  - context_dominance_risk: partial (Tranche 12 was **simulated harness rehearsal only** — not real lane evidence)
 
-## Current hard blocker (lane B)
-- No recorded, timestamped controlled stale/unavailable incident replay with explicit downgrade/escalation/omit behavior outcomes.
-- No adversarial/conflict-case evidence proving context-only enrichment never gains precedence over `lane_b_official_disclosure` primary truth under gate conditions.
+## Current lane B gap (honest)
+- Tranche 12 harness stdout in `docs/MVP_LANE_EVIDENCE_LOG.md` reflects **operator-authored simulated inputs** (no external/vendor data). **Do not treat it as production FADE lane evidence.**
+- **Real** stale/outage and dominance/conflict evidence for the gate is still **missing**.
 
 ## Operator next exact step (do not flip approval yet)
-- Record, for `lane_b_official_disclosure` only:
-  - stale/outage behavior: an explicit controlled stale/unavailable incident replay with timestamps and observed downgrade/escalation/omit behavior outcomes
-  - context-dominance risk: adversarial/conflict-case evidence proving context-only enrichment never gains precedence over `lane_b_official_disclosure` primary truth under gate conditions
-- protocol reference: `docs/MVP_LANE_EVIDENCE_LOG.md` → “Lane B controlled evidence protocol (operator checklist)”
-- execution note: executable via `future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py` (see `docs/MVP_LANE_EVIDENCE_LOG.md` → “Protocol execution status (Tranche 10)”)
+- Record **real lane evidence** for `lane_b_official_disclosure` on `stale_outage_behavior` and `context_dominance_risk` (production-equivalent or otherwise gate-honest), not another simulated rehearsal mislabeled as lane evidence.
+- protocol reference: `docs/MVP_LANE_EVIDENCE_LOG.md` → “Lane B simulated harness rehearsal (Tranche 12)” (historical) + “Lane B controlled evidence protocol (operator checklist)”
+- execution note: harness remains `future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py` for **rehearsal** only.
 - Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until evidence clearly meets the gate standard.
 
 ## Key authority files (treat as source-of-truth)
@@ -58,4 +56,3 @@
 ## Out of scope for this handoff
 - Phase 3 is not started.
 - No Phase 3 runner scripts, no outputs/logs, and no evidence collection beyond the explicit next-step lane refinement.
-

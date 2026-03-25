@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 20  
+**Prompt #:** 42  
 **Phase #:** 2  
-**Tranche #:** 3  
+**Tranche #:** 12  
 
-Updated: 2026-03-25T11:34:06.3163526-05:00
+Updated: 2026-03-25T11:59:30.0019846-05:00
 
 ## Purpose
 
@@ -104,9 +104,9 @@ Evidence captured in this tranche:
 - notes: Recorded. More normalization runs are needed before treating this as gate-sufficient.
 
 ### Stale/outage behavior
-- evidence_summary: This branch does not contain recorded, timestamped evidence for an intentionally controlled stale/unavailable condition for `lane_b_official_disclosure`. As a result, the lane B stale/outage downgrade/escalation/omit behavior is not evidenced to gate-sufficient confidence.
-- observed downgrade/escalation/omit behavior: partial; current evidence does not include a controlled outage scenario with timestamps and observed behavior outcomes.
-- notes: Blocker. Next: record an explicit stale/unavailable incident replay (with timestamps) and the observed downgrade/escalation/omit behavior.
+- evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol A (see “Lane B simulated harness rehearsal (Tranche 12)” below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane stale/outage `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs.
+- observed downgrade/escalation/omit behavior: **Not established** as real lane evidence. The rehearsal used `observed_behavior: downgrade` in the **simulated** scenario JSON; the registry dimension remains `partial` until production-equivalent (or otherwise gate-honest) evidence exists.
+- notes: Partial. Next: record **real** stale/unavailable handling tied to actual lane-B ingestion/fusion when that exists, or other gate-honest evidence as authorized.
 
 ### Conflict handling
 - evidence_summary: Additional conflict-case situations were recorded within the captured lane B runs. In these cases, fusion/conflict handling preserved primary lane truth (no dominance by context-only enrichment was observed in the recorded outputs).
@@ -114,9 +114,73 @@ Evidence captured in this tranche:
 - notes: Recorded partially / still in review. The current evidence improves coverage, but broader conflict-case permutations are still not established to gate-sufficient confidence.
 
 ### Context dominance risk
-- evidence_summary: This branch does not contain adversarial/conflict-case evidence (with explicit outcomes) demonstrating that context-only enrichment never gains precedence over `lane_b_official_disclosure`. Current evidence coverage is non-adversarial and therefore cannot establish non-dominance under the gate’s conflict conditions.
-- proof that context-only reads did not override primary truth: not proven for adversarial/conflict-case conditions; explicit precedence-safety observations are still missing.
-- notes: Blocker. Next: record a conflict-case / dominance adversarial observation where context-only enrichment is present but never allowed to become precedence over primary lane truth.
+- evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol B (see “Lane B simulated harness rehearsal (Tranche 12)” below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane dominance/conflict `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs.
+- proof that context-only reads did not override primary truth: **Not established** as real lane evidence. The rehearsal used `precedence_result: lane_b_remained_primary` as required by the harness constraint; the registry dimension remains `partial` until production-equivalent (or otherwise gate-honest) evidence exists.
+- notes: Partial. Next: record **real** dominance/conflict handling tied to actual fusion when that exists, or other gate-honest evidence as authorized.
+
+## Lane B simulated harness rehearsal (Tranche 12)
+
+Scope: `lane_b_official_disclosure` only. This section records **actual constrained harness stdout** from one Protocol A rehearsal and one Protocol B rehearsal, using operator-authored JSON inputs under:
+
+`future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/tranche12_first_real_run/`
+
+Classification (Prompt #42 correction):
+- **Simulated harness rehearsal only** (operator-authored inputs; **no external/vendor data** fetched by the harness).
+- **Not** real lane evidence for gate dimensions `stale_outage_behavior` or `context_dominance_risk` (those remain `partial` in `mvp_lane_evidence_registry.json`).
+- Useful as **protocol rehearsal**, not as proof of production FADE behavior.
+
+Discipline:
+- These runs are **not** smoke-test fixtures (`protocol_a_lane_b_evidence.json` / `protocol_a_scenario.json` under the parent folder).
+- These runs are **not** production FADE runtime evidence.
+- No approval is implied.
+
+### Protocol A — `LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1` (simulated rehearsal stdout)
+
+```json
+{
+  "_meta": {
+    "title": "lane_b_controlled_evidence_observation",
+    "harness": "lane_b_controlled_evidence_harness",
+    "protocol": "LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1"
+  },
+  "observed_at": "2026-03-25T16:54:11.984222+00:00",
+  "lane_id": "lane_b_official_disclosure",
+  "result": {
+    "scenario_name": "LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1",
+    "evidence_item_timestamp": "2026-03-25T18:00:00-05:00",
+    "stale_window_definition": "Lane B evidence older than 48h is stale for this controlled run.",
+    "unavailable_condition_definition": "Simulated: disclosure feed returned HTTP 503 for 120s during replay window.",
+    "observed_behavior": "downgrade",
+    "input_fingerprint": "595f4dcf7c1544511336ce97333b8598c05eb6ca566addb5288b8e4707522a26"
+  },
+  "notes": "Harness output is constrained to protocol-bounded fields; no external data was fetched. This is not an approval statement."
+}
+```
+
+### Protocol B — `LANE_B_CONTEXT_DOMINANCE_ADVERSARIAL_CONFLICT_V1` (simulated rehearsal stdout)
+
+```json
+{
+  "_meta": {
+    "title": "lane_b_controlled_evidence_observation",
+    "harness": "lane_b_controlled_evidence_harness",
+    "protocol": "LANE_B_CONTEXT_DOMINANCE_ADVERSARIAL_CONFLICT_V1"
+  },
+  "observed_at": "2026-03-25T16:54:12.319887+00:00",
+  "lane_id": "lane_b_official_disclosure",
+  "result": {
+    "scenario_name": "LANE_B_CONTEXT_DOMINANCE_ADVERSARIAL_CONFLICT_V1",
+    "primary_truth_source": "lane_b_official_disclosure",
+    "context_only_source": "lane_e_research_swarm_context",
+    "conflict_description": "Controlled conflict: lane B direction disagrees with context-only enrichment for this run.",
+    "precedence_result": "lane_b_remained_primary",
+    "primary_evidence_item_timestamp": "2026-03-25T18:05:00-05:00",
+    "context_only_evidence_item_timestamp": "2026-03-25T18:05:01-05:00",
+    "input_fingerprint": "b7653fa2ea354773f3888d9bc7bbe40afb59e81124aabb037188dc0f19a9a236"
+  },
+  "notes": "Harness output is constrained to protocol-bounded fields; no external data was fetched. This is not an approval statement."
+}
+```
 
 ## Lane B controlled evidence protocol (operator checklist)
 
@@ -183,7 +247,7 @@ This protocol defines the **minimum controlled evidence** required to clear the 
 
 ## Protocol execution status (Tranche 10)
 
-Outcome: **EXECUTABLE VIA MINIMAL HARNESS** (no approval flip; evidence not yet recorded).
+Outcome: **SIMULATED REHEARSAL EXECUTED (TRANCHE 12 — HARNESS ONLY)** (no approval flip; see Tranche 12 section — **not** real lane evidence for gate dimensions).
 
 Execution path now exists (bounded harness):
 - Harness script: `future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py`
@@ -207,7 +271,7 @@ Hardening note:
 
 Confidence level / limits:
 - confidence: 0.40
-- limits: Lane B now has improved quantitative reliability sampling and additional conflict-case observations, but gate-sufficient coverage is still not present across reliability (full pre-audit window) and conflict handling (broader permutation matrix); stale/outage and context-dominance remain partial/limited.
+- limits: Tranche 12 adds **simulated harness rehearsal stdout** (fingerprints in the Tranche 12 section). It does **not** advance `stale_outage_behavior` or `context_dominance_risk` to real lane evidence. Lane B remains **not gate-ready**: reliability still lacks full pre-audit window coverage; conflict handling still lacks broader permutations; stale/outage and context-dominance still lack **production-equivalent** (or otherwise gate-honest) evidence.
 
 Decision signal:
 - insufficient_for_gate_decision_pending_remaining_dimension_evidence
@@ -216,9 +280,9 @@ What is still missing before approval could be considered:
 - reliability: complete full pre-audit window outage/failure dominance measurements vs 0.8 threshold (current sample-based checks are limited)
 - freshness: finalize and fully apply freshness window classification
 - normalization_viability: expand silent-drop coverage
-- stale_outage_behavior: record an explicit controlled stale/unavailable incident replay with timestamps and observed downgrade/escalation/omit behavior outcomes
+- stale_outage_behavior: real lane evidence for stale/unavailable handling (Tranche 12 was **simulated rehearsal only**; does not satisfy this dimension)
 - conflict_handling: broaden conflict-case permutations and record explicit safe precedence checks aligned to the Phase 2 gate standard
-- context_dominance_risk: record adversarial/conflict-case evidence demonstrating context-only enrichment never gains precedence over primary lane truth
+- context_dominance_risk: real lane evidence for dominance safety (Tranche 12 was **simulated rehearsal only**; does not satisfy this dimension)
 
 ENDPOINT POINTER:
 - Approval gate: `future_modules/the_fade/config/mvp_lane_approval.json`

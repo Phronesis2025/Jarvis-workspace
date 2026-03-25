@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 20,
+    "prompt_number": 42,
     "phase_number": 2,
-    "tranche_number": 3
+    "tranche_number": 12
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 3,
+  "tranche": 12,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -75,8 +75,8 @@
         "conflict_handling": "recorded",
         "context_dominance_risk": "partial"
       },
-      "last_evidence_recorded_at": "2026-03-25T10:26:21.1635244-05:00",
-      "notes": "Honest status update (Tranche 7): lane B has partial evidence for stale/outage behavior and context-dominance risk, but this branch does not contain recorded, timestamped controlled stale/unavailable incident replay and does not contain adversarial dominance/conflict-case evidence demonstrating that context-only enrichment never gains precedence. This is why approval remains NOT granted."
+      "last_evidence_recorded_at": "2026-03-25T11:59:30.0019846-05:00",
+      "notes": "Correction (Prompt #42): Tranche 12 harness stdout in `docs/MVP_LANE_EVIDENCE_LOG.md` used **operator-authored simulated inputs** (no external/vendor data fetched). That pass is **simulated harness rehearsal only** and does **not** count as real lane evidence for `stale_outage_behavior` or `context_dominance_risk` under the gate’s production/system bar. Those dimensions remain `partial`. Lane B overall evidence remains partial; approval remains NOT granted."
     },
     {
       "lane_id": "lane_c_market_context",
