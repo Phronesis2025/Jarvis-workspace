@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 50  
+**Prompt #:** 55  
 **Phase #:** 2  
-**Tranche #:** 15  
+**Tranche #:** 16  
 
-Updated: 2026-03-25T13:20:54.8711512-05:00
+Updated: 2026-03-25T14:18:37.3837689-05:00
 
 ## Purpose
 
@@ -104,9 +104,9 @@ Evidence captured in this tranche:
 - notes: Recorded. More normalization runs are needed before treating this as gate-sufficient.
 
 ### Stale/outage behavior
-- evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol A (see “Lane B simulated harness rehearsal (Tranche 12)” below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane stale/outage `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs.
-- observed downgrade/escalation/omit behavior: **Not established** as real lane evidence. The rehearsal used `observed_behavior: downgrade` in the **simulated** scenario JSON; the registry dimension remains `partial` until production-equivalent (or otherwise gate-honest) evidence exists.
-- notes: Partial. Next: record **real** stale/unavailable handling tied to actual lane-B ingestion/fusion when that exists, or other gate-honest evidence as authorized.
+- evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol A (see “Lane B simulated harness rehearsal (Tranche 12)” below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane stale/outage `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs. **Tranche 16 (Prompt #52)** added a **non-simulated** lane B `observe` run plus real `scout_failure` outcomes where HTTPS returned **403** (SEC.gov / issuer IR in this environment), and one **successful** `normalized_signal_event` from a **live** public regulatory disclosure API (Federal Register JSON). See “Lane B first honest non-simulated observation run (Tranche 16)” below.
+- observed downgrade/escalation/omit behavior: **Recorded (bounded slice):** the real observation slice emits explicit `scout_failure` with `error_type: SOURCE_UNAVAILABLE` and HTTP 403 summaries for blocked fetches, and emits `normalized_signal_event` when bytes return (HTTP 200). This is **gate-honest real observation** for the adapter path; it is **not** full production scout runtime or a statistical outage study.
+- notes: Tranche 16 advances **real** availability/staleness-classification evidence for the slice. Full pre-audit outage dominance vs `required_reliability_threshold` remains outstanding.
 
 ### Conflict handling
 - evidence_summary: Additional conflict-case situations were recorded within the captured lane B runs. In these cases, fusion/conflict handling preserved primary lane truth (no dominance by context-only enrichment was observed in the recorded outputs).
@@ -114,9 +114,9 @@ Evidence captured in this tranche:
 - notes: Recorded partially / still in review. The current evidence improves coverage, but broader conflict-case permutations are still not established to gate-sufficient confidence.
 
 ### Context dominance risk
-- evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol B (see “Lane B simulated harness rehearsal (Tranche 12)” below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane dominance/conflict `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs.
-- proof that context-only reads did not override primary truth: **Not established** as real lane evidence. The rehearsal used `precedence_result: lane_b_remained_primary` as required by the harness constraint; the registry dimension remains `partial` until production-equivalent (or otherwise gate-honest) evidence exists.
-- notes: Partial. Next: record **real** dominance/conflict handling tied to actual fusion when that exists, or other gate-honest evidence as authorized.
+- evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol B (see “Lane B simulated harness rehearsal (Tranche 12)” below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane dominance/conflict `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs. **Tranche 16** ran the **real** `conflict` subcommand against a **live** lane B artifact from Tranche 16 observe plus a **THE FADE–local, operator-authored** contra JSON (explicitly **not** live external research). See “Lane B first honest non-simulated observation run (Tranche 16)” below.
+- proof that context-only reads did not override primary truth: **Recorded (bounded slice):** emitted `conflict_packet` states fusion precedence primary `lane_b_official_disclosure` and that context cannot override lane B (`fusion_policy.json` weights read-only). The contra input is **operator-authored** for mechanics only; it must **not** be read as external proof.
+- notes: Tranche 16 provides real THE FADE–local precedence/conflict output tied to a real observe artifact. Broader adversarial permutations and production fusion remain outstanding.
 
 ## Lane B simulated harness rehearsal (Tranche 12)
 
@@ -126,7 +126,7 @@ Scope: `lane_b_official_disclosure` only. This section records **actual constrai
 
 Classification (Prompt #42 correction):
 - **Simulated harness rehearsal only** (operator-authored inputs; **no external/vendor data** fetched by the harness).
-- **Not** real lane evidence for gate dimensions `stale_outage_behavior` or `context_dominance_risk` (those remain `partial` in `mvp_lane_evidence_registry.json`).
+- **Not** real lane evidence **from this harness alone** for `stale_outage_behavior` or `context_dominance_risk` (the rehearsal does not satisfy those dimensions by itself). **Tranche 16** added separate bounded real slice evidence; see “Lane B first honest non-simulated observation run” below — registry dimensions for those items are **recorded (bounded)**, not production-complete.
 - Useful as **protocol rehearsal**, not as proof of production FADE behavior.
 
 Discipline:
@@ -270,8 +270,8 @@ Hardening note:
 - Protocol B `precedence_result` is constrained to: `lane_b_remained_primary` (any other value fails loudly).
 
 Confidence level / limits:
-- confidence: 0.40
-- limits: Tranche 12 adds **simulated harness rehearsal stdout** (fingerprints in the Tranche 12 section). It does **not** advance `stale_outage_behavior` or `context_dominance_risk` to real lane evidence. Lane B remains **not gate-ready**: reliability still lacks full pre-audit window coverage; conflict handling still lacks broader permutations; stale/outage and context-dominance still lack **production-equivalent** (or otherwise gate-honest) evidence.
+- confidence: 0.45
+- limits: Tranche 12 remains **simulated harness rehearsal only** for stale/dominance. **Tranche 16** adds **bounded real** slice evidence (see Tranche 16 section). Lane B remains **not gate-ready**: reliability still lacks full pre-audit window coverage; conflict handling still lacks broader permutations; production-equivalent scout runtime is not established.
 
 Decision signal:
 - insufficient_for_gate_decision_pending_remaining_dimension_evidence
@@ -280,9 +280,9 @@ What is still missing before approval could be considered:
 - reliability: complete full pre-audit window outage/failure dominance measurements vs 0.8 threshold (current sample-based checks are limited)
 - freshness: finalize and fully apply freshness window classification
 - normalization_viability: expand silent-drop coverage
-- stale_outage_behavior: real lane evidence for stale/unavailable handling (Tranche 12 was **simulated rehearsal only**; does not satisfy this dimension)
+- stale_outage_behavior: Tranche 16 recorded **bounded real** slice behavior (see Tranche 16 section); full pre-audit outage statistics still outstanding
 - conflict_handling: broaden conflict-case permutations and record explicit safe precedence checks aligned to the Phase 2 gate standard
-- context_dominance_risk: real lane evidence for dominance safety (Tranche 12 was **simulated rehearsal only**; does not satisfy this dimension)
+- context_dominance_risk: Tranche 16 recorded **bounded real** slice behavior (see Tranche 16 section); broader adversarial coverage still outstanding
 
 ## Real evidence path spec (Tranche 14)
 
@@ -312,6 +312,50 @@ python future_modules/the_fade/scripts/lane_b_real_observation_slice.py conflict
 ```
 
 Ephemeral `*.json` outputs under `outputs/lane_b_real_observation/` are gitignored by default (see `.gitignore` there).
+
+## Lane B first honest non-simulated observation run (Tranche 16 — Prompt #52)
+
+**Classification:** Phase 2 lane B only; **not** approval; **not** scanner; **not** multi-lane.
+
+### Provenance separation (required)
+
+| Kind | What it is | This run |
+|------|------------|----------|
+| **Real lane B observation** | External anchor: bytes read via `observe` from a live HTTPS URL (or an honest local file path), with traceable URL/path and outcome class | **Primary:** `task_id=t16_honest_005`, URL `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`, Federal Register public API (official U.S. government disclosure index JSON). HTTP **200**, `normalized_signal_event` written. **Supplementary real availability observations:** `t16_honest_001`–`t16_honest_003` against SEC / issuer IR URLs returned **403** `scout_failure` in this environment (honest `SOURCE_UNAVAILABLE`, not rehearsed JSON). |
+| **Operator-authored contra** | THE FADE–local `semantic_role: lane_e_research_swarm_context`; **not** live external proof | `future_modules/the_fade/inputs/lane_b_real_evidence/context_only_contra.tranche16_operator_authored.json` — labeled in-file as operator-authored for precedence mechanics only. |
+
+**Not used as real lane-B disclosure content for this run:** `inputs/lane_b_real_evidence/sample_disclosure_stub.txt` (stub only). **Not used as Tranche 16 contra:** `context_only_contra.example.json` (shape reference / smoke only). **Not claimed as real evidence:** Tranche 12 harness rehearsal blocks in this log.
+
+Freshness window for observe classification in tool: default `--stale-after-hours 48` (see script); `t16_honest_005` classified `lag_class: fresh` (`freshness_hours: 0.0`).
+
+### Exact recorded output — `observe` (`t16_honest_005`)
+
+Authoritative JSON file (under `outputs/lane_b_real_observation/`; gitignored): `t16_honest_005_normalized_signal_event.json` — same object as stdout from the run. Full payload includes `raw_text` (API body, truncated in tool after 8k chars per script). **SHA256** of raw bytes and HTTP metadata appear in `notes` on the artifact.
+
+### Exact recorded output — `conflict` (`t16_honest_005`)
+
+Authoritative JSON file: `t16_honest_005_conflict_packet.json`
+
+```json
+{
+  "conflict_packet_id": "cf_t16_honest_005_015e5148ff6d",
+  "task_id": "t16_honest_005",
+  "ticker": "FR",
+  "created_at": "2026-03-25T18:41:33Z",
+  "summary": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='neutral' context_role='bearish' mismatch=True.",
+  "conflict_reasons": [
+    "lane_b_vs_context_role_under_fusion_policy",
+    "direction_hint_mismatch=True"
+  ],
+  "evidence_paths": [
+    "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\t16_honest_005_normalized_signal_event.json",
+    "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\inputs\\lane_b_real_evidence\\context_only_contra.tranche16_operator_authored.json"
+  ],
+  "notes": "THE FADE local slice; no research_swarm/ read."
+}
+```
+
+**Approval:** unchanged — `mvp_lane_approval.json` remains `approved: false`. This run does **not** justify flipping approval.
 
 ENDPOINT POINTER:
 - Approval gate: `future_modules/the_fade/config/mvp_lane_approval.json`

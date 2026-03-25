@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "title": "context_only_contra_tranche16",
+    "provenance": "THE FADE–local operator-authored context input for Tranche 16 precedence test only. Not live external research; not vendor-sourced. Used to exercise lane B vs lane_e_research_swarm_context under fusion_policy.json read-only weights."
+  },
+  "semantic_role": "lane_e_research_swarm_context",
+  "direction_hint": "bearish",
+  "parsed_summary": "Operator-authored bounded contra for Tranche 16: direction conflicts with neutral lane B sample to surface conflict_packet without claiming external evidence."
+}

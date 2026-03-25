@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 42,
+    "prompt_number": 55,
     "phase_number": 2,
-    "tranche_number": 12
+    "tranche_number": 16
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 12,
+  "tranche": 16,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -71,12 +71,12 @@
         "reliability": "recorded",
         "freshness": "recorded",
         "normalization_viability": "recorded",
-        "stale_outage_behavior": "partial",
+        "stale_outage_behavior": "recorded",
         "conflict_handling": "recorded",
-        "context_dominance_risk": "partial"
+        "context_dominance_risk": "recorded"
       },
-      "last_evidence_recorded_at": "2026-03-25T11:59:30.0019846-05:00",
-      "notes": "Correction (Prompt #42): Tranche 12 harness stdout in `docs/MVP_LANE_EVIDENCE_LOG.md` used **operator-authored simulated inputs** (no external/vendor data fetched). That pass is **simulated harness rehearsal only** and does **not** count as real lane evidence for `stale_outage_behavior` or `context_dominance_risk` under the gate’s production/system bar. Those dimensions remain `partial`. Lane B overall evidence remains partial; approval remains NOT granted."
+      "last_evidence_recorded_at": "2026-03-25T14:18:37.3837689-05:00",
+      "notes": "Tranche 12 harness stdout was **simulated rehearsal only** for stale/dominance dimensions. **Tranche 16 (Prompt #52):** first honest non-simulated lane B `observe` + `conflict` run recorded in `docs/MVP_LANE_EVIDENCE_LOG.md` — real HTTPS Federal Register API success + real SEC/IR 403 `scout_failure` observations + operator-authored THE FADE–local contra for precedence. **Bounded slice evidence** only; not full production scout runtime or pre-audit statistics. Lane B overall `evidence_status` remains **partial**; approval remains NOT granted. Registry/log/contra file reconciled under **Prompt #55** (dirty-state cleanup; no new evidence run)."
     },
     {
       "lane_id": "lane_c_market_context",
