@@ -4,7 +4,7 @@
 **Phase #:** 1  
 **Tranche #:** 1  
 
-Updated: 2026-03-25T08:27:13.5370442-05:00
+Updated: 2026-03-25T08:48:49.9914618-05:00
 
 ## Branch this work continues from (must not change)
 
@@ -24,8 +24,9 @@ Updated: 2026-03-25T08:27:13.5370442-05:00
 
 ## What is not done yet (do not start)
 
-- Phase 2 approval is not granted yet:
-  - `mvp_lane_approval.json` is still `approved: false` (no MVP lanes approved yet)
+- Phase 2 operator decision is recorded as defer (approval still not granted):
+  - `mvp_lane_approval.json` is still `approved: false`
+  - no MVP lanes are approved yet; all candidate MVP lanes remain deferred
 - No runners, no outputs, no logs for THE FADE.
 - No `dashboard_contract/` and no dashboard pages for THE FADE.
 - No heartbeat schema/code in Tranches 1–3.

@@ -4,7 +4,7 @@
 **Phase #:** 1  
 **Tranche #:** 1  
 
-Updated: 2026-03-25T08:27:13.5370442-05:00
+Updated: 2026-03-25T08:48:49.9914618-05:00
 
 ## Current state
 
@@ -12,7 +12,7 @@ Updated: 2026-03-25T08:27:13.5370442-05:00
   - Scout-layer foundation contracts created (schemas, config registries, examples)
   - Phase 0 final lock + attestation are present and govern execution for this module
   - No Phase 2+ implementation is started
-- Phase 2 / Tranche 2 gate prep exists, but operator approval is not granted yet (`approved:false`), so no MVP lanes are approved yet.
+- Phase 2 / Tranche 2 gate prep exists; operator recorded a deferred decision (`approved:false`), so no MVP lanes are approved yet.
 
 ## Bounded phase ladder (from here)
 
@@ -32,6 +32,7 @@ Updated: 2026-03-25T08:27:13.5370442-05:00
 ## Exact current next step (recorded)
 
 Start MASTER Phase 2 / Tranche 2:
-1. Operator approval decision: update `future_modules/the_fade/config/mvp_lane_approval.json` from `approved: false` to `approved: true` (populate `approved_by` + `approved_at` and the chosen MVP lanes).
-2. After the gate approval, update `future_modules/the_fade/config/lane_registry.json` + `future_modules/the_fade/config/escalation_policy.json` to match the approved MVP lane set.
+1. Gather/record lane-level reliability/freshness/normalization and stale/outage evidence against `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`.
+2. When evidence meets the gate standard, update `future_modules/the_fade/config/mvp_lane_approval.json` from `approved: false` to `approved: true` (populate `approved_by` + `approved_at` and the chosen MVP lanes).
+3. After gate approval, update `future_modules/the_fade/config/lane_registry.json` + `future_modules/the_fade/config/escalation_policy.json` to match the approved MVP lane set.
 

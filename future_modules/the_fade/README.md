@@ -4,7 +4,7 @@
 **Phase #:** 1  
 **Tranche #:** 1  
 
-Updated: 2026-03-25T08:27:13.5370442-05:00
+Updated: 2026-03-25T08:48:49.9914618-05:00
 
 ## What this is
 
@@ -23,8 +23,8 @@ This folder contains schemas, baseline config, examples, and docs only. **No run
 
 ## Explicitly deferred (not in this tranche)
 
-- Phase 2 gate prep exists but approval is not granted:
-  - `mvp_lane_approval.json` exists with `approved: false` (no MVP lanes approved yet)
+- Phase 2 gate prep exists; operator decision is deferred (approval still not granted):
+  - `mvp_lane_approval.json` exists with `approved: false` (no MVP lanes approved yet; candidate lanes remain deferred)
   - `MVP_SOURCE_RELIABILITY_AUDIT.md` exists as the operator pre-audit
 - Phase 2 named MVP vendors / vendor lock is deferred until operator approval  
 - Phase 3: `scripts/run_universe_scan.py`, `outputs/scanner/`  

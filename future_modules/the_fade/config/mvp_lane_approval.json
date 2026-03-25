@@ -13,9 +13,14 @@
   "approved_at": null,
   "plan_lock_id": "THE_FADE_PHASE0_FINAL_LOCK",
   "approved_mvp_lanes": [],
-  "deferred_lanes": [],
+  "deferred_lanes": [
+    "lane_a_public_signal",
+    "lane_b_official_disclosure",
+    "lane_c_market_context",
+    "lane_e_research_swarm_context"
+  ],
   "required_reliability_threshold": 0.8,
-  "notes": "Prepared in Phase 2. Operator approval not granted yet; no MVP vendor/provider names are locked in this file.",
+  "notes": "Operator decision: defer MVP lane approval. Approval remains NOT granted; no MVP lanes approved yet. More lane-level reliability/freshness/normalization and stale/outage behavior evidence is required before changing `approved` or selecting MVP lanes.",
   "official_disclosure_lane": {
     "provider_key": "TBD_OFFICIAL_DISCLOSURE_PROVIDER",
     "description": "Candidate official/disclosure evidence source for MVP slot (not approved yet).",
