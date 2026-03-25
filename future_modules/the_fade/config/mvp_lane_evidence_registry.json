@@ -57,7 +57,7 @@
     },
     {
       "lane_id": "lane_b_official_disclosure",
-      "status": "deferred_pending_evidence",
+      "status": "evidence_in_progress_partial",
       "required_evidence": [
         "reliability",
         "freshness",
@@ -66,8 +66,17 @@
         "conflict_handling",
         "context_dominance_risk"
       ],
-      "evidence_status": "not_started",
-      "notes": "Candidate official/disclosure lane under deferred review; collect evidence per dimensions before any approval change."
+      "evidence_status": "partial",
+      "dimension_evidence_status": {
+        "reliability": "partial",
+        "freshness": "recorded",
+        "normalization_viability": "recorded",
+        "stale_outage_behavior": "not_started",
+        "conflict_handling": "in_review",
+        "context_dominance_risk": "not_started"
+      },
+      "last_evidence_recorded_at": "2026-03-25T09:16:10.7441644-05:00",
+      "notes": "Lane B evidence collection started (official/disclosure). Approval remains NOT granted; only preliminary checks are recorded. Stale/outage behavior, conflict handling, and context-dominance risk require additional evidence before the gate standard can be considered met."
     },
     {
       "lane_id": "lane_c_market_context",

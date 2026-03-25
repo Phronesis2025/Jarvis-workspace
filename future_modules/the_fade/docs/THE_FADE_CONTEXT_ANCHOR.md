@@ -4,7 +4,7 @@
 **Phase #:** 1  
 **Tranche #:** 1  
 
-Updated: 2026-03-25T09:02:37.6307666-05:00
+Updated: 2026-03-25T09:17:03.5661078-05:00
 
 ## Branch this work continues from (must not change)
 
@@ -25,13 +25,14 @@ Updated: 2026-03-25T09:02:37.6307666-05:00
   - `config/mvp_lane_evidence_registry.json`
   - `docs/MVP_LANE_EVIDENCE_LOG.md`
   - `examples/example_mvp_lane_evidence_entry.json`
+- Phase 2 / Tranche 4: first lane evidence recorded for `lane_b_official_disclosure` (partial; evidence-in-progress).
 
 ## What is not done yet (do not start)
 
 - Phase 2 operator decision is recorded as defer (approval still not granted):
   - `mvp_lane_approval.json` is still `approved: false`
   - no MVP lanes are approved yet; all candidate MVP lanes remain deferred
-- No lane-level evidence has been recorded as pass in this pass.
+- Lane B evidence is in-progress; no MVP lanes are approved yet. Next step: complete remaining dimensions for `lane_b_official_disclosure` against the gate standard.
 - No runners, no outputs, no logs for THE FADE.
 - No `dashboard_contract/` and no dashboard pages for THE FADE.
 - No heartbeat schema/code in Tranches 1–3.

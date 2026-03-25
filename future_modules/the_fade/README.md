@@ -4,7 +4,7 @@
 **Phase #:** 1  
 **Tranche #:** 1  
 
-Updated: 2026-03-25T09:02:37.6307666-05:00
+Updated: 2026-03-25T09:17:03.5661078-05:00
 
 ## What this is
 
@@ -30,6 +30,7 @@ This folder contains schemas, baseline config, examples, and docs only. **No run
   - `config/mvp_lane_evidence_registry.json`
   - `docs/MVP_LANE_EVIDENCE_LOG.md`
   - `examples/example_mvp_lane_evidence_entry.json`
+- Phase 2 / Tranche 4: initial lane-level evidence started for `lane_b_official_disclosure` (partial); no MVP lanes are approved yet.
 - Phase 2 named MVP vendors / vendor lock is deferred until operator approval  
 - Phase 3: `scripts/run_universe_scan.py`, `outputs/scanner/`  
 - `dashboard_contract/`, any `dashboard/` routes for FADE  

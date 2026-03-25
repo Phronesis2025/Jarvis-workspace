@@ -4,7 +4,7 @@
 **Phase #:** 1  
 **Tranche #:** 1  
 
-Updated: 2026-03-25T09:02:37.6307666-05:00
+Updated: 2026-03-25T09:17:03.5661078-05:00
 
 ## Workspace root
 
@@ -61,8 +61,8 @@ Use `future_modules/the_fade/docs/THE_FADE_PHASE0_FINAL_LOCK.md` as the executio
 
 ## Exact next step (current)
 
-Start MASTER Phase 2 / Tranche 2:
-1. Populate evidence for each deferred candidate lane using `future_modules/the_fade/config/mvp_lane_evidence_registry.json` and record observations in `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md` (keep `approved:false` while collecting).
-2. When evidence meets the gate standard, update `future_modules/the_fade/config/mvp_lane_approval.json` from `approved: false` to `approved: true` (populate `approved_by` + `approved_at` and the chosen MVP lanes).
-3. After gate approval, update `future_modules/the_fade/config/lane_registry.json` + `future_modules/the_fade/config/escalation_policy.json` to match the approved MVP lane set.
+Continue MASTER Phase 2 / Tranche 4:
+1. Finish remaining (unknown/not-started) evidence dimensions for `lane_b_official_disclosure` using `future_modules/the_fade/config/mvp_lane_evidence_registry.json` and `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md` (keep `approved:false`).
+2. Only after the operator determines evidence meets the gate standard, update `future_modules/the_fade/config/mvp_lane_approval.json` to `approved: true` (with `approved_by` + `approved_at` and chosen MVP lanes).
+3. After approval is granted, update `future_modules/the_fade/config/lane_registry.json` + `future_modules/the_fade/config/escalation_policy.json` to match the approved MVP lane set (no change in this pass).
 
