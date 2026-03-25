@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 61  
+**Prompt #:** 63  
 **Phase #:** 2  
-**Tranche #:** 19  
+**Tranche #:** 20  
 
-Updated: 2026-03-25T15:00:53.6516432-05:00
+Updated: 2026-03-25T15:11:26.1862208-05:00
 
 ## Current state
 
@@ -22,6 +22,7 @@ Updated: 2026-03-25T15:00:53.6516432-05:00
 - Phase 2 / Tranche 16: **first honest non-simulated lane B observe + conflict** run recorded in `docs/MVP_LANE_EVIDENCE_LOG.md` (real Federal Register HTTPS observe + operator-authored contra; SEC automated fetch blocked with honest `scout_failure` in this environment).
 - Phase 2 / Tranche 18: **lane B reliability-window documentation pass** — `MVP_LANE_EVIDENCE_LOG.md` + `MVP_SOURCE_RELIABILITY_AUDIT.md` state the evidenced micro-sample (4 HTTPS observes); **reliability** registry dimension **partial**; **no** 0.8 claim.
 - Phase 2 / Tranche 19: **lane B provider/source class clarification** — mixed Tranche 16 URLs are **not** one provider; no `TBD` lock lifted; see log + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`.
+- Phase 2 / Tranche 20: **lane B single-source reliability pass** — Federal Register public API only; 5/5 successes documented; still no defined pre-audit window and no honest 0.8 comparison yet.
 
 ## Bounded phase ladder (from here)
 
@@ -30,6 +31,7 @@ Updated: 2026-03-25T15:00:53.6516432-05:00
 - Tranche 16: **DONE** (first honest lane B observe + conflict logged; see `MVP_LANE_EVIDENCE_LOG.md`).
 - Tranche 18: **DONE** (reliability-window honesty pass; see log + `MVP_SOURCE_RELIABILITY_AUDIT.md`).
 - Tranche 19: **DONE** (provider/source class clarification; see log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`).
+- Tranche 20: **DONE** (single-source Federal Register reliability pass documented; see log + audit).
 - Must complete before any Tranche 3 runner work:
   - operator must decide the MVP lane gate in `future_modules/the_fade/config/mvp_lane_approval.json` and set `approved: true` (fill `approved_by` + `approved_at`)
   - only after the gate is approved, update `future_modules/the_fade/config/lane_registry.json` and `future_modules/the_fade/config/escalation_policy.json` to reflect the approved MVP lanes

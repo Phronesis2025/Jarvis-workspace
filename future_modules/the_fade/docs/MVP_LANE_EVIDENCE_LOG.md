@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 61  
+**Prompt #:** 63  
 **Phase #:** 2  
-**Tranche #:** 19  
+**Tranche #:** 20  
 
-Updated: 2026-03-25T15:00:53.6516432-05:00
+Updated: 2026-03-25T15:11:26.1862208-05:00
 
 ## Purpose
 
@@ -414,6 +414,28 @@ For the **next** bounded reliability pass (when the operator runs new evidence),
 **Alternative class** (separate pass, separate log section): **SEC EDGAR / issuer disclosure** — requires **declared** traffic per SEC guidance and is **not** interchangeable with Federal Register evidence.
 
 **Approval:** unchanged — `mvp_lane_approval.json` remains `approved: false`.
+
+## Lane B single-source reliability slice (Tranche 20 — Prompt #63)
+
+**Scope:** Lane B reliability dimension only; **single** source-class discipline.
+
+**Locked source class used for this pass:** U.S. Federal Register public API only (no SEC URLs, no issuer IR URLs, no mixed provider tally).
+
+**Exact endpoint repeated (same host/API family):**
+`https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`
+
+### Exact attempts (countable evidence)
+- Total attempts: **5** (`t20_fb_001`, `t20_fb_002`, `t20_fb_003`, `t20_fb_004`, `t20_fb_005`)
+- Successes: **5** (each produced `event_id` / `normalized_signal_event`, `lag_class: fresh`)
+- Failures: **0** (`scout_failure` not emitted in this pass)
+
+### Comparison to `required_reliability_threshold` (0.8)
+Not honestly justified today. This pass documents a **bounded session micro-sample** and still does **not** provide a defined **calendar pre-audit window** or comparable adapter/source draws per the gate discipline. Therefore, we do **not** claim any pass/fail result against `0.8`.
+
+### Resulting reliability wording/state
+Reliability for `lane_b_official_disclosure` remains **partial / conservative** for gate purposes, pending a defined pre-audit window sampling plan.
+
+**Approval remains not justified:** `mvp_lane_approval.json` is unchanged (`approved: false`).
 
 ENDPOINT POINTER:
 - Approval gate: `future_modules/the_fade/config/mvp_lane_approval.json`

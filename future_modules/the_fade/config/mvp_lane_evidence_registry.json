@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 61,
+    "prompt_number": 63,
     "phase_number": 2,
-    "tranche_number": 19
+    "tranche_number": 20
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 19,
+  "tranche": 20,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -75,8 +75,8 @@
         "conflict_handling": "recorded",
         "context_dominance_risk": "recorded"
       },
-      "last_evidence_recorded_at": "2026-03-25T15:00:53.6516432-05:00",
-      "notes": "Tranche 12 harness stdout was **simulated rehearsal only** for stale/dominance dimensions. **Tranche 16:** first honest `observe` + `conflict` — mixed URL classes (see log; do not treat as one provider). **Tranche 18:** reliability micro-sample documented; **reliability** **partial**. **Tranche 19 (Prompt #61):** provider/source class clarification — no locked MVP provider in `mvp_lane_approval.json`; next bounded reliability pass should use **one** source class per run (log: provisional **Federal Register API** vs separate SEC/issuer pass). Lane B **partial**; approval NOT granted."
+      "last_evidence_recorded_at": "2026-03-25T15:11:26.1862208-05:00",
+      "notes": "Tranche 12 harness stdout was **simulated rehearsal only** for stale/dominance dimensions. **Tranche 16:** first honest `observe` + `conflict` — mixed URL classes (see log; do not treat as one provider). **Tranche 18:** reliability micro-sample documented; **reliability** **partial**. **Tranche 19 (Prompt #61):** provider/source class clarification — no locked MVP provider in `mvp_lane_approval.json`; next bounded reliability pass should use **one** source class per run (log: provisional **Federal Register API** vs separate SEC/issuer pass). **Tranche 20 (Prompt #63):** single-source reliability pass using **Federal Register public API only** — endpoint `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`, attempts `t20_fb_001`–`t20_fb_005`: **5/5 successes**, **0 failures** (`event_id` emitted; `lag_class: fresh`). Still **no** defined calendar pre-audit window and **no** honest comparison to `required_reliability_threshold` **0.8** yet. Lane B remains **partial**; approval NOT granted."
     },
     {
       "lane_id": "lane_c_market_context",

@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 61  
+**Prompt #:** 63  
 **Phase #:** 2  
-**Tranche #:** 19  
+**Tranche #:** 20  
 
-Updated: 2026-03-25T15:00:53.6516432-05:00
+Updated: 2026-03-25T15:11:26.1862208-05:00
 
 ## Purpose
 
@@ -64,4 +64,19 @@ Use these buckets; none are approved yet:
 **Key points:** `mvp_lane_approval.json` does **not** lock a disclosure provider (`TBD_OFFICIAL_DISCLOSURE_PROVIDER`). Tranche 16 mixed **Federal Register API**, **SEC/sec.gov**, and **issuer IR** — **not** one provider path. **Do not** treat mixed URLs as a single reliability statistic.
 
 **Next bounded reliability work (when run):** **one** source class per pass — **provisional** recommendation: **U.S. Federal Register public API** only for that pass (see log for rationale). **SEC/issuer** disclosure is a **different** class and requires its own pass and declared traffic if used.
+
+## Lane B single-source reliability slice (Tranche 20 — Prompt #63)
+
+This tranche documents **single provider / source-class** reliability evidence only (no SEC URLs, no issuer IR URLs, no mixed provider tally).
+
+- Source class: **U.S. Federal Register public API**
+- Exact endpoint repeated:
+  - `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`
+- Countable `observe` attempts documented in the evidence log:
+  - **5 attempts** (`t20_fb_001`–`t20_fb_005`)
+  - **Successes:** 5 (`event_id` emitted; `lag_class: fresh`)
+  - **Failures:** 0 (`scout_failure` not emitted in this pass)
+
+Comparison to `required_reliability_threshold` (0.8):
+- **Not honestly justified yet**: this pass does **not** evidence a **calendar pre-audit window** or comparable adapter/source draws as required by the gate standard. Reliability remains **partial / conservative** for approval purposes.
 

@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 61  
+**Prompt #:** 63  
 **Phase #:** 2  
-**Tranche #:** 19  
-**Updated:** 2026-03-25T15:00:53.6516432-05:00  
+**Tranche #:** 20  
+**Updated:** 2026-03-25T15:11:26.1862208-05:00  
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
@@ -17,8 +17,9 @@
 - **Tranche 16:** First **honest non-simulated** lane B run logged in `docs/MVP_LANE_EVIDENCE_LOG.md` — real HTTPS observe to Federal Register API (`task_id=t16_honest_005`); SEC/IR URLs returned 403 in this environment (honest `scout_failure`); `conflict` vs operator-authored contra `inputs/lane_b_real_evidence/context_only_contra.tranche16_operator_authored.json`. Registry dimensions `stale_outage_behavior` and `context_dominance_risk` set to **recorded** (bounded slice); lane-level evidence remains **partial**.
 - **Tranche 18:** **Reliability-window honesty pass** — `docs/MVP_LANE_EVIDENCE_LOG.md` + `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` document the **four** countable Tranche 16 HTTPS observes (1 success / 3×403), **no** calendar pre-audit window, **no** honest comparison to **0.8** yet; registry **`reliability`** set to **partial**.
 - **Tranche 19:** **Provider / source class clarification** — `mvp_lane_approval.json` still has **`TBD_OFFICIAL_DISCLOSURE_PROVIDER`**; Tranche 16 mixed **Federal Register / SEC / issuer IR** (not one provider). **Do not** aggregate mixed hosts into one reliability statistic. **Provisional** next single-class target for a future pass: **U.S. Federal Register public API** (see log); SEC/issuer = separate class/pass.
+- **Tranche 20:** **Single-source reliability pass** (Federal Register API only) documented in `docs/MVP_LANE_EVIDENCE_LOG.md` — endpoint `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` attempted **5** times (`t20_fb_001`–`t20_fb_005`): **5 successes / 0 failures**. Still **no** defined calendar pre-audit window and **no** honest comparison to `required_reliability_threshold` **0.8** yet; registry reliability remains **partial**.
 - Current evidence status for `lane_b_official_disclosure` (conservative summary):
-  - reliability: **partial** (Tranche 18; micro-sample only — see log)
+  - reliability: **partial** (Tranche 18/20; micro-sample only — see log)
   - freshness: recorded
   - normalization_viability: recorded
   - stale_outage_behavior: recorded (bounded Tranche 16 slice + log; not full pre-audit stats)
@@ -26,7 +27,7 @@
   - context_dominance_risk: recorded (bounded Tranche 16 slice; not full adversarial matrix)
 
 ## Current lane B gap (honest)
-- Tranche 18 made reliability **explicitly thin**: **no** defined pre-audit window or valid 0.8 test yet. **Approval remains unjustified** — need named window + comparable draws, broader conflict permutations, and production-equivalent scout runtime when in scope.
+- Tranche 18 made reliability **explicitly thin**: **no** defined calendar pre-audit window or valid 0.8 test yet. Tranche 20 improved the **single-source** micro-sample (Federal Register API only; 5/5 successes) but still does **not** evidence a comparable pre-audit window. **Approval remains unjustified** — need named window + comparable draws, broader conflict permutations, and production-equivalent scout runtime when in scope.
 
 ## Operator next exact step (do not flip approval yet)
 - Continue bounded Phase 2 lane B evidence (reliability window, optional SEC with declared traffic per SEC developer guidance); do not widen to Phase 3 scanner.
