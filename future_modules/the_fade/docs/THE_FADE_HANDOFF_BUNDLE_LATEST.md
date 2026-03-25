@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 54  
+**Prompt #:** 59  
 **Phase #:** 2  
-**Tranche #:** 16  
-**Updated:** 2026-03-25T14:02:21.7447837-05:00  
+**Tranche #:** 18  
+**Updated:** 2026-03-25T14:48:28.8068011-05:00  
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
@@ -15,8 +15,9 @@
 - `lane_b_official_disclosure` is the most advanced candidate lane so far, but it is still insufficient for approval.
 - **Tranche 15:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py` exists — **lane-B-only** real observation slice (HTTPS or file → `scout_failure` / `normalized_signal_event`; lane B artifact + local contra → `conflict_packet`). Outputs under `outputs/lane_b_real_observation/` (json gitignored).
 - **Tranche 16:** First **honest non-simulated** lane B run logged in `docs/MVP_LANE_EVIDENCE_LOG.md` — real HTTPS observe to Federal Register API (`task_id=t16_honest_005`); SEC/IR URLs returned 403 in this environment (honest `scout_failure`); `conflict` vs operator-authored contra `inputs/lane_b_real_evidence/context_only_contra.tranche16_operator_authored.json`. Registry dimensions `stale_outage_behavior` and `context_dominance_risk` set to **recorded** (bounded slice); lane-level evidence remains **partial**.
+- **Tranche 18:** **Reliability-window honesty pass** — `docs/MVP_LANE_EVIDENCE_LOG.md` + `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` document the **four** countable Tranche 16 HTTPS observes (1 success / 3×403), **no** calendar pre-audit window, **no** honest comparison to **0.8** yet; registry **`reliability`** set to **partial**.
 - Current evidence status for `lane_b_official_disclosure` (conservative summary):
-  - reliability: recorded_partial
+  - reliability: **partial** (Tranche 18; micro-sample only — see log)
   - freshness: recorded
   - normalization_viability: recorded
   - stale_outage_behavior: recorded (bounded Tranche 16 slice + log; not full pre-audit stats)
@@ -24,7 +25,7 @@
   - context_dominance_risk: recorded (bounded Tranche 16 slice; not full adversarial matrix)
 
 ## Current lane B gap (honest)
-- Tranche 16 satisfied **first** honest real observe + conflict log entry; **approval remains unjustified** — pre-audit reliability coverage, broader conflict permutations, and production-equivalent scout runtime are still gaps.
+- Tranche 18 made reliability **explicitly thin**: **no** defined pre-audit window or valid 0.8 test yet. **Approval remains unjustified** — need named window + comparable draws, broader conflict permutations, and production-equivalent scout runtime when in scope.
 
 ## Operator next exact step (do not flip approval yet)
 - Continue bounded Phase 2 lane B evidence (reliability window, optional SEC with declared traffic per SEC developer guidance); do not widen to Phase 3 scanner.

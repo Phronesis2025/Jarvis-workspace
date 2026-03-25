@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 55,
+    "prompt_number": 59,
     "phase_number": 2,
-    "tranche_number": 16
+    "tranche_number": 18
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 16,
+  "tranche": 18,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -68,15 +68,15 @@
       ],
       "evidence_status": "partial",
       "dimension_evidence_status": {
-        "reliability": "recorded",
+        "reliability": "partial",
         "freshness": "recorded",
         "normalization_viability": "recorded",
         "stale_outage_behavior": "recorded",
         "conflict_handling": "recorded",
         "context_dominance_risk": "recorded"
       },
-      "last_evidence_recorded_at": "2026-03-25T14:18:37.3837689-05:00",
-      "notes": "Tranche 12 harness stdout was **simulated rehearsal only** for stale/dominance dimensions. **Tranche 16 (Prompt #52):** first honest non-simulated lane B `observe` + `conflict` run recorded in `docs/MVP_LANE_EVIDENCE_LOG.md` — real HTTPS Federal Register API success + real SEC/IR 403 `scout_failure` observations + operator-authored THE FADE–local contra for precedence. **Bounded slice evidence** only; not full production scout runtime or pre-audit statistics. Lane B overall `evidence_status` remains **partial**; approval remains NOT granted. Registry/log/contra file reconciled under **Prompt #55** (dirty-state cleanup; no new evidence run)."
+      "last_evidence_recorded_at": "2026-03-25T14:48:28.8068011-05:00",
+      "notes": "Tranche 12 harness stdout was **simulated rehearsal only** for stale/dominance dimensions. **Tranche 16 (Prompt #52):** first honest non-simulated lane B `observe` + `conflict` run — Federal Register success + SEC/IR 403 failures + operator-authored contra; see log. **Tranche 18 (Prompt #59):** reliability-window honesty pass — **four** countable HTTPS observes in one session documented; **no** calendar pre-audit window; **reliability** dimension set to **partial** (not comparable to 0.8 yet). Bounded slice only; lane B overall **partial**; approval NOT granted."
     },
     {
       "lane_id": "lane_c_market_context",

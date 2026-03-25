@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 54  
+**Prompt #:** 59  
 **Phase #:** 2  
-**Tranche #:** 16  
+**Tranche #:** 18  
 
-Updated: 2026-03-25T14:02:21.7447837-05:00
+Updated: 2026-03-25T14:48:28.8068011-05:00
 
 ## Current state
 
@@ -20,12 +20,14 @@ Updated: 2026-03-25T14:02:21.7447837-05:00
 - Phase 2 / Tranche 14: **minimal real evidence path spec** (`docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`).
 - Phase 2 / Tranche 15: **lane B real observation slice** implemented — `scripts/lane_b_real_observation_slice.py` (THE FADE only; no scanner/dashboard).
 - Phase 2 / Tranche 16: **first honest non-simulated lane B observe + conflict** run recorded in `docs/MVP_LANE_EVIDENCE_LOG.md` (real Federal Register HTTPS observe + operator-authored contra; SEC automated fetch blocked with honest `scout_failure` in this environment).
+- Phase 2 / Tranche 18: **lane B reliability-window documentation pass** — `MVP_LANE_EVIDENCE_LOG.md` + `MVP_SOURCE_RELIABILITY_AUDIT.md` state the evidenced micro-sample (4 HTTPS observes); **reliability** registry dimension **partial**; **no** 0.8 claim.
 
 ## Bounded phase ladder (from here)
 
 ## MASTER Phase 2 — Scout MVP data stack and pre-audit
 - Tranche 15: **DONE** (slice implemented).
 - Tranche 16: **DONE** (first honest lane B observe + conflict logged; see `MVP_LANE_EVIDENCE_LOG.md`).
+- Tranche 18: **DONE** (reliability-window honesty pass; see log + `MVP_SOURCE_RELIABILITY_AUDIT.md`).
 - Must complete before any Tranche 3 runner work:
   - operator must decide the MVP lane gate in `future_modules/the_fade/config/mvp_lane_approval.json` and set `approved: true` (fill `approved_by` + `approved_at`)
   - only after the gate is approved, update `future_modules/the_fade/config/lane_registry.json` and `future_modules/the_fade/config/escalation_policy.json` to reflect the approved MVP lanes

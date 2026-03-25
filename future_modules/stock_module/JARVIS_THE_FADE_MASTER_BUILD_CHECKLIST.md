@@ -2,8 +2,8 @@
 
 **Document Type:** Master Build Checklist  
 **Status:** Proposed Canonical Control Checklist (live progress below)  
-**Version:** 1.1  
-**Last Updated:** 2026-03-25T14:28:00.6567168-05:00  
+**Version:** 1.2  
+**Last Updated:** 2026-03-25T14:53:34.0973473-05:00  
 **Owner:** Jason  
 **Project Context:** Jarvis future worker / stock intelligence side quest
 
@@ -24,12 +24,14 @@ The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **mu
 | Active lane focus | **`lane_b_official_disclosure`** (lane B) |
 | Phase 3 (Universe Scanner) | **Not started** |
 | Phase 3 unlock | **Blocked** until MVP gate satisfied; no automatic unlock from bounded evidence |
+| Lane B vs gate sufficiency | **Not close** — lane-level evidence remains **partial**; MVP approval **not** justified |
+| Reliability vs `required_reliability_threshold` (0.8) | **No honest comparison yet** — **`reliability`** dimension is **partial** after **Tranche 18** (documented micro-sample only; no defined calendar pre-audit window) |
 
-**Phase 2 work completed and committed (checkpoint list):** approval gate prep; deferred approval decision; lane B evidence pack + refinement passes; honest blocker documentation; controlled evidence protocol; minimal harness build + hardening; simulated rehearsal + correction + reproducibility cleanup; real evidence path audit; minimal real evidence path spec + correction; lane B real observation slice build; canon recovery from stash snapshot into `future_modules/stock_module/`; post-canon dirty-state cleanup (registry/log/contra alignment).
+**Phase 2 work completed and committed (checkpoint list):** approval gate prep; deferred approval decision; lane B evidence pack + refinement passes; honest blocker documentation; controlled evidence protocol; minimal harness build + hardening; simulated rehearsal + correction + reproducibility cleanup; real evidence path audit; minimal real evidence path spec + correction; lane B real observation slice build; canon recovery from stash snapshot into `future_modules/stock_module/`; post-canon dirty-state cleanup (registry/log/contra alignment); **Tranche 18** reliability-window honesty pass (`docs/MVP_LANE_EVIDENCE_LOG.md`, `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` — four countable `observe` tries in one session; **no** valid 0.8 gate statistic).
 
 **Real observation slice:** implemented (`lane_b_real_observation_slice.py`) — **does not** justify approval re-evaluation or MVP lane selection by itself.
 
-**Registry nuance:** `stale_outage_behavior` and `context_dominance_risk` may show **recorded (bounded)** for lane B in the evidence registry — that is **not** approved-lane proof, **not** production completeness, and **does not** unlock Phase 3.
+**Registry nuance:** `reliability` for lane B is **partial** (Tranche 18). `stale_outage_behavior` and `context_dominance_risk` may show **recorded (bounded)** — still **not** approved-lane proof, **not** production completeness, and **does not** unlock Phase 3.
 
 **Discipline:** Use this master checklist for periodic checkpointing to avoid scope drift.
 

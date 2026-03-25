@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 55  
+**Prompt #:** 59  
 **Phase #:** 2  
-**Tranche #:** 16  
+**Tranche #:** 18  
 
-Updated: 2026-03-25T14:18:37.3837689-05:00
+Updated: 2026-03-25T14:48:28.8068011-05:00
 
 ## Purpose
 
@@ -89,9 +89,9 @@ Evidence captured in this tranche:
 - Approval remains NOT granted; this is evidence-in-progress only.
 
 ### Reliability
-- evidence_summary: Quantitative reliability sampling for lane B was extended within the limited observation window. In the captured lane B sample, failure/outage dominance did not exceed the `required_reliability_threshold` criterion qualitatively; however the observation window is still not the full pre-audit window needed for gate-sufficient statistical coverage.
-- pass/fail criteria reference: Compare observed failure/outage dominance against `required_reliability_threshold` (0.8) from `config/mvp_lane_approval.json`.
-- notes: Partial-but-improved. Quantitative methodology and sample-based dominance checks are recorded, but full pre-audit window coverage is still missing; approval remains NOT justified.
+- evidence_summary: **Tranche 18 (Prompt #59)** tightened the honesty bar. The only **countable** real `observe` HTTPS attempts currently documented for lane B in this log are the **Tranche 16** session: **`t16_honest_001`–`t16_honest_003`** (`scout_failure`, HTTP **403** to SEC / issuer IR URLs in that environment) and **`t16_honest_005`** (**HTTP 200**, `normalized_signal_event` to Federal Register API). That is **four attempts**, **one success**, **three failures** — a **single-session micro-sample**, **not** a calendar **pre-audit window** and **not** i.i.d. draws from one MVP provider. A naive success rate **1/4** does **not** meet **0.8**, and **must not** be used as a gate statistic: URL families and failure mechanisms differ (automation/policy 403 vs successful open API).
+- pass/fail criteria reference: `required_reliability_threshold` **0.8** in `config/mvp_lane_approval.json` — compare **only** once a **defined** pre-audit window and **comparable** adapter/source draws exist; **not** justified from current evidence.
+- notes: **Partial / conservative.** See **Lane B reliability window evidence (Tranche 18)** below. Approval remains NOT justified.
 
 ### Freshness
 - evidence_summary: Evidence timestamps were present in the observed outputs and could be classified for freshness vs staleness using a planned freshness window.
@@ -271,13 +271,13 @@ Hardening note:
 
 Confidence level / limits:
 - confidence: 0.45
-- limits: Tranche 12 remains **simulated harness rehearsal only** for stale/dominance. **Tranche 16** adds **bounded real** slice evidence (see Tranche 16 section). Lane B remains **not gate-ready**: reliability still lacks full pre-audit window coverage; conflict handling still lacks broader permutations; production-equivalent scout runtime is not established.
+- limits: Tranche 12 remains **simulated harness rehearsal only** for stale/dominance. **Tranche 16** adds **bounded real** slice evidence (see Tranche 16 section). **Tranche 18** documents reliability as **partial** (micro-sample only; no 0.8 test). Lane B remains **not gate-ready**: no defined pre-audit reliability window; conflict handling still lacks broader permutations; production-equivalent scout runtime is not established.
 
 Decision signal:
 - insufficient_for_gate_decision_pending_remaining_dimension_evidence
 
 What is still missing before approval could be considered:
-- reliability: complete full pre-audit window outage/failure dominance measurements vs 0.8 threshold (current sample-based checks are limited)
+- reliability: **Tranche 18** documented the Tranche 16 micro-sample explicitly; **no** honest 0.8 comparison yet — need defined pre-audit window + comparable draws (see “Lane B reliability window evidence (Tranche 18)”)
 - freshness: finalize and fully apply freshness window classification
 - normalization_viability: expand silent-drop coverage
 - stale_outage_behavior: Tranche 16 recorded **bounded real** slice behavior (see Tranche 16 section); full pre-audit outage statistics still outstanding
@@ -356,6 +356,29 @@ Authoritative JSON file: `t16_honest_005_conflict_packet.json`
 ```
 
 **Approval:** unchanged — `mvp_lane_approval.json` remains `approved: false`. This run does **not** justify flipping approval.
+
+## Lane B reliability window evidence (Tranche 18 — Prompt #59)
+
+**Scope:** Lane B only; **reliability** dimension; **no** new observe runs in this pass — analysis of what is already logged.
+
+### What is actually evidenced
+
+| Item | Value |
+|------|--------|
+| **Calendar pre-audit window** | **Not evidenced.** No start/end dates or scheduled sampling plan is recorded for lane B. |
+| **Bounded session window (Tranche 16)** | Single operator session **2026-03-25** (UTC) encompassing the logged `observe` tasks below. |
+| **Countable HTTPS `observe` attempts (this log)** | **4** — `t16_honest_001`, `t16_honest_002`, `t16_honest_003`, `t16_honest_005`. |
+| **Successes** | **1** — `t16_honest_005` (HTTP 200, Federal Register API). |
+| **Failures** | **3** — `t16_honest_001`–`003` (HTTP **403**, `SOURCE_UNAVAILABLE` / `scout_failure`). |
+| **Inferred vs evidenced** | **Evidenced:** discrete outcomes per task_id above. **Not evidenced:** population failure rate, steady-state availability, or dominance over a multi-day window. |
+
+### Comparison to `required_reliability_threshold` (0.8)
+
+**Not honestly justified today.** The gate requires reliability **during the pre-audit window** against **0.8** (`mvp_lane_approval.json`). We have **no** defined pre-audit window execution for lane B and **no** statistically meaningful sample from a **single** MVP disclosure adapter. A raw **1/4** success ratio **does not** support a pass and **must not** be read as the lane’s reliability.
+
+### Conclusion
+
+Reliability for `lane_b_official_disclosure` stays **conservative / partial** for approval purposes until a **named window** and **comparable** repeated observations (or a clearly scoped pilot against one target source) are recorded.
 
 ENDPOINT POINTER:
 - Approval gate: `future_modules/the_fade/config/mvp_lane_approval.json`
