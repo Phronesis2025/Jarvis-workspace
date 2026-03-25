@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 59  
+**Prompt #:** 61  
 **Phase #:** 2  
-**Tranche #:** 18  
+**Tranche #:** 19  
 
-Updated: 2026-03-25T14:48:28.8068011-05:00
+Updated: 2026-03-25T15:00:53.6516432-05:00
 
 ## Purpose
 
@@ -56,4 +56,12 @@ Use these buckets; none are approved yet:
 **Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` → section **Lane B reliability window evidence (Tranche 18)**.
 
 **Summary:** No **calendar pre-audit window** is defined or executed yet for lane B. The only **countable** real HTTPS `observe` attempts currently in the log are **four** tries in one **2026-03-25** session (**one** HTTP 200 success, **three** HTTP 403 failures across different URL classes). That micro-sample **cannot** be compared honestly to **`required_reliability_threshold` 0.8** — see the log for explicit reasoning. Reliability remains **partial / conservative** for gate purposes until a named window and comparable repeated observations exist.
+
+## Lane B — provider / source class (Tranche 19)
+
+**Source of truth:** `docs/MVP_LANE_EVIDENCE_LOG.md` → **Lane B provider / source path (Tranche 19)**.
+
+**Key points:** `mvp_lane_approval.json` does **not** lock a disclosure provider (`TBD_OFFICIAL_DISCLOSURE_PROVIDER`). Tranche 16 mixed **Federal Register API**, **SEC/sec.gov**, and **issuer IR** — **not** one provider path. **Do not** treat mixed URLs as a single reliability statistic.
+
+**Next bounded reliability work (when run):** **one** source class per pass — **provisional** recommendation: **U.S. Federal Register public API** only for that pass (see log for rationale). **SEC/issuer** disclosure is a **different** class and requires its own pass and declared traffic if used.
 

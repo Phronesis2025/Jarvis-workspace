@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 59  
+**Prompt #:** 61  
 **Phase #:** 2  
-**Tranche #:** 18  
+**Tranche #:** 19  
 
-Updated: 2026-03-25T14:48:28.8068011-05:00
+Updated: 2026-03-25T15:00:53.6516432-05:00
 
 ## Purpose
 
@@ -379,6 +379,41 @@ Authoritative JSON file: `t16_honest_005_conflict_packet.json`
 ### Conclusion
 
 Reliability for `lane_b_official_disclosure` stays **conservative / partial** for approval purposes until a **named window** and **comparable** repeated observations (or a clearly scoped pilot against one target source) are recorded.
+
+## Lane B provider / source path (Tranche 19 — Prompt #61)
+
+**Scope:** Clarify what lane B’s **provider story** is today — **no** new `observe` runs in this pass.
+
+### What is actually defined
+
+| Item | State |
+|------|--------|
+| **Locked MVP provider in `mvp_lane_approval.json`** | **Not defined.** `official_disclosure_lane.provider_key` is **`TBD_OFFICIAL_DISCLOSURE_PROVIDER`** — placeholder only. |
+| **Single provider path for reliability statistics** | **No.** Until one **source class** is chosen for sampling, mixed URLs must **not** be read as one adapter. |
+
+### What polluted the evidence story (Tranche 16)
+
+The session logged **four** HTTPS tries that mixed **different source classes**:
+
+| Class | Examples in log | Outcome in environment |
+|-------|-----------------|-------------------------|
+| **U.S. Federal Register public API** | `t16_honest_005` — `www.federalregister.gov` API JSON | HTTP **200**, normalized event |
+| **SEC / EDGAR / sec.gov** | `t16_honest_001`, `t16_honest_003` | HTTP **403** (automation policy) |
+| **Issuer investor relations** | `t16_honest_002` (e.g. Apple IR) | HTTP **403** |
+
+Aggregating these into **one** success/failure tally **without** separating provider class **pretends** there is a single lane-B disclosure feed — there is **not** in this log.
+
+### Smallest honest next target (one provider / source class only)
+
+For the **next** bounded reliability pass (when the operator runs new evidence), use **one class** end-to-end in that pass:
+
+- **Provisional class:** **U.S. Federal Register public API** — `https://www.federalregister.gov/api/v1/...` (same **host + API family**; query parameters may vary).
+- **Rationale (bounded, not a product commitment):** It is the **only** class in Tranche 16 that returned **HTTP 200** with the current `lane_b_real_observation_slice.py` client; it is a **single coherent** official public-disclosure channel (federal regulatory index). It is **not** issuer EDGAR HTML, not issuer IR — different classes.
+- **What this is not:** A claim that MVP lane B **must** be Federal Register forever, or that SEC/issuer paths are rejected — only that **reliability sampling must not mix** unrelated hosts in one statistic.
+
+**Alternative class** (separate pass, separate log section): **SEC EDGAR / issuer disclosure** — requires **declared** traffic per SEC guidance and is **not** interchangeable with Federal Register evidence.
+
+**Approval:** unchanged — `mvp_lane_approval.json` remains `approved: false`.
 
 ENDPOINT POINTER:
 - Approval gate: `future_modules/the_fade/config/mvp_lane_approval.json`

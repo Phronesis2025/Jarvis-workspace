@@ -1,10 +1,10 @@
 # Lane B minimal real evidence path (spec only)
 
-**Prompt #:** 50  
+**Prompt #:** 61  
 **Phase #:** 2  
-**Tranche #:** 15  
+**Tranche #:** 19  
 
-Updated: 2026-03-25T13:20:54.8711512-05:00
+Updated: 2026-03-25T15:00:53.6516432-05:00
 
 ## Authority
 
@@ -86,6 +86,10 @@ Implement **only**:
 ## Link to rehearsal harness
 
 `lane_b_controlled_evidence_harness.py` remains valid for **protocol rehearsal** only. Real evidence for the two dimensions must come from the path above, recorded separately in `MVP_LANE_EVIDENCE_LOG.md`.
+
+## Provider / source class discipline (Tranche 19)
+
+Reliability and gate evidence must **not** mix unrelated HTTPS hosts (e.g. Federal Register API vs SEC EDGAR vs issuer IR) in **one** success/failure tally — each is a **different** source class. See **`docs/MVP_LANE_EVIDENCE_LOG.md`** → *Lane B provider / source path (Tranche 19)* for the authoritative clarification and the **provisional** single-class target for the next bounded reliability pass.
 
 ## Implementation note (Tranche 15)
 
