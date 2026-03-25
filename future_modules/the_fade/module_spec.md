@@ -3,6 +3,7 @@
 **Prompt #:** 5  
 **Phase #:** 1  
 **Tranche #:** 1  
+Updated: 2026-03-25T08:27:13.5370442-05:00
 
 ## Purpose
 
@@ -20,7 +21,7 @@ Define machine-readable **scout** artifacts: task packets, scanner output, norma
 - Live or paper execution, broker adapters  
 - Dashboard UI and `dashboard_contract/` (gated by Phase 0 lock §3.3)  
 - Heartbeat schema and heartbeat metrics code in Tranches 1–3 (see below)  
-- MVP vendor/provider lock — **Phase 2** after `mvp_lane_approval.json`  
+- MVP vendor/provider lock — **Phase 2** after `mvp_lane_approval.json` is approved (`approved: true`)  
 
 ## Inputs (conceptual)
 

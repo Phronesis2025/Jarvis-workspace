@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "title": "mvp_lane_approval",
+    "prompt_number": 14,
+    "phase_number": 2,
+    "tranche_number": 2
+  },
+  "phase": 2,
+  "tranche": 2,
+  "module": "the_fade",
+  "approved": false,
+  "approved_by": null,
+  "approved_at": null,
+  "plan_lock_id": "THE_FADE_PHASE0_FINAL_LOCK",
+  "approved_mvp_lanes": [],
+  "deferred_lanes": [],
+  "required_reliability_threshold": 0.8,
+  "notes": "Prepared in Phase 2. Operator approval not granted yet; no MVP vendor/provider names are locked in this file.",
+  "official_disclosure_lane": {
+    "provider_key": "TBD_OFFICIAL_DISCLOSURE_PROVIDER",
+    "description": "Candidate official/disclosure evidence source for MVP slot (not approved yet).",
+    "integration_boundary": "Defined later after approval; this is a placeholder only."
+  },
+  "market_data_lane": {
+    "provider_key": "TBD_MARKET_DATA_PROVIDER",
+    "description": "Candidate market-data context source for MVP slot (not approved yet).",
+    "integration_boundary": "Defined later after approval; this is a placeholder only."
+  },
+  "curated_public_signal_lane": {
+    "provider_key": "TBD_CURATED_PUBLIC_SIGNAL_PROVIDER",
+    "description": "Candidate curated public-signal evidence source for MVP slot (not approved yet).",
+    "integration_boundary": "Defined later after approval; this is a placeholder only."
+  },
+  "research_swarm_context": {
+    "mode": "read_only",
+    "paths_note": "Only reads under future_modules/research_swarm/outputs/ as context-only enrichment; must not override primary lanes."
+  }
+}
