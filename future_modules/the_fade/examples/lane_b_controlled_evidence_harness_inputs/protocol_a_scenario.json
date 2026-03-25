@@ -1,0 +1,10 @@
+{
+  "_meta": {
+    "title": "protocol_a_scenario_fixture",
+    "example_only": true
+  },
+  "stale_window_definition": "Example-only: older than 24h is stale",
+  "unavailable_condition_definition": "Example-only: operator simulated lane B unavailable",
+  "observed_behavior": "omit"
+}
+
