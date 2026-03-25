@@ -1,10 +1,10 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 13  
-**Phase #:** 1  
-**Tranche #:** 1  
+**Prompt #:** 30  
+**Phase #:** 2  
+**Tranche #:** 8  
 
-Updated: 2026-03-25T09:17:03.5661078-05:00
+Updated: 2026-03-25T10:38:45.6896736-05:00
 
 ## Branch this work continues from (must not change)
 
@@ -32,7 +32,9 @@ Updated: 2026-03-25T09:17:03.5661078-05:00
 - Phase 2 operator decision is recorded as defer (approval still not granted):
   - `mvp_lane_approval.json` is still `approved: false`
   - no MVP lanes are approved yet; all candidate MVP lanes remain deferred
-- Lane B evidence is in-progress; no MVP lanes are approved yet. Next step: complete remaining dimensions for `lane_b_official_disclosure` against the gate standard.
+- Lane B evidence is in-progress (partial). Stale/outage behavior remains partial because this branch does not record a recorded, timestamped controlled stale/unavailable incident replay with explicit downgrade/escalation/omit behavior outcomes.
+- Context-dominance risk remains partial because this branch does not record adversarial/conflict-case evidence proving context-only enrichment never gains precedence over `lane_b_official_disclosure` primary truth under gate conditions.
+- Approval is still not warranted in this branch.
 - No runners, no outputs, no logs for THE FADE.
 - No `dashboard_contract/` and no dashboard pages for THE FADE.
 - No heartbeat schema/code in Tranches 1–3.
