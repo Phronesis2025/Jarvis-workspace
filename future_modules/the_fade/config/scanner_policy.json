@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "title": "scanner_policy",
+    "prompt_number": 5,
+    "phase_number": 1,
+    "tranche_number": 1
+  },
+  "policy_version": "0.1.0",
+  "max_candidates": 25,
+  "passes": [
+    {
+      "pass_id": "pass_a",
+      "description": "First-pass eligibility; concrete rules added with Tranche 3 runner."
+    },
+    {
+      "pass_id": "pass_b",
+      "description": "Optional second pass; defer non-MVP passes unless lock amended."
+    }
+  ],
+  "exclusion_rules_ref": "See JARVIS_THE_FADE_SIGNAL_ENGINE_SPEC.md scanner section (path: docs/CANON_INDEX.md)."
+}

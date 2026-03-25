@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "title": "example_scanner_candidate_set",
+    "prompt_number": 5,
+    "phase_number": 1,
+    "tranche_number": 1
+  },
+  "scan_id": "scan_example_001",
+  "created_at": "2026-03-24T12:00:00Z",
+  "scan_reason": "example_only",
+  "market_session_context": "after_hours_example",
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "ticker": "EXPL",
+      "asset_type": "equity",
+      "scanner_reasons": ["example_reason"],
+      "scanner_score": 0.5,
+      "freshness_context": "synthetic",
+      "source_tags": ["example"],
+      "notes": "Not a real scan output."
+    }
+  ]
+}

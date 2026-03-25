@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "title": "example_normalized_signal_event",
+    "prompt_number": 5,
+    "phase_number": 1,
+    "tranche_number": 1
+  },
+  "event_id": "evt_example_001",
+  "task_id": "task_example_001",
+  "ticker": "EXPL",
+  "asset_type": "equity",
+  "source_lane": "lane_b_official_disclosure",
+  "source_name": "PLACEHOLDER_OFFICIAL_DISCLOSURE_SOURCE",
+  "direction_hint": "neutral",
+  "event_time": "2026-03-24T10:00:00Z",
+  "ingested_at": "2026-03-24T12:00:00Z",
+  "freshness_hours": 2,
+  "raw_text": "",
+  "parsed_summary": "Example normalized event.",
+  "evidence_url": "https://example.invalid/placeholder",
+  "evidence_path": "example/placeholder",
+  "trust_tier": "TBD",
+  "lag_class": "TBD",
+  "parser_confidence": 0.5,
+  "notes": "Synthetic."
+}

@@ -1,0 +1,54 @@
+{
+  "title": "normalized_signal_event",
+  "$comment": "Prompt #: 5 | Phase #: 1 | Tranche #: 1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.local/schemas/the_fade/normalized_signal_event.schema.json",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "event_id",
+    "task_id",
+    "ticker",
+    "asset_type",
+    "source_lane",
+    "source_name",
+    "direction_hint",
+    "event_time",
+    "ingested_at",
+    "freshness_hours",
+    "raw_text",
+    "parsed_summary",
+    "evidence_url",
+    "evidence_path",
+    "trust_tier",
+    "lag_class",
+    "parser_confidence",
+    "notes"
+  ],
+  "properties": {
+    "event_id": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "ticker": { "type": "string", "minLength": 1 },
+    "asset_type": {
+      "type": "string",
+      "enum": ["equity", "crypto", "etf", "macro", "other"]
+    },
+    "source_lane": { "type": "string", "minLength": 1 },
+    "source_name": { "type": "string", "minLength": 1 },
+    "direction_hint": {
+      "type": "string",
+      "enum": ["bullish", "bearish", "neutral", "uncertain"]
+    },
+    "event_time": { "type": "string", "format": "date-time" },
+    "ingested_at": { "type": "string", "format": "date-time" },
+    "freshness_hours": { "type": "number", "minimum": 0 },
+    "raw_text": { "type": "string" },
+    "parsed_summary": { "type": "string" },
+    "evidence_url": { "type": "string" },
+    "evidence_path": { "type": "string" },
+    "trust_tier": { "type": "string" },
+    "lag_class": { "type": "string" },
+    "parser_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "notes": { "type": "string" }
+  }
+}

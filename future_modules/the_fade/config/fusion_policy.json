@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "title": "fusion_policy",
+    "prompt_number": 5,
+    "phase_number": 1,
+    "tranche_number": 1
+  },
+  "policy_version": "0.1.0",
+  "is_initial_default": true,
+  "description": "Threshold/weight policy registry (single file). Values are provisional until calibration.",
+  "lane_weight_hints": {
+    "lane_b_official_disclosure": 1.0,
+    "lane_c_market_context": 1.0,
+    "lane_a_public_signal": 0.7,
+    "lane_e_research_swarm_context": 0.2
+  },
+  "conflict_escalation_note": "CONFLICT is a valid terminal class per Signal Engine spec; thresholds to be tightened in Phase 7."
+}
