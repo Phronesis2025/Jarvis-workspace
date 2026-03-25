@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "title": "protocol_b_scenario_fixture",
+    "example_only": true
+  },
+  "conflict_description": "Example-only conflict: lane B says X, context-only says Y",
+  "precedence_result": "lane_b_remained_primary"
+}
+

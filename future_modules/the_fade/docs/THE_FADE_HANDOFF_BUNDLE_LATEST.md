@@ -3,7 +3,7 @@
 **Prompt #:** 30  
 **Phase #:** 2  
 **Tranche #:** 8  
-**Updated:** 2026-03-25T11:03:06.8869312-05:00
+**Updated:** 2026-03-25T11:34:06.3163526-05:00
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
@@ -30,6 +30,7 @@
   - stale/outage behavior: an explicit controlled stale/unavailable incident replay with timestamps and observed downgrade/escalation/omit behavior outcomes
   - context-dominance risk: adversarial/conflict-case evidence proving context-only enrichment never gains precedence over `lane_b_official_disclosure` primary truth under gate conditions
 - protocol reference: `docs/MVP_LANE_EVIDENCE_LOG.md` → “Lane B controlled evidence protocol (operator checklist)”
+- execution note: executable via `future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py` (see `docs/MVP_LANE_EVIDENCE_LOG.md` → “Protocol execution status (Tranche 10)”)
 - Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until evidence clearly meets the gate standard.
 
 ## Key authority files (treat as source-of-truth)

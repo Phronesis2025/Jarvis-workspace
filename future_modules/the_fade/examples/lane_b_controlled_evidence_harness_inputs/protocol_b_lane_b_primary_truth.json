@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "title": "protocol_b_lane_b_primary_truth_fixture",
+    "example_only": true
+  },
+  "lane_id": "lane_b_official_disclosure",
+  "evidence_item_timestamp": "2026-01-01T00:00:00+00:00"
+}
+

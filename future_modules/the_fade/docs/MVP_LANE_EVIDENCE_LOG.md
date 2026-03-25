@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 3  
 
-Updated: 2026-03-25T11:03:06.8869312-05:00
+Updated: 2026-03-25T11:34:06.3163526-05:00
 
 ## Purpose
 
@@ -180,6 +180,30 @@ This protocol defines the **minimum controlled evidence** required to clear the 
 - still_insufficient_evidence:
   - “No dominance override detected in sampling.”
   - Any case without an explicit conflict and explicit precedence statement.
+
+## Protocol execution status (Tranche 10)
+
+Outcome: **EXECUTABLE VIA MINIMAL HARNESS** (no approval flip; evidence not yet recorded).
+
+Execution path now exists (bounded harness):
+- Harness script: `future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py`
+- Example fixtures: `future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/`
+
+Important: Running the harness produces a JSON observation for copy/paste into this log; it does not fetch real vendor data and does not grant approval.
+
+Operator usage (Protocol A):
+- Edit/create your lane B evidence + scenario JSONs (or start from the fixtures), then run:
+  - `python future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py --protocol A --lane-b-evidence future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/protocol_a_lane_b_evidence.json --protocol-a-scenario future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/protocol_a_scenario.json`
+- Paste the emitted JSON observation into the lane B section of this log.
+
+Operator usage (Protocol B):
+- Edit/create your primary/context/scenario JSONs (or start from the fixtures), then run:
+  - `python future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py --protocol B --lane-b-primary future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/protocol_b_lane_b_primary_truth.json --context-only future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/protocol_b_context_only_signal.json --protocol-b-scenario future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/protocol_b_scenario.json`
+- Paste the emitted JSON observation into the lane B section of this log.
+
+Hardening note:
+- The harness **rejects unknown fields** in the input JSONs (allowlist only) and emits only protocol-bounded fields.
+- Protocol B `precedence_result` is constrained to: `lane_b_remained_primary` (any other value fails loudly).
 
 Confidence level / limits:
 - confidence: 0.40
