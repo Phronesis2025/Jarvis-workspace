@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 50  
+**Prompt #:** 54  
 **Phase #:** 2  
-**Tranche #:** 15  
-**Updated:** 2026-03-25T13:20:54.8711512-05:00  
+**Tranche #:** 16  
+**Updated:** 2026-03-25T14:02:21.7447837-05:00  
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
@@ -14,20 +14,25 @@
 - Evidence is being collected under Phase 2.
 - `lane_b_official_disclosure` is the most advanced candidate lane so far, but it is still insufficient for approval.
 - **Tranche 15:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py` exists — **lane-B-only** real observation slice (HTTPS or file → `scout_failure` / `normalized_signal_event`; lane B artifact + local contra → `conflict_packet`). Outputs under `outputs/lane_b_real_observation/` (json gitignored).
+- **Tranche 16:** First **honest non-simulated** lane B run logged in `docs/MVP_LANE_EVIDENCE_LOG.md` — real HTTPS observe to Federal Register API (`task_id=t16_honest_005`); SEC/IR URLs returned 403 in this environment (honest `scout_failure`); `conflict` vs operator-authored contra `inputs/lane_b_real_evidence/context_only_contra.tranche16_operator_authored.json`. Registry dimensions `stale_outage_behavior` and `context_dominance_risk` set to **recorded** (bounded slice); lane-level evidence remains **partial**.
 - Current evidence status for `lane_b_official_disclosure` (conservative summary):
   - reliability: recorded_partial
   - freshness: recorded
   - normalization_viability: recorded
-  - stale_outage_behavior: partial (slice **exists**; **gate evidence** still requires operator real run + log)
+  - stale_outage_behavior: recorded (bounded Tranche 16 slice + log; not full pre-audit stats)
   - conflict_handling: recorded
-  - context_dominance_risk: partial (same)
+  - context_dominance_risk: recorded (bounded Tranche 16 slice; not full adversarial matrix)
 
 ## Current lane B gap (honest)
-- Implementation exists; **operator gate evidence** for stale/outage and dominance still requires **real** sources + honest log entries (not smoke-only).
+- Tranche 16 satisfied **first** honest real observe + conflict log entry; **approval remains unjustified** — pre-audit reliability coverage, broader conflict permutations, and production-equivalent scout runtime are still gaps.
 
 ## Operator next exact step (do not flip approval yet)
-- Run the slice per `docs/MVP_LANE_EVIDENCE_LOG.md` → “Lane B real observation slice (Tranche 15 — implementation exists)” with real disclosure input + contra file provenance; update the log if evidence meets the bar.
+- Continue bounded Phase 2 lane B evidence (reliability window, optional SEC with declared traffic per SEC developer guidance); do not widen to Phase 3 scanner.
 - Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until evidence clearly meets the gate standard.
+
+## Canon design docs (foundational — do not move or delete)
+
+The eight THE FADE design specifications (`JARVIS_THE_FADE_*.md`) **must** remain in **`future_modules/stock_module/`** at the paths listed in `future_modules/the_fade/docs/CANON_INDEX.md`. They are foundational module documentation; **do not relocate, replace with summaries, or delete** them except via explicit project governance.
 
 ## Key authority files (treat as source-of-truth)
 - `future_modules/the_fade/config/mvp_lane_approval.json`

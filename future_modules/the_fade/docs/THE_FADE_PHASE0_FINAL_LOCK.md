@@ -3,15 +3,17 @@
 
 **Prompt #:** 4  
 **Phase #:** 0  
-**Tranche #:** 0
+**Tranche #:** 0  
 
-**This document:** sole execution-control artifact for THE FADE Phase 0 / Tranches 0–3 scope, together with the eight canon Markdown files named below (paths resolved only via `future_modules/the_fade/docs/CANON_INDEX.md` after Tranche 1). **No code. No architecture expansion.**
+**Canon location (Prompt #54):** The eight canon Markdown files **reside** under `future_modules/stock_module/` at the paths in `future_modules/the_fade/docs/CANON_INDEX.md`. They are foundational; **do not move or delete** them except via explicit governance change.
+
+**This document:** sole execution-control artifact for THE FADE Phase 0 / Tranches 0–3 scope, together with the eight canon Markdown files named below (paths resolved via `future_modules/the_fade/docs/CANON_INDEX.md`). **No code. No architecture expansion.**
 
 ---
 
 ## Canonical inputs (eight files, paths not hardcoded here)
 
-The following **filenames** are canon for THE FADE design. **This lock does not state their directory.** After Tranche 1, `**future_modules/the_fade/docs/CANON_INDEX.md`** must list the workspace-relative path to each file as it exists at commit time. Until `CANON_INDEX.md` exists, operators resolve paths by search; **do not treat any historical folder (including deprecated locations noted in §5) as authoritative except via that index.
+The following **filenames** are canon for THE FADE design. **`future_modules/the_fade/docs/CANON_INDEX.md`** lists each file’s workspace path (under `future_modules/stock_module/`). **Do not move or delete** those files except via governed documentation change.
 
 1. `JARVIS_THE_FADE_SYSTEM_OVERVIEW.md`
 2. `JARVIS_THE_FADE_BUILD_CHECKLIST.md`
@@ -30,12 +32,12 @@ The following **filenames** are canon for THE FADE design. **This lock does not 
 
 | defect                                           | why it matters                                              | exact correction made                                                                                             |
 | ------------------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Canon paths under `future_modules/stock_module/` | Implies wrong permanent home; couples FADE to legacy layout | Canon = eight **filenames**; paths only in `CANON_INDEX.md`. Deprecated: assuming stock_module is normative (§5). |
+| Canon paths under `future_modules/stock_module/` | Drift: canon files missing from repo | **Resolved (Prompt #54):** eight design canon files **reside** in `future_modules/stock_module/` per `CANON_INDEX.md`; must not be moved or deleted without governance update. |
 | Dangling “§8 obsolete framing”                   | Checklist referenced missing section                        | Full **§5 Obsolete framing** list inlined; exit checklist points to **§5**.                                       |
 | `schemas/*.schema.json`, `example_*.json`        | Wildcards invite extra files                                | **§3** and **§7** list **exact** schema and example filenames.                                                    |
 | Exit lines referencing vague “acceptance”        | Not binary / not self-contained                             | **§6** each line is checkable from text in this file.                                                             |
 | Broken `*` around paths (dashboard_contract)     | Ambiguous rendering                                         | Normalized path prose; no broken emphasis.                                                                        |
-| MASTER doc link with stock_module path           | Path residue                                                | References by **filename** + “path per `CANON_INDEX.md`”.                                                         |
+| MASTER doc link with stock_module path           | Path residue                                                | References by **filename** + path in `CANON_INDEX.md` (under `future_modules/stock_module/`).                     |
 
 ---
 
@@ -163,7 +165,7 @@ The following **filenames** are canon for THE FADE design. **This lock does not 
 6. **Adding Lane D, shadow lanes, or ghost lane registry in Tranches 1–3** to compensate for missing proof.
 7. **Treating dashboard routes or `dashboard_contract` files as Phase 1–2 success criteria** — forbidden per §3.3.
 8. **Treating MVP lane recommendations (oral or draft text) as locked canon** — only `mvp_lane_approval.json` with `approved: true` locks vendors.
-9. **Legacy assumption:** that the eight canon MD files **must** live under `future_modules/stock_module/` — **deprecated**; path truth is `**CANON_INDEX.md` only after Tranche 1.
+9. **Relocating or deleting** the eight canon MD files under `future_modules/stock_module/` without governance update — **forbidden**; **`CANON_INDEX.md`** is the filename→path map of record.
 
 ---
 
@@ -259,13 +261,13 @@ Execute **MASTER Phase 1** using **only** §4 Tranche 1 rows. Commit `future_mod
 - Do not start Phase 3 if Phase 2 proof or approval failed.
 - Do not create directories without a listed consumer in §4.
 - Do not use superseded drafts as authority.
-- Do not cite `future_modules/stock_module/` as the canonical home for the eight MDs in execution text — use `CANON_INDEX.md` after Tranche 1.
+- Cite the eight canon MDs by **filename** and by **`CANON_INDEX.md`**; they **reside** under `future_modules/stock_module/` as listed there — **do not move or delete** except via governance change.
 
 ---
 
 ## Hard self-sufficiency statement
 
-This lock is **self-contained**: obsolete framing is **§5**; exit criteria are **§6** and reference only sections present here. **No** stock_module path appears as normative canon location. **No** wildcard identifies a required Tranche 1–3 file — **§4** and **§7** enumerate exact names. Execution control = `**THE_FADE_PHASE0_FINAL_LOCK.md`** + eight canon files (paths via `**CANON_INDEX.md`**) + `\*\*JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md\*\` order.
+This lock is **self-contained**: obsolete framing is **§5**; exit criteria are **§6** and reference only sections present here. The eight canon design files are stored at the paths in **`CANON_INDEX.md`**, under **`future_modules/stock_module/`** — **must not be moved or deleted** without governance update. **No** wildcard identifies a required Tranche 1–3 file — **§4** and **§7** enumerate exact names. Execution control = `**THE_FADE_PHASE0_FINAL_LOCK.md`** + eight canon files (paths via `**CANON_INDEX.md`**) + `\*\*JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md\*\` order.
 
 ---
 
