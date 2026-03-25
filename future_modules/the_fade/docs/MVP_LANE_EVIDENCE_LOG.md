@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 63  
+**Prompt #:** 67  
 **Phase #:** 2  
-**Tranche #:** 20  
+**Tranche #:** 22  
 
-Updated: 2026-03-25T15:11:26.1862208-05:00
+Updated: 2026-03-25T16:14:11.7508065-05:00
 
 ## Purpose
 
@@ -436,6 +436,62 @@ Not honestly justified today. This pass documents a **bounded session micro-samp
 Reliability for `lane_b_official_disclosure` remains **partial / conservative** for gate purposes, pending a defined pre-audit window sampling plan.
 
 **Approval remains not justified:** `mvp_lane_approval.json` is unchanged (`approved: false`).
+
+## Lane B pre-audit reliability window — live kickoff (Tranche 22 — Prompt #67)
+
+**Scope:** Lane B only; **Federal Register public API** at the **exact** URL from Tranche 21 protocol — no SEC URLs, no issuer IR URLs, no other lanes.
+
+**Protocol reference:** `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` → **Lane B pre-audit reliability window protocol (Tranche 21)**.
+
+### Window bounds (UTC)
+
+| Field | Value |
+|-------|--------|
+| `window_start_utc` | `2026-03-25T21:13:55Z` (ISO8601 UTC — start of **attempt 0** `observe`; aligns with tool `ingested_at` / internal `created_at` at run start) |
+| `window_end_utc` | `2026-03-27T21:13:55Z` (`window_start_utc` + **48 hours**, strict) |
+
+### Full 24-attempt schedule (UTC) — `window_start_utc + (i × 2h)` for `i = 0..23`
+
+| i | Scheduled UTC |
+|---|----------------|
+| 0 | `2026-03-25T21:13:55Z` |
+| 1 | `2026-03-25T23:13:55Z` |
+| 2 | `2026-03-26T01:13:55Z` |
+| 3 | `2026-03-26T03:13:55Z` |
+| 4 | `2026-03-26T05:13:55Z` |
+| 5 | `2026-03-26T07:13:55Z` |
+| 6 | `2026-03-26T09:13:55Z` |
+| 7 | `2026-03-26T11:13:55Z` |
+| 8 | `2026-03-26T13:13:55Z` |
+| 9 | `2026-03-26T15:13:55Z` |
+| 10 | `2026-03-26T17:13:55Z` |
+| 11 | `2026-03-26T19:13:55Z` |
+| 12 | `2026-03-26T21:13:55Z` |
+| 13 | `2026-03-26T23:13:55Z` |
+| 14 | `2026-03-27T01:13:55Z` |
+| 15 | `2026-03-27T03:13:55Z` |
+| 16 | `2026-03-27T05:13:55Z` |
+| 17 | `2026-03-27T07:13:55Z` |
+| 18 | `2026-03-27T09:13:55Z` |
+| 19 | `2026-03-27T11:13:55Z` |
+| 20 | `2026-03-27T13:13:55Z` |
+| 21 | `2026-03-27T15:13:55Z` |
+| 22 | `2026-03-27T17:13:55Z` |
+| 23 | `2026-03-27T19:13:55Z` |
+
+**Discipline:** Future attempts **i = 1..23** are **not** executed or recorded in this pass — operator runs them per schedule before `window_end_utc`. **Do not** fabricate outcomes.
+
+### Executed in this pass only
+
+| Attempt | `task_id` | Counted? | Outcome class | Notes |
+|---------|-----------|----------|---------------|-------|
+| **0** | `t22_fr_000` | **Yes** (valid JSON on stdout) | **`normalized_signal_event`** (success) | `event_id`: `evt_t22_fr_000_fc970c32455d`; endpoint `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`; HTTP **200**; `lag_class`: **fresh**; notes field records `http_status=200` and latency. |
+
+**Counted attempts so far (window):** **1** (successes: **1**, failures: **0**).
+
+**Honest comparison to `required_reliability_threshold` (0.8):** **Not allowed yet** — protocol requires **≥ 20** counted attempts before any reliability ratio vs **0.8**; **23** scheduled attempts remain **unexecuted** in this kickoff pass.
+
+**Approval:** unchanged — `mvp_lane_approval.json` remains `approved: false`.
 
 ENDPOINT POINTER:
 - Approval gate: `future_modules/the_fade/config/mvp_lane_approval.json`

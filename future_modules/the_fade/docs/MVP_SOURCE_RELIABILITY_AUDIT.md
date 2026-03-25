@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 65  
+**Prompt #:** 67  
 **Phase #:** 2  
-**Tranche #:** 21  
+**Tranche #:** 22  
 
-Updated: 2026-03-25T15:28:00.4152726-05:00
+Updated: 2026-03-25T16:14:11.7508065-05:00
 
 ## Purpose
 
@@ -53,9 +53,9 @@ Use these buckets; none are approved yet:
 
 ## Lane B (`lane_b_official_disclosure`) — reliability window (evidenced to date)
 
-**Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` → section **Lane B reliability window evidence (Tranche 18)**.
+**Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` (Tranche 18 micro-sample; Tranche 20 single-source slice; **Tranche 22 live pre-audit window**).
 
-**Summary:** No **calendar pre-audit window** is defined or executed yet for lane B. The only **countable** real HTTPS `observe` attempts currently in the log are **four** tries in one **2026-03-25** session (**one** HTTP 200 success, **three** HTTP 403 failures across different URL classes). That micro-sample **cannot** be compared honestly to **`required_reliability_threshold` 0.8** — see the log for explicit reasoning. Reliability remains **partial / conservative** for gate purposes until a named window and comparable repeated observations exist.
+**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) — **not** a valid **0.8** statistic. **Tranche 22 (Prompt #67)** started a **defined calendar pre-audit window** (Federal Register API only; see **Lane B pre-audit window — live status** below); **only attempt 0** is executed so far — **no** honest comparison to **`required_reliability_threshold` 0.8** until **≥20** counted attempts. Reliability remains **partial / conservative** for gate purposes.
 
 ## Lane B — provider / source class (Tranche 19)
 
@@ -121,4 +121,26 @@ Use the tool’s encoded outcome class:
   - successes vs failures (with task ids or a compact list)
 
 **Approval remains NOT granted** by this protocol definition alone; it only makes future reliability comparisons honest and repeatable.
+
+## Lane B pre-audit window — live status (Tranche 22 — Prompt #67)
+
+**Kickoff only:** This section records that the **first** real calendar window under the Tranche 21 protocol has **started**. It does **not** claim pass/fail vs **0.8**.
+
+**Source class:** U.S. Federal Register public API only — exact URL:
+`https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`
+
+| Field | Value |
+|-------|--------|
+| `window_start_utc` | `2026-03-25T21:13:55Z` |
+| `window_end_utc` | `2026-03-27T21:13:55Z` |
+| Scheduled attempts (`i = 0..23`) | **24** (2h cadence) |
+| **Executed and counted so far** | **1** — attempt **0** only (`task_id` **`t22_fr_000`**) |
+| Attempt 0 outcome | **`normalized_signal_event`** (success; HTTP **200**) |
+| Remaining scheduled attempts | **23** — **not** run in this pass (no fabricated results) |
+
+**0.8 comparison:** **Forbidden until** `counted_attempts >= 20` per Tranche 21 rules. Current counted attempts: **1**. **No** reliability ratio vs `required_reliability_threshold` **0.8** may be stated.
+
+**Source of truth for schedule and detail:** `docs/MVP_LANE_EVIDENCE_LOG.md` → **Lane B pre-audit reliability window — live kickoff (Tranche 22)**.
+
+**Approval remains NOT granted.**
 
