@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 8  
 
-Updated: 2026-03-25T10:38:45.6896736-05:00
+Updated: 2026-03-25T11:03:06.8869312-05:00
 
 ## Current state
 
@@ -37,5 +37,6 @@ Continue MASTER Phase 2 / evidence collection (Tranche 8):
 1. Record, for `lane_b_official_disclosure` only:
    - `stale_outage_behavior`: an explicit controlled stale/unavailable incident replay with timestamps and observed downgrade/escalation/omit behavior outcomes
    - `context_dominance_risk`: adversarial/conflict-case evidence proving context-only enrichment never gains precedence over `lane_b_official_disclosure` primary truth under gate conditions
+   - protocol reference: `docs/MVP_LANE_EVIDENCE_LOG.md` → “Lane B controlled evidence protocol (operator checklist)”
 2. Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until the operator determines the evidence meets the gate standard.
 

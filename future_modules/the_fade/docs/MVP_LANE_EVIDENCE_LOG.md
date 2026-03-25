@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 3  
 
-Updated: 2026-03-25T10:26:21.1635244-05:00
+Updated: 2026-03-25T11:03:06.8869312-05:00
 
 ## Purpose
 
@@ -117,6 +117,69 @@ Evidence captured in this tranche:
 - evidence_summary: This branch does not contain adversarial/conflict-case evidence (with explicit outcomes) demonstrating that context-only enrichment never gains precedence over `lane_b_official_disclosure`. Current evidence coverage is non-adversarial and therefore cannot establish non-dominance under the gate’s conflict conditions.
 - proof that context-only reads did not override primary truth: not proven for adversarial/conflict-case conditions; explicit precedence-safety observations are still missing.
 - notes: Blocker. Next: record a conflict-case / dominance adversarial observation where context-only enrichment is present but never allowed to become precedence over primary lane truth.
+
+## Lane B controlled evidence protocol (operator checklist)
+
+This protocol defines the **minimum controlled evidence** required to clear the current honest blocker for `lane_b_official_disclosure` without claiming runtime readiness or flipping approval.
+
+### Protocol A — Controlled stale/unavailable incident replay (timestamps required)
+
+- scenario_name: `LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1`
+- preconditions:
+  - Lane under test is `lane_b_official_disclosure`.
+  - Approval gate remains unchanged (`config/mvp_lane_approval.json` has `approved:false`).
+  - Evidence is being recorded only (no runner/scanner/dashboard-contract work).
+- required_inputs_artifacts:
+  - A lane-B evidence sample where the lane is intentionally made stale/unavailable (operator-controlled).
+  - The resulting system observation record written into this log entry (not a code output file).
+- required_timestamps_fields_to_capture (must be written in the log):
+  - `observed_at` (ISO8601)
+  - `evidence_item_timestamp` (ISO8601) if any stale evidence item exists
+  - `stale_window_definition` (plain text; e.g. “older than X minutes/hours/days is stale”)
+  - `unavailable_condition_definition` (plain text; what “unavailable” meant in this controlled test)
+  - `observed_behavior` (one of: downgrade / escalate / omit) and any follow-on action taken
+- expected_allowed_outcomes:
+  - The system **does not fabricate** values.
+  - The system behavior is **explicit**: it either downgrades confidence, escalates, or omits lane B evidence, consistent with the Phase 2 gate standard.
+- disallowed_outcomes:
+  - Any fabricated evidence content.
+  - Silent substitution where missing/stale lane B evidence is replaced with non-lane-B truth without explicit labeling.
+  - Context-only enrichment becoming precedence because lane B is missing/stale.
+- gate_sufficient_evidence (minimum bar for this protocol):
+  - A recorded, timestamped controlled stale/unavailable replay with explicit `observed_behavior` and a clear stale/unavailable definition (not “no incident observed”).
+- still_insufficient_evidence:
+  - “No stale/outage observed in sampling.”
+  - Any replay without timestamps or without explicit behavior outcomes.
+
+### Protocol B — Context-dominance adversarial/conflict-case (explicit outcomes required)
+
+- scenario_name: `LANE_B_CONTEXT_DOMINANCE_ADVERSARIAL_CONFLICT_V1`
+- preconditions:
+  - Lane under test is `lane_b_official_disclosure`.
+  - Context-only enrichment source is present (conceptually “lane_e_research_swarm_context”) but must remain non-dominating.
+  - Approval gate remains unchanged (`approved:false`).
+- required_inputs_artifacts:
+  - A constructed conflict-case where:
+    - lane B primary truth indicates outcome \(X\), and
+    - context-only enrichment indicates contradictory outcome \(Y\)
+  - The resulting decision/precedence observation recorded in this log entry.
+- required_timestamps_fields_to_capture (must be written in the log):
+  - `observed_at` (ISO8601)
+  - `primary_truth_source` (must name lane B as primary)
+  - `context_only_source` (must indicate context-only)
+  - `conflict_description` (plain text)
+  - `precedence_result` (plain text; must state lane B remained primary)
+- expected_allowed_outcomes:
+  - Context-only enrichment may be additive/annotative but never becomes precedence over lane B primary truth.
+  - Conflict is recorded as conflict/contra rather than silently resolved in favor of context-only.
+- disallowed_outcomes:
+  - Any output where context-only enrichment becomes the deciding/primary truth over lane B in a conflict-case.
+  - Silent override without explicit conflict recording.
+- gate_sufficient_evidence (minimum bar for this protocol):
+  - A recorded adversarial/conflict-case with explicit precedence outcome showing context-only remains non-dominating under gate conditions.
+- still_insufficient_evidence:
+  - “No dominance override detected in sampling.”
+  - Any case without an explicit conflict and explicit precedence statement.
 
 Confidence level / limits:
 - confidence: 0.40
