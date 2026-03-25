@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 67  
+**Prompt #:** 71  
 **Phase #:** 2  
-**Tranche #:** 22  
+**Tranche #:** 23  
 
-Updated: 2026-03-25T16:14:11.7508065-05:00
+Updated: 2026-03-25T18:29:39.8337695-05:00
 
 ## Purpose
 
@@ -487,9 +487,49 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 |---------|-----------|----------|---------------|-------|
 | **0** | `t22_fr_000` | **Yes** (valid JSON on stdout) | **`normalized_signal_event`** (success) | `event_id`: `evt_t22_fr_000_fc970c32455d`; endpoint `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`; HTTP **200**; `lag_class`: **fresh**; notes field records `http_status=200` and latency. |
 
-**Counted attempts so far (window):** **1** (successes: **1**, failures: **0**).
+**At Tranche 22 kickoff closure (attempt 0 only):** counted **1** (successes: **1**, failures: **0**).
 
-**Honest comparison to `required_reliability_threshold` (0.8):** **Not allowed yet** — protocol requires **≥ 20** counted attempts before any reliability ratio vs **0.8**; **23** scheduled attempts remain **unexecuted** in this kickoff pass.
+**Honest comparison at kickoff:** **Not allowed** — protocol requires **≥ 20** counted attempts before any reliability ratio vs **0.8**; **23** scheduled attempts were **not** run in this kickoff pass.
+
+**Update (Tranche 23 — Prompt #71):** Cumulative window counts are now **2** / **2** successes / **0** failures — see **Lane B pre-audit window — attempt 1 (Tranche 23 — Prompt #71)** below. **48-hour window still in progress.**
+
+**Approval:** unchanged — `mvp_lane_approval.json` remains `approved: false`.
+
+## Lane B pre-audit window — attempt 1 (Tranche 23 — Prompt #71)
+
+**Scope:** Same locked window as Tranche 22 — **do not** redefine `window_start_utc` / `window_end_utc`. Federal Register API only; endpoint unchanged.
+
+### Due-time check (before execution)
+
+| Field | Value |
+|-------|--------|
+| `attempt_1_scheduled_utc` | `2026-03-25T23:13:55Z` (Tranche 22 schedule, `i = 1`) |
+| `due_verified_at_utc` | `2026-03-25T23:29:06Z` |
+| **Due?** | **Yes** — `due_verified_at_utc` ≥ `attempt_1_scheduled_utc` |
+
+### Attempt 1 — observed result
+
+| Field | Value |
+|-------|--------|
+| `task_id` | `t22_fr_001` |
+| Counted? | **Yes** (valid JSON on stdout) |
+| Outcome class | **`normalized_signal_event`** (**success**) |
+| `event_id` | `evt_t22_fr_001_fc970c32455d` |
+| `ingested_at` (tool) | `2026-03-25T23:29:14Z` |
+| Endpoint | `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` |
+| HTTP / notes | **200**; notes: `http_status=200 latency_ms=206.3`; `lag_class`: **fresh** |
+
+### Cumulative counted results (live window — current)
+
+| Metric | Value |
+|--------|--------|
+| Counted attempts | **2** |
+| Successes | **2** (`t22_fr_000`, `t22_fr_001`) |
+| Failures | **0** |
+
+**48-hour window:** **still in progress** until `window_end_utc` **`2026-03-27T21:13:55Z`**.
+
+**Honest comparison to `required_reliability_threshold` (0.8):** **Not allowed yet** — counted **2** \< **20**; **no** pass/fail vs **0.8**.
 
 **Approval:** unchanged — `mvp_lane_approval.json` remains `approved: false`.
 

@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 67  
+**Prompt #:** 71  
 **Phase #:** 2  
-**Tranche #:** 22  
-**Updated:** 2026-03-25T16:14:11.7508065-05:00  
+**Tranche #:** 23  
+**Updated:** 2026-03-25T18:29:39.8337695-05:00  
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
@@ -18,7 +18,8 @@
 - **Tranche 18:** **Reliability-window honesty pass** — `docs/MVP_LANE_EVIDENCE_LOG.md` + `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` document the **four** countable Tranche 16 HTTPS observes (1 success / 3×403), **no** calendar pre-audit window, **no** honest comparison to **0.8** yet; registry **`reliability`** set to **partial**.
 - **Tranche 19:** **Provider / source class clarification** — `mvp_lane_approval.json` still has **`TBD_OFFICIAL_DISCLOSURE_PROVIDER`**; Tranche 16 mixed **Federal Register / SEC / issuer IR** (not one provider). **Do not** aggregate mixed hosts into one reliability statistic. **Provisional** next single-class target for a future pass: **U.S. Federal Register public API** (see log); SEC/issuer = separate class/pass.
 - **Tranche 20:** **Single-source reliability pass** (Federal Register API only) documented in `docs/MVP_LANE_EVIDENCE_LOG.md` — endpoint `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` attempted **5** times (`t20_fb_001`–`t20_fb_005`): **5 successes / 0 failures**. Still **no** defined calendar pre-audit window and **no** honest comparison to `required_reliability_threshold` **0.8** yet; registry reliability remains **partial**.
-- **Tranche 22 (kickoff):** **Live** 48h pre-audit window **started** per Tranche 21 protocol — `window_start_utc` **`2026-03-25T21:13:55Z`**, `window_end_utc` **`2026-03-27T21:13:55Z`**. **Only attempt 0** has been executed so far (`task_id` **`t22_fr_000`**, **`normalized_signal_event`**, HTTP **200**). **23** attempts remain on the **logged UTC schedule**; **no** fabricated future results. **No** threshold conclusion vs **0.8** until **≥20** counted attempts.
+- **Tranche 22 (kickoff):** **Live** 48h pre-audit window **started** per Tranche 21 protocol — `window_start_utc` **`2026-03-25T21:13:55Z`**, `window_end_utc` **`2026-03-27T21:13:55Z`**.
+- **Tranche 23 (Prompt #71):** **Attempt 1** executed when due — `due_verified_at_utc` **`2026-03-25T23:29:06Z`** ≥ scheduled **`2026-03-25T23:13:55Z`**; `task_id` **`t22_fr_001`**, outcome **`normalized_signal_event`** (HTTP **200**); `event_id` **`evt_t22_fr_001_fc970c32455d`**. **Cumulative counted:** **2** attempts, **2** successes, **0** failures. Window **still in progress**; **22** scheduled attempts remain (**2..23**). **No** threshold conclusion vs **0.8** until **≥20** counted attempts.
 - Current evidence status for `lane_b_official_disclosure` (conservative summary):
   - reliability: **partial** (Tranche 18/20; micro-sample only — see log)
   - freshness: recorded
@@ -28,10 +29,10 @@
   - context_dominance_risk: recorded (bounded Tranche 16 slice; not full adversarial matrix)
 
 ## Current lane B gap (honest)
-- Tranche 18 made reliability **explicitly thin**: **no** defined calendar pre-audit window or valid 0.8 test yet. Tranche 20 improved the **single-source** micro-sample (Federal Register API only; 5/5 successes) but still did **not** evidence a **calendar** pre-audit window. **Tranche 22** now has a **named live window** and schedule, but **only one** counted attempt is complete — **no** honest **0.8** comparison yet. **Approval remains unjustified** — need the remaining scheduled attempts (≥20 counted total before any ratio claim), broader conflict permutations when in scope, and production-equivalent scout runtime when in scope.
+- Tranche 18 made reliability **explicitly thin**: **no** defined calendar pre-audit window or valid 0.8 test yet. Tranche 20 improved the **single-source** micro-sample (Federal Register API only; 5/5 successes) but still did **not** evidence a **calendar** pre-audit window. **Tranche 22–23** now have a **named live window** with **two** counted attempts — **no** honest **0.8** comparison yet (**2** \< **20**). **Approval remains unjustified** — need the remaining scheduled attempts (≥20 counted total before any ratio claim), broader conflict permutations when in scope, and production-equivalent scout runtime when in scope.
 
 ## Operator next exact step (do not flip approval yet)
-- **Tranche 22:** Run **attempts 1–23** on the documented UTC cadence before `window_end_utc`; log each result; do **not** claim pass/fail vs **0.8** until **≥20** counted attempts.
+- **Tranche 22–23:** Run **attempts 2–23** on the documented UTC cadence (next **`t22_fr_002`** at **`2026-03-26T01:13:55Z`**) before `window_end_utc`; log each result; do **not** claim pass/fail vs **0.8** until **≥20** counted attempts.
 - Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until evidence clearly meets the gate standard.
 
 ## Canon design docs (foundational — do not move or delete)

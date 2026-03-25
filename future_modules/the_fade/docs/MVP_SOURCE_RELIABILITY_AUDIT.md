@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 67  
+**Prompt #:** 71  
 **Phase #:** 2  
-**Tranche #:** 22  
+**Tranche #:** 23  
 
-Updated: 2026-03-25T16:14:11.7508065-05:00
+Updated: 2026-03-25T18:29:39.8337695-05:00
 
 ## Purpose
 
@@ -122,25 +122,27 @@ Use the tool’s encoded outcome class:
 
 **Approval remains NOT granted** by this protocol definition alone; it only makes future reliability comparisons honest and repeatable.
 
-## Lane B pre-audit window — live status (Tranche 22 — Prompt #67)
+## Lane B pre-audit window — live status (Tranche 22–23)
 
-**Kickoff only:** This section records that the **first** real calendar window under the Tranche 21 protocol has **started**. It does **not** claim pass/fail vs **0.8**.
+**Tranche 22** started the window; **Tranche 23 (Prompt #71)** executed **attempt 1** on schedule. **No** pass/fail vs **0.8** unless `counted_attempts >= 20`.
 
 **Source class:** U.S. Federal Register public API only — exact URL:
 `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`
 
 | Field | Value |
 |-------|--------|
-| `window_start_utc` | `2026-03-25T21:13:55Z` |
-| `window_end_utc` | `2026-03-27T21:13:55Z` |
+| `window_start_utc` | `2026-03-25T21:13:55Z` (locked) |
+| `window_end_utc` | `2026-03-27T21:13:55Z` (locked) |
+| **48-hour window** | **In progress** |
 | Scheduled attempts (`i = 0..23`) | **24** (2h cadence) |
-| **Executed and counted so far** | **1** — attempt **0** only (`task_id` **`t22_fr_000`**) |
-| Attempt 0 outcome | **`normalized_signal_event`** (success; HTTP **200**) |
-| Remaining scheduled attempts | **23** — **not** run in this pass (no fabricated results) |
+| **Executed and counted so far** | **2** — attempts **0** (`t22_fr_000`) and **1** (`t22_fr_001`) |
+| Attempt 0 | **`normalized_signal_event`** (HTTP **200**) |
+| Attempt 1 | **`normalized_signal_event`** (HTTP **200**); `due_verified_at_utc` **`2026-03-25T23:29:06Z`** ≥ scheduled **`2026-03-25T23:13:55Z`** |
+| Remaining scheduled attempts | **22** (attempts **2..23** not run in this pass) |
 
-**0.8 comparison:** **Forbidden until** `counted_attempts >= 20` per Tranche 21 rules. Current counted attempts: **1**. **No** reliability ratio vs `required_reliability_threshold` **0.8** may be stated.
+**0.8 comparison:** **Forbidden until** `counted_attempts >= 20`. Current counted attempts: **2**. **No** reliability ratio vs `required_reliability_threshold` **0.8** may be stated.
 
-**Source of truth for schedule and detail:** `docs/MVP_LANE_EVIDENCE_LOG.md` → **Lane B pre-audit reliability window — live kickoff (Tranche 22)**.
+**Source of truth:** `docs/MVP_LANE_EVIDENCE_LOG.md` → **live kickoff (Tranche 22)** + **attempt 1 (Tranche 23)**.
 
 **Approval remains NOT granted.**
 
