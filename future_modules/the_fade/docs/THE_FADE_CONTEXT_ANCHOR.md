@@ -4,7 +4,7 @@
 **Phase #:** 1  
 **Tranche #:** 1  
 
-Updated: 2026-03-25T08:48:49.9914618-05:00
+Updated: 2026-03-25T09:02:37.6307666-05:00
 
 ## Branch this work continues from (must not change)
 
@@ -21,12 +21,17 @@ Updated: 2026-03-25T08:48:49.9914618-05:00
 - Phase 2 approval-gate preparation artifacts now exist but are not approved:
   - `config/mvp_lane_approval.json` exists with `approved: false`
   - `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` exists as the operator-facing pre-audit
+- Phase 2 / Tranche 3 evidence pack exists (evidence collection only; no approval):
+  - `config/mvp_lane_evidence_registry.json`
+  - `docs/MVP_LANE_EVIDENCE_LOG.md`
+  - `examples/example_mvp_lane_evidence_entry.json`
 
 ## What is not done yet (do not start)
 
 - Phase 2 operator decision is recorded as defer (approval still not granted):
   - `mvp_lane_approval.json` is still `approved: false`
   - no MVP lanes are approved yet; all candidate MVP lanes remain deferred
+- No lane-level evidence has been recorded as pass in this pass.
 - No runners, no outputs, no logs for THE FADE.
 - No `dashboard_contract/` and no dashboard pages for THE FADE.
 - No heartbeat schema/code in Tranches 1–3.

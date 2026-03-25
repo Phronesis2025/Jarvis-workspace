@@ -1,0 +1,115 @@
+{
+  "_meta": {
+    "title": "mvp_lane_evidence_registry",
+    "prompt_number": 20,
+    "phase_number": 2,
+    "tranche_number": 3
+  },
+  "module": "the_fade",
+  "phase": 2,
+  "tranche": 3,
+  "approval_state": {
+    "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
+    "approved": false,
+    "approved_mvp_lanes": [],
+    "deferred_lanes": [
+      "lane_a_public_signal",
+      "lane_b_official_disclosure",
+      "lane_c_market_context",
+      "lane_e_research_swarm_context"
+    ],
+    "decision_mode": "evidence_collection_only"
+  },
+  "evidence_dimensions": {
+    "reliability": {
+      "what_to_evidence": "Adapter/source outage rates are low enough that the lane is not dominated by failures during the pre-audit window."
+    },
+    "freshness": {
+      "what_to_evidence": "Evidence items carry timestamps that can be evaluated as fresh vs stale using a documented freshness window."
+    },
+    "normalization_viability": {
+      "what_to_evidence": "Raw lane events can be normalized into `normalized_signal_event` without silent drops."
+    },
+    "stale_outage_behavior": {
+      "what_to_evidence": "When the lane is stale/unavailable, the system behavior is explicit (downgrade confidence or escalate per policy) without fabricating values."
+    },
+    "conflict_handling": {
+      "what_to_evidence": "Conflicting lane evidence is handled without corrupting direction models or forcing context-only data to override primary truth."
+    },
+    "context_dominance_risk": {
+      "what_to_evidence": "Research Swarm context-only reads do not dominate or override primary lane truth."
+    }
+  },
+  "lanes": [
+    {
+      "lane_id": "lane_a_public_signal",
+      "status": "deferred_pending_evidence",
+      "required_evidence": [
+        "reliability",
+        "freshness",
+        "normalization_viability",
+        "stale_outage_behavior",
+        "conflict_handling",
+        "context_dominance_risk"
+      ],
+      "evidence_status": "not_started",
+      "notes": "Candidate public/curated signal lane under deferred review; collect evidence per dimensions before any approval change."
+    },
+    {
+      "lane_id": "lane_b_official_disclosure",
+      "status": "deferred_pending_evidence",
+      "required_evidence": [
+        "reliability",
+        "freshness",
+        "normalization_viability",
+        "stale_outage_behavior",
+        "conflict_handling",
+        "context_dominance_risk"
+      ],
+      "evidence_status": "not_started",
+      "notes": "Candidate official/disclosure lane under deferred review; collect evidence per dimensions before any approval change."
+    },
+    {
+      "lane_id": "lane_c_market_context",
+      "status": "deferred_pending_evidence",
+      "required_evidence": [
+        "reliability",
+        "freshness",
+        "normalization_viability",
+        "stale_outage_behavior",
+        "conflict_handling",
+        "context_dominance_risk"
+      ],
+      "evidence_status": "not_started",
+      "notes": "Candidate market-context lane under deferred review; collect evidence per dimensions before any approval change."
+    },
+    {
+      "lane_id": "lane_e_research_swarm_context",
+      "status": "deferred_pending_evidence",
+      "required_evidence": [
+        "reliability",
+        "freshness",
+        "normalization_viability",
+        "stale_outage_behavior",
+        "conflict_handling",
+        "context_dominance_risk"
+      ],
+      "evidence_status": "not_started",
+      "notes": "Research Swarm is context-only in this gate; evidence focuses on non-domination and correct omission behavior, not on replacing primary lanes."
+    }
+  ],
+  "evidence_collection_rules": {
+    "scope": "Pre-approval evidence only. This registry does not grant MVP approval and must not be interpreted as an approval statement.",
+    "collection_window": "Use the same pre-audit window assumed by `MVP_SOURCE_RELIABILITY_AUDIT.md` and record observations with timestamps and failure-mode details.",
+    "dimension_requirements": {
+      "reliability": "Record failure counts/outage observations sufficient to evaluate against `required_reliability_threshold` (0.8 in `mvp_lane_approval.json`).",
+      "freshness": "Record observed evidence timestamps and classify fresh vs stale according to the gate freshness window (define the window in the log).",
+      "normalization_viability": "Record normalization outcomes: success vs silent-drop indicators, tied to sample inputs.",
+      "stale_outage_behavior": "Record explicit behavior on stale/unavailable conditions (downgrade/escalate/omit) with an example per lane.",
+      "conflict_handling": "Record how conflicting evidence is resolved without letting context-only enrichment override primary truth.",
+      "context_dominance_risk": "Record checks that context-only reads do not dominate primary lane truth."
+    }
+  },
+  "notes": "Created for Phase 2 / Tranche 3 to support operator evidence collection before any MVP lane approval change. Keep `approved:false` in `mvp_lane_approval.json` until evidence demonstrates the gate standard."
+}
+

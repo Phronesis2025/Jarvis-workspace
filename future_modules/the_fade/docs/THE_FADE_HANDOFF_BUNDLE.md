@@ -4,7 +4,7 @@
 **Phase #:** 1  
 **Tranche #:** 1  
 
-Updated: 2026-03-25T08:48:49.9914618-05:00
+Updated: 2026-03-25T09:02:37.6307666-05:00
 
 ## Workspace root
 
@@ -25,6 +25,13 @@ Phase 1 / Tranche 1
 - `future_modules/the_fade/docs/CANON_INDEX.md`
 - `future_modules/the_fade/docs/THE_FADE_PHASE0_FINAL_LOCK.md`
 - `future_modules/the_fade/docs/THE_FADE_PHASE0_FINAL_LOCK_ATTESTATION.md`
+- Phase 2 approval gate artifacts (prep / no approval):
+  - `future_modules/the_fade/config/mvp_lane_approval.json`
+  - `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`
+- Phase 2 evidence-gathering pack exists (no lane evidence recorded yet, no approval):
+  - `future_modules/the_fade/config/mvp_lane_evidence_registry.json`
+  - `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`
+  - `future_modules/the_fade/examples/example_mvp_lane_evidence_entry.json`
 - Phase 1 schemas:
   - `future_modules/the_fade/schemas/fade_task_packet.schema.json`
   - `future_modules/the_fade/schemas/scanner_candidate_set.schema.json`
@@ -55,7 +62,7 @@ Use `future_modules/the_fade/docs/THE_FADE_PHASE0_FINAL_LOCK.md` as the executio
 ## Exact next step (current)
 
 Start MASTER Phase 2 / Tranche 2:
-1. Gather/record lane-level reliability/freshness/normalization and stale/outage evidence against `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md` (keep `approved:false` during evidence collection).
+1. Populate evidence for each deferred candidate lane using `future_modules/the_fade/config/mvp_lane_evidence_registry.json` and record observations in `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md` (keep `approved:false` while collecting).
 2. When evidence meets the gate standard, update `future_modules/the_fade/config/mvp_lane_approval.json` from `approved: false` to `approved: true` (populate `approved_by` + `approved_at` and the chosen MVP lanes).
 3. After gate approval, update `future_modules/the_fade/config/lane_registry.json` + `future_modules/the_fade/config/escalation_policy.json` to match the approved MVP lane set.
 

@@ -1,0 +1,19 @@
+{
+  "_meta": {
+    "title": "example_mvp_lane_evidence_entry",
+    "prompt_number": 20,
+    "phase_number": 2,
+    "tranche_number": 3
+  },
+  "lane_id": "lane_a_public_signal",
+  "dimension": "reliability",
+  "evidence_summary": "Example only: observed lane reliability is within the pre-audit window threshold (placeholder; not authoritative).",
+  "source_class": "example_public_signal_adapter",
+  "freshness_observation": "Example only: evidence timestamps are within freshness window (placeholder).",
+  "normalization_observation": "Example only: normalization produced normalized_signal_event without silent drops (placeholder).",
+  "stale_outage_observation": "Example only: when source became unavailable, behavior followed stale/outage policy (placeholder).",
+  "confidence": 0.5,
+  "decision_signal": "insufficient_for_gate_decision_pending_real_pre_audit_data",
+  "notes": "Example-only content for operator guidance; this entry must not be treated as approval evidence."
+}
+
