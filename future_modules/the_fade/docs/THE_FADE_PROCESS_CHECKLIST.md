@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 42  
+**Prompt #:** 48  
 **Phase #:** 2  
-**Tranche #:** 12  
+**Tranche #:** 14  
 
-Updated: 2026-03-25T11:59:30.0019846-05:00
+Updated: 2026-03-25T12:31:06.1099681-05:00
 
 ## Current state
 
@@ -15,13 +15,12 @@ Updated: 2026-03-25T11:59:30.0019846-05:00
 - Phase 2 / Tranche 2 gate prep exists; operator recorded a deferred decision (`approved:false`), so no MVP lanes are approved yet.
 - Phase 2 / Tranche 3 evidence pack exists for operator evidence collection; approval is still not granted.
 - Phase 2 / Tranche 4: lane B evidence is in-progress (partial). Stale/outage behavior and context-dominance risk remain **partial** for real lane evidence.
-- Phase 2 / Tranche 12 (Prompt #41): **simulated harness rehearsal** (operator-authored inputs; harness fetched no external data) was executed and stdout was pasted into `docs/MVP_LANE_EVIDENCE_LOG.md`.
-- Phase 2 / Tranche 12 (Prompt #42): **classification correction** — that rehearsal does **not** count as real lane evidence; registry dimensions `stale_outage_behavior` and `context_dominance_risk` remain `partial`.
+- Phase 2 / Tranche 12: **simulated harness rehearsal** (Prompts #41–#42); Tranche 14: **minimal real evidence path spec** in `docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` — **Prompt #48** removed cross-module scope creep (THE FADE–local only).
 
 ## Bounded phase ladder (from here)
 
 ## MASTER Phase 2 — Scout MVP data stack and pre-audit
-- Tranche 12: **NEXT**
+- Tranche 14: **NEXT** (implementation of spec is a **separate** bounded prompt)
 - Must complete before any Tranche 3 runner work:
   - operator must decide the MVP lane gate in `future_modules/the_fade/config/mvp_lane_approval.json` and set `approved: true` (fill `approved_by` + `approved_at`)
   - only after the gate is approved, update `future_modules/the_fade/config/lane_registry.json` and `future_modules/the_fade/config/escalation_policy.json` to reflect the approved MVP lanes
@@ -35,10 +34,5 @@ Updated: 2026-03-25T11:59:30.0019846-05:00
 
 ## Exact current next step (recorded)
 
-Continue MASTER Phase 2 / evidence collection for `lane_b_official_disclosure` only:
-1. Obtain **real lane evidence** (not simulated harness rehearsal) for:
-   - `stale_outage_behavior`: production-equivalent or otherwise gate-honest observation of stale/unavailable handling when that path exists
-   - `context_dominance_risk`: production-equivalent or otherwise gate-honest observation of dominance/conflict handling when that path exists
-   - protocol reference: `docs/MVP_LANE_EVIDENCE_LOG.md` → “Lane B simulated harness rehearsal (Tranche 12)” (historical rehearsal only) + “Lane B controlled evidence protocol (operator checklist)”
-   - execution note: harness remains `future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py` for **rehearsal** only; it does not substitute for real lane evidence.
+1. Implement **only** what `docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` requires: bounded `lane_b_real_observation` capture + minimal fusion for lane B + **one THE FADE–local** context-only contra file (see spec — **no** `research_swarm/` reads) → gate-honest artifacts (`scout_failure` / `normalized_signal_event` / `conflict_packet` per spec). **No** scanner, **no** dashboard, **no** framework.
 2. Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until the operator determines the evidence meets the gate standard.

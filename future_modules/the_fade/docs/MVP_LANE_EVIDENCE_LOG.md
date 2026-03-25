@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 45  
+**Prompt #:** 48  
 **Phase #:** 2  
-**Tranche #:** 12  
+**Tranche #:** 14  
 
-Updated: 2026-03-25T12:17:12.4174296-05:00
+Updated: 2026-03-25T12:31:06.1099681-05:00
 
 ## Purpose
 
@@ -283,6 +283,16 @@ What is still missing before approval could be considered:
 - stale_outage_behavior: real lane evidence for stale/unavailable handling (Tranche 12 was **simulated rehearsal only**; does not satisfy this dimension)
 - conflict_handling: broaden conflict-case permutations and record explicit safe precedence checks aligned to the Phase 2 gate standard
 - context_dominance_risk: real lane evidence for dominance safety (Tranche 12 was **simulated rehearsal only**; does not satisfy this dimension)
+
+## Real evidence path spec (Tranche 14)
+
+Normative **minimal real, non-simulated, gate-honest** observation path for lane B (stale/unavailable + context-dominance) — **spec only; not an implementation**:
+
+`future_modules/the_fade/docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`
+
+Prompt #48 correction: the spec is **fully inside THE FADE** (no `research_swarm/` or other module dependency). Context/precedence uses a **THE FADE–local operator-placed contra file**; honesty rules for that file are stated in the spec.
+
+The harness (`lane_b_controlled_evidence_harness.py`) remains **rehearsal-only** and does not satisfy that spec.
 
 ENDPOINT POINTER:
 - Approval gate: `future_modules/the_fade/config/mvp_lane_approval.json`
