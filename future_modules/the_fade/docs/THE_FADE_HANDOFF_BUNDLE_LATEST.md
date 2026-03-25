@@ -1,32 +1,32 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 48  
+**Prompt #:** 50  
 **Phase #:** 2  
-**Tranche #:** 14  
-**Updated:** 2026-03-25T12:31:06.1099681-05:00  
+**Tranche #:** 15  
+**Updated:** 2026-03-25T13:20:54.8711512-05:00  
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
 - Approval is NOT granted.
 - `future_modules/the_fade/config/mvp_lane_approval.json` is still the approval authority with `approved: false`, `approved_by: null`, `approved_at: null`, and `approved_mvp_lanes: []`.
 - No MVP lanes are approved yet.
-- No runtime/scanner/dashboard-contract artifacts exist yet for THE FADE (no active execution work has started in this tranche).
+- No Phase 3 scanner or dashboard-contract work; THE FADE has only the bounded lane B observation script (`lane_b_real_observation_slice.py`), not full scout runtime.
 - Evidence is being collected under Phase 2.
 - `lane_b_official_disclosure` is the most advanced candidate lane so far, but it is still insufficient for approval.
+- **Tranche 15:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py` exists — **lane-B-only** real observation slice (HTTPS or file → `scout_failure` / `normalized_signal_event`; lane B artifact + local contra → `conflict_packet`). Outputs under `outputs/lane_b_real_observation/` (json gitignored).
 - Current evidence status for `lane_b_official_disclosure` (conservative summary):
   - reliability: recorded_partial
   - freshness: recorded
   - normalization_viability: recorded
-  - stale_outage_behavior: partial (real path **specified** in `docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`; **not implemented** yet)
+  - stale_outage_behavior: partial (slice **exists**; **gate evidence** still requires operator real run + log)
   - conflict_handling: recorded
-  - context_dominance_risk: partial (real path **specified**; **not implemented** yet)
+  - context_dominance_risk: partial (same)
 
 ## Current lane B gap (honest)
-- Harness + Tranche 12 rehearsal do **not** satisfy real lane evidence for stale/outage or dominance.
-- **Normative next work:** implement the **minimal THE FADE–local** slice in `docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` only (lane B + **one** operator-placed contra file under `future_modules/the_fade/inputs/…` per spec — **no** `research_swarm/` dependency); no scanner/dashboard.
+- Implementation exists; **operator gate evidence** for stale/outage and dominance still requires **real** sources + honest log entries (not smoke-only).
 
 ## Operator next exact step (do not flip approval yet)
-- Next implementation prompt: build **only** the `lane_b_real_observation` path + minimal fusion step described in `docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`, then record outputs in `docs/MVP_LANE_EVIDENCE_LOG.md`.
+- Run the slice per `docs/MVP_LANE_EVIDENCE_LOG.md` → “Lane B real observation slice (Tranche 15 — implementation exists)” with real disclosure input + contra file provenance; update the log if evidence meets the bar.
 - Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until evidence clearly meets the gate standard.
 
 ## Key authority files (treat as source-of-truth)
@@ -46,7 +46,7 @@
 - Do not set `approved: true`.
 - Do not populate `approved_mvp_lanes`.
 - Do not update `future_modules/the_fade/config/lane_registry.json` or `future_modules/the_fade/config/escalation_policy.json` for any “approved” MVP lane set yet.
-- Do not start runtime/scanner/dashboard-contract work beyond the **minimal** lane B real-observation slice authorized by `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`.
+- Do not start Phase 3 scanner, dashboard contracts, or broaden beyond the lane B slice without a new prompt.
 - Do not begin evidence collection for other lanes as a broad sweep; only follow lane B real-evidence path.
 
 ## Branch continuity requirement
@@ -54,4 +54,4 @@
 
 ## Out of scope for this handoff
 - Phase 3 is not started.
-- No Phase 3 runner scripts, no dashboard contracts. Any `outputs/` use is limited to the **bounded** lane B real-observation directory described in `docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` when that implementation is authorized.
+- No Phase 3 runner scripts, no dashboard contracts. Any `outputs/` use is limited to the **bounded** lane B real-observation directory described in `docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` / Tranche 15 implementation.

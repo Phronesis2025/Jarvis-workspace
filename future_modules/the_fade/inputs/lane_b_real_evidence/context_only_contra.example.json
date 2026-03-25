@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "title": "context_only_contra_example",
+    "note": "Example only. semantic_role must be lane_e_research_swarm_context for the fusion slice. For real evidence, operator may replace content and document provenance in MVP_LANE_EVIDENCE_LOG.md."
+  },
+  "semantic_role": "lane_e_research_swarm_context",
+  "direction_hint": "bearish",
+  "parsed_summary": "Example context-only contra (bounded local) for precedence smoke test."
+}

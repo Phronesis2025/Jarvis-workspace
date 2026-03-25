@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 48  
+**Prompt #:** 50  
 **Phase #:** 2  
-**Tranche #:** 14  
+**Tranche #:** 15  
 
-Updated: 2026-03-25T12:31:06.1099681-05:00
+Updated: 2026-03-25T13:20:54.8711512-05:00
 
 ## Purpose
 
@@ -286,13 +286,32 @@ What is still missing before approval could be considered:
 
 ## Real evidence path spec (Tranche 14)
 
-Normative **minimal real, non-simulated, gate-honest** observation path for lane B (stale/unavailable + context-dominance) — **spec only; not an implementation**:
+Normative path definition:
 
 `future_modules/the_fade/docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`
 
 Prompt #48 correction: the spec is **fully inside THE FADE** (no `research_swarm/` or other module dependency). Context/precedence uses a **THE FADE–local operator-placed contra file**; honesty rules for that file are stated in the spec.
 
 The harness (`lane_b_controlled_evidence_harness.py`) remains **rehearsal-only** and does not satisfy that spec.
+
+## Lane B real observation slice (Tranche 15 — implementation exists)
+
+Script: `future_modules/the_fade/scripts/lane_b_real_observation_slice.py`
+
+- **observe:** reads one real **HTTPS URL** or **local file path** → writes `future_modules/the_fade/outputs/lane_b_real_observation/{task_id}_scout_failure.json` **or** `{task_id}_normalized_signal_event.json` (stdout prints the same object).
+- **conflict:** reads one **lane B artifact** (normalized JSON from observe) + one **THE FADE–local** `context_only_contra` JSON (`semantic_role` = `lane_e_research_swarm_context`) → writes `{task_id}_conflict_packet.json`; uses `config/fusion_policy.json` **read-only** for weight wording.
+
+**Smoke tests** (developer-run, not gate approval): file read + `https://example.com` fetch + conflict against `inputs/lane_b_real_evidence/context_only_contra.example.json` succeeded locally. **This does not substitute for operator gate evidence** using a real disclosure URL/file and honest contra provenance — it only proves the slice runs.
+
+Operator usage (see also `inputs/lane_b_real_evidence/README_operator.txt`):
+
+```text
+python future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe --task-id <TASK> --ticker <SYM> --file <path> --out-dir future_modules/the_fade/outputs/lane_b_real_observation
+python future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe --task-id <TASK> --ticker <SYM> --url <https://...> --out-dir future_modules/the_fade/outputs/lane_b_real_observation
+python future_modules/the_fade/scripts/lane_b_real_observation_slice.py conflict --task-id <TASK> --ticker <SYM> --lane-b-artifact <normalized.json> --contra <context_only_contra.json> --out-dir future_modules/the_fade/outputs/lane_b_real_observation
+```
+
+Ephemeral `*.json` outputs under `outputs/lane_b_real_observation/` are gitignored by default (see `.gitignore` there).
 
 ENDPOINT POINTER:
 - Approval gate: `future_modules/the_fade/config/mvp_lane_approval.json`

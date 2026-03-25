@@ -1,10 +1,10 @@
 # Lane B minimal real evidence path (spec only)
 
-**Prompt #:** 48  
+**Prompt #:** 50  
 **Phase #:** 2  
-**Tranche #:** 14  
+**Tranche #:** 15  
 
-Updated: 2026-03-25T12:31:06.1099681-05:00
+Updated: 2026-03-25T13:20:54.8711512-05:00
 
 ## Authority
 
@@ -86,3 +86,7 @@ Implement **only**:
 ## Link to rehearsal harness
 
 `lane_b_controlled_evidence_harness.py` remains valid for **protocol rehearsal** only. Real evidence for the two dimensions must come from the path above, recorded separately in `MVP_LANE_EVIDENCE_LOG.md`.
+
+## Implementation note (Tranche 15)
+
+A minimal slice matching this spec is implemented as `future_modules/the_fade/scripts/lane_b_real_observation_slice.py` (subcommands `observe` and `conflict`). See `docs/MVP_LANE_EVIDENCE_LOG.md` for operator usage. **Spec remains normative** if the script behavior drifts—fix the script, not the gate bar.
