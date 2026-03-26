@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 78  
+**Prompt #:** 80  
 **Phase #:** 2  
 **Tranche #:** 24  
 
-Updated: 2026-03-26T06:16:12.1992556-05:00
+Updated: 2026-03-26T08:17:03.4861199-05:00
 
 ## Current state
 
@@ -33,7 +33,7 @@ Updated: 2026-03-26T06:16:12.1992556-05:00
 - Tranche 19: **DONE** (provider/source class clarification; see log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`).
 - Tranche 20: **DONE** (single-source Federal Register reliability pass documented; see log + audit).
 - Tranche 22-23: **PARTIAL** -- **2** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC grid (see log).
-- Tranche 24: **IN PROGRESS** -- **availability-constrained interim reliability pilot** (Prompt **#73** doc amendment; Prompts **#75/#78** pilot observes). **2** / **6** pilot slots done (`t24_fr_pilot_01`, `t24_fr_pilot_02`); cumulative **4** counted / **4** successes / **0** failures (incl. `t22_fr_000`, `t22_fr_001`). **Tranche 21** full protocol remains **stricter** target (**not** erased). **<=8** ceiling; **no** honest **0.8** comparison.
+- Tranche 24: **IN PROGRESS** -- **availability-constrained interim reliability pilot** (Prompt **#73** doc amendment; Prompts **#75/#78/#80** pilot observes). **3** / **6** pilot slots done (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`); cumulative **5** counted / **5** successes / **0** failures (incl. `t22_fr_000`, `t22_fr_001`). **Tranche 21** full protocol remains **stricter** target (**not** erased). **<=8** ceiling; **no** honest **0.8** comparison.
 - Must complete before any Tranche 3 runner work:
   - operator must decide the MVP lane gate in `future_modules/the_fade/config/mvp_lane_approval.json` and set `approved: true` (fill `approved_by` + `approved_at`)
   - only after the gate is approved, update `future_modules/the_fade/config/lane_registry.json` and `future_modules/the_fade/config/escalation_policy.json` to reflect the approved MVP lanes
@@ -47,6 +47,6 @@ Updated: 2026-03-26T06:16:12.1992556-05:00
 
 ## Exact current next step (recorded)
 
-1. **Tranche 24 pilot:** When each **CDT** slot is due, run `lane_b_real_observation_slice.py observe` with a **new** `task_id` each time (Federal Register URL only). **Done:** evening **8:13:55 PM** CDT (`t24_fr_pilot_01`) and **6:13:55 AM** CDT (`t24_fr_pilot_02`). **Next:** **8:13:55 AM** CDT (then **10:13:55 AM**, **12:13:55 PM**, **2:13:55 PM**). **Max** **8** cumulative counted; **4** so far -- **do not** claim **0.8** pass/fail. A **future** run must execute the **full** Tranche 21 window for gate-level reliability proof.
+1. **Tranche 24 pilot:** When each **CDT** slot is due, run `lane_b_real_observation_slice.py observe` with a **new** `task_id` each time (Federal Register URL only). **Done:** evening **8:13:55 PM** CDT (`t24_fr_pilot_01`), **6:13:55 AM** CDT (`t24_fr_pilot_02`), and **8:13:55 AM** CDT (`t24_fr_pilot_03`). **Next:** **10:13:55 AM** CDT (then **12:13:55 PM**, **2:13:55 PM**). **Max** **8** cumulative counted; **5** so far -- **do not** claim **0.8** pass/fail. A **future** run must execute the **full** Tranche 21 window for gate-level reliability proof.
 2. Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until the operator determines the evidence meets the gate standard.
 
