@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 71  
+**Prompt #:** 73  
 **Phase #:** 2  
-**Tranche #:** 23  
+**Tranche #:** 24  
 
-Updated: 2026-03-25T18:29:39.8337695-05:00
+Updated: 2026-03-25T19:45:01.2595380-05:00
 
 ## Purpose
 
@@ -53,9 +53,9 @@ Use these buckets; none are approved yet:
 
 ## Lane B (`lane_b_official_disclosure`) — reliability window (evidenced to date)
 
-**Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` (Tranche 18 micro-sample; Tranche 20 single-source slice; **Tranche 22 live pre-audit window**).
+**Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` (Tranche 18 micro-sample; Tranche 20 single-source slice; Tranche **22–23** original UTC grid attempts; Tranche **24** interim pilot schedule and ceilings).
 
-**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) — **not** a valid **0.8** statistic. **Tranche 22 (Prompt #67)** started a **defined calendar pre-audit window** (Federal Register API only; see **Lane B pre-audit window — live status** below); **only attempt 0** is executed so far — **no** honest comparison to **`required_reliability_threshold` 0.8** until **≥20** counted attempts. Reliability remains **partial / conservative** for gate purposes.
+**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) — **not** a valid **0.8** statistic. **Tranche 22–23** executed **two** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC schedule (Federal Register API only). **Tranche 24 (Prompt #73)** reclassifies **ongoing** work as an **availability-constrained interim reliability pilot** — **not** the full 48h / 24-attempt / **≥20**-count pre-audit gate window (the **stricter Tranche 21 protocol** remains documented above and is **not** erased). **No** honest comparison to **`required_reliability_threshold` 0.8** from this pilot. Reliability remains **partial / conservative** for gate purposes.
 
 ## Lane B — provider / source class (Tranche 19)
 
@@ -122,27 +122,38 @@ Use the tool’s encoded outcome class:
 
 **Approval remains NOT granted** by this protocol definition alone; it only makes future reliability comparisons honest and repeatable.
 
-## Lane B pre-audit window — live status (Tranche 22–23)
+## Lane B availability-constrained interim pilot (Tranche 24 — Prompt #73)
 
-**Tranche 22** started the window; **Tranche 23 (Prompt #71)** executed **attempt 1** on schedule. **No** pass/fail vs **0.8** unless `counted_attempts >= 20`.
+**This section amends operator execution planning only.** It does **not** replace, weaken, or satisfy the **Lane B pre-audit reliability window protocol (Tranche 21)** above. The **48-hour UTC window**, **24** attempts on a **2h** grid, and **≥ 20** counted attempts before any **0.8** comparison remain the **stricter target standard** for a **full** pre-audit gate window.
 
-**Source class:** U.S. Federal Register public API only — exact URL:
+**Reclassification (honest):** Real operator availability **cannot** complete the original Tranche 21 schedule. The work **continues** as an **availability-constrained interim reliability pilot** (lane B, Federal Register API **only**, same exact endpoint as Tranche 21). This pilot is **for deciding whether continued testing is worth doing** — **not** for MVP gate proof.
+
+**Source class (unchanged):** U.S. Federal Register public API only — exact URL:
 `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`
 
-| Field | Value |
-|-------|--------|
-| `window_start_utc` | `2026-03-25T21:13:55Z` (locked) |
-| `window_end_utc` | `2026-03-27T21:13:55Z` (locked) |
-| **48-hour window** | **In progress** |
-| Scheduled attempts (`i = 0..23`) | **24** (2h cadence) |
-| **Executed and counted so far** | **2** — attempts **0** (`t22_fr_000`) and **1** (`t22_fr_001`) |
-| Attempt 0 | **`normalized_signal_event`** (HTTP **200**) |
-| Attempt 1 | **`normalized_signal_event`** (HTTP **200**); `due_verified_at_utc` **`2026-03-25T23:29:06Z`** ≥ scheduled **`2026-03-25T23:13:55Z`** |
-| Remaining scheduled attempts | **22** (attempts **2..23** not run in this pass) |
+### Historical counted attempts (original UTC schedule — Tranche 22–23)
 
-**0.8 comparison:** **Forbidden until** `counted_attempts >= 20`. Current counted attempts: **2**. **No** reliability ratio vs `required_reliability_threshold` **0.8** may be stated.
+Already executed and logged: **`t22_fr_000`**, **`t22_fr_001`** — **2** counted attempts, **2** successes, **0** failures (see `docs/MVP_LANE_EVIDENCE_LOG.md`).
 
-**Source of truth:** `docs/MVP_LANE_EVIDENCE_LOG.md` → **live kickoff (Tranche 22)** + **attempt 1 (Tranche 23)**.
+### Revised pilot execution plan (CDT) — remaining slots
+
+| Pilot slot | Local time (CDT) |
+|------------|------------------|
+| Tonight (evening) | **8:13:55 PM** CDT |
+| Tomorrow | **6:13:55 AM** CDT |
+| Tomorrow | **8:13:55 AM** CDT |
+| Tomorrow | **10:13:55 AM** CDT |
+| Tomorrow | **12:13:55 PM** CDT |
+| Tomorrow | **2:13:55 PM** CDT |
+
+### What this pilot can and cannot prove
+
+- **Maximum counted attempts (if every pilot slot is executed and counts):** **2** (already logged) **+ 6** (pilot schedule) **= 8** total.
+- **Does NOT justify** comparison to the original **`required_reliability_threshold` 0.8** gate statistic (pilot **cannot** reach **≥ 20** counted attempts; it is **not** the full pre-audit protocol).
+- **Does NOT** satisfy the Tranche 21 pre-audit window completion criteria.
+- **May** inform a **go / no-go** on whether to schedule a **future** full-protocol window when availability allows.
+
+**Source of truth for detail:** `docs/MVP_LANE_EVIDENCE_LOG.md` → **Lane B availability-constrained interim pilot (Tranche 24 — Prompt #73)**.
 
 **Approval remains NOT granted.**
 

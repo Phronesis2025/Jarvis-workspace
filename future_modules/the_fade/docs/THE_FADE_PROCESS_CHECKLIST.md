@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 71  
+**Prompt #:** 73  
 **Phase #:** 2  
-**Tranche #:** 23  
+**Tranche #:** 24  
 
-Updated: 2026-03-25T18:29:39.8337695-05:00
+Updated: 2026-03-25T19:45:01.2595380-05:00
 
 ## Current state
 
@@ -32,7 +32,8 @@ Updated: 2026-03-25T18:29:39.8337695-05:00
 - Tranche 18: **DONE** (reliability-window honesty pass; see log + `MVP_SOURCE_RELIABILITY_AUDIT.md`).
 - Tranche 19: **DONE** (provider/source class clarification; see log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`).
 - Tranche 20: **DONE** (single-source Federal Register reliability pass documented; see log + audit).
-- Tranche 22–23: **IN PROGRESS** (live 48h pre-audit window **in progress**; **attempts 0–1** executed and counted; see `MVP_LANE_EVIDENCE_LOG.md` + `MVP_SOURCE_RELIABILITY_AUDIT.md`).
+- Tranche 22–23: **PARTIAL** — **2** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC grid (see log).
+- Tranche 24: **DOCUMENTED** (Prompt **#73**) — **availability-constrained interim reliability pilot**; **Tranche 21** full protocol remains the **stricter** documented standard (**not** erased). Pilot **CDT** schedule + **≤8** counted ceiling; **no** honest **0.8** gate comparison from this pilot.
 - Must complete before any Tranche 3 runner work:
   - operator must decide the MVP lane gate in `future_modules/the_fade/config/mvp_lane_approval.json` and set `approved: true` (fill `approved_by` + `approved_at`)
   - only after the gate is approved, update `future_modules/the_fade/config/lane_registry.json` and `future_modules/the_fade/config/escalation_policy.json` to reflect the approved MVP lanes
@@ -46,5 +47,5 @@ Updated: 2026-03-25T18:29:39.8337695-05:00
 
 ## Exact current next step (recorded)
 
-1. **Tranche 22–23:** Execute **attempts 2–23** per the logged UTC schedule (same Federal Register endpoint; next due **`t22_fr_002`** at **`2026-03-26T01:13:55Z`**) before `window_end_utc` **2026-03-27T21:13:55Z**; record each outcome honestly in `MVP_LANE_EVIDENCE_LOG.md`. **No** pass/fail vs **0.8** until **≥20** counted attempts.
+1. **Tranche 24 pilot:** When each **CDT** slot is due, run `lane_b_real_observation_slice.py observe` against the **exact** Federal Register URL from Tranche 21; record outcomes honestly in `MVP_LANE_EVIDENCE_LOG.md`. **CDT** plan: **8:13:55 PM** tonight; **6:13:55 AM**, **8:13:55 AM**, **10:13:55 AM**, **12:13:55 PM**, **2:13:55 PM** tomorrow. **Max** **8** cumulative counted attempts (**2** already + **6** pilot slots); **do not** claim **0.8** pass/fail — pilot is **go/no-go on continued testing** only. A **future** run must execute the **full** Tranche 21 window to seek gate-level reliability proof.
 2. Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until the operator determines the evidence meets the gate standard.
