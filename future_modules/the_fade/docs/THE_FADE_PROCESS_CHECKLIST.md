@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 24  
 
-Updated: 2026-03-26T14:16:54.3008824-05:00
+Updated: 2026-03-26T15:11:55.9872497-05:00
 
 ## Current state
 
@@ -33,7 +33,7 @@ Updated: 2026-03-26T14:16:54.3008824-05:00
 - Tranche 19: **DONE** (provider/source class clarification; see log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`).
 - Tranche 20: **DONE** (single-source Federal Register reliability pass documented; see log + audit).
 - Tranche 22-23: **PARTIAL** -- **2** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC grid (see log).
-- Tranche 24: **COMPLETE (INTERIM PILOT)** -- **availability-constrained interim reliability pilot** (Prompt **#73** doc amendment; Prompts **#75/#78/#80/#82/#86/#88** pilot observes). **6** / **6** pilot slots done (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`, `t24_fr_pilot_05`, `t24_fr_pilot_06`); cumulative **8** counted / **8** successes / **0** failures (incl. `t22_fr_000`, `t22_fr_001`). **Tranche 21** full protocol remains **stricter** target (**not** erased). **<=8** ceiling; **no** honest **0.8** comparison.
+- Tranche 24: **COMPLETE (INTERIM PILOT)** -- **availability-constrained interim reliability pilot** (Prompt **#73** doc amendment; Prompts **#75/#78/#80/#82/#86/#88** pilot observes). **6** / **6** pilot slots done (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`, `t24_fr_pilot_05`, `t24_fr_pilot_06`); cumulative **8** counted / **8** successes / **0** failures (incl. `t22_fr_000`, `t22_fr_001`). Proved a **positive interim success-path signal** for the locked **Federal Register API** source class, but it **did NOT** satisfy the original **Tranche 21** gate protocol and therefore does **not** justify any `required_reliability_threshold` **0.8** comparison or **approval re-evaluation** (**approval remains false**).
 - Must complete before any Tranche 3 runner work:
   - operator must decide the MVP lane gate in `future_modules/the_fade/config/mvp_lane_approval.json` and set `approved: true` (fill `approved_by` + `approved_at`)
   - only after the gate is approved, update `future_modules/the_fade/config/lane_registry.json` and `future_modules/the_fade/config/escalation_policy.json` to reflect the approved MVP lanes
@@ -47,6 +47,6 @@ Updated: 2026-03-26T14:16:54.3008824-05:00
 
 ## Exact current next step (recorded)
 
-1. **Tranche 24 pilot:** **Final slot complete.** Executed at **2:13:55 PM** CDT with `t24_fr_pilot_06` (Federal Register URL only). Pilot finished at **8** cumulative counted / **8** successes / **0** failures (including `t22_fr_000`, `t22_fr_001`) and remains an **interim** availability-constrained result set -- **do not** claim **0.8** pass/fail. A **future** run must execute the **full** Tranche 21 window for gate-level reliability proof.
+1. **Tranche 24 pilot:** **Final slot complete.** Executed at **2:13:55 PM** CDT with `t24_fr_pilot_06` (Federal Register URL only). Pilot finished at **8** cumulative counted / **8** successes / **0** failures (including `t22_fr_000`, `t22_fr_001`) and remains an **interim** availability-constrained result set -- it proved a **positive interim success-path signal** for the locked Federal Register source class, but it **did NOT** satisfy the original Tranche 21 gate protocol; **do not** compare to **0.8** and **do not** re-evaluate approval (**approval remains false**). A **future** run must execute the **full** Tranche 21 window for gate-level reliability proof.
 2. Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until the operator determines the evidence meets the gate standard.
 
