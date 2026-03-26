@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 73  
+**Prompt #:** 75  
 **Phase #:** 2  
 **Tranche #:** 24  
 
-Updated: 2026-03-25T19:45:01.2595380-05:00
+Updated: 2026-03-25T20:54:01.9344552-05:00
 
 ## Purpose
 
@@ -547,25 +547,49 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 
 | Pilot slot | Local time (CDT) |
 |------------|------------------|
-| Tonight (evening) | **8:13:55 PM** CDT |
+| Tonight (evening) | **8:13:55 PM** CDT — **done** (Prompt **#75**, `t24_fr_pilot_01`) |
 | Tomorrow | **6:13:55 AM** CDT |
 | Tomorrow | **8:13:55 AM** CDT |
 | Tomorrow | **10:13:55 AM** CDT |
 | Tomorrow | **12:13:55 PM** CDT |
 | Tomorrow | **2:13:55 PM** CDT |
 
+### Pilot slot 1 — evening (Tranche 24 — Prompt #75)
+
+**Interim pilot only** — **not** the full Tranche 21 gate window. Federal Register API **only**; endpoint unchanged.
+
+#### Due-time check (before execution)
+
+| Field | Value |
+|-------|--------|
+| `pilot_slot_1_scheduled_cdt` | **2026-03-25 20:13:55** CDT (**8:13:55 PM** CDT) |
+| `due_verified_at_utc` | `2026-03-26T01:53:24Z` |
+| `due_verified_at_cdt` | **2026-03-25 20:53:24** CDT |
+| **Due?** | **Yes** — `due_verified_at_cdt` ≥ `pilot_slot_1_scheduled_cdt` |
+
+#### Observed result
+
+| Field | Value |
+|-------|--------|
+| `task_id` | **`t24_fr_pilot_01`** (**new** — **not** reused from Tranche **22–23**) |
+| Counted? | **Yes** (valid JSON on stdout) |
+| Outcome class | **`normalized_signal_event`** (**success**) |
+| `event_id` | `evt_t24_fr_pilot_01_fc970c32455d` |
+| `ingested_at` (tool) | `2026-03-26T01:53:54Z` |
+| Endpoint | `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` |
+| HTTP / notes | **200**; notes include `http_status=200 latency_ms=236.3`; `lag_class`: **fresh** |
+
 ### Counted-attempt ceiling (honest)
 
-- **Already counted (Tranche 22–23):** **2** (`t22_fr_000`, `t22_fr_001`).
-- **Additional pilot slots (if all executed and count):** **6**.
-- **Maximum cumulative counted attempts:** **8** — still **does NOT** meet Tranche 21’s **≥ 20** minimum for any **0.8** comparison.
+- **Tranche 22–23 (original UTC grid):** **2** (`t22_fr_000`, `t22_fr_001`).
+- **Pilot slots executed:** **1** / **6** (`t24_fr_pilot_01`).
+- **Cumulative counted (this slice):** **3** (**3** successes, **0** failures).
+- **Maximum cumulative if all pilot slots run and count:** **8** — still **does NOT** meet Tranche 21’s **≥ 20** minimum for any **0.8** comparison.
 
 ### What this pilot can and cannot prove
 
 - **Can:** support a **go / no-go** judgment on whether **continued** Federal Register lane B testing is worth scheduling when a **full** Tranche 21 window becomes feasible.
 - **Cannot:** justify comparison to **`required_reliability_threshold` 0.8**; **cannot** satisfy the full pre-audit protocol; **cannot** grant MVP approval.
-
-**No new evidence in Tranche 24 doc pass** — schedule and limits only.
 
 **Approval:** unchanged — `mvp_lane_approval.json` remains `approved: false`.
 

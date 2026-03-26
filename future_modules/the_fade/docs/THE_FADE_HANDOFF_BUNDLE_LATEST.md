@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 73  
+**Prompt #:** 75  
 **Phase #:** 2  
 **Tranche #:** 24  
-**Updated:** 2026-03-25T19:45:01.2595380-05:00  
+**Updated:** 2026-03-25T20:54:01.9344552-05:00  
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
@@ -19,7 +19,7 @@
 - **Tranche 19:** **Provider / source class clarification** — `mvp_lane_approval.json` still has **`TBD_OFFICIAL_DISCLOSURE_PROVIDER`**; Tranche 16 mixed **Federal Register / SEC / issuer IR** (not one provider). **Do not** aggregate mixed hosts into one reliability statistic. **Provisional** next single-class target for a future pass: **U.S. Federal Register public API** (see log); SEC/issuer = separate class/pass.
 - **Tranche 20:** **Single-source reliability pass** (Federal Register API only) documented in `docs/MVP_LANE_EVIDENCE_LOG.md` — endpoint `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` attempted **5** times (`t20_fb_001`–`t20_fb_005`): **5 successes / 0 failures**. Still **no** defined calendar pre-audit window and **no** honest comparison to `required_reliability_threshold` **0.8** yet; registry reliability remains **partial**.
 - **Tranche 22–23:** **Two** counted attempts executed under the **original** Tranche 21 UTC schedule — **`t22_fr_000`**, **`t22_fr_001`** (**2** successes / **0** failures); documented `window_start_utc` / `window_end_utc` remain in the log as **audit trail**.
-- **Tranche 24 (Prompt #73):** **Protocol/doc amendment** — ongoing work is honestly reclassified as an **availability-constrained interim reliability pilot** (**not** the full 48h / 24-attempt / **≥20**-count pre-audit gate window). **Stricter Tranche 21 protocol** stays in `MVP_SOURCE_RELIABILITY_AUDIT.md` (**not** erased). **CDT** pilot schedule: **8:13:55 PM** tonight; **6:13:55 AM**, **8:13:55 AM**, **10:13:55 AM**, **12:13:55 PM**, **2:13:55 PM** tomorrow. **Maximum** **8** counted attempts if all pilot slots run (**2** existing + **6**). **Does NOT** justify **`required_reliability_threshold` 0.8** comparison; **only** **go/no-go** on whether to continue toward a **future** full-protocol window.
+- **Tranche 24:** **Protocol/doc amendment** (Prompt **#73**) + **first pilot observe** (Prompt **#75**). **Availability-constrained interim reliability pilot** — **not** the full 48h / 24-attempt / **≥20**-count pre-audit gate window. **Stricter Tranche 21 protocol** preserved in `MVP_SOURCE_RELIABILITY_AUDIT.md`. **Pilot slot 1** (**8:13:55 PM** CDT): `task_id` **`t24_fr_pilot_01`**, **`normalized_signal_event`**, HTTP **200**, `ingested_at` **`2026-03-26T01:53:54Z`**. **Cumulative:** **3** counted / **3** successes / **0** failures (`t22_fr_000`, `t22_fr_001`, `t24_fr_pilot_01`). **5** pilot slots remain on **CDT** schedule. **Maximum** **8** if all complete — **still no** honest **0.8** comparison; **go/no-go** on continued testing only.
 - Current evidence status for `lane_b_official_disclosure` (conservative summary):
   - reliability: **partial** (Tranche 18/20; micro-sample only — see log)
   - freshness: recorded
@@ -32,7 +32,7 @@
 - Tranche 18 made reliability **explicitly thin**: **no** defined calendar pre-audit window or valid 0.8 test yet. Tranche 20 improved the **single-source** micro-sample (Federal Register API only; 5/5 successes) but still did **not** evidence a **calendar** pre-audit window. **Tranche 22–23** logged **two** counted attempts on the **original** UTC grid. **Tranche 24** states operator availability **cannot** finish that grid; the **interim pilot** caps at **8** counted attempts — **still no** honest **0.8** gate comparison. A **full** Tranche 21 window (when feasible) remains required for gate-level reliability proof. **Approval remains unjustified** — need full-protocol evidence (≥20 counted per Tranche 21), broader conflict permutations when in scope, and production-equivalent scout runtime when in scope.
 
 ## Operator next exact step (do not flip approval yet)
-- **Tranche 24 pilot:** Run observes on the **CDT** schedule in `MVP_LANE_EVIDENCE_LOG.md` / `MVP_SOURCE_RELIABILITY_AUDIT.md`; log each result; **do not** claim pass/fail vs **0.8** — pilot is **go/no-go** on continued testing only.
+- **Tranche 24 pilot:** **Next** due slot **6:13:55 AM** CDT (then remaining **CDT** times); new `task_id` each run; log in `MVP_LANE_EVIDENCE_LOG.md`; **do not** claim pass/fail vs **0.8**.
 - Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until evidence clearly meets the gate standard.
 
 ## Canon design docs (foundational — do not move or delete)

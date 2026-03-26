@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 73  
+**Prompt #:** 75  
 **Phase #:** 2  
 **Tranche #:** 24  
 
-Updated: 2026-03-25T19:45:01.2595380-05:00
+Updated: 2026-03-25T20:54:01.9344552-05:00
 
 ## Purpose
 
@@ -55,7 +55,7 @@ Use these buckets; none are approved yet:
 
 **Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` (Tranche 18 micro-sample; Tranche 20 single-source slice; Tranche **22–23** original UTC grid attempts; Tranche **24** interim pilot schedule and ceilings).
 
-**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) — **not** a valid **0.8** statistic. **Tranche 22–23** executed **two** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC schedule (Federal Register API only). **Tranche 24 (Prompt #73)** reclassifies **ongoing** work as an **availability-constrained interim reliability pilot** — **not** the full 48h / 24-attempt / **≥20**-count pre-audit gate window (the **stricter Tranche 21 protocol** remains documented above and is **not** erased). **No** honest comparison to **`required_reliability_threshold` 0.8** from this pilot. Reliability remains **partial / conservative** for gate purposes.
+**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) — **not** a valid **0.8** statistic. **Tranche 22–23** executed **two** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC schedule (Federal Register API only). **Tranche 24** includes an **availability-constrained interim reliability pilot** (**not** the full 48h / 24-attempt / **≥20**-count pre-audit gate window; **stricter Tranche 21 protocol** preserved above). **Prompt #75** executed **pilot slot 1** (`t24_fr_pilot_01`) — cumulative **3** counted / **3** successes / **0** failures for this Federal Register window+pilot slice. **No** honest comparison to **`required_reliability_threshold` 0.8** from this pilot. Reliability remains **partial / conservative** for gate purposes.
 
 ## Lane B — provider / source class (Tranche 19)
 
@@ -135,11 +135,22 @@ Use the tool’s encoded outcome class:
 
 Already executed and logged: **`t22_fr_000`**, **`t22_fr_001`** — **2** counted attempts, **2** successes, **0** failures (see `docs/MVP_LANE_EVIDENCE_LOG.md`).
 
+### Interim pilot — live results (Tranche 24)
+
+| Metric | Value (after Prompt **#75**) |
+|--------|------------------------------|
+| Pilot slots completed | **1** / **6** (evening **8:13:55 PM** CDT slot) |
+| Latest `task_id` | **`t24_fr_pilot_01`** |
+| Cumulative counted (Tranche **22–23** + pilot) | **3** |
+| Successes / failures | **3** / **0** |
+
+Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` → **Pilot slot 1 (Prompt #75)**.
+
 ### Revised pilot execution plan (CDT) — remaining slots
 
 | Pilot slot | Local time (CDT) |
 |------------|------------------|
-| Tonight (evening) | **8:13:55 PM** CDT |
+| Tonight (evening) | **8:13:55 PM** CDT — **executed** (Prompt **#75**, `t24_fr_pilot_01`) |
 | Tomorrow | **6:13:55 AM** CDT |
 | Tomorrow | **8:13:55 AM** CDT |
 | Tomorrow | **10:13:55 AM** CDT |
@@ -148,7 +159,7 @@ Already executed and logged: **`t22_fr_000`**, **`t22_fr_001`** — **2** counte
 
 ### What this pilot can and cannot prove
 
-- **Maximum counted attempts (if every pilot slot is executed and counts):** **2** (already logged) **+ 6** (pilot schedule) **= 8** total.
+- **Maximum counted attempts (if every pilot slot is executed and counts):** **2** (Tranche **22–23**) **+ 6** (pilot schedule) **= 8** total — **3** counted so far (**1** pilot slot done).
 - **Does NOT justify** comparison to the original **`required_reliability_threshold` 0.8** gate statistic (pilot **cannot** reach **≥ 20** counted attempts; it is **not** the full pre-audit protocol).
 - **Does NOT** satisfy the Tranche 21 pre-audit window completion criteria.
 - **May** inform a **go / no-go** on whether to schedule a **future** full-protocol window when availability allows.
