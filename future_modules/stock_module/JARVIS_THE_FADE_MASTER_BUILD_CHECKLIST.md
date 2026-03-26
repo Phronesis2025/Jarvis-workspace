@@ -2,8 +2,8 @@
 
 **Document Type:** Master Build Checklist  
 **Status:** Proposed Canonical Control Checklist (live progress below)  
-**Version:** 1.9  
-**Last Updated:** 2026-03-25T20:54:01.9344552-05:00  
+**Version:** 1.10  
+**Last Updated:** 2026-03-26T06:16:12.1992556-05:00  
 **Owner:** Jason  
 **Project Context:** Jarvis future worker / stock intelligence side quest
 
@@ -15,24 +15,24 @@
 
 Workspace branch: `the-fade-phase1-tranche1-foundation`.
 
-The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **must remain** in `future_modules/stock_module/` — foundational module docs; **do not move or delete** (index: `future_modules/the_fade/docs/CANON_INDEX.md`).
+The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **must remain** in `future_modules/stock_module/` -- foundational module docs; **do not move or delete** (index: `future_modules/the_fade/docs/CANON_INDEX.md`).
 
 | Item | Current truth |
 |------|----------------|
-| MVP gate | **Phase 2** — MVP lane approval and source reliability |
+| MVP gate | **Phase 2** -- MVP lane approval and source reliability |
 | `mvp_lane_approval.json` | `approved`: **false**; `approved_mvp_lanes`: **empty** |
 | Active lane focus | **`lane_b_official_disclosure`** (lane B) |
 | Phase 3 (Universe Scanner) | **Not started** |
 | Phase 3 unlock | **Blocked** until MVP gate satisfied; no automatic unlock from bounded evidence |
-| Lane B vs gate sufficiency | **Not close** — lane-level evidence remains **partial**; MVP approval **not** justified |
-| Reliability vs `required_reliability_threshold` (0.8) | **No honest comparison yet** — **`reliability`** dimension is **partial**; **Tranche 21** stricter standard **preserved**; **Tranche 24 interim pilot** (Federal Register only): **3** counted (**`t22_fr_000`**, **`t22_fr_001`**, **`t24_fr_pilot_01`**); **1** / **6** pilot slots done; **≤8** ceiling; **no** **0.8** claim — **go/no-go** on continued testing only |
-| Lane B MVP disclosure **provider** | **Not locked** — `mvp_lane_approval.json` **`TBD_OFFICIAL_DISCLOSURE_PROVIDER`**. Tranche **19** clarified mixed URLs (Federal Register vs SEC vs issuer IR) are **not** one provider path. |
+| Lane B vs gate sufficiency | **Not close** -- lane-level evidence remains **partial**; MVP approval **not** justified |
+| Reliability vs `required_reliability_threshold` (0.8) | **No honest comparison yet** -- **`reliability`** dimension is **partial**; **Tranche 21** stricter standard **preserved**; **Tranche 24 interim pilot** (Federal Register only): **4** counted (**`t22_fr_000`**, **`t22_fr_001`**, **`t24_fr_pilot_01`**, **`t24_fr_pilot_02`**); **2** / **6** pilot slots done; **<=8** ceiling; **no** **0.8** claim -- **go/no-go** on continued testing only |
+| Lane B MVP disclosure **provider** | **Not locked** -- `mvp_lane_approval.json` **`TBD_OFFICIAL_DISCLOSURE_PROVIDER`**. Tranche **19** clarified mixed URLs (Federal Register vs SEC vs issuer IR) are **not** one provider path. |
 
-**Phase 2 work completed and committed (checkpoint list):** approval gate prep; deferred approval decision; lane B evidence pack + refinement passes; honest blocker documentation; controlled evidence protocol; minimal harness build + hardening; simulated rehearsal + correction + reproducibility cleanup; real evidence path audit; minimal real evidence path spec + correction; lane B real observation slice build; canon recovery from stash snapshot into `future_modules/stock_module/`; post-canon dirty-state cleanup (registry/log/contra alignment); **Tranche 18** reliability-window honesty pass (`docs/MVP_LANE_EVIDENCE_LOG.md`, `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` — four countable `observe` tries in one session; **no** valid 0.8 gate statistic); **Tranche 19** lane B provider/source class clarification (log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` — **one** source class per reliability pass; provisional next target **Federal Register API** only for that pass, not mixed with SEC/issuer); **Tranche 20** single-source reliability pass (Federal Register API only; 5 attempts / 5 successes / 0 failures; still **no** honest comparison to 0.8 yet); **Tranche 21** pre-audit reliability window protocol defined (Federal Register API-only; 48h UTC window; 2h cadence; count normalized_signal_event as success vs scout_failure as failure; compare to 0.8 only after >=20 counted attempts) — **stricter target preserved** in audit; **Tranche 22–23** — **2** counted attempts on original UTC grid (`t22_fr_000`, `t22_fr_001`); **Tranche 24** — **availability-constrained interim pilot** (**CDT** schedule; **≤8** ceiling); Prompt **#75** — **first** pilot slot observed (`t24_fr_pilot_01`); cumulative **3** counted / **3** successes / **0** failures in this slice; **not** full pre-audit gate window; **no** 0.8 conclusion; **go/no-go** on continued testing only.
+**Phase 2 work completed and committed (checkpoint list):** approval gate prep; deferred approval decision; lane B evidence pack + refinement passes; honest blocker documentation; controlled evidence protocol; minimal harness build + hardening; simulated rehearsal + correction + reproducibility cleanup; real evidence path audit; minimal real evidence path spec + correction; lane B real observation slice build; canon recovery from stash snapshot into `future_modules/stock_module/`; post-canon dirty-state cleanup (registry/log/contra alignment); **Tranche 18** reliability-window honesty pass (`docs/MVP_LANE_EVIDENCE_LOG.md`, `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` -- four countable `observe` tries in one session; **no** valid 0.8 gate statistic); **Tranche 19** lane B provider/source class clarification (log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` -- **one** source class per reliability pass; provisional next target **Federal Register API** only for that pass, not mixed with SEC/issuer); **Tranche 20** single-source reliability pass (Federal Register API only; 5 attempts / 5 successes / 0 failures; still **no** honest comparison to 0.8 yet); **Tranche 21** pre-audit reliability window protocol defined (Federal Register API-only; 48h UTC window; 2h cadence; count normalized_signal_event as success vs scout_failure as failure; compare to 0.8 only after >=20 counted attempts) -- **stricter target preserved** in audit; **Tranche 22-23** -- **2** counted attempts on original UTC grid (`t22_fr_000`, `t22_fr_001`); **Tranche 24** -- **availability-constrained interim pilot** (**CDT** schedule; **<=8** ceiling); Prompts **#75/#78** -- first two pilot slots observed (`t24_fr_pilot_01`, `t24_fr_pilot_02`); cumulative **4** counted / **4** successes / **0** failures in this slice; **not** full pre-audit gate window; **no** 0.8 conclusion; **go/no-go** on continued testing only.
 
-**Real observation slice:** implemented (`lane_b_real_observation_slice.py`) — **does not** justify approval re-evaluation or MVP lane selection by itself.
+**Real observation slice:** implemented (`lane_b_real_observation_slice.py`) -- **does not** justify approval re-evaluation or MVP lane selection by itself.
 
-**Registry nuance:** `reliability` for lane B is **partial** (Tranche 18/20; micro-sample only). `stale_outage_behavior` and `context_dominance_risk` may show **recorded (bounded)** — still **not** approved-lane proof, **not** production completeness, and **does not** unlock Phase 3.
+**Registry nuance:** `reliability` for lane B is **partial** (Tranche 18/20; micro-sample only). `stale_outage_behavior` and `context_dominance_risk` may show **recorded (bounded)** -- still **not** approved-lane proof, **not** production completeness, and **does not** unlock Phase 3.
 
 **Discipline:** Use this master checklist for periodic checkpointing to avoid scope drift.
 
@@ -40,12 +40,12 @@ The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **mu
 
 ## Live phase-status table (master phases)
 
-| Phase (see §5 Locked Tranche Order) | Status |
+| Phase (see ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§5 Locked Tranche Order) | Status |
 |-------------------------------------|--------|
-| Phase 0 — Canon Lock + Build Map | **COMPLETE** (effective for current build path) |
-| Phase 1 — Scout Contracts and Policy Foundations | **COMPLETE FOR CURRENT PROOF PATH** |
-| Phase 2 — MVP Data Stack and Source Reliability Pre-Audit | **ACTIVE** |
-| Phases 3–16 — Universe Scanner through Tiny Live Pilot | **NOT STARTED** — **BLOCKED** on MVP gate (no Phase 3 work started) |
+| Phase 0 -- Canon Lock + Build Map | **COMPLETE** (effective for current build path) |
+| Phase 1 -- Scout Contracts and Policy Foundations | **COMPLETE FOR CURRENT PROOF PATH** |
+| Phase 2 -- MVP Data Stack and Source Reliability Pre-Audit | **ACTIVE** |
+| Phases 3-16 -- Universe Scanner through Tiny Live Pilot | **NOT STARTED** -- **BLOCKED** on MVP gate (no Phase 3 work started) |
 
 \---
 
@@ -124,7 +124,7 @@ These rules apply across the whole build.
 * \[ ] Do not let shadow lanes pretend to be primary evidence
 * \[ ] Do not let synthetic feedback outrank real paper-trade results
 * \[ ] Do not let Safety Governor become advisory only
-* \[ ] Do not let “fewest steps” turn into giant risky build chunks
+* \[ ] Do not let "fewest steps" turn into giant risky build chunks
 * \[ ] Do not outrun Jarvis phase discipline
 * \[ ] Do not treat initial weights/thresholds as proven truth
 * \[ ] Do not let new ideas override the locked tranche order without deliberate review
@@ -135,27 +135,27 @@ These rules apply across the whole build.
 
 This is the master order.
 
-1. Phase 0 — Canon Lock + Build Map
-2. Phase 1 — Scout Contracts and Policy Foundations
-3. Phase 2 — MVP Data Stack and Source Reliability Pre-Audit
-4. Phase 3 — Universe Scanner
-5. Phase 4 — Event Normalization
-6. Phase 5 — Lane Scoring
-7. Phase 6 — Contra-Signal Engine
-8. Phase 7 — Fusion / Conflict / Signal Packet
-9. Phase 8 — Signal Review Dashboard
-10. Phase 9 — Research Handoff + Downstream Analyst Layer
-11. Phase 10 — Paper Trade Engine
-12. Phase 11 — Daily Summary and Operator Review Loop
-13. Phase 12 — Learning / Calibration
-14. Phase 13 — Hardening / Replay / Health
-15. Phase 14 — Autonomous Transition
-16. Phase 15 — Live-Readiness Review
-17. Phase 16 — Tiny Live Pilot
+1. Phase 0 -- Canon Lock + Build Map
+2. Phase 1 -- Scout Contracts and Policy Foundations
+3. Phase 2 -- MVP Data Stack and Source Reliability Pre-Audit
+4. Phase 3 -- Universe Scanner
+5. Phase 4 -- Event Normalization
+6. Phase 5 -- Lane Scoring
+7. Phase 6 -- Contra-Signal Engine
+8. Phase 7 -- Fusion / Conflict / Signal Packet
+9. Phase 8 -- Signal Review Dashboard
+10. Phase 9 -- Research Handoff + Downstream Analyst Layer
+11. Phase 10 -- Paper Trade Engine
+12. Phase 11 -- Daily Summary and Operator Review Loop
+13. Phase 12 -- Learning / Calibration
+14. Phase 13 -- Hardening / Replay / Health
+15. Phase 14 -- Autonomous Transition
+16. Phase 15 -- Live-Readiness Review
+17. Phase 16 -- Tiny Live Pilot
 
 \---
 
-# Phase 0 — Canon Lock + Build Map
+# Phase 0 -- Canon Lock + Build Map
 
 **Mode:** \[PLAN]  
 **Why first:** if the architecture is not locked now, the build will drift later.
@@ -201,7 +201,7 @@ Turn the document set into a real implementation graph.
 
 \---
 
-# Phase 1 — Scout Contracts and Policy Foundations
+# Phase 1 -- Scout Contracts and Policy Foundations
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -254,7 +254,7 @@ Define the scout-layer contracts and policy foundations.
 
 \---
 
-# Phase 2 — MVP Data Stack and Source Reliability Pre-Audit
+# Phase 2 -- MVP Data Stack and Source Reliability Pre-Audit
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -299,7 +299,7 @@ Constrain the system to a realistic MVP data stack.
 
 \---
 
-# Phase 3 — Universe Scanner
+# Phase 3 -- Universe Scanner
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -342,7 +342,7 @@ Create the candidate-generation front end.
 
 \---
 
-# Phase 4 — Event Normalization
+# Phase 4 -- Event Normalization
 
 **Mode:** \[STEP]
 
@@ -353,9 +353,9 @@ Convert raw evidence into one normalized event structure.
 ## Step-by-step checklist
 
 * \[ ] Implement normalized event schema validator
-* \[ ] Implement raw → normalized mapping for official lane
-* \[ ] Implement raw → normalized mapping for market lane
-* \[ ] Implement raw → normalized mapping for curated public-signal lane
+* \[ ] Implement raw ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ normalized mapping for official lane
+* \[ ] Implement raw ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ normalized mapping for market lane
+* \[ ] Implement raw ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ normalized mapping for curated public-signal lane
 * \[ ] Implement context-only normalization for Research Swarm enrichment
 * \[ ] Implement duplicate/derivative detection fields
 * \[ ] Implement parser-confidence handling
@@ -376,7 +376,7 @@ Convert raw evidence into one normalized event structure.
 
 \---
 
-# Phase 5 — Lane Scoring
+# Phase 5 -- Lane Scoring
 
 **Mode:** \[STEP]
 
@@ -413,7 +413,7 @@ Convert normalized events into lane-level scorecards.
 
 \---
 
-# Phase 6 — Contra-Signal Engine
+# Phase 6 -- Contra-Signal Engine
 
 **Mode:** \[STEP]
 
@@ -446,7 +446,7 @@ Add adversarial / contradiction checks before fusion.
 
 \---
 
-# Phase 7 — Fusion / Conflict / Signal Packet
+# Phase 7 -- Fusion / Conflict / Signal Packet
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -492,7 +492,7 @@ Produce the first real scout output.
 
 \---
 
-# Phase 8 — Signal Review Dashboard
+# Phase 8 -- Signal Review Dashboard
 
 **Mode:** \[PLAN] then \[STEP] \[DASH]
 
@@ -537,7 +537,7 @@ Make scout outputs reviewable by the operator.
 
 \---
 
-# Phase 9 — Research Handoff + Downstream Analyst Layer
+# Phase 9 -- Research Handoff + Downstream Analyst Layer
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -547,7 +547,7 @@ Connect strong signals to research brief and risk gate.
 
 ## Plan Mode focus
 
-* signal → research handoff
+* signal ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ research handoff
 * reuse of existing brief/risk-gate work
 * linkage fields
 * file/path migration if needed
@@ -556,8 +556,8 @@ Connect strong signals to research brief and risk gate.
 ## Step-by-step checklist
 
 * \[ ] Define research handoff packet
-* \[ ] Link signal packet → brief trigger
-* \[ ] Link brief → risk gate trigger
+* \[ ] Link signal packet ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ brief trigger
+* \[ ] Link brief ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ risk gate trigger
 * \[ ] Link signal packet IDs through downstream artifacts
 * \[ ] Reposition existing brief/risk-gate logic as downstream analyst layer
 * \[ ] Validate linkage from signal packet to downstream outputs
@@ -566,7 +566,7 @@ Connect strong signals to research brief and risk gate.
 
 ## Deliverables
 
-* \[ ] one linked signal → brief → risk gate path
+* \[ ] one linked signal ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ brief ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ risk gate path
 * \[ ] research review surface
 
 ## Proof gate \[PROOF]
@@ -577,7 +577,7 @@ Connect strong signals to research brief and risk gate.
 
 \---
 
-# Phase 10 — Paper Trade Engine
+# Phase 10 -- Paper Trade Engine
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -628,7 +628,7 @@ Start simulated execution.
 
 \---
 
-# Phase 11 — Daily Summary and Operator Review Loop
+# Phase 11 -- Daily Summary and Operator Review Loop
 
 **Mode:** \[PLAN] then \[STEP] \[DASH]
 
@@ -675,7 +675,7 @@ Create the daily review surface the operator wants.
 
 \---
 
-# Phase 12 — Learning / Calibration
+# Phase 12 -- Learning / Calibration
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -721,7 +721,7 @@ Start learning without losing control.
 
 \---
 
-# Phase 13 — Hardening / Replay / Health
+# Phase 13 -- Hardening / Replay / Health
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -767,7 +767,7 @@ Make the system stable enough for longer paper operation.
 
 \---
 
-# Phase 14 — Autonomous Transition
+# Phase 14 -- Autonomous Transition
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -795,7 +795,7 @@ Transition from fully human-gated paper operation into bounded policy-driven aut
 * \[ ] Implement Ghost Lane registry
 * \[ ] Implement autonomous policy calibration sandbox
 * \[ ] Ensure Safety Governor overrides routing
-* \[ ] Ensure Heartbeat Monitor can fail over Alpha → Beta
+* \[ ] Ensure Heartbeat Monitor can fail over Alpha ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ Beta
 * \[ ] Add autonomy metrics to daily summary/dashboard
 * \[ ] Force manual fallback when safety gates fire
 
@@ -815,7 +815,7 @@ Transition from fully human-gated paper operation into bounded policy-driven aut
 
 \---
 
-# Phase 15 — Live-Readiness Review
+# Phase 15 -- Live-Readiness Review
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -861,7 +861,7 @@ Decide whether the system deserves tiny live trading permission.
 
 \---
 
-# Phase 16 — Tiny Live Pilot
+# Phase 16 -- Tiny Live Pilot
 
 **Mode:** \[PLAN] then \[STEP]
 
@@ -953,7 +953,7 @@ Use it to control:
 
 The build method is locked:
 
-**Plan Mode at tranche start → Step-by-step execution inside the tranche → proof gate → docs/dashboard update if needed → commit → next tranche**
+**Plan Mode at tranche start ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ Step-by-step execution inside the tranche ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ proof gate ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ docs/dashboard update if needed ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ commit ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ next tranche**
 
 If the process follows this checklist, the system stays:
 
@@ -964,4 +964,5 @@ If the process follows this checklist, the system stays:
 * resistant to shiny-object drift
 
 \---
+
 

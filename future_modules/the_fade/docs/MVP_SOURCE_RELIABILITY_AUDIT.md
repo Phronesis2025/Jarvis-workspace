@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 75  
+**Prompt #:** 78  
 **Phase #:** 2  
 **Tranche #:** 24  
 
-Updated: 2026-03-25T20:54:01.9344552-05:00
+Updated: 2026-03-26T06:16:12.1992556-05:00
 
 ## Purpose
 
@@ -51,21 +51,21 @@ Use these buckets; none are approved yet:
 1. Fill `mvp_lane_approval.json` with operator-chosen MVP lanes.
 2. After operator signoff, re-run this audit to reflect the approved lane set.
 
-## Lane B (`lane_b_official_disclosure`) — reliability window (evidenced to date)
+## Lane B (`lane_b_official_disclosure`) -- reliability window (evidenced to date)
 
-**Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` (Tranche 18 micro-sample; Tranche 20 single-source slice; Tranche **22–23** original UTC grid attempts; Tranche **24** interim pilot schedule and ceilings).
+**Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` (Tranche 18 micro-sample; Tranche 20 single-source slice; Tranche **22-23** original UTC grid attempts; Tranche **24** interim pilot schedule and ceilings).
 
-**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) — **not** a valid **0.8** statistic. **Tranche 22–23** executed **two** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC schedule (Federal Register API only). **Tranche 24** includes an **availability-constrained interim reliability pilot** (**not** the full 48h / 24-attempt / **≥20**-count pre-audit gate window; **stricter Tranche 21 protocol** preserved above). **Prompt #75** executed **pilot slot 1** (`t24_fr_pilot_01`) — cumulative **3** counted / **3** successes / **0** failures for this Federal Register window+pilot slice. **No** honest comparison to **`required_reliability_threshold` 0.8** from this pilot. Reliability remains **partial / conservative** for gate purposes.
+**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) -- **not** a valid **0.8** statistic. **Tranche 22-23** executed **two** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC schedule (Federal Register API only). **Tranche 24** includes an **availability-constrained interim reliability pilot** (**not** the full 48h / 24-attempt / **>=20**-count pre-audit gate window; **stricter Tranche 21 protocol** preserved above). **Prompt #75** executed **pilot slot 1** (`t24_fr_pilot_01`) -- cumulative **3** counted / **3** successes / **0** failures for this Federal Register window+pilot slice. **No** honest comparison to **`required_reliability_threshold` 0.8** from this pilot. Reliability remains **partial / conservative** for gate purposes.
 
-## Lane B — provider / source class (Tranche 19)
+## Lane B -- provider / source class (Tranche 19)
 
-**Source of truth:** `docs/MVP_LANE_EVIDENCE_LOG.md` → **Lane B provider / source path (Tranche 19)**.
+**Source of truth:** `docs/MVP_LANE_EVIDENCE_LOG.md` Ã¢â€ â€™ **Lane B provider / source path (Tranche 19)**.
 
-**Key points:** `mvp_lane_approval.json` does **not** lock a disclosure provider (`TBD_OFFICIAL_DISCLOSURE_PROVIDER`). Tranche 16 mixed **Federal Register API**, **SEC/sec.gov**, and **issuer IR** — **not** one provider path. **Do not** treat mixed URLs as a single reliability statistic.
+**Key points:** `mvp_lane_approval.json` does **not** lock a disclosure provider (`TBD_OFFICIAL_DISCLOSURE_PROVIDER`). Tranche 16 mixed **Federal Register API**, **SEC/sec.gov**, and **issuer IR** -- **not** one provider path. **Do not** treat mixed URLs as a single reliability statistic.
 
-**Next bounded reliability work (when run):** **one** source class per pass — **provisional** recommendation: **U.S. Federal Register public API** only for that pass (see log for rationale). **SEC/issuer** disclosure is a **different** class and requires its own pass and declared traffic if used.
+**Next bounded reliability work (when run):** **one** source class per pass -- **provisional** recommendation: **U.S. Federal Register public API** only for that pass (see log for rationale). **SEC/issuer** disclosure is a **different** class and requires its own pass and declared traffic if used.
 
-## Lane B single-source reliability slice (Tranche 20 — Prompt #63)
+## Lane B single-source reliability slice (Tranche 20 -- Prompt #63)
 
 This tranche documents **single provider / source-class** reliability evidence only (no SEC URLs, no issuer IR URLs, no mixed provider tally).
 
@@ -73,14 +73,14 @@ This tranche documents **single provider / source-class** reliability evidence o
 - Exact endpoint repeated:
   - `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`
 - Countable `observe` attempts documented in the evidence log:
-  - **5 attempts** (`t20_fb_001`–`t20_fb_005`)
+  - **5 attempts** (`t20_fb_001`-`t20_fb_005`)
   - **Successes:** 5 (`event_id` emitted; `lag_class: fresh`)
   - **Failures:** 0 (`scout_failure` not emitted in this pass)
 
 Comparison to `required_reliability_threshold` (0.8):
 - **Not honestly justified yet**: this pass does **not** evidence a **calendar pre-audit window** or comparable adapter/source draws as required by the gate standard. Reliability remains **partial / conservative** for approval purposes.
 
-## Lane B pre-audit reliability window protocol (Tranche 21 — Prompt #65)
+## Lane B pre-audit reliability window protocol (Tranche 21 -- Prompt #65)
 
 **Scope:** Lane B reliability dimension only; **single** source-class discipline.
 
@@ -105,11 +105,11 @@ Count based on the **tool outcome class** returned by `lane_b_real_observation_s
 - **Failure:** the attempt returns a `scout_failure` (this includes timeout, TLS/DNS failures, HTTP `>= 400`, empty body, and any other fetch/normalization failure as encoded by the script).
 
 ### Handling timeouts, HTTP errors, malformed responses
-Use the tool’s encoded outcome class:
+Use the tool's encoded outcome class:
 - Any timeout / TLS / DNS / HTTP `>= 400` / empty body / fetch exception that results in `scout_failure` counts as **failure**.
 - If the tool emits malformed/unparseable output (no valid JSON), that attempt is **not counted** (treated as operator execution invalid) and should be re-run within the window.
 
-### What “honest comparison to 0.8” requires
+### What "honest comparison to 0.8" requires
 - **Minimum counted attempts required:** at least **20** counted attempts (successes + failures) from the window schedule.
 - **Reliability metric used for the comparison:** `reliability = successes / counted_attempts`
 - **Comparison is allowed only if** `counted_attempts >= 20`. Otherwise, do **not** compute or claim pass/fail vs `required_reliability_threshold` **0.8**.
@@ -122,36 +122,36 @@ Use the tool’s encoded outcome class:
 
 **Approval remains NOT granted** by this protocol definition alone; it only makes future reliability comparisons honest and repeatable.
 
-## Lane B availability-constrained interim pilot (Tranche 24 — Prompt #73)
+## Lane B availability-constrained interim pilot (Tranche 24 -- Prompt #73)
 
-**This section amends operator execution planning only.** It does **not** replace, weaken, or satisfy the **Lane B pre-audit reliability window protocol (Tranche 21)** above. The **48-hour UTC window**, **24** attempts on a **2h** grid, and **≥ 20** counted attempts before any **0.8** comparison remain the **stricter target standard** for a **full** pre-audit gate window.
+**This section amends operator execution planning only.** It does **not** replace, weaken, or satisfy the **Lane B pre-audit reliability window protocol (Tranche 21)** above. The **48-hour UTC window**, **24** attempts on a **2h** grid, and **>= 20** counted attempts before any **0.8** comparison remain the **stricter target standard** for a **full** pre-audit gate window.
 
-**Reclassification (honest):** Real operator availability **cannot** complete the original Tranche 21 schedule. The work **continues** as an **availability-constrained interim reliability pilot** (lane B, Federal Register API **only**, same exact endpoint as Tranche 21). This pilot is **for deciding whether continued testing is worth doing** — **not** for MVP gate proof.
+**Reclassification (honest):** Real operator availability **cannot** complete the original Tranche 21 schedule. The work **continues** as an **availability-constrained interim reliability pilot** (lane B, Federal Register API **only**, same exact endpoint as Tranche 21). This pilot is **for deciding whether continued testing is worth doing** -- **not** for MVP gate proof.
 
-**Source class (unchanged):** U.S. Federal Register public API only — exact URL:
+**Source class (unchanged):** U.S. Federal Register public API only -- exact URL:
 `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`
 
-### Historical counted attempts (original UTC schedule — Tranche 22–23)
+### Historical counted attempts (original UTC schedule -- Tranche 22-23)
 
-Already executed and logged: **`t22_fr_000`**, **`t22_fr_001`** — **2** counted attempts, **2** successes, **0** failures (see `docs/MVP_LANE_EVIDENCE_LOG.md`).
+Already executed and logged: **`t22_fr_000`**, **`t22_fr_001`** -- **2** counted attempts, **2** successes, **0** failures (see `docs/MVP_LANE_EVIDENCE_LOG.md`).
 
-### Interim pilot — live results (Tranche 24)
+### Interim pilot -- live results (Tranche 24)
 
-| Metric | Value (after Prompt **#75**) |
+| Metric | Value (after Prompt **#78**) |
 |--------|------------------------------|
-| Pilot slots completed | **1** / **6** (evening **8:13:55 PM** CDT slot) |
-| Latest `task_id` | **`t24_fr_pilot_01`** |
-| Cumulative counted (Tranche **22–23** + pilot) | **3** |
-| Successes / failures | **3** / **0** |
+| Pilot slots completed | **2** / **6** (evening **8:13:55 PM** + morning **6:13:55 AM** CDT slots) |
+| Latest `task_id` | **`t24_fr_pilot_02`** |
+| Cumulative counted (Tranche **22-23** + pilot) | **4** |
+| Successes / failures | **4** / **0** |
 
-Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` → **Pilot slot 1 (Prompt #75)**.
+Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 2 (Prompt #78)**.
 
-### Revised pilot execution plan (CDT) — remaining slots
+### Revised pilot execution plan (CDT) -- remaining slots
 
 | Pilot slot | Local time (CDT) |
 |------------|------------------|
-| Tonight (evening) | **8:13:55 PM** CDT — **executed** (Prompt **#75**, `t24_fr_pilot_01`) |
-| Tomorrow | **6:13:55 AM** CDT |
+| Tonight (evening) | **8:13:55 PM** CDT -- **executed** (Prompt **#75**, `t24_fr_pilot_01`) |
+| Tomorrow | **6:13:55 AM** CDT -- **executed** (Prompt **#78**, `t24_fr_pilot_02`) |
 | Tomorrow | **8:13:55 AM** CDT |
 | Tomorrow | **10:13:55 AM** CDT |
 | Tomorrow | **12:13:55 PM** CDT |
@@ -159,12 +159,13 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` → **Pilot slot 1 (Prompt #75)**.
 
 ### What this pilot can and cannot prove
 
-- **Maximum counted attempts (if every pilot slot is executed and counts):** **2** (Tranche **22–23**) **+ 6** (pilot schedule) **= 8** total — **3** counted so far (**1** pilot slot done).
-- **Does NOT justify** comparison to the original **`required_reliability_threshold` 0.8** gate statistic (pilot **cannot** reach **≥ 20** counted attempts; it is **not** the full pre-audit protocol).
+- **Maximum counted attempts (if every pilot slot is executed and counts):** **2** (Tranche **22-23**) **+ 6** (pilot schedule) **= 8** total -- **4** counted so far (**2** pilot slots done).
+- **Does NOT justify** comparison to the original **`required_reliability_threshold` 0.8** gate statistic (pilot **cannot** reach **>= 20** counted attempts; it is **not** the full pre-audit protocol).
 - **Does NOT** satisfy the Tranche 21 pre-audit window completion criteria.
 - **May** inform a **go / no-go** on whether to schedule a **future** full-protocol window when availability allows.
 
-**Source of truth for detail:** `docs/MVP_LANE_EVIDENCE_LOG.md` → **Lane B availability-constrained interim pilot (Tranche 24 — Prompt #73)**.
+**Source of truth for detail:** `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Lane B availability-constrained interim pilot (Tranche 24 -- Prompt #73)**.
 
 **Approval remains NOT granted.**
+
 
