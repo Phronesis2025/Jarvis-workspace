@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 88  
+**Prompt #:** 93  
 **Phase #:** 2  
-**Tranche #:** 24  
+**Tranche #:** 26  
 
-Updated: 2026-03-26T15:11:55.9872497-05:00
+Updated: 2026-03-26T18:07:50.4742908-05:00
 
 ## Purpose
 
@@ -168,5 +168,10 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 6 (Prompt #88)**.
 **Source of truth for detail:** `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Lane B availability-constrained interim pilot (Tranche 24 -- Prompt #73)**.
 
 **Approval remains NOT granted.**
+
+## Lane B post-pilot go/no-go (Tranche 26)
+
+- **Park:** lane B stays **promising-but-unapproved** (`mvp_lane_approval.json` remains `approved: false`).
+- **Advance (authorized next move only):** when operator availability allows, **schedule** a **full Tranche 21** Federal Register reliability window per this document and `docs/MVP_LANE_EVIDENCE_LOG.md` -- this is **not** an approval decision and **not** Phase 3.
 
 

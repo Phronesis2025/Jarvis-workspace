@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 88  
+**Prompt #:** 93  
 **Phase #:** 2  
-**Tranche #:** 24  
-**Updated:** 2026-03-26T15:11:55.9872497-05:00  
+**Tranche #:** 26  
+**Updated:** 2026-03-26T18:07:50.4742908-05:00  
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
@@ -32,7 +32,7 @@
 - Tranche 18 made reliability **explicitly thin**: **no** defined calendar pre-audit window or valid 0.8 test yet. Tranche 20 improved the **single-source** micro-sample (Federal Register API only; 5/5 successes) but still did **not** evidence a **calendar** pre-audit window. **Tranche 22-23** logged **two** counted attempts on the **original** UTC grid. **Tranche 24** states operator availability **cannot** finish that grid; the **interim pilot** caps at **8** counted attempts -- **still no** honest **0.8** gate comparison. A **full** Tranche 21 window (when feasible) remains required for gate-level reliability proof. **Approval remains unjustified** -- need full-protocol evidence (>=20 counted per Tranche 21), broader conflict permutations when in scope, and production-equivalent scout runtime when in scope.
 
 ## Operator next exact step (do not flip approval yet)
-- **Tranche 24 pilot:** **Final slot executed and documented** (`t24_fr_pilot_06`); interim pilot is complete; it **does not** justify any `required_reliability_threshold` **0.8** comparison or approval re-evaluation (**approval remains false**).
+- **Tranche 26 post-pilot decision:** lane B **parked** as promising-but-unapproved (**approval remains false**). **Next authorized move:** **schedule** a **future full Tranche 21** Federal Register reliability window when operator availability allows (gate protocol in `MVP_SOURCE_RELIABILITY_AUDIT.md`); **not** approval and **not** Phase 3.
 - Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until evidence clearly meets the gate standard.
 
 ## Canon design docs (foundational -- do not move or delete)

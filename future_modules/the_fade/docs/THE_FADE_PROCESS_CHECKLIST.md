@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 88  
+**Prompt #:** 93  
 **Phase #:** 2  
-**Tranche #:** 24  
+**Tranche #:** 26  
 
-Updated: 2026-03-26T15:11:55.9872497-05:00
+Updated: 2026-03-26T18:07:50.4742908-05:00
 
 ## Current state
 
@@ -47,6 +47,7 @@ Updated: 2026-03-26T15:11:55.9872497-05:00
 
 ## Exact current next step (recorded)
 
-1. **Tranche 24 pilot:** **Final slot complete.** Executed at **2:13:55 PM** CDT with `t24_fr_pilot_06` (Federal Register URL only). Pilot finished at **8** cumulative counted / **8** successes / **0** failures (including `t22_fr_000`, `t22_fr_001`) and remains an **interim** availability-constrained result set -- it proved a **positive interim success-path signal** for the locked Federal Register source class, but it **did NOT** satisfy the original Tranche 21 gate protocol; **do not** compare to **0.8** and **do not** re-evaluate approval (**approval remains false**). A **future** run must execute the **full** Tranche 21 window for gate-level reliability proof.
-2. Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until the operator determines the evidence meets the gate standard.
+1. **Lane B status:** **Parked** -- promising-but-unapproved; keep `mvp_lane_approval.json` at `approved:false`.
+2. **Next authorized Phase 2 move:** when feasible, **schedule and execute** the **full Tranche 21** Federal Register reliability window (48h UTC / 2h cadence / >=20 counted attempts before any **0.8** claim) per `MVP_SOURCE_RELIABILITY_AUDIT.md` + `MVP_LANE_EVIDENCE_LOG.md` -- **not** an approval flip.
+3. **Do not** start Phase 3 scanner/runtime work until the MVP gate is satisfied.
 
