@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 80  
+**Prompt #:** 82  
 **Phase #:** 2  
 **Tranche #:** 24  
 
-Updated: 2026-03-26T08:17:03.4861199-05:00
+Updated: 2026-03-26T10:37:35.2097793-05:00
 
 ## Purpose
 
@@ -55,7 +55,7 @@ Use these buckets; none are approved yet:
 
 **Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` (Tranche 18 micro-sample; Tranche 20 single-source slice; Tranche **22-23** original UTC grid attempts; Tranche **24** interim pilot schedule and ceilings).
 
-**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) -- **not** a valid **0.8** statistic. **Tranche 22-23** executed **two** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC schedule (Federal Register API only). **Tranche 24** includes an **availability-constrained interim reliability pilot** (**not** the full 48h / 24-attempt / **>=20**-count pre-audit gate window; **stricter Tranche 21 protocol** preserved above). **Prompt #80** executed **pilot slot 3** (`t24_fr_pilot_03`) -- cumulative **5** counted / **5** successes / **0** failures for this Federal Register window+pilot slice. **No** honest comparison to **`required_reliability_threshold` 0.8** from this pilot. Reliability remains **partial / conservative** for gate purposes.
+**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) -- **not** a valid **0.8** statistic. **Tranche 22-23** executed **two** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC schedule (Federal Register API only). **Tranche 24** includes an **availability-constrained interim reliability pilot** (**not** the full 48h / 24-attempt / **>=20**-count pre-audit gate window; **stricter Tranche 21 protocol** preserved above). **Prompt #82** executed **pilot slot 4** (`t24_fr_pilot_04`) -- cumulative **6** counted / **6** successes / **0** failures for this Federal Register window+pilot slice. **No** honest comparison to **`required_reliability_threshold` 0.8** from this pilot. Reliability remains **partial / conservative** for gate purposes.
 
 ## Lane B -- provider / source class (Tranche 19)
 
@@ -137,14 +137,14 @@ Already executed and logged: **`t22_fr_000`**, **`t22_fr_001`** -- **2** counted
 
 ### Interim pilot -- live results (Tranche 24)
 
-| Metric | Value (after Prompt **#80**) |
+| Metric | Value (after Prompt **#82**) |
 |--------|------------------------------|
-| Pilot slots completed | **3** / **6** (8:13:55 PM, 6:13:55 AM, 8:13:55 AM CDT slots) |
-| Latest `task_id` | **`t24_fr_pilot_03`** |
-| Cumulative counted (Tranche **22-23** + pilot) | **5** |
-| Successes / failures | **5** / **0** |
+| Pilot slots completed | **4** / **6** (8:13:55 PM, 6:13:55 AM, 8:13:55 AM, 10:13:55 AM CDT slots) |
+| Latest `task_id` | **`t24_fr_pilot_04`** |
+| Cumulative counted (Tranche **22-23** + pilot) | **6** |
+| Successes / failures | **6** / **0** |
 
-Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 3 (Prompt #80)**.
+Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 4 (Prompt #82)**.
 
 ### Revised pilot execution plan (CDT) -- remaining slots
 
@@ -153,13 +153,13 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 3 (Prompt #80)**.
 | Tonight (evening) | **8:13:55 PM** CDT -- **executed** (Prompt **#75**, `t24_fr_pilot_01`) |
 | Tomorrow | **6:13:55 AM** CDT -- **executed** (Prompt **#78**, `t24_fr_pilot_02`) |
 | Tomorrow | **8:13:55 AM** CDT -- **executed** (Prompt **#80**, `t24_fr_pilot_03`) |
-| Tomorrow | **10:13:55 AM** CDT |
+| Tomorrow | **10:13:55 AM** CDT -- **executed** (Prompt **#82**, `t24_fr_pilot_04`) |
 | Tomorrow | **12:13:55 PM** CDT |
 | Tomorrow | **2:13:55 PM** CDT |
 
 ### What this pilot can and cannot prove
 
-- **Maximum counted attempts (if every pilot slot is executed and counts):** **2** (Tranche **22-23**) **+ 6** (pilot schedule) **= 8** total -- **5** counted so far (**3** pilot slots done).
+- **Maximum counted attempts (if every pilot slot is executed and counts):** **2** (Tranche **22-23**) **+ 6** (pilot schedule) **= 8** total -- **6** counted so far (**4** pilot slots done).
 - **Does NOT justify** comparison to the original **`required_reliability_threshold` 0.8** gate statistic (pilot **cannot** reach **>= 20** counted attempts; it is **not** the full pre-audit protocol).
 - **Does NOT** satisfy the Tranche 21 pre-audit window completion criteria.
 - **May** inform a **go / no-go** on whether to schedule a **future** full-protocol window when availability allows.

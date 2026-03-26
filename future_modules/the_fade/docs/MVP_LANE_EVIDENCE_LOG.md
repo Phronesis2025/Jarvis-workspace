@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 80  
+**Prompt #:** 82  
 **Phase #:** 2  
 **Tranche #:** 24  
 
-Updated: 2026-03-26T08:17:03.4861199-05:00
+Updated: 2026-03-26T10:37:35.2097793-05:00
 
 ## Purpose
 
@@ -298,8 +298,8 @@ The harness (`lane_b_controlled_evidence_harness.py`) remains **rehearsal-only**
 
 Script: `future_modules/the_fade/scripts/lane_b_real_observation_slice.py`
 
-- **observe:** reads one real **HTTPS URL** or **local file path** �?�?�?¢�?¢â�??¬�? �?¢â�??¬â�??¢ writes `future_modules/the_fade/outputs/lane_b_real_observation/{task_id}_scout_failure.json` **or** `{task_id}_normalized_signal_event.json` (stdout prints the same object).
-- **conflict:** reads one **lane B artifact** (normalized JSON from observe) + one **THE FADE-local** `context_only_contra` JSON (`semantic_role` = `lane_e_research_swarm_context`) �?�?�?¢�?¢â�??¬�? �?¢â�??¬â�??¢ writes `{task_id}_conflict_packet.json`; uses `config/fusion_policy.json` **read-only** for weight wording.
+- **observe:** reads one real **HTTPS URL** or **local file path** �?�?�?¢�?¢â�??¬�? �?¢â�??¬â�??¢ writes `future_modules/the_fade/outputs/lane_b_real_observation/{task_id}_scout_failure.json` **or** `{task_id}_normalized_signal_event.json` (stdout prints the same object).
+- **conflict:** reads one **lane B artifact** (normalized JSON from observe) + one **THE FADE-local** `context_only_contra` JSON (`semantic_role` = `lane_e_research_swarm_context`) �?�?�?¢�?¢â�??¬�? �?¢â�??¬â�??¢ writes `{task_id}_conflict_packet.json`; uses `config/fusion_policy.json` **read-only** for weight wording.
 
 **Smoke tests** (developer-run, not gate approval): file read + `https://example.com` fetch + conflict against `inputs/lane_b_real_evidence/context_only_contra.example.json` succeeded locally. **This does not substitute for operator gate evidence** using a real disclosure URL/file and honest contra provenance -- it only proves the slice runs.
 
@@ -441,7 +441,7 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 
 **Scope:** Lane B only; **Federal Register public API** at the **exact** URL from Tranche 21 protocol -- no SEC URLs, no issuer IR URLs, no other lanes.
 
-**Protocol reference:** `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` �?�?�?¢�?¢â�??¬�? �?¢â�??¬â�??¢ **Lane B pre-audit reliability window protocol (Tranche 21)** (stricter target -- **preserved**; **not** erased).
+**Protocol reference:** `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` �?�?�?¢�?¢â�??¬�? �?¢â�??¬â�??¢ **Lane B pre-audit reliability window protocol (Tranche 21)** (stricter target -- **preserved**; **not** erased).
 
 **Tranche 24 note:** The full **24-attempt UTC grid** below remains the **documented Tranche 21 standard**. Operator **real availability** no longer supports completing it; **remaining** executions are replanned under **Lane B availability-constrained interim pilot (Tranche 24 -- Prompt #73)** -- **not** a claim that the full pre-audit window is still being executed.
 
@@ -452,7 +452,7 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 | `window_start_utc` | `2026-03-25T21:13:55Z` (ISO8601 UTC -- start of **attempt 0** `observe`; aligns with tool `ingested_at` / internal `created_at` at run start) |
 | `window_end_utc` | `2026-03-27T21:13:55Z` (`window_start_utc` + **48 hours**, strict) |
 
-### Full 24-attempt schedule (UTC) -- `window_start_utc + (i �?�?�?�??�?¢â�??¬â�?� 2h)` for `i = 0..23`
+### Full 24-attempt schedule (UTC) -- `window_start_utc + (i �?�?�?�??�?¢â�??¬â�?� 2h)` for `i = 0..23`
 
 | i | Scheduled UTC |
 |---|----------------|
@@ -550,7 +550,7 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 | Tonight (evening) | **8:13:55 PM** CDT -- **done** (Prompt **#75**, `t24_fr_pilot_01`) |
 | Tomorrow | **6:13:55 AM** CDT -- **done** (Prompt **#78**, `t24_fr_pilot_02`) |
 | Tomorrow | **8:13:55 AM** CDT -- **done** (Prompt **#80**, `t24_fr_pilot_03`) |
-| Tomorrow | **10:13:55 AM** CDT |
+| Tomorrow | **10:13:55 AM** CDT -- **done** (Prompt **#82**, `t24_fr_pilot_04`) |
 | Tomorrow | **12:13:55 PM** CDT |
 | Tomorrow | **2:13:55 PM** CDT |
 
@@ -628,11 +628,36 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 | `ingested_at` (tool) | `2026-03-26T13:16:45Z` |
 | Endpoint | `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` |
 | HTTP / notes | **200**; notes include `http_status=200 latency_ms=328.8`; `lag_class`: **fresh** |
+
+### Pilot slot 4 -- morning (Tranche 24 -- Prompt #82)
+
+**Interim pilot only** -- **not** the full Tranche 21 gate window. Federal Register API **only**; endpoint unchanged.
+
+#### Due-time check (before execution)
+
+| Field | Value |
+|-------|--------|
+| `pilot_slot_4_scheduled_cdt` | **2026-03-26 10:13:55** CDT (**10:13:55 AM** CDT) |
+| `due_verified_at_utc` | `2026-03-26T15:29:38Z` |
+| `due_verified_at_cdt` | **2026-03-26 10:29:38** CDT |
+| **Due?** | **Yes** -- `due_verified_at_cdt` >= `pilot_slot_4_scheduled_cdt` |
+
+#### Observed result
+
+| Field | Value |
+|-------|--------|
+| `task_id` | **`t24_fr_pilot_04`** (**new** -- not reused from prior runs) |
+| Counted? | **Yes** (valid JSON on stdout) |
+| Outcome class | **`normalized_signal_event`** (**success**) |
+| `event_id` | `evt_t24_fr_pilot_04_5fb099931df8` |
+| `ingested_at` (tool) | `2026-03-26T15:37:28Z` |
+| Endpoint | `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` |
+| HTTP / notes | **200**; notes include `http_status=200 latency_ms=290.2`; `lag_class`: **fresh** |
 ### Counted-attempt ceiling (honest)
 
 - **Tranche 22-23 (original UTC grid):** **2** (`t22_fr_000`, `t22_fr_001`).
-- **Pilot slots executed:** **3** / **6** (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`).
-- **Cumulative counted (this slice):** **5** (**5** successes, **0** failures).
+- **Pilot slots executed:** **4** / **6** (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`).
+- **Cumulative counted (this slice):** **6** (**6** successes, **0** failures).
 - **Maximum cumulative if all pilot slots run and count:** **8** -- still **does NOT** meet Tranche 21's **>= 20** minimum for any **0.8** comparison.
 
 ### What this pilot can and cannot prove
