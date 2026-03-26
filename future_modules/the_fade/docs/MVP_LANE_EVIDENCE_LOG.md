@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 82  
+**Prompt #:** 86  
 **Phase #:** 2  
 **Tranche #:** 24  
 
-Updated: 2026-03-26T10:37:35.2097793-05:00
+Updated: 2026-03-26T12:16:32.0994279-05:00
 
 ## Purpose
 
@@ -551,7 +551,7 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 | Tomorrow | **6:13:55 AM** CDT -- **done** (Prompt **#78**, `t24_fr_pilot_02`) |
 | Tomorrow | **8:13:55 AM** CDT -- **done** (Prompt **#80**, `t24_fr_pilot_03`) |
 | Tomorrow | **10:13:55 AM** CDT -- **done** (Prompt **#82**, `t24_fr_pilot_04`) |
-| Tomorrow | **12:13:55 PM** CDT |
+| Tomorrow | **12:13:55 PM** CDT -- **done** (Prompt **#86**, `t24_fr_pilot_05`) |
 | Tomorrow | **2:13:55 PM** CDT |
 
 ### Pilot slot 1 -- evening (Tranche 24 -- Prompt #75)
@@ -653,11 +653,36 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 | `ingested_at` (tool) | `2026-03-26T15:37:28Z` |
 | Endpoint | `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` |
 | HTTP / notes | **200**; notes include `http_status=200 latency_ms=290.2`; `lag_class`: **fresh** |
+
+### Pilot slot 5 -- midday (Tranche 24 -- Prompt #86)
+
+**Interim pilot only** -- **not** the full Tranche 21 gate window. Federal Register API **only**; endpoint unchanged.
+
+#### Due-time check (before execution)
+
+| Field | Value |
+|-------|--------|
+| `pilot_slot_5_scheduled_cdt` | **2026-03-26 12:13:55** CDT (**12:13:55 PM** CDT) |
+| `due_verified_at_utc` | `2026-03-26T17:16:14Z` |
+| `due_verified_at_cdt` | **2026-03-26 12:16:14** CDT |
+| **Due?** | **Yes** -- `due_verified_at_cdt` >= `pilot_slot_5_scheduled_cdt` |
+
+#### Observed result
+
+| Field | Value |
+|-------|--------|
+| `task_id` | **`t24_fr_pilot_05`** (**new** -- not reused from prior runs) |
+| Counted? | **Yes** (valid JSON on stdout) |
+| Outcome class | **`normalized_signal_event`** (**success**) |
+| `event_id` | `evt_t24_fr_pilot_05_5fb099931df8` |
+| `ingested_at` (tool) | `2026-03-26T17:16:23Z` |
+| Endpoint | `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` |
+| HTTP / notes | **200**; notes include `http_status=200 latency_ms=239.0`; `lag_class`: **fresh** |
 ### Counted-attempt ceiling (honest)
 
 - **Tranche 22-23 (original UTC grid):** **2** (`t22_fr_000`, `t22_fr_001`).
-- **Pilot slots executed:** **4** / **6** (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`).
-- **Cumulative counted (this slice):** **6** (**6** successes, **0** failures).
+- **Pilot slots executed:** **5** / **6** (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`, `t24_fr_pilot_05`).
+- **Cumulative counted (this slice):** **7** (**7** successes, **0** failures).
 - **Maximum cumulative if all pilot slots run and count:** **8** -- still **does NOT** meet Tranche 21's **>= 20** minimum for any **0.8** comparison.
 
 ### What this pilot can and cannot prove
