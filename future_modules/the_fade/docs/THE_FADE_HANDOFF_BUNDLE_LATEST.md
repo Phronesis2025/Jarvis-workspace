@@ -1,15 +1,16 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 93  
+**Prompt #:** 95  
 **Phase #:** 2  
 **Tranche #:** 26  
-**Updated:** 2026-03-26T18:07:50.4742908-05:00  
+**Updated:** 2026-03-26T22:04:30.5504620-05:00  
 **Branch:** `the-fade-phase1-tranche1-foundation`
 
 ## Live truth (current state)
 - Approval is NOT granted.
 - `future_modules/the_fade/config/mvp_lane_approval.json` is still the approval authority with `approved: false`, `approved_by: null`, `approved_at: null`, and `approved_mvp_lanes: []`.
 - No MVP lanes are approved yet.
+- THE FADE is still an early-stage future module (not live, not integrated).
 - No Phase 3 scanner or dashboard-contract work; THE FADE has only the bounded lane B observation script (`lane_b_real_observation_slice.py`), not full scout runtime.
 - Evidence is being collected under Phase 2.
 - `lane_b_official_disclosure` is the most advanced candidate lane so far, but it is still insufficient for approval.
@@ -34,6 +35,7 @@
 ## Operator next exact step (do not flip approval yet)
 - **Tranche 26 post-pilot decision:** lane B **parked** as promising-but-unapproved (**approval remains false**). **Next authorized move:** **schedule** a **future full Tranche 21** Federal Register reliability window when operator availability allows (gate protocol in `MVP_SOURCE_RELIABILITY_AUDIT.md`); **not** approval and **not** Phase 3.
 - Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until evidence clearly meets the gate standard.
+- Treat `JARVIS_CODEBASE_STRUCTURE.md` as unrelated dirty drift outside THE FADE state.
 
 ## Canon design docs (foundational -- do not move or delete)
 

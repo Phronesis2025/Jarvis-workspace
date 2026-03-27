@@ -1,45 +1,41 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 30  
+**Prompt #:** 95  
 **Phase #:** 2  
-**Tranche #:** 8  
+**Tranche #:** 26  
 
-Updated: 2026-03-25T10:38:45.6896736-05:00
+Updated: 2026-03-26T22:04:30.5504620-05:00
 
-## Branch this work continues from (must not change)
+## One-screen truth (new chat fast-start)
 
-`the-fade-phase1-tranche1-foundation`
+- Branch: `the-fade-phase1-tranche1-foundation`.
+- THE FADE is an early-stage future module (not live, not integrated, no production runtime).
+- Current gate phase: **Phase 2** only.
+- Approval authority (`future_modules/the_fade/config/mvp_lane_approval.json`) remains `approved: false` with `approved_mvp_lanes: []`.
+- Most advanced lane: `lane_b_official_disclosure` (still partial / unapproved).
 
-## What is already done (on this branch)
+## What is done
 
-- Phase 1 / Tranche 1 foundation contracts are present under `future_modules/the_fade/`:
-  - `README.md`, `module_spec.md`, `docs/CANON_INDEX.md`
-  - Phase 0 lock file and attestation: `docs/THE_FADE_PHASE0_FINAL_LOCK.md` + `docs/THE_FADE_PHASE0_FINAL_LOCK_ATTESTATION.md`
-  - Phase 1 schemas, config registries, and examples under `schemas/`, `config/`, and `examples/`
-- Phase 0 lock attestation remediation is complete (Prompt #8 finished).
-- Branch placement is fixed: THE FADE foundation content was moved off `research-swarm-github-pipeline`.
-- Phase 2 approval-gate preparation artifacts now exist but are not approved:
-  - `config/mvp_lane_approval.json` exists with `approved: false`
-  - `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` exists as the operator-facing pre-audit
-- Phase 2 / Tranche 3 evidence pack exists (evidence collection only; no approval):
-  - `config/mvp_lane_evidence_registry.json`
-  - `docs/MVP_LANE_EVIDENCE_LOG.md`
-  - `examples/example_mvp_lane_evidence_entry.json`
-- Phase 2 / Tranche 4: first lane evidence recorded for `lane_b_official_disclosure` (partial; evidence-in-progress).
+- Tranche 24 lane B availability-constrained interim pilot is complete on Federal Register API only.
+- Final interim pilot total is **8 counted / 8 successes / 0 failures** (`t22_fr_000`, `t22_fr_001`, `t24_fr_pilot_01` ... `t24_fr_pilot_06`).
+- Tranche 26 decision is locked: lane B is **promising-but-unapproved** and **parked**.
 
-## What is not done yet (do not start)
+## What is not done
 
-- Phase 2 operator decision is recorded as defer (approval still not granted):
-  - `mvp_lane_approval.json` is still `approved: false`
-  - no MVP lanes are approved yet; all candidate MVP lanes remain deferred
-- Lane B evidence is in-progress (partial). Stale/outage behavior remains partial because this branch does not record a recorded, timestamped controlled stale/unavailable incident replay with explicit downgrade/escalation/omit behavior outcomes.
-- Context-dominance risk remains partial because this branch does not record adversarial/conflict-case evidence proving context-only enrichment never gains precedence over `lane_b_official_disclosure` primary truth under gate conditions.
-- Approval is still not warranted in this branch.
-- No runners, no outputs, no logs for THE FADE.
-- No `dashboard_contract/` and no dashboard pages for THE FADE.
-- No heartbeat schema/code in Tranches 1–3.
+- The pilot does **not** satisfy the full Tranche 21 gate protocol.
+- The pilot does **not** justify any `required_reliability_threshold` **0.8** comparison.
+- The pilot does **not** justify approval re-evaluation.
+- Phase 3 scanner/runtime/dashboard work is still blocked.
 
-## Current rule for future work
+## Exact next authorized move
 
-All future THE FADE work must be started from `the-fade-phase1-tranche1-foundation` and must follow the tranche order in `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`. Do not start Phase 2 from any other branch by accident.
+- When operator availability allows, **schedule and execute a future full Tranche 21 Federal Register reliability window** (48h UTC, 2h cadence, >=20 counted attempts before any 0.8 comparison), then re-audit.
+
+## Guardrails against scope creep
+
+- Do not treat Tranche 24 interim pilot as a gate pass.
+- Do not flip approval from `approved:false` without full gate evidence.
+- Do not start Phase 3.
+- Canon docs under `future_modules/stock_module/` are foundational and must not be moved or deleted (`future_modules/the_fade/docs/CANON_INDEX.md`).
+- `JARVIS_CODEBASE_STRUCTURE.md` is unrelated dirty drift and not part of THE FADE state.
 

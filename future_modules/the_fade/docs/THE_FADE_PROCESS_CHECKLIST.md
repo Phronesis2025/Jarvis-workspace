@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 93  
+**Prompt #:** 95  
 **Phase #:** 2  
 **Tranche #:** 26  
 
-Updated: 2026-03-26T18:07:50.4742908-05:00
+Updated: 2026-03-26T22:04:30.5504620-05:00
 
 ## Current state
 
@@ -14,6 +14,7 @@ Updated: 2026-03-26T18:07:50.4742908-05:00
   - **Canon recovery (Prompt #54):** the eight `JARVIS_THE_FADE_*.md` design canon files are restored under `future_modules/stock_module/` per `docs/CANON_INDEX.md`. They are foundational and **must not be moved or deleted** without governed documentation change.
   - Bounded Phase 2 lane B observation slice only (`lane_b_real_observation_slice.py`); no Phase 3 scanner
 - Phase 2 / Tranche 2 gate prep exists; operator recorded a deferred decision (`approved:false`), so no MVP lanes are approved yet.
+- THE FADE remains an early-stage future module (not live, not integrated, no Phase 3 runtime).
 - Phase 2 / Tranche 3 evidence pack exists for operator evidence collection; approval is still not granted.
 - Phase 2 / Tranche 4: lane B evidence is in-progress (partial). Tranche 16 added **bounded real** slice evidence for stale/outage and context-dominance dimensions (registry dimensions **recorded** for the slice); lane-level approval bar remains unmet.
 - Phase 2 / Tranche 12: **simulated harness rehearsal** (Prompts #41-#42).
@@ -50,4 +51,5 @@ Updated: 2026-03-26T18:07:50.4742908-05:00
 1. **Lane B status:** **Parked** -- promising-but-unapproved; keep `mvp_lane_approval.json` at `approved:false`.
 2. **Next authorized Phase 2 move:** when feasible, **schedule and execute** the **full Tranche 21** Federal Register reliability window (48h UTC / 2h cadence / >=20 counted attempts before any **0.8** claim) per `MVP_SOURCE_RELIABILITY_AUDIT.md` + `MVP_LANE_EVIDENCE_LOG.md` -- **not** an approval flip.
 3. **Do not** start Phase 3 scanner/runtime work until the MVP gate is satisfied.
+4. Ignore unrelated workspace drift (`JARVIS_CODEBASE_STRUCTURE.md`) when executing THE FADE-only passes.
 
