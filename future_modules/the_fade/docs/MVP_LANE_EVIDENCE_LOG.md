@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 88  
+**Prompt #:** 102  
 **Phase #:** 2  
-**Tranche #:** 24  
+**Tranche #:** 30  
 
-Updated: 2026-03-26T14:16:54.3008824-05:00
+Updated: 2026-03-30T07:32:19-05:00
 
 ## Purpose
 
@@ -77,7 +77,9 @@ Use this format per lane. Fill the fields with operator observations; if somethi
 
 ## Status (current)
 
-This log is created for evidence collection. As of creation, evidence is expected to be recorded by the operator before any MVP approval change.
+**Tranche 30 (Prompt #102):** Full-window Federal Register slot evidence is **captured on disk** and summarized in **Lane B full Tranche 21 Federal Register reliability window (Tranche 30 -- Prompt #102)** below. **`mvp_lane_approval.json`** remains **`approved: false`** unless and until that file is updated — this log does **not** grant approval. **Phase 3** remains **blocked**.
+
+Earlier sections remain **historical** unless this file explicitly points forward to a newer slice.
 
 ## Evidence entry: lane_b_official_disclosure (Tranche 4)
 
@@ -703,19 +705,61 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 | `ingested_at` (tool) | `2026-03-26T19:16:48Z` |
 | Endpoint | `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` |
 | HTTP / notes | **200**; notes include `http_status=200 latency_ms=237.8`; `lag_class`: **fresh** |
-### Counted-attempt ceiling (honest)
+
+## Lane B full Tranche 21 Federal Register reliability window (Tranche 30 -- Prompt #102)
+
+**Governed post-run reconciliation.** Source of truth for machine-readable counts:  
+`future_modules/the_fade/outputs/lane_b_real_observation/tranche21_fr_slot_runs.jsonl`  
+Collector: `future_modules/the_fade/scripts/run_tranche21_fr_slot.py`.
+
+### Full-window counted evidence (gate-relevant tally)
+
+- **Declared window (UTC):** `window_start_utc` **`2026-03-27T16:00:00Z`**, `window_end_utc` **`2026-03-29T16:00:00Z`** (48h).
+- **Counted full-window records:** **22**.
+- **Successes (`source_observation_success: true`):** **22**.
+- **Failures:** **0**.
+- **Timing for counted-slot use:** all **22** have **`timing_valid_for_counted_slot_use: true`** and (where present) slot timing consistent with **`timing_valid`** / **`slot_timing_status: timing_valid`** per JSONL rows.
+
+### Explicitly excluded from the 22-slot full-window tally
+
+- **One** additional JSONL line records **`task_id: t30_valid_002`** under **different** `window_start_utc` / `window_end_utc` (out-of-window **smoke / harness**). **Do not** count it toward the full-window gate unless operator policy explicitly merges it.
+
+### Latest full-window slot (chronological last among the 22)
+
+| Field | Value |
+|-------|--------|
+| `task_id` | **`t21_fr_full_20260329T100000Z`** |
+| `scheduled_slot_utc` | **`2026-03-29T10:00:00Z`** |
+| `actual_started_at_utc` | **`2026-03-29T10:00:03Z`** |
+| `source_observation_success` | **true** |
+| `slot_timing_status` | **`timing_valid`** |
+
+### Honest `required_reliability_threshold` (0.8) language (count floor only)
+
+- Tranche 21 protocol allows documenting **`reliability = successes / counted_attempts`** vs **0.8** only when **`counted_attempts >= 20`**. Here, **full-window counted attempts = 22**, so **that numeric comparison is eligible to be stated** for **this slice only**: **22 / 22** observed on the logged outcomes.
+- **This evidence does not equal MVP approval.** Binding approval remains **`mvp_lane_approval.json`** — still **`approved: false`**, **`approved_mvp_lanes: []`** until changed there. Other MVP dimensions (freshness discipline at scale, normalization breadth, stale/outage dominance, conflict permutations, context dominance, production-equivalent runtime) are **not** proven by this window alone.
+- **Phase 3** stays **blocked**.
+
+### Operator gate-review triage note (Prompt #103)
+
+- **Current-review-now controls used at this checkpoint:** critic/adversarial review, audit-before-trust, and risk-first scrutiny against over-reading one strong full-window slice.
+- **Future guardrails only:** auth/permission layering, isolated sub-account permissions, MCP-first infra filter with anti-affiliate rule, sim-first bridge, and position sizing/drawdown controls.
+- **Parking lot only:** any concrete critic-agent build, MCP tooling build, exchange/live execution integration, or execution-adjacent implementation.
+- **No state change from this triage:** lane B remains **promising-but-unapproved**; `mvp_lane_approval.json` remains **`approved: false`** with **`approved_mvp_lanes: []`**; **Phase 3 remains blocked**.
+
+### Counted-attempt ceiling (honest) -- historical pilot slice only
 
 - **Tranche 22-23 (original UTC grid):** **2** (`t22_fr_000`, `t22_fr_001`).
 - **Pilot slots executed:** **6** / **6** (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`, `t24_fr_pilot_05`, `t24_fr_pilot_06`).
-- **Cumulative counted (this slice):** **8** (**8** successes, **0** failures).
-- **Maximum cumulative if all pilot slots run and count:** **8** -- still **does NOT** meet Tranche 21's **>= 20** minimum for any **0.8** comparison.
+- **Cumulative counted (pilot slice only, before full window):** **8** (**8** successes, **0** failures). The **full Tranche 21 window** adds the **22** JSONL rows above — **separate** governed tally.
 
-### What this pilot can and cannot prove
+### What this pilot can and cannot prove (historical pilot slice)
 
-- **Can:** support a **go / no-go** judgment on whether **continued** Federal Register lane B testing is worth scheduling when a **full** Tranche 21 window becomes feasible.
-- **Cannot:** justify comparison to **`required_reliability_threshold` 0.8**; **cannot** satisfy the full pre-audit protocol; **cannot** grant MVP approval.
+- **Can (when this was current):** support a **go / no-go** on whether **continued** Federal Register lane B testing was worth scheduling before the full window existed.
+- **Cannot (pilot-only):** the **8**-attempt pilot slice **alone** did **not** justify an honest **0.8** comparison or full pre-audit completion; **cannot** grant MVP approval.
+- **Tranche 30 note:** The **full-window** **22** counted / **22** successes / **0** failures slice is documented **above**; use that section for gate-relevant Tranche 21 tallies.
 
-**Approval:** unchanged -- `mvp_lane_approval.json` remains `approved: false`.
+**Approval:** unchanged -- `mvp_lane_approval.json` remains `approved: false` unless updated there.
 
 ENDPOINT POINTER:
 - Approval gate: `future_modules/the_fade/config/mvp_lane_approval.json`

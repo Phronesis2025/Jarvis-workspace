@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 93  
+**Prompt #:** 102  
 **Phase #:** 2  
-**Tranche #:** 26  
+**Tranche #:** 30  
 
-Updated: 2026-03-26T18:07:50.4742908-05:00
+Updated: 2026-03-30T07:32:19-05:00
 
 ## Purpose
 
@@ -53,13 +53,15 @@ Use these buckets; none are approved yet:
 
 ## Lane B (`lane_b_official_disclosure`) -- reliability window (evidenced to date)
 
-**Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` (Tranche 18 micro-sample; Tranche 20 single-source slice; Tranche **22-23** original UTC grid attempts; Tranche **24** interim pilot schedule and ceilings).
+**Source of truth for counts:** `docs/MVP_LANE_EVIDENCE_LOG.md` and append-only  
+`future_modules/the_fade/outputs/lane_b_real_observation/tranche21_fr_slot_runs.jsonl`  
+(plus `future_modules/the_fade/scripts/run_tranche21_fr_slot.py` for collector semantics).
 
-**Summary:** Historical **Tranche 16** session: **four** HTTPS tries (**one** HTTP 200, **three** HTTP 403 across URL classes) -- **not** a valid **0.8** statistic. **Tranche 22-23** executed **two** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC schedule (Federal Register API only). **Tranche 24** includes an **availability-constrained interim reliability pilot** (**not** the full 48h / 24-attempt / **>=20**-count pre-audit gate window; **stricter Tranche 21 protocol** preserved above). **Prompt #88** executed the **final pilot slot** (`t24_fr_pilot_06`) -- cumulative **8** counted / **8** successes / **0** failures for this Federal Register window+pilot slice. **No** honest comparison to **`required_reliability_threshold` 0.8** from this pilot. Reliability remains **partial / conservative** for gate purposes.
+**Summary (Tranche 30 reconciliation):** Historical **Tranche 16** mixed-host session remains **not** a valid **0.8** statistic. **Tranche 22-23:** **2** counted FR attempts. **Tranche 24** interim pilot: **8** counted / **8** successes / **0** failures (**not** the full pre-audit window). **Full Tranche 21 Federal Register window (on disk):** **22** **counted** full-window records matching `window_start_utc=2026-03-27T16:00:00Z` and `window_end_utc=2026-03-29T16:00:00Z`; **22** successes; **0** failures; all **22** **timing-valid** for counted-slot use. **One** separate line (`task_id` **`t30_valid_002`**) is **out-of-window smoke** — **excluded** from the **22**-slot tally. **Honest 0.8 comparison:** `counted_attempts >= 20` is **met** for **this full-window slice only**, so **`reliability = successes / counted_attempts`** may be **stated** (**22/22** on observed outcomes) **without** claiming pass/fail of the **whole MVP gate**. **This is not approval** — `mvp_lane_approval.json` remains **`approved: false`**, **`approved_mvp_lanes: []`** until changed there. **Phase 3** remains **blocked**. Other gate dimensions stay **partial** unless separately evidenced.
 
 ## Lane B -- provider / source class (Tranche 19)
 
-**Source of truth:** `docs/MVP_LANE_EVIDENCE_LOG.md` Ã¢â€ â€™ **Lane B provider / source path (Tranche 19)**.
+**Source of truth:** `docs/MVP_LANE_EVIDENCE_LOG.md` → **Lane B provider / source path (Tranche 19)**.
 
 **Key points:** `mvp_lane_approval.json` does **not** lock a disclosure provider (`TBD_OFFICIAL_DISCLOSURE_PROVIDER`). Tranche 16 mixed **Federal Register API**, **SEC/sec.gov**, and **issuer IR** -- **not** one provider path. **Do not** treat mixed URLs as a single reliability statistic.
 
@@ -161,17 +163,26 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 6 (Prompt #88)**.
 
 - **Maximum counted attempts (if every pilot slot is executed and counts):** **2** (Tranche **22-23**) **+ 6** (pilot schedule) **= 8** total -- **8** counted so far (**6** pilot slots done; interim pilot complete).
 - **Tranche 25 closeout:** interim pilot is complete and provided a **positive interim success-path signal** for the locked Federal Register API source class, but it **did NOT** satisfy the original **Tranche 21 gate protocol** and therefore **does not** justify any **approval re-evaluation** (**approval remains false**).
-- **Does NOT justify** comparison to the original **`required_reliability_threshold` 0.8** gate statistic (pilot **cannot** reach **>= 20** counted attempts; it is **not** the full pre-audit protocol).
-- **Does NOT** satisfy the Tranche 21 pre-audit window completion criteria.
-- **May** inform a **go / no-go** on whether to schedule a **future** full-protocol window when availability allows.
+- **Does NOT justify** comparison to the original **`required_reliability_threshold` 0.8** gate statistic **from the pilot slice alone** (pilot **cannot** reach **>= 20** counted attempts; it is **not** the full pre-audit protocol).
+- **Tranche 30:** A **separate** **full-window** run produced **22** counted / **22** successes / **0** failures on disk — see **Lane B** summary at top of this file; **still not** MVP approval.
+- **Does NOT** (by itself) satisfy **non-reliability** MVP dimensions.
+- **May** inform a **go / no-go** on whether to schedule a **future** full-protocol window when availability allows (**historical** once the window ran).
 
 **Source of truth for detail:** `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Lane B availability-constrained interim pilot (Tranche 24 -- Prompt #73)**.
 
 **Approval remains NOT granted.**
 
-## Lane B post-pilot go/no-go (Tranche 26)
+## Lane B post-pilot go/no-go (Tranche 26) -- updated after full window on disk
 
-- **Park:** lane B stays **promising-but-unapproved** (`mvp_lane_approval.json` remains `approved: false`).
-- **Advance (authorized next move only):** when operator availability allows, **schedule** a **full Tranche 21** Federal Register reliability window per this document and `docs/MVP_LANE_EVIDENCE_LOG.md` -- this is **not** an approval decision and **not** Phase 3.
+- **Park:** lane B stays **promising-but-unapproved** (`mvp_lane_approval.json` remains `approved: false`) until operator updates that file.
+- **Execution status:** The **full Tranche 21** Federal Register reliability window is **complete on disk** (see **Lane B** summary above and **Tranche 30** entries in `MVP_LANE_EVIDENCE_LOG.md`). **Governed markdown** reconciled under Prompt **#102** — **not** an approval flip.
+- **Advance (authorized next move only):** **operator MVP gate review** (all dimensions) and, only if justified, edits to **`mvp_lane_approval.json`** per checklist — **not** Phase 3 until the gate says so.
+
+## Gate-decision alignment note (Tranche 30 -- Prompt #103)
+
+- **Current-review-now only:** apply critic/adversarial review, audit-before-trust, and risk-first scrutiny against over-reading the FR full-window slice.
+- **Future guardrails only (not active build scope):** auth primitives and permission layers, isolated sub-account/restricted permissions, MCP-first infra filter with anti-affiliate rule, sim-first/dry-run-first bridge, and position sizing/drawdown controls.
+- **Parking lot only (not authorized now):** any critic-agent implementation, MCP tooling implementation, exchange/live execution integration, or execution-adjacent build work.
+- **State unchanged:** this triage does not change approval authority; `mvp_lane_approval.json` remains `approved: false`, and **Phase 3 remains blocked**.
 
 
