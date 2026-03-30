@@ -1,55 +1,76 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 95  
+**Prompt #:** 102  
 **Phase #:** 2  
-**Tranche #:** 26  
+**Tranche #:** 30
 
-Updated: 2026-03-26T22:04:30.5504620-05:00
+Updated: 2026-03-30T07:05:00-05:00
 
-## Current state
+## You are here
 
-- Phase 1 / Tranche 1: **DONE**
-  - Scout-layer foundation contracts created (schemas, config registries, examples)
-  - Phase 0 final lock + attestation are present and govern execution for this module
-  - **Canon recovery (Prompt #54):** the eight `JARVIS_THE_FADE_*.md` design canon files are restored under `future_modules/stock_module/` per `docs/CANON_INDEX.md`. They are foundational and **must not be moved or deleted** without governed documentation change.
-  - Bounded Phase 2 lane B observation slice only (`lane_b_real_observation_slice.py`); no Phase 3 scanner
-- Phase 2 / Tranche 2 gate prep exists; operator recorded a deferred decision (`approved:false`), so no MVP lanes are approved yet.
-- THE FADE remains an early-stage future module (not live, not integrated, no Phase 3 runtime).
-- Phase 2 / Tranche 3 evidence pack exists for operator evidence collection; approval is still not granted.
-- Phase 2 / Tranche 4: lane B evidence is in-progress (partial). Tranche 16 added **bounded real** slice evidence for stale/outage and context-dominance dimensions (registry dimensions **recorded** for the slice); lane-level approval bar remains unmet.
-- Phase 2 / Tranche 12: **simulated harness rehearsal** (Prompts #41-#42).
-- Phase 2 / Tranche 14: **minimal real evidence path spec** (`docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`).
-- Phase 2 / Tranche 15: **lane B real observation slice** implemented -- `scripts/lane_b_real_observation_slice.py` (THE FADE only; no scanner/dashboard).
-- Phase 2 / Tranche 16: **first honest non-simulated lane B observe + conflict** run recorded in `docs/MVP_LANE_EVIDENCE_LOG.md` (real Federal Register HTTPS observe + operator-authored contra; SEC automated fetch blocked with honest `scout_failure` in this environment).
-- Phase 2 / Tranche 18: **lane B reliability-window documentation pass** -- `MVP_LANE_EVIDENCE_LOG.md` + `MVP_SOURCE_RELIABILITY_AUDIT.md` state the evidenced micro-sample (4 HTTPS observes); **reliability** registry dimension **partial**; **no** 0.8 claim.
-- Phase 2 / Tranche 19: **lane B provider/source class clarification** -- mixed Tranche 16 URLs are **not** one provider; no `TBD` lock lifted; see log + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`.
-- Phase 2 / Tranche 20: **lane B single-source reliability pass** -- Federal Register public API only; 5/5 successes documented; still no defined pre-audit window and no honest 0.8 comparison yet.
+- **Phase:** 2 — MVP lane approval and source reliability gate.
+- **Branch:** `the-fade-phase1-tranche1-foundation`.
+- **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
+- **Formal markdown evidence log / audit:** **Reconciled** (Prompt **#102**) — `MVP_LANE_EVIDENCE_LOG.md`, `MVP_SOURCE_RELIABILITY_AUDIT.md` match JSONL truth; **not** an approval change.
+- **Approval:** `mvp_lane_approval.json` still **`approved: false`**, **`approved_mvp_lanes: []`** unless and until that file is edited.
+- **Phase 3:** **Blocked.**
+- **Operator gate review decision at this checkpoint:** FR full-window evidence is a **strong positive slice** only; whole-gate approval is **still not justified** on current live evidence; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
 
-## Bounded phase ladder (from here)
+## Phase 1 — completed
 
-## MASTER Phase 2 -- Scout MVP data stack and pre-audit
-- Tranche 15: **DONE** (slice implemented).
-- Tranche 16: **DONE** (first honest lane B observe + conflict logged; see `MVP_LANE_EVIDENCE_LOG.md`).
-- Tranche 18: **DONE** (reliability-window honesty pass; see log + `MVP_SOURCE_RELIABILITY_AUDIT.md`).
-- Tranche 19: **DONE** (provider/source class clarification; see log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`).
-- Tranche 20: **DONE** (single-source Federal Register reliability pass documented; see log + audit).
-- Tranche 22-23: **PARTIAL** -- **2** counted attempts (`t22_fr_000`, `t22_fr_001`) under the **original** Tranche 21 UTC grid (see log).
-- Tranche 24: **COMPLETE (INTERIM PILOT)** -- **availability-constrained interim reliability pilot** (Prompt **#73** doc amendment; Prompts **#75/#78/#80/#82/#86/#88** pilot observes). **6** / **6** pilot slots done (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`, `t24_fr_pilot_05`, `t24_fr_pilot_06`); cumulative **8** counted / **8** successes / **0** failures (incl. `t22_fr_000`, `t22_fr_001`). Proved a **positive interim success-path signal** for the locked **Federal Register API** source class, but it **did NOT** satisfy the original **Tranche 21** gate protocol and therefore does **not** justify any `required_reliability_threshold` **0.8** comparison or **approval re-evaluation** (**approval remains false**).
-- Must complete before any Tranche 3 runner work:
-  - operator must decide the MVP lane gate in `future_modules/the_fade/config/mvp_lane_approval.json` and set `approved: true` (fill `approved_by` + `approved_at`)
-  - only after the gate is approved, update `future_modules/the_fade/config/lane_registry.json` and `future_modules/the_fade/config/escalation_policy.json` to reflect the approved MVP lanes
+- Scout-layer foundation contracts, config registries, Phase 0 lock + attestation.
+- Canon recovery: eight `JARVIS_THE_FADE_*.md` under `future_modules/stock_module/` (see `docs/CANON_INDEX.md`).
+- Bounded lane B real observation slice (`lane_b_real_observation_slice.py`).
 
-## MASTER Phase 3 -- Universe scanner
-- Tranche 3: **NOT STARTED**
-- Scanner implementation comes only after Phase 2 approval and audit are done.
+## Phase 2 — completed (high level)
 
-## MASTER Phase 4+ -- Out of scope for this handoff
-- Not started; no action in this pass.
+- Tranches 2–20: gate prep, evidence pack, harness rehearsal, real path spec, first honest observes, reliability honesty passes, provider/source-class clarification, single-source FR micro-sample.
+- Tranche 22–23: two counted attempts on original UTC grid.
+- Tranche 24: **interim pilot** complete — **8** counted FR-only attempts; **does not** satisfy full Tranche 21 protocol.
+- Tranche 26 posture: lane B **parked** — promising-but-unapproved.
+- Tranches 27–30 (tooling): bounded slot collector `run_tranche21_fr_slot.py` — JSON shape check, output lock, duplicate protection, timing validity (`--max-slot-drift-seconds`), integrity metadata.
 
-## Exact current next step (recorded)
+## Phase 2 — open (right now)
 
-1. **Lane B status:** **Parked** -- promising-but-unapproved; keep `mvp_lane_approval.json` at `approved:false`.
-2. **Next authorized Phase 2 move:** when feasible, **schedule and execute** the **full Tranche 21** Federal Register reliability window (48h UTC / 2h cadence / >=20 counted attempts before any **0.8** claim) per `MVP_SOURCE_RELIABILITY_AUDIT.md` + `MVP_LANE_EVIDENCE_LOG.md` -- **not** an approval flip.
-3. **Do not** start Phase 3 scanner/runtime work until the MVP gate is satisfied.
-4. Ignore unrelated workspace drift (`JARVIS_CODEBASE_STRUCTURE.md`) when executing THE FADE-only passes.
+1. ~~**Document the full FR window**~~ **DONE** (Prompt **#102**) — governed log + audit reconciled to JSONL.
+2. **Operator approval decision** — **reviewed at this checkpoint**; current outcome is **hold approval false** because the FR slice is strong but the full-dimensional gate is still not closed on live evidence.
+3. **Lane registry / escalation** — only **after** approval, per existing rules.
 
+## MASTER Phase 2 — bounded phase ladder (current marks)
+
+| Tranche / item                                                                | Status                                                              |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Tranche 24 interim pilot                                                      | **DONE** (insufficient for full T21)                                |
+| Full Tranche 21 FR window — **execution / collector artifacts**               | **DONE on disk** (22 full-window lines)                             |
+| Full Tranche 21 FR window — **governed doc reconciliation**                   | **DONE** (Prompt **#102**)                                          |
+| `required_reliability_threshold` 0.8 — honest comparison **allowed on count** | **Now eligible to document** (22 ≥ 20); still **not** approval      |
+| MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
+
+## MASTER Phase 3 — Universe scanner
+
+- **NOT STARTED** — blocked until Phase 2 gate satisfied and documented.
+
+## MASTER Phase 4+
+
+- Out of scope until re-scoped by governance.
+
+## Exact current next step (authorized only)
+
+1. **Hold at the Phase 2 checkpoint** — gate-review outcome at this checkpoint is **promising-but-unapproved**; **do not** imply Phase 3 unlock from FR reliability slice alone.
+2. Keep **`mvp_lane_approval.json`** unchanged until future evidence or an explicitly re-scoped governed review justifies approval.
+3. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
+
+## Do not
+
+- Start Phase 3 scanner/runtime/dashboard without a new governed prompt.
+- Flip `approved: true` without matching on-disk evidence and operator fields.
+- Count `t30_valid_002` as part of the 22-slot full window unless explicitly justified.
+
+## Operator gate review outcome — 2026-03-30
+
+- **Decision outcome:** Lane B remains **promising-but-unapproved** at this checkpoint.
+- **Why:** the Federal Register full-window slice is a strong positive slice (**22 counted / 22 successes / 0 failures**) but the whole-gate approval is still incomplete across all live dimensions.
+- **Current-review-now principles applied:** critic / adversarial review, audit-before-trust, and risk-first scrutiny against over-reading the FR slice statistic.
+- **Accepted future guardrails only:** auth primitives / permission layers; isolated sub-account / restricted permissions; MCP-first infra filter / anti-affiliate rule; sim-first / dry-run-first bridge; position sizing / drawdown emphasis.
+- **Parking lot only:** any concrete critic-agent build, MCP tooling build, exchange integration, live execution, or other execution-adjacent implementation work.
+- **State impact:** `mvp_lane_approval.json` remains **false**; **Phase 3 remains blocked**; no new active build scope is introduced here.

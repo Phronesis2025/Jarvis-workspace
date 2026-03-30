@@ -1,70 +1,175 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 95  
+**Prompt #:** 102  
 **Phase #:** 2  
-**Tranche #:** 26  
-**Updated:** 2026-03-26T22:04:30.5504620-05:00  
-**Branch:** `the-fade-phase1-tranche1-foundation`
+**Tranche #:** 30  
+**Updated:** 2026-03-30T07:05:00-05:00
+**Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
-## Live truth (current state)
-- Approval is NOT granted.
-- `future_modules/the_fade/config/mvp_lane_approval.json` is still the approval authority with `approved: false`, `approved_by: null`, `approved_at: null`, and `approved_mvp_lanes: []`.
-- No MVP lanes are approved yet.
-- THE FADE is still an early-stage future module (not live, not integrated).
-- No Phase 3 scanner or dashboard-contract work; THE FADE has only the bounded lane B observation script (`lane_b_real_observation_slice.py`), not full scout runtime.
-- Evidence is being collected under Phase 2.
-- `lane_b_official_disclosure` is the most advanced candidate lane so far, but it is still insufficient for approval.
-- **Tranche 15:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py` exists -- **lane-B-only** real observation slice (HTTPS or file -> `scout_failure` / `normalized_signal_event`; lane B artifact + local contra -> `conflict_packet`). Outputs under `outputs/lane_b_real_observation/` (json gitignored).
-- **Tranche 16:** First **honest non-simulated** lane B run logged in `docs/MVP_LANE_EVIDENCE_LOG.md` -- real HTTPS observe to Federal Register API (`task_id=t16_honest_005`); SEC/IR URLs returned 403 in this environment (honest `scout_failure`); `conflict` vs operator-authored contra `inputs/lane_b_real_evidence/context_only_contra.tranche16_operator_authored.json`. Registry dimensions `stale_outage_behavior` and `context_dominance_risk` set to **recorded** (bounded slice); lane-level evidence remains **partial**.
-- **Tranche 18:** **Reliability-window honesty pass** -- `docs/MVP_LANE_EVIDENCE_LOG.md` + `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` document the **four** countable Tranche 16 HTTPS observes (1 success / 3x403), **no** calendar pre-audit window, **no** honest comparison to **0.8** yet; registry **`reliability`** set to **partial**.
-- **Tranche 19:** **Provider / source class clarification** -- `mvp_lane_approval.json` still has **`TBD_OFFICIAL_DISCLOSURE_PROVIDER`**; Tranche 16 mixed **Federal Register / SEC / issuer IR** (not one provider). **Do not** aggregate mixed hosts into one reliability statistic. **Provisional** next single-class target for a future pass: **U.S. Federal Register public API** (see log); SEC/issuer = separate class/pass.
-- **Tranche 20:** **Single-source reliability pass** (Federal Register API only) documented in `docs/MVP_LANE_EVIDENCE_LOG.md` -- endpoint `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest` attempted **5** times (`t20_fb_001`-`t20_fb_005`): **5 successes / 0 failures**. Still **no** defined calendar pre-audit window and **no** honest comparison to `required_reliability_threshold` **0.8** yet; registry reliability remains **partial**.
-- **Tranche 22-23:** **Two** counted attempts executed under the **original** Tranche 21 UTC schedule -- **`t22_fr_000`**, **`t22_fr_001`** (**2** successes / **0** failures); documented `window_start_utc` / `window_end_utc` remain in the log as **audit trail**.
-- **Tranche 24:** **Protocol/doc amendment** (Prompt **#73**) + pilot observes (**#75**, **#78**, **#80**, **#82**, **#86**, **#88**). **Availability-constrained interim reliability pilot** -- **not** the full 48h / 24-attempt / **>=20**-count pre-audit gate window. **Stricter Tranche 21 protocol** preserved in `MVP_SOURCE_RELIABILITY_AUDIT.md`. **Pilot slot 1** (**8:13:55 PM** CDT): `task_id` **`t24_fr_pilot_01`**, **`normalized_signal_event`**, HTTP **200**, `ingested_at` **`2026-03-26T01:53:54Z`**. **Pilot slot 2** (**6:13:55 AM** CDT): `task_id` **`t24_fr_pilot_02`**, **`normalized_signal_event`**, HTTP **200**, `ingested_at` **`2026-03-26T11:16:02Z`**. **Pilot slot 3** (**8:13:55 AM** CDT): `task_id` **`t24_fr_pilot_03`**, **`normalized_signal_event`**, HTTP **200**, `ingested_at` **`2026-03-26T13:16:45Z`**. **Pilot slot 4** (**10:13:55 AM** CDT): `task_id` **`t24_fr_pilot_04`**, **`normalized_signal_event`**, HTTP **200**, `ingested_at` **`2026-03-26T15:37:28Z`**. **Pilot slot 5** (**12:13:55 PM** CDT): `task_id` **`t24_fr_pilot_05`**, **`normalized_signal_event`**, HTTP **200**, `ingested_at` **`2026-03-26T17:16:23Z`**. **Pilot slot 6 (final)** (**2:13:55 PM** CDT): `task_id` **`t24_fr_pilot_06`**, **`normalized_signal_event`**, HTTP **200**, `ingested_at` **`2026-03-26T19:16:48Z`**. **Cumulative:** **8** counted / **8** successes / **0** failures (`t22_fr_000`, `t22_fr_001`, `t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`, `t24_fr_pilot_05`, `t24_fr_pilot_06`). **Interim pilot is now complete** at its **<=8** ceiling. It proved a **positive interim success-path signal** for the locked Federal Register API source class, but it **did NOT** satisfy the original **Tranche 21** gate protocol. Therefore it **does not** justify any `required_reliability_threshold` **0.8** comparison or any **approval re-evaluation** (**approval remains false**).
-- Current evidence status for `lane_b_official_disclosure` (conservative summary):
-  - reliability: **partial** (Tranche 18/20; micro-sample only -- see log)
-  - freshness: recorded
-  - normalization_viability: recorded
-  - stale_outage_behavior: recorded (bounded Tranche 16 slice + log; not full pre-audit stats)
-  - conflict_handling: recorded
-  - context_dominance_risk: recorded (bounded Tranche 16 slice; not full adversarial matrix)
+---
 
-## Current lane B gap (honest)
-- Tranche 18 made reliability **explicitly thin**: **no** defined calendar pre-audit window or valid 0.8 test yet. Tranche 20 improved the **single-source** micro-sample (Federal Register API only; 5/5 successes) but still did **not** evidence a **calendar** pre-audit window. **Tranche 22-23** logged **two** counted attempts on the **original** UTC grid. **Tranche 24** states operator availability **cannot** finish that grid; the **interim pilot** caps at **8** counted attempts -- **still no** honest **0.8** gate comparison. A **full** Tranche 21 window (when feasible) remains required for gate-level reliability proof. **Approval remains unjustified** -- need full-protocol evidence (>=20 counted per Tranche 21), broader conflict permutations when in scope, and production-equivalent scout runtime when in scope.
+## New chat — start rules
 
-## Operator next exact step (do not flip approval yet)
-- **Tranche 26 post-pilot decision:** lane B **parked** as promising-but-unapproved (**approval remains false**). **Next authorized move:** **schedule** a **future full Tranche 21** Federal Register reliability window when operator availability allows (gate protocol in `MVP_SOURCE_RELIABILITY_AUDIT.md`); **not** approval and **not** Phase 3.
-- Keep `future_modules/the_fade/config/mvp_lane_approval.json` unchanged (`approved:false`) until evidence clearly meets the gate standard.
-- Treat `JARVIS_CODEBASE_STRUCTURE.md` as unrelated dirty drift outside THE FADE state.
+1. Read **`THE_FADE_CONTEXT_ANCHOR.md`** (this file’s sibling) first — one-screen truth.
+2. Read this bundle second.
+3. Verify **on-disk** facts before changing narrative:
+   - `future_modules/the_fade/config/mvp_lane_approval.json`
+   - `future_modules/the_fade/outputs/lane_b_real_observation/tranche21_fr_slot_runs.jsonl`
+4. **Do not** treat THE FADE as live or integrated. **Do not** drift into research swarm, scanner, runtime, dashboard, or broad stock-module work unless the user explicitly scopes it.
+5. **Canon:** eight `JARVIS_THE_FADE_*.md` files remain in **`future_modules/stock_module/`** — do not move or delete (`docs/CANON_INDEX.md`).
+6. **Process anchor:** `future_modules/stock_module/JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`.
 
-## Canon design docs (foundational -- do not move or delete)
+---
 
-The eight THE FADE design specifications (`JARVIS_THE_FADE_*.md`) **must** remain in **`future_modules/stock_module/`** at the paths listed in `future_modules/the_fade/docs/CANON_INDEX.md`. They are foundational module documentation; **do not relocate, replace with summaries, or delete** them except via explicit project governance.
+## Module reality
 
-## Key authority files (treat as source-of-truth)
-- `future_modules/the_fade/config/mvp_lane_approval.json`
-- `future_modules/the_fade/config/mvp_lane_evidence_registry.json`
-- `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`
+| Topic                        | Truth                                                                                                                             |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Live / integrated            | **No** — early-stage future module under `future_modules/the_fade/`                                                               |
+| Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
+| Approval                     | **`mvp_lane_approval.json`:** `approved: false`, `approved_mvp_lanes: []` (verify on disk)                                        |
+| Most advanced lane           | `lane_b_official_disclosure` — still not MVP-approved                                                                             |
+| Phase 3                      | **Blocked**                                                                                                                       |
+| Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
+
+---
+
+## Roots and paths
+
+| Purpose                        | Path                                                                                                    |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| Module root                    | `future_modules/the_fade/`                                                                              |
+| Bounded lane B outputs         | `future_modules/the_fade/outputs/lane_b_real_observation/`                                              |
+| Append-only FR slot run log    | `.../tranche21_fr_slot_runs.jsonl`                                                                      |
+| Per-run snapshots              | `.../run_*_tranche21_fr_slot_snapshot.json` (and legacy `*_tranche21_fr_slot_snapshot.json` if present) |
+| Full Tranche 21 slot collector | `future_modules/the_fade/scripts/run_tranche21_fr_slot.py`                                              |
+| Legacy lane B observe tool     | `future_modules/the_fade/scripts/lane_b_real_observation_slice.py`                                      |
+| Approval authority             | `future_modules/the_fade/config/mvp_lane_approval.json`                                                 |
+| Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
+| Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
+| Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
+
+---
+
+## Federal Register collector — what it is
+
+- **Script:** `run_tranche21_fr_slot.py`
+- **Scope:** Single Federal Register URL only —  
+  `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`
+- **One invocation = one slot** — no loop, no retry, no scheduler inside the script.
+- **Requires:** `--task-id`, `--scheduled-slot-utc`, `--window-start-utc`, `--window-end-utc`, `--max-slot-drift-seconds`
+- **Timing:** Fails **before** HTTP if execution is outside `[window_start_utc, window_end_utc]` or outside drift band.
+- **Duplicates:** Rejects if `task_id` or deterministic `slot_identity` already appears in the JSONL log.
+- **Success:** JSON object with top-level `results` list; else honest source failure. Source failures still **exit 0** if logged; collector errors **non-zero**.
+
+Example (pattern only — adjust times to a **valid** live window when running):
+
+```text
+python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQUE> --scheduled-slot-utc <UTC> --window-start-utc <UTC> --window-end-utc <UTC> --max-slot-drift-seconds <INT>
+```
+
+---
+
+## Full Tranche 21 window — run summary (verified from JSONL)
+
+**File:** `tranche21_fr_slot_runs.jsonl`
+
+| Metric                                                                                             | On-disk value                   |
+| -------------------------------------------------------------------------------------------------- | ------------------------------- |
+| Total lines                                                                                        | **23**                          |
+| Full-window lines (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`) | **22**                          |
+| Full-window successes                                                                              | **22**                          |
+| Full-window failures (`source_observation_success` false)                                          | **0**                           |
+| Full-window `timing_valid_for_counted_slot_use`                                                    | **true** for all **22**         |
+| Excluded from full-window tally (different window)                                                 | **1** — `task_id=t30_valid_002` |
+
+**Latest official full-window slot (last line of JSONL):**
+
+- `task_id`: **`t21_fr_full_20260329T100000Z`**
+- `scheduled_slot_utc`: **`2026-03-29T10:00:00Z`**
+- `actual_started_at_utc`: **`2026-03-29T10:00:03Z`**
+- `source_observation_success`: **true**
+- `slot_timing_status`: **`timing_valid`**
+
+**Operator-reported Task Scheduler health (host-side, not in repo):** LastTaskResult **0**, NumberOfMissedRuns **0** — use for ops; re-check on the machine if jobs misbehave.
+
+---
+
+## How to check health and totals
+
+1. **Line count / parse log:**  
+   `python -c "import json, pathlib; p=pathlib.Path(r'future_modules/the_fade/outputs/lane_b_real_observation/tranche21_fr_slot_runs.jsonl'); r=[json.loads(l) for l in p.read_text(encoding='utf-8').splitlines() if l.strip()]; ..."`  
+   Filter rows where `window_start_utc` / `window_end_utc` match the declared 48h window for gate-relevant **22** slots.
+
+2. **Latest slot:** Read last non-empty line of `tranche21_fr_slot_runs.jsonl` or inspect latest `run_*_tranche21_fr_slot_snapshot.json`.
+
+3. **Scheduler (Windows Task Scheduler):** Open Task Scheduler on the operator PC — **Last Run Result** and **missed runs** are not stored in this git repo.
+
+4. **Approval:** Open `mvp_lane_approval.json` — if `approved` is not `true`, **no** MVP lanes are approved.
+
+---
+
+## Why this evidence matters (without overclaiming)
+
+- Tranche 21 protocol required **≥20** counted attempts before an honest **`reliability = successes / counted_attempts`** comparison vs **0.8**. The **22** full-window records meet the **count floor**; observed ratio on that slice is **22/22 = 1.0**.
+- **This does not automatically approve** anything. Binding approval is only **`mvp_lane_approval.json`**, which is still **false** on disk.
+- Other MVP dimensions (freshness discipline, normalization breadth, stale/outage at scale, conflict permutations, context dominance, production-equivalent runtime) remain as in registry and prior logs.
+
+---
+
+## Historical context (still true)
+
+- **Tranche 24 interim pilot:** Real, FR-only, **8** counted successes — **did not** satisfy full Tranche 21 protocol; documented as interim.
+- Prior micro-samples and mixed-host Tranche 16 session — **do not** merge into one statistic (see Tranche 19 clarification in `MVP_LANE_EVIDENCE_LOG.md`).
+
+---
+
+## Current blockers / gaps
+
+1. ~~**Governed markdown lag**~~ **Closed** (Prompt **#102**): `MVP_LANE_EVIDENCE_LOG.md` + `MVP_SOURCE_RELIABILITY_AUDIT.md` reconciled to `tranche21_fr_slot_runs.jsonl`.
+2. **Approval decision** — reviewed at this checkpoint; **whole-gate approval is still not justified** on current live evidence; **`mvp_lane_approval.json`** remains **`approved: false`**.
+3. **Phase 3** — remains blocked.
+
+## Operator gate review outcome — 2026-03-30
+
+- **Decision outcome:** Lane B remains **promising-but-unapproved** at this checkpoint.
+- **Why:** the FR full-window reliability slice is strong (**22 counted / 22 successes / 0 failures**) but still does **not** close the whole-dimensional MVP gate by itself.
+- **Review-quality controls used now:** critic / adversarial review, audit-before-trust, and risk-first scrutiny.
+- **Accepted future guardrails only:** auth primitives / permission layers; isolated sub-account / restricted permissions; MCP-first infra filter / anti-affiliate rule; sim-first / dry-run-first bridge; position sizing / drawdown emphasis.
+- **Parking lot only:** any concrete critic-agent build, MCP tooling build, exchange/live-execution integration, or other execution-adjacent implementation work.
+- **What this does not change:** `mvp_lane_approval.json` remains **false** and **Phase 3 remains blocked**.
+
+---
+
+## Exact next authorized move
+
+1. **Hold at the Phase 2 gate checkpoint** — current outcome is **promising-but-unapproved**; the FR window slice is strong, but it is **not** approval.
+2. Update **`mvp_lane_approval.json`** (and downstream registry/escalation) **only** if future evidence and explicit operator signoff later justify approval.
+3. Continue all git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.
+
+## Key authority files (next edits likely)
+
 - `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`
-- `future_modules/the_fade/docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`
+- `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`
+- `future_modules/the_fade/config/mvp_lane_approval.json` (read first; change only with real gate evidence)
+- `future_modules/the_fade/config/mvp_lane_evidence_registry.json`
 - `future_modules/the_fade/docs/THE_FADE_CONTEXT_ANCHOR.md`
 - `future_modules/the_fade/docs/THE_FADE_PROCESS_CHECKLIST.md`
-- `future_modules/the_fade/docs/THE_FADE_HANDOFF_BUNDLE.md`
-- `future_modules/the_fade/docs/CANON_INDEX.md`
-- `future_modules/the_fade/README.md`
-- `future_modules/the_fade/module_spec.md`
+- This file: `THE_FADE_HANDOFF_BUNDLE_LATEST.md`
 
-## Must not touch yet (hard boundaries)
-- Do not set `approved: true`.
-- Do not populate `approved_mvp_lanes`.
-- Do not update `future_modules/the_fade/config/lane_registry.json` or `future_modules/the_fade/config/escalation_policy.json` for any "approved" MVP lane set yet.
-- Do not start Phase 3 scanner, dashboard contracts, or broaden beyond the lane B slice without a new prompt.
-- Do not begin evidence collection for other lanes as a broad sweep; only follow lane B real-evidence path.
+---
 
-## Branch continuity requirement
-- Continue all future work from `the-fade-phase1-tranche1-foundation`.
+## Do not drift
 
-## Out of scope for this handoff
-- Phase 3 is not started.
-- No Phase 3 runner scripts, no dashboard contracts. Any `outputs/` use is limited to the **bounded** lane B real-observation directory described in `docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` / Tranche 15 implementation.
+- No scanner / universe runner / dashboard contracts unless explicitly prompted.
+- No moving THE FADE canon out of `future_modules/stock_module/`.
+- No approval narrative unless `mvp_lane_approval.json` says so.
+- Do not merge **`t30_valid_002`** into the **22** full-window counted set without explicit operator policy.
 
+---
+
+## Out of scope reminder
+
+- Phase 3 not started.
+- `outputs/` stays under bounded lane B observation conventions.
+- `JARVIS_CODEBASE_STRUCTURE.md` is not THE FADE state.
