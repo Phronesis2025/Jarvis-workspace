@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 102  
+**Prompt #:** 113  
 **Phase #:** 2  
 **Tranche #:** 30  
-**Updated:** 2026-03-30T07:05:00-05:00
+**Updated:** 2026-03-30T10:08:44-05:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -134,6 +134,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 - **Decision outcome:** Lane B remains **promising-but-unapproved** at this checkpoint.
 - **Why:** the FR full-window reliability slice is strong (**22 counted / 22 successes / 0 failures**) but still does **not** close the whole-dimensional MVP gate by itself.
+- **Final signoff lock (Prompt #113):** outcome confirmed without changes to approval state; `mvp_lane_approval.json` remains `approved: false`, and `t30_valid_002` remains excluded from the full-window 22-slot tally.
 - **Review-quality controls used now:** critic / adversarial review, audit-before-trust, and risk-first scrutiny.
 - **Accepted future guardrails only:** auth primitives / permission layers; isolated sub-account / restricted permissions; MCP-first infra filter / anti-affiliate rule; sim-first / dry-run-first bridge; position sizing / drawdown emphasis.
 - **Parking lot only:** any concrete critic-agent build, MCP tooling build, exchange/live-execution integration, or other execution-adjacent implementation work.

@@ -1,10 +1,10 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 101  
+**Prompt #:** 113  
 **Phase #:** 2  
 **Tranche #:** 30
 
-Updated: 2026-03-30T07:05:00-05:00
+Updated: 2026-03-30T10:08:44-05:00
 
 ## One-screen truth (new chat fast-start)
 
@@ -14,6 +14,7 @@ Updated: 2026-03-30T07:05:00-05:00
 - **Approval authority:** `future_modules/the_fade/config/mvp_lane_approval.json` — on disk: **`approved: false`**, **`approved_mvp_lanes: []`**. Do not assume approval changed unless that file does.
 - **Most advanced lane:** `lane_b_official_disclosure` — still **not** approved; other gate dimensions beyond this reliability slice remain as documented in `mvp_lane_evidence_registry.json` and the evidence log.
 - **Current gate outcome note:** operator **full-dimension gate review** has been reviewed at this checkpoint. The FR slice is strong, but whole-gate approval is **still not justified**; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
+- **Final signoff lock (Prompt #113):** review completed with no approval flip -- lane B stays **promising-but-unapproved**, `t30_valid_002` stays excluded from the 22-slot full-window tally, and Phase 3 stays blocked.
 
 ## Federal Register full Tranche 21 window — on-disk collector state (verified)
 

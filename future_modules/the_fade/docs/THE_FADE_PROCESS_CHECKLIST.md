@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 102  
+**Prompt #:** 113  
 **Phase #:** 2  
 **Tranche #:** 30
 
-Updated: 2026-03-30T07:05:00-05:00
+Updated: 2026-03-30T10:08:44-05:00
 
 ## You are here
 
@@ -70,6 +70,7 @@ Updated: 2026-03-30T07:05:00-05:00
 
 - **Decision outcome:** Lane B remains **promising-but-unapproved** at this checkpoint.
 - **Why:** the Federal Register full-window slice is a strong positive slice (**22 counted / 22 successes / 0 failures**) but the whole-gate approval is still incomplete across all live dimensions.
+- **Final signoff lock (Prompt #113):** outcome re-checked and locked with no approval flip; `t30_valid_002` remains excluded from the full-window tally; `mvp_lane_approval.json` remains unchanged.
 - **Current-review-now principles applied:** critic / adversarial review, audit-before-trust, and risk-first scrutiny against over-reading the FR slice statistic.
 - **Accepted future guardrails only:** auth primitives / permission layers; isolated sub-account / restricted permissions; MCP-first infra filter / anti-affiliate rule; sim-first / dry-run-first bridge; position sizing / drawdown emphasis.
 - **Parking lot only:** any concrete critic-agent build, MCP tooling build, exchange integration, live execution, or other execution-adjacent implementation work.
