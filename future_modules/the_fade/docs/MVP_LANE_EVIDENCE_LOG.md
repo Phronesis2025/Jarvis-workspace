@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 121  
+**Prompt #:** 125  
 **Phase #:** 2  
-**Tranche #:** 31  
+**Tranche #:** 32  
 
-Updated: 2026-03-30T18:15:00-05:00
+Updated: 2026-03-30T20:00:00-05:00
 
 ## Purpose
 
@@ -81,6 +81,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
 
 **Tranche 31 — freshness discipline executed (Prompt #121):** Bounded classification pass complete for the **22** full-window FR JSONL lines (**`t30_valid_002`** excluded). See **Lane B full Tranche 21 FR window — Tranche 31 freshness (Prompt #121)** below. **`mvp_lane_approval.json`** remains **`approved: false`** — this log does **not** grant approval. **Phase 3** remains **blocked**. Other gate dimensions remain **partial** until separately evidenced.
 
+**Tranche 32 — defined next (Prompt #125; not executed in #125):** **Ambiguity resolution** for the **10** cannot-classify rows only — per-row **verifiable** reclassification **or** **explicit documented limitation**; see **Tranche 32 — planned (Prompt #125)** below.
+
 Earlier sections remain **historical** unless this file explicitly points forward to a newer slice.
 
 ## Lane B full Tranche 21 FR window — Tranche 31 freshness (Prompt #121)
@@ -108,6 +110,28 @@ Earlier sections remain **historical** unless this file explicitly points forwar
 **Cannot-classify rows (all `Δ < 0` under the rule above):** `t21_fr_full_20260328T160000Z` through `t21_fr_full_20260329T100000Z` (10 consecutive slots). **Fresh rows:** earlier slots in the same window (12 rows) — see helper output in repo script `future_modules/the_fade/scripts/_tranche31_freshness_classify.py` for per-`task_id` detail.
 
 **What Tranche 31 does not prove:** stale/outage **system** behavior at scale; normalization breadth; conflict handling; context-dominance; production-equivalent runtime; Phase 3 readiness; MVP approval.
+
+## Tranche 32 — planned (Prompt #125)
+
+**Cohort:** The **10** Tranche 31 **`cannot classify honestly`** rows: `t21_fr_full_20260328T160000Z` through `t21_fr_full_20260329T100000Z` (same full-window bounds; **`t30_valid_002`** still excluded from the **22**-line population).
+
+**Purpose:** For each row, either (a) obtain a **defensible** fresh/stale (or explicitly named alternate) label using **supplementary verifiable facts**, or (b) record an **explicit gate limitation** (“unresolvable under available API fields / without new policy”) — **no** fabricated certainty.
+
+**Evidence question:** Can every row in this cohort be assigned a **transparent** outcome **without** pretending the Tranche 31 midnight rule already resolved it?
+
+**Candidate approaches (execution prompt may choose order):**
+
+1. **Existing artifacts:** Re-read the **10** `*_tranche21_fr_slot_snapshot.json` files for any **non-preview** fields; confirm `document_number` / `publication_date` extraction against full JSON if available on disk.
+2. **Bounded read-only follow-up:** Optional **public** Federal Register API document fetch by **`document_number`** (distinct values in cohort) — **no** new scheduled collector window; caps and URLs documented in the execution prompt.
+3. **Honest limitation:** If (1)-(2) still leave ambiguity, **document** that lane B freshness under **advance listings** + **date-only** `publication_date` is **not** reducible to a binary fresh/stale for those rows without an **operator policy** statement (still **not** approval).
+
+**Success:** Per-row row in this log (or audit) with **cited** basis **or** **explicit** unresolvable — **no** silent “all 22 fresh.”
+
+**Non-success:** Claiming MVP approval; claiming the **freshness** dimension is **fully closed** while ambiguity remains hand-waved.
+
+**Stop when:** All **10** rows have a documented outcome **or** a single honest **blocker** statement for the cohort.
+
+**Still would not prove:** Normalization breadth; stale/outage **system** behavior; conflict; context dominance; Phase 3; MVP approval.
 
 ## Evidence entry: lane_b_official_disclosure (Tranche 4)
 

@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 121  
+**Prompt #:** 125  
 **Phase #:** 2  
-**Tranche #:** 31  
+**Tranche #:** 32  
 
-Updated: 2026-03-30T18:15:00-05:00
+Updated: 2026-03-30T20:00:00-05:00
 
 ## Purpose
 
@@ -202,5 +202,16 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 6 (Prompt #88)**.
 - **Rule (summary):** `T_obs = actual_started_at_utc`; `publication_date` from **`results[0]`** in snapshot `response_preview_utf8`; `T_pub` = that date at **00:00 UTC**; `Δ = T_obs − T_pub`; **fresh** if `0 ≤ Δ ≤ 48h`; **stale** if `Δ > 48h`; **cannot classify** if `Δ < 0` (advance listing vs date-only field). Detail: `MVP_LANE_EVIDENCE_LOG.md` → **Tranche 31 freshness** section.
 - **Counts:** **12** fresh, **0** stale, **10** cannot classify honestly.
 - **Does not satisfy** the full MVP approval standard by itself — mixed outcome; **no** production stale/outage system proof; **`mvp_lane_approval.json`** unchanged (**`approved: false`**); **Phase 3** still **blocked**.
+
+## Planned next bounded tranche — freshness ambiguity resolution (Tranche 32 -- Prompt #125)
+
+- **Purpose:** Close the **honesty gap** left by **10** **`cannot classify honestly`** rows after Tranche **31** — by **per-row** supplementary evidence **or** **explicit documented limitation** for that cohort (**not** by re-running the full **22**-slot window).
+- **Evidence question:** Can each of the **10** rows be resolved with **cited** facts, or must the gate record **unresolvable** under current API fields / policy?
+- **Candidate files (when executed):** `MVP_LANE_EVIDENCE_LOG.md`, this file, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`, existing JSONL + **10** snapshots; optional narrow helper script **only** if an execution prompt authorizes it.
+- **Existing vs new capture:** **Prefer** existing stored artifacts; **may** allow **bounded** read-only document API fetch per **distinct** `document_number` — **not** a new Tranche **21** collector schedule.
+- **Success:** **10** row-level outcomes documented (resolved **or** explicitly limited); **no** claim that lane B freshness is **fully** satisfied if limitation remains.
+- **Non-success:** Approval flip; claiming whole gate closure; normalization / stale-outage-system / conflict proof.
+- **Stop when:** Cohort documented or honest cohort-level blocker recorded.
+- **Still would not prove:** Normalization breadth; production stale/outage **system** behavior; Phase **3** readiness.
 
 

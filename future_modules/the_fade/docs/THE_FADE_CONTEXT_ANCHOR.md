@@ -1,10 +1,10 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 121  
+**Prompt #:** 125  
 **Phase #:** 2  
-**Tranche #:** 31
+**Tranche #:** 32
 
-Updated: 2026-03-30T18:15:00-05:00
+Updated: 2026-03-30T20:00:00-05:00
 
 ## One-screen truth (new chat fast-start)
 
@@ -16,6 +16,7 @@ Updated: 2026-03-30T18:15:00-05:00
 - **Current gate outcome note:** operator **full-dimension gate review** has been reviewed at this checkpoint. The FR slice is strong, but whole-gate approval is **still not justified**; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
 - **Final signoff lock (Prompt #113):** review completed with no approval flip -- lane B stays **promising-but-unapproved**, `t30_valid_002` stays excluded from the 22-slot full-window tally, and Phase 3 stays blocked.
 - **Tranche 31 freshness pass (Prompt #121 — executed):** Lane B Federal Register **freshness discipline** applied to the **22** full-window JSONL lines (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly** (advance `publication_date` vs observation under date-only UTC midnight model). **Not** approval; **not** Phase 3. Detail: `MVP_LANE_EVIDENCE_LOG.md`.
+- **Tranche 32 (Prompt #125 — defined next; not executed in #125):** **Ambiguity resolution** for the **10** cannot-classify rows only — supplementary **verifiable** evidence **or** **explicit documented limitation**; see `THE_FADE_PROCESS_CHECKLIST.md`.
 
 ## Federal Register full Tranche 21 window — on-disk collector state (verified)
 
@@ -55,7 +56,7 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 checkpoint:** the current gate-review outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
-2. **Next governed Phase 2 moves:** follow `THE_FADE_PROCESS_CHECKLIST.md` — **Tranche 31 freshness** is **executed**; further dimensions (normalization, stale/outage system behavior, etc.) remain **pending** evidence, **not** approval.
+2. **Next governed Phase 2 move (when executed):** **Tranche 32** — resolve **or** honestly **limit** the **10** Tranche 31 cannot-classify freshness rows before treating lane B freshness as “done”; then other dimensions per checklist — **not** approval.
 3. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
 4. **Operator decision later if warranted:** Only after future evidence and explicit operator signoff should `mvp_lane_approval.json` move to `approved: true` (with `approved_by` / `approved_at`). Until then, **do not** flip approval in code or docs and **do not** start Phase 3.
 

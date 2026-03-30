@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 121  
+**Prompt #:** 125  
 **Phase #:** 2  
-**Tranche #:** 31
+**Tranche #:** 32
 
-Updated: 2026-03-30T18:15:00-05:00
+Updated: 2026-03-30T20:00:00-05:00
 
 ## You are here
 
@@ -16,6 +16,7 @@ Updated: 2026-03-30T18:15:00-05:00
 - **Phase 3:** **Blocked.**
 - **Operator gate review decision (Prompt #113 lock):** FR full-window evidence is a **strong positive slice** only; whole-gate approval is **still not justified** on current live evidence; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
 - **Tranche 31 freshness discipline (Prompt #121 — executed):** **22** full-window lines classified (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly**. See `MVP_LANE_EVIDENCE_LOG.md` — **not** approval; **not** Phase 3.
+- **Tranche 32 — freshness ambiguity resolution (Prompt #125 — defined only; not executed here):** Next bounded tranche targets **only** the **10** cannot-classify cohort (`t21_fr_full_20260328T160000Z` … `t21_fr_full_20260329T100000Z`) — resolve with **supplementary verifiable evidence** **or** **document explicit gate limitation**; **no** fake proof.
 
 ## Phase 1 — completed
 
@@ -46,6 +47,7 @@ Updated: 2026-03-30T18:15:00-05:00
 | Full Tranche 21 FR window — **governed doc reconciliation**                   | **DONE** (Prompt **#102**)                                          |
 | `required_reliability_threshold` 0.8 — honest comparison **allowed on count** | **Now eligible to document** (22 ≥ 20); still **not** approval      |
 | Tranche 31 — Lane B FR **freshness discipline** (declare window + classify 22 rows) | **EXECUTED** (Prompt **#121**) — **12** fresh / **0** stale / **10** cannot classify; **not** approval |
+| Tranche 32 — **cannot-classify cohort** ambiguity resolution (**10** rows) | **DEFINED** (Prompt **#125**); **not executed** in Prompt **#125** |
 | MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
 
 ## MASTER Phase 3 — Universe scanner
@@ -59,9 +61,10 @@ Updated: 2026-03-30T18:15:00-05:00
 ## Exact current next step (authorized only)
 
 1. **Hold at the Phase 2 checkpoint** — gate-review outcome at this checkpoint is **promising-but-unapproved**; **do not** imply Phase 3 unlock from FR reliability slice alone.
-2. **Further Phase 2 evidence:** next dimensions per gate standard (normalization, stale/outage **system** behavior, etc.) — **governed prompts only**; **not** Phase 3; **not** scanner/runtime.
-3. Keep **`mvp_lane_approval.json`** unchanged until future evidence or an explicitly re-scoped governed review justifies approval.
-4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
+2. **When a governed prompt authorizes execution:** run **Tranche 32** first — **cannot-classify freshness ambiguity** for the **10** Tranche 31 rows (see `MVP_LANE_EVIDENCE_LOG.md`); **do not** skip this in favor of normalization or other dimensions until governance says otherwise.
+3. **Further Phase 2 evidence (after Tranche 32 or as separately prompted):** normalization, stale/outage **system** behavior, etc. — **governed prompts only**; **not** Phase 3; **not** scanner/runtime.
+4. Keep **`mvp_lane_approval.json`** unchanged until future evidence or an explicitly re-scoped governed review justifies approval.
+5. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
 
 ## Do not
 

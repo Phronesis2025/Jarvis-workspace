@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 121  
+**Prompt #:** 125  
 **Phase #:** 2  
-**Tranche #:** 31  
-**Updated:** 2026-03-30T18:15:00-05:00
+**Tranche #:** 32  
+**Updated:** 2026-03-30T20:00:00-05:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -148,10 +148,16 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 - **Done:** Lane B (Federal Register) **freshness rule** + per-slot classification for **22** full-window JSONL lines (`t30_valid_002` excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly** (advance `publication_date` vs observation). Full rule and limits: `MVP_LANE_EVIDENCE_LOG.md` + `MVP_SOURCE_RELIABILITY_AUDIT.md`.
 - **Still not:** approval; Phase 3; scanner/runtime; normalization breadth; stale/outage **system** proof; conflict/context-dominance proof.
 
+## Tranche 32 — freshness ambiguity resolution (defined Prompt #125; not executed here)
+
+- **Primary focus:** **Only** the **10** cannot-classify rows (`t21_fr_full_20260328T160000Z` through `t21_fr_full_20260329T100000Z`). Goal: per-row **reclassification** with **cited** verifiable facts **or** **explicit “unresolvable under available fields”** documentation — **no** silent upgrade of the full **22** to “all fresh.”
+- **Why before other dimensions:** Freshness is **not** cleanly closed while **10/22** are ambiguous under the Tranche 31 rule; skipping that invites **false** gate confidence on lane B.
+- **Allowed scope:** Existing snapshots/JSONL first; optional **bounded** read-only Federal Register API document fetch per **distinct** `document_number` in the cohort (no new scheduled collector window) **only** if a governed execution prompt authorizes it.
+
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 gate checkpoint** — current outcome is **promising-but-unapproved**; the FR window slice is strong, but it is **not** approval.
-2. **Further gate dimensions:** collect evidence per checklist — **not** fake proof; **`mvp_lane_approval.json`** unchanged until explicit signoff.
+2. **When prompted to execute Tranche 32:** follow `THE_FADE_PROCESS_CHECKLIST.md` + `MVP_LANE_EVIDENCE_LOG.md` — **not** fake proof; **`mvp_lane_approval.json`** unchanged until explicit signoff.
 3. Update **`mvp_lane_approval.json`** (and downstream registry/escalation) **only** if future evidence and explicit operator signoff later justify approval.
 4. Continue all git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.
 
