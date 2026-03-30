@@ -1,10 +1,10 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 117  
+**Prompt #:** 121  
 **Phase #:** 2  
 **Tranche #:** 31
 
-Updated: 2026-03-30T12:30:00-05:00
+Updated: 2026-03-30T18:15:00-05:00
 
 ## One-screen truth (new chat fast-start)
 
@@ -15,7 +15,7 @@ Updated: 2026-03-30T12:30:00-05:00
 - **Most advanced lane:** `lane_b_official_disclosure` — still **not** approved; other gate dimensions beyond this reliability slice remain as documented in `mvp_lane_evidence_registry.json` and the evidence log.
 - **Current gate outcome note:** operator **full-dimension gate review** has been reviewed at this checkpoint. The FR slice is strong, but whole-gate approval is **still not justified**; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
 - **Final signoff lock (Prompt #113):** review completed with no approval flip -- lane B stays **promising-but-unapproved**, `t30_valid_002` stays excluded from the 22-slot full-window tally, and Phase 3 stays blocked.
-- **Next bounded tranche (Prompt #117 definition only):** **Tranche 31** — Lane B Federal Register **freshness discipline** (written freshness window + **fresh vs stale** classification applied to the **22** full-window JSONL records). Execution waits for a separate governed prompt; **not** implemented in Prompt **#117**.
+- **Tranche 31 freshness pass (Prompt #121 — executed):** Lane B Federal Register **freshness discipline** applied to the **22** full-window JSONL lines (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly** (advance `publication_date` vs observation under date-only UTC midnight model). **Not** approval; **not** Phase 3. Detail: `MVP_LANE_EVIDENCE_LOG.md`.
 
 ## Federal Register full Tranche 21 window — on-disk collector state (verified)
 
@@ -39,6 +39,7 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 - Phase 1 / Tranche 1 foundation and prior Phase 2 tranches through **Tranche 24 interim pilot** (real but **insufficient** for full Tranche 21 protocol).
 - **Full Tranche 21 Federal Register reliability window** — **collector evidence on disk complete** for the declared 48h window above: **22** timing-valid, successful slot records + append-only log integrity (see handoff bundle for script and paths).
 - Bounded collector hardening: `future_modules/the_fade/scripts/run_tranche21_fr_slot.py` (Federal Register only, timing gates, duplicate protection, required fields).
+- **Tranche 31 freshness classification** — **Prompt #121** on-disk analysis of **22** full-window snapshots + JSONL (see evidence log); optional helper `future_modules/the_fade/scripts/_tranche31_freshness_classify.py` for reproducible counts.
 
 ## What is not done
 
@@ -54,7 +55,7 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 checkpoint:** the current gate-review outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
-2. **Next evidence tranche when explicitly prompted:** **Tranche 31** — freshness discipline for Lane B FR only (see `THE_FADE_PROCESS_CHECKLIST.md`); does **not** unlock approval or Phase 3 by itself.
+2. **Next governed Phase 2 moves:** follow `THE_FADE_PROCESS_CHECKLIST.md` — **Tranche 31 freshness** is **executed**; further dimensions (normalization, stale/outage system behavior, etc.) remain **pending** evidence, **not** approval.
 3. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
 4. **Operator decision later if warranted:** Only after future evidence and explicit operator signoff should `mvp_lane_approval.json` move to `approved: true` (with `approved_by` / `approved_at`). Until then, **do not** flip approval in code or docs and **do not** start Phase 3.
 

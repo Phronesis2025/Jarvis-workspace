@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 117  
+**Prompt #:** 121  
 **Phase #:** 2  
 **Tranche #:** 31  
 
-Updated: 2026-03-30T12:30:00-05:00
+Updated: 2026-03-30T18:15:00-05:00
 
 ## Purpose
 
@@ -195,5 +195,12 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 6 (Prompt #88)**.
 - **Not success:** Claiming MVP approval, whole-gate closure, production stale/outage **system** behavior, normalization completeness, or conflict/context-dominance proof from this tranche alone.
 - **Stop when:** Window is defined, classification is applied to all **22** rows, and docs are updated — or an honest **blocker** is recorded (e.g., ambiguous timestamps) without fabricating freshness.
 - **Still would not prove:** Stale/outage **escalation/downgrade paths** at scale; forced outage statistics; other source classes (SEC/issuer); Phase 3 readiness.
+
+## Tranche 31 execution outcome — Lane B Federal Register freshness (Prompt #121)
+
+- **Executed:** Yes — bounded classification on **22** full-window JSONL lines (**`t30_valid_002`** excluded). Snapshots: `future_modules/the_fade/outputs/lane_b_real_observation/run_*_tranche21_fr_slot_snapshot.json`; log: `tranche21_fr_slot_runs.jsonl`.
+- **Rule (summary):** `T_obs = actual_started_at_utc`; `publication_date` from **`results[0]`** in snapshot `response_preview_utf8`; `T_pub` = that date at **00:00 UTC**; `Δ = T_obs − T_pub`; **fresh** if `0 ≤ Δ ≤ 48h`; **stale** if `Δ > 48h`; **cannot classify** if `Δ < 0` (advance listing vs date-only field). Detail: `MVP_LANE_EVIDENCE_LOG.md` → **Tranche 31 freshness** section.
+- **Counts:** **12** fresh, **0** stale, **10** cannot classify honestly.
+- **Does not satisfy** the full MVP approval standard by itself — mixed outcome; **no** production stale/outage system proof; **`mvp_lane_approval.json`** unchanged (**`approved: false`**); **Phase 3** still **blocked**.
 
 

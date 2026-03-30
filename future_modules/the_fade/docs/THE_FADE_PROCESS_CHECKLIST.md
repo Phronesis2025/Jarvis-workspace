@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 117  
+**Prompt #:** 121  
 **Phase #:** 2  
 **Tranche #:** 31
 
-Updated: 2026-03-30T12:30:00-05:00
+Updated: 2026-03-30T18:15:00-05:00
 
 ## You are here
 
@@ -15,7 +15,7 @@ Updated: 2026-03-30T12:30:00-05:00
 - **Approval:** `mvp_lane_approval.json` still **`approved: false`**, **`approved_mvp_lanes: []`** unless and until that file is edited.
 - **Phase 3:** **Blocked.**
 - **Operator gate review decision (Prompt #113 lock):** FR full-window evidence is a **strong positive slice** only; whole-gate approval is **still not justified** on current live evidence; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
-- **Next bounded Phase 2 evidence tranche (defined Prompt #117 — not executed here):** **Tranche 31** — Lane B (Federal Register) **freshness discipline** (declare freshness window; apply **fresh vs stale** classification to the **22** full-window JSONL records; document gaps). Does **not** run new collector protocol in this planning pass.
+- **Tranche 31 freshness discipline (Prompt #121 — executed):** **22** full-window lines classified (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly**. See `MVP_LANE_EVIDENCE_LOG.md` — **not** approval; **not** Phase 3.
 
 ## Phase 1 — completed
 
@@ -45,7 +45,7 @@ Updated: 2026-03-30T12:30:00-05:00
 | Full Tranche 21 FR window — **execution / collector artifacts**               | **DONE on disk** (22 full-window lines)                             |
 | Full Tranche 21 FR window — **governed doc reconciliation**                   | **DONE** (Prompt **#102**)                                          |
 | `required_reliability_threshold` 0.8 — honest comparison **allowed on count** | **Now eligible to document** (22 ≥ 20); still **not** approval      |
-| Tranche 31 — Lane B FR **freshness discipline** (declare window + classify 22 rows) | **DEFINED** (Prompt **#117**); **not executed** in Prompt **#117**    |
+| Tranche 31 — Lane B FR **freshness discipline** (declare window + classify 22 rows) | **EXECUTED** (Prompt **#121**) — **12** fresh / **0** stale / **10** cannot classify; **not** approval |
 | MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
 
 ## MASTER Phase 3 — Universe scanner
@@ -59,7 +59,7 @@ Updated: 2026-03-30T12:30:00-05:00
 ## Exact current next step (authorized only)
 
 1. **Hold at the Phase 2 checkpoint** — gate-review outcome at this checkpoint is **promising-but-unapproved**; **do not** imply Phase 3 unlock from FR reliability slice alone.
-2. **When a governed prompt authorizes execution:** run **Tranche 31** only — Lane B Federal Register **freshness discipline** (written freshness window + per-slot classification table for the **22** full-window JSONL lines + honest edge-case notes). **Not** approval; **not** Phase 3; **not** scanner/runtime.
+2. **Further Phase 2 evidence:** next dimensions per gate standard (normalization, stale/outage **system** behavior, etc.) — **governed prompts only**; **not** Phase 3; **not** scanner/runtime.
 3. Keep **`mvp_lane_approval.json`** unchanged until future evidence or an explicitly re-scoped governed review justifies approval.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
 

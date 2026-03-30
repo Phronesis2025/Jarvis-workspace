@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 117  
+**Prompt #:** 121  
 **Phase #:** 2  
 **Tranche #:** 31  
-**Updated:** 2026-03-30T12:30:00-05:00
+**Updated:** 2026-03-30T18:15:00-05:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -113,7 +113,8 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 - Tranche 21 protocol required **≥20** counted attempts before an honest **`reliability = successes / counted_attempts`** comparison vs **0.8**. The **22** full-window records meet the **count floor**; observed ratio on that slice is **22/22 = 1.0**.
 - **This does not automatically approve** anything. Binding approval is only **`mvp_lane_approval.json`**, which is still **false** on disk.
-- Other MVP dimensions (freshness discipline, normalization breadth, stale/outage at scale, conflict permutations, context dominance, production-equivalent runtime) remain as in registry and prior logs.
+- **Freshness (Tranche 31 / Prompt #121):** bounded classification on the **22** full-window FR lines — **12** fresh, **0** stale, **10** cannot classify honestly (see `MVP_LANE_EVIDENCE_LOG.md`). **Not** MVP approval by itself.
+- Other MVP dimensions (normalization breadth, stale/outage **system** behavior at scale, conflict permutations, context dominance, production-equivalent runtime) remain **partial** as in registry and prior logs.
 
 ---
 
@@ -142,16 +143,15 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ---
 
-## Tranche 31 — next bounded evidence (defined Prompt #117; not executed here)
+## Tranche 31 — freshness discipline (executed Prompt #121)
 
-- **Primary focus:** Lane B (Federal Register) **freshness discipline** — operator-declared freshness window + **fresh vs stale** classification for each of the **22** full-window JSONL lines (same window bounds as Tranche 30; `t30_valid_002` remains out of tally).
-- **Why next:** MVP gate standard lists **freshness** immediately after **reliability**; the FR reliability slice is strong, but the evidence log still flags freshness window application as **not** gate-complete. This tranche is mostly **evidence-first** on **existing** artifacts (low scope creep) and **precedes** a dedicated stale/outage-behavior tranche that needs a defined “stale” rule.
-- **Out of scope for Tranche 31:** approval flip; Phase 3; scanner/runtime; broad normalization/conflict suites; claiming production-equivalent outage statistics.
+- **Done:** Lane B (Federal Register) **freshness rule** + per-slot classification for **22** full-window JSONL lines (`t30_valid_002` excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly** (advance `publication_date` vs observation). Full rule and limits: `MVP_LANE_EVIDENCE_LOG.md` + `MVP_SOURCE_RELIABILITY_AUDIT.md`.
+- **Still not:** approval; Phase 3; scanner/runtime; normalization breadth; stale/outage **system** proof; conflict/context-dominance proof.
 
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 gate checkpoint** — current outcome is **promising-but-unapproved**; the FR window slice is strong, but it is **not** approval.
-2. **When prompted to execute Tranche 31:** follow `THE_FADE_PROCESS_CHECKLIST.md` + `MVP_LANE_EVIDENCE_LOG.md` / `MVP_SOURCE_RELIABILITY_AUDIT.md` for freshness window + classification table — **no** fake proof.
+2. **Further gate dimensions:** collect evidence per checklist — **not** fake proof; **`mvp_lane_approval.json`** unchanged until explicit signoff.
 3. Update **`mvp_lane_approval.json`** (and downstream registry/escalation) **only** if future evidence and explicit operator signoff later justify approval.
 4. Continue all git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.
 

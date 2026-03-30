@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 117  
+**Prompt #:** 121  
 **Phase #:** 2  
 **Tranche #:** 31  
 
-Updated: 2026-03-30T12:30:00-05:00
+Updated: 2026-03-30T18:15:00-05:00
 
 ## Purpose
 
@@ -79,9 +79,35 @@ Use this format per lane. Fill the fields with operator observations; if somethi
 
 **Tranche 30 (Prompt #102):** Full-window Federal Register slot evidence is **captured on disk** and summarized in **Lane B full Tranche 21 Federal Register reliability window (Tranche 30 -- Prompt #102)** below. **`mvp_lane_approval.json`** remains **`approved: false`** unless and until that file is updated — this log does **not** grant approval. **Phase 3** remains **blocked**.
 
-**Tranche 31 (Prompt #117 -- defined next; not executed in #117):** Next bounded evidence tranche is Lane B Federal Register **freshness discipline** — declare a freshness window and apply **fresh vs stale** classification to each of the **22** full-window JSONL records ( **`t30_valid_002`** excluded from the **22** tally ). Remaining gate dimensions (**normalization breadth,** real **stale/outage** system behavior at scale, **conflict** permutations, **context-dominance** risk, **production-equivalent** runtime) stay **partial / not gate-justified** until separately evidenced.
+**Tranche 31 — freshness discipline executed (Prompt #121):** Bounded classification pass complete for the **22** full-window FR JSONL lines (**`t30_valid_002`** excluded). See **Lane B full Tranche 21 FR window — Tranche 31 freshness (Prompt #121)** below. **`mvp_lane_approval.json`** remains **`approved: false`** — this log does **not** grant approval. **Phase 3** remains **blocked**. Other gate dimensions remain **partial** until separately evidenced.
 
 Earlier sections remain **historical** unless this file explicitly points forward to a newer slice.
+
+## Lane B full Tranche 21 FR window — Tranche 31 freshness (Prompt #121)
+
+**Population:** **22** JSONL lines with `window_start_utc=2026-03-27T16:00:00Z` and `window_end_utc=2026-03-29T16:00:00Z`. **`task_id=t30_valid_002`** is **not** in this population.
+
+**Freshness rule (operator-facing, narrow):**
+
+- **Observation instant:** `actual_started_at_utc` from each JSONL line.
+- **Publication date (source):** `publication_date` (YYYY-MM-DD) for **`results[0]`** in the Federal Register API JSON, taken from each run’s `*_tranche21_fr_slot_snapshot.json` field `response_preview_utf8` (first `"publication_date"` after the substring `"results":[{`).
+- **Publication instant for age:** `T_pub` = that calendar date at **00:00:00 UTC** (API is date-only).
+- **Age:** `Δ = T_obs − T_pub` (observation minus publication instant).
+- **fresh:** `Δ ≥ 0` and `Δ ≤ 48 hours`.
+- **stale:** `Δ > 48 hours`.
+- **cannot classify honestly:** `Δ < 0` (observation is **before** the publication calendar day at UTC midnight). This happens when the **newest** document’s **`publication_date`** is **after** the observation instant (e.g. **advance / public-inspection** style listings in the feed). This is **not** labeled “stale” here — strict age math is **undefined** without time-of-day semantics from the API.
+
+**Classification counts (22 rows):**
+
+| Outcome | Count |
+|--------|------:|
+| fresh | 12 |
+| stale | 0 |
+| cannot classify honestly | 10 |
+
+**Cannot-classify rows (all `Δ < 0` under the rule above):** `t21_fr_full_20260328T160000Z` through `t21_fr_full_20260329T100000Z` (10 consecutive slots). **Fresh rows:** earlier slots in the same window (12 rows) — see helper output in repo script `future_modules/the_fade/scripts/_tranche31_freshness_classify.py` for per-`task_id` detail.
+
+**What Tranche 31 does not prove:** stale/outage **system** behavior at scale; normalization breadth; conflict handling; context-dominance; production-equivalent runtime; Phase 3 readiness; MVP approval.
 
 ## Evidence entry: lane_b_official_disclosure (Tranche 4)
 
@@ -98,9 +124,9 @@ Evidence captured in this tranche:
 - notes: **Partial / conservative.** See **Lane B reliability window evidence (Tranche 18)** below. Approval remains NOT justified.
 
 ### Freshness
-- evidence_summary: Evidence timestamps were present in the observed outputs and could be classified for freshness vs staleness using a planned freshness window.
-- freshness window reference: Defined later by the operator in the log (align to `MVP_SOURCE_RELIABILITY_AUDIT.md` freshness discipline).
-- notes: Recorded. Still requires full application of the freshness window definition.
+- evidence_summary: **Tranche 31 (Prompt #121)** applied a **written** freshness rule to the **22** full-window Federal Register slot runs (see **Lane B full Tranche 21 FR window — Tranche 31 freshness (Prompt #121)** above): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly** (advance `publication_date` vs observation under date-only UTC midnight model). **Not** MVP approval; **not** whole gate.
+- freshness window reference: **48 hours** max age (`Δ` from `publication_date` @ 00:00 UTC to `actual_started_at_utc`), plus **cannot-classify** path when `Δ < 0`.
+- notes: Freshness dimension is **stronger than “unknown”** for this slice but **not** gate-complete for approval (mixed outcomes; date-only API field; no production stale/outage system proof).
 
 ### Normalization viability
 - evidence_summary: Normalization produced candidate normalized events without obvious silent drops in the observed sample.
