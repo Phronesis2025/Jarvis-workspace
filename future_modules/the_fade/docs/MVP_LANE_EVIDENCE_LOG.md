@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 113  
+**Prompt #:** 117  
 **Phase #:** 2  
-**Tranche #:** 30  
+**Tranche #:** 31  
 
-Updated: 2026-03-30T10:08:44-05:00
+Updated: 2026-03-30T12:30:00-05:00
 
 ## Purpose
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
 ## Status (current)
 
 **Tranche 30 (Prompt #102):** Full-window Federal Register slot evidence is **captured on disk** and summarized in **Lane B full Tranche 21 Federal Register reliability window (Tranche 30 -- Prompt #102)** below. **`mvp_lane_approval.json`** remains **`approved: false`** unless and until that file is updated — this log does **not** grant approval. **Phase 3** remains **blocked**.
+
+**Tranche 31 (Prompt #117 -- defined next; not executed in #117):** Next bounded evidence tranche is Lane B Federal Register **freshness discipline** — declare a freshness window and apply **fresh vs stale** classification to each of the **22** full-window JSONL records ( **`t30_valid_002`** excluded from the **22** tally ). Remaining gate dimensions (**normalization breadth,** real **stale/outage** system behavior at scale, **conflict** permutations, **context-dominance** risk, **production-equivalent** runtime) stay **partial / not gate-justified** until separately evidenced.
 
 Earlier sections remain **historical** unless this file explicitly points forward to a newer slice.
 

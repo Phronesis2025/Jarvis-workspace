@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 113  
+**Prompt #:** 117  
 **Phase #:** 2  
-**Tranche #:** 30  
-**Updated:** 2026-03-30T10:08:44-05:00
+**Tranche #:** 31  
+**Updated:** 2026-03-30T12:30:00-05:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -142,11 +142,18 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ---
 
+## Tranche 31 — next bounded evidence (defined Prompt #117; not executed here)
+
+- **Primary focus:** Lane B (Federal Register) **freshness discipline** — operator-declared freshness window + **fresh vs stale** classification for each of the **22** full-window JSONL lines (same window bounds as Tranche 30; `t30_valid_002` remains out of tally).
+- **Why next:** MVP gate standard lists **freshness** immediately after **reliability**; the FR reliability slice is strong, but the evidence log still flags freshness window application as **not** gate-complete. This tranche is mostly **evidence-first** on **existing** artifacts (low scope creep) and **precedes** a dedicated stale/outage-behavior tranche that needs a defined “stale” rule.
+- **Out of scope for Tranche 31:** approval flip; Phase 3; scanner/runtime; broad normalization/conflict suites; claiming production-equivalent outage statistics.
+
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 gate checkpoint** — current outcome is **promising-but-unapproved**; the FR window slice is strong, but it is **not** approval.
-2. Update **`mvp_lane_approval.json`** (and downstream registry/escalation) **only** if future evidence and explicit operator signoff later justify approval.
-3. Continue all git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.
+2. **When prompted to execute Tranche 31:** follow `THE_FADE_PROCESS_CHECKLIST.md` + `MVP_LANE_EVIDENCE_LOG.md` / `MVP_SOURCE_RELIABILITY_AUDIT.md` for freshness window + classification table — **no** fake proof.
+3. Update **`mvp_lane_approval.json`** (and downstream registry/escalation) **only** if future evidence and explicit operator signoff later justify approval.
+4. Continue all git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.
 
 ## Key authority files (next edits likely)
 

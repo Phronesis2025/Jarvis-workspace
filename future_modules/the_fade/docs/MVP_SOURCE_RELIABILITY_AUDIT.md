@@ -1,10 +1,10 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 113  
+**Prompt #:** 117  
 **Phase #:** 2  
-**Tranche #:** 30  
+**Tranche #:** 31  
 
-Updated: 2026-03-30T10:08:44-05:00
+Updated: 2026-03-30T12:30:00-05:00
 
 ## Purpose
 
@@ -176,7 +176,7 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 6 (Prompt #88)**.
 
 - **Park:** lane B stays **promising-but-unapproved** (`mvp_lane_approval.json` remains `approved: false`) until operator updates that file.
 - **Execution status:** The **full Tranche 21** Federal Register reliability window is **complete on disk** (see **Lane B** summary above and **Tranche 30** entries in `MVP_LANE_EVIDENCE_LOG.md`). **Governed markdown** reconciled under Prompt **#102** — **not** an approval flip.
-- **Advance (authorized next move only):** **operator MVP gate review** (all dimensions) and, only if justified, edits to **`mvp_lane_approval.json`** per checklist — **not** Phase 3 until the gate says so.
+- **Advance (authorized next move only):** Operator **full-dimension gate review** completed (Prompt **#113** lock). **Next bounded evidence tranche:** **Tranche 31** — Lane B FR **freshness discipline** (see **Planned next bounded tranche** below). Edits to **`mvp_lane_approval.json`** only if justified later — **not** Phase 3 until the gate says so.
 
 ## Gate-decision alignment note (Tranche 30 -- Prompt #103)
 
@@ -185,5 +185,15 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 6 (Prompt #88)**.
 - **Parking lot only (not authorized now):** any critic-agent implementation, MCP tooling implementation, exchange/live execution integration, or execution-adjacent build work.
 - **State unchanged:** this triage does not change approval authority; `mvp_lane_approval.json` remains `approved: false`, and **Phase 3 remains blocked**.
 - **Final signoff lock (Prompt #113):** final operator review confirms the same outcome: FR full-window slice is strong (**22/22/0**, `t30_valid_002` excluded), but whole-gate closure is still not justified; approval remains false.
+
+## Planned next bounded tranche — Lane B freshness discipline (Tranche 31 -- Prompt #117)
+
+- **Purpose:** Close the **freshness** gap for the same Lane B Federal Register slice that already supports an honest **reliability** tally — by **writing down** an operator-approved freshness window and showing how each **full-window** observation classifies (**fresh vs stale**) against it, using fields already present in `tranche21_fr_slot_runs.jsonl` (and per-run snapshots as needed).
+- **Evidence question:** Under the declared rule, are all **22** gate-relevant full-window slots **fresh**? If any are **stale** or **borderline**, is that documented honestly (no silent upgrade)?
+- **Likely touch points (when executed):** `docs/MVP_LANE_EVIDENCE_LOG.md`, this file, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, append-only JSONL / snapshots (read-only classification); optional small helper script in a **later** governed prompt — **not** part of Prompt **#117**.
+- **Success:** Written freshness window definition + per-slot classification table (or equivalent) for the **22** lines + explicit notes on edge cases; conservative language if the rule strains on any row.
+- **Not success:** Claiming MVP approval, whole-gate closure, production stale/outage **system** behavior, normalization completeness, or conflict/context-dominance proof from this tranche alone.
+- **Stop when:** Window is defined, classification is applied to all **22** rows, and docs are updated — or an honest **blocker** is recorded (e.g., ambiguous timestamps) without fabricating freshness.
+- **Still would not prove:** Stale/outage **escalation/downgrade paths** at scale; forced outage statistics; other source classes (SEC/issuer); Phase 3 readiness.
 
 
