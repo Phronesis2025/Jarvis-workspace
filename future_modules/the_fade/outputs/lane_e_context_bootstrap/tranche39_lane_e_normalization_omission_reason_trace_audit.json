@@ -1,0 +1,114 @@
+{
+  "_meta": {
+    "title": "tranche39_lane_e_normalization_omission_reason_trace_audit",
+    "phase_number": 2,
+    "tranche_number": 39,
+    "generated_at_utc": "2026-03-31T15:09:40+00:00",
+    "build_scope": "THE FADE-local Lane E normalization+omission reason fixture audit only",
+    "no_network": true,
+    "approval_authority": "the_fade\\config\\mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "This audit does not grant approval and does not unlock Phase 3."
+  },
+  "lane_e_contract_grounding": {
+    "lane_id": "lane_e_research_swarm_context",
+    "direction_model_default": "CONTEXT_ONLY",
+    "scoring_method": "enrich_only",
+    "failure_policy": "omit_if_missing",
+    "lane_e_weight_hint": 0.2,
+    "freshness_window_hours": 24.0
+  },
+  "cases_evaluated": [
+    {
+      "case_id": "case_1_fresh_valid_context",
+      "description": "Fresh valid context should normalize successfully.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "context_age_hours": 2.0,
+      "verdict": {
+        "normalization_status": "normalized",
+        "omission_reason": "none",
+        "omission_explicit": false,
+        "no_primary_override": true,
+        "trace_explanation": "normalization=normalized; omission_reason=none; context_present=true; no_primary_override=true",
+        "case_pass": true,
+        "normalized_payload": {
+          "summary": "Sector memo supports primary direction",
+          "direction_hint": "bullish",
+          "confidence": 0.61
+        }
+      }
+    },
+    {
+      "case_id": "case_2_stale_context",
+      "description": "Stale context should be omitted with explicit stale reason.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "context_age_hours": 72.0,
+      "verdict": {
+        "normalization_status": "omitted",
+        "omission_reason": "stale_context",
+        "omission_explicit": true,
+        "no_primary_override": true,
+        "trace_explanation": "normalization=omitted; omission_reason=stale_context; context_present=true; no_primary_override=true",
+        "case_pass": true,
+        "normalized_payload": null
+      }
+    },
+    {
+      "case_id": "case_3_missing_context",
+      "description": "Missing context should be omitted with explicit missing reason.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": false,
+      "context_age_hours": null,
+      "verdict": {
+        "normalization_status": "omitted",
+        "omission_reason": "missing_context",
+        "omission_explicit": true,
+        "no_primary_override": true,
+        "trace_explanation": "normalization=omitted; omission_reason=missing_context; context_present=false; no_primary_override=true",
+        "case_pass": true,
+        "normalized_payload": null
+      }
+    },
+    {
+      "case_id": "case_4_invalid_shape_context",
+      "description": "Invalid-shape context should be omitted with explicit normalization reason.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "context_age_hours": 1.0,
+      "verdict": {
+        "normalization_status": "omitted",
+        "omission_reason": "invalid_context_shape",
+        "omission_explicit": true,
+        "no_primary_override": true,
+        "trace_explanation": "normalization=omitted; omission_reason=invalid_context_shape; context_present=true; no_primary_override=true",
+        "case_pass": true,
+        "normalized_payload": null
+      }
+    }
+  ],
+  "overall_verdict": {
+    "all_cases_passed": true,
+    "proved_now": [
+      "Lane E normalization status is explicit (normalized vs omitted) in bounded local cases.",
+      "Omitted cases carry explicit omission reasons (stale, missing, invalid shape).",
+      "No silent primary-lane override occurred in any case."
+    ],
+    "not_proved_yet": [
+      "Full Lane E gate closure across all MVP dimensions.",
+      "Live Research Swarm integration behavior.",
+      "Production-scale runtime behavior.",
+      "Any approval change or Phase 3 readiness."
+    ]
+  }
+}

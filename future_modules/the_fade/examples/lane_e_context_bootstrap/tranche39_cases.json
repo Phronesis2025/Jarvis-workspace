@@ -1,0 +1,57 @@
+{
+  "_meta": {
+    "title": "tranche39_lane_e_normalization_omission_reason_trace_cases",
+    "phase_number": 2,
+    "tranche_number": 39,
+    "freshness_window_hours": 24,
+    "note": "THE FADE-local bounded fixtures only. No network."
+  },
+  "cases": [
+    {
+      "case_id": "case_1_fresh_valid_context",
+      "description": "Fresh valid context should normalize successfully.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "context_age_hours": 2,
+      "lane_e_context_payload": {
+        "summary": "Sector memo supports primary direction",
+        "direction_hint": "bullish",
+        "confidence": 0.61
+      }
+    },
+    {
+      "case_id": "case_2_stale_context",
+      "description": "Stale context should be omitted with explicit stale reason.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "context_age_hours": 72,
+      "lane_e_context_payload": {
+        "summary": "Old context memo",
+        "direction_hint": "bearish",
+        "confidence": 0.42
+      }
+    },
+    {
+      "case_id": "case_3_missing_context",
+      "description": "Missing context should be omitted with explicit missing reason.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": false,
+      "context_age_hours": null,
+      "lane_e_context_payload": null
+    },
+    {
+      "case_id": "case_4_invalid_shape_context",
+      "description": "Invalid-shape context should be omitted with explicit normalization reason.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "context_age_hours": 1,
+      "lane_e_context_payload": {
+        "note_only": "Missing required fields for Lane E normalization"
+      }
+    }
+  ]
+}
