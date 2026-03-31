@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "title": "lane_b_phase2_freshness_policy_decision",
+    "prompt_number": 132,
+    "phase_number": 2,
+    "tranche_number": 33,
+    "lane_id": "lane_b_official_disclosure",
+    "decision_date_iso": "2026-03-30",
+    "binding_mvp_approval_file": "future_modules/the_fade/config/mvp_lane_approval.json",
+    "this_file_is_not_mvp_approval": true,
+    "mvp_approval_unchanged": true,
+    "phase_3_blocked": true
+  },
+  "decision": "ADOPT_ONE_POLICY",
+  "adopted_operator_facing_policy_id": "strict_midnight_utc",
+  "adopted_policy_summary": "T_pub = publication_date (YYYY-MM-DD) at 00:00:00 UTC; delta = actual_started_at_utc - T_pub; fresh if 0<=delta<=48h; stale if delta>48h; cannot_classify_honestly if delta<0. Same as Tranche 31 documented rule.",
+  "evidence_references": {
+    "rule_writeup": "future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md",
+    "comparator_output": "future_modules/the_fade/outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.json"
+  },
+  "counts_full_window_22_excluding_t30_valid_002": {
+    "fresh": 12,
+    "stale": 0,
+    "cannot_classify_honestly": 10,
+    "excluded_smoke_task_id": "t30_valid_002"
+  },
+  "policies_not_adopted_for_primary_phase2_gate": [
+    {
+      "policy_id": "publication_day_fresh",
+      "reason": "On this FR window, labels all 22 rows fresh; treats advance-listing observations as fresh without resolving Tranche 32 limitation on date-only publication_date vs feed semantics — overstates binary freshness."
+    },
+    {
+      "policy_id": "publication_end_of_day_utc",
+      "reason": "Same outcome as publication_day_fresh on this window (22 fresh); same overstatement risk."
+    },
+    {
+      "policy_id": "advance_listing_bucket",
+      "reason": "Useful descriptive third bucket but not adopted as the primary Phase 2 operator verdict: strict_midnight_utc remains canonical for binary gate language; advance_listing may be reported only as supplementary context if governance requests."
+    }
+  ],
+  "remaining_risk": "Freshness remains partial: 10/22 cannot_classify_honestly under adopted policy until sub-day publication evidence or separate governance for advance listings.",
+  "freshness_only_tranche_workstream": "PARKED — no further freshness-only Phase 2 tranches unless governance reopens or evidence source changes.",
+  "does_not_close_mvp_gate": true
+}

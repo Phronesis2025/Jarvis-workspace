@@ -1,16 +1,18 @@
 # MVP Source Reliability Audit (Phase 2)
 
-**Prompt #:** 125  
+**Prompt #:** 134  
 **Phase #:** 2  
-**Tranche #:** 32  
+**Tranche #:** 34A  
 
-Updated: 2026-03-30T20:00:00-05:00
+Updated: 2026-03-31T14:00:00-05:00
 
 ## Purpose
 
 This document prepares the **Phase 2 MVP approval gate** for THE FADE scout layer.
 
 It is **not an approval statement**. **No MVP lanes are approved yet.**
+
+**Remaining Phase 2 execution order (Prompt #134):** `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`.
 
 ## Authority
 
@@ -176,7 +178,7 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 6 (Prompt #88)**.
 
 - **Park:** lane B stays **promising-but-unapproved** (`mvp_lane_approval.json` remains `approved: false`) until operator updates that file.
 - **Execution status:** The **full Tranche 21** Federal Register reliability window is **complete on disk** (see **Lane B** summary above and **Tranche 30** entries in `MVP_LANE_EVIDENCE_LOG.md`). **Governed markdown** reconciled under Prompt **#102** — **not** an approval flip.
-- **Advance (authorized next move only):** Operator **full-dimension gate review** completed (Prompt **#113** lock). **Next bounded evidence tranche:** **Tranche 31** — Lane B FR **freshness discipline** (see **Planned next bounded tranche** below). Edits to **`mvp_lane_approval.json`** only if justified later — **not** Phase 3 until the gate says so.
+- **Advance (checkpoint):** Operator **full-dimension gate review** completed (Prompt **#113** lock). **Tranche 31** and **Tranche 32** Lane B FR **freshness** passes **executed** (see below). Further Phase **2** dimensions (normalization, stale/outage **system** behavior, etc.) — **governed prompts only**. Edits to **`mvp_lane_approval.json`** only if justified later — **not** Phase 3 until the gate says so.
 
 ## Gate-decision alignment note (Tranche 30 -- Prompt #103)
 
@@ -203,15 +205,27 @@ Detail: `docs/MVP_LANE_EVIDENCE_LOG.md` -> **Pilot slot 6 (Prompt #88)**.
 - **Counts:** **12** fresh, **0** stale, **10** cannot classify honestly.
 - **Does not satisfy** the full MVP approval standard by itself — mixed outcome; **no** production stale/outage system proof; **`mvp_lane_approval.json`** unchanged (**`approved: false`**); **Phase 3** still **blocked**.
 
-## Planned next bounded tranche — freshness ambiguity resolution (Tranche 32 -- Prompt #125)
+## Tranche 32 execution outcome — freshness ambiguity resolution (Prompt #129)
 
-- **Purpose:** Close the **honesty gap** left by **10** **`cannot classify honestly`** rows after Tranche **31** — by **per-row** supplementary evidence **or** **explicit documented limitation** for that cohort (**not** by re-running the full **22**-slot window).
-- **Evidence question:** Can each of the **10** rows be resolved with **cited** facts, or must the gate record **unresolvable** under current API fields / policy?
-- **Candidate files (when executed):** `MVP_LANE_EVIDENCE_LOG.md`, this file, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`, existing JSONL + **10** snapshots; optional narrow helper script **only** if an execution prompt authorizes it.
-- **Existing vs new capture:** **Prefer** existing stored artifacts; **may** allow **bounded** read-only document API fetch per **distinct** `document_number` — **not** a new Tranche **21** collector schedule.
-- **Success:** **10** row-level outcomes documented (resolved **or** explicitly limited); **no** claim that lane B freshness is **fully** satisfied if limitation remains.
-- **Non-success:** Approval flip; claiming whole gate closure; normalization / stale-outage-system / conflict proof.
-- **Stop when:** Cohort documented or honest cohort-level blocker recorded.
-- **Still would not prove:** Normalization breadth; production stale/outage **system** behavior; Phase **3** readiness.
+- **Executed:** Yes — **10**-row cohort (`t21_fr_full_20260328T160000Z` … `t21_fr_full_20260329T100000Z`). **Evidence:** per-run snapshots (`response_preview_utf8` / parseable **`results[0]`**) **+** one bounded GET `https://www.federalregister.gov/api/v1/documents/2026-06133.json`. Optional helper: `future_modules/the_fade/scripts/_tranche32_ambiguity_review.py`.
+- **Per-row outcome (strict Tranche 31 buckets):** **still cannot classify honestly** — **all 10**. Document API confirms **`publication_date`** / **`effective_on`** but **no** finer publication instant for the midnight-UTC **`Δ`** model; **`signing_date`:** **`null`** in fetched JSON.
+- **Tranche-level totals (unchanged):** **12** fresh, **0** stale, **10** still cannot classify honestly (**22** full-window rows; **`t30_valid_002`** excluded).
+- **Explicit limitation:** Honest **binary** fresh/stale under the Tranche **31** rule **without** additional **advance / public-inspection** operator policy — **not** established here.
+- **Does not prove:** Normalization breadth; production stale/outage **system** behavior; Phase **3** readiness; MVP approval. **`mvp_lane_approval.json`** unchanged (**`approved: false`**).
+
+## Tranche 33 — Lane B freshness policy decision (Prompt #132)
+
+- **Decision:** **`ADOPT_ONE_POLICY`** — **`strict_midnight_utc`** is the **operator-facing** Phase **2** Lane B freshness interpretation for **binary** scoring (same rule as Tranche **31**). **Machine-readable:** `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json`.
+- **Not adopted as primary:** **`publication_day_fresh`**, **`publication_end_of_day_utc`** (both yield **22/22 fresh** on this window — **overstates** freshness vs Tranche **32** limitation); **`advance_listing_bucket`** — descriptive only, not primary gate verdict.
+- **Counts under adopted policy:** **12** fresh, **0** stale, **10** **cannot classify honestly** (**22** rows; **`t30_valid_002`** excluded).
+- **Park:** **Freshness-only** Phase **2** tranche workstream **parked** unless governance or evidence **sources** change.
+- **Does not prove:** MVP approval; whole-gate closure; Phase **3** readiness.
+
+## Tranche 34 — Lane B normalization breadth audit (Prompt #133)
+
+- **Executed:** Yes — `future_modules/the_fade/scripts/audit_lane_b_normalization_breadth.py`; output `outputs/lane_b_real_observation/tranche34_normalization_breadth_audit.json` (+ `.md`). **No** network.
+- **Population:** **22** full-window JSONL lines (**`t30_valid_002`** excluded). Field set grounded in `run_tranche21_fr_slot.py` contracts + **`results[0]`** use in **`response_preview_utf8`**.
+- **Findings:** JSONL + snapshot shell fields **complete**; **`response_sha256`** present; **full** `json.loads` of **`response_preview_utf8`:** **0**/**22** (truncated previews); regex **`document_number`** in **`results[0]`** region: **22**/**22**; **3** distinct **`document_number`** values in-window.
+- **Verdict:** **Solid** for **collector** identity/timing/outcome + **checksum**; **partial** for **rich** structured normalization from stored snapshots alone — **not** normalization breadth **closed**; **not** MVP approval; **not** Phase **3**.
 
 
