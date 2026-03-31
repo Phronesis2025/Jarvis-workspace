@@ -135,6 +135,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 - **Hard boundaries:** no T40 definition in this pass; no T40 execution in this pass; no `mvp_lane_approval.json` edit; no Phase 3 unlock.
 - **Interpretation guardrail:** this is **not** a Lane E failure claim; it is a scope-control decision that bounded Lane E bootstrap value has been captured for this checkpoint.
 
+### Executed — **Tranche 40** (Prompt **#171**)
+
+**Name:** Governance / registry truth-closure (bounded Phase 2 alignment pass).
+
+**Scope (as run):** Reconcile machine-readable governance state to already-executed Phase 2 truth from Tranches **31-39** and the **39A** stop-lock, with minimal config/doc edits. **No** new lane evidence collection, **no** network, **no** approval edit, and **no** Phase **3** work.
+
+**Outcome (on disk):** `config/mvp_lane_evidence_registry.json` now reflects current partial/deferred lane status truth (Lane B deepest-but-partial; Lane E bounded bootstrap executed then paused). Control docs are aligned to record T40 as governance closure only. `mvp_lane_approval.json` remains unchanged (`approved: false`, `approved_mvp_lanes: []`). **Not** approval; **not** Phase **3**.
+
 ---
 
 ## Do NOT work on yet (unless a new governed prompt explicitly rescopes)

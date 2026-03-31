@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 165  
+**Prompt #:** 171  
 **Phase #:** 2  
-**Tranche #:** 39A  
+**Tranche #:** 40  
 
-Updated: 2026-03-31T15:35:00+00:00
+Updated: 2026-03-31T16:25:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35/36/37/38/39 executed** under governed prompts; post-T39 **PATH B** decision stop is locked (Lane E bootstrap paused for now; broader Phase 2 governance next). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35/36/37/38/39/40 executed** under governed prompts; post-T39 **PATH B** decision stop remains locked (Lane E bootstrap paused). **Tranche 40 is governance/registry truth-closure only** (no new evidence collection). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
