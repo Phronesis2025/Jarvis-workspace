@@ -1,15 +1,16 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 192  
+**Prompt #:** 196  
 **Phase #:** 2  
 **Tranche #:** 45
 
-Updated: 2026-03-31T23:00:00+00:00
+Updated: 2026-04-01T12:00:00+00:00
 
 ## You are here
 
+- **Checkpoint:** **T45** (Lane B failure-path / stale-outage **fixture** trace) is **executed and pushed**. **Phase 2** still **active**; **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Lane E** / **Lane C** bootstraps **paused** (**T39A**, **T43**). **Next new chat:** decide the **next honest Phase 2 move** under a **new governed prompt** — do **not** treat pre-T45 prompt numbers as the live “current task.”
 - **Phase:** 2 — MVP lane approval and source reliability gate.
-- **Branch:** `the-fade-phase1-tranche1-foundation`.
+- **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
 - **Formal markdown evidence log / audit:** **Reconciled** (Prompt **#102**) — `MVP_LANE_EVIDENCE_LOG.md`, `MVP_SOURCE_RELIABILITY_AUDIT.md` match JSONL truth; **not** an approval change.
 - **Approval:** `mvp_lane_approval.json` still **`approved: false`**, **`approved_mvp_lanes: []`** unless and until that file is edited.
@@ -106,11 +107,11 @@ Updated: 2026-03-31T23:00:00+00:00
 
 ## Exact current next step (authorized only)
 
-1. **Follow** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **T45** failure-path fixture trace **executed** (Prompt **#192**). Await a **new governed prompt** for the next bounded Phase **2** step.
+1. **Post–T45 push:** read **`THE_FADE_CONTEXT_ANCHOR.md`** + this file — then **await a new governed prompt** that names the **next** bounded Phase **2** step (not a replay of older prompt IDs).
 2. **Hold at the Phase 2 checkpoint** — **promising-but-unapproved**; **no** Phase **3** unlock from FR slice alone.
 3. Keep **`mvp_lane_approval.json`** unchanged until whole-gate evidence + explicit operator signoff.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
-5. Hold at Phase 2 and wait for a new governed prompt to define the next bounded step; no Phase 3 work.
+5. **No** Phase **3** work without a new governed scope.
 
 ## Do not
 

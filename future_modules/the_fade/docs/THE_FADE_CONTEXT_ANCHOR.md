@@ -1,14 +1,18 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 192  
+**Prompt #:** 196  
 **Phase #:** 2  
 **Tranche #:** 45
 
-Updated: 2026-03-31T23:00:00+00:00
+Updated: 2026-04-01T12:00:00+00:00
+
+## Current checkpoint (start here)
+
+**Plain English:** Phase **2** is **active**. **Lane B** is **deepest** but **partial** and **not** approved. **Lane E** and **Lane C** bounded bootstraps are **paused** (**T39A**, **T43**). **T40** / **T44** governance closures and **T45** Lane B failure-path **fixture** trace are **executed and pushed** to **`origin/the-fade-phase1-tranche1-foundation`** — this is a **clean new-chat** point **after** T45. **Next:** use a **new governed prompt** to choose the **next honest Phase 2 move** (do **not** assume an older prompt ID still defines “current work”). **`mvp_lane_approval.json`** remains **`approved: false`**; **Phase 3** remains **blocked**; **no** live Research Swarm or market-data integration is evidenced.
 
 ## One-screen truth (new chat fast-start)
 
-- **Branch:** `the-fade-phase1-tranche1-foundation` (verify with `git branch --show-current`).
+- **Branch:** `the-fade-phase1-tranche1-foundation` — verify with `git branch --show-current` and that **`git status`** shows **not ahead** of **`origin`** after a normal fetch/pull.
 - **What THE FADE is:** A **future-module** scout-layer design and evidence area under `future_modules/the_fade/`. It is **not** a live product, **not** integrated into production Jarvis, and has **no** Phase 3 scanner/runtime.
 - **Current gate phase:** **Phase 2 only** — MVP lane approval and source reliability pre-audit.
 - **Approval authority:** `future_modules/the_fade/config/mvp_lane_approval.json` — on disk: **`approved: false`**, **`approved_mvp_lanes: []`**. Do not assume approval changed unless that file does.
@@ -74,10 +78,10 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 
 ## Exact next authorized move
 
-1. **Hold at the Phase 2 checkpoint:** the current gate-review outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
-2. **Execute Phase 2 in plan order:** read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **T45** Lane B failure-path fixture trace **executed** (Prompt **#192**); await next governed prompt for further bounded work.
+1. **Hold at the Phase 2 checkpoint:** outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
+2. **After T45 push:** the next starting point is **not** “resume Prompt #192” — it is **choose the next honest bounded Phase 2 step** under a **new** governed prompt (read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** + **`JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`** for locked context only).
 3. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
-4. **Operator decision later if warranted:** Only after future evidence and explicit operator signoff should `mvp_lane_approval.json` move to `approved: true` (with `approved_by` / `approved_at`). Until then, **do not** flip approval in code or docs and **do not** start Phase 3.
+4. **Operator signoff only for approval:** `mvp_lane_approval.json` changes only with matching evidence and explicit fields; until then **do not** flip approval and **do not** start Phase 3.
 
 ## Strict rules for the next chat
 

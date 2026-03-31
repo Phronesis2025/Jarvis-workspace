@@ -1,10 +1,18 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 192  
+**Prompt #:** 196  
 **Phase #:** 2  
 **Tranche #:** 45  
-**Updated:** 2026-03-31T23:00:00+00:00
+**Updated:** 2026-04-01T12:00:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
+
+---
+
+## New chat checkpoint (post–T45 push)
+
+- **Where you are:** Phase **2**; **Lane B** deepest but **partial** / **not** approved; **Lane E** & **Lane C** bootstraps **paused**; **T45** Lane B failure-path **fixture** audit **on `origin`**; **approval** still **`mvp_lane_approval.json`** = **`false`**; **Phase 3** **blocked**.
+- **What to do next:** Open a **new governed prompt** to pick the **next honest Phase 2 move** — **not** “continue Prompt #192” by default.
+- **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
 
@@ -31,6 +39,7 @@
 | Lane posture                 | `lane_e_research_swarm_context` bootstrap paused under T39A PATH B stop after bounded T37/T38/T39; `lane_c_market_context` paused under T43 PATH B stop after bounded T41/T42; lane B remains deepest evidenced but still not MVP-approved |
 | Phase 3                      | **Blocked**                                                                                                                       |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
+| T45 status                   | **Executed + pushed** — Lane B failure-path / stale-outage **fixture** trace (`audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_*`); **not** gate closure; **not** live integration |
 
 ---
 
