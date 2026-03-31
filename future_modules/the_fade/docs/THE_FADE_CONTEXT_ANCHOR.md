@@ -1,10 +1,10 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 135  
+**Prompt #:** 145  
 **Phase #:** 2  
-**Tranche #:** 35
+**Tranche #:** 36A
 
-Updated: 2026-03-31T16:30:00-05:00
+Updated: 2026-03-31T20:40:00-05:00
 
 ## One-screen truth (new chat fast-start)
 
@@ -20,7 +20,9 @@ Updated: 2026-03-31T16:30:00-05:00
 - **Tranche 33 freshness policy (Prompt #132 — decided):** **Adopt** **`strict_midnight_utc`** as **operator-facing** Phase **2** Lane B freshness rule; **`lane_b_phase2_freshness_policy_decision.json`**. Comparator alternatives that yield **22/22 fresh** on this window are **not** adopted as primary — **honest partiality** preserved (**10**/**22** **cannot_classify_honestly**). **Freshness-only** tranche line **parked**. **Not** approval; **not** Phase **3**.
 - **Tranche 34 normalization breadth audit (Prompt #133 — tool on disk):** `audit_lane_b_normalization_breadth.py` + `tranche34_normalization_breadth_audit.{json,md}` — JSONL/snapshot **solid**; **full** JSON body from preview **not** parseable (truncated); **regex** **`document_number`** **22**/**22**; **breadth** **partial**. **Not** approval.
 - **Tranche 35 — stale/outage & escalation alignment audit (Prompt #135 — executed):** `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.{json,md}` — grounded evidence coverage check; dimension still thin for standard **#4** on the FR full-window slice. **Not** approval; **not** Phase 3.
-- **Remaining Phase 2 plan (Prompt #134 — LOCKED):** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **next** **Tranche 36** (cross-lane rollup) → **operator decision**. **Not** reactive tranche drift.
+- **Tranche 36 — cross-lane gate rollup (Prompt #143 — executed):** `build_phase2_cross_lane_gate_rollup.py` + `outputs/phase2_cross_lane_gate_rollup/phase2_cross_lane_gate_rollup.{json,md}` — A/B/C/E matrix shows lane B deepest but still partial; A/C/E mostly absent; **not** approval.
+- **Tranche 36A — decision stop lock (Prompt #145):** **PATH B selected**; next Phase 2 bootstrap lane is **`lane_e_research_swarm_context`**. **Decision pass only** — no tranche execution, no approval change, no Phase 3 unlock.
+- **Remaining Phase 2 plan (Prompt #134 — LOCKED):** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **T35 and T36 executed**; decision stop now **locked to PATH B**.
 
 ## Federal Register full Tranche 21 window — on-disk collector state (verified)
 
@@ -64,7 +66,7 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 checkpoint:** the current gate-review outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
-2. **Execute Phase 2 in plan order:** read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 35 is executed**; **next** is **Tranche 36** (cross-lane rollup), then **decision stop**; **do not** invent parallel tranche chains.
+2. **Execute Phase 2 in plan order:** read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 35 and Tranche 36 are executed**; decision stop is **PATH B**; next is to **define** (not execute) a bounded Lane E bootstrap tranche; **do not** invent parallel tranche chains.
 3. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
 4. **Operator decision later if warranted:** Only after future evidence and explicit operator signoff should `mvp_lane_approval.json` move to `approved: true` (with `approved_by` / `approved_at`). Until then, **do not** flip approval in code or docs and **do not** start Phase 3.
 
@@ -75,5 +77,5 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 - **Do not overclaim approval** — binding authority is `mvp_lane_approval.json`.
 - **Canon** — eight `JARVIS_THE_FADE_*.md` files stay under `future_modules/stock_module/` per `docs/CANON_INDEX.md`; do not move or delete.
 - **Process anchor** — `future_modules/stock_module/JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md` is the master checklist; align execution to it.
-- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**T35 executed; T36 next → stop**).
+- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**T35 executed; T36 executed; decision stop locked to PATH B**).
 - **`JARVIS_CODEBASE_STRUCTURE.md`** — unrelated drift; not THE FADE state.

@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 135  
+**Prompt #:** 145  
 **Phase #:** 2  
-**Tranche #:** 35  
-**Updated:** 2026-03-31T16:30:00-05:00
+**Tranche #:** 36A  
+**Updated:** 2026-03-31T20:40:00-05:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -48,12 +48,14 @@
 | Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
 | Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **T35 executed** → **next T36 → stop** |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **T35 executed** + **T36 executed** → **decision stop** |
 | Tranche 33 freshness policy comparator (script) | `future_modules/the_fade/scripts/compare_tranche31_freshness_policies.py` (no network) |
 | Tranche 33 policy comparison output | `.../outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.json` and `.md` |
 | Tranche 33 freshness policy decision (Prompt #132) | `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json` — **adopt** `strict_midnight_utc`; **park** freshness-only tranches |
 | Tranche 34 normalization breadth audit | `.../scripts/audit_lane_b_normalization_breadth.py` + `.../tranche34_normalization_breadth_audit.{json,md}` |
 | Tranche 35 stale/outage + escalation audit | `.../scripts/audit_lane_b_stale_outage_escalation_alignment.py` + `.../tranche35_stale_outage_escalation_audit.{json,md}` |
+| Tranche 36 cross-lane gate rollup | `.../scripts/build_phase2_cross_lane_gate_rollup.py` + `.../outputs/phase2_cross_lane_gate_rollup/phase2_cross_lane_gate_rollup.{json,md}` |
+| Tranche 36A decision lock | `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` + `THE_FADE_PROCESS_CHECKLIST.md` — **PATH B** selected, pivot target `lane_e_research_swarm_context` |
 
 ---
 
@@ -163,7 +165,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ## Exact next authorized move
 
-1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **Tranche 36** → **operator decision stop** (no parallel tranche drift).
+1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — decision stop is now **locked to PATH B** (pivot target `lane_e_research_swarm_context`); next is bootstrap tranche **definition only**.
 2. **Hold at the Phase 2 gate checkpoint** — **promising-but-unapproved**; FR slice is **not** approval.
 3. Update **`mvp_lane_approval.json`** **only** with explicit operator signoff + matching evidence.
 4. Continue git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.

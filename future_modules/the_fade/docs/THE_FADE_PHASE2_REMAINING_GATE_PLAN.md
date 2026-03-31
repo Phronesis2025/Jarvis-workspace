@@ -77,23 +77,32 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 
 **Outcome (on disk):** `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.json` / `.md` — honest **thin/partial** verdict for standard **#4** on the Lane B FR full-window slice; **not** gate closure.  
 
-### Next — **Tranche 36**
+### Executed — **Tranche 36** (Prompt **#143**)
 
 **Name:** Phase **2** **cross-lane gate dimension rollup**.  
 
-**Scope:** Single pass over `mvp_lane_evidence_registry.json` + `MVP_LANE_EVIDENCE_LOG.md` + audit — table of **five** approval checks × **four** lanes: **done / partial / absent**. **No** new tranche types inside the rollup; **no** collection.  
+**Scope (as run):** Single pass over `mvp_lane_evidence_registry.json` + `MVP_LANE_EVIDENCE_LOG.md` + audit/config truth — four-lane matrix with **done / partial / absent / not yet justified** states. **No** new tranche types inside the rollup; **no** collection.  
 
-**Outcome:** Operator-visible **STOP** sheet: whether to invest in **Lane A / C / E**, **hold** Phase **2**, or (only with explicit signoff) revisit approval — **still not** Phase **3** by default.
+**Outcome (on disk):** `scripts/build_phase2_cross_lane_gate_rollup.py` + `outputs/phase2_cross_lane_gate_rollup/phase2_cross_lane_gate_rollup.{json,md}`. Lane B is deepest but still partial; lanes A/C/E remain mostly absent. **Not** approval; **not** Phase **3**.
 
 ### Stop / decision point — **after Tranche 36**
 
 **Required:** Operator (or governed prompt) chooses **one**:  
 
 - **A)** Authorize **targeted** Phase **2** evidence for a **named** lane (A, C, or E) or a **named** bounded Lane B follow-up **only if** T35 exposes a justified gap; or  
-- **B)** **Formal HOLD** on Phase **2** completion spend; or  
-- **C)** **Approval file edit** only with matching evidence + explicit signoff fields — **out of scope** for tranche execution prompts.  
+- **B)** **Pivot to one named non-B lane bootstrap path** (selected in Tranche 36A: `lane_e_research_swarm_context`), with **definition-only** next step before any execution; or  
+- **C)** **Formal HOLD** on Phase **2** completion spend; or  
+- **D)** **Approval file edit** only with matching evidence + explicit signoff fields — **out of scope** for tranche execution prompts.  
 
 **No Phase 3** unless Phase **2** gate is **satisfied and documented** under existing rules.
+
+### Decision lock — **Tranche 36A** (Prompt **#145**)
+
+- **Selected path:** **PATH B** (pivot).
+- **Named next Phase 2 bootstrap lane:** `lane_e_research_swarm_context`.
+- **Why now:** cross-lane rollup shows Lane B is deepest but still partial, while A/C/E are absent at gate depth; highest decision value is reducing non-B blind-spot.
+- **Decision-pass boundary:** this lock does **not** execute a tranche, does **not** change `mvp_lane_approval.json`, and does **not** unlock Phase **3**.
+- **Next step (definition only):** define the first **bounded** Lane E bootstrap tranche under Phase 2 governance; do **not** execute it in this decision pass.
 
 ---
 

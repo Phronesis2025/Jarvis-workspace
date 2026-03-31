@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 135  
+**Prompt #:** 145  
 **Phase #:** 2  
-**Tranche #:** 35
+**Tranche #:** 36A
 
-Updated: 2026-03-31T16:30:00-05:00
+Updated: 2026-03-31T20:40:00-05:00
 
 ## You are here
 
@@ -20,14 +20,16 @@ Updated: 2026-03-31T16:30:00-05:00
 - **Tranche 33 — freshness policy decision (Prompt #132 — executed):** **Adopt** **`strict_midnight_utc`** as **operator-facing** Lane B Phase **2** freshness interpretation (`lane_b_phase2_freshness_policy_decision.json`). **Park** further **freshness-only** tranches. **Not** approval; **not** Phase 3.
 - **Tranche 34 — normalization breadth audit (Prompt #133 — executed):** `audit_lane_b_normalization_breadth.py` + `tranche34_normalization_breadth_audit.{json,md}` — grounded field audit on **22** rows; **not** gate closure. **Not** approval; **not** Phase 3.
 - **Tranche 35 — stale/outage & escalation alignment audit (Prompt #135 — executed):** `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.{json,md}` — grounded evidence coverage check; dimension still thin/partial for standard **#4** on the FR full-window slice. **Not** approval; **not** Phase 3.
-- **Tranche 34A — remaining Phase 2 plan LOCKED (Prompt #134):** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **next** governed execution target: **Tranche 36** (cross-lane gate rollup); **stop** at operator decision.
+- **Tranche 34A — remaining Phase 2 plan LOCKED (Prompt #134):** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 36 executed** (cross-lane gate rollup); now at **operator decision stop**.
+- **Tranche 36 — cross-lane gate rollup (Prompt #143 — executed):** `build_phase2_cross_lane_gate_rollup.py` + `outputs/phase2_cross_lane_gate_rollup/phase2_cross_lane_gate_rollup.{json,md}` — matrix across lanes A/B/C/E with grounded `done/partial/absent/not yet justified` statuses; lane B remains partial; no approval change.
+- **Tranche 36A — operator decision stop (Prompt #145 — decision lock only):** **PATH B selected**; pivot target is **`lane_e_research_swarm_context`**. This pass executes **no tranche**; it only locks governance direction. Approval remains false; Phase 3 remains blocked.
 
 ## Locked remaining Phase 2 sequence (authoritative)
 
 **Full detail:** `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`
 
-1. **Next:** **Tranche 36** — **Cross-lane** five-check × four-lane **rollup** (docs/registry only).  
-2. **Stop:** Operator / governed **decision** — next lane work, **HOLD**, or approval file (only with signoff). **No** Phase **3**.
+1. **Tranche 36 executed:** **Cross-lane** gate rollup is on disk (`phase2_cross_lane_gate_rollup.{json,md}`).  
+2. **Decision locked:** **PATH B** — next is to **define** (not execute) the first bounded Lane E bootstrap tranche for `lane_e_research_swarm_context`. **No** Phase **3**.
 
 ## Phase 1 — completed
 
@@ -61,8 +63,10 @@ Updated: 2026-03-31T16:30:00-05:00
 | Tranche 32 — **cannot-classify cohort** ambiguity resolution (**10** rows) | **EXECUTED** (Prompt **#129**) — **10**/**10** **still cannot classify honestly** under strict T31 rule; limitation documented |
 | Tranche 33 — Lane B FR **freshness policy** adopt + park freshness tranches | **DECIDED** (Prompt **#132**) — **adopt** `strict_midnight_utc`; **park** freshness-only line; see `lane_b_phase2_freshness_policy_decision.json` |
 | Tranche 34 — Lane B **normalization breadth** audit (**22** rows) | **EXECUTED** (Prompt **#133**) — see `tranche34_normalization_breadth_audit.json`; **partial** breadth; **not** approval |
-| Tranche 34A — **remaining Phase 2 gate plan** | **LOCKED** (Prompt **#134**) — `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`; **T35 executed** → **next** T36 → decision stop |
+| Tranche 34A — **remaining Phase 2 gate plan** | **LOCKED** (Prompt **#134**) — `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`; **T35 executed** + **T36 executed** → decision stop |
 | Tranche 35 — Lane B **stale/outage & escalation alignment** audit | **EXECUTED** (Prompt **#135**) — see `tranche35_stale_outage_escalation_audit.json`; dimension still thin/partial for standard **#4** on FR full-window slice |
+| Tranche 36 — **cross-lane gate dimension rollup** (A/B/C/E) | **EXECUTED** (Prompt **#143**) — see `phase2_cross_lane_gate_rollup.json`; lane B remains partial, A/C/E mostly absent; **not** approval |
+| Tranche 36A — **operator decision stop** | **LOCKED** (Prompt **#145**) — **PATH B** selected; pivot target `lane_e_research_swarm_context`; decision pass only (no tranche execution) |
 | MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
 
 ## MASTER Phase 3 — Universe scanner
@@ -75,7 +79,7 @@ Updated: 2026-03-31T16:30:00-05:00
 
 ## Exact current next step (authorized only)
 
-1. **Follow** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 36** next, then **decision stop** (no ad-hoc tranche chain).
+1. **Follow** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — decision stop is now **locked to PATH B**; next is Lane E bootstrap tranche **definition** only (no ad-hoc tranche chain).
 2. **Hold at the Phase 2 checkpoint** — **promising-but-unapproved**; **no** Phase **3** unlock from FR slice alone.
 3. Keep **`mvp_lane_approval.json`** unchanged until whole-gate evidence + explicit operator signoff.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
