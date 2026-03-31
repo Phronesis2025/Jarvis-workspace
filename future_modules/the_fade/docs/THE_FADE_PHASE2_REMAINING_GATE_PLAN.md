@@ -102,7 +102,15 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 - **Named next Phase 2 bootstrap lane:** `lane_e_research_swarm_context`.
 - **Why now:** cross-lane rollup shows Lane B is deepest but still partial, while A/C/E are absent at gate depth; highest decision value is reducing non-B blind-spot.
 - **Decision-pass boundary:** this lock does **not** execute a tranche, does **not** change `mvp_lane_approval.json`, and does **not** unlock Phase **3**.
-- **Next step (definition only):** define the first **bounded** Lane E bootstrap tranche under Phase 2 governance; do **not** execute it in this decision pass.
+- **Next step (post-lock):** execute one **bounded** Lane E bootstrap audit under Phase 2 governance with THE FADE-local fixtures only.
+
+### Executed — **Tranche 37** (Prompt **#152**)
+
+**Name:** Lane E **context non-dominance** bounded audit.
+
+**Scope (as run):** THE FADE-local fixture audit only; no network; no Research Swarm integration. Validate Lane E contract semantics from config (`CONTEXT_ONLY`, `enrich_only`, `omit_if_missing`) across three explicit cases: context missing, context supports primary, context conflicts with primary.
+
+**Outcome (on disk):** `scripts/audit_lane_e_context_non_dominance.py` + `examples/lane_e_context_bootstrap/tranche37_cases.json` + `outputs/lane_e_context_bootstrap/tranche37_lane_e_non_dominance_audit.{json,md}`. All three bounded cases pass non-dominance checks; omission is explicit when context is missing; no silent override of primary truth observed. **Not** approval; **not** Phase **3**; **not** live Research Swarm integration.
 
 ---
 
@@ -114,7 +122,7 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 - **Architecture expansion** (e.g. persist full FR JSON body) **without** a governed prompt that names storage + privacy/retention.
 - **Research swarm** or **stock module** scope outside `future_modules/the_fade/`.
 - **`mvp_lane_approval.json`** edits without operator evidence + signoff.
-- **Ad-hoc** “Tranche 37+” **not** listed above — **freeze** until Tranche **36** is complete and the decision point is taken.
+- **Ad-hoc** future tranches not listed above — **freeze** unless a new governed prompt explicitly adds them.
 
 ---
 

@@ -1,0 +1,90 @@
+{
+  "_meta": {
+    "title": "tranche37_lane_e_non_dominance_audit",
+    "phase_number": 2,
+    "tranche_number": 37,
+    "generated_at_utc": "2026-03-31T12:36:05+00:00",
+    "build_scope": "THE FADE-local bounded fixture audit only",
+    "no_network": true,
+    "approval_authority": "the_fade\\config\\mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "This audit does not grant approval and does not unlock Phase 3."
+  },
+  "lane_e_contract_grounding": {
+    "lane_id": "lane_e_research_swarm_context",
+    "direction_model_default": "CONTEXT_ONLY",
+    "scoring_method": "enrich_only",
+    "failure_policy": "omit_if_missing",
+    "lane_e_weight_hint": 0.2
+  },
+  "cases_evaluated": [
+    {
+      "case_id": "case_1_context_missing",
+      "description": "Lane E context is missing; omission must be explicit.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": false,
+      "lane_e_direction_hint": null,
+      "verdict": {
+        "lane_e_remained_non_primary": true,
+        "omission_explicit_when_missing": true,
+        "no_silent_override_of_primary_truth": true,
+        "context_supports_primary": false,
+        "context_conflicts_primary": false,
+        "case_pass": true
+      }
+    },
+    {
+      "case_id": "case_2_context_supports_primary",
+      "description": "Lane E context supports primary direction and remains non-primary.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bullish",
+      "verdict": {
+        "lane_e_remained_non_primary": true,
+        "omission_explicit_when_missing": false,
+        "no_silent_override_of_primary_truth": true,
+        "context_supports_primary": true,
+        "context_conflicts_primary": false,
+        "case_pass": true
+      }
+    },
+    {
+      "case_id": "case_3_context_conflicts_primary",
+      "description": "Lane E context conflicts with primary direction; conflict is explicit and no override occurs.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bearish",
+      "verdict": {
+        "lane_e_remained_non_primary": true,
+        "omission_explicit_when_missing": false,
+        "no_silent_override_of_primary_truth": true,
+        "context_supports_primary": false,
+        "context_conflicts_primary": true,
+        "case_pass": true
+      }
+    }
+  ],
+  "overall_verdict": {
+    "all_cases_passed": true,
+    "lane_e_non_dominance_evidenced_in_bounded_cases": true,
+    "proved_now": [
+      "Lane E stayed context-only/non-primary in the bounded fixture set.",
+      "Omission was explicit when Lane E context was missing.",
+      "No silent override of primary-lane truth occurred in support/conflict cases."
+    ],
+    "not_proved_yet": [
+      "Full Lane E gate closure across all MVP dimensions.",
+      "Live Research Swarm integration behavior.",
+      "Production-scale fusion/runtime behavior.",
+      "Any approval change or Phase 3 readiness."
+    ]
+  }
+}

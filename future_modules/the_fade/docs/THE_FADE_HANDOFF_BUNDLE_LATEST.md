@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 145  
+**Prompt #:** 152  
 **Phase #:** 2  
-**Tranche #:** 36A  
-**Updated:** 2026-03-31T20:40:00-05:00
+**Tranche #:** 37  
+**Updated:** 2026-03-31T12:40:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -56,6 +56,7 @@
 | Tranche 35 stale/outage + escalation audit | `.../scripts/audit_lane_b_stale_outage_escalation_alignment.py` + `.../tranche35_stale_outage_escalation_audit.{json,md}` |
 | Tranche 36 cross-lane gate rollup | `.../scripts/build_phase2_cross_lane_gate_rollup.py` + `.../outputs/phase2_cross_lane_gate_rollup/phase2_cross_lane_gate_rollup.{json,md}` |
 | Tranche 36A decision lock | `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` + `THE_FADE_PROCESS_CHECKLIST.md` — **PATH B** selected, pivot target `lane_e_research_swarm_context` |
+| Tranche 37 Lane E non-dominance audit | `.../scripts/audit_lane_e_context_non_dominance.py` + `.../examples/lane_e_context_bootstrap/tranche37_cases.json` + `.../outputs/lane_e_context_bootstrap/tranche37_lane_e_non_dominance_audit.{json,md}` |
 
 ---
 
@@ -165,7 +166,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ## Exact next authorized move
 
-1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — decision stop is now **locked to PATH B** (pivot target `lane_e_research_swarm_context`); next is bootstrap tranche **definition only**.
+1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — PATH B pivot target remains `lane_e_research_swarm_context`; first bounded Lane E bootstrap audit (Tranche 37) is now executed on disk.
 2. **Hold at the Phase 2 gate checkpoint** — **promising-but-unapproved**; FR slice is **not** approval.
 3. Update **`mvp_lane_approval.json`** **only** with explicit operator signoff + matching evidence.
 4. Continue git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.

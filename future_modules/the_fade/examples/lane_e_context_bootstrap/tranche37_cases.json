@@ -1,0 +1,34 @@
+{
+  "_meta": {
+    "title": "tranche37_lane_e_non_dominance_cases",
+    "phase_number": 2,
+    "tranche_number": 37,
+    "note": "THE FADE-local bounded fixtures only. No network."
+  },
+  "cases": [
+    {
+      "case_id": "case_1_context_missing",
+      "description": "Lane E context is missing; omission must be explicit.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": false,
+      "lane_e_direction_hint": null
+    },
+    {
+      "case_id": "case_2_context_supports_primary",
+      "description": "Lane E context supports primary direction and remains non-primary.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bullish"
+    },
+    {
+      "case_id": "case_3_context_conflicts_primary",
+      "description": "Lane E context conflicts with primary direction; conflict is explicit and no override occurs.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bearish"
+    }
+  ]
+}

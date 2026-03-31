@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 145  
+**Prompt #:** 152  
 **Phase #:** 2  
-**Tranche #:** 36A
+**Tranche #:** 37
 
-Updated: 2026-03-31T20:40:00-05:00
+Updated: 2026-03-31T12:40:00+00:00
 
 ## You are here
 
@@ -23,13 +23,14 @@ Updated: 2026-03-31T20:40:00-05:00
 - **Tranche 34A — remaining Phase 2 plan LOCKED (Prompt #134):** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 36 executed** (cross-lane gate rollup); now at **operator decision stop**.
 - **Tranche 36 — cross-lane gate rollup (Prompt #143 — executed):** `build_phase2_cross_lane_gate_rollup.py` + `outputs/phase2_cross_lane_gate_rollup/phase2_cross_lane_gate_rollup.{json,md}` — matrix across lanes A/B/C/E with grounded `done/partial/absent/not yet justified` statuses; lane B remains partial; no approval change.
 - **Tranche 36A — operator decision stop (Prompt #145 — decision lock only):** **PATH B selected**; pivot target is **`lane_e_research_swarm_context`**. This pass executes **no tranche**; it only locks governance direction. Approval remains false; Phase 3 remains blocked.
+- **Tranche 37 — Lane E context non-dominance audit (Prompt #152 — executed):** `audit_lane_e_context_non_dominance.py` + THE FADE-local fixture `examples/lane_e_context_bootstrap/tranche37_cases.json` + outputs `outputs/lane_e_context_bootstrap/tranche37_lane_e_non_dominance_audit.{json,md}`. Three bounded cases passed (missing/support/conflict); Lane E remained non-primary and omission was explicit when missing. Not approval; not Phase 3.
 
 ## Locked remaining Phase 2 sequence (authoritative)
 
 **Full detail:** `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`
 
 1. **Tranche 36 executed:** **Cross-lane** gate rollup is on disk (`phase2_cross_lane_gate_rollup.{json,md}`).  
-2. **Decision locked:** **PATH B** — next is to **define** (not execute) the first bounded Lane E bootstrap tranche for `lane_e_research_swarm_context`. **No** Phase **3**.
+2. **Tranche 37 executed:** bounded Lane E non-dominance fixture audit is on disk (`tranche37_lane_e_non_dominance_audit.{json,md}`); this is still partial gate evidence. **No** Phase **3**.
 
 ## Phase 1 — completed
 
@@ -67,6 +68,7 @@ Updated: 2026-03-31T20:40:00-05:00
 | Tranche 35 — Lane B **stale/outage & escalation alignment** audit | **EXECUTED** (Prompt **#135**) — see `tranche35_stale_outage_escalation_audit.json`; dimension still thin/partial for standard **#4** on FR full-window slice |
 | Tranche 36 — **cross-lane gate dimension rollup** (A/B/C/E) | **EXECUTED** (Prompt **#143**) — see `phase2_cross_lane_gate_rollup.json`; lane B remains partial, A/C/E mostly absent; **not** approval |
 | Tranche 36A — **operator decision stop** | **LOCKED** (Prompt **#145**) — **PATH B** selected; pivot target `lane_e_research_swarm_context`; decision pass only (no tranche execution) |
+| Tranche 37 — **Lane E context non-dominance audit** | **EXECUTED** (Prompt **#152**) — THE FADE-local fixture audit (`missing/support/conflict`) confirms Lane E stayed context-only/non-primary with explicit omission when missing; **not** full Lane E gate closure; **not** approval |
 | MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
 
 ## MASTER Phase 3 — Universe scanner
@@ -79,7 +81,7 @@ Updated: 2026-03-31T20:40:00-05:00
 
 ## Exact current next step (authorized only)
 
-1. **Follow** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — decision stop is now **locked to PATH B**; next is Lane E bootstrap tranche **definition** only (no ad-hoc tranche chain).
+1. **Follow** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — Tranche 37 bounded Lane E non-dominance audit is now on disk; keep next work governed and bounded (no ad-hoc tranche chain).
 2. **Hold at the Phase 2 checkpoint** — **promising-but-unapproved**; **no** Phase **3** unlock from FR slice alone.
 3. Keep **`mvp_lane_approval.json`** unchanged until whole-gate evidence + explicit operator signoff.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.

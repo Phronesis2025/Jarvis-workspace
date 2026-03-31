@@ -1,10 +1,10 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 145  
+**Prompt #:** 152  
 **Phase #:** 2  
-**Tranche #:** 36A
+**Tranche #:** 37
 
-Updated: 2026-03-31T20:40:00-05:00
+Updated: 2026-03-31T12:40:00+00:00
 
 ## One-screen truth (new chat fast-start)
 
@@ -22,6 +22,7 @@ Updated: 2026-03-31T20:40:00-05:00
 - **Tranche 35 — stale/outage & escalation alignment audit (Prompt #135 — executed):** `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.{json,md}` — grounded evidence coverage check; dimension still thin for standard **#4** on the FR full-window slice. **Not** approval; **not** Phase 3.
 - **Tranche 36 — cross-lane gate rollup (Prompt #143 — executed):** `build_phase2_cross_lane_gate_rollup.py` + `outputs/phase2_cross_lane_gate_rollup/phase2_cross_lane_gate_rollup.{json,md}` — A/B/C/E matrix shows lane B deepest but still partial; A/C/E mostly absent; **not** approval.
 - **Tranche 36A — decision stop lock (Prompt #145):** **PATH B selected**; next Phase 2 bootstrap lane is **`lane_e_research_swarm_context`**. **Decision pass only** — no tranche execution, no approval change, no Phase 3 unlock.
+- **Tranche 37 — Lane E context non-dominance audit (Prompt #152 — executed):** `audit_lane_e_context_non_dominance.py` + THE FADE-local fixture `examples/lane_e_context_bootstrap/tranche37_cases.json` + outputs `outputs/lane_e_context_bootstrap/tranche37_lane_e_non_dominance_audit.{json,md}` — three bounded cases (missing/support/conflict) show Lane E stayed context-only/non-primary with explicit omission when missing; **not** full Lane E gate closure; **not** approval; **not** live Research Swarm integration.
 - **Remaining Phase 2 plan (Prompt #134 — LOCKED):** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **T35 and T36 executed**; decision stop now **locked to PATH B**.
 
 ## Federal Register full Tranche 21 window — on-disk collector state (verified)
@@ -66,7 +67,7 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 checkpoint:** the current gate-review outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
-2. **Execute Phase 2 in plan order:** read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 35 and Tranche 36 are executed**; decision stop is **PATH B**; next is to **define** (not execute) a bounded Lane E bootstrap tranche; **do not** invent parallel tranche chains.
+2. **Execute Phase 2 in plan order:** read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 35, 36, and 37 are executed**; Lane E first bootstrap audit is now on disk; keep any next work bounded and governed (no parallel tranche chains).
 3. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
 4. **Operator decision later if warranted:** Only after future evidence and explicit operator signoff should `mvp_lane_approval.json` move to `approved: true` (with `approved_by` / `approved_at`). Until then, **do not** flip approval in code or docs and **do not** start Phase 3.
 
@@ -77,5 +78,5 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 - **Do not overclaim approval** — binding authority is `mvp_lane_approval.json`.
 - **Canon** — eight `JARVIS_THE_FADE_*.md` files stay under `future_modules/stock_module/` per `docs/CANON_INDEX.md`; do not move or delete.
 - **Process anchor** — `future_modules/stock_module/JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md` is the master checklist; align execution to it.
-- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**T35 executed; T36 executed; decision stop locked to PATH B**).
+- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**T35 executed; T36 executed; PATH B locked; T37 executed bounded Lane E audit**).
 - **`JARVIS_CODEBASE_STRUCTURE.md`** — unrelated drift; not THE FADE state.

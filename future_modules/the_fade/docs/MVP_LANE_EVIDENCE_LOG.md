@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 135  
+**Prompt #:** 152  
 **Phase #:** 2  
-**Tranche #:** 35  
+**Tranche #:** 37  
 
-Updated: 2026-03-31T17:00:00-05:00
+Updated: 2026-03-31T12:40:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 35 executed**; **next** **Tranche 36** → decision stop. **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35/36/37 executed** under governed prompts. **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -194,6 +194,34 @@ Earlier sections remain **historical** unless this file explicitly points forwar
 **Findings (22 rows, `t30_valid_002` excluded):** JSONL **identity/timing/outcome** keys **complete**; **all** snapshots present; **`response_sha256`** present; **full** `json.loads` of **`response_preview_utf8`** **0**/**22** (truncated previews — **expected**); regex extraction of **`document_number`** in **`results[0]`** region **22**/**22**; **3** distinct **`document_number`** values across the window. **Rich** full-document normalization (complete JSON object, agencies, excerpts) **not** available from preview alone.
 
 **Verdict:** Collector **shell** + **regex** identity fields are **solid** for this slice; **breadth** for full structured normalization is **partial** / **not closed** — **not** MVP approval; **not** gate closure.
+
+## Lane E — Tranche 37 context non-dominance audit (Prompt #152)
+
+**Scope:** THE FADE-local bounded fixture audit only (no network, no live Research Swarm integration).
+
+**Grounding:** `lane_registry.json` contract for `lane_e_research_swarm_context`:
+- `direction_model_default: CONTEXT_ONLY`
+- `scoring_method: enrich_only`
+- `failure_policy: omit_if_missing`
+
+**Artifacts:**
+- Script: `future_modules/the_fade/scripts/audit_lane_e_context_non_dominance.py`
+- Fixtures: `future_modules/the_fade/examples/lane_e_context_bootstrap/tranche37_cases.json`
+- Outputs: `future_modules/the_fade/outputs/lane_e_context_bootstrap/tranche37_lane_e_non_dominance_audit.json` and `.md`
+
+**Explicit cases evaluated:**
+1. `case_1_context_missing` — omission explicit when context is absent.
+2. `case_2_context_supports_primary` — context agrees with primary lane direction.
+3. `case_3_context_conflicts_primary` — context disagrees with primary lane direction.
+
+**Case verdict summary:** all three cases passed bounded checks:
+- `lane_e_remained_non_primary: true`
+- `no_silent_override_of_primary_truth: true`
+- missing-context omission explicitly recorded in case 1
+
+**What this proves now:** bounded non-dominance/omission behavior for Lane E in local controlled cases.
+
+**What this does not prove:** full Lane E gate closure, live Research Swarm integration behavior, production-scale fusion/runtime behavior, approval readiness, or Phase 3 readiness.
 
 ## Evidence entry: lane_b_official_disclosure (Tranche 4)
 
