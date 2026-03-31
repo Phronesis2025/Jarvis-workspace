@@ -2,8 +2,8 @@
 
 **Document Type:** Master Build Checklist  
 **Status:** Proposed Canonical Control Checklist (live progress below)  
-**Version:** 1.31  
-**Last Updated:** 2026-03-31T12:55:00+00:00
+**Version:** 1.34  
+**Last Updated:** 2026-03-31T15:35:00+00:00
 **Owner:** Jason  
 **Project Context:** Jarvis future worker / stock intelligence side quest
 
@@ -21,7 +21,7 @@ The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **mu
 |------|----------------|
 | MVP gate | **Phase 2** -- MVP lane approval and source reliability |
 | `mvp_lane_approval.json` | `approved`: **false**; `approved_mvp_lanes`: **empty** |
-| Active lane focus | **`lane_b_official_disclosure`** (lane B) |
+| Active lane focus | **Lane E bootstrap path active:** `lane_e_research_swarm_context` (PATH B); Lane B remains the deepest evidenced lane but still promising-and-unapproved |
 | Phase 3 (Universe Scanner) | **Not started** |
 | Phase 3 unlock | **Blocked** until MVP gate satisfied; no automatic unlock from bounded evidence |
 | Lane B vs gate sufficiency | **MVP approval not justified** -- full gate **incomplete** on **all** dimensions; **Federal Register** full **Tranche 21** window on disk: **22** counted / **22** successes / **0** failures (**`t30_valid_002`** smoke **excluded**); **0.8** threshold **numeric** comparison **eligible for that slice only** (count floor met); **not** approval; **Phase 3** blocked |
@@ -35,12 +35,14 @@ The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **mu
 | Tranche 33 freshness policy comparator (Prompt **#131**) | **TOOL ON DISK:** `compare_tranche31_freshness_policies.py` + outputs under `outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.*` — explicit **policy** comparison on stored evidence (**no** network); **not** approval; **not** Phase 3 |
 | Tranche 33 freshness policy decision (Prompt **#132**) | **DECIDED:** **Adopt** **`strict_midnight_utc`** as **operator-facing** Phase **2** interpretation (`config/lane_b_phase2_freshness_policy_decision.json`); **not** adopt **`publication_day_fresh`** / **`publication_end_of_day_utc`** as primary; **park** freshness-only tranches — **not** approval; **not** Phase 3 |
 | Tranche 34 normalization breadth audit (Prompt **#133**) | **EXECUTED:** `audit_lane_b_normalization_breadth.py` + `tranche34_normalization_breadth_audit.*` — JSONL/snapshot **solid**; preview **truncated** (full parse **0**/**22**); regex **`document_number`** **22**/**22**; **breadth partial** — **not** approval; **not** Phase 3 |
-| Phase 2 remaining gate plan (Prompt **#134** / Tranche **34A**) | **LOCKED:** `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **T35 executed** + **T36 executed** + **T37 executed** (bounded Lane E non-dominance audit); **not** approval; **not** Phase 3 |
+| Phase 2 remaining gate plan (Prompt **#134** / Tranche **34A**) | **LOCKED:** `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **T35/T36/T37/T38/T39 executed** under bounded Phase 2 scope; **not** approval; **not** Phase 3 |
 | Tranche 35 stale/outage + escalation alignment audit | **EXECUTED:** `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.json` + `tranche35_stale_outage_escalation_audit.md` — FR full-window slice has only successes (no escalation negative examples); outage policy coverage remains partial; **not** approval; **not** Phase 3 |
 | Tranche 36 cross-lane gate dimension rollup | **EXECUTED:** `build_phase2_cross_lane_gate_rollup.py` + `phase2_cross_lane_gate_rollup.{json,md}` — A/B/C/E matrix shows Lane B deepest but still partial, A/C/E mostly absent; **not** approval; **not** Phase 3 |
 | Tranche 36A operator decision stop lock | **LOCKED:** **PATH B** selected — next Phase 2 bootstrap lane is `lane_e_research_swarm_context`; decision pass only (**no** tranche execution), `mvp_lane_approval.json` unchanged, **Phase 3 blocked** |
 | Tranche 37 Lane E context non-dominance audit | **EXECUTED:** `audit_lane_e_context_non_dominance.py` + `examples/lane_e_context_bootstrap/tranche37_cases.json` + `outputs/lane_e_context_bootstrap/tranche37_lane_e_non_dominance_audit.{json,md}` — three bounded THE FADE-local cases (missing/support/conflict) confirm Lane E stayed context-only/non-primary with explicit omission when missing; **not** approval; **not** Phase 3 |
 | Tranche 38 Lane E freshness + omission trace audit | **EXECUTED:** `audit_lane_e_freshness_omission_trace.py` + `examples/lane_e_context_bootstrap/tranche38_cases.json` + `outputs/lane_e_context_bootstrap/tranche38_lane_e_freshness_omission_audit.{json,md}` — bounded fresh/stale/missing/window-edge semantics with explicit omission tracing and no primary override; **not** approval; **not** Phase 3 |
+| Tranche 39 Lane E normalization + omission-reason trace audit | **EXECUTED:** `audit_lane_e_normalization_omission_reason_trace.py` + `examples/lane_e_context_bootstrap/tranche39_cases.json` + `outputs/lane_e_context_bootstrap/tranche39_lane_e_normalization_omission_reason_trace_audit.{json,md}` — bounded normalized/omitted outcomes with explicit stale/missing/invalid-shape omission reasons and no primary override; **not** approval; **not** Phase 3 |
+| Post-T39 decision stop (Tranche **39A**, Prompt **#165**) | **LOCKED (PATH B):** Lane E bootstrap paused for now after bounded T37/T38/T39 value capture; return to broader Phase 2 governance for next spend decision; **no T40** defined/executed here; **not** approval; **not** Phase 3 |
 
 **Phase 2 work completed and committed (checkpoint list):** approval gate prep; deferred approval decision; lane B evidence pack + refinement passes; honest blocker documentation; controlled evidence protocol; minimal harness build + hardening; simulated rehearsal + correction + reproducibility cleanup; real evidence path audit; minimal real evidence path spec + correction; lane B real observation slice build; canon recovery from stash snapshot into `future_modules/stock_module/`; post-canon dirty-state cleanup (registry/log/contra alignment); **Tranche 18** reliability-window honesty pass (`docs/MVP_LANE_EVIDENCE_LOG.md`, `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` -- four countable `observe` tries in one session; **no** valid 0.8 gate statistic); **Tranche 19** lane B provider/source class clarification (log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` -- **one** source class per reliability pass; provisional next target **Federal Register API** only for that pass, not mixed with SEC/issuer); **Tranche 20** single-source reliability pass (Federal Register API only; 5 attempts / 5 successes / 0 failures; still **no** honest comparison to 0.8 yet); **Tranche 21** pre-audit reliability window protocol defined (Federal Register API-only; 48h UTC window; 2h cadence; count normalized_signal_event as success vs scout_failure as failure; compare to 0.8 only after >=20 counted attempts) -- **stricter target preserved** in audit; **Tranche 22-23** -- **2** counted attempts on original UTC grid (`t22_fr_000`, `t22_fr_001`); **Tranche 24** -- **availability-constrained interim pilot** (**CDT** schedule; **<=8** ceiling); Prompts **#75/#78/#80/#82/#86/#88** -- all six pilot slots observed (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`, `t24_fr_pilot_05`, `t24_fr_pilot_06`); cumulative **8** counted / **8** successes / **0** failures in this slice; **final interim pilot result** only; **not** full pre-audit gate window; **no** 0.8 conclusion; **Tranche 25 closeout audit complete** (interim pilot done: 6/6 slots, 8/8 successes; proved positive interim success-path signal; did **not** satisfy the original Tranche 21 gate protocol; therefore does **not** justify any `required_reliability_threshold` **0.8** comparison or any approval re-evaluation; approval remains **not justified**); **Tranche 26** post-pilot go/no-go: lane B **parked** promising-but-unapproved; **Tranche 27-30** bounded slot collector (`run_tranche21_fr_slot.py`); **full Tranche 21** FR window **complete on disk** (**22** counted / **22** successes / **0** failures; **`t30_valid_002`** smoke excluded); **Prompt #102** governed markdown reconciliation (**no** approval change); **NO-GO** on Phase 3 until full gate satisfied).
 
@@ -144,6 +146,8 @@ These rules apply across the whole build.
 * \[ ] Do not outrun Jarvis phase discipline
 * \[ ] Do not treat initial weights/thresholds as proven truth
 * \[ ] Do not let new ideas override the locked tranche order without deliberate review
+
+Future-only guardrail (not active in current tranche, does not unlock Phase 3): Lane E remains context-only/non-dominant, and paid signal rails (`x402`/A2A), ChainCash/agent-payment rails, and tokenized-equity/prediction-market/execution-stack concepts remain deferred architecture research only.
 
 \---
 
@@ -415,6 +419,8 @@ Convert normalized events into lane-level scorecards.
 * \[ ] Record conditions hit/missed
 * \[ ] Record score rationale
 
+Future-only insertion point: add data-trust/token-risk screening and explicit Lane E lag/freshness/trust/duplication penalties at scoring time after current Phase 2 gate closure; not active now.
+
 ## Deliverables
 
 * \[ ] lane scorecard writer
@@ -447,6 +453,8 @@ Add adversarial / contradiction checks before fusion.
 * \[ ] Implement forced conflict conditions
 * \[ ] Implement contra artifact output
 * \[ ] Link contra output to signal packet pipeline
+
+Future-only insertion point: add critic/adversarial/dissent-memory controls and Lane E contra-coupling safeguards before any autonomy escalation work; not active in the current tranche.
 
 ## Deliverables
 
@@ -492,6 +500,8 @@ Produce the first real scout output.
 * \[ ] Implement conflict packet writer
 * \[ ] Implement escalation path for invalid output
 * \[ ] Implement heartbeat production metrics for scout output
+
+Future-only insertion point: enforce Lane E enrichment limits and explicit non-dominance checks at fusion/conflict output boundaries; not active in current Phase 2 scope.
 
 ## Deliverables
 
@@ -580,6 +590,8 @@ Connect strong signals to research brief and risk gate.
 * \[ ] Build `/fade-research`
 * \[ ] Show brief + risk gate linked to selected signal
 
+Future-only insertion point: Research Scout / repo-watchlist style research lane can be considered only after the core proof loop is stable; not active in the current tranche.
+
 ## Deliverables
 
 * \[ ] one linked signal ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ brief ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ risk gate path
@@ -629,6 +641,8 @@ Start simulated execution.
 * \[ ] Implement portfolio snapshot writer
 * \[ ] Implement paper-trade hard limits
 * \[ ] Link every trade back to signal packet + brief/risk artifacts
+
+Future-only insertion point: paper-mode-first remains mandatory before any real execution path, with liquidity/slippage/execution-reality constraints required before any later live-readiness consideration.
 
 ## Deliverables
 
@@ -768,6 +782,8 @@ Make the system stable enough for longer paper operation.
 * \[ ] Implement failover event recording
 * \[ ] Surface health state in `/fade-health`
 
+Future-only insertion point: multi-machine monitoring and observability expansion belongs to later hardening only; not active during current Phase 2 execution.
+
 ## Deliverables
 
 * \[ ] replay/test pack
@@ -814,6 +830,8 @@ Transition from fully human-gated paper operation into bounded policy-driven aut
 * \[ ] Ensure Heartbeat Monitor can fail over Alpha ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ Beta
 * \[ ] Add autonomy metrics to daily summary/dashboard
 * \[ ] Force manual fallback when safety gates fire
+
+Future-only insertion point: require runtime pause authority (`tester-can-pause-trader`), assistant-first operator stance, and critic/adversarial gating before any future autonomy escalation; not active now.
 
 ## Deliverables
 

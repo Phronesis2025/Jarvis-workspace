@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 157  
+**Prompt #:** 165  
 **Phase #:** 2  
-**Tranche #:** 38  
+**Tranche #:** 39A  
 
-Updated: 2026-03-31T12:55:00+00:00
+Updated: 2026-03-31T15:35:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35/36/37 executed** under governed prompts. **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35/36/37/38/39 executed** under governed prompts; post-T39 **PATH B** decision stop is locked (Lane E bootstrap paused for now; broader Phase 2 governance next). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -250,6 +250,37 @@ Earlier sections remain **historical** unless this file explicitly points forwar
 - trace explanation per case for operator readability
 
 **What this proves now:** bounded Lane E freshness + omission-trace semantics are explicit under a declared local freshness window.
+
+**What this does not prove:** full Lane E gate closure, live Research Swarm integration behavior, production-scale runtime behavior, approval readiness, or Phase 3 readiness.
+
+## Lane E — Tranche 39 normalization + omission-reason trace audit (Prompt #162)
+
+**Scope:** THE FADE-local bounded fixture audit only (no network, no live Research Swarm integration).
+
+**Grounding:** same Lane E contract from `lane_registry.json`:
+- `direction_model_default: CONTEXT_ONLY`
+- `scoring_method: enrich_only`
+- `failure_policy: omit_if_missing`
+
+**Artifacts:**
+- Script: `future_modules/the_fade/scripts/audit_lane_e_normalization_omission_reason_trace.py`
+- Fixtures: `future_modules/the_fade/examples/lane_e_context_bootstrap/tranche39_cases.json`
+- Outputs: `future_modules/the_fade/outputs/lane_e_context_bootstrap/tranche39_lane_e_normalization_omission_reason_trace_audit.json` and `.md`
+
+**Explicit cases evaluated:**
+1. `case_1_fresh_valid_context`
+2. `case_2_stale_context`
+3. `case_3_missing_context`
+4. `case_4_invalid_shape_context`
+
+**Case verdict summary:** all cases passed bounded checks with explicit fields:
+- `normalization_status` (`normalized` / `omitted`)
+- `omission_reason` (`none` / `stale_context` / `missing_context` / `invalid_context_shape`)
+- `omission_explicit` (true for omitted cases)
+- `no_primary_override: true` across all cases
+- concise trace explanation per case for operator readability
+
+**What this proves now:** bounded Lane E normalization + omission-reason trace semantics are explicit across four controlled local cases.
 
 **What this does not prove:** full Lane E gate closure, live Research Swarm integration behavior, production-scale runtime behavior, approval readiness, or Phase 3 readiness.
 

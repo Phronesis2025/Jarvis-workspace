@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 157  
+**Prompt #:** 165  
 **Phase #:** 2  
-**Tranche #:** 38  
-**Updated:** 2026-03-31T12:55:00+00:00
+**Tranche #:** 39A  
+**Updated:** 2026-03-31T15:35:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -28,7 +28,7 @@
 | Live / integrated            | **No** — early-stage future module under `future_modules/the_fade/`                                                               |
 | Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
 | Approval                     | **`mvp_lane_approval.json`:** `approved: false`, `approved_mvp_lanes: []` (verify on disk)                                        |
-| Most advanced lane           | `lane_b_official_disclosure` — still not MVP-approved                                                                             |
+| Active bootstrap lane        | `lane_e_research_swarm_context` (PATH B) for bounded non-B evidence; lane B remains deepest evidenced but still not MVP-approved |
 | Phase 3                      | **Blocked**                                                                                                                       |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
 
@@ -48,7 +48,7 @@
 | Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
 | Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **T35 executed** + **T36 executed** → **decision stop** |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **T35/T36/T37/T38/T39 executed** under bounded scope; post-T39 **PATH B** stop locks Lane E bootstrap pause |
 | Tranche 33 freshness policy comparator (script) | `future_modules/the_fade/scripts/compare_tranche31_freshness_policies.py` (no network) |
 | Tranche 33 policy comparison output | `.../outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.json` and `.md` |
 | Tranche 33 freshness policy decision (Prompt #132) | `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json` — **adopt** `strict_midnight_utc`; **park** freshness-only tranches |
@@ -58,6 +58,7 @@
 | Tranche 36A decision lock | `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` + `THE_FADE_PROCESS_CHECKLIST.md` — **PATH B** selected, pivot target `lane_e_research_swarm_context` |
 | Tranche 37 Lane E non-dominance audit | `.../scripts/audit_lane_e_context_non_dominance.py` + `.../examples/lane_e_context_bootstrap/tranche37_cases.json` + `.../outputs/lane_e_context_bootstrap/tranche37_lane_e_non_dominance_audit.{json,md}` |
 | Tranche 38 Lane E freshness + omission trace audit | `.../scripts/audit_lane_e_freshness_omission_trace.py` + `.../examples/lane_e_context_bootstrap/tranche38_cases.json` + `.../outputs/lane_e_context_bootstrap/tranche38_lane_e_freshness_omission_audit.{json,md}` |
+| Tranche 39 Lane E normalization + omission-reason trace audit | `.../scripts/audit_lane_e_normalization_omission_reason_trace.py` + `.../examples/lane_e_context_bootstrap/tranche39_cases.json` + `.../outputs/lane_e_context_bootstrap/tranche39_lane_e_normalization_omission_reason_trace_audit.{json,md}` |
 
 ---
 
@@ -167,7 +168,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ## Exact next authorized move
 
-1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — PATH B pivot target remains `lane_e_research_swarm_context`; bounded Lane E bootstrap audits (Tranches 37 and 38) are now executed on disk.
+1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — post-T39 **PATH B** is now locked: Lane E bootstrap paused for now; next move is broader Phase 2 governance (no T40 defined/executed in this pass).
 2. **Hold at the Phase 2 gate checkpoint** — **promising-but-unapproved**; FR slice is **not** approval.
 3. Update **`mvp_lane_approval.json`** **only** with explicit operator signoff + matching evidence.
 4. Continue git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.

@@ -120,6 +120,21 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 
 **Outcome (on disk):** `scripts/audit_lane_e_freshness_omission_trace.py` + `examples/lane_e_context_bootstrap/tranche38_cases.json` + `outputs/lane_e_context_bootstrap/tranche38_lane_e_freshness_omission_audit.{json,md}`. Cases cover fresh, stale, missing, and window-edge semantics; stale/missing are explicitly omitted; no primary override observed. **Not** approval; **not** Phase **3**; **not** live Research Swarm integration.
 
+### Executed — **Tranche 39** (Prompt **#162**)
+
+**Name:** Lane E **normalization + omission-reason trace** bounded audit.
+
+**Scope (as run):** THE FADE-local fixture audit only; no network; no live Research Swarm integration. Evaluate four explicit cases (`fresh-valid`, `stale`, `missing`, `invalid-shape`) for explicit normalization status and omission reasons while preserving Lane E context-only/non-primary behavior.
+
+**Outcome (on disk):** `scripts/audit_lane_e_normalization_omission_reason_trace.py` + `examples/lane_e_context_bootstrap/tranche39_cases.json` + `outputs/lane_e_context_bootstrap/tranche39_lane_e_normalization_omission_reason_trace_audit.{json,md}`. All four cases passed bounded checks with explicit verdict fields: `normalization_status`, `omission_reason`, `omission_explicit`, `no_primary_override`, and trace explanations. **Not** approval; **not** Phase **3**; **not** live Research Swarm integration.
+
+### Decision stop — **Tranche 39A** (Prompt **#165**, governance lock only)
+
+- **Selected path:** **PATH B** (post-T39).
+- **Operational meaning now:** Lane E bootstrap is formally **paused for now** after bounded value capture in T37/T38/T39; return to **broader Phase 2 governance** for any next spend decision.
+- **Hard boundaries:** no T40 definition in this pass; no T40 execution in this pass; no `mvp_lane_approval.json` edit; no Phase 3 unlock.
+- **Interpretation guardrail:** this is **not** a Lane E failure claim; it is a scope-control decision that bounded Lane E bootstrap value has been captured for this checkpoint.
+
 ---
 
 ## Do NOT work on yet (unless a new governed prompt explicitly rescopes)
