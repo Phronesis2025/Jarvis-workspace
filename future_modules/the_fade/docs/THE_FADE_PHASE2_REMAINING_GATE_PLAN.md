@@ -143,6 +143,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 
 **Outcome (on disk):** `config/mvp_lane_evidence_registry.json` now reflects current partial/deferred lane status truth (Lane B deepest-but-partial; Lane E bounded bootstrap executed then paused). Control docs are aligned to record T40 as governance closure only. `mvp_lane_approval.json` remains unchanged (`approved: false`, `approved_mvp_lanes: []`). **Not** approval; **not** Phase **3**.
 
+### Executed — **Tranche 41** (Prompt **#176**)
+
+**Name:** Lane C **FOLLOW + stale-policy trace** bounded audit.
+
+**Scope (as run):** THE FADE-local fixture audit only; no network; no live market-data integration. Validate `lane_c_market_context` semantics from config (`direction_model_default=FOLLOW`, `failure_policy=invalidate_if_stale_vs_policy`) across four explicit cases: fresh-valid, stale, missing, and invalid-shape market context.
+
+**Outcome (on disk):** `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}`. Fresh-valid context is accepted under FOLLOW; stale/missing/invalid-shape context is explicitly invalidated/omitted with explicit reasons; no hidden override observed. **Not** approval; **not** Phase **3**; **not** live market-data integration.
+
 ---
 
 ## Do NOT work on yet (unless a new governed prompt explicitly rescopes)

@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 171,
+    "prompt_number": 176,
     "phase_number": 2,
-    "tranche_number": 40
+    "tranche_number": 41
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 40,
+  "tranche": 41,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -80,7 +80,7 @@
     },
     {
       "lane_id": "lane_c_market_context",
-      "status": "deferred_pending_evidence",
+      "status": "evidence_in_progress_partial",
       "required_evidence": [
         "reliability",
         "freshness",
@@ -89,8 +89,17 @@
         "conflict_handling",
         "context_dominance_risk"
       ],
-      "evidence_status": "not_started",
-      "notes": "Candidate market-context lane under deferred review; collect evidence per dimensions before any approval change."
+      "evidence_status": "partial",
+      "dimension_evidence_status": {
+        "reliability": "not_started",
+        "freshness": "partial",
+        "normalization_viability": "partial",
+        "stale_outage_behavior": "partial",
+        "conflict_handling": "not_started",
+        "context_dominance_risk": "not_started"
+      },
+      "last_evidence_recorded_at": "2026-03-31T16:43:05+00:00",
+      "notes": "Lane C first bounded bootstrap audit is executed in Tranche 41 using THE FADE-local fixtures only (`audit_lane_c_follow_stale_policy_trace.py`). Grounded to `direction_model_default=FOLLOW` and `failure_policy=invalidate_if_stale_vs_policy`: fresh-valid context is accepted; stale/missing/invalid-shape context is explicitly invalidated/omitted. Lane C remains partial and not gate-closed; no live market-data integration is evidenced."
     },
     {
       "lane_id": "lane_e_research_swarm_context",
@@ -128,6 +137,6 @@
       "context_dominance_risk": "Record checks that context-only reads do not dominate primary lane truth."
     }
   },
-  "notes": "Reconciled in Tranche 40 governance truth-closure so machine-readable lane evidence state matches executed T31-T39 artifacts and T39A stop-lock boundaries. Keep `approved:false` in `mvp_lane_approval.json` until evidence demonstrates the full gate standard."
+  "notes": "Reconciled through Tranche 41 so machine-readable lane evidence state matches executed T31-T41 artifacts and T39A stop-lock boundaries. Keep `approved:false` in `mvp_lane_approval.json` until evidence demonstrates the full gate standard."
 }
 

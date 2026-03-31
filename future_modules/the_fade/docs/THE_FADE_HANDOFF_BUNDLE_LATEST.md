@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 171  
+**Prompt #:** 176  
 **Phase #:** 2  
-**Tranche #:** 40  
-**Updated:** 2026-03-31T16:25:00+00:00
+**Tranche #:** 41  
+**Updated:** 2026-03-31T16:48:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -48,8 +48,9 @@
 | Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
 | Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **T35/T36/T37/T38/T39/T40 executed** under bounded scope; PATH B stop keeps Lane E bootstrap paused |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **T35/T36/T37/T38/T39/T40/T41 executed** under bounded scope; PATH B stop keeps Lane E bootstrap paused |
 | Tranche 40 governance/registry closure | `config/mvp_lane_evidence_registry.json` reconciled to executed T31-T39 + T39A truth; no new lane evidence, no approval change |
+| Tranche 41 Lane C FOLLOW + stale-policy trace audit | `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}` |
 | Tranche 33 freshness policy comparator (script) | `future_modules/the_fade/scripts/compare_tranche31_freshness_policies.py` (no network) |
 | Tranche 33 policy comparison output | `.../outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.json` and `.md` |
 | Tranche 33 freshness policy decision (Prompt #132) | `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json` — **adopt** `strict_midnight_utc`; **park** freshness-only tranches |
@@ -169,7 +170,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ## Exact next authorized move
 
-1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — post-T39 **PATH B** remains locked (Lane E bootstrap paused), and T40 governance/registry truth-closure is executed; next move requires a new governed Phase 2 decision.
+1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — post-T39 **PATH B** remains locked (Lane E bootstrap paused), and T40/T41 bounded closure+bootstrap audits are executed; next move requires a new governed Phase 2 decision.
 2. **Hold at the Phase 2 gate checkpoint** — **promising-but-unapproved**; FR slice is **not** approval.
 3. Update **`mvp_lane_approval.json`** **only** with explicit operator signoff + matching evidence.
 4. Continue git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.

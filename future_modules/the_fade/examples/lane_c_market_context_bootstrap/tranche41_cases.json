@@ -1,0 +1,59 @@
+{
+  "_meta": {
+    "title": "tranche41_lane_c_follow_stale_policy_trace_cases",
+    "phase_number": 2,
+    "tranche_number": 41,
+    "scope": "THE FADE-local fixture cases only",
+    "no_network": true
+  },
+  "freshness_window_hours": 24.0,
+  "cases": [
+    {
+      "case_id": "case_1_fresh_valid_market_context",
+      "description": "Fresh valid market context is accepted under FOLLOW semantics.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 2.0,
+      "market_context": {
+        "summary": "Index breadth improving with stable volatility.",
+        "direction_hint": "bullish",
+        "confidence": 0.64
+      }
+    },
+    {
+      "case_id": "case_2_stale_market_context",
+      "description": "Stale market context is invalidated/omitted by stale policy.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 72.0,
+      "market_context": {
+        "summary": "Older tape context snapshot.",
+        "direction_hint": "bearish",
+        "confidence": 0.59
+      }
+    },
+    {
+      "case_id": "case_3_missing_market_context",
+      "description": "Missing market context is invalidated/omitted explicitly.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": false,
+      "market_context_age_hours": null,
+      "market_context": null
+    },
+    {
+      "case_id": "case_4_invalid_shape_market_context",
+      "description": "Invalid-shape market context is invalidated/omitted explicitly.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 1.0,
+      "market_context": {
+        "summary": "Missing required direction field by design",
+        "confidence": 0.42
+      }
+    }
+  ]
+}

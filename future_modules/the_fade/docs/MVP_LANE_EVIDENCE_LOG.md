@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 171  
+**Prompt #:** 176  
 **Phase #:** 2  
-**Tranche #:** 40  
+**Tranche #:** 41  
 
-Updated: 2026-03-31T16:25:00+00:00
+Updated: 2026-03-31T16:48:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35/36/37/38/39/40 executed** under governed prompts; post-T39 **PATH B** decision stop remains locked (Lane E bootstrap paused). **Tranche 40 is governance/registry truth-closure only** (no new evidence collection). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35/36/37/38/39/40/41 executed** under governed prompts; post-T39 **PATH B** decision stop remains locked (Lane E bootstrap paused). **Tranche 40 is governance/registry truth-closure only** and **Tranche 41 is bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -283,6 +283,39 @@ Earlier sections remain **historical** unless this file explicitly points forwar
 **What this proves now:** bounded Lane E normalization + omission-reason trace semantics are explicit across four controlled local cases.
 
 **What this does not prove:** full Lane E gate closure, live Research Swarm integration behavior, production-scale runtime behavior, approval readiness, or Phase 3 readiness.
+
+## Lane C — Tranche 41 FOLLOW + stale-policy trace audit (Prompt #176)
+
+**Scope:** THE FADE-local bounded fixture audit only (no network, no live market-data integration).
+
+**Grounding:** `lane_registry.json` contract for `lane_c_market_context`:
+- `direction_model_default: FOLLOW`
+- `failure_policy: invalidate_if_stale_vs_policy`
+- `trust_tier: TBD_POST_APPROVAL`
+- `freshness_class: TBD_POST_APPROVAL`
+
+**Artifacts:**
+- Script: `future_modules/the_fade/scripts/audit_lane_c_follow_stale_policy_trace.py`
+- Fixtures: `future_modules/the_fade/examples/lane_c_market_context_bootstrap/tranche41_cases.json`
+- Outputs: `future_modules/the_fade/outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.json` and `.md`
+
+**Explicit cases evaluated:**
+1. `case_1_fresh_valid_market_context`
+2. `case_2_stale_market_context`
+3. `case_3_missing_market_context`
+4. `case_4_invalid_shape_market_context`
+
+**Case verdict summary:** all four cases passed bounded checks with explicit fields:
+- `policy_outcome` (`accepted_follow` / `invalidated_omit`)
+- `freshness_or_validity_status` (`fresh_valid` / `stale` / `missing` / `invalid_shape`)
+- `omission_reason` (`none` / `stale_market_context` / `missing_market_context` / `invalid_market_context_shape`)
+- `omission_explicit` (true for omitted cases)
+- `no_hidden_override: true` across all cases
+- concise trace explanation per case for operator readability
+
+**What this proves now:** bounded Lane C FOLLOW + stale-policy semantics are explicit in local fixtures.
+
+**What this does not prove:** live market-data reliability, full Lane C gate closure across all dimensions, production-scale runtime behavior, approval readiness, or Phase 3 readiness.
 
 ## Evidence entry: lane_b_official_disclosure (Tranche 4)
 
