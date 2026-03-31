@@ -159,6 +159,30 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 
 **Outcome (on disk):** `scripts/audit_lane_c_follow_conflict_trace.py` + `examples/lane_c_market_context_bootstrap/tranche42_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.{json,md}`. Bounded explicit trace fields per case; no silent FOLLOW of conflicting market over primary. **Not** approval; **not** Phase **3**; **not** live market-data integration.
 
+### Decision stop — **Tranche 43** (Prompt **#185**, governance lock only)
+
+- **Selected path:** **PATH B** (post-T42 Lane C).
+- **Operational meaning now:** Lane C bounded bootstrap is formally **paused for now** after bounded value capture in T41/T42; return to **broader Phase 2 governance** for the next spend decision.
+- **Hard boundaries:** no T43 execution in this pass; no new Lane C tranche definition in this pass; no `mvp_lane_approval.json` edit; no Phase 3 unlock.
+- **Interpretation guardrail:** this is **not** a Lane C failure claim; it is a scope-control decision that bounded Lane C bootstrap value has been captured for this checkpoint.
+
+### Executed — **Tranche 44** (Prompt **#187**, post-T43 governance truth-closure)
+
+**Name:** Governance / registry truth-closure after dual lane pauses (bounded Phase 2 alignment pass).
+
+**Scope (as executed):** Reconcile machine-readable governance state (`mvp_lane_evidence_registry.json` `_meta`/notes and lane notes) to post-T43 truth (T39A Lane E pause + T43 Lane C pause + last lane evidence through T42), with minimal config/doc alignment only. **No** new lane evidence collection, **no** network, **no** live integrations, **no** approval edit, and **no** Phase **3** work.
+
+**Outcome (on disk):** Registry `_meta` and top-level `tranche` reflect Tranche **44**; Lane C and Lane E notes explicitly include T43/T39A pause locks and state that T44 is governance-only; control docs updated to record T44 executed. **`mvp_lane_approval.json` unchanged** (`approved: false`).
+
+**Success criteria (met by this execution):**
+- `mvp_lane_evidence_registry.json` reconciled to Tranche 43 decision-stop truth without over-claiming new evidence.
+- Control docs consistent on lane posture (Lane E paused, Lane C paused), approval false, Phase 3 blocked.
+
+**Non-success / overclaim guardrails:**
+- Any implied approval grant, Phase 3 unlock, or live integration claim.
+- Any new lane bootstrap execution framed as part of T44.
+- Any architecture/runtime expansion beyond governance alignment.
+
 ---
 
 ## Do NOT work on yet (unless a new governed prompt explicitly rescopes)

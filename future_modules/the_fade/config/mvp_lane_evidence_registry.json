@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 181,
+    "prompt_number": 187,
     "phase_number": 2,
-    "tranche_number": 42
+    "tranche_number": 44
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 42,
+  "tranche": 44,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -99,7 +99,7 @@
         "context_dominance_risk": "not_started"
       },
       "last_evidence_recorded_at": "2026-03-31T18:00:00+00:00",
-      "notes": "Lane C bounded bootstrap: Tranche 41 (`audit_lane_c_follow_stale_policy_trace.py`) — FOLLOW + stale-policy trace; Tranche 42 (`audit_lane_c_follow_conflict_trace.py`) — explicit primary-vs-market direction trace (aligned vs bullish/bearish mismatch), stale-first omission, missing/invalid omission. Local fixtures only; Lane C remains partial and not gate-closed; no live market-data integration is evidenced."
+      "notes": "Lane C bounded bootstrap: Tranche 41 (`audit_lane_c_follow_stale_policy_trace.py`) — FOLLOW + stale-policy trace; Tranche 42 (`audit_lane_c_follow_conflict_trace.py`) — explicit primary-vs-market direction trace (aligned vs bullish/bearish mismatch), stale-first omission, missing/invalid omission. Tranche 43 (Prompt #185) locks PATH B: Lane C bootstrap is paused after bounded T41/T42 value capture. Local fixtures only; Lane C remains partial and not gate-closed; no live market-data integration is evidenced. T44 (Prompt #187) is registry/doc governance reconciliation only — no new Lane C evidence."
     },
     {
       "lane_id": "lane_e_research_swarm_context",
@@ -122,7 +122,7 @@
         "context_dominance_risk": "partial"
       },
       "last_evidence_recorded_at": "2026-03-31T15:09:40+00:00",
-      "notes": "Lane E bounded bootstrap evidence is executed in Tranches 37-39 using THE FADE-local fixtures only: context non-dominance, freshness/omission trace, and normalization/omission-reason trace. Tranche 39A locks PATH B post-T39 stop: Lane E bootstrap is paused for now after bounded value capture. Lane E remains partial and not gate-closed; no live Research Swarm integration is evidenced."
+      "notes": "Lane E bounded bootstrap evidence is executed in Tranches 37-39 using THE FADE-local fixtures only: context non-dominance, freshness/omission trace, and normalization/omission-reason trace. Tranche 39A locks PATH B post-T39 stop: Lane E bootstrap is paused for now after bounded value capture. Lane E remains partial and not gate-closed; no live Research Swarm integration is evidenced. T44 (Prompt #187) is registry/doc governance reconciliation only — no new Lane E evidence."
     }
   ],
   "evidence_collection_rules": {
@@ -137,6 +137,6 @@
       "context_dominance_risk": "Record checks that context-only reads do not dominate primary lane truth."
     }
   },
-  "notes": "Reconciled through Tranche 42 so machine-readable lane evidence state matches executed T31-T42 artifacts and T39A stop-lock boundaries. Keep `approved:false` in `mvp_lane_approval.json` until evidence demonstrates the full gate standard."
+  "notes": "Reconciled through Tranche 44 (Prompt #187) so machine-readable lane evidence state matches executed T31-T42 artifacts plus T39A (Lane E pause) and T43 (Lane C pause) governance locks. T44 adds no new lane evidence. Keep `approved:false` in `mvp_lane_approval.json` until evidence demonstrates the full gate standard."
 }
 

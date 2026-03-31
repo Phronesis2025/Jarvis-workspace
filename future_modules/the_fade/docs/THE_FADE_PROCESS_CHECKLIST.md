@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 181  
+**Prompt #:** 187  
 **Phase #:** 2  
-**Tranche #:** 42
+**Tranche #:** 44
 
-Updated: 2026-03-31T18:00:00+00:00
+Updated: 2026-03-31T20:00:00+00:00
 
 ## You are here
 
@@ -29,6 +29,8 @@ Updated: 2026-03-31T18:00:00+00:00
 - **Tranche 40 — governance/registry truth-closure (Prompt #171 — executed):** `mvp_lane_evidence_registry.json` reconciled to executed T31-T39 + T39A stop truth; no new lane evidence was collected; no approval change; no Phase 3 movement.
 - **Tranche 41 — Lane C FOLLOW + stale-policy trace audit (Prompt #176 — executed):** THE FADE-local fixture audit (`fresh-valid`, `stale`, `missing`, `invalid-shape`) confirms explicit FOLLOW acceptance only for fresh-valid market context and explicit invalidation/omission for stale/missing/invalid-shape context; no live market-data integration.
 - **Tranche 42 — Lane C FOLLOW conflict-mismatch trace audit (Prompt #181 — executed):** THE FADE-local fixtures trace primary vs market direction (aligned vs explicit mismatch), stale-first omission, missing/invalid omission; no live market-data integration.
+- **Tranche 43 — post-T42 Lane C decision stop (Prompt #185 — governance lock only):** **PATH B** selected post-T42; Lane C bounded bootstrap is paused for now after bounded value capture in T41/T42; no T43 execution; no approval change; no Phase 3 movement.
+- **Tranche 44 — post-T43 governance truth-closure (Prompt #187 — executed):** `mvp_lane_evidence_registry.json` `_meta`/notes and lane notes reconciled to post-T43 dual-pause checkpoint; control docs aligned; **no** new lane evidence; **no** approval change; **no** Phase **3** movement.
 
 ## Locked remaining Phase 2 sequence (authoritative)
 
@@ -42,6 +44,8 @@ Updated: 2026-03-31T18:00:00+00:00
 6. **Tranche 40 executed (Prompt #171):** governance/registry truth-closure completed; machine-readable lane evidence state now matches the executed T31-T39 evidence and T39A stop boundaries. **No** new evidence; **No** Phase **3**.
 7. **Tranche 41 executed (Prompt #176):** bounded Lane C FOLLOW + stale-policy fixture audit completed and recorded; Lane C remains partial overall. **No** approval; **No** Phase **3**.
 8. **Tranche 42 executed (Prompt #181):** bounded Lane C FOLLOW conflict-mismatch trace audit completed and recorded; Lane C remains partial overall. **No** approval; **No** Phase **3**.
+9. **Tranche 43 decision stop (Prompt #185):** **PATH B** locked post-T42 — Lane C bounded bootstrap paused for now; return to broader Phase 2 governance. **No** T43 execution; **No** approval; **No** Phase **3**.
+10. **Tranche 44 executed (Prompt #187):** governance/registry truth-closure to post-T43 dual-pause checkpoint; **no** new lane evidence. **No** approval; **No** Phase **3**.
 
 ## Phase 1 — completed
 
@@ -85,6 +89,8 @@ Updated: 2026-03-31T18:00:00+00:00
 | Tranche 40 — **Governance/registry truth-closure** | **EXECUTED** (Prompt **#171**) — machine-readable registry truth aligned to executed T31-T39 + T39A stop; **no** new lane evidence; **not** approval |
 | Tranche 41 — **Lane C FOLLOW + stale-policy trace audit** | **EXECUTED** (Prompt **#176**) — THE FADE-local fixture audit confirms fresh-valid acceptance and explicit stale/missing/invalid-shape invalidation/omission under Lane C policy; **not** full Lane C gate closure; **not** approval |
 | Tranche 42 — **Lane C FOLLOW conflict-mismatch trace audit** | **EXECUTED** (Prompt **#181**) — THE FADE-local fixture audit (`tranche42_cases.json`) confirms explicit aligned vs conflict trace, stale-first omission, missing/invalid omission; **not** full Lane C gate closure; **not** approval |
+| Tranche 43 — **Post-T42 Lane C decision stop** | **LOCKED** (Prompt **#185**) — **PATH B** selected; Lane C bounded bootstrap paused for now after bounded T41/T42 value capture; return to broader Phase 2 governance; **not** approval |
+| Tranche 44 — **Post-T43 governance truth-closure** | **EXECUTED** (Prompt **#187**) — registry + docs reconciled to dual-pause checkpoint; **no** new lane evidence; **not** approval |
 | MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
 
 ## MASTER Phase 3 — Universe scanner
@@ -97,7 +103,7 @@ Updated: 2026-03-31T18:00:00+00:00
 
 ## Exact current next step (authorized only)
 
-1. **Follow** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — Tranches 37/38/39 bounded Lane E audits plus Tranche 40 governance/registry closure and Tranches 41–42 bounded Lane C audits are on disk, and PATH B stop remains locked (Lane E bootstrap paused).
+1. **Follow** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — Tranches 37–42 bounded audits are on disk, **T43 PATH B stop** and **T39A PATH B stop** are locked, and **T44 governance/registry closure is executed** (Prompt **#187**); await a **new governed prompt** for the next bounded Phase **2** step.
 2. **Hold at the Phase 2 checkpoint** — **promising-but-unapproved**; **no** Phase **3** unlock from FR slice alone.
 3. Keep **`mvp_lane_approval.json`** unchanged until whole-gate evidence + explicit operator signoff.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
