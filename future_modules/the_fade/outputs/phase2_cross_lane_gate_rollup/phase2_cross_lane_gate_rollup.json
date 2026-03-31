@@ -1,0 +1,106 @@
+{
+  "_meta": {
+    "title": "phase2_cross_lane_gate_rollup",
+    "prompt_number": 143,
+    "phase_number": 2,
+    "tranche_number": 36,
+    "generated_at_utc": "2026-03-31T11:35:50+00:00",
+    "build_scope": "docs+config rollup only",
+    "no_network": true,
+    "approval_authority": "the_fade\\config\\mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "Rollup does not grant approval and does not unlock Phase 3."
+  },
+  "grounded_lanes": [
+    "lane_a_public_signal",
+    "lane_b_official_disclosure",
+    "lane_c_market_context",
+    "lane_e_research_swarm_context"
+  ],
+  "grounded_dimensions": [
+    "reliability",
+    "freshness",
+    "normalization_viability",
+    "stale_outage_behavior",
+    "conflict_handling",
+    "context_dominance_risk",
+    "overall_approval_readiness"
+  ],
+  "lane_matrix": [
+    {
+      "lane_id": "lane_a_public_signal",
+      "statuses": {
+        "reliability": "absent",
+        "freshness": "absent",
+        "normalization_viability": "absent",
+        "stale_outage_behavior": "absent",
+        "conflict_handling": "absent",
+        "context_dominance_risk": "absent",
+        "overall_approval_readiness": "not yet justified"
+      },
+      "biggest_blocker": "No lane-level gate evidence stack built yet; lane remains deferred."
+    },
+    {
+      "lane_id": "lane_b_official_disclosure",
+      "statuses": {
+        "reliability": "partial",
+        "freshness": "partial",
+        "normalization_viability": "partial",
+        "stale_outage_behavior": "partial",
+        "conflict_handling": "partial",
+        "context_dominance_risk": "partial",
+        "overall_approval_readiness": "not yet justified"
+      },
+      "biggest_blocker": "Cross-dimension closure missing: freshness remains 10/22 cannot_classify_honestly; normalization breadth partial; stale/outage still thin for standard #4."
+    },
+    {
+      "lane_id": "lane_c_market_context",
+      "statuses": {
+        "reliability": "absent",
+        "freshness": "absent",
+        "normalization_viability": "absent",
+        "stale_outage_behavior": "absent",
+        "conflict_handling": "absent",
+        "context_dominance_risk": "absent",
+        "overall_approval_readiness": "not yet justified"
+      },
+      "biggest_blocker": "No lane-level gate evidence stack built yet; lane remains deferred."
+    },
+    {
+      "lane_id": "lane_e_research_swarm_context",
+      "statuses": {
+        "reliability": "absent",
+        "freshness": "absent",
+        "normalization_viability": "absent",
+        "stale_outage_behavior": "absent",
+        "conflict_handling": "absent",
+        "context_dominance_risk": "absent",
+        "overall_approval_readiness": "not yet justified"
+      },
+      "biggest_blocker": "Context-only non-domination evidence at gate bar is not built; lane remains deferred."
+    }
+  ],
+  "grounding_notes": {
+    "lane_source": "mvp_lane_approval.deferred_lanes",
+    "dimension_source": "mvp_lane_evidence_registry.evidence_dimensions + MVP lane docs",
+    "lane_b_freshness_policy": "strict_midnight_utc",
+    "lane_b_stale_outage_verdict": "dimension_still_thin_for_standard_#4_if_restricted_to_FR_full-window_slice"
+  },
+  "docs_config_disagreements": [
+    "mvp_lane_evidence_registry.json is stale for lane_b: dimension_evidence_status/last_evidence_recorded_at stop at older tranche state and do not reflect executed Tranches 31-35.",
+    "Phase-2 docs (process/anchor/handoff/evidence log) carry newer lane_b truth than registry timestamped fields."
+  ],
+  "operator_stop_sheet": {
+    "next_locked_step_after_this_rollup": "Decision stop (HOLD / targeted lane evidence / approval-file decision with explicit signoff).",
+    "not_allowed_by_this_artifact": [
+      "approval flip",
+      "Phase 3 start",
+      "new collection"
+    ]
+  }
+}
