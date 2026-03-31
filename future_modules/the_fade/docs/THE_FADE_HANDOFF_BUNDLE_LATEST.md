@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 152  
+**Prompt #:** 157  
 **Phase #:** 2  
-**Tranche #:** 37  
-**Updated:** 2026-03-31T12:40:00+00:00
+**Tranche #:** 38  
+**Updated:** 2026-03-31T12:55:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -57,6 +57,7 @@
 | Tranche 36 cross-lane gate rollup | `.../scripts/build_phase2_cross_lane_gate_rollup.py` + `.../outputs/phase2_cross_lane_gate_rollup/phase2_cross_lane_gate_rollup.{json,md}` |
 | Tranche 36A decision lock | `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` + `THE_FADE_PROCESS_CHECKLIST.md` — **PATH B** selected, pivot target `lane_e_research_swarm_context` |
 | Tranche 37 Lane E non-dominance audit | `.../scripts/audit_lane_e_context_non_dominance.py` + `.../examples/lane_e_context_bootstrap/tranche37_cases.json` + `.../outputs/lane_e_context_bootstrap/tranche37_lane_e_non_dominance_audit.{json,md}` |
+| Tranche 38 Lane E freshness + omission trace audit | `.../scripts/audit_lane_e_freshness_omission_trace.py` + `.../examples/lane_e_context_bootstrap/tranche38_cases.json` + `.../outputs/lane_e_context_bootstrap/tranche38_lane_e_freshness_omission_audit.{json,md}` |
 
 ---
 
@@ -166,7 +167,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ## Exact next authorized move
 
-1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — PATH B pivot target remains `lane_e_research_swarm_context`; first bounded Lane E bootstrap audit (Tranche 37) is now executed on disk.
+1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — PATH B pivot target remains `lane_e_research_swarm_context`; bounded Lane E bootstrap audits (Tranches 37 and 38) are now executed on disk.
 2. **Hold at the Phase 2 gate checkpoint** — **promising-but-unapproved**; FR slice is **not** approval.
 3. Update **`mvp_lane_approval.json`** **only** with explicit operator signoff + matching evidence.
 4. Continue git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.

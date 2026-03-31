@@ -112,6 +112,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 
 **Outcome (on disk):** `scripts/audit_lane_e_context_non_dominance.py` + `examples/lane_e_context_bootstrap/tranche37_cases.json` + `outputs/lane_e_context_bootstrap/tranche37_lane_e_non_dominance_audit.{json,md}`. All three bounded cases pass non-dominance checks; omission is explicit when context is missing; no silent override of primary truth observed. **Not** approval; **not** Phase **3**; **not** live Research Swarm integration.
 
+### Executed — **Tranche 38** (Prompt **#157**)
+
+**Name:** Lane E **freshness + omission trace** bounded audit.
+
+**Scope (as run):** THE FADE-local fixture audit only; no network; no live Research Swarm integration. Apply a bounded freshness window and classify local Lane E context cases as fresh/stale/missing while preserving non-primary behavior and explicit omission traces.
+
+**Outcome (on disk):** `scripts/audit_lane_e_freshness_omission_trace.py` + `examples/lane_e_context_bootstrap/tranche38_cases.json` + `outputs/lane_e_context_bootstrap/tranche38_lane_e_freshness_omission_audit.{json,md}`. Cases cover fresh, stale, missing, and window-edge semantics; stale/missing are explicitly omitted; no primary override observed. **Not** approval; **not** Phase **3**; **not** live Research Swarm integration.
+
 ---
 
 ## Do NOT work on yet (unless a new governed prompt explicitly rescopes)

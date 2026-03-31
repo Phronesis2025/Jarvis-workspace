@@ -1,0 +1,110 @@
+{
+  "_meta": {
+    "title": "tranche38_lane_e_freshness_omission_audit",
+    "phase_number": 2,
+    "tranche_number": 38,
+    "generated_at_utc": "2026-03-31T12:53:27+00:00",
+    "build_scope": "THE FADE-local freshness+omission fixture audit only",
+    "no_network": true,
+    "approval_authority": "the_fade\\config\\mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "This audit does not grant approval and does not unlock Phase 3."
+  },
+  "lane_e_contract_grounding": {
+    "lane_id": "lane_e_research_swarm_context",
+    "direction_model_default": "CONTEXT_ONLY",
+    "scoring_method": "enrich_only",
+    "failure_policy": "omit_if_missing",
+    "lane_e_weight_hint": 0.2,
+    "freshness_window_hours": 24.0
+  },
+  "cases_evaluated": [
+    {
+      "case_id": "case_1_fresh_context_present",
+      "description": "Context exists and is fresh under the declared window.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bullish",
+      "context_age_hours": 3.0,
+      "verdict": {
+        "freshness_classification": "fresh",
+        "omission_explicit": false,
+        "no_primary_override": true,
+        "lane_e_remained_non_primary": true,
+        "trace_explanation": "freshness=fresh; fresh_context_supports_primary=true",
+        "case_pass": true
+      }
+    },
+    {
+      "case_id": "case_2_stale_context_present",
+      "description": "Context exists but is stale and should be omitted explicitly.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bearish",
+      "context_age_hours": 72.0,
+      "verdict": {
+        "freshness_classification": "stale",
+        "omission_explicit": true,
+        "no_primary_override": true,
+        "lane_e_remained_non_primary": true,
+        "trace_explanation": "freshness=stale; context_omitted_from_primary_decision=true",
+        "case_pass": true
+      }
+    },
+    {
+      "case_id": "case_3_missing_context",
+      "description": "Context is missing and omission must be explicit.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": false,
+      "lane_e_direction_hint": null,
+      "context_age_hours": null,
+      "verdict": {
+        "freshness_classification": "missing",
+        "omission_explicit": true,
+        "no_primary_override": true,
+        "lane_e_remained_non_primary": true,
+        "trace_explanation": "freshness=missing; context_omitted_from_primary_decision=true",
+        "case_pass": true
+      }
+    },
+    {
+      "case_id": "case_4_borderline_window_edge",
+      "description": "Context sits exactly on the freshness window edge.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bullish",
+      "context_age_hours": 24.0,
+      "verdict": {
+        "freshness_classification": "fresh",
+        "omission_explicit": false,
+        "no_primary_override": true,
+        "lane_e_remained_non_primary": true,
+        "trace_explanation": "freshness=fresh; fresh_context_supports_primary=true",
+        "case_pass": true
+      }
+    }
+  ],
+  "overall_verdict": {
+    "all_cases_passed": true,
+    "proved_now": [
+      "Lane E freshness/omission semantics are explicit in bounded local cases.",
+      "Missing and stale context lead to explicit omission traces.",
+      "No silent primary-lane override occurred in any case."
+    ],
+    "not_proved_yet": [
+      "Full Lane E gate closure across all MVP dimensions.",
+      "Live Research Swarm integration behavior.",
+      "Production-scale runtime behavior.",
+      "Any approval change or Phase 3 readiness."
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "_meta": {
+    "title": "tranche38_lane_e_freshness_omission_cases",
+    "phase_number": 2,
+    "tranche_number": 38,
+    "freshness_window_hours": 24,
+    "note": "THE FADE-local bounded fixtures only. No network."
+  },
+  "cases": [
+    {
+      "case_id": "case_1_fresh_context_present",
+      "description": "Context exists and is fresh under the declared window.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bullish",
+      "context_age_hours": 3
+    },
+    {
+      "case_id": "case_2_stale_context_present",
+      "description": "Context exists but is stale and should be omitted explicitly.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bearish",
+      "context_age_hours": 72
+    },
+    {
+      "case_id": "case_3_missing_context",
+      "description": "Context is missing and omission must be explicit.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": false,
+      "lane_e_direction_hint": null,
+      "context_age_hours": null
+    },
+    {
+      "case_id": "case_4_borderline_window_edge",
+      "description": "Context sits exactly on the freshness window edge.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "lane_e_context_present": true,
+      "lane_e_direction_hint": "bullish",
+      "context_age_hours": 24
+    }
+  ]
+}

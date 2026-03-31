@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 152  
+**Prompt #:** 157  
 **Phase #:** 2  
-**Tranche #:** 37  
+**Tranche #:** 38  
 
-Updated: 2026-03-31T12:40:00+00:00
+Updated: 2026-03-31T12:55:00+00:00
 
 ## Purpose
 
@@ -222,6 +222,36 @@ Earlier sections remain **historical** unless this file explicitly points forwar
 **What this proves now:** bounded non-dominance/omission behavior for Lane E in local controlled cases.
 
 **What this does not prove:** full Lane E gate closure, live Research Swarm integration behavior, production-scale fusion/runtime behavior, approval readiness, or Phase 3 readiness.
+
+## Lane E — Tranche 38 freshness + omission trace audit (Prompt #157)
+
+**Scope:** THE FADE-local bounded fixture audit only (no network, no live Research Swarm integration).
+
+**Grounding:** same Lane E contract from `lane_registry.json`:
+- `direction_model_default: CONTEXT_ONLY`
+- `scoring_method: enrich_only`
+- `failure_policy: omit_if_missing`
+
+**Artifacts:**
+- Script: `future_modules/the_fade/scripts/audit_lane_e_freshness_omission_trace.py`
+- Fixtures: `future_modules/the_fade/examples/lane_e_context_bootstrap/tranche38_cases.json`
+- Outputs: `future_modules/the_fade/outputs/lane_e_context_bootstrap/tranche38_lane_e_freshness_omission_audit.json` and `.md`
+
+**Explicit cases evaluated:**
+1. `case_1_fresh_context_present`
+2. `case_2_stale_context_present`
+3. `case_3_missing_context`
+4. `case_4_borderline_window_edge`
+
+**Case verdict summary:** all cases passed bounded checks with explicit fields:
+- `freshness_classification` (`fresh` / `stale` / `missing`)
+- `omission_explicit` (true for stale/missing)
+- `no_primary_override: true` across all cases
+- trace explanation per case for operator readability
+
+**What this proves now:** bounded Lane E freshness + omission-trace semantics are explicit under a declared local freshness window.
+
+**What this does not prove:** full Lane E gate closure, live Research Swarm integration behavior, production-scale runtime behavior, approval readiness, or Phase 3 readiness.
 
 ## Evidence entry: lane_b_official_disclosure (Tranche 4)
 
