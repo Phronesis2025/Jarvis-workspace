@@ -1,0 +1,116 @@
+# THE FADE — Phase 2 remaining gate completion plan (LOCKED)
+
+**Prompt #:** 134  
+**Phase #:** 2  
+**Tranche #:** 34A (plan lock only — no execution in #134)  
+
+**Updated:** 2026-03-31  
+
+**Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
+
+---
+
+## Why this exists
+
+Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This document **locks one ordered sequence** for **remaining** gate work so execution follows a **single plan** (like Phase 1 discipline), not ad-hoc discovery.
+
+---
+
+## Done / locked (do not re-open without governance)
+
+- **Lane B FR full Tranche 21 window** on disk: **22**/**22** successes, **`t30_valid_002`** excluded from full-window tally; governed doc reconciliation (Prompt **#102**).
+- **Reliability slice (Lane B, FR window):** honest **22/22** statistic vs count floor; **not** whole-gate approval by itself.
+- **Freshness (Lane B):** Tranches **31–32** executed; **Prompt #132** **adopts** **`strict_midnight_utc`**; **10**/**22** **`cannot_classify_honestly`** accepted; **freshness-only** tranches **parked** — `lane_b_phase2_freshness_policy_decision.json`.
+- **Freshness policy exploration:** Tranche **33** comparator on disk; **no** alternate policy adopted as primary.
+- **Normalization breadth (Lane B, same 22 rows):** Tranche **34** audit on disk — preview truncation documented; regex identity path **solid**; rich object **partial**.
+- **Lane B stale/outage & escalation alignment (bounded):** Tranche **35** executed (Prompt **#135**) — `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.*` on disk; standard **#4** still **partial** / not system-closed per artifact verdict.
+
+---
+
+## Still partial (known gaps — not “done”)
+
+- **Lane B freshness:** **10**/**22** **cannot_classify_honestly** under adopted policy — dimension **partial**, not closed.
+- **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`.
+- **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4** (collector + harness slices only).
+- **Lane B conflict / context-dominance:** **Partial** bounded runs in log — **not** permutation-complete.
+- **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
+
+---
+
+## Not yet justified
+
+- **`approved: true`** or **`approved_mvp_lanes`** non-empty — **not** justified on current live evidence across **all** gate dimensions and **all** in-scope lanes.
+- **Phase 3** unlock — **blocked**.
+- **Merging** unrelated historical samples into one reliability statistic — **still not** justified (per existing audit discipline).
+
+---
+
+## Remaining gate blockers (what still prevents approval)
+
+Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass for a candidate lane; **Lane B** is furthest along but **not** closed:
+
+1. **Stale/outage behavior is explicit** (standard **#4**) — **Lane B:** not gate-closed at **system** level.
+2. **Normalization viability** — **Lane B:** **partial** (Tranche **34**); full silent-drop guarantees **not** established.
+3. **Freshness discipline** — **Lane B:** **policy locked** but outcome **partial** (**10** unresolved rows).
+4. **Reliability** — strong for **FR window slice**; **not** a license to ignore other dimensions or other lanes.
+5. **No context-only domination** — **Lane E** / fusion — **not** fully proven at gate bar across permutations.
+6. **Other MVP lanes (A, C, E)** — **not** evidenced to MVP bar.
+
+---
+
+## Ranked rationale (why the locked order)
+
+| Dimension / work | Gate value | Scope risk | Build effort | Decision value |
+|------------------|------------|------------|--------------|----------------|
+| **Lane B stale/outage & escalation honesty** | **High** (standard **#4**) | **Medium** if bounded to read-only + policy mapping | **Medium** | **High** — clears largest **undedicated** Lane B pillar |
+| **Cross-lane gate rollup** | **High** (stops Lane B tunnel vision) | **Low** (docs + registry read) | **Low** | **High** — forces **HOLD / next lane / formal pause** |
+
+---
+
+## LOCKED remaining sequence (execute only under future governed prompts)
+
+### Executed — **Tranche 35** (Prompt **#135**)
+
+**Name:** Lane B **stale/outage & escalation alignment** audit (bounded).  
+
+**Scope (as run):** Read-only: `escalation_policy.json`, collector exit semantics, JSONL/snapshot **failure** vs **success** paths as documented; narrow script + artifacts (same style as Tranche **34**). **No** new scheduled collection; **no** production runtime.  
+
+**Outcome (on disk):** `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.json` / `.md` — honest **thin/partial** verdict for standard **#4** on the Lane B FR full-window slice; **not** gate closure.  
+
+### Next — **Tranche 36**
+
+**Name:** Phase **2** **cross-lane gate dimension rollup**.  
+
+**Scope:** Single pass over `mvp_lane_evidence_registry.json` + `MVP_LANE_EVIDENCE_LOG.md` + audit — table of **five** approval checks × **four** lanes: **done / partial / absent**. **No** new tranche types inside the rollup; **no** collection.  
+
+**Outcome:** Operator-visible **STOP** sheet: whether to invest in **Lane A / C / E**, **hold** Phase **2**, or (only with explicit signoff) revisit approval — **still not** Phase **3** by default.
+
+### Stop / decision point — **after Tranche 36**
+
+**Required:** Operator (or governed prompt) chooses **one**:  
+
+- **A)** Authorize **targeted** Phase **2** evidence for a **named** lane (A, C, or E) or a **named** bounded Lane B follow-up **only if** T35 exposes a justified gap; or  
+- **B)** **Formal HOLD** on Phase **2** completion spend; or  
+- **C)** **Approval file edit** only with matching evidence + explicit signoff fields — **out of scope** for tranche execution prompts.  
+
+**No Phase 3** unless Phase **2** gate is **satisfied and documented** under existing rules.
+
+---
+
+## Do NOT work on yet (unless a new governed prompt explicitly rescopes)
+
+- **Phase 3** scanner / runtime / dashboard.
+- **Freshness-only** further tranches (already **parked** per Prompt **#132**).
+- **Broker / live execution** / exchange integration.
+- **Architecture expansion** (e.g. persist full FR JSON body) **without** a governed prompt that names storage + privacy/retention.
+- **Research swarm** or **stock module** scope outside `future_modules/the_fade/`.
+- **`mvp_lane_approval.json`** edits without operator evidence + signoff.
+- **Ad-hoc** “Tranche 37+” **not** listed above — **freeze** until Tranche **36** is complete and the decision point is taken.
+
+---
+
+## File relationships
+
+- Process anchor: `THE_FADE_PROCESS_CHECKLIST.md` (points here).  
+- One-screen: `THE_FADE_CONTEXT_ANCHOR.md` (summary bullet).  
+- Handoff: `THE_FADE_HANDOFF_BUNDLE_LATEST.md` (path to this file).

@@ -1,16 +1,18 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 125  
+**Prompt #:** 135  
 **Phase #:** 2  
-**Tranche #:** 32  
+**Tranche #:** 35  
 
-Updated: 2026-03-30T20:00:00-05:00
+Updated: 2026-03-31T17:00:00-05:00
 
 ## Purpose
 
 This document is an operator-facing place to record lane-level evidence against the **Phase 2 MVP approval gate** standard.
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
+
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 35 executed**; **next** **Tranche 36** → decision stop. **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -81,7 +83,7 @@ Use this format per lane. Fill the fields with operator observations; if somethi
 
 **Tranche 31 — freshness discipline executed (Prompt #121):** Bounded classification pass complete for the **22** full-window FR JSONL lines (**`t30_valid_002`** excluded). See **Lane B full Tranche 21 FR window — Tranche 31 freshness (Prompt #121)** below. **`mvp_lane_approval.json`** remains **`approved: false`** — this log does **not** grant approval. **Phase 3** remains **blocked**. Other gate dimensions remain **partial** until separately evidenced.
 
-**Tranche 32 — defined next (Prompt #125; not executed in #125):** **Ambiguity resolution** for the **10** cannot-classify rows only — per-row **verifiable** reclassification **or** **explicit documented limitation**; see **Tranche 32 — planned (Prompt #125)** below.
+**Tranche 32 — ambiguity resolution executed (Prompt #129):** Cohort review complete for the **10** Tranche **31** **`cannot classify honestly`** rows — see **Lane B — Tranche 32 ambiguity resolution (Prompt #129)** below. **`mvp_lane_approval.json`** remains **`approved: false`**. **Phase 3** remains **blocked**.
 
 Earlier sections remain **historical** unless this file explicitly points forward to a newer slice.
 
@@ -133,6 +135,66 @@ Earlier sections remain **historical** unless this file explicitly points forwar
 
 **Still would not prove:** Normalization breadth; stale/outage **system** behavior; conflict; context dominance; Phase 3; MVP approval.
 
+## Lane B — Tranche 32 ambiguity resolution (Prompt #129)
+
+**Cohort (10 `task_id`s):** `t21_fr_full_20260328T160000Z`, `t21_fr_full_20260328T180000Z`, `t21_fr_full_20260328T200000Z`, `t21_fr_full_20260328T220000Z`, `t21_fr_full_20260329T000000Z`, `t21_fr_full_20260329T020000Z`, `t21_fr_full_20260329T040000Z`, `t21_fr_full_20260329T060000Z`, `t21_fr_full_20260329T080000Z`, `t21_fr_full_20260329T100000Z`.
+
+**Evidence used:**
+
+1. **Existing snapshots:** Each row’s `*_tranche21_fr_slot_snapshot.json` — **`results[0].document_number`** = **`2026-06133`** and **`results[0].publication_date`** = **`2026-03-30`** (from `response_preview_utf8`; first match after `"results":[{`) for **all 10** rows.
+2. **Bounded read-only fetch (distinct document):** One **GET** to `https://www.federalregister.gov/api/v1/documents/2026-06133.json` at Tranche **32** execution. Response confirms **`publication_date`:** **`2026-03-30`**, **`effective_on`:** **`2026-03-30`**, **`signing_date`:** **`null`** — **no** sub-day **publication** instant in the **fields used for this gate review**.
+
+**Tranche 31 rule unchanged:** `Δ = T_obs − (publication_date @ 00:00 UTC)` → **Δ < 0** for **every** cohort row (observation instants **2026-03-28**/**29** vs **publication** calendar **2026-03-30**).
+
+**Per-row assignment (strict Tranche 31 buckets):** **still cannot classify honestly** — **all 10** rows. **Rationale (same for each):** supplementary document JSON **does not** provide a finer-grained **publication instant** that makes **`Δ ≥ 0`** under the **midnight** **`publication_date`** model; **reclassifying** as **fresh** or **stale** would require an **additional operator policy** for **advance / public-inspection “newest”** semantics (not adopted in this pass).
+
+**Tranche-level totals after Tranche 32 (strict Tranche 31 rule, full-window 22 rows, `t30_valid_002` excluded):**
+
+| Outcome | Count |
+|--------|------:|
+| fresh | 12 |
+| stale | 0 |
+| still cannot classify honestly | 10 |
+
+**Remaining limitation (explicit):** For this **document** and **window**, **date-only** **`publication_date`** **plus** **advance** listing behavior **blocks** a **binary** **fresh/stale** label **under** the **Tranche** **31** **midnight** **rule** **without** **policy** **beyond** **this** **audit**.
+
+**What Tranche 32 does not prove:** normalization breadth; stale/outage **system** behavior; conflict; context dominance; Phase **3** readiness; MVP approval.
+
+## Lane B — Tranche 33 freshness policy comparator (Prompt #131)
+
+**Purpose:** Operator-visible **comparison** of **explicit** freshness-policy interpretations on the **same** **22** full-window FR rows (**`t30_valid_002`** excluded) using **stored** JSONL + snapshots **only** (**no** network in the script).
+
+**Artifacts (reproducible):**
+
+- Script: `future_modules/the_fade/scripts/compare_tranche31_freshness_policies.py`
+- Outputs: `future_modules/the_fade/outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.json` and `.md`
+
+**Policies implemented:** `strict_midnight_utc` (Tranche **31** rule), `publication_day_fresh`, `advance_listing_bucket`, plus `publication_end_of_day_utc`. Definitions and per-row matrix are in the `.md` / `.json`.
+
+**Truth:** Comparator output alone is **policy exploration** — **not** MVP approval; **not** gate closure; **not** Phase **3** readiness; **`mvp_lane_approval.json`** unchanged.
+
+## Lane B — Tranche 33 freshness policy decision (Prompt #132)
+
+**Hard decision — `ADOPT_ONE_POLICY`:** The **operator-facing** Phase **2** Lane B (Federal Register) **freshness interpretation** for **binary** evidence scoring is **`strict_midnight_utc`** — the same rule as Tranche **31** (`T_pub` = `publication_date` @ **00:00 UTC**; **48h** window; **`cannot_classify_honestly`** when **Δ < 0**).
+
+**Executable artifact (machine-readable):** `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json`
+
+**Why this policy (least-bad honest choice):** Tranche **32** showed supplementary document JSON **does not** fix **Δ** under midnight anchoring for the **10**-row cohort. Comparator policies **`publication_day_fresh`** and **`publication_end_of_day_utc`** map **all 22** rows to **fresh** on this window — **overstating** binary freshness relative to the **documented** advance-listing + date-only field conflict. **`advance_listing_bucket`** is kept as **descriptive context only** (not adopted as the **primary** gate verdict). **Adopted** policy **preserves** **10**/**22** **`cannot_classify_honestly`** — **honest partiality** over **false completeness**.
+
+**Park:** **Freshness-only** Phase **2** **tranche workstream** on this FR slice is **PARKED** — **no** further freshness-only tranches unless **governance** reopens or **evidence** **sources** **change** (e.g. sub-day timestamps). Other gate dimensions (normalization, stale/outage **system** behavior, etc.) remain **separately** governed.
+
+**Still not:** MVP approval; whole-gate closure; Phase **3** unlock. **`mvp_lane_approval.json`** unchanged.
+
+## Lane B — Tranche 34 normalization breadth audit (Prompt #133)
+
+**Executable artifact:** `future_modules/the_fade/scripts/audit_lane_b_normalization_breadth.py`  
+**Outputs:** `future_modules/the_fade/outputs/lane_b_real_observation/tranche34_normalization_breadth_audit.json` and `.md`  
+**Grounding:** Field set from `run_tranche21_fr_slot.py` JSONL/snapshot contracts + **`results[0]`** fields used in **`response_preview_utf8`** (same path as freshness). **No** network.
+
+**Findings (22 rows, `t30_valid_002` excluded):** JSONL **identity/timing/outcome** keys **complete**; **all** snapshots present; **`response_sha256`** present; **full** `json.loads` of **`response_preview_utf8`** **0**/**22** (truncated previews — **expected**); regex extraction of **`document_number`** in **`results[0]`** region **22**/**22**; **3** distinct **`document_number`** values across the window. **Rich** full-document normalization (complete JSON object, agencies, excerpts) **not** available from preview alone.
+
+**Verdict:** Collector **shell** + **regex** identity fields are **solid** for this slice; **breadth** for full structured normalization is **partial** / **not closed** — **not** MVP approval; **not** gate closure.
+
 ## Evidence entry: lane_b_official_disclosure (Tranche 4)
 
 Lane name:
@@ -148,19 +210,23 @@ Evidence captured in this tranche:
 - notes: **Partial / conservative.** See **Lane B reliability window evidence (Tranche 18)** below. Approval remains NOT justified.
 
 ### Freshness
-- evidence_summary: **Tranche 31 (Prompt #121)** applied a **written** freshness rule to the **22** full-window Federal Register slot runs (see **Lane B full Tranche 21 FR window — Tranche 31 freshness (Prompt #121)** above): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly** (advance `publication_date` vs observation under date-only UTC midnight model). **Not** MVP approval; **not** whole gate.
-- freshness window reference: **48 hours** max age (`Δ` from `publication_date` @ 00:00 UTC to `actual_started_at_utc`), plus **cannot-classify** path when `Δ < 0`.
-- notes: Freshness dimension is **stronger than “unknown”** for this slice but **not** gate-complete for approval (mixed outcomes; date-only API field; no production stale/outage system proof).
+- evidence_summary: **Tranche 31 (Prompt #121)** + **Tranche 32 (Prompt #129)** on the **22** full-window FR lines (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **still cannot classify honestly** — **explicit limitation** (see **Lane B — Tranche 32**). **Tranche 33 (Prompt #131)** **policy comparator** + **Prompt #132** **decision:** **adopt** **`strict_midnight_utc`** as **operator-facing** Phase **2** interpretation; **reject** **`publication_day_fresh`** / **`publication_end_of_day_utc`** as **primary** (overstate freshness on this window); **`advance_listing_bucket`** **not** primary — see **`lane_b_phase2_freshness_policy_decision.json`** and **Lane B — Tranche 33 freshness policy decision (Prompt #132)**. **Not** MVP approval; **not** gate closure.
+- freshness window reference: **48 hours** max age (`Δ` from `publication_date` @ 00:00 UTC to `actual_started_at_utc`), plus **cannot_classify_honestly** when `Δ < 0` under **adopted** **`strict_midnight_utc`**.
+- notes: Freshness remains **partial** (**10**/**22** **cannot_classify_honestly**); **freshness-only** tranche line **parked** per Prompt **#132**; **not** production stale/outage system proof.
 
 ### Normalization viability
-- evidence_summary: Normalization produced candidate normalized events without obvious silent drops in the observed sample.
-- silent-drop checks observed: Limited sample. Silent-drop guarantees require more coverage.
-- notes: Recorded. More normalization runs are needed before treating this as gate-sufficient.
+- evidence_summary: **Tranche 34 (Prompt #133)** **normalization breadth audit** on **22** full-window FR lines (**`t30_valid_002`** excluded): JSONL + snapshot **metadata** consistent; **`document_number`** / **`publication_date`** extractable via **regex** from **`response_preview_utf8`** for **all** rows; **full** JSON parse of preview **0**/**22** (truncated). **3** distinct **`document_number`** values in-window. See **`tranche34_normalization_breadth_audit.json`**. **Not** gate-sufficient breadth for full rich document objects.
+- silent-drop checks observed: Audit checks presence/parsability of grounded fields; **does not** prove silent-drop guarantees at scale.
+- notes: Normalization **breadth** for Lane B on this slice remains **partial** — **not** approval; **not** Phase **3**.
 
 ### Stale/outage behavior
 - evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol A (see "Lane B simulated harness rehearsal (Tranche 12)" below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane stale/outage `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs. **Tranche 16 (Prompt #52)** added a **non-simulated** lane B `observe` run plus real `scout_failure` outcomes where HTTPS returned **403** (SEC.gov / issuer IR in this environment), and one **successful** `normalized_signal_event` from a **live** public regulatory disclosure API (Federal Register JSON). See "Lane B first honest non-simulated observation run (Tranche 16)" below.
 - observed downgrade/escalation/omit behavior: **Recorded (bounded slice):** the real observation slice emits explicit `scout_failure` with `error_type: SOURCE_UNAVAILABLE` and HTTP 403 summaries for blocked fetches, and emits `normalized_signal_event` when bytes return (HTTP 200). This is **gate-honest real observation** for the adapter path; it is **not** full production scout runtime or a statistical outage study.
 - notes: Tranche 16 advances **real** availability/staleness-classification evidence for the slice. Full pre-audit outage dominance vs `required_reliability_threshold` remains outstanding.
+
+- Tranche 35 (Prompt #135 — executed): `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.{json,md}` audits whether stored Lane B evidence cleanly distinguishes stale/outage-relevant states and aligns with `escalation_policy.json` + collector semantics.
+- Tranche 35 findings (grounded): on the **22-row FR full-window slice** (excluding `t30_valid_002`), `source_observation_success`, `collector_execution_success`, and `timing_valid_for_counted_slot_use` are **all True** — so escalation/policy failure handling is **not exercised** in the counted FR population. Stored `*_scout_failure.json` artifacts do represent outage as `error_type=SOURCE_UNAVAILABLE`, but no evidence exists yet for the other escalation-policy failure types or for `escalation_required` toggling.
+- Verdict: stale/outage behavior is still **thin/ambiguous** for standard **#4** if restricted to the FR full-window slice; this is **not** gate closure and does **not** justify MVP approval.
 
 ### Conflict handling
 - evidence_summary: Additional conflict-case situations were recorded within the captured lane B runs. In these cases, fusion/conflict handling preserved primary lane truth (no dominance by context-only enrichment was observed in the recorded outputs).

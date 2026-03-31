@@ -1,10 +1,10 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 125  
+**Prompt #:** 135  
 **Phase #:** 2  
-**Tranche #:** 32
+**Tranche #:** 35
 
-Updated: 2026-03-30T20:00:00-05:00
+Updated: 2026-03-31T16:30:00-05:00
 
 ## You are here
 
@@ -16,7 +16,18 @@ Updated: 2026-03-30T20:00:00-05:00
 - **Phase 3:** **Blocked.**
 - **Operator gate review decision (Prompt #113 lock):** FR full-window evidence is a **strong positive slice** only; whole-gate approval is **still not justified** on current live evidence; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
 - **Tranche 31 freshness discipline (Prompt #121 — executed):** **22** full-window lines classified (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly**. See `MVP_LANE_EVIDENCE_LOG.md` — **not** approval; **not** Phase 3.
-- **Tranche 32 — freshness ambiguity resolution (Prompt #125 — defined only; not executed here):** Next bounded tranche targets **only** the **10** cannot-classify cohort (`t21_fr_full_20260328T160000Z` … `t21_fr_full_20260329T100000Z`) — resolve with **supplementary verifiable evidence** **or** **document explicit gate limitation**; **no** fake proof.
+- **Tranche 32 — freshness ambiguity resolution (Prompt #129 — executed):** **10**-row cohort reviewed — stored snapshots **plus** one bounded read-only GET to `https://www.federalregister.gov/api/v1/documents/2026-06133.json`. Under the **same** Tranche **31** midnight-UTC rule, **all 10** remain **still cannot classify honestly** (explicit limitation documented in `MVP_LANE_EVIDENCE_LOG.md`); **not** approval; **not** Phase 3.
+- **Tranche 33 — freshness policy decision (Prompt #132 — executed):** **Adopt** **`strict_midnight_utc`** as **operator-facing** Lane B Phase **2** freshness interpretation (`lane_b_phase2_freshness_policy_decision.json`). **Park** further **freshness-only** tranches. **Not** approval; **not** Phase 3.
+- **Tranche 34 — normalization breadth audit (Prompt #133 — executed):** `audit_lane_b_normalization_breadth.py` + `tranche34_normalization_breadth_audit.{json,md}` — grounded field audit on **22** rows; **not** gate closure. **Not** approval; **not** Phase 3.
+- **Tranche 35 — stale/outage & escalation alignment audit (Prompt #135 — executed):** `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.{json,md}` — grounded evidence coverage check; dimension still thin/partial for standard **#4** on the FR full-window slice. **Not** approval; **not** Phase 3.
+- **Tranche 34A — remaining Phase 2 plan LOCKED (Prompt #134):** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **next** governed execution target: **Tranche 36** (cross-lane gate rollup); **stop** at operator decision.
+
+## Locked remaining Phase 2 sequence (authoritative)
+
+**Full detail:** `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`
+
+1. **Next:** **Tranche 36** — **Cross-lane** five-check × four-lane **rollup** (docs/registry only).  
+2. **Stop:** Operator / governed **decision** — next lane work, **HOLD**, or approval file (only with signoff). **No** Phase **3**.
 
 ## Phase 1 — completed
 
@@ -47,7 +58,11 @@ Updated: 2026-03-30T20:00:00-05:00
 | Full Tranche 21 FR window — **governed doc reconciliation**                   | **DONE** (Prompt **#102**)                                          |
 | `required_reliability_threshold` 0.8 — honest comparison **allowed on count** | **Now eligible to document** (22 ≥ 20); still **not** approval      |
 | Tranche 31 — Lane B FR **freshness discipline** (declare window + classify 22 rows) | **EXECUTED** (Prompt **#121**) — **12** fresh / **0** stale / **10** cannot classify; **not** approval |
-| Tranche 32 — **cannot-classify cohort** ambiguity resolution (**10** rows) | **DEFINED** (Prompt **#125**); **not executed** in Prompt **#125** |
+| Tranche 32 — **cannot-classify cohort** ambiguity resolution (**10** rows) | **EXECUTED** (Prompt **#129**) — **10**/**10** **still cannot classify honestly** under strict T31 rule; limitation documented |
+| Tranche 33 — Lane B FR **freshness policy** adopt + park freshness tranches | **DECIDED** (Prompt **#132**) — **adopt** `strict_midnight_utc`; **park** freshness-only line; see `lane_b_phase2_freshness_policy_decision.json` |
+| Tranche 34 — Lane B **normalization breadth** audit (**22** rows) | **EXECUTED** (Prompt **#133**) — see `tranche34_normalization_breadth_audit.json`; **partial** breadth; **not** approval |
+| Tranche 34A — **remaining Phase 2 gate plan** | **LOCKED** (Prompt **#134**) — `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`; **T35 executed** → **next** T36 → decision stop |
+| Tranche 35 — Lane B **stale/outage & escalation alignment** audit | **EXECUTED** (Prompt **#135**) — see `tranche35_stale_outage_escalation_audit.json`; dimension still thin/partial for standard **#4** on FR full-window slice |
 | MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
 
 ## MASTER Phase 3 — Universe scanner
@@ -60,11 +75,10 @@ Updated: 2026-03-30T20:00:00-05:00
 
 ## Exact current next step (authorized only)
 
-1. **Hold at the Phase 2 checkpoint** — gate-review outcome at this checkpoint is **promising-but-unapproved**; **do not** imply Phase 3 unlock from FR reliability slice alone.
-2. **When a governed prompt authorizes execution:** run **Tranche 32** first — **cannot-classify freshness ambiguity** for the **10** Tranche 31 rows (see `MVP_LANE_EVIDENCE_LOG.md`); **do not** skip this in favor of normalization or other dimensions until governance says otherwise.
-3. **Further Phase 2 evidence (after Tranche 32 or as separately prompted):** normalization, stale/outage **system** behavior, etc. — **governed prompts only**; **not** Phase 3; **not** scanner/runtime.
-4. Keep **`mvp_lane_approval.json`** unchanged until future evidence or an explicitly re-scoped governed review justifies approval.
-5. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
+1. **Follow** **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 36** next, then **decision stop** (no ad-hoc tranche chain).
+2. **Hold at the Phase 2 checkpoint** — **promising-but-unapproved**; **no** Phase **3** unlock from FR slice alone.
+3. Keep **`mvp_lane_approval.json`** unchanged until whole-gate evidence + explicit operator signoff.
+4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
 
 ## Do not
 

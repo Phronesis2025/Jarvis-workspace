@@ -1,10 +1,10 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 125  
+**Prompt #:** 135  
 **Phase #:** 2  
-**Tranche #:** 32
+**Tranche #:** 35
 
-Updated: 2026-03-30T20:00:00-05:00
+Updated: 2026-03-31T16:30:00-05:00
 
 ## One-screen truth (new chat fast-start)
 
@@ -16,7 +16,11 @@ Updated: 2026-03-30T20:00:00-05:00
 - **Current gate outcome note:** operator **full-dimension gate review** has been reviewed at this checkpoint. The FR slice is strong, but whole-gate approval is **still not justified**; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
 - **Final signoff lock (Prompt #113):** review completed with no approval flip -- lane B stays **promising-but-unapproved**, `t30_valid_002` stays excluded from the 22-slot full-window tally, and Phase 3 stays blocked.
 - **Tranche 31 freshness pass (Prompt #121 — executed):** Lane B Federal Register **freshness discipline** applied to the **22** full-window JSONL lines (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly** (advance `publication_date` vs observation under date-only UTC midnight model). **Not** approval; **not** Phase 3. Detail: `MVP_LANE_EVIDENCE_LOG.md`.
-- **Tranche 32 (Prompt #125 — defined next; not executed in #125):** **Ambiguity resolution** for the **10** cannot-classify rows only — supplementary **verifiable** evidence **or** **explicit documented limitation**; see `THE_FADE_PROCESS_CHECKLIST.md`.
+- **Tranche 32 ambiguity resolution (Prompt #129 — executed):** **10**-row cohort documented with explicit limitation under strict midnight rule — `MVP_LANE_EVIDENCE_LOG.md`.
+- **Tranche 33 freshness policy (Prompt #132 — decided):** **Adopt** **`strict_midnight_utc`** as **operator-facing** Phase **2** Lane B freshness rule; **`lane_b_phase2_freshness_policy_decision.json`**. Comparator alternatives that yield **22/22 fresh** on this window are **not** adopted as primary — **honest partiality** preserved (**10**/**22** **cannot_classify_honestly**). **Freshness-only** tranche line **parked**. **Not** approval; **not** Phase **3**.
+- **Tranche 34 normalization breadth audit (Prompt #133 — tool on disk):** `audit_lane_b_normalization_breadth.py` + `tranche34_normalization_breadth_audit.{json,md}` — JSONL/snapshot **solid**; **full** JSON body from preview **not** parseable (truncated); **regex** **`document_number`** **22**/**22**; **breadth** **partial**. **Not** approval.
+- **Tranche 35 — stale/outage & escalation alignment audit (Prompt #135 — executed):** `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.{json,md}` — grounded evidence coverage check; dimension still thin for standard **#4** on the FR full-window slice. **Not** approval; **not** Phase 3.
+- **Remaining Phase 2 plan (Prompt #134 — LOCKED):** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **next** **Tranche 36** (cross-lane rollup) → **operator decision**. **Not** reactive tranche drift.
 
 ## Federal Register full Tranche 21 window — on-disk collector state (verified)
 
@@ -41,6 +45,10 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 - **Full Tranche 21 Federal Register reliability window** — **collector evidence on disk complete** for the declared 48h window above: **22** timing-valid, successful slot records + append-only log integrity (see handoff bundle for script and paths).
 - Bounded collector hardening: `future_modules/the_fade/scripts/run_tranche21_fr_slot.py` (Federal Register only, timing gates, duplicate protection, required fields).
 - **Tranche 31 freshness classification** — **Prompt #121** on-disk analysis of **22** full-window snapshots + JSONL (see evidence log); optional helper `future_modules/the_fade/scripts/_tranche31_freshness_classify.py` for reproducible counts.
+- **Tranche 32 ambiguity review** — **Prompt #129**; optional helper `future_modules/the_fade/scripts/_tranche32_ambiguity_review.py` (evidence extraction + bounded API read).
+- **Tranche 33 freshness policy comparator** — **Prompt #131**; `future_modules/the_fade/scripts/compare_tranche31_freshness_policies.py` (stored evidence only; **no** network).
+- **Tranche 33 freshness policy decision** — **Prompt #132**; `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json` (**adopt** `strict_midnight_utc`; **park** freshness-only tranches).
+- **Tranche 34 normalization breadth audit** — **Prompt #133**; `future_modules/the_fade/scripts/audit_lane_b_normalization_breadth.py` + outputs `tranche34_normalization_breadth_audit.*`.
 
 ## What is not done
 
@@ -56,7 +64,7 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 checkpoint:** the current gate-review outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
-2. **Next governed Phase 2 move (when executed):** **Tranche 32** — resolve **or** honestly **limit** the **10** Tranche 31 cannot-classify freshness rows before treating lane B freshness as “done”; then other dimensions per checklist — **not** approval.
+2. **Execute Phase 2 in plan order:** read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranche 35 is executed**; **next** is **Tranche 36** (cross-lane rollup), then **decision stop**; **do not** invent parallel tranche chains.
 3. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
 4. **Operator decision later if warranted:** Only after future evidence and explicit operator signoff should `mvp_lane_approval.json` move to `approved: true` (with `approved_by` / `approved_at`). Until then, **do not** flip approval in code or docs and **do not** start Phase 3.
 
@@ -67,4 +75,5 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 - **Do not overclaim approval** — binding authority is `mvp_lane_approval.json`.
 - **Canon** — eight `JARVIS_THE_FADE_*.md` files stay under `future_modules/stock_module/` per `docs/CANON_INDEX.md`; do not move or delete.
 - **Process anchor** — `future_modules/stock_module/JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md` is the master checklist; align execution to it.
+- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**T35 executed; T36 next → stop**).
 - **`JARVIS_CODEBASE_STRUCTURE.md`** — unrelated drift; not THE FADE state.

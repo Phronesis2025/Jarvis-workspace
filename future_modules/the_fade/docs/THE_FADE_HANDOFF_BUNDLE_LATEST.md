@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 125  
+**Prompt #:** 135  
 **Phase #:** 2  
-**Tranche #:** 32  
-**Updated:** 2026-03-30T20:00:00-05:00
+**Tranche #:** 35  
+**Updated:** 2026-03-31T16:30:00-05:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -48,6 +48,12 @@
 | Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
 | Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **T35 executed** → **next T36 → stop** |
+| Tranche 33 freshness policy comparator (script) | `future_modules/the_fade/scripts/compare_tranche31_freshness_policies.py` (no network) |
+| Tranche 33 policy comparison output | `.../outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.json` and `.md` |
+| Tranche 33 freshness policy decision (Prompt #132) | `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json` — **adopt** `strict_midnight_utc`; **park** freshness-only tranches |
+| Tranche 34 normalization breadth audit | `.../scripts/audit_lane_b_normalization_breadth.py` + `.../tranche34_normalization_breadth_audit.{json,md}` |
+| Tranche 35 stale/outage + escalation audit | `.../scripts/audit_lane_b_stale_outage_escalation_alignment.py` + `.../tranche35_stale_outage_escalation_audit.{json,md}` |
 
 ---
 
@@ -113,7 +119,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 - Tranche 21 protocol required **≥20** counted attempts before an honest **`reliability = successes / counted_attempts`** comparison vs **0.8**. The **22** full-window records meet the **count floor**; observed ratio on that slice is **22/22 = 1.0**.
 - **This does not automatically approve** anything. Binding approval is only **`mvp_lane_approval.json`**, which is still **false** on disk.
-- **Freshness (Tranche 31 / Prompt #121):** bounded classification on the **22** full-window FR lines — **12** fresh, **0** stale, **10** cannot classify honestly (see `MVP_LANE_EVIDENCE_LOG.md`). **Not** MVP approval by itself.
+- **Freshness (Tranche 31–33):** **Prompt #132** **adopts** **`strict_midnight_utc`** (**`lane_b_phase2_freshness_policy_decision.json`**); **12** fresh / **0** stale / **10** **cannot_classify_honestly** on **22** lines (**`t30_valid_002`** excluded). **Freshness-only** tranches **parked**. **Not** MVP approval; freshness **partial**.
 - Other MVP dimensions (normalization breadth, stale/outage **system** behavior at scale, conflict permutations, context dominance, production-equivalent runtime) remain **partial** as in registry and prior logs.
 
 ---
@@ -148,21 +154,23 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 - **Done:** Lane B (Federal Register) **freshness rule** + per-slot classification for **22** full-window JSONL lines (`t30_valid_002` excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly** (advance `publication_date` vs observation). Full rule and limits: `MVP_LANE_EVIDENCE_LOG.md` + `MVP_SOURCE_RELIABILITY_AUDIT.md`.
 - **Still not:** approval; Phase 3; scanner/runtime; normalization breadth; stale/outage **system** proof; conflict/context-dominance proof.
 
-## Tranche 32 — freshness ambiguity resolution (defined Prompt #125; not executed here)
+## Tranche 32 — freshness ambiguity resolution (executed Prompt #129)
 
-- **Primary focus:** **Only** the **10** cannot-classify rows (`t21_fr_full_20260328T160000Z` through `t21_fr_full_20260329T100000Z`). Goal: per-row **reclassification** with **cited** verifiable facts **or** **explicit “unresolvable under available fields”** documentation — **no** silent upgrade of the full **22** to “all fresh.”
-- **Why before other dimensions:** Freshness is **not** cleanly closed while **10/22** are ambiguous under the Tranche 31 rule; skipping that invites **false** gate confidence on lane B.
-- **Allowed scope:** Existing snapshots/JSONL first; optional **bounded** read-only Federal Register API document fetch per **distinct** `document_number` in the cohort (no new scheduled collector window) **only** if a governed execution prompt authorizes it.
+- **Cohort:** **10** rows (`t21_fr_full_20260328T160000Z` … `t21_fr_full_20260329T100000Z`); all map to **`document_number` `2026-06133`**, **`publication_date` `2026-03-30`** in stored snapshots.
+- **Evidence:** Snapshots first; one bounded read-only GET: `https://www.federalregister.gov/api/v1/documents/2026-06133.json` (no new collector schedule).
+- **Outcome (strict Tranche 31 midnight-UTC rule):** **10**/**10** **still cannot classify honestly** — API JSON does **not** provide a sub-day publication instant that fixes **`Δ < 0`**; **explicit limitation** recorded — **not** a silent upgrade to fresh/stale.
+- **Counts unchanged:** **12** fresh / **0** stale / **10** still cannot classify (full-window **22**, **`t30_valid_002`** excluded).
 
 ## Exact next authorized move
 
-1. **Hold at the Phase 2 gate checkpoint** — current outcome is **promising-but-unapproved**; the FR window slice is strong, but it is **not** approval.
-2. **When prompted to execute Tranche 32:** follow `THE_FADE_PROCESS_CHECKLIST.md` + `MVP_LANE_EVIDENCE_LOG.md` — **not** fake proof; **`mvp_lane_approval.json`** unchanged until explicit signoff.
-3. Update **`mvp_lane_approval.json`** (and downstream registry/escalation) **only** if future evidence and explicit operator signoff later justify approval.
-4. Continue all git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.
+1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **Tranche 36** → **operator decision stop** (no parallel tranche drift).
+2. **Hold at the Phase 2 gate checkpoint** — **promising-but-unapproved**; FR slice is **not** approval.
+3. Update **`mvp_lane_approval.json`** **only** with explicit operator signoff + matching evidence.
+4. Continue git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.
 
 ## Key authority files (next edits likely)
 
+- `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**locked** remaining sequence)
 - `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`
 - `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`
 - `future_modules/the_fade/config/mvp_lane_approval.json` (read first; change only with real gate evidence)
