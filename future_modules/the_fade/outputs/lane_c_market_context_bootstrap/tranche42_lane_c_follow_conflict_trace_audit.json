@@ -1,0 +1,148 @@
+{
+  "_meta": {
+    "title": "tranche42_lane_c_follow_conflict_trace_audit",
+    "phase_number": 2,
+    "tranche_number": 42,
+    "prompt_number": 181,
+    "generated_at_utc": "2026-03-31T17:28:04+00:00",
+    "build_scope": "THE FADE-local Lane C FOLLOW conflict-mismatch fixture audit only",
+    "no_network": true,
+    "approval_authority": "the_fade\\config\\mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "This audit does not grant approval and does not unlock Phase 3."
+  },
+  "lane_c_contract_grounding": {
+    "lane_id": "lane_c_market_context",
+    "direction_model_default": "FOLLOW",
+    "failure_policy": "invalidate_if_stale_vs_policy",
+    "trust_tier": "TBD_POST_APPROVAL",
+    "freshness_class": "TBD_POST_APPROVAL",
+    "lane_c_weight_hint": 1.0,
+    "freshness_window_hours": 24.0
+  },
+  "cases_evaluated": [
+    {
+      "case_id": "case_1_fresh_valid_agrees_with_primary",
+      "description": "Fresh valid market context agrees with primary direction; FOLLOW accepts.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 2.0,
+      "verdict": {
+        "policy_outcome": "accepted_follow",
+        "primary_direction": "bullish",
+        "market_context_direction": "bullish",
+        "conflict_status": "aligned",
+        "omission_reason": "none",
+        "omission_explicit": false,
+        "no_hidden_override": true,
+        "trace_explanation": "Fresh-valid context aligns with primary; FOLLOW acceptance is explicit.",
+        "case_pass": true,
+        "normalized_payload": {
+          "summary": "Breadth supportive; aligns with primary.",
+          "direction_hint": "bullish",
+          "confidence": 0.71
+        }
+      }
+    },
+    {
+      "case_id": "case_2_fresh_valid_conflicts_with_primary",
+      "description": "Fresh valid market context conflicts with primary; Lane C must not silently FOLLOW conflicting direction over primary.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 2.0,
+      "verdict": {
+        "policy_outcome": "invalidated_omit",
+        "primary_direction": "bullish",
+        "market_context_direction": "bearish",
+        "conflict_status": "direction_mismatch",
+        "omission_reason": "direction_conflict_with_primary",
+        "omission_explicit": true,
+        "no_hidden_override": true,
+        "trace_explanation": "Fresh-valid context conflicts with primary; FOLLOW does not silently apply conflicting market direction.",
+        "case_pass": true,
+        "normalized_payload": null
+      }
+    },
+    {
+      "case_id": "case_3_stale_conflicts_invalidated_by_policy",
+      "description": "Stale context would conflict with primary but stale policy invalidates first; no silent dominance.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 72.0,
+      "verdict": {
+        "policy_outcome": "invalidated_omit",
+        "primary_direction": "bullish",
+        "market_context_direction": "bearish",
+        "conflict_status": "not_evaluated_stale_first",
+        "omission_reason": "stale_market_context",
+        "omission_explicit": true,
+        "no_hidden_override": true,
+        "trace_explanation": "Stale vs policy: omit before any FOLLOW/conflict resolution; primary not overridden.",
+        "case_pass": true,
+        "normalized_payload": null
+      }
+    },
+    {
+      "case_id": "case_4_missing_no_silent_influence",
+      "description": "Missing market context cannot silently influence direction.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": false,
+      "market_context_age_hours": null,
+      "verdict": {
+        "policy_outcome": "invalidated_omit",
+        "primary_direction": "bullish",
+        "market_context_direction": null,
+        "conflict_status": "none",
+        "omission_reason": "missing_market_context",
+        "omission_explicit": true,
+        "no_hidden_override": true,
+        "trace_explanation": "No market context; Lane C cannot influence direction (explicit omission).",
+        "case_pass": true,
+        "normalized_payload": null
+      }
+    },
+    {
+      "case_id": "case_5_invalid_shape_no_silent_influence",
+      "description": "Invalid-shape market context cannot silently influence direction.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 1.0,
+      "verdict": {
+        "policy_outcome": "invalidated_omit",
+        "primary_direction": "bullish",
+        "market_context_direction": null,
+        "conflict_status": "none",
+        "omission_reason": "invalid_market_context_shape",
+        "omission_explicit": true,
+        "no_hidden_override": true,
+        "trace_explanation": "Invalid shape; no directional FOLLOW applied (explicit omission).",
+        "case_pass": true,
+        "normalized_payload": null
+      }
+    }
+  ],
+  "overall_verdict": {
+    "all_cases_passed": true,
+    "proved_now": [
+      "Fresh-valid aligned context: explicit accepted_follow with conflict_status aligned.",
+      "Fresh-valid directional mismatch: explicit invalidated_omit with direction_conflict_with_primary (no silent FOLLOW of conflicting market over primary).",
+      "Stale conflict: stale policy invalidates first (not_evaluated_stale_first); no silent dominance.",
+      "Missing/invalid: explicit omission; no silent directional influence."
+    ],
+    "not_proved_yet": [
+      "Live market-data behavior or reliability statistics.",
+      "Full fusion runtime or broader conflict permutations beyond this fixture set.",
+      "MVP approval or Phase 3 unlock."
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "_meta": {
+    "title": "tranche42_lane_c_follow_conflict_trace_cases",
+    "phase_number": 2,
+    "tranche_number": 42,
+    "scope": "THE FADE-local fixture cases only",
+    "no_network": true
+  },
+  "freshness_window_hours": 24.0,
+  "cases": [
+    {
+      "case_id": "case_1_fresh_valid_agrees_with_primary",
+      "description": "Fresh valid market context agrees with primary direction; FOLLOW accepts.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 2.0,
+      "market_context": {
+        "summary": "Breadth supportive; aligns with primary.",
+        "direction_hint": "bullish",
+        "confidence": 0.71
+      }
+    },
+    {
+      "case_id": "case_2_fresh_valid_conflicts_with_primary",
+      "description": "Fresh valid market context conflicts with primary; Lane C must not silently FOLLOW conflicting direction over primary.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 2.0,
+      "market_context": {
+        "summary": "Tape diverges from primary; bearish read.",
+        "direction_hint": "bearish",
+        "confidence": 0.66
+      }
+    },
+    {
+      "case_id": "case_3_stale_conflicts_invalidated_by_policy",
+      "description": "Stale context would conflict with primary but stale policy invalidates first; no silent dominance.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 72.0,
+      "market_context": {
+        "summary": "Stale bearish snapshot vs bullish primary.",
+        "direction_hint": "bearish",
+        "confidence": 0.55
+      }
+    },
+    {
+      "case_id": "case_4_missing_no_silent_influence",
+      "description": "Missing market context cannot silently influence direction.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": false,
+      "market_context_age_hours": null,
+      "market_context": null
+    },
+    {
+      "case_id": "case_5_invalid_shape_no_silent_influence",
+      "description": "Invalid-shape market context cannot silently influence direction.",
+      "primary_lane_id": "lane_b_official_disclosure",
+      "primary_direction": "bullish",
+      "market_context_present": true,
+      "market_context_age_hours": 1.0,
+      "market_context": {
+        "summary": "Shape missing direction_hint by design.",
+        "confidence": 0.4
+      }
+    }
+  ]
+}

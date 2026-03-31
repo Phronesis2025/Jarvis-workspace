@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 176  
+**Prompt #:** 181  
 **Phase #:** 2  
-**Tranche #:** 41  
+**Tranche #:** 42  
 
-Updated: 2026-03-31T16:48:00+00:00
+Updated: 2026-03-31T18:00:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35/36/37/38/39/40/41 executed** under governed prompts; post-T39 **PATH B** decision stop remains locked (Lane E bootstrap paused). **Tranche 40 is governance/registry truth-closure only** and **Tranche 41 is bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35/36/37/38/39/40/41/42 executed** under governed prompts; post-T39 **PATH B** decision stop remains locked (Lane E bootstrap paused). **Tranche 40 is governance/registry truth-closure only**; **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -316,6 +316,31 @@ Earlier sections remain **historical** unless this file explicitly points forwar
 **What this proves now:** bounded Lane C FOLLOW + stale-policy semantics are explicit in local fixtures.
 
 **What this does not prove:** live market-data reliability, full Lane C gate closure across all dimensions, production-scale runtime behavior, approval readiness, or Phase 3 readiness.
+
+## Lane C — Tranche 42 FOLLOW conflict-mismatch trace audit (Prompt #181)
+
+**Scope:** THE FADE-local bounded fixture audit only (no network, no live market-data integration).
+
+**Grounding:** same `lane_registry.json` contract for `lane_c_market_context` as Tranche 41 (`FOLLOW`, `invalidate_if_stale_vs_policy`).
+
+**Artifacts:**
+- Script: `future_modules/the_fade/scripts/audit_lane_c_follow_conflict_trace.py`
+- Fixtures: `future_modules/the_fade/examples/lane_c_market_context_bootstrap/tranche42_cases.json`
+- Outputs: `future_modules/the_fade/outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.json` and `.md`
+
+**Explicit cases evaluated:**
+1. `case_1_fresh_valid_agrees_with_primary` — aligned fresh-valid FOLLOW acceptance
+2. `case_2_fresh_valid_conflicts_with_primary` — bullish primary vs bearish market; explicit omission (no silent FOLLOW of conflicting market over primary)
+3. `case_3_stale_conflicts_invalidated_by_policy` — stale-first; conflict not used to dominate
+4. `case_4_missing_no_silent_influence` — missing context
+5. `case_5_invalid_shape_no_silent_influence` — invalid shape
+
+**Case verdict summary:** bounded checks require explicit fields:
+- `policy_outcome`, `primary_direction`, `market_context_direction`, `conflict_status`, `omission_reason`, `omission_explicit`, `no_hidden_override`, `trace_explanation`
+
+**What this proves now:** bounded explicit primary-vs-market direction trace for fresh-valid aligned vs mismatch; stale policy precedence; missing/invalid cannot silently steer direction.
+
+**What this does not prove:** live market-data reliability, full Lane C gate closure, fusion runtime beyond this fixture set, approval readiness, or Phase 3 readiness.
 
 ## Evidence entry: lane_b_official_disclosure (Tranche 4)
 

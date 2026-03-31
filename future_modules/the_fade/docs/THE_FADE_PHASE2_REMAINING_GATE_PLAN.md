@@ -151,6 +151,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 
 **Outcome (on disk):** `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}`. Fresh-valid context is accepted under FOLLOW; stale/missing/invalid-shape context is explicitly invalidated/omitted with explicit reasons; no hidden override observed. **Not** approval; **not** Phase **3**; **not** live market-data integration.
 
+### Executed — **Tranche 42** (Prompt **#181**)
+
+**Name:** Lane C **FOLLOW conflict-mismatch trace** bounded audit.
+
+**Scope (as run):** THE FADE-local fixture audit only; no network; no live market-data integration. Trace explicit primary direction vs market `direction_hint` under FOLLOW: aligned fresh-valid acceptance; explicit bullish/bearish mismatch omits with `direction_conflict_with_primary`; stale policy applies before conflict resolution where relevant; missing/invalid-shape omit with explicit reasons.
+
+**Outcome (on disk):** `scripts/audit_lane_c_follow_conflict_trace.py` + `examples/lane_c_market_context_bootstrap/tranche42_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.{json,md}`. Bounded explicit trace fields per case; no silent FOLLOW of conflicting market over primary. **Not** approval; **not** Phase **3**; **not** live market-data integration.
+
 ---
 
 ## Do NOT work on yet (unless a new governed prompt explicitly rescopes)
