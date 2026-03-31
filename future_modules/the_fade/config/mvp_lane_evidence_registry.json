@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 187,
+    "prompt_number": 192,
     "phase_number": 2,
-    "tranche_number": 44
+    "tranche_number": 45
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 44,
+  "tranche": 45,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -75,8 +75,8 @@
         "conflict_handling": "partial",
         "context_dominance_risk": "partial"
       },
-      "last_evidence_recorded_at": "2026-03-31T12:09:40+00:00",
-      "notes": "Lane B remains the deepest evidenced lane but still partial and unapproved. Tranche 30 captured the full FR window on disk (22/22/0, with `t30_valid_002` excluded). Tranches 31-33 locked freshness policy discipline (`strict_midnight_utc`) with explicit 10/22 cannot-classify limits. Tranche 34 (normalization breadth) and Tranche 35 (stale/outage + escalation alignment) are executed but partial for gate closure. Tranche 36 cross-lane rollup confirms Lane B is strongest but still not gate-complete."
+      "last_evidence_recorded_at": "2026-03-31T23:00:00+00:00",
+      "notes": "Lane B remains the deepest evidenced lane but still partial and unapproved. Tranche 30 captured the full FR window on disk (22/22/0, with `t30_valid_002` excluded). Tranches 31-33 locked freshness policy discipline (`strict_midnight_utc`) with explicit 10/22 cannot-classify limits. Tranche 34 (normalization breadth) and Tranche 35 (stale/outage + escalation alignment) are executed but partial for gate closure. Tranche 36 cross-lane rollup confirms Lane B is strongest but still not gate-complete. Tranche 45 (`audit_lane_b_failure_path_stale_outage_trace.py`) — LOCAL fixtures only: explicit trace for SOURCE_UNAVAILABLE, stale downgrade via `lane_registry` failure_policy, NORMALIZATION_FAILURE, INVALID_PACKET_OUTPUT; does not prove production outage behavior or close standard #4."
     },
     {
       "lane_id": "lane_c_market_context",
@@ -137,6 +137,6 @@
       "context_dominance_risk": "Record checks that context-only reads do not dominate primary lane truth."
     }
   },
-  "notes": "Reconciled through Tranche 44 (Prompt #187) so machine-readable lane evidence state matches executed T31-T42 artifacts plus T39A (Lane E pause) and T43 (Lane C pause) governance locks. T44 adds no new lane evidence. Keep `approved:false` in `mvp_lane_approval.json` until evidence demonstrates the full gate standard."
+  "notes": "Reconciled through Tranche 45 (Prompt #192) so machine-readable lane evidence state matches executed T31-T42 artifacts plus T39A (Lane E pause) and T43 (Lane C pause) governance locks, plus T45 Lane B failure-path fixture trace. T44 adds no new lane evidence. Keep `approved:false` in `mvp_lane_approval.json` until evidence demonstrates the full gate standard."
 }
 

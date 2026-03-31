@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-03-31  
+**Updated:** 2026-03-31 (Tranche **45**: Prompt **#191** decision block + Prompt **#192** execution)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -182,6 +182,28 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 - Any implied approval grant, Phase 3 unlock, or live integration claim.
 - Any new lane bootstrap execution framed as part of T44.
 - Any architecture/runtime expansion beyond governance alignment.
+
+### Defined next — **Tranche 45** (Prompt **#191**, broader Phase 2 decision — **definition only**)
+
+**Name:** Lane B **failure-path / stale-outage explicit behavior trace** (bounded audit).
+
+**Selected path:** **PATH B** — deepen **one** existing partial lane (**`lane_b_official_disclosure`**) with **one** bounded tranche; **not** a new lane bootstrap; **not** resuming paused Lane E / Lane C bootstraps without a separate governed unpause.
+
+**Why this is next (post-T44):** `MVP_SOURCE_RELIABILITY_AUDIT.md` standard **#4** (stale/outage behavior explicit) remains a **high-value** remaining gate pillar for Lane B. Tranche **35** already showed the **full-window FR success slice** yields **thin** negative-path / escalation examples on disk. The highest honest incremental value is to **exercise explicit failure/stale/unavailable paths** using **THE FADE-local fixtures and/or controlled replay of stored snapshot shapes** only — **no** new network collection, **no** new scheduled collector runs, **no** live integration.
+
+**Exact evidence question:** When Lane B observation is **failure**, **stale per adopted policy**, or **blocked for normalization**, does the path produce **explicit** downgrade / escalate / omit behavior aligned to `escalation_policy.json` (and lane contracts) **without** fabricating primary truth or silent drops?
+
+**Scope (future execution):** Single bounded script + small fixture set + JSON/MD outputs under `future_modules/the_fade/`; update `mvp_lane_evidence_registry.json` + evidence log only on execution. **Not** approval; **not** Phase **3**; **not** production runtime proof.
+
+**Non-success / overclaim guardrails:** Must not claim **gate closure** for standard **#4** at production scale; must not imply **live** Federal Register integration beyond what fixtures replay; must not flip **`mvp_lane_approval.json`**.
+
+### Executed — **Tranche 45** (Prompt **#192**, Lane B failure-path / stale-outage trace)
+
+**Name:** Lane B **failure-path / stale-outage explicit behavior trace** (bounded audit).
+
+**Scope (as run):** THE FADE-local fixtures only (`examples/lane_b_failure_path_bootstrap/tranche45_cases.json`); **no** network; **no** live FR collection; **no** freshness-only tranche (parked line unchanged).
+
+**Outcome (on disk):** `scripts/audit_lane_b_failure_path_stale_outage_trace.py` + `outputs/lane_b_failure_path_bootstrap/tranche45_lane_b_failure_path_stale_outage_trace_audit.{json,md}`. Four explicit cases: **SOURCE_UNAVAILABLE**, **stale** path via **`lane_registry.json`** `failure_policy` (no STALE row in `escalation_policy.json`), **NORMALIZATION_FAILURE**, **INVALID_PACKET_OUTPUT**. **Not** approval; **not** Phase **3**; **not** production outage statistics; **not** full standard **#4** closure.
 
 ---
 

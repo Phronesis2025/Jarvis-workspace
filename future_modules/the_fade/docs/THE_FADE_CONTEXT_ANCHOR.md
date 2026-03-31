@@ -1,10 +1,10 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 187  
+**Prompt #:** 192  
 **Phase #:** 2  
-**Tranche #:** 44
+**Tranche #:** 45
 
-Updated: 2026-03-31T20:00:00+00:00
+Updated: 2026-03-31T23:00:00+00:00
 
 ## One-screen truth (new chat fast-start)
 
@@ -30,7 +30,8 @@ Updated: 2026-03-31T20:00:00+00:00
 - **Tranche 42 — Lane C FOLLOW conflict-mismatch trace audit (Prompt #181 — executed):** THE FADE-local fixtures trace primary vs market direction (aligned vs explicit mismatch), stale-first omission, missing/invalid omission; **not** approval; **not** live market-data integration.
 - **Tranche 43 — post-T42 Lane C decision stop (Prompt #185 — governance lock):** **PATH B** selected post-T42; Lane C bounded bootstrap is paused for now after bounded value capture in T41/T42; return to broader Phase 2 governance for next spend decision.
 - **Tranche 44 — post-T43 governance truth-closure (Prompt #187 — executed):** machine-readable `mvp_lane_evidence_registry.json` and control docs reconciled to post-T43 dual-pause checkpoint (T39A Lane E pause + T43 Lane C pause); **no** new lane evidence; **no** approval change; **no** Phase **3**.
-- **Remaining Phase 2 plan (Prompt #134 — LOCKED):** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **T35–T42 executed + T43 decision stop lock + T44 governance closure executed**; Phase **2** still active; approval false.
+- **Tranche 45 — Lane B failure-path / stale-outage trace (Prompt #192 — executed):** `audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_cases.json` + `tranche45_lane_b_failure_path_stale_outage_trace_audit.{json,md}` — **local fixtures only**; explicit traces for `SOURCE_UNAVAILABLE`, stale path via **`lane_registry`**, `NORMALIZATION_FAILURE`, `INVALID_PACKET_OUTPUT`; **not** live FR collection; **not** approval; **not** Phase **3**.
+- **Remaining Phase 2 plan (Prompt #134 — LOCKED):** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **through T45 executed**; Phase **2** still active; approval false.
 
 ## Federal Register full Tranche 21 window — on-disk collector state (verified)
 
@@ -74,7 +75,7 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 checkpoint:** the current gate-review outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
-2. **Execute Phase 2 in plan order:** read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35–42 executed**, **T43 decision stop lock** on disk, and **T44 governance/registry closure executed** (Prompt **#187**); **no** new lane evidence in T44.
+2. **Execute Phase 2 in plan order:** read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **T45** Lane B failure-path fixture trace **executed** (Prompt **#192**); await next governed prompt for further bounded work.
 3. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
 4. **Operator decision later if warranted:** Only after future evidence and explicit operator signoff should `mvp_lane_approval.json` move to `approved: true` (with `approved_by` / `approved_at`). Until then, **do not** flip approval in code or docs and **do not** start Phase 3.
 
@@ -85,5 +86,5 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 - **Do not overclaim approval** — binding authority is `mvp_lane_approval.json`.
 - **Canon** — eight `JARVIS_THE_FADE_*.md` files stay under `future_modules/stock_module/` per `docs/CANON_INDEX.md`; do not move or delete.
 - **Process anchor** — `future_modules/stock_module/JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md` is the master checklist; align execution to it.
-- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**T35–T42 executed + T43 decision stop lock + T44 governance closure executed; governed PATH B stops remain locked; Phase 2 still active**).
+- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**through T45 executed**; governed PATH B lane pauses remain locked; Phase 2 still active).
 - **`JARVIS_CODEBASE_STRUCTURE.md`** — unrelated drift; not THE FADE state.

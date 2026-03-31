@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 187  
+**Prompt #:** 192  
 **Phase #:** 2  
-**Tranche #:** 44  
+**Tranche #:** 45  
 
-Updated: 2026-03-31T20:00:00+00:00
+Updated: 2026-03-31T23:00:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **Tranches 35–42 executed + T43 decision stop lock + T44 governance closure executed** under governed prompts; post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T45 executed** (Prompt **#192** Lane B failure-path fixture trace — **no** network). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -373,6 +373,7 @@ Evidence captured in this tranche:
 
 - Tranche 35 (Prompt #135 — executed): `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.{json,md}` audits whether stored Lane B evidence cleanly distinguishes stale/outage-relevant states and aligns with `escalation_policy.json` + collector semantics.
 - Tranche 35 findings (grounded): on the **22-row FR full-window slice** (excluding `t30_valid_002`), `source_observation_success`, `collector_execution_success`, and `timing_valid_for_counted_slot_use` are **all True** — so escalation/policy failure handling is **not exercised** in the counted FR population. Stored `*_scout_failure.json` artifacts do represent outage as `error_type=SOURCE_UNAVAILABLE`, but no evidence exists yet for the other escalation-policy failure types or for `escalation_required` toggling.
+- **Tranche 45 (Prompt #192 — executed):** `audit_lane_b_failure_path_stale_outage_trace.py` + `examples/lane_b_failure_path_bootstrap/tranche45_cases.json` + `outputs/lane_b_failure_path_bootstrap/tranche45_lane_b_failure_path_stale_outage_trace_audit.{json,md}` — **bounded local fixtures only** for explicit traces: `SOURCE_UNAVAILABLE`, stale downgrade naming via **`lane_registry.json`** `failure_policy` (no STALE row in `escalation_policy.json`), `NORMALIZATION_FAILURE`, `INVALID_PACKET_OUTPUT`. **Does not** prove live FR failure rates or close MVP gate standard **#4** at production scale; **`mvp_lane_approval.json`** unchanged; **Phase 3** blocked.
 - Verdict: stale/outage behavior is still **thin/ambiguous** for standard **#4** if restricted to the FR full-window slice; this is **not** gate closure and does **not** justify MVP approval.
 
 ### Conflict handling

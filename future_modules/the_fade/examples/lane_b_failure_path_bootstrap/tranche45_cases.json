@@ -1,0 +1,72 @@
+{
+  "_meta": {
+    "title": "tranche45_lane_b_failure_path_fixtures",
+    "tranche": 45,
+    "lane_id": "lane_b_official_disclosure",
+    "scope": "THE FADE-local bounded cases only; no network; no live collection"
+  },
+  "cases": [
+    {
+      "case_id": "t45_01_source_unavailable",
+      "intent": "source observation failure / unavailable response path",
+      "fixture": {
+        "source_observation_success": false,
+        "collector_execution_success": true,
+        "timing_valid_for_counted_slot_use": true,
+        "observed_result_type": "scout_failure",
+        "scout_failure": {
+          "error_type": "SOURCE_UNAVAILABLE",
+          "error_summary": "simulated upstream unavailable",
+          "stage": "lane_b_real_observation"
+        }
+      }
+    },
+    {
+      "case_id": "t45_02_stale_downgrade",
+      "intent": "stale response path — downgrade vs primary truth per lane policy (not freshness-only tranche work)",
+      "fixture": {
+        "source_observation_success": true,
+        "collector_execution_success": true,
+        "timing_valid_for_counted_slot_use": true,
+        "observed_result_type": "normalized_signal_event",
+        "publication_date": "2026-03-20",
+        "observation_utc": "2026-03-29T12:00:00Z",
+        "strict_midnight_freshness_verdict": "stale",
+        "normalized_preview": {
+          "lag_class": "stale",
+          "freshness_hours": 220.0
+        }
+      }
+    },
+    {
+      "case_id": "t45_03_normalization_blocked",
+      "intent": "normalization-blocked / parse-blocked path",
+      "fixture": {
+        "source_observation_success": true,
+        "collector_execution_success": true,
+        "timing_valid_for_counted_slot_use": true,
+        "observed_result_type": "scout_failure",
+        "scout_failure": {
+          "error_type": "NORMALIZATION_FAILURE",
+          "error_summary": "preview_truncated_no_stable_identity_fields",
+          "stage": "normalization"
+        }
+      }
+    },
+    {
+      "case_id": "t45_04_invalid_packet_escalate",
+      "intent": "explicit escalation-class outcome for non-success path (invalid packet)",
+      "fixture": {
+        "source_observation_success": true,
+        "collector_execution_success": true,
+        "timing_valid_for_counted_slot_use": true,
+        "observed_result_type": "scout_failure",
+        "scout_failure": {
+          "error_type": "INVALID_PACKET_OUTPUT",
+          "error_summary": "missing_required_contract_fields_after_parse",
+          "stage": "validation"
+        }
+      }
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 187  
+**Prompt #:** 192  
 **Phase #:** 2  
-**Tranche #:** 44  
-**Updated:** 2026-03-31T20:00:00+00:00
+**Tranche #:** 45  
+**Updated:** 2026-03-31T23:00:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
@@ -48,12 +48,13 @@
 | Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
 | Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **T35–T42 executed + T43 decision stop lock + T44 governance closure executed** under bounded scope |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T45 executed** (Prompt **#192** Lane B failure-path fixture trace) |
 | Tranche 40 governance/registry closure | `config/mvp_lane_evidence_registry.json` reconciled to executed T31-T39 + T39A truth; no new lane evidence, no approval change |
 | Tranche 41 Lane C FOLLOW + stale-policy trace audit | `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}` |
 | Tranche 42 Lane C FOLLOW conflict-mismatch trace audit | `scripts/audit_lane_c_follow_conflict_trace.py` + `examples/lane_c_market_context_bootstrap/tranche42_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.{json,md}` |
 | Tranche 43 post-T42 Lane C decision stop (governance lock) | `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` + `THE_FADE_PROCESS_CHECKLIST.md` + `THE_FADE_CONTEXT_ANCHOR.md` — **PATH B** selected post-T42; Lane C bounded bootstrap paused; return to broader Phase 2 governance |
 | Tranche 44 post-T43 governance truth-closure (Prompt **#187**, executed) | `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` + `THE_FADE_PROCESS_CHECKLIST.md` + `THE_FADE_CONTEXT_ANCHOR.md` + `config/mvp_lane_evidence_registry.json` — dual-pause registry/doc alignment; **no** new lane evidence; **`mvp_lane_approval.json` unchanged** |
+| Tranche 45 Lane B failure-path / stale-outage trace (Prompt **#192**, executed) | `scripts/audit_lane_b_failure_path_stale_outage_trace.py` + `examples/lane_b_failure_path_bootstrap/tranche45_cases.json` + `outputs/lane_b_failure_path_bootstrap/tranche45_lane_b_failure_path_stale_outage_trace_audit.{json,md}` — **local fixtures only**; **not** approval |
 | Tranche 33 freshness policy comparator (script) | `future_modules/the_fade/scripts/compare_tranche31_freshness_policies.py` (no network) |
 | Tranche 33 policy comparison output | `.../outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.json` and `.md` |
 | Tranche 33 freshness policy decision (Prompt #132) | `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json` — **adopt** `strict_midnight_utc`; **park** freshness-only tranches |

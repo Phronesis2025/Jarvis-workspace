@@ -1,0 +1,87 @@
+{
+  "_meta": {
+    "title": "tranche45_lane_b_failure_path_stale_outage_trace_audit",
+    "tranche": 45,
+    "prompt_number": 192,
+    "lane_id": "lane_b_official_disclosure",
+    "scope": "local fixtures only; no network"
+  },
+  "escalation_policy_version": "0.1.0",
+  "lane_b_failure_policy": "mark_stale_downgrade",
+  "case_count": 4,
+  "case_verdicts": [
+    {
+      "case_id": "t45_01_source_unavailable",
+      "intent": "source observation failure / unavailable response path",
+      "observation_outcome": "source_failure",
+      "freshness_status": "not_applicable_source_failed",
+      "normalization_status": "skipped_no_successful_payload",
+      "policy_outcome": "record_scout_failure_downgrade_or_continue_if_non_critical",
+      "escalation_class": "SOURCE_UNAVAILABLE",
+      "omission_reason": "no_normalized_signal_event_emitted",
+      "omission_explicit": true,
+      "trace_explanation": "Fixture simulates `source_observation_success=false` with scout_failure `error_type=SOURCE_UNAVAILABLE`. Escalation policy maps to behavior 'record_scout_failure_downgrade_or_continue_if_non_critical'; no normalized_signal_event is produced.",
+      "fixture_echo": {
+        "source_observation_success": false,
+        "observed_result_type": "scout_failure",
+        "scout_failure_error_type": "SOURCE_UNAVAILABLE"
+      }
+    },
+    {
+      "case_id": "t45_02_stale_downgrade",
+      "intent": "stale response path \u2014 downgrade vs primary truth per lane policy (not freshness-only tranche work)",
+      "observation_outcome": "success_classified_stale",
+      "freshness_status": "stale",
+      "normalization_status": "normalized_with_explicit_stale_lag_class",
+      "policy_outcome": "lane_registry_failure_policy=mark_stale_downgrade",
+      "escalation_class": "STALE_NOT_A_ROW_IN_ESCALATION_POLICY__USE_LANE_FAILURE_POLICY",
+      "omission_reason": "not_omitted_explicit_stale_downgrade_path",
+      "omission_explicit": true,
+      "trace_explanation": "`escalation_policy.json` does not define a separate STALE failure_type row; lane B `failure_policy` is `mark_stale_downgrade` for stale-classified normalized events. This fixture proves explicit stale classification + downgrade path naming, not production outage rates.",
+      "fixture_echo": {
+        "source_observation_success": true,
+        "observed_result_type": "normalized_signal_event",
+        "scout_failure_error_type": null
+      }
+    },
+    {
+      "case_id": "t45_03_normalization_blocked",
+      "intent": "normalization-blocked / parse-blocked path",
+      "observation_outcome": "normalization_failure",
+      "freshness_status": "not_evaluated_before_norm_failure",
+      "normalization_status": "blocked",
+      "policy_outcome": "write_scout_failure_may_continue_other_lanes",
+      "escalation_class": "NORMALIZATION_FAILURE",
+      "omission_reason": "scout_failure_written_instead_of_silent_normalized_drop",
+      "omission_explicit": true,
+      "trace_explanation": "Fixture maps to escalation_policy `NORMALIZATION_FAILURE`: behavior 'write_scout_failure_may_continue_other_lanes'. Explicit scout_failure path avoids silent drop.",
+      "fixture_echo": {
+        "source_observation_success": true,
+        "observed_result_type": "scout_failure",
+        "scout_failure_error_type": "NORMALIZATION_FAILURE"
+      }
+    },
+    {
+      "case_id": "t45_04_invalid_packet_escalate",
+      "intent": "explicit escalation-class outcome for non-success path (invalid packet)",
+      "observation_outcome": "invalid_packet",
+      "freshness_status": "not_evaluated",
+      "normalization_status": "blocked_invalid_shape",
+      "policy_outcome": "stop_no_write_escalate",
+      "escalation_class": "INVALID_PACKET_OUTPUT",
+      "omission_reason": "stop_no_write_escalate_per_policy",
+      "omission_explicit": true,
+      "trace_explanation": "Fixture maps to `INVALID_PACKET_OUTPUT`: strict stop path with can_continue=False.",
+      "fixture_echo": {
+        "source_observation_success": true,
+        "observed_result_type": "scout_failure",
+        "scout_failure_error_type": "INVALID_PACKET_OUTPUT"
+      }
+    }
+  ],
+  "honest_verdict": {
+    "dimension": "stale_outage_behavior_and_explicit_failure_paths",
+    "status": "partial_bounded_fixture_trace_only",
+    "does_not_close_mvp_gate": true
+  }
+}
