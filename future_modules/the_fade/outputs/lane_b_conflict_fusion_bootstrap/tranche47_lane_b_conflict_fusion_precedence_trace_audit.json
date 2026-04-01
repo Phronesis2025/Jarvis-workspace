@@ -1,0 +1,197 @@
+{
+  "_meta": {
+    "title": "tranche47_lane_b_conflict_fusion_precedence_trace_audit",
+    "phase_number": 2,
+    "tranche_number": 47,
+    "prompt_number": 200,
+    "generated_at_utc": "2026-03-31T23:26:22+00:00",
+    "lane_id": "lane_b_official_disclosure",
+    "scope": "local fixtures only; no network"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "This audit does not grant approval or unlock Phase 3."
+  },
+  "fusion_policy_version": "0.1.0",
+  "lane_weight_hints_observed": {
+    "lane_b_official_disclosure": 1.0,
+    "lane_e_research_swarm_context": 0.2
+  },
+  "implementation_reference": "scripts/lane_b_real_observation_slice.py conflict subcommand + config/fusion_policy.json (read-only)",
+  "freshness_window_hours_for_stale_fixture": 48.0,
+  "case_count": 6,
+  "case_verdicts": [
+    {
+      "case_id": "t47_01_primary_vs_context_contra",
+      "intent": "primary Lane B signal present; context-only contra disagrees; primary must not be silently overridden",
+      "trace_class": "both_present_valid_context",
+      "case_pass": true,
+      "primary_preserved_explicit": true,
+      "context_non_override_wording": true,
+      "silent_override_observed": false,
+      "silent_drop_observed": false,
+      "ambiguous_output_risk": true,
+      "omission_explicit": true,
+      "omission_reason": "conflict_surfaced_not_silent_override",
+      "trace_explanation": "Fusion summary states primary=lane_b_official_disclosure and that context cannot override lane B; direction_mismatch=True. This matches the bounded conflict_packet wording produced by the slice.",
+      "implementation_notes": [],
+      "fusion_preview": {
+        "lane_b_weight_hint": 1.0,
+        "context_weight_hint": 0.2,
+        "primary_lane_id": "lane_b_official_disclosure",
+        "context_cannot_override_lane_b": true,
+        "direction_hint_lane_b": "neutral",
+        "direction_hint_context": "bearish",
+        "direction_mismatch_flag": true,
+        "summary_line": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='neutral' context_role='bearish' mismatch=True.",
+        "conflict_reasons_like_slice": [
+          "lane_b_vs_context_role_under_fusion_policy",
+          "direction_hint_mismatch=True"
+        ]
+      }
+    },
+    {
+      "case_id": "t47_02_context_aligned_support",
+      "intent": "primary present; context aligned; trace shows support not override (weights + wording)",
+      "trace_class": "both_present_valid_context",
+      "case_pass": true,
+      "primary_preserved_explicit": true,
+      "context_non_override_wording": true,
+      "silent_override_observed": false,
+      "silent_drop_observed": false,
+      "ambiguous_output_risk": false,
+      "omission_explicit": false,
+      "omission_reason": "none",
+      "trace_explanation": "Fusion summary states primary=lane_b_official_disclosure and that context cannot override lane B; direction_mismatch=False. This matches the bounded conflict_packet wording produced by the slice.",
+      "implementation_notes": [],
+      "fusion_preview": {
+        "lane_b_weight_hint": 1.0,
+        "context_weight_hint": 0.2,
+        "primary_lane_id": "lane_b_official_disclosure",
+        "context_cannot_override_lane_b": true,
+        "direction_hint_lane_b": "bullish",
+        "direction_hint_context": "bullish",
+        "direction_mismatch_flag": false,
+        "summary_line": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bullish' mismatch=False.",
+        "conflict_reasons_like_slice": [
+          "lane_b_vs_context_role_under_fusion_policy",
+          "direction_hint_mismatch=False"
+        ]
+      }
+    },
+    {
+      "case_id": "t47_03_context_missing",
+      "intent": "primary present; context missing at fusion boundary; outcome must be explicit (no silent packet)",
+      "trace_class": "missing_context_boundary",
+      "case_pass": true,
+      "primary_preserved_explicit": true,
+      "context_non_override_wording": null,
+      "silent_override_observed": false,
+      "silent_drop_observed": false,
+      "ambiguous_output_risk": false,
+      "omission_explicit": true,
+      "omission_reason": "conflict_subcommand_requires_contra_file",
+      "trace_explanation": "Minimal slice `lane_b_real_observation_slice.py` `conflict` exits non-zero and prints to stderr when the contra file is missing; no conflict_packet is written. That is explicit failure, not a silent override of lane B.",
+      "implementation_notes": [
+        "Reference: cmd_conflict checks contra_path.is_file() before fusion."
+      ],
+      "fusion_preview": null
+    },
+    {
+      "case_id": "t47_04_context_invalid_shape",
+      "intent": "primary present; context invalid shape or wrong role; omission / block explicit",
+      "trace_class": "invalid_context_shape_or_role",
+      "case_pass": true,
+      "primary_preserved_explicit": true,
+      "context_non_override_wording": null,
+      "silent_override_observed": false,
+      "silent_drop_observed": false,
+      "ambiguous_output_risk": false,
+      "omission_explicit": true,
+      "omission_reason": "invalid_context_role_for_lane_b_fusion_slice",
+      "trace_explanation": "Slice rejects contra files whose semantic_role is not lane_e_research_swarm_context (stderr + exit 2). Context is not fused; lane B primary is not replaced by that payload.",
+      "implementation_notes": [
+        "context semantic_role must be 'lane_e_research_swarm_context', got 'lane_a_public_signal'",
+        "Reference: cmd_conflict role check after load."
+      ],
+      "fusion_preview": null
+    },
+    {
+      "case_id": "t47_05_context_stale_policy_gap",
+      "intent": "primary present; stale context; stale-first omission explicit if policy supports \u2014 otherwise mark slice gap",
+      "trace_class": "stale_context_not_implemented_in_conflict_slice",
+      "case_pass": true,
+      "primary_preserved_explicit": null,
+      "context_non_override_wording": null,
+      "silent_override_observed": false,
+      "silent_drop_observed": false,
+      "ambiguous_output_risk": true,
+      "omission_explicit": true,
+      "omission_reason": "stale_first_omission_not_evaluated_in_minimal_lane_b_conflict_path",
+      "trace_explanation": "Fixture marks context_age_hours=200.0 > window 48.0: under Lane C/E style gate audits, stale context would be omitted before directional fusion. The lane B `conflict` subcommand does not read freshness fields; it would still emit a conflict_packet with the same precedence wording. This audit records that gap explicitly (no false claim of stale-first omission in the minimal slice).",
+      "implementation_notes": [
+        "direction_mismatch and summary would still run if only direction_hint fields are set;",
+        "stale discipline for context in this path is not implemented on-disk in the slice."
+      ],
+      "fusion_preview": {
+        "lane_b_weight_hint": 1.0,
+        "context_weight_hint": 0.2,
+        "primary_lane_id": "lane_b_official_disclosure",
+        "context_cannot_override_lane_b": true,
+        "direction_hint_lane_b": "bullish",
+        "direction_hint_context": "bullish",
+        "direction_mismatch_flag": false,
+        "summary_line": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bullish' mismatch=False.",
+        "conflict_reasons_like_slice": [
+          "lane_b_vs_context_role_under_fusion_policy",
+          "direction_hint_mismatch=False"
+        ]
+      }
+    },
+    {
+      "case_id": "t47_06_tie_equal_weights_unsupported",
+      "intent": "tie / ambiguity \u2014 only if fusion policy allows equal primary vs context weights",
+      "trace_class": "tie_or_ambiguity_unsupported",
+      "case_pass": true,
+      "primary_preserved_explicit": null,
+      "context_non_override_wording": null,
+      "silent_override_observed": false,
+      "silent_drop_observed": false,
+      "ambiguous_output_risk": false,
+      "omission_explicit": true,
+      "omission_reason": "no_equal_weight_row_in_current_fusion_policy",
+      "trace_explanation": "Current fusion_policy.json gives lane_b_official_disclosure and lane_e_research_swarm_context different hints (1.0 vs 0.2); tie/ambiguous equal-weight precedence is out of scope for this fixture set.",
+      "implementation_notes": []
+    }
+  ],
+  "evidence_question_answers": [
+    {
+      "question": "Does the trace preserve Lane B as primary when context-only signals disagree?",
+      "answer": "Yes for valid present context: summary states primary=lane_b_official_disclosure and context cannot override lane B; mismatch is flagged, not applied as override."
+    },
+    {
+      "question": "Does the trace show explicit non-override behavior?",
+      "answer": "Yes via fixed summary wording in the slice-aligned fusion_preview for contra cases."
+    },
+    {
+      "question": "Are aligned/supportive context cases explicit and non-dominant?",
+      "answer": "Yes: same precedence string even when direction_hint matches; context weight hint remains lower than lane B per fusion_policy."
+    },
+    {
+      "question": "Are stale, missing, and invalid context inputs explicitly omitted with reasons?",
+      "answer": "Missing and invalid-role: explicit CLI block documented. Stale: not omitted by slice \u2014 audit omits false claim and documents implementation gap with reason stale_first_omission_not_evaluated_in_minimal_lane_b_conflict_path."
+    },
+    {
+      "question": "Are there silent drops, silent overrides, or ambiguous outputs?",
+      "answer": "No silent override/drop observed in bounded cases; stale path carries ambiguous_output_risk=True because slice would still fuse without age check."
+    }
+  ],
+  "overall_pass": true,
+  "aggregate_flags": {
+    "any_silent_override": false,
+    "any_silent_drop": false
+  }
+}

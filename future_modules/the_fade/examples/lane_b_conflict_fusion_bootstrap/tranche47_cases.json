@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "title": "tranche47_lane_b_conflict_fusion_fixtures",
+    "tranche": 47,
+    "lane_id": "lane_b_official_disclosure",
+    "scope": "THE FADE-local bounded cases only; no network; no live collection",
+    "implementation_reference": "scripts/lane_b_real_observation_slice.py conflict subcommand + config/fusion_policy.json (read-only)"
+  },
+  "freshness_window_hours_for_stale_audit": 48.0,
+  "cases": [
+    {
+      "case_id": "t47_01_primary_vs_context_contra",
+      "intent": "primary Lane B signal present; context-only contra disagrees; primary must not be silently overridden",
+      "lane_b_artifact": {
+        "source_lane": "lane_b_official_disclosure",
+        "direction_hint": "neutral",
+        "task_id": "t47_fixture_01"
+      },
+      "context_mode": "present",
+      "context_payload": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bearish"
+      }
+    },
+    {
+      "case_id": "t47_02_context_aligned_support",
+      "intent": "primary present; context aligned; trace shows support not override (weights + wording)",
+      "lane_b_artifact": {
+        "source_lane": "lane_b_official_disclosure",
+        "direction_hint": "bullish",
+        "task_id": "t47_fixture_02"
+      },
+      "context_mode": "present",
+      "context_payload": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bullish"
+      }
+    },
+    {
+      "case_id": "t47_03_context_missing",
+      "intent": "primary present; context missing at fusion boundary; outcome must be explicit (no silent packet)",
+      "lane_b_artifact": {
+        "source_lane": "lane_b_official_disclosure",
+        "direction_hint": "bullish",
+        "task_id": "t47_fixture_03"
+      },
+      "context_mode": "missing"
+    },
+    {
+      "case_id": "t47_04_context_invalid_shape",
+      "intent": "primary present; context invalid shape or wrong role; omission / block explicit",
+      "lane_b_artifact": {
+        "source_lane": "lane_b_official_disclosure",
+        "direction_hint": "bullish",
+        "task_id": "t47_fixture_04"
+      },
+      "context_mode": "present",
+      "context_payload": {
+        "semantic_role": "lane_a_public_signal",
+        "direction_hint": "bearish"
+      }
+    },
+    {
+      "case_id": "t47_05_context_stale_policy_gap",
+      "intent": "primary present; stale context; stale-first omission explicit if policy supports — otherwise mark slice gap",
+      "lane_b_artifact": {
+        "source_lane": "lane_b_official_disclosure",
+        "direction_hint": "bullish",
+        "task_id": "t47_fixture_05"
+      },
+      "context_mode": "present",
+      "context_payload": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bullish",
+        "context_age_hours": 200.0
+      }
+    },
+    {
+      "case_id": "t47_06_tie_equal_weights_unsupported",
+      "intent": "tie / ambiguity — only if fusion policy allows equal primary vs context weights",
+      "expectation": "mark_unsupported_no_equal_weight_row_in_fusion_policy"
+    }
+  ]
+}

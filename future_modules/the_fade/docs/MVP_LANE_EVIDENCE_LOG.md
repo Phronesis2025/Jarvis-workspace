@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 192  
+**Prompt #:** 200  
 **Phase #:** 2  
-**Tranche #:** 45  
+**Tranche #:** 47  
 
-Updated: 2026-03-31T23:00:00+00:00
+Updated: 2026-03-31T23:59:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T45 executed** (Prompt **#192** Lane B failure-path fixture trace — **no** network). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T47 executed** (includes Prompt **#192** T45 Lane B failure-path fixture trace and Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 47 (Prompt #200):** Lane B **conflict / fusion precedence** bounded **fixture** audit is **on disk** — `scripts/audit_lane_b_conflict_fusion_precedence_trace.py` + `examples/lane_b_conflict_fusion_bootstrap/tranche47_cases.json` + `outputs/lane_b_conflict_fusion_bootstrap/tranche47_lane_b_conflict_fusion_precedence_trace_audit.{json,md}`. **Local fixtures only**; explicit primary-vs-context precedence wording aligned to `lane_b_real_observation_slice.py` `conflict` + read-only `fusion_policy.json`; missing/wrong-role paths documented as explicit CLI boundaries; **stale context age is not evaluated** in the minimal `conflict` slice (documented gap). **Not** full conflict-handling closure; **not** MVP approval; **not** Phase **3**.
 
 **Tranche 30 (Prompt #102):** Full-window Federal Register slot evidence is **captured on disk** and summarized in **Lane B full Tranche 21 Federal Register reliability window (Tranche 30 -- Prompt #102)** below. **`mvp_lane_approval.json`** remains **`approved: false`** unless and until that file is updated — this log does **not** grant approval. **Phase 3** remains **blocked**.
 
@@ -566,8 +568,8 @@ The harness (`lane_b_controlled_evidence_harness.py`) remains **rehearsal-only**
 
 Script: `future_modules/the_fade/scripts/lane_b_real_observation_slice.py`
 
-- **observe:** reads one real **HTTPS URL** or **local file path** �?�?�?¢�?¢â�??¬�? �?¢â�??¬â�??¢ writes `future_modules/the_fade/outputs/lane_b_real_observation/{task_id}_scout_failure.json` **or** `{task_id}_normalized_signal_event.json` (stdout prints the same object).
-- **conflict:** reads one **lane B artifact** (normalized JSON from observe) + one **THE FADE-local** `context_only_contra` JSON (`semantic_role` = `lane_e_research_swarm_context`) �?�?�?¢�?¢â�??¬�? �?¢â�??¬â�??¢ writes `{task_id}_conflict_packet.json`; uses `config/fusion_policy.json` **read-only** for weight wording.
+- **observe:** reads one real **HTTPS URL** or **local file path** → writes `future_modules/the_fade/outputs/lane_b_real_observation/{task_id}_scout_failure.json` **or** `{task_id}_normalized_signal_event.json` (stdout prints the same object).
+- **conflict:** reads one **lane B artifact** (normalized JSON from observe) + one **THE FADE-local** `context_only_contra` JSON (`semantic_role` = `lane_e_research_swarm_context`) → writes `{task_id}_conflict_packet.json`; uses `config/fusion_policy.json` **read-only** for weight wording.
 
 **Smoke tests** (developer-run, not gate approval): file read + `https://example.com` fetch + conflict against `inputs/lane_b_real_evidence/context_only_contra.example.json` succeeded locally. **This does not substitute for operator gate evidence** using a real disclosure URL/file and honest contra provenance -- it only proves the slice runs.
 
@@ -709,7 +711,7 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 
 **Scope:** Lane B only; **Federal Register public API** at the **exact** URL from Tranche 21 protocol -- no SEC URLs, no issuer IR URLs, no other lanes.
 
-**Protocol reference:** `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` �?�?�?¢�?¢â�??¬�? �?¢â�??¬â�??¢ **Lane B pre-audit reliability window protocol (Tranche 21)** (stricter target -- **preserved**; **not** erased).
+**Protocol reference:** `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` — **Lane B pre-audit reliability window protocol (Tranche 21)** (stricter target -- **preserved**; **not** erased).
 
 **Tranche 24 note:** The full **24-attempt UTC grid** below remains the **documented Tranche 21 standard**. Operator **real availability** no longer supports completing it; **remaining** executions are replanned under **Lane B availability-constrained interim pilot (Tranche 24 -- Prompt #73)** -- **not** a claim that the full pre-audit window is still being executed.
 
@@ -720,7 +722,7 @@ Reliability for `lane_b_official_disclosure` remains **partial / conservative** 
 | `window_start_utc` | `2026-03-25T21:13:55Z` (ISO8601 UTC -- start of **attempt 0** `observe`; aligns with tool `ingested_at` / internal `created_at` at run start) |
 | `window_end_utc` | `2026-03-27T21:13:55Z` (`window_start_utc` + **48 hours**, strict) |
 
-### Full 24-attempt schedule (UTC) -- `window_start_utc + (i �?�?�?�??�?¢â�??¬â�?� 2h)` for `i = 0..23`
+### Full 24-attempt schedule (UTC) -- `window_start_utc + (i * 2h)` for `i = 0..23`
 
 | i | Scheduled UTC |
 |---|----------------|

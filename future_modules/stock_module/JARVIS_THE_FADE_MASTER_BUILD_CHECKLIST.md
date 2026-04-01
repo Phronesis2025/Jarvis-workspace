@@ -1,15 +1,15 @@
-# JARVIS\_THE\_FADE\_MASTER\_BUILD\_CHECKLIST.md
+# JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md
 
 **Document Type:** Master Build Checklist  
 **Status:** Proposed Canonical Control Checklist (live progress below)  
-**Version:** 1.42  
-**Last Updated:** 2026-03-31T23:00:00+00:00
+**Version:** 1.44  
+**Last Updated:** 2026-03-31T23:59:00+00:00
 **Owner:** Jason  
 **Project Context:** Jarvis future worker / stock intelligence side quest
 
 **Live use:** Re-read **Live Progress Snapshot** and **Live phase-status table** on major checkpoints; they override stale assumptions elsewhere in this file until that section is revised.
 
-\---
+---
 
 ## Live Progress Snapshot (authoritative)
 
@@ -35,7 +35,7 @@ The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **mu
 | Tranche 33 freshness policy comparator (Prompt **#131**) | **TOOL ON DISK:** `compare_tranche31_freshness_policies.py` + outputs under `outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.*` — explicit **policy** comparison on stored evidence (**no** network); **not** approval; **not** Phase 3 |
 | Tranche 33 freshness policy decision (Prompt **#132**) | **DECIDED:** **Adopt** **`strict_midnight_utc`** as **operator-facing** Phase **2** interpretation (`config/lane_b_phase2_freshness_policy_decision.json`); **not** adopt **`publication_day_fresh`** / **`publication_end_of_day_utc`** as primary; **park** freshness-only tranches — **not** approval; **not** Phase 3 |
 | Tranche 34 normalization breadth audit (Prompt **#133**) | **EXECUTED:** `audit_lane_b_normalization_breadth.py` + `tranche34_normalization_breadth_audit.*` — JSONL/snapshot **solid**; preview **truncated** (full parse **0**/**22**); regex **`document_number`** **22**/**22**; **breadth partial** — **not** approval; **not** Phase 3 |
-| Phase 2 remaining gate plan (Prompt **#134** / Tranche **34A**) | **LOCKED:** `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **through T45 executed** (Lane B failure-path fixture trace, Prompt **#192**); Phase **2** still active; **not** approval; **not** Phase 3 |
+| Phase 2 remaining gate plan (Prompt **#134** / Tranche **34A**) | **LOCKED:** `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **through T47 executed** (Lane B T45 failure-path + T47 conflict/fusion precedence fixture traces, Prompts **#192** / **#200**); Phase **2** still active; **not** approval; **not** Phase 3 |
 | Tranche 35 stale/outage + escalation alignment audit | **EXECUTED:** `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.json` + `tranche35_stale_outage_escalation_audit.md` — FR full-window slice has only successes (no escalation negative examples); outage policy coverage remains partial; **not** approval; **not** Phase 3 |
 | Tranche 36 cross-lane gate dimension rollup | **EXECUTED:** `build_phase2_cross_lane_gate_rollup.py` + `phase2_cross_lane_gate_rollup.{json,md}` — A/B/C/E matrix shows Lane B deepest but still partial, A/C/E mostly absent; **not** approval; **not** Phase 3 |
 | Tranche 36A operator decision stop lock | **LOCKED:** **PATH B** selected — next Phase 2 bootstrap lane is `lane_e_research_swarm_context`; decision pass only (**no** tranche execution), `mvp_lane_approval.json` unchanged, **Phase 3 blocked** |
@@ -49,6 +49,7 @@ The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **mu
 | Tranche 43 post-T42 Lane C decision stop (Prompt **#185**) | **LOCKED (PATH B):** Lane C bounded bootstrap paused for now after bounded T41/T42 value capture; return to broader Phase 2 governance for next spend decision; **not** approval; **not** Phase 3 |
 | Tranche 44 post-T43 governance truth-closure (Prompt **#187**) | **EXECUTED:** `mvp_lane_evidence_registry.json` + control docs reconciled to post-T43 dual-pause checkpoint (T39A Lane E pause + T43 Lane C pause); **no** new lane evidence; **no** approval change; **not** Phase 3 |
 | Tranche 45 Lane B failure-path / stale-outage trace audit (Prompt **#192**) | **EXECUTED:** `audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_cases.json` + `tranche45_lane_b_failure_path_stale_outage_trace_audit.{json,md}` — **local fixtures only**; explicit policy traces; **not** live FR collection; **not** approval; **not** Phase 3 |
+| Tranche 47 Lane B conflict / fusion precedence trace audit (Prompt **#200**) | **EXECUTED:** `audit_lane_b_conflict_fusion_precedence_trace.py` + `examples/lane_b_conflict_fusion_bootstrap/tranche47_cases.json` + `tranche47_lane_b_conflict_fusion_precedence_trace_audit.{json,md}` — **local fixtures only**; explicit precedence + boundary/gap notes; **not** full conflict closure; **not** approval; **not** Phase 3 |
 
 **Phase 2 work completed and committed (checkpoint list):** approval gate prep; deferred approval decision; lane B evidence pack + refinement passes; honest blocker documentation; controlled evidence protocol; minimal harness build + hardening; simulated rehearsal + correction + reproducibility cleanup; real evidence path audit; minimal real evidence path spec + correction; lane B real observation slice build; canon recovery from stash snapshot into `future_modules/stock_module/`; post-canon dirty-state cleanup (registry/log/contra alignment); **Tranche 18** reliability-window honesty pass (`docs/MVP_LANE_EVIDENCE_LOG.md`, `docs/MVP_SOURCE_RELIABILITY_AUDIT.md` -- four countable `observe` tries in one session; **no** valid 0.8 gate statistic); **Tranche 19** lane B provider/source class clarification (log + audit + `LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md` -- **one** source class per reliability pass; provisional next target **Federal Register API** only for that pass, not mixed with SEC/issuer); **Tranche 20** single-source reliability pass (Federal Register API only; 5 attempts / 5 successes / 0 failures; still **no** honest comparison to 0.8 yet); **Tranche 21** pre-audit reliability window protocol defined (Federal Register API-only; 48h UTC window; 2h cadence; count normalized_signal_event as success vs scout_failure as failure; compare to 0.8 only after >=20 counted attempts) -- **stricter target preserved** in audit; **Tranche 22-23** -- **2** counted attempts on original UTC grid (`t22_fr_000`, `t22_fr_001`); **Tranche 24** -- **availability-constrained interim pilot** (**CDT** schedule; **<=8** ceiling); Prompts **#75/#78/#80/#82/#86/#88** -- all six pilot slots observed (`t24_fr_pilot_01`, `t24_fr_pilot_02`, `t24_fr_pilot_03`, `t24_fr_pilot_04`, `t24_fr_pilot_05`, `t24_fr_pilot_06`); cumulative **8** counted / **8** successes / **0** failures in this slice; **final interim pilot result** only; **not** full pre-audit gate window; **no** 0.8 conclusion; **Tranche 25 closeout audit complete** (interim pilot done: 6/6 slots, 8/8 successes; proved positive interim success-path signal; did **not** satisfy the original Tranche 21 gate protocol; therefore does **not** justify any `required_reliability_threshold` **0.8** comparison or any approval re-evaluation; approval remains **not justified**); **Tranche 26** post-pilot go/no-go: lane B **parked** promising-but-unapproved; **Tranche 27-30** bounded slot collector (`run_tranche21_fr_slot.py`); **full Tranche 21** FR window **complete on disk** (**22** counted / **22** successes / **0** failures; **`t30_valid_002`** smoke excluded); **Prompt #102** governed markdown reconciliation (**no** approval change); **NO-GO** on Phase 3 until full gate satisfied).
 
@@ -60,20 +61,20 @@ The **eight THE FADE design canon** Markdown files (`JARVIS_THE_FADE_*.md`) **mu
 
 **Gate-review-now discipline (Prompt #103):** this checkpoint is a **review-and-doc-alignment hold**, not new build scope. Keep scrutiny adversarial and risk-first against over-reading one strong FR slice; keep guardrail concepts as future-only; keep any execution-adjacent build in parking lot until a later governed prompt.
 
-\---
+---
 
 ## Live phase-status table (master phases)
 
-| Phase (see ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§5 Locked Tranche Order) | Status |
+| Phase (see §5 Locked Tranche Order) | Status |
 |-------------------------------------|--------|
 | Phase 0 -- Canon Lock + Build Map | **COMPLETE** (effective for current build path) |
 | Phase 1 -- Scout Contracts and Policy Foundations | **COMPLETE FOR CURRENT PROOF PATH** |
 | Phase 2 -- MVP Data Stack and Source Reliability Pre-Audit | **ACTIVE** |
 | Phases 3-16 -- Universe Scanner through Tiny Live Pilot | **NOT STARTED** -- **BLOCKED** on MVP gate (no Phase 3 work started) |
 
-\---
+---
 
-# 1\. Purpose of This Document
+# 1. Purpose of This Document
 
 This document is the **locked master build checklist** for THE FADE system.
 
@@ -97,9 +98,9 @@ It defines:
 * what is deferred
 * what must not be built early
 
-\---
+---
 
-# 2\. Master Build Rule
+# 2. Master Build Rule
 
 ## Use both Cursor modes, but at different levels
 
@@ -124,9 +125,9 @@ The correct process is:
 6. commit the tranche
 7. move to the next tranche
 
-\---
+---
 
-# 3\. Legend
+# 3. Legend
 
 * **\[PLAN]** = use Cursor Plan Mode
 * **\[STEP]** = execute in normal step-by-step mode
@@ -135,9 +136,9 @@ The correct process is:
 * **\[PROOF]** = hard proof gate before next tranche
 * **\[DEFER]** = explicitly not in scope yet
 
-\---
+---
 
-# 4\. Absolute Red-Line Rules
+# 4. Absolute Red-Line Rules
 
 These rules apply across the whole build.
 
@@ -155,9 +156,9 @@ These rules apply across the whole build.
 
 Future-only guardrail (not active in current tranche, does not unlock Phase 3): Lane E remains context-only/non-dominant, and paid signal rails (`x402`/A2A), ChainCash/agent-payment rails, and tokenized-equity/prediction-market/execution-stack concepts remain deferred architecture research only.
 
-\---
+---
 
-# 5\. Locked Tranche Order
+# 5. Locked Tranche Order
 
 This is the master order.
 
@@ -179,7 +180,7 @@ This is the master order.
 16. Phase 15 -- Live-Readiness Review
 17. Phase 16 -- Tiny Live Pilot
 
-\---
+---
 
 # Phase 0 -- Canon Lock + Build Map
 
@@ -225,7 +226,7 @@ Turn the document set into a real implementation graph.
 * \[ ] The first proof slice is narrow and explicit
 * \[ ] No downstream phase is pretending to be MVP
 
-\---
+---
 
 # Phase 1 -- Scout Contracts and Policy Foundations
 
@@ -247,13 +248,13 @@ Define the scout-layer contracts and policy foundations.
 
 ## Step-by-step checklist
 
-* \[ ] Define `fade\_task\_packet` contract
-* \[ ] Define `scanner\_candidate\_set` contract
-* \[ ] Define `normalized\_signal\_event` contract
-* \[ ] Define `lane\_scorecard` contract
-* \[ ] Define `contra\_signal\_result` contract
-* \[ ] Define `signal\_packet` contract
-* \[ ] Define `conflict\_packet` contract
+* \[ ] Define `fade_task_packet` contract
+* \[ ] Define `scanner_candidate_set` contract
+* \[ ] Define `normalized_signal_event` contract
+* \[ ] Define `lane_scorecard` contract
+* \[ ] Define `contra_signal_result` contract
+* \[ ] Define `signal_packet` contract
+* \[ ] Define `conflict_packet` contract
 * \[ ] Define failure artifact contract
 * \[ ] Define lane registry
 * \[ ] Define direction-model registry
@@ -278,7 +279,7 @@ Define the scout-layer contracts and policy foundations.
 * \[ ] Failure conditions are explicit
 * \[ ] No downstream code is needed yet
 
-\---
+---
 
 # Phase 2 -- MVP Data Stack and Source Reliability Pre-Audit
 
@@ -323,7 +324,7 @@ Constrain the system to a realistic MVP data stack.
 * \[ ] No phase-1 dependence on vendor sprawl
 * \[ ] Missing/stale source behavior is defined before adapter implementation
 
-\---
+---
 
 # Phase 3 -- Universe Scanner
 
@@ -366,7 +367,7 @@ Create the candidate-generation front end.
 * \[ ] No invented candidates
 * \[ ] Output is reusable by the scout layer
 
-\---
+---
 
 # Phase 4 -- Event Normalization
 
@@ -379,9 +380,9 @@ Convert raw evidence into one normalized event structure.
 ## Step-by-step checklist
 
 * \[ ] Implement normalized event schema validator
-* \[ ] Implement raw ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ normalized mapping for official lane
-* \[ ] Implement raw ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ normalized mapping for market lane
-* \[ ] Implement raw ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ normalized mapping for curated public-signal lane
+* \[ ] Implement raw → normalized mapping for official lane
+* \[ ] Implement raw → normalized mapping for market lane
+* \[ ] Implement raw → normalized mapping for curated public-signal lane
 * \[ ] Implement context-only normalization for Research Swarm enrichment
 * \[ ] Implement duplicate/derivative detection fields
 * \[ ] Implement parser-confidence handling
@@ -400,7 +401,7 @@ Convert raw evidence into one normalized event structure.
 * \[ ] Normalization failures are explicit
 * \[ ] Evidence traceability is intact
 
-\---
+---
 
 # Phase 5 -- Lane Scoring
 
@@ -439,7 +440,7 @@ Future-only insertion point: add data-trust/token-risk screening and explicit La
 * \[ ] Scoring is explainable
 * \[ ] Undefined direction models escalate instead of silently scoring
 
-\---
+---
 
 # Phase 6 -- Contra-Signal Engine
 
@@ -474,7 +475,7 @@ Future-only insertion point: add critic/adversarial/dissent-memory controls and 
 * \[ ] A candidate can be downgraded or forced into conflict
 * \[ ] Contra logic is visible, not hidden
 
-\---
+---
 
 # Phase 7 -- Fusion / Conflict / Signal Packet
 
@@ -522,7 +523,7 @@ Future-only insertion point: enforce Lane E enrichment limits and explicit non-d
 * \[ ] Weak/no-signal paths work
 * \[ ] Scout output is operator-reviewable
 
-\---
+---
 
 # Phase 8 -- Signal Review Dashboard
 
@@ -567,7 +568,7 @@ Make scout outputs reviewable by the operator.
 * \[ ] Dashboard shows actual packet truth
 * \[ ] No fake analytics
 
-\---
+---
 
 # Phase 9 -- Research Handoff + Downstream Analyst Layer
 
@@ -579,7 +580,7 @@ Connect strong signals to research brief and risk gate.
 
 ## Plan Mode focus
 
-* signal ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ research handoff
+* signal → research handoff
 * reuse of existing brief/risk-gate work
 * linkage fields
 * file/path migration if needed
@@ -588,8 +589,8 @@ Connect strong signals to research brief and risk gate.
 ## Step-by-step checklist
 
 * \[ ] Define research handoff packet
-* \[ ] Link signal packet ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ brief trigger
-* \[ ] Link brief ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ risk gate trigger
+* \[ ] Link signal packet → brief trigger
+* \[ ] Link brief → risk gate trigger
 * \[ ] Link signal packet IDs through downstream artifacts
 * \[ ] Reposition existing brief/risk-gate logic as downstream analyst layer
 * \[ ] Validate linkage from signal packet to downstream outputs
@@ -600,7 +601,7 @@ Future-only insertion point: Research Scout / repo-watchlist style research lane
 
 ## Deliverables
 
-* \[ ] one linked signal ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ brief ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ risk gate path
+* \[ ] one linked signal → brief → risk gate path
 * \[ ] research review surface
 
 ## Proof gate \[PROOF]
@@ -609,7 +610,7 @@ Future-only insertion point: Research Scout / repo-watchlist style research lane
 * \[ ] No orphaned brief/risk outputs
 * \[ ] Research is clearly downstream
 
-\---
+---
 
 # Phase 10 -- Paper Trade Engine
 
@@ -662,7 +663,7 @@ Future-only insertion point: paper-mode-first remains mandatory before any real 
 * \[ ] P\&L is believable under explicit simulation assumptions
 * \[ ] No trade exists without upstream linkage
 
-\---
+---
 
 # Phase 11 -- Daily Summary and Operator Review Loop
 
@@ -709,7 +710,7 @@ Create the daily review surface the operator wants.
 * \[ ] End-of-day balance is obvious
 * \[ ] Operator can see what traded and why
 
-\---
+---
 
 # Phase 12 -- Learning / Calibration
 
@@ -755,7 +756,7 @@ Start learning without losing control.
 * \[ ] Learning does not silently mutate policy
 * \[ ] Real outcomes outrank synthetic feedback
 
-\---
+---
 
 # Phase 13 -- Hardening / Replay / Health
 
@@ -803,7 +804,7 @@ Future-only insertion point: multi-machine monitoring and observability expansio
 * \[ ] Engine failover works in test
 * \[ ] Major failure states surface cleanly
 
-\---
+---
 
 # Phase 14 -- Autonomous Transition
 
@@ -833,7 +834,7 @@ Transition from fully human-gated paper operation into bounded policy-driven aut
 * \[ ] Implement Ghost Lane registry
 * \[ ] Implement autonomous policy calibration sandbox
 * \[ ] Ensure Safety Governor overrides routing
-* \[ ] Ensure Heartbeat Monitor can fail over Alpha ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ Beta
+* \[ ] Ensure Heartbeat Monitor can fail over Alpha → Beta
 * \[ ] Add autonomy metrics to daily summary/dashboard
 * \[ ] Force manual fallback when safety gates fire
 
@@ -853,7 +854,7 @@ Future-only insertion point: require runtime pause authority (`tester-can-pause-
 * \[ ] Shadow lanes do not fake primary confidence
 * \[ ] Autonomy is measurable, not vague
 
-\---
+---
 
 # Phase 15 -- Live-Readiness Review
 
@@ -899,7 +900,7 @@ Decide whether the system deserves tiny live trading permission.
 * \[ ] Hard gates are actually met
 * \[ ] Operator can reject live pilot even if metrics pass
 
-\---
+---
 
 # Phase 16 -- Tiny Live Pilot
 
@@ -942,9 +943,9 @@ Run the smallest possible real-money proof.
 * \[ ] Operator can stop instantly
 * \[ ] No scaling until extended review passes
 
-\---
+---
 
-# 6\. Immediate Start Point
+# 6. Immediate Start Point
 
 ## Start with:
 
@@ -976,9 +977,9 @@ In plain English:
 * \[ ] live readiness
 * \[ ] dashboard work beyond signal review
 
-\---
+---
 
-# 7\. Final Summary
+# 7. Final Summary
 
 This is the locked master build checklist for THE FADE.
 
@@ -993,7 +994,7 @@ Use it to control:
 
 The build method is locked:
 
-**Plan Mode at tranche start ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ Step-by-step execution inside the tranche ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ proof gate ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ docs/dashboard update if needed ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ commit ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ next tranche**
+**Plan Mode at tranche start → Step-by-step execution inside the tranche → proof gate → docs/dashboard update if needed → commit → next tranche**
 
 If the process follows this checklist, the system stays:
 
@@ -1003,6 +1004,6 @@ If the process follows this checklist, the system stays:
 * phase-disciplined
 * resistant to shiny-object drift
 
-\---
+---
 
 

@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-03-31 (Tranche **45**: Prompt **#191** decision block + Prompt **#192** execution)  
+**Updated:** 2026-03-31 (Tranche **47**: Prompt **#200** Lane B conflict / fusion precedence fixture trace execution)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -32,7 +32,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 - **Lane B freshness:** **10**/**22** **cannot_classify_honestly** under adopted policy — dimension **partial**, not closed.
 - **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`.
 - **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4** (collector + harness slices only).
-- **Lane B conflict / context-dominance:** **Partial** bounded runs in log — **not** permutation-complete.
+- **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`); **not** permutation-complete and **not** full fusion-runtime closure.
 - **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
 
 ---
@@ -204,6 +204,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as run):** THE FADE-local fixtures only (`examples/lane_b_failure_path_bootstrap/tranche45_cases.json`); **no** network; **no** live FR collection; **no** freshness-only tranche (parked line unchanged).
 
 **Outcome (on disk):** `scripts/audit_lane_b_failure_path_stale_outage_trace.py` + `outputs/lane_b_failure_path_bootstrap/tranche45_lane_b_failure_path_stale_outage_trace_audit.{json,md}`. Four explicit cases: **SOURCE_UNAVAILABLE**, **stale** path via **`lane_registry.json`** `failure_policy` (no STALE row in `escalation_policy.json`), **NORMALIZATION_FAILURE**, **INVALID_PACKET_OUTPUT**. **Not** approval; **not** Phase **3**; **not** production outage statistics; **not** full standard **#4** closure.
+
+### Executed — **Tranche 47** (Prompt **#200**, Lane B conflict / fusion precedence trace)
+
+**Name:** Lane B **conflict-handling / fusion precedence** bounded fixture audit (primary vs context-only).
+
+**Scope (as run):** THE FADE-local fixtures only (`examples/lane_b_conflict_fusion_bootstrap/tranche47_cases.json`); **no** network; **no** live FR collection; **no** Research Swarm integration; **no** market-data integration. Read-only use of `fusion_policy.json`; trace semantics aligned to `lane_b_real_observation_slice.py` `conflict` subcommand.
+
+**Outcome (on disk):** `scripts/audit_lane_b_conflict_fusion_precedence_trace.py` + `outputs/lane_b_conflict_fusion_bootstrap/tranche47_lane_b_conflict_fusion_precedence_trace_audit.{json,md}`. Bounded cases: context **contra** vs primary (explicit non-override summary), **aligned** context, **missing** context (explicit CLI boundary), **invalid role**, **stale context** (documents minimal-slice gap: no age check in `conflict`), **tie** case marked **unsupported** under current unequal weights. **Not** approval; **not** Phase **3**; **not** full conflict-handling or fusion-runtime closure.
 
 ---
 
