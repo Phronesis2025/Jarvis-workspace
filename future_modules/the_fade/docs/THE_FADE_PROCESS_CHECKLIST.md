@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 221  
+**Prompt #:** 226  
 **Phase #:** 2  
-**Tranche #:** 52B
+**Tranche #:** 54
 
-Updated: 2026-04-01T17:52:00+00:00
+Updated: 2026-04-01T19:06:53+00:00
 
 ## You are here
 
-- **Checkpoint:** **T45** (Lane B failure-path **fixture** trace), **T47** (Lane B conflict / fusion **precedence** **fixture** trace), **T50** (Lane B normalization viability / silent-drop **fixture** trace), and adopted pre-existing **T52** (Lane B stale-context conflict omission **fixture** trace) are **on disk**. **Phase 2** still **active**; **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Lane E** / **Lane C** bootstraps **paused** (**T39A**, **T43**). **Next new chat:** decide the **next honest Phase 2 move** under a **new governed prompt**.
+- **Checkpoint:** **T45** (Lane B failure-path **fixture** trace), **T47** (Lane B conflict / fusion **precedence** **fixture** trace), **T50** (Lane B normalization viability / silent-drop **fixture** trace), adopted pre-existing **T52** (Lane B stale-context conflict omission **fixture** trace), and **T54** (Lane B stale/outage residual policy coverage **fixture** trace) are **on disk**. **Phase 2** still **active**; **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Lane E** / **Lane C** bootstraps **paused** (**T39A**, **T43**). **Next new chat:** decide the **next honest Phase 2 move** under a **new governed prompt**.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
@@ -36,6 +36,7 @@ Updated: 2026-04-01T17:52:00+00:00
 - **Tranche 47 — Lane B conflict / fusion precedence trace audit (Prompt #200 — executed):** `audit_lane_b_conflict_fusion_precedence_trace.py` + `examples/lane_b_conflict_fusion_bootstrap/tranche47_cases.json` + `outputs/lane_b_conflict_fusion_bootstrap/tranche47_lane_b_conflict_fusion_precedence_trace_audit.{json,md}` — **local fixtures only**; explicit precedence wording + boundary/gap notes; **not** full conflict closure; **no** approval change; **no** Phase **3**.
 - **Tranche 50 — Lane B normalization viability / silent-drop trace audit (Prompt #213 — executed):** `audit_lane_b_normalization_viability_silent_drop_trace.py` + `examples/lane_b_normalization_bootstrap/tranche50_cases.json` + `outputs/lane_b_normalization_bootstrap/tranche50_lane_b_normalization_viability_silent_drop_trace_audit.{json,md}` — **local fixtures only**; representative normalized success, normalization-blocked, missing-required-field omission, and invalid-candidate scout_failure paths are explicit with **no** silent drop observed in the bounded cases; **not** full live normalization breadth; **not** approval; **no** Phase **3**.
 - **Tranche 52 — Lane B stale-context conflict omission trace (adopted in Prompt #221):** `audit_lane_b_stale_context_conflict_omission_trace.py` + `examples/lane_b_stale_context_conflict_bootstrap/tranche52_cases.json` + `outputs/lane_b_stale_context_conflict_bootstrap/tranche52_lane_b_stale_context_conflict_omission_trace_audit.{json,md}` — **pre-existing local fixtures only**; stale-context cases are explicitly omitted before conflict evaluation, stale context does **not** influence or override Lane B primary truth in the bounded cases, and fresh valid context remains in the conflict branch. **Does not** prove that the minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields; **not** live FR evidence; **not** approval; **no** Phase **3**.
+- **Tranche 54 — Lane B stale/outage residual policy coverage trace (Prompt #226 — executed):** `audit_lane_b_stale_outage_residual_policy_coverage_trace.py` + `examples/lane_b_stale_outage_residual_policy_bootstrap/tranche54_cases.json` + `outputs/lane_b_stale_outage_residual_policy_bootstrap/tranche54_lane_b_stale_outage_residual_policy_coverage_trace_audit.{json,md}` — **local fixtures plus prior T35/T45 outputs only**; explicitly covers residual escalation-policy classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE` left uncovered in the stored FR slice after T35 and not already covered by T45. **Does not** prove live FR outage evidence or production closure for standard **#4**; **not** approval; **no** Phase **3**.
 
 ## Locked remaining Phase 2 sequence (authoritative)
 
@@ -55,6 +56,7 @@ Updated: 2026-04-01T17:52:00+00:00
 12. **Tranche 47 executed (Prompt #200):** Lane B conflict / fusion precedence **fixture** trace audit on disk. **No** approval; **No** Phase **3**.
 13. **Tranche 50 executed (Prompt #213):** Lane B normalization viability / silent-drop **fixture** trace audit on disk; representative outcomes are explicit with **no** silent drop observed in bounded cases. **No** approval; **No** Phase **3**.
 14. **Tranche 52 adopted (Prompt #221):** pre-existing Lane B stale-context conflict omission **fixture** trace audit is now treated as bounded on-disk Phase **2** evidence; stale-context omission is explicit in bounded cases, stale context does **not** override primary truth, and fresh valid context remains in the conflict branch. This does **not** prove that the minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields. **No** approval; **No** Phase **3**.
+15. **Tranche 54 executed (Prompt #226):** Lane B stale/outage residual policy coverage **fixture** trace is on disk; the exact residual escalation-policy classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE` are now covered by bounded local traces after T35/T45, but this still does **not** prove live FR outage evidence or production closure for standard **#4**. **No** approval; **No** Phase **3**.
 
 ## Phase 1 — completed
 
@@ -104,6 +106,7 @@ Updated: 2026-04-01T17:52:00+00:00
 | Tranche 47 — **Lane B conflict / fusion precedence trace** | **EXECUTED** (Prompt **#200**) — local fixtures + audit artifacts; **not** full conflict closure; **not** approval |
 | Tranche 50 — **Lane B normalization viability / silent-drop trace** | **EXECUTED** (Prompt **#213**) — local fixtures + audit artifacts; representative outcomes explicit; **no** silent drop observed in bounded cases; **not** full normalization closure; **not** approval |
 | Tranche 52 — **Lane B stale-context conflict omission trace** | **ADOPTED ON DISK** (Prompt **#221**) — pre-existing local fixtures + audit artifacts; stale-context omission explicit; stale context does **not** override primary truth in bounded cases; fresh valid context remains in conflict branch; **does not** prove minimal `conflict` freshness consumption; **not** approval |
+| Tranche 54 — **Lane B stale/outage residual policy coverage trace** | **EXECUTED** (Prompt **#226**) — local fixtures + prior T35/T45 outputs; explicit bounded coverage for residual escalation-policy classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`; **not** live FR outage evidence; **not** production closure for standard **#4**; **not** approval |
 | MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
 
 ## MASTER Phase 3 — Universe scanner
@@ -116,7 +119,7 @@ Updated: 2026-04-01T17:52:00+00:00
 
 ## Exact current next step (authorized only)
 
-1. **Post–T52 on disk:** read **`THE_FADE_CONTEXT_ANCHOR.md`** + this file — then **await a new governed prompt** that names the **next** bounded Phase **2** step.
+1. **Post–T54 on disk:** read **`THE_FADE_CONTEXT_ANCHOR.md`** + this file — then **await a new governed prompt** that names the **next** bounded Phase **2** step.
 2. **Hold at the Phase 2 checkpoint** — **promising-but-unapproved**; **no** Phase **3** unlock from FR slice alone.
 3. Keep **`mvp_lane_approval.json`** unchanged until whole-gate evidence + explicit operator signoff.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.

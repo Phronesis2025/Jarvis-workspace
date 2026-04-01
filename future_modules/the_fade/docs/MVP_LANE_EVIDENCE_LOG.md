@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 221  
+**Prompt #:** 226  
 **Phase #:** 2  
-**Tranche #:** 52B  
+**Tranche #:** 54  
 
-Updated: 2026-04-01T17:52:00+00:00
+Updated: 2026-04-01T19:06:53+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T52 adopted on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, and Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T54 executed on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts, and Prompt **#226** T54 Lane B stale/outage residual policy coverage trace — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 54 (Prompt #226):** Lane B **stale/outage residual policy coverage** bounded **fixture** audit is **on disk** — `scripts/audit_lane_b_stale_outage_residual_policy_coverage_trace.py` + `examples/lane_b_stale_outage_residual_policy_bootstrap/tranche54_cases.json` + `outputs/lane_b_stale_outage_residual_policy_bootstrap/tranche54_lane_b_stale_outage_residual_policy_coverage_trace_audit.{json,md}`. **Local fixtures plus prior T35/T45 outputs only**; explicitly covers the residual escalation-policy classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE` left uncovered in the stored FR slice after T35 and not already covered by T45. **Not** live FR outage evidence; **not** production closure for standard **#4**; **not** MVP approval; **not** Phase **3**.
 
 **Tranche 52 (adopted in Prompt #221):** Lane B **stale-context conflict omission** bounded **fixture** audit is **on disk** — `scripts/audit_lane_b_stale_context_conflict_omission_trace.py` + `examples/lane_b_stale_context_conflict_bootstrap/tranche52_cases.json` + `outputs/lane_b_stale_context_conflict_bootstrap/tranche52_lane_b_stale_context_conflict_omission_trace_audit.{json,md}`. **Pre-existing local fixtures only**; stale-context cases are explicitly omitted before conflict handling, stale context does **not** influence or override Lane B primary truth in the bounded cases, and fresh valid context remains in the valid conflict branch. **Does not** prove that the current minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields; **not** live FR evidence; **not** MVP approval; **not** Phase **3**.
 
@@ -428,6 +430,35 @@ Evidence captured in this tranche:
 
 **What this does not prove:** that the current minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields, live FR evidence, production-scale conflict/runtime closure, MVP approval, or Phase 3 readiness.
 
+## Lane B — Tranche 54 stale/outage residual policy coverage trace (Prompt #226)
+
+**Scope:** THE FADE-local bounded fixture audit plus prior T35/T45 audit outputs only (no network, no live FR collection, no rerun of Tranche 21 collection).
+
+**Grounding:** `escalation_policy.json`, `lane_registry.json`, `tranche35_stale_outage_escalation_audit.json`, and `tranche45_lane_b_failure_path_stale_outage_trace_audit.json`.
+
+**Artifacts:**
+- Script: `future_modules/the_fade/scripts/audit_lane_b_stale_outage_residual_policy_coverage_trace.py`
+- Fixtures: `future_modules/the_fade/examples/lane_b_stale_outage_residual_policy_bootstrap/tranche54_cases.json`
+- Outputs: `future_modules/the_fade/outputs/lane_b_stale_outage_residual_policy_bootstrap/tranche54_lane_b_stale_outage_residual_policy_coverage_trace_audit.json` and `.md`
+
+**Exact gap addressed:** T35 left residual escalation-policy classes without stored FR-slice evidence (`INVALID_PACKET_OUTPUT`, `MISSING_REQUIRED_LANE`, `NORMALIZATION_FAILURE`, `UNDEFINED_DIRECTION_MODEL`). T45 already covered `SOURCE_UNAVAILABLE`, `NORMALIZATION_FAILURE`, and `INVALID_PACKET_OUTPUT`. T54 targets only the remaining residual classes after T45: `MISSING_REQUIRED_LANE` and `UNDEFINED_DIRECTION_MODEL`.
+
+**Explicit cases evaluated:**
+1. `t54_01_undefined_direction_model_guard` — bounded Lane B scoring guard route for `UNDEFINED_DIRECTION_MODEL`
+2. `t54_02_missing_required_lane_conflict_phase` — bounded Lane B conflict/fusion-phase route for `MISSING_REQUIRED_LANE`
+
+**Case verdict summary:** both bounded cases passed with explicit fields:
+- `failure_type`
+- `policy_behavior`
+- `can_continue`
+- `observation_outcome`
+- `omission_explicit`
+- `non_silent_policy_handling`
+
+**What this proves now:** the exact residual escalation-policy classes left after T35 and not already covered by T45 are now covered by explicit bounded local traces; `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE` are named non-silent policy routes; across T45 plus T54, every current `escalation_policy.json` `failure_type` row now has at least one bounded local fixture coverage example.
+
+**What this does not prove:** live FR outage evidence, production-scale system closure for standard **#4**, that the counted FR full-window slice itself exercised these residual policy classes, MVP approval, or Phase 3 readiness.
+
 ### Stale/outage behavior
 - evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol A (see "Lane B simulated harness rehearsal (Tranche 12)" below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane stale/outage `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs. **Tranche 16 (Prompt #52)** added a **non-simulated** lane B `observe` run plus real `scout_failure` outcomes where HTTPS returned **403** (SEC.gov / issuer IR in this environment), and one **successful** `normalized_signal_event` from a **live** public regulatory disclosure API (Federal Register JSON). See "Lane B first honest non-simulated observation run (Tranche 16)" below.
 - observed downgrade/escalation/omit behavior: **Recorded (bounded slice):** the real observation slice emits explicit `scout_failure` with `error_type: SOURCE_UNAVAILABLE` and HTTP 403 summaries for blocked fetches, and emits `normalized_signal_event` when bytes return (HTTP 200). This is **gate-honest real observation** for the adapter path; it is **not** full production scout runtime or a statistical outage study.
@@ -436,6 +467,7 @@ Evidence captured in this tranche:
 - Tranche 35 (Prompt #135 — executed): `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.{json,md}` audits whether stored Lane B evidence cleanly distinguishes stale/outage-relevant states and aligns with `escalation_policy.json` + collector semantics.
 - Tranche 35 findings (grounded): on the **22-row FR full-window slice** (excluding `t30_valid_002`), `source_observation_success`, `collector_execution_success`, and `timing_valid_for_counted_slot_use` are **all True** — so escalation/policy failure handling is **not exercised** in the counted FR population. Stored `*_scout_failure.json` artifacts do represent outage as `error_type=SOURCE_UNAVAILABLE`, but no evidence exists yet for the other escalation-policy failure types or for `escalation_required` toggling.
 - **Tranche 45 (Prompt #192 — executed):** `audit_lane_b_failure_path_stale_outage_trace.py` + `examples/lane_b_failure_path_bootstrap/tranche45_cases.json` + `outputs/lane_b_failure_path_bootstrap/tranche45_lane_b_failure_path_stale_outage_trace_audit.{json,md}` — **bounded local fixtures only** for explicit traces: `SOURCE_UNAVAILABLE`, stale downgrade naming via **`lane_registry.json`** `failure_policy` (no STALE row in `escalation_policy.json`), `NORMALIZATION_FAILURE`, `INVALID_PACKET_OUTPUT`. **Does not** prove live FR failure rates or close MVP gate standard **#4** at production scale; **`mvp_lane_approval.json`** unchanged; **Phase 3** blocked.
+- **Tranche 54 (Prompt #226 — executed):** `audit_lane_b_stale_outage_residual_policy_coverage_trace.py` + `examples/lane_b_stale_outage_residual_policy_bootstrap/tranche54_cases.json` + `outputs/lane_b_stale_outage_residual_policy_bootstrap/tranche54_lane_b_stale_outage_residual_policy_coverage_trace_audit.{json,md}` — **bounded local fixtures plus prior T35/T45 outputs only** for the exact residual escalation-policy classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`. This reduces the residual standard **#4** policy-row coverage gap but still does **not** prove live FR outage evidence or production closure for Lane B stale/outage behavior.
 - Verdict: stale/outage behavior is still **thin/ambiguous** for standard **#4** if restricted to the FR full-window slice; this is **not** gate closure and does **not** justify MVP approval.
 
 ### Conflict handling

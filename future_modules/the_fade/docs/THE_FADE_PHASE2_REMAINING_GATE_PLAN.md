@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-01 (Tranche **52**: Prompt **#221** adoption of pre-existing Lane B stale-context conflict omission fixture trace)  
+**Updated:** 2026-04-01 (Tranche **54**: Prompt **#226** Lane B stale/outage residual policy coverage trace execution)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -31,7 +31,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 
 - **Lane B freshness:** **10**/**22** **cannot_classify_honestly** under adopted policy — dimension **partial**, not closed.
 - **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`. Tranche **50** adds a **bounded** normalization viability / silent-drop trace with explicit representative outcomes, but **does not** prove full live normalization breadth or runtime completeness.
-- **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4** (collector + harness slices only).
+- **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4**. Tranche **54** adds bounded explicit policy-row coverage for residual escalation classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`, but the dimension remains **partial** because live FR outage evidence and system closure are still not proved.
 - **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), and adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases. This still does **not** prove that the current minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields, and it is **not** full fusion-runtime closure.
 - **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
 
@@ -49,7 +49,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 
 Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass for a candidate lane; **Lane B** is furthest along but **not** closed:
 
-1. **Stale/outage behavior is explicit** (standard **#4**) — **Lane B:** not gate-closed at **system** level.
+1. **Stale/outage behavior is explicit** (standard **#4**) — **Lane B:** still **partial** after T35 + T45 + T54; not gate-closed at **system** level.
 2. **Normalization viability** — **Lane B:** **partial** (Tranche **34** + **Tranche 50** bounded silent-drop trace); full live breadth and full silent-drop guarantees **not** established.
 3. **Freshness discipline** — **Lane B:** **policy locked** but outcome **partial** (**10** unresolved rows).
 4. **Reliability** — strong for **FR window slice**; **not** a license to ignore other dimensions or other lanes.
@@ -228,6 +228,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as adopted):** Pre-existing THE FADE-local fixtures only (`examples/lane_b_stale_context_conflict_bootstrap/tranche52_cases.json`); **no** network; **no** live FR collection; **no** rerun in this pass. Treat the already-on-disk T52 script and audit outputs as bounded Phase **2** evidence.
 
 **Outcome (on disk):** `scripts/audit_lane_b_stale_context_conflict_omission_trace.py` + `outputs/lane_b_stale_context_conflict_bootstrap/tranche52_lane_b_stale_context_conflict_omission_trace_audit.{json,md}`. Bounded cases show explicit stale-context omission before conflict evaluation, no stale-context override of Lane B primary truth in the stale cases, and fresh valid context remaining in the conflict branch. **Not** approval; **not** Phase **3**; **not** live FR evidence; **not** proof that the minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields; **not** full conflict/runtime closure.
+
+### Executed — **Tranche 54** (Prompt **#226**, Lane B stale/outage residual policy coverage trace)
+
+**Name:** Lane B **stale/outage residual policy coverage** bounded fixture audit.
+
+**Scope (as run):** THE FADE-local fixtures plus prior on-disk T35/T45 audit outputs only; **no** network; **no** live FR collection; **no** rerun of Tranche 21 collection. Target only the residual escalation-policy classes still not evidenced in the stored FR slice after T35 and not already covered by T45.
+
+**Outcome (on disk):** `scripts/audit_lane_b_stale_outage_residual_policy_coverage_trace.py` + `examples/lane_b_stale_outage_residual_policy_bootstrap/tranche54_cases.json` + `outputs/lane_b_stale_outage_residual_policy_bootstrap/tranche54_lane_b_stale_outage_residual_policy_coverage_trace_audit.{json,md}`. Bounded cases explicitly cover `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`, reducing the exact residual standard **#4** policy-row coverage gap after T35/T45. **Not** approval; **not** Phase **3**; **not** live FR outage evidence; **not** production-scale stale/outage closure.
 
 ---
 

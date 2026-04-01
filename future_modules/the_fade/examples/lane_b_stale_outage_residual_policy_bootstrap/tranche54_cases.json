@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "title": "tranche54_lane_b_stale_outage_residual_policy_cases",
+    "tranche": 54,
+    "lane_id": "lane_b_official_disclosure",
+    "scope": "THE FADE-local residual stale/outage policy coverage cases only; no network; no live collection"
+  },
+  "expected_residual_policy_classes_after_t35_t45": [
+    "MISSING_REQUIRED_LANE",
+    "UNDEFINED_DIRECTION_MODEL"
+  ],
+  "cases": [
+    {
+      "case_id": "t54_01_undefined_direction_model_guard",
+      "intent": "Residual escalation-policy class UNDEFINED_DIRECTION_MODEL should be explicit and non-silent for a bounded Lane B scoring guard path.",
+      "fixture": {
+        "failure_type": "UNDEFINED_DIRECTION_MODEL",
+        "lane_id": "lane_b_official_disclosure",
+        "stage": "pre_scoring_policy_guard",
+        "direction_model_value": null,
+        "source_basis": "local_fixture_residual_policy_class"
+      }
+    },
+    {
+      "case_id": "t54_02_missing_required_lane_conflict_phase",
+      "intent": "Residual escalation-policy class MISSING_REQUIRED_LANE should be explicit and non-silent for a bounded Lane B conflict/fusion-phase requirement.",
+      "fixture": {
+        "failure_type": "MISSING_REQUIRED_LANE",
+        "lane_id": "lane_b_official_disclosure",
+        "stage": "fusion_phase_policy_guard",
+        "missing_lane_id": "lane_b_official_disclosure",
+        "source_basis": "local_fixture_residual_policy_class"
+      }
+    }
+  ]
+}

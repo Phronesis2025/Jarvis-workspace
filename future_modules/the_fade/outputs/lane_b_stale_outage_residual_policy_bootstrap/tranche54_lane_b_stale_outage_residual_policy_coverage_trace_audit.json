@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "title": "tranche54_lane_b_stale_outage_residual_policy_coverage_trace_audit",
+    "phase_number": 2,
+    "tranche_number": 54,
+    "prompt_number": 226,
+    "generated_at_utc": "2026-04-01T19:06:35+00:00",
+    "build_scope": "THE FADE-local Lane B stale/outage residual policy coverage trace only",
+    "no_network": true,
+    "approval_authority": "the_fade\\config\\mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "This audit does not grant approval and does not unlock Phase 3."
+  },
+  "contract_grounding": {
+    "lane_b_contract": {
+      "lane_id": "lane_b_official_disclosure",
+      "direction_model_default": "FOLLOW",
+      "failure_policy": "mark_stale_downgrade"
+    },
+    "escalation_policy_version": "0.1.0",
+    "t35_reference": "outputs/lane_b_real_observation/tranche35_stale_outage_escalation_audit.json",
+    "t45_reference": "outputs/lane_b_failure_path_bootstrap/tranche45_lane_b_failure_path_stale_outage_trace_audit.json",
+    "residual_gap_question": "Can the exact remaining Lane B stale/outage policy gap be reduced by proving explicit bounded handling for the residual escalation-policy classes still not evidenced in the stored FR slice?"
+  },
+  "coverage_rollup": {
+    "t35_missing_policy_classes_before_t45": [
+      "INVALID_PACKET_OUTPUT",
+      "MISSING_REQUIRED_LANE",
+      "NORMALIZATION_FAILURE",
+      "UNDEFINED_DIRECTION_MODEL"
+    ],
+    "t45_policy_classes_covered": [
+      "INVALID_PACKET_OUTPUT",
+      "NORMALIZATION_FAILURE",
+      "SOURCE_UNAVAILABLE"
+    ],
+    "residual_policy_classes_targeted_in_t54": [
+      "MISSING_REQUIRED_LANE",
+      "UNDEFINED_DIRECTION_MODEL"
+    ],
+    "all_escalation_policy_classes": [
+      "INVALID_PACKET_OUTPUT",
+      "MISSING_REQUIRED_LANE",
+      "NORMALIZATION_FAILURE",
+      "SOURCE_UNAVAILABLE",
+      "UNDEFINED_DIRECTION_MODEL"
+    ],
+    "bounded_policy_row_coverage_after_t54": [
+      "INVALID_PACKET_OUTPUT",
+      "MISSING_REQUIRED_LANE",
+      "NORMALIZATION_FAILURE",
+      "SOURCE_UNAVAILABLE",
+      "UNDEFINED_DIRECTION_MODEL"
+    ],
+    "remaining_uncovered_policy_rows_after_t54": []
+  },
+  "case_count": 2,
+  "case_verdicts": [
+    {
+      "case_id": "t54_01_undefined_direction_model_guard",
+      "intent": "Residual escalation-policy class UNDEFINED_DIRECTION_MODEL should be explicit and non-silent for a bounded Lane B scoring guard path.",
+      "verdict": {
+        "trace_class": "residual_policy_class_fixture",
+        "failure_type": "UNDEFINED_DIRECTION_MODEL",
+        "policy_behavior": "stop_scoring_escalate",
+        "can_continue": false,
+        "observation_outcome": "direction_model_guard_block",
+        "omission_explicit": true,
+        "omission_reason": "undefined_direction_model_explicit_stop_before_scoring",
+        "non_silent_policy_handling": true,
+        "primary_truth_fabricated": false,
+        "policy_route": "explicit_stop_scoring_escalate",
+        "trace_explanation": "This bounded local fixture simulates a Lane B scoring guard where no usable direction model is available. The escalation-policy row for `UNDEFINED_DIRECTION_MODEL` maps to explicit stop-and-escalate handling, so the path is named rather than silently falling through to scoring.",
+        "fixture_echo": {
+          "failure_type": "UNDEFINED_DIRECTION_MODEL",
+          "lane_id": "lane_b_official_disclosure",
+          "stage": "pre_scoring_policy_guard",
+          "direction_model_value": null,
+          "source_basis": "local_fixture_residual_policy_class"
+        },
+        "case_pass": true
+      }
+    },
+    {
+      "case_id": "t54_02_missing_required_lane_conflict_phase",
+      "intent": "Residual escalation-policy class MISSING_REQUIRED_LANE should be explicit and non-silent for a bounded Lane B conflict/fusion-phase requirement.",
+      "verdict": {
+        "trace_class": "residual_policy_class_fixture",
+        "failure_type": "MISSING_REQUIRED_LANE",
+        "policy_behavior": "policy_defined_weak_or_conflict_in_fusion_phase",
+        "can_continue": true,
+        "observation_outcome": "required_lane_missing_in_conflict_phase",
+        "omission_explicit": true,
+        "omission_reason": "missing_required_lane_explicitly_routed_by_policy",
+        "non_silent_policy_handling": true,
+        "primary_truth_fabricated": false,
+        "policy_route": "explicit_weak_or_conflict_phase_route",
+        "trace_explanation": "This bounded local fixture simulates a conflict/fusion-phase requirement where the required primary lane input is absent. The escalation-policy row for `MISSING_REQUIRED_LANE` maps to an explicit weak/conflict-phase handling path, so no silent packet or fabricated primary truth is emitted.",
+        "fixture_echo": {
+          "failure_type": "MISSING_REQUIRED_LANE",
+          "lane_id": "lane_b_official_disclosure",
+          "stage": "fusion_phase_policy_guard",
+          "missing_lane_id": "lane_b_official_disclosure",
+          "source_basis": "local_fixture_residual_policy_class"
+        },
+        "case_pass": true
+      }
+    }
+  ],
+  "overall_verdict": {
+    "all_cases_passed": true,
+    "exact_gap_reduced": true,
+    "proved_now": [
+      "The residual escalation-policy classes left after T35 and not already covered by T45 are now covered by explicit bounded local traces.",
+      "UNDEFINED_DIRECTION_MODEL and MISSING_REQUIRED_LANE are named non-silent handling routes under escalation policy.",
+      "Across T45 plus T54, every current escalation_policy.json failure_type row now has bounded local fixture coverage."
+    ],
+    "not_proved_yet": [
+      "Live FR outage evidence or production-scale stale/outage closure for Lane B standard #4.",
+      "That the counted FR full-window slice itself exercised these residual policy classes.",
+      "Whole-gate closure, approval, or Phase 3 readiness."
+    ],
+    "honest_dimension_status": "partial_bounded_policy_row_coverage_improved_not_system_closed"
+  }
+}
