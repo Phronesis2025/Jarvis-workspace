@@ -1,14 +1,14 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 214  
+**Prompt #:** 221  
 **Phase #:** 2  
-**Tranche #:** 50A
+**Tranche #:** 52B
 
-Updated: 2026-04-01T15:46:26+00:00
+Updated: 2026-04-01T17:52:00+00:00
 
 ## Current checkpoint (start here)
 
-**Plain English:** Phase **2** is **active**. **Lane B** is **deepest** but **partial** and **not** approved. **Lane E** and **Lane C** bounded bootstraps are **paused** (**T39A**, **T43**). **T40** / **T44** governance closures, **T45** Lane B failure-path **fixture** trace, **T47** Lane B conflict / fusion **precedence** fixture trace, and **T50** Lane B normalization viability / silent-drop **fixture** trace are **on disk** (verify branch / `origin` with `git`). **Next:** use a **new governed prompt** to choose the **next honest Phase 2 move** (do **not** assume an older prompt ID still defines “current work”). **`mvp_lane_approval.json`** remains **`approved: false`**; **Phase 3** remains **blocked**; **no** live Research Swarm or market-data integration is evidenced.
+**Plain English:** Phase **2** is **active**. **Lane B** is **deepest** but **partial** and **not** approved. **Lane E** and **Lane C** bounded bootstraps are **paused** (**T39A**, **T43**). **T40** / **T44** governance closures, **T45** Lane B failure-path **fixture** trace, **T47** Lane B conflict / fusion **precedence** fixture trace, **T50** Lane B normalization viability / silent-drop **fixture** trace, and adopted pre-existing **T52** Lane B stale-context conflict omission **fixture** trace are **on disk**. **Next:** use a **new governed prompt** to choose the **next honest Phase 2 move**. **`mvp_lane_approval.json`** remains **`approved: false`**; **Phase 3** remains **blocked**; **no** live Research Swarm or market-data integration is evidenced.
 
 ## One-screen truth (new chat fast-start)
 
@@ -37,7 +37,8 @@ Updated: 2026-04-01T15:46:26+00:00
 - **Tranche 45 — Lane B failure-path / stale-outage trace (Prompt #192 — executed):** `audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_cases.json` + `tranche45_lane_b_failure_path_stale_outage_trace_audit.{json,md}` — **local fixtures only**; explicit traces for `SOURCE_UNAVAILABLE`, stale path via **`lane_registry`**, `NORMALIZATION_FAILURE`, `INVALID_PACKET_OUTPUT`; **not** live FR collection; **not** approval; **not** Phase **3**.
 - **Tranche 47 — Lane B conflict / fusion precedence trace (Prompt #200 — executed):** `audit_lane_b_conflict_fusion_precedence_trace.py` + `examples/lane_b_conflict_fusion_bootstrap/tranche47_cases.json` + `outputs/lane_b_conflict_fusion_bootstrap/tranche47_lane_b_conflict_fusion_precedence_trace_audit.{json,md}` — **local fixtures only**; primary vs context-only precedence wording + explicit boundary/gap notes (stale context not evaluated in minimal `conflict` slice); **not** full conflict closure; **not** approval; **not** Phase **3**.
 - **Tranche 50 — Lane B normalization viability / silent-drop trace (Prompt #213 — executed):** `audit_lane_b_normalization_viability_silent_drop_trace.py` + `examples/lane_b_normalization_bootstrap/tranche50_cases.json` + `outputs/lane_b_normalization_bootstrap/tranche50_lane_b_normalization_viability_silent_drop_trace_audit.{json,md}` — **local fixtures only**; representative normalized success, normalization-blocked, missing-required-field omission, and invalid-candidate scout_failure paths are explicit with **no** silent drop observed in the bounded cases; **not** full normalization closure; **not** approval; **not** Phase **3**.
-- **Remaining Phase 2 plan (Prompt #134 — LOCKED):** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **through T50 executed**; Phase **2** still active; approval false.
+- **Tranche 52 — Lane B stale-context conflict omission trace (adopted in Prompt #221):** `audit_lane_b_stale_context_conflict_omission_trace.py` + `examples/lane_b_stale_context_conflict_bootstrap/tranche52_cases.json` + `outputs/lane_b_stale_context_conflict_bootstrap/tranche52_lane_b_stale_context_conflict_omission_trace_audit.{json,md}` — **pre-existing local fixtures only**; stale-context cases are explicitly omitted before conflict evaluation, stale context does **not** influence or override Lane B primary truth in the bounded cases, and fresh valid context remains in the conflict branch. **Does not** prove that the minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields; **not** live FR evidence; **not** approval; **not** Phase **3**.
+- **Remaining Phase 2 plan (Prompt #134 — LOCKED):** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **through T52 adopted on disk**; Phase **2** still active; approval false.
 
 ## Federal Register full Tranche 21 window — on-disk collector state (verified)
 
@@ -81,7 +82,7 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 checkpoint:** outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
-2. **After T50 on disk:** the next starting point is **not** “resume Prompt #213” by default — it is **choose the next honest bounded Phase 2 step** under a **new** governed prompt (read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** + **`JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`** for locked context only).
+2. **After T52 on disk:** the next starting point is **not** “resume Prompt #221” by default — it is **choose the next honest bounded Phase 2 step** under a **new** governed prompt (read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** + **`JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`** for locked context only).
 3. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
 4. **Operator signoff only for approval:** `mvp_lane_approval.json` changes only with matching evidence and explicit fields; until then **do not** flip approval and **do not** start Phase 3.
 
@@ -92,5 +93,5 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 - **Do not overclaim approval** — binding authority is `mvp_lane_approval.json`.
 - **Canon** — eight `JARVIS_THE_FADE_*.md` files stay under `future_modules/stock_module/` per `docs/CANON_INDEX.md`; do not move or delete.
 - **Process anchor** — `future_modules/stock_module/JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md` is the master checklist; align execution to it.
-- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**through T50 executed**; governed PATH B lane pauses remain locked; Phase 2 still active).
+- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**through T52 adopted on disk**; governed PATH B lane pauses remain locked; Phase 2 still active).
 - **`JARVIS_CODEBASE_STRUCTURE.md`** — unrelated drift; not THE FADE state.

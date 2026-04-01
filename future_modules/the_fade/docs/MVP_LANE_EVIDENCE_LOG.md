@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 214  
+**Prompt #:** 221  
 **Phase #:** 2  
-**Tranche #:** 50A  
+**Tranche #:** 52B  
 
-Updated: 2026-04-01T15:46:26+00:00
+Updated: 2026-04-01T17:52:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T50 executed** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, and Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T52 adopted on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, and Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 52 (adopted in Prompt #221):** Lane B **stale-context conflict omission** bounded **fixture** audit is **on disk** — `scripts/audit_lane_b_stale_context_conflict_omission_trace.py` + `examples/lane_b_stale_context_conflict_bootstrap/tranche52_cases.json` + `outputs/lane_b_stale_context_conflict_bootstrap/tranche52_lane_b_stale_context_conflict_omission_trace_audit.{json,md}`. **Pre-existing local fixtures only**; stale-context cases are explicitly omitted before conflict handling, stale context does **not** influence or override Lane B primary truth in the bounded cases, and fresh valid context remains in the valid conflict branch. **Does not** prove that the current minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields; **not** live FR evidence; **not** MVP approval; **not** Phase **3**.
 
 **Tranche 50 (Prompt #213):** Lane B **normalization viability / silent-drop** bounded **fixture** audit is **on disk** — `scripts/audit_lane_b_normalization_viability_silent_drop_trace.py` + `examples/lane_b_normalization_bootstrap/tranche50_cases.json` + `outputs/lane_b_normalization_bootstrap/tranche50_lane_b_normalization_viability_silent_drop_trace_audit.{json,md}`. **Local fixtures only**; representative normalized success, normalization-blocked, missing-required-field omission, and invalid-candidate scout_failure paths are explicit; **no** silent drop observed in the bounded cases. **Not** full normalization closure; **not** MVP approval; **not** Phase **3**.
 
@@ -397,6 +399,34 @@ Evidence captured in this tranche:
 **What this proves now:** representative Lane B normalization outcomes can be traced explicitly without silent drop in bounded local cases.
 
 **What this does not prove:** full live normalization breadth across the FR window, production-scale runtime behavior, whole-gate closure, approval readiness, or Phase 3 readiness.
+
+## Lane B — Tranche 52 stale-context conflict omission trace (adopted in Prompt #221)
+
+**Scope:** THE FADE-local bounded fixture audit only (pre-existing on disk; no network, no live FR collection, no rerun in this adoption pass).
+
+**Grounding:** `lane_b_real_observation_slice.py` `conflict` semantics, `fusion_policy.json`, and Lane B/context contract assumptions captured in the T52 script and audit artifacts.
+
+**Artifacts:**
+- Script: `future_modules/the_fade/scripts/audit_lane_b_stale_context_conflict_omission_trace.py`
+- Fixtures: `future_modules/the_fade/examples/lane_b_stale_context_conflict_bootstrap/tranche52_cases.json`
+- Outputs: `future_modules/the_fade/outputs/lane_b_stale_context_conflict_bootstrap/tranche52_lane_b_stale_context_conflict_omission_trace_audit.json` and `.md`
+
+**Explicit cases evaluated:**
+1. `t52_01_stale_context_conflicts_primary` — stale contra context omitted before conflict evaluation
+2. `t52_02_stale_context_aligns_primary` — stale aligned context omitted before conflict evaluation
+3. `t52_03_fresh_context_conflicts_primary` — fresh valid contra context remains in the conflict branch
+4. `t52_04_fresh_context_aligns_primary` — fresh valid aligned context remains in the conflict branch
+
+**Case verdict summary:** all four bounded cases passed with explicit fields:
+- `stale_context_detected`
+- `omission_explicit`
+- `conflict_evaluated`
+- `primary_truth_preserved`
+- `trace_explanation`
+
+**What this proves now:** a bounded stale-first omission wrapper is on disk for Lane B conflict-style handling; in the stale-context cases omission is explicit, stale context does not influence or override Lane B primary truth, and fresh valid context remains in a separate valid conflict branch.
+
+**What this does not prove:** that the current minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields, live FR evidence, production-scale conflict/runtime closure, MVP approval, or Phase 3 readiness.
 
 ### Stale/outage behavior
 - evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol A (see "Lane B simulated harness rehearsal (Tranche 12)" below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane stale/outage `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs. **Tranche 16 (Prompt #52)** added a **non-simulated** lane B `observe` run plus real `scout_failure` outcomes where HTTPS returned **403** (SEC.gov / issuer IR in this environment), and one **successful** `normalized_signal_event` from a **live** public regulatory disclosure API (Federal Register JSON). See "Lane B first honest non-simulated observation run (Tranche 16)" below.

@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "title": "tranche52_lane_b_stale_context_conflict_bootstrap_cases",
+    "tranche": 52,
+    "prompt_number": 219,
+    "lane_id": "lane_b_official_disclosure",
+    "scope": "THE FADE-local bounded cases only; no network; no live collection",
+    "implementation_reference": "bounded stale-first omission wrapper grounded to lane_b_real_observation_slice.py conflict semantics"
+  },
+  "freshness_window_hours": 48.0,
+  "cases": [
+    {
+      "case_id": "t52_01_stale_contra_context_omitted",
+      "intent": "Stale contra context should be explicitly omitted before any conflict-style fusion summary can influence Lane B primary truth.",
+      "lane_b_artifact": {
+        "task_id": "t52_01",
+        "source_lane": "lane_b_official_disclosure",
+        "direction_hint": "bullish"
+      },
+      "context_payload": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bearish",
+        "context_age_hours": 200.0,
+        "notes": "Stale contra context for explicit stale-first omission trace."
+      }
+    },
+    {
+      "case_id": "t52_02_stale_aligned_context_omitted",
+      "intent": "Even stale aligned context should be omitted explicitly rather than silently consumed as supportive input.",
+      "lane_b_artifact": {
+        "task_id": "t52_02",
+        "source_lane": "lane_b_official_disclosure",
+        "direction_hint": "neutral"
+      },
+      "context_payload": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "neutral",
+        "context_age_hours": 120.0,
+        "notes": "Stale aligned context for explicit stale-first omission trace."
+      }
+    },
+    {
+      "case_id": "t52_03_fresh_contra_conflict_separated",
+      "intent": "Fresh valid contra context should reach the valid conflict branch so stale-first omission remains clearly separate from conflict handling.",
+      "lane_b_artifact": {
+        "task_id": "t52_03",
+        "source_lane": "lane_b_official_disclosure",
+        "direction_hint": "bullish"
+      },
+      "context_payload": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bearish",
+        "context_age_hours": 4.0,
+        "notes": "Fresh contra context to show explicit valid-context conflict handling branch."
+      }
+    },
+    {
+      "case_id": "t52_04_fresh_aligned_support_separated",
+      "intent": "Fresh aligned context should also stay in the valid-context branch, without being conflated with stale-first omission handling.",
+      "lane_b_artifact": {
+        "task_id": "t52_04",
+        "source_lane": "lane_b_official_disclosure",
+        "direction_hint": "bullish"
+      },
+      "context_payload": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bullish",
+        "context_age_hours": 2.0,
+        "notes": "Fresh aligned context to show supportive non-override branch remains distinct."
+      }
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "_meta": {
+    "title": "tranche52_lane_b_stale_context_conflict_omission_trace_audit",
+    "phase_number": 2,
+    "tranche_number": 52,
+    "prompt_number": 219,
+    "generated_at_utc": "2026-04-01T17:33:11+00:00",
+    "build_scope": "THE FADE-local Lane B stale-context conflict omission trace only",
+    "no_network": true,
+    "approval_authority": "the_fade\\config\\mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "This audit does not grant approval and does not unlock Phase 3."
+  },
+  "contract_grounding": {
+    "lane_b_failure_policy": "mark_stale_downgrade",
+    "context_failure_policy": "omit_if_missing",
+    "lane_b_weight_hint": 1.0,
+    "context_weight_hint": 0.2,
+    "freshness_window_hours": 48.0,
+    "implementation_reference": "Bounded conflict-style wrapper grounded to lane_b_real_observation_slice.py conflict semantics plus explicit stale-first omission before conflict evaluation."
+  },
+  "cases_evaluated": [
+    {
+      "case_id": "t52_01_stale_contra_context_omitted",
+      "intent": "Stale contra context should be explicitly omitted before any conflict-style fusion summary can influence Lane B primary truth.",
+      "lane_b_contract_grounding": {
+        "lane_id": "lane_b_official_disclosure",
+        "direction_model_default": "FOLLOW",
+        "failure_policy": "mark_stale_downgrade"
+      },
+      "context_contract_grounding": {
+        "lane_id": "lane_e_research_swarm_context",
+        "direction_model_default": "CONTEXT_ONLY",
+        "scoring_method": "enrich_only",
+        "failure_policy": "omit_if_missing"
+      },
+      "verdict": {
+        "trace_class": "stale_context_omitted_before_conflict",
+        "freshness_window_hours": 48.0,
+        "context_age_hours": 200.0,
+        "stale_context_detected": true,
+        "stale_first_handling_applied": true,
+        "conflict_evaluated": false,
+        "context_influence_applied": false,
+        "primary_truth_preserved": true,
+        "silent_context_consumption_observed": false,
+        "silent_override_observed": false,
+        "omission_explicit": true,
+        "omission_reason": "stale_context_omitted_before_conflict_evaluation",
+        "bounded_policy_route": "stale_first_omit_context_then_stop_conflict_path",
+        "minimal_slice_reference_gap": "current_minimal_conflict_slice_does_not_read_context_age",
+        "minimal_slice_would_still_emit_conflict_packet": true,
+        "minimal_slice_preview": {
+          "lane_b_weight_hint": 1.0,
+          "context_weight_hint": 0.2,
+          "primary_lane_id": "lane_b_official_disclosure",
+          "context_cannot_override_lane_b": true,
+          "direction_hint_lane_b": "bullish",
+          "direction_hint_context": "bearish",
+          "direction_mismatch_flag": true,
+          "summary_line": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bearish' mismatch=True.",
+          "conflict_reasons_like_slice": [
+            "lane_b_vs_context_role_under_fusion_policy",
+            "direction_hint_mismatch=True"
+          ]
+        },
+        "trace_explanation": "Context age 200.0h exceeds the bounded freshness window 48.0h, so this conflict-style wrapper omits context explicitly before directional conflict evaluation. Lane B primary truth remains untouched, and no context influence is applied. This is stronger than the current minimal slice, which would still emit a conflict summary because it does not read freshness fields.",
+        "case_pass": true
+      }
+    },
+    {
+      "case_id": "t52_02_stale_aligned_context_omitted",
+      "intent": "Even stale aligned context should be omitted explicitly rather than silently consumed as supportive input.",
+      "lane_b_contract_grounding": {
+        "lane_id": "lane_b_official_disclosure",
+        "direction_model_default": "FOLLOW",
+        "failure_policy": "mark_stale_downgrade"
+      },
+      "context_contract_grounding": {
+        "lane_id": "lane_e_research_swarm_context",
+        "direction_model_default": "CONTEXT_ONLY",
+        "scoring_method": "enrich_only",
+        "failure_policy": "omit_if_missing"
+      },
+      "verdict": {
+        "trace_class": "stale_context_omitted_before_conflict",
+        "freshness_window_hours": 48.0,
+        "context_age_hours": 120.0,
+        "stale_context_detected": true,
+        "stale_first_handling_applied": true,
+        "conflict_evaluated": false,
+        "context_influence_applied": false,
+        "primary_truth_preserved": true,
+        "silent_context_consumption_observed": false,
+        "silent_override_observed": false,
+        "omission_explicit": true,
+        "omission_reason": "stale_context_omitted_before_conflict_evaluation",
+        "bounded_policy_route": "stale_first_omit_context_then_stop_conflict_path",
+        "minimal_slice_reference_gap": "current_minimal_conflict_slice_does_not_read_context_age",
+        "minimal_slice_would_still_emit_conflict_packet": true,
+        "minimal_slice_preview": {
+          "lane_b_weight_hint": 1.0,
+          "context_weight_hint": 0.2,
+          "primary_lane_id": "lane_b_official_disclosure",
+          "context_cannot_override_lane_b": true,
+          "direction_hint_lane_b": "neutral",
+          "direction_hint_context": "neutral",
+          "direction_mismatch_flag": false,
+          "summary_line": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='neutral' context_role='neutral' mismatch=False.",
+          "conflict_reasons_like_slice": [
+            "lane_b_vs_context_role_under_fusion_policy",
+            "direction_hint_mismatch=False"
+          ]
+        },
+        "trace_explanation": "Context age 120.0h exceeds the bounded freshness window 48.0h, so this conflict-style wrapper omits context explicitly before directional conflict evaluation. Lane B primary truth remains untouched, and no context influence is applied. This is stronger than the current minimal slice, which would still emit a conflict summary because it does not read freshness fields.",
+        "case_pass": true
+      }
+    },
+    {
+      "case_id": "t52_03_fresh_contra_conflict_separated",
+      "intent": "Fresh valid contra context should reach the valid conflict branch so stale-first omission remains clearly separate from conflict handling.",
+      "lane_b_contract_grounding": {
+        "lane_id": "lane_b_official_disclosure",
+        "direction_model_default": "FOLLOW",
+        "failure_policy": "mark_stale_downgrade"
+      },
+      "context_contract_grounding": {
+        "lane_id": "lane_e_research_swarm_context",
+        "direction_model_default": "CONTEXT_ONLY",
+        "scoring_method": "enrich_only",
+        "failure_policy": "omit_if_missing"
+      },
+      "verdict": {
+        "trace_class": "fresh_valid_context_conflict_branch",
+        "freshness_window_hours": 48.0,
+        "context_age_hours": 4.0,
+        "stale_context_detected": false,
+        "stale_first_handling_applied": false,
+        "conflict_evaluated": true,
+        "context_influence_applied": true,
+        "primary_truth_preserved": true,
+        "silent_context_consumption_observed": false,
+        "silent_override_observed": false,
+        "omission_explicit": true,
+        "omission_reason": "conflict_surfaced_not_silent_override",
+        "bounded_policy_route": "evaluate_valid_context_conflict_branch",
+        "minimal_slice_reference_gap": "none_for_fresh_valid_context",
+        "minimal_slice_would_still_emit_conflict_packet": true,
+        "minimal_slice_preview": {
+          "lane_b_weight_hint": 1.0,
+          "context_weight_hint": 0.2,
+          "primary_lane_id": "lane_b_official_disclosure",
+          "context_cannot_override_lane_b": true,
+          "direction_hint_lane_b": "bullish",
+          "direction_hint_context": "bearish",
+          "direction_mismatch_flag": true,
+          "summary_line": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bearish' mismatch=True.",
+          "conflict_reasons_like_slice": [
+            "lane_b_vs_context_role_under_fusion_policy",
+            "direction_hint_mismatch=True"
+          ]
+        },
+        "trace_explanation": "Fresh valid context reaches the conflict-style fusion branch. Primary Lane B remains explicit, context does not override it, and direction mismatch is surfaced only when present.",
+        "case_pass": true
+      }
+    },
+    {
+      "case_id": "t52_04_fresh_aligned_support_separated",
+      "intent": "Fresh aligned context should also stay in the valid-context branch, without being conflated with stale-first omission handling.",
+      "lane_b_contract_grounding": {
+        "lane_id": "lane_b_official_disclosure",
+        "direction_model_default": "FOLLOW",
+        "failure_policy": "mark_stale_downgrade"
+      },
+      "context_contract_grounding": {
+        "lane_id": "lane_e_research_swarm_context",
+        "direction_model_default": "CONTEXT_ONLY",
+        "scoring_method": "enrich_only",
+        "failure_policy": "omit_if_missing"
+      },
+      "verdict": {
+        "trace_class": "fresh_valid_context_conflict_branch",
+        "freshness_window_hours": 48.0,
+        "context_age_hours": 2.0,
+        "stale_context_detected": false,
+        "stale_first_handling_applied": false,
+        "conflict_evaluated": true,
+        "context_influence_applied": true,
+        "primary_truth_preserved": true,
+        "silent_context_consumption_observed": false,
+        "silent_override_observed": false,
+        "omission_explicit": false,
+        "omission_reason": "none",
+        "bounded_policy_route": "evaluate_valid_context_conflict_branch",
+        "minimal_slice_reference_gap": "none_for_fresh_valid_context",
+        "minimal_slice_would_still_emit_conflict_packet": true,
+        "minimal_slice_preview": {
+          "lane_b_weight_hint": 1.0,
+          "context_weight_hint": 0.2,
+          "primary_lane_id": "lane_b_official_disclosure",
+          "context_cannot_override_lane_b": true,
+          "direction_hint_lane_b": "bullish",
+          "direction_hint_context": "bullish",
+          "direction_mismatch_flag": false,
+          "summary_line": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bullish' mismatch=False.",
+          "conflict_reasons_like_slice": [
+            "lane_b_vs_context_role_under_fusion_policy",
+            "direction_hint_mismatch=False"
+          ]
+        },
+        "trace_explanation": "Fresh valid context reaches the conflict-style fusion branch. Primary Lane B remains explicit, context does not override it, and direction mismatch is surfaced only when present.",
+        "case_pass": true
+      }
+    }
+  ],
+  "overall_verdict": {
+    "all_cases_passed": true,
+    "any_silent_context_consumption_observed": false,
+    "any_silent_override_observed": false,
+    "proved_now": [
+      "Stale context can be omitted explicitly before conflict evaluation in bounded local conflict-style cases.",
+      "Stale context does not influence or override Lane B primary truth in the bounded stale cases.",
+      "Fresh valid context conflict handling can remain a clearly separate branch from stale-first omission."
+    ],
+    "not_proved_yet": [
+      "That the current minimal lane_b_real_observation_slice.py conflict subcommand itself consumes freshness fields.",
+      "Full fusion-runtime closure or permutation-complete conflict handling across Lane B.",
+      "Whole-gate closure, approval, or Phase 3 readiness."
+    ]
+  }
+}
