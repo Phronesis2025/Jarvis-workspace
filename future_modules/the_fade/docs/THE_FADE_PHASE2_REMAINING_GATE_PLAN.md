@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-03-31 (Tranche **47**: Prompt **#200** Lane B conflict / fusion precedence fixture trace execution)  
+**Updated:** 2026-04-01 (Tranche **50**: Prompt **#213** Lane B normalization viability / silent-drop fixture trace execution)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -30,7 +30,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 ## Still partial (known gaps — not “done”)
 
 - **Lane B freshness:** **10**/**22** **cannot_classify_honestly** under adopted policy — dimension **partial**, not closed.
-- **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`.
+- **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`. Tranche **50** adds a **bounded** normalization viability / silent-drop trace with explicit representative outcomes, but **does not** prove full live normalization breadth or runtime completeness.
 - **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4** (collector + harness slices only).
 - **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`); **not** permutation-complete and **not** full fusion-runtime closure.
 - **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
@@ -50,7 +50,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass for a candidate lane; **Lane B** is furthest along but **not** closed:
 
 1. **Stale/outage behavior is explicit** (standard **#4**) — **Lane B:** not gate-closed at **system** level.
-2. **Normalization viability** — **Lane B:** **partial** (Tranche **34**); full silent-drop guarantees **not** established.
+2. **Normalization viability** — **Lane B:** **partial** (Tranche **34** + **Tranche 50** bounded silent-drop trace); full live breadth and full silent-drop guarantees **not** established.
 3. **Freshness discipline** — **Lane B:** **policy locked** but outcome **partial** (**10** unresolved rows).
 4. **Reliability** — strong for **FR window slice**; **not** a license to ignore other dimensions or other lanes.
 5. **No context-only domination** — **Lane E** / fusion — **not** fully proven at gate bar across permutations.
@@ -212,6 +212,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as run):** THE FADE-local fixtures only (`examples/lane_b_conflict_fusion_bootstrap/tranche47_cases.json`); **no** network; **no** live FR collection; **no** Research Swarm integration; **no** market-data integration. Read-only use of `fusion_policy.json`; trace semantics aligned to `lane_b_real_observation_slice.py` `conflict` subcommand.
 
 **Outcome (on disk):** `scripts/audit_lane_b_conflict_fusion_precedence_trace.py` + `outputs/lane_b_conflict_fusion_bootstrap/tranche47_lane_b_conflict_fusion_precedence_trace_audit.{json,md}`. Bounded cases: context **contra** vs primary (explicit non-override summary), **aligned** context, **missing** context (explicit CLI boundary), **invalid role**, **stale context** (documents minimal-slice gap: no age check in `conflict`), **tie** case marked **unsupported** under current unequal weights. **Not** approval; **not** Phase **3**; **not** full conflict-handling or fusion-runtime closure.
+
+### Executed — **Tranche 50** (Prompt **#213**, Lane B normalization viability / silent-drop trace)
+
+**Name:** Lane B **normalization viability / silent-drop** bounded fixture audit.
+
+**Scope (as run):** THE FADE-local fixtures only (`examples/lane_b_normalization_bootstrap/tranche50_cases.json`); **no** network; **no** live FR collection; **no** new provider sampling; grounded to `normalized_signal_event.schema.json`, `scout_failure.schema.json`, `lane_registry.json`, and `escalation_policy.json`.
+
+**Outcome (on disk):** `scripts/audit_lane_b_normalization_viability_silent_drop_trace.py` + `outputs/lane_b_normalization_bootstrap/tranche50_lane_b_normalization_viability_silent_drop_trace_audit.{json,md}`. Bounded cases cover normalized success, normalization-blocked explicit `scout_failure`, missing-required-field explicit omission, and invalid-candidate explicit `scout_failure`; **no** silent drop observed in the bounded cases. **Not** approval; **not** Phase **3**; **not** full live normalization breadth or runtime closure.
 
 ---
 

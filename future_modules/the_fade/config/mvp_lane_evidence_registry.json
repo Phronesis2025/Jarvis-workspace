@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 200,
+    "prompt_number": 213,
     "phase_number": 2,
-    "tranche_number": 47
+    "tranche_number": 50
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 47,
+  "tranche": 50,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -75,8 +75,8 @@
         "conflict_handling": "partial",
         "context_dominance_risk": "partial"
       },
-      "last_evidence_recorded_at": "2026-03-31T23:30:00+00:00",
-      "notes": "Lane B remains the deepest evidenced lane but still partial and unapproved. Tranche 30 captured the full FR window on disk (22/22/0, with `t30_valid_002` excluded). Tranches 31-33 locked freshness policy discipline (`strict_midnight_utc`) with explicit 10/22 cannot-classify limits. Tranche 34 (normalization breadth) and Tranche 35 (stale/outage + escalation alignment) are executed but partial for gate closure. Tranche 36 cross-lane rollup confirms Lane B is strongest but still not gate-complete. Tranche 45 (`audit_lane_b_failure_path_stale_outage_trace.py`) — LOCAL fixtures: failure-path / stale-outage policy trace; does not close standard #4 at production scale. Tranche 47 (`audit_lane_b_conflict_fusion_precedence_trace.py`) — LOCAL fixtures: Lane B vs context-only fusion precedence trace aligned to `lane_b_real_observation_slice.py` conflict semantics + `fusion_policy.json`; explicit non-override wording for valid context; missing/wrong-role blocked explicitly; stale context age not consumed by minimal conflict slice (documented gap). Does not prove full conflict-handling closure or MVP approval."
+      "last_evidence_recorded_at": "2026-04-01T15:09:16+00:00",
+      "notes": "Lane B remains the deepest evidenced lane but still partial and unapproved. Tranche 30 captured the full FR window on disk (22/22/0, with `t30_valid_002` excluded). Tranches 31-33 locked freshness policy discipline (`strict_midnight_utc`) with explicit 10/22 cannot-classify limits. Tranche 34 (normalization breadth) and Tranche 35 (stale/outage + escalation alignment) are executed but partial for gate closure. Tranche 36 cross-lane rollup confirms Lane B is strongest but still not gate-complete. Tranche 45 (`audit_lane_b_failure_path_stale_outage_trace.py`) — LOCAL fixtures: failure-path / stale-outage policy trace; does not close standard #4 at production scale. Tranche 47 (`audit_lane_b_conflict_fusion_precedence_trace.py`) — LOCAL fixtures: Lane B vs context-only fusion precedence trace aligned to `lane_b_real_observation_slice.py` conflict semantics + `fusion_policy.json`; explicit non-override wording for valid context; missing/wrong-role blocked explicitly; stale context age not consumed by minimal conflict slice (documented gap). Tranche 50 (`audit_lane_b_normalization_viability_silent_drop_trace.py`) — LOCAL fixtures: representative normalization success, normalization-blocked, missing-required-field omission, and invalid-candidate scout_failure paths are all explicit with no silent drop observed in the bounded cases. This reduces the exact `normalization_viability` silent-drop gap but does not prove full live normalization breadth, full runtime coverage, or MVP approval."
     },
     {
       "lane_id": "lane_c_market_context",
@@ -137,6 +137,6 @@
       "context_dominance_risk": "Record checks that context-only reads do not dominate primary lane truth."
     }
   },
-  "notes": "Reconciled through Tranche 47 (Prompt #200) so machine-readable lane evidence state matches executed T31-T42 artifacts plus T39A (Lane E pause) and T43 (Lane C pause) governance locks, plus T45 Lane B failure-path fixture trace and T47 Lane B conflict/fusion precedence fixture trace. T44 adds no new lane evidence. Keep `approved:false` in `mvp_lane_approval.json` until evidence demonstrates the full gate standard."
+  "notes": "Reconciled through Tranche 50 (Prompt #213) so machine-readable lane evidence state matches executed T31-T42 artifacts plus T39A (Lane E pause) and T43 (Lane C pause) governance locks, plus T45 Lane B failure-path fixture trace, T47 Lane B conflict/fusion precedence fixture trace, and T50 Lane B normalization viability silent-drop fixture trace. T44 adds no new lane evidence. Keep `approved:false` in `mvp_lane_approval.json` until evidence demonstrates the full gate standard."
 }
 

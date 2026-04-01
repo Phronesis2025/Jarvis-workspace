@@ -1,0 +1,121 @@
+{
+  "_meta": {
+    "title": "tranche50_lane_b_normalization_bootstrap_cases",
+    "tranche": 50,
+    "prompt_number": 213,
+    "lane_id": "lane_b_official_disclosure",
+    "scope": "THE FADE-local bounded cases only; no network; no live collection"
+  },
+  "cases": [
+    {
+      "case_id": "t50_01_normalized_success",
+      "description": "Valid minimum Lane B normalized event should remain explicit and non-silent.",
+      "trace_mode": "normalized_event",
+      "fixture": {
+        "normalized_candidate": {
+          "event_id": "evt_t50_01",
+          "task_id": "t50_01",
+          "ticker": "FR",
+          "asset_type": "other",
+          "source_lane": "lane_b_official_disclosure",
+          "source_name": "federal_register_stored_shape_replay",
+          "direction_hint": "neutral",
+          "event_time": "2026-03-29T10:00:03Z",
+          "ingested_at": "2026-03-29T10:00:04Z",
+          "freshness_hours": 0.0003,
+          "raw_text": "{\"results\":[{\"document_number\":\"2026-06133\"}]}",
+          "parsed_summary": "Stored-shape replay produced a minimal valid normalized Lane B event.",
+          "evidence_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+          "evidence_path": "stored_shape_replay://t50_01",
+          "trust_tier": "operator_capture",
+          "lag_class": "fresh",
+          "parser_confidence": 0.62,
+          "notes": "Bounded local fixture for normalization success trace."
+        }
+      }
+    },
+    {
+      "case_id": "t50_02_normalization_blocked",
+      "description": "Parse-blocked candidate should become an explicit scout_failure, not disappear silently.",
+      "trace_mode": "scout_failure_normalization_blocked",
+      "fixture": {
+        "scout_failure": {
+          "failure_id": "fail_t50_02",
+          "stage": "normalization",
+          "task_id": "t50_02",
+          "ticker": "FR",
+          "error_type": "NORMALIZATION_FAILURE",
+          "error_summary": "preview_truncated_no_stable_identity_fields",
+          "raw_context_path": "stored_shape_replay://t50_02",
+          "created_at": "2026-04-01T10:03:32Z",
+          "escalation_required": false,
+          "resolved": false
+        }
+      }
+    },
+    {
+      "case_id": "t50_03_missing_required_fields_omission",
+      "description": "Candidate missing required normalized-event fields should be explicitly omitted with the gap named.",
+      "trace_mode": "explicit_omission_missing_required_fields",
+      "fixture": {
+        "normalized_candidate": {
+          "event_id": "evt_t50_03",
+          "task_id": "t50_03",
+          "ticker": "FR",
+          "asset_type": "other",
+          "source_lane": "lane_b_official_disclosure",
+          "source_name": "federal_register_stored_shape_replay",
+          "event_time": "2026-03-29T12:00:00Z",
+          "ingested_at": "2026-03-29T12:00:01Z",
+          "freshness_hours": 0.0003,
+          "raw_text": "{\"results\":[]}",
+          "evidence_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+          "evidence_path": "stored_shape_replay://t50_03",
+          "trust_tier": "operator_capture",
+          "lag_class": "fresh",
+          "parser_confidence": 0.41,
+          "notes": "Missing `direction_hint` and `parsed_summary` on purpose for explicit omission trace."
+        }
+      }
+    },
+    {
+      "case_id": "t50_04_invalid_field_value_scout_failure",
+      "description": "Candidate with invalid enum values should be rejected explicitly via scout_failure.",
+      "trace_mode": "scout_failure_invalid_packet",
+      "fixture": {
+        "normalized_candidate": {
+          "event_id": "evt_t50_04",
+          "task_id": "t50_04",
+          "ticker": "FR",
+          "asset_type": "other",
+          "source_lane": "lane_b_official_disclosure",
+          "source_name": "federal_register_stored_shape_replay",
+          "direction_hint": "sideways",
+          "event_time": "2026-03-29T14:00:00Z",
+          "ingested_at": "2026-03-29T14:00:01Z",
+          "freshness_hours": 0.0003,
+          "raw_text": "{\"results\":[{\"document_number\":\"2026-09999\"}]}",
+          "parsed_summary": "Invalid direction enum should not pass silently.",
+          "evidence_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+          "evidence_path": "stored_shape_replay://t50_04",
+          "trust_tier": "operator_capture",
+          "lag_class": "fresh",
+          "parser_confidence": 0.55,
+          "notes": "Invalid `direction_hint` on purpose for explicit rejection trace."
+        },
+        "scout_failure": {
+          "failure_id": "fail_t50_04",
+          "stage": "validation",
+          "task_id": "t50_04",
+          "ticker": "FR",
+          "error_type": "INVALID_PACKET_OUTPUT",
+          "error_summary": "direction_hint_outside_allowed_enum",
+          "raw_context_path": "stored_shape_replay://t50_04",
+          "created_at": "2026-04-01T10:03:32Z",
+          "escalation_required": true,
+          "resolved": false
+        }
+      }
+    }
+  ]
+}

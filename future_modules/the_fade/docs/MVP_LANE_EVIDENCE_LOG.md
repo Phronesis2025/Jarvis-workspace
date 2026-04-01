@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 200  
+**Prompt #:** 214  
 **Phase #:** 2  
-**Tranche #:** 47  
+**Tranche #:** 50A  
 
-Updated: 2026-03-31T23:59:00+00:00
+Updated: 2026-04-01T15:46:26+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T47 executed** (includes Prompt **#192** T45 Lane B failure-path fixture trace and Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T50 executed** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, and Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 50 (Prompt #213):** Lane B **normalization viability / silent-drop** bounded **fixture** audit is **on disk** — `scripts/audit_lane_b_normalization_viability_silent_drop_trace.py` + `examples/lane_b_normalization_bootstrap/tranche50_cases.json` + `outputs/lane_b_normalization_bootstrap/tranche50_lane_b_normalization_viability_silent_drop_trace_audit.{json,md}`. **Local fixtures only**; representative normalized success, normalization-blocked, missing-required-field omission, and invalid-candidate scout_failure paths are explicit; **no** silent drop observed in the bounded cases. **Not** full normalization closure; **not** MVP approval; **not** Phase **3**.
 
 **Tranche 47 (Prompt #200):** Lane B **conflict / fusion precedence** bounded **fixture** audit is **on disk** — `scripts/audit_lane_b_conflict_fusion_precedence_trace.py` + `examples/lane_b_conflict_fusion_bootstrap/tranche47_cases.json` + `outputs/lane_b_conflict_fusion_bootstrap/tranche47_lane_b_conflict_fusion_precedence_trace_audit.{json,md}`. **Local fixtures only**; explicit primary-vs-context precedence wording aligned to `lane_b_real_observation_slice.py` `conflict` + read-only `fusion_policy.json`; missing/wrong-role paths documented as explicit CLI boundaries; **stale context age is not evaluated** in the minimal `conflict` slice (documented gap). **Not** full conflict-handling closure; **not** MVP approval; **not** Phase **3**.
 
@@ -364,9 +366,37 @@ Evidence captured in this tranche:
 - notes: Freshness remains **partial** (**10**/**22** **cannot_classify_honestly**); **freshness-only** tranche line **parked** per Prompt **#132**; **not** production stale/outage system proof.
 
 ### Normalization viability
-- evidence_summary: **Tranche 34 (Prompt #133)** **normalization breadth audit** on **22** full-window FR lines (**`t30_valid_002`** excluded): JSONL + snapshot **metadata** consistent; **`document_number`** / **`publication_date`** extractable via **regex** from **`response_preview_utf8`** for **all** rows; **full** JSON parse of preview **0**/**22** (truncated). **3** distinct **`document_number`** values in-window. See **`tranche34_normalization_breadth_audit.json`**. **Not** gate-sufficient breadth for full rich document objects.
-- silent-drop checks observed: Audit checks presence/parsability of grounded fields; **does not** prove silent-drop guarantees at scale.
-- notes: Normalization **breadth** for Lane B on this slice remains **partial** — **not** approval; **not** Phase **3**.
+- evidence_summary: **Tranche 34 (Prompt #133)** **normalization breadth audit** on **22** full-window FR lines (**`t30_valid_002`** excluded): JSONL + snapshot **metadata** consistent; **`document_number`** / **`publication_date`** extractable via **regex** from **`response_preview_utf8`** for **all** rows; **full** JSON parse of preview **0**/**22** (truncated). **3** distinct **`document_number`** values in-window. **Tranche 50 (Prompt #213)** adds a bounded **normalization viability / silent-drop trace** showing explicit representative outcomes for normalized success, normalization-blocked scout_failure, missing-required-field omission, and invalid-candidate scout_failure.
+- silent-drop checks observed: **Tranche 50** recorded **no** silent drop in the bounded cases; omitted / blocked paths were explicit. This is still **not** proof of silent-drop guarantees at live/full-window breadth.
+- notes: Normalization for Lane B remains **partial** — **Tranche 50** reduced one exact `normalization_viability` sub-gap, but **full** live normalization breadth / runtime coverage is still **not** closed; **not** approval; **not** Phase **3**.
+
+## Lane B — Tranche 50 normalization viability / silent-drop trace (Prompt #213)
+
+**Scope:** THE FADE-local bounded fixture audit only (no network, no live FR collection, no new provider sampling).
+
+**Grounding:** `normalized_signal_event.schema.json`, `scout_failure.schema.json`, `lane_registry.json`, and `escalation_policy.json`.
+
+**Artifacts:**
+- Script: `future_modules/the_fade/scripts/audit_lane_b_normalization_viability_silent_drop_trace.py`
+- Fixtures: `future_modules/the_fade/examples/lane_b_normalization_bootstrap/tranche50_cases.json`
+- Outputs: `future_modules/the_fade/outputs/lane_b_normalization_bootstrap/tranche50_lane_b_normalization_viability_silent_drop_trace_audit.json` and `.md`
+
+**Explicit cases evaluated:**
+1. `t50_01_normalized_success` — valid minimum Lane B normalized event
+2. `t50_02_normalization_blocked` — parse-blocked path becomes explicit `scout_failure`
+3. `t50_03_missing_required_fields_omission` — missing required normalized-event fields become explicit omission
+4. `t50_04_invalid_field_value_scout_failure` — invalid enum value becomes explicit `INVALID_PACKET_OUTPUT`
+
+**Case verdict summary:** all four bounded cases passed with explicit fields:
+- `normalization_status` (`normalized` / `blocked` / `omitted` / `blocked_invalid_candidate`)
+- `output_class` (`normalized_signal_event` / `scout_failure` / `omitted_no_artifact`)
+- `omission_reason`
+- `omission_explicit`
+- `silent_drop_observed` = `false` in every bounded case
+
+**What this proves now:** representative Lane B normalization outcomes can be traced explicitly without silent drop in bounded local cases.
+
+**What this does not prove:** full live normalization breadth across the FR window, production-scale runtime behavior, whole-gate closure, approval readiness, or Phase 3 readiness.
 
 ### Stale/outage behavior
 - evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol A (see "Lane B simulated harness rehearsal (Tranche 12)" below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane stale/outage `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs. **Tranche 16 (Prompt #52)** added a **non-simulated** lane B `observe` run plus real `scout_failure` outcomes where HTTPS returned **403** (SEC.gov / issuer IR in this environment), and one **successful** `normalized_signal_event` from a **live** public regulatory disclosure API (Federal Register JSON). See "Lane B first honest non-simulated observation run (Tranche 16)" below.

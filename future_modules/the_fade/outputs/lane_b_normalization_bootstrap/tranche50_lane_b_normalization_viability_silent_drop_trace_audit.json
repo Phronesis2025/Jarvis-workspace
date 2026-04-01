@@ -1,0 +1,193 @@
+{
+  "_meta": {
+    "title": "tranche50_lane_b_normalization_viability_silent_drop_trace_audit",
+    "phase_number": 2,
+    "tranche_number": 50,
+    "prompt_number": 213,
+    "generated_at_utc": "2026-04-01T15:09:16+00:00",
+    "build_scope": "THE FADE-local Lane B normalization viability trace only",
+    "no_network": true,
+    "approval_authority": "the_fade\\config\\mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "This audit does not grant approval and does not unlock Phase 3."
+  },
+  "lane_b_contract_grounding": {
+    "lane_id": "lane_b_official_disclosure",
+    "direction_model_default": "FOLLOW",
+    "failure_policy": "mark_stale_downgrade"
+  },
+  "schema_grounding": {
+    "normalized_schema": "schemas\\normalized_signal_event.schema.json",
+    "scout_failure_schema": "schemas\\scout_failure.schema.json",
+    "normalized_required_field_count": 18,
+    "scout_failure_required_field_count": 7,
+    "recognized_escalation_failure_types": [
+      "INVALID_PACKET_OUTPUT",
+      "MISSING_REQUIRED_LANE",
+      "NORMALIZATION_FAILURE",
+      "SOURCE_UNAVAILABLE",
+      "UNDEFINED_DIRECTION_MODEL"
+    ]
+  },
+  "cases_evaluated": [
+    {
+      "case_id": "t50_01_normalized_success",
+      "description": "Valid minimum Lane B normalized event should remain explicit and non-silent.",
+      "trace_mode": "normalized_event",
+      "lane_b_contract_grounding": {
+        "lane_id": "lane_b_official_disclosure",
+        "direction_model_default": "FOLLOW",
+        "failure_policy": "mark_stale_downgrade"
+      },
+      "schema_checks": {
+        "normalized_missing_required_fields": [],
+        "normalized_invalid_fields": [],
+        "scout_failure_missing_required_fields": [
+          "failure_id",
+          "stage",
+          "error_type",
+          "error_summary",
+          "created_at",
+          "escalation_required",
+          "resolved"
+        ],
+        "scout_failure_invalid_fields": []
+      },
+      "verdict": {
+        "normalization_status": "normalized",
+        "output_class": "normalized_signal_event",
+        "omission_reason": "none",
+        "omission_explicit": false,
+        "silent_drop_observed": false,
+        "case_pass": true,
+        "trace_explanation": "Candidate satisfies the bounded `normalized_signal_event` schema checks, so the path is an explicit normalized success path rather than a silent drop."
+      }
+    },
+    {
+      "case_id": "t50_02_normalization_blocked",
+      "description": "Parse-blocked candidate should become an explicit scout_failure, not disappear silently.",
+      "trace_mode": "scout_failure_normalization_blocked",
+      "lane_b_contract_grounding": {
+        "lane_id": "lane_b_official_disclosure",
+        "direction_model_default": "FOLLOW",
+        "failure_policy": "mark_stale_downgrade"
+      },
+      "schema_checks": {
+        "normalized_missing_required_fields": [
+          "event_id",
+          "task_id",
+          "ticker",
+          "asset_type",
+          "source_lane",
+          "source_name",
+          "direction_hint",
+          "event_time",
+          "ingested_at",
+          "freshness_hours",
+          "raw_text",
+          "parsed_summary",
+          "evidence_url",
+          "evidence_path",
+          "trust_tier",
+          "lag_class",
+          "parser_confidence",
+          "notes"
+        ],
+        "normalized_invalid_fields": [],
+        "scout_failure_missing_required_fields": [],
+        "scout_failure_invalid_fields": []
+      },
+      "verdict": {
+        "normalization_status": "blocked",
+        "output_class": "scout_failure",
+        "omission_reason": "normalization_blocked_explicit_scout_failure",
+        "omission_explicit": true,
+        "silent_drop_observed": false,
+        "case_pass": true,
+        "trace_explanation": "Normalization is blocked before emission and the case records an explicit `scout_failure` with `error_type=NORMALIZATION_FAILURE`."
+      }
+    },
+    {
+      "case_id": "t50_03_missing_required_fields_omission",
+      "description": "Candidate missing required normalized-event fields should be explicitly omitted with the gap named.",
+      "trace_mode": "explicit_omission_missing_required_fields",
+      "lane_b_contract_grounding": {
+        "lane_id": "lane_b_official_disclosure",
+        "direction_model_default": "FOLLOW",
+        "failure_policy": "mark_stale_downgrade"
+      },
+      "schema_checks": {
+        "normalized_missing_required_fields": [
+          "direction_hint",
+          "parsed_summary"
+        ],
+        "normalized_invalid_fields": [],
+        "scout_failure_missing_required_fields": [
+          "failure_id",
+          "stage",
+          "error_type",
+          "error_summary",
+          "created_at",
+          "escalation_required",
+          "resolved"
+        ],
+        "scout_failure_invalid_fields": []
+      },
+      "verdict": {
+        "normalization_status": "omitted",
+        "output_class": "omitted_no_artifact",
+        "omission_reason": "missing_required_fields",
+        "omission_explicit": true,
+        "silent_drop_observed": false,
+        "case_pass": true,
+        "trace_explanation": "The candidate is missing required `normalized_signal_event` fields, and the audit records that as an explicit omission instead of pretending normalization succeeded."
+      }
+    },
+    {
+      "case_id": "t50_04_invalid_field_value_scout_failure",
+      "description": "Candidate with invalid enum values should be rejected explicitly via scout_failure.",
+      "trace_mode": "scout_failure_invalid_packet",
+      "lane_b_contract_grounding": {
+        "lane_id": "lane_b_official_disclosure",
+        "direction_model_default": "FOLLOW",
+        "failure_policy": "mark_stale_downgrade"
+      },
+      "schema_checks": {
+        "normalized_missing_required_fields": [],
+        "normalized_invalid_fields": [
+          "direction_hint='sideways'"
+        ],
+        "scout_failure_missing_required_fields": [],
+        "scout_failure_invalid_fields": []
+      },
+      "verdict": {
+        "normalization_status": "blocked_invalid_candidate",
+        "output_class": "scout_failure",
+        "omission_reason": "invalid_candidate_explicit_scout_failure",
+        "omission_explicit": true,
+        "silent_drop_observed": false,
+        "case_pass": true,
+        "trace_explanation": "The candidate has invalid field values, and the bounded path records an explicit `scout_failure` with `error_type=INVALID_PACKET_OUTPUT` instead of a silent drop."
+      }
+    }
+  ],
+  "overall_verdict": {
+    "all_cases_passed": true,
+    "any_silent_drop_observed": false,
+    "proved_now": [
+      "Representative Lane B normalization outcomes can be traced explicitly in bounded local cases without silent drop.",
+      "Normalization-blocked and invalid-candidate paths can surface as explicit scout_failure records.",
+      "Missing-required-field cases can be recorded as explicit omission instead of implicit disappearance."
+    ],
+    "not_proved_yet": [
+      "Full live normalization breadth for Lane B across the full Federal Register window.",
+      "Production-scale runtime behavior or adapter completeness.",
+      "Whole-gate closure, approval, or Phase 3 readiness."
+    ]
+  }
+}
