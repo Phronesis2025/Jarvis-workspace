@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-01 (Tranche **56**: Prompt **#235** Lane B minimal conflict freshness-consumption truth pass execution)  
+**Updated:** 2026-04-02 (Tranche **58**: Prompt **#246** Lane B real-slice normalization truth pass execution)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -22,7 +22,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 - **Reliability slice (Lane B, FR window):** honest **22/22** statistic vs count floor; **not** whole-gate approval by itself.
 - **Freshness (Lane B):** Tranches **31–32** executed; **Prompt #132** **adopts** **`strict_midnight_utc`**; **10**/**22** **`cannot_classify_honestly`** accepted; **freshness-only** tranches **parked** — `lane_b_phase2_freshness_policy_decision.json`.
 - **Freshness policy exploration:** Tranche **33** comparator on disk; **no** alternate policy adopted as primary.
-- **Normalization breadth (Lane B, same 22 rows):** Tranche **34** audit on disk — preview truncation documented; regex identity path **solid**; rich object **partial**.
+- **Normalization breadth (Lane B, same 22 rows):** Tranche **34** audit on disk — preview truncation documented; regex identity path **solid**; rich object **partial**. Tranche **58** adds a stored-slice truth pass showing exact collector retention plus partial normalization support, while still keeping full normalized-event materialization explicitly out of bounds on the current artifacts.
 - **Lane B stale/outage & escalation alignment (bounded):** Tranche **35** executed (Prompt **#135**) — `audit_lane_b_stale_outage_escalation_alignment.py` + `tranche35_stale_outage_escalation_audit.*` on disk; standard **#4** still **partial** / not system-closed per artifact verdict.
 
 ---
@@ -30,7 +30,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 ## Still partial (known gaps — not “done”)
 
 - **Lane B freshness:** **10**/**22** **cannot_classify_honestly** under adopted policy — dimension **partial**, not closed.
-- **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`. Tranche **50** adds a **bounded** normalization viability / silent-drop trace with explicit representative outcomes, but **does not** prove full live normalization breadth or runtime completeness.
+- **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`. Tranche **50** adds a **bounded** normalization viability / silent-drop trace with explicit representative outcomes, and Tranche **58** adds a **stored real-slice truth pass** proving exact collector retention plus partial normalization support across the 22-slot FR slice. Full normalized-event materialization, full live breadth, and runtime completeness are still **not** proved.
 - **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4**. Tranche **54** adds bounded explicit policy-row coverage for residual escalation classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`, but the dimension remains **partial** because live FR outage evidence and system closure are still not proved.
 - **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases, and Tranche **56** adds a **bounded** minimal-path truth pass (`tranche56_*`) proving the current `lane_b_real_observation_slice.py conflict` subcommand itself does **not** read freshness-like fields and does **not** stale-omit valid context. Full conflict/runtime closure is still **not** proved.
 - **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
@@ -50,7 +50,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass for a candidate lane; **Lane B** is furthest along but **not** closed:
 
 1. **Stale/outage behavior is explicit** (standard **#4**) — **Lane B:** still **partial** after T35 + T45 + T54; not gate-closed at **system** level.
-2. **Normalization viability** — **Lane B:** **partial** (Tranche **34** + **Tranche 50** bounded silent-drop trace); full live breadth and full silent-drop guarantees **not** established.
+2. **Normalization viability** — **Lane B:** **partial** (Tranche **34** + **Tranche 50** + **Tranche 58**). Exact collector retention plus partial normalization support are now evidenced on the stored real slice, but full normalized-event materialization, full live breadth, and full silent-drop guarantees are **not** established.
 3. **Freshness discipline** — **Lane B:** **policy locked** but outcome **partial** (**10** unresolved rows).
 4. **Reliability** — strong for **FR window slice**; **not** a license to ignore other dimensions or other lanes.
 5. **No context-only domination** — Lane B / fusion still **partial** even after bounded T47/T52/T56 local traces; T56 clarifies that stale-first omission is wrapper-only relative to the current minimal path. Lane E likewise remains **not** fully proven at gate bar across permutations.
@@ -244,6 +244,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as run):** THE FADE-local code-path inspection plus bounded replay of the real `lane_b_real_observation_slice.py conflict` subcommand using local fixtures only; **no** network; **no** live FR collection; **no** rerun of Tranche 21 collection. Target only the exact truth question of whether the current minimal `conflict` path itself consumes freshness-related fields or performs stale-context omission.
 
 **Outcome (on disk):** `scripts/audit_lane_b_minimal_conflict_freshness_consumption_truth.py` + `examples/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_cases.json` + `outputs/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_lane_b_minimal_conflict_freshness_consumption_truth_audit.{json,md}`. Static inspection plus bounded fresh-vs-stale replay pairs prove the current minimal `conflict` path reads `source_lane`, `semantic_role`/`role`, and `direction_hint`, but **not** freshness-like fields, and valid stale-labeled context still emits the same conflict packet content when directional inputs match. This narrows the exact T47/T52 truth gap by proving stale-first omission remains wrapper-only relative to the current minimal path. **Not** approval; **not** Phase **3**; **not** live FR conflict freshness evidence; **not** full conflict/runtime closure.
+
+### Executed — **Tranche 58** (Prompt **#246**, Lane B real-slice normalization truth pass)
+
+**Name:** Lane B **real-slice normalization truth** bounded audit.
+
+**Scope (as run):** Stored **22-slot** Federal Register full-window artifacts only (`tranche21_fr_slot_runs.jsonl` + per-run snapshot JSONs) plus current schema/collector truth; **no** network; **no** new collection; **no** live integration; **no** approval edit.
+
+**Outcome (on disk):** `scripts/audit_lane_b_real_slice_normalization_truth.py` + `outputs/lane_b_real_slice_normalization_truth_bootstrap/tranche58_lane_b_real_slice_normalization_truth_audit.{json,md}`. The audit proves the stored real slice preserves exact collector retention plus partial normalization support (`task_id`, timing, evidence URL/path, `response_sha256`, and `results[0]` identity fields) and therefore reduces the exact normalization-viability truth gap on the real stored slice. It also proves the boundary: the stored slice never wrote full `normalized_signal_event` artifacts, raw-body preservation is truncated to preview text, and required fields such as `ticker`, `asset_type`, `direction_hint`, `trust_tier`, and `parser_confidence` are absent or only partially evidenced. Silent-drop risk is reduced at the collector-retention layer but still **not** ruled out for full normalized-event materialization from the stored slice alone. **Not** approval; **not** Phase **3**; **not** full normalization closure.
 
 ---
 

@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 235  
+**Prompt #:** 246  
 **Phase #:** 2  
-**Tranche #:** 56  
-**Updated:** 2026-04-01T22:47:35+00:00
+**Tranche #:** 58  
+**Updated:** 2026-04-02T13:20:40+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T56 execution)
+## New chat checkpoint (post–T58 execution)
 
-- **Where you are:** Phase **2**; **Lane B** deepest but **partial** / **not** approved; **Lane E** & **Lane C** bootstraps **paused**; **T45** + **T47** + **T50** + adopted pre-existing **T52** + **T54** + **T56** Lane B bounded audits **on disk**; **T56** proves the current minimal `lane_b_real_observation_slice.py conflict` path does **not** read freshness-like fields and does **not** stale-omit context itself; **approval** still **`mvp_lane_approval.json`** = **`false`**; **Phase 3** **blocked**.
-- **What to do next:** Open a **new governed prompt** to pick the **next honest Phase 2 move**.
+- **Where you are:** Phase **2**; **Lane B** deepest but **partial** / **not** approved; **Lane E** & **Lane C** bootstraps **paused**; **T45** + **T47** + **T50** + adopted pre-existing **T52** + **T54** + **T56** + **T58** Lane B bounded audits **on disk**; **T56** proves the current minimal `lane_b_real_observation_slice.py conflict` path does **not** read freshness-like fields and does **not** stale-omit context itself; **T58** proves the stored 22-slot Federal Register slice preserves exact collector retention plus partial normalization support, but full `normalized_signal_event` materialization remains unproved because the stored slice never wrote full normalized events, raw-body preservation is truncated, and several required normalized fields are absent or only partially evidenced; **approval** still **`mvp_lane_approval.json`** = **`false`**; **Phase 3** **blocked**.
+- **What to do next:** Open a **new governed prompt** to pick the **next honest Phase 2 move** after **T58**.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -45,6 +45,7 @@
 | T52 status                   | **Adopted as pre-existing bounded evidence** — Lane B stale-context conflict omission **fixture** trace (`audit_lane_b_stale_context_conflict_omission_trace.py` + `tranche52_*`); stale-context omission explicit; stale context does **not** override primary truth in bounded cases; fresh valid context remains in conflict branch; **does not** prove minimal `conflict` freshness consumption; **not** live integration |
 | T54 status                   | **Executed** — Lane B stale/outage residual policy coverage **fixture** trace (`audit_lane_b_stale_outage_residual_policy_coverage_trace.py` + `tranche54_*`); explicitly covers residual escalation-policy classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE` after T35/T45; **not** live FR outage evidence; **not** production closure for standard **#4** |
 | T56 status                   | **Executed** — Lane B minimal conflict freshness-consumption truth pass (`audit_lane_b_minimal_conflict_freshness_consumption_truth.py` + `tranche56_*`); proves the current minimal `conflict` path reads `source_lane`, `semantic_role`/`role`, and `direction_hint`, but **not** freshness-like fields, so stale-first omission remains wrapper-only relative to that path; **not** live FR conflict freshness evidence; **not** full conflict/runtime closure |
+| T58 status                   | **Executed** — Lane B real-slice normalization truth pass (`audit_lane_b_real_slice_normalization_truth.py` + `tranche58_*`); proves the stored 22-slot FR slice preserves exact collector retention plus partial normalization support, but **not** full `normalized_signal_event` materialization without policy fill-ins or invented values; silent-drop risk is reduced at the collector-retention layer but still **not** ruled out for full normalized-event materialization |
 
 ---
 
@@ -62,7 +63,8 @@
 | Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
 | Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T56 executed on disk** (includes Prompt **#192** T45 + Prompt **#200** T47 + Prompt **#213** T50 + Prompt **#221** adopted pre-existing T52 + Prompt **#226** T54 + Prompt **#235** T56 Lane B bounded traces) |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T58 executed on disk** (includes Prompt **#192** T45 + Prompt **#200** T47 + Prompt **#213** T50 + Prompt **#221** adopted pre-existing T52 + Prompt **#226** T54 + Prompt **#235** T56 + Prompt **#246** T58 Lane B bounded traces) |
+| Tranche 58 Lane B real-slice normalization truth pass (Prompt **#246**, executed) | `scripts/audit_lane_b_real_slice_normalization_truth.py` + `outputs/lane_b_real_slice_normalization_truth_bootstrap/tranche58_lane_b_real_slice_normalization_truth_audit.{json,md}` — **stored 22-slot FR slice only**; exact collector retention plus partial normalization support are evidenced, but full normalized-event materialization remains unproved; **not** approval |
 | Tranche 40 governance/registry closure | `config/mvp_lane_evidence_registry.json` reconciled to executed T31-T39 + T39A truth; no new lane evidence, no approval change |
 | Tranche 41 Lane C FOLLOW + stale-policy trace audit | `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}` |
 | Tranche 42 Lane C FOLLOW conflict-mismatch trace audit | `scripts/audit_lane_c_follow_conflict_trace.py` + `examples/lane_c_market_context_bootstrap/tranche42_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.{json,md}` |
@@ -193,7 +195,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ## Exact next authorized move
 
-1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — post-T39 **PATH B** remains locked (Lane E bootstrap paused), and T40/T41 bounded closure+bootstrap audits are executed; next move requires a new governed Phase 2 decision.
+1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — bounded lane pauses remain locked, work is now **through T58 on disk**, and the next move requires a **new governed Phase 2 decision** rather than resuming an old prompt by default.
 2. **Hold at the Phase 2 gate checkpoint** — **promising-but-unapproved**; FR slice is **not** approval.
 3. Update **`mvp_lane_approval.json`** **only** with explicit operator signoff + matching evidence.
 4. Continue git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.

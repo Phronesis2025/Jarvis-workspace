@@ -1,0 +1,992 @@
+{
+  "_meta": {
+    "title": "tranche58_lane_b_real_slice_normalization_truth_audit",
+    "phase_number": 2,
+    "tranche_number": 58,
+    "prompt_number": 246,
+    "scope": "stored 22-slot Lane B full-window artifacts only; no network; no new collection",
+    "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "lane_b_deepest_but_partial": true,
+    "lane_e_paused": true,
+    "lane_c_paused": true,
+    "note": "This audit does not grant approval, does not unpause other lanes, and does not unlock Phase 3."
+  },
+  "population": {
+    "counted_rows": 22,
+    "window_start_utc": "2026-03-27T16:00:00Z",
+    "window_end_utc": "2026-03-29T16:00:00Z",
+    "excluded_task_id": "t30_valid_002",
+    "all_rows_source_observation_success": true,
+    "all_rows_collector_execution_success": true,
+    "all_rows_observed_result_type_normalized_signal_event": true
+  },
+  "stored_source_field_rollup": {
+    "response_preview_utf8_present_count": 22,
+    "response_sha256_present_count": 22,
+    "full_preview_json_parse_ok_count": 0,
+    "results0_scalar_field_counts": {
+      "title": 22,
+      "type": 22,
+      "document_number": 22,
+      "html_url": 22,
+      "pdf_url": 22,
+      "public_inspection_pdf_url": 20,
+      "publication_date": 22
+    },
+    "results0_token_field_counts": {
+      "abstract": 22,
+      "agencies": 22,
+      "excerpts": 22
+    },
+    "distinct_results0_document_numbers": [
+      "2026-05939",
+      "2026-06079",
+      "2026-06133"
+    ],
+    "distinct_results0_document_number_count": 3
+  },
+  "normalized_signal_event_required_fields": [
+    "event_id",
+    "task_id",
+    "ticker",
+    "asset_type",
+    "source_lane",
+    "source_name",
+    "direction_hint",
+    "event_time",
+    "ingested_at",
+    "freshness_hours",
+    "raw_text",
+    "parsed_summary",
+    "evidence_url",
+    "evidence_path",
+    "trust_tier",
+    "lag_class",
+    "parser_confidence",
+    "notes"
+  ],
+  "normalized_signal_event_field_assessment": {
+    "event_id": {
+      "status": "derivable_exact_from_stored_fields",
+      "why": "The stored slice preserves both `task_id` and `response_sha256`; the observe slice formula `evt_{task_id}_{sha256[:12]}` can therefore be reproduced exactly."
+    },
+    "task_id": {
+      "status": "direct_on_disk_all_22",
+      "why": "Every counted JSONL row includes `task_id`."
+    },
+    "ticker": {
+      "status": "not_evidenced_from_real_slice",
+      "why": "Neither the collector JSONL nor the snapshot payload stores a ticker value."
+    },
+    "asset_type": {
+      "status": "not_evidenced_from_real_slice",
+      "why": "The stored slice does not carry any direct asset-type field; filling one would require a policy constant rather than evidence from the artifact set."
+    },
+    "source_lane": {
+      "status": "derivable_lane_context_only",
+      "why": "The tranche is Lane B-only and the collector stores `source_class=lane_b_federal_register_public_api`, but the literal normalized field `source_lane` is not written into the stored slice."
+    },
+    "source_name": {
+      "status": "partial_policy_mapping_only",
+      "why": "The stored slice preserves source-class and endpoint provenance, but not the exact observe-style `source_name` string."
+    },
+    "direction_hint": {
+      "status": "not_evidenced_from_real_slice",
+      "why": "No direction field is written in the collector artifacts. The older observe slice hard-coded `neutral`, but this real stored slice does not prove or preserve that field."
+    },
+    "event_time": {
+      "status": "partial_date_only_boundary",
+      "why": "The stored slice preserves `publication_date` for `results[0]` across all 22 rows, but only as a date string. A full source event timestamp is not preserved."
+    },
+    "ingested_at": {
+      "status": "direct_on_disk_all_22",
+      "why": "Every counted row preserves collector timing fields such as `actual_started_at_utc` and `captured_at_utc`."
+    },
+    "freshness_hours": {
+      "status": "partial_not_exact",
+      "why": "Freshness can only be computed from a chosen surrogate event-time model. The real stored slice does not preserve a full source timestamp, and later freshness work still left 10/22 rows in `cannot_classify_honestly` under the adopted rule."
+    },
+    "raw_text": {
+      "status": "partial_truncated_preview_only",
+      "why": "Every stored snapshot preserves `response_preview_utf8`, but only the first 2,000 UTF-8 bytes rather than the full body."
+    },
+    "parsed_summary": {
+      "status": "partial_can_be_derived_not_stored",
+      "why": "Useful document fields such as `title`, `type`, `document_number`, `html_url`, and `publication_date` are available, but the real slice does not store a finished normalized summary field."
+    },
+    "evidence_url": {
+      "status": "direct_on_disk_all_22",
+      "why": "The slice preserves the collector `endpoint_url` for every row, and the document `html_url` for `results[0]` is also present in the preview for all 22 rows."
+    },
+    "evidence_path": {
+      "status": "direct_on_disk_all_22",
+      "why": "Every counted row stores `artifact_path` for its snapshot JSON."
+    },
+    "trust_tier": {
+      "status": "not_evidenced_from_real_slice",
+      "why": "No trust-tier field is preserved in the collector artifacts."
+    },
+    "lag_class": {
+      "status": "partial_not_exact",
+      "why": "The stored slice does not write `lag_class`, and freshness classification remains partial because the source preserves only a date for publication on the 10-row ambiguous cohort."
+    },
+    "parser_confidence": {
+      "status": "not_evidenced_from_real_slice",
+      "why": "No parser-confidence value is stored in the real collector artifacts."
+    },
+    "notes": {
+      "status": "partial_can_be_derived_not_stored",
+      "why": "Collector metadata is rich enough to derive conservative notes, but the normalized `notes` field is not stored as such in the real slice."
+    }
+  },
+  "normalized_signal_event_viability_summary": {
+    "direct_on_disk_all_22": [
+      "evidence_path",
+      "evidence_url",
+      "ingested_at",
+      "task_id"
+    ],
+    "derivable_exact_from_stored_fields": [
+      "event_id"
+    ],
+    "partial_only": [
+      "event_time",
+      "freshness_hours",
+      "lag_class",
+      "notes",
+      "parsed_summary",
+      "raw_text",
+      "source_lane",
+      "source_name"
+    ],
+    "not_evidenced_from_real_slice": [
+      "asset_type",
+      "direction_hint",
+      "parser_confidence",
+      "ticker",
+      "trust_tier"
+    ]
+  },
+  "silent_drop_truth": {
+    "collector_retention_layer": "ruled_out_for_this_stored_22_slot_slice",
+    "collector_retention_why": "Every counted row has a JSONL audit record, an artifact path, a snapshot file, a response preview, and a response SHA-256.",
+    "full_normalized_signal_event_materialization": "still_unprovable_from_real_slice_alone",
+    "full_normalized_signal_event_materialization_why": "The stored slice never wrote full normalized_signal_event artifacts, and several required schema fields remain absent or only partially evidenced.",
+    "honest_bottom_line": "silent-drop risk is reduced at the collector retention layer but not ruled out for end-to-end normalized event materialization from the stored slice alone."
+  },
+  "gate_impact": {
+    "dimension": "normalization_viability",
+    "status_after_t58": "partial_real_slice_truth_strengthened_not_closed",
+    "proved_now": [
+      "The real stored slice preserves enough on-disk material to support exact identity, timing, endpoint provenance, document identity, and truncated raw-preview retention across all 22 counted rows.",
+      "An observe-style event_id can be reproduced exactly from stored `task_id` plus `response_sha256`.",
+      "The stored slice does not silently lose whole collector artifacts for the 22 counted rows."
+    ],
+    "not_proved_now": [
+      "A full normalized_signal_event can be materialized from the stored slice without policy fill-ins or invented values.",
+      "Exact normalized values for `ticker`, `asset_type`, `direction_hint`, `trust_tier`, and `parser_confidence`.",
+      "Full raw-body preservation or full structured `results[0]` JSON beyond the truncated preview boundary.",
+      "Whole-gate closure, approval, or Phase 3 readiness."
+    ]
+  },
+  "per_row": [
+    {
+      "task_id": "t21_fr_full_20260327T160000Z",
+      "run_identity": "run_2d01fef1896296c2aebd",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_2d01fef1896296c2aebd_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-27T16:00:02Z",
+        "captured_at_utc": "2026-03-27T16:00:03Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1967 (char 1966)"
+      },
+      "results0_scalar_fields": {
+        "title": "Sunshine Act Meetings",
+        "type": "Notice",
+        "document_number": "2026-05939",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/26/2026-05939/sunshine-act-meetings",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-26/pdf/2026-05939.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-05939.pdf?1774383310",
+        "publication_date": "2026-03-26"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260327T180000Z",
+      "run_identity": "run_85d4d41582f239037ecd",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_85d4d41582f239037ecd_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-27T18:00:02Z",
+        "captured_at_utc": "2026-03-27T18:00:02Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1967 (char 1966)"
+      },
+      "results0_scalar_fields": {
+        "title": "Sunshine Act Meetings",
+        "type": "Notice",
+        "document_number": "2026-05939",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/26/2026-05939/sunshine-act-meetings",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-26/pdf/2026-05939.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-05939.pdf?1774383310",
+        "publication_date": "2026-03-26"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260327T200000Z",
+      "run_identity": "run_6bea1340a8a3873533be",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_6bea1340a8a3873533be_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-27T20:00:02Z",
+        "captured_at_utc": "2026-03-27T20:00:02Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260327T220000Z",
+      "run_identity": "run_5e27ba8a932da81c4ff4",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_5e27ba8a932da81c4ff4_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-27T22:00:02Z",
+        "captured_at_utc": "2026-03-27T22:00:02Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T000000Z",
+      "run_identity": "run_68a6c3cbccb9c8fe2c3b",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_68a6c3cbccb9c8fe2c3b_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T00:00:02Z",
+        "captured_at_utc": "2026-03-28T00:00:02Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T020000Z",
+      "run_identity": "run_e2d13a40a2b33fc77ab1",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_e2d13a40a2b33fc77ab1_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T02:00:02Z",
+        "captured_at_utc": "2026-03-28T02:00:02Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T040000Z",
+      "run_identity": "run_c4016a7fa7f53eea6238",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_c4016a7fa7f53eea6238_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T04:00:02Z",
+        "captured_at_utc": "2026-03-28T04:00:02Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T060000Z",
+      "run_identity": "run_8e7fa096ca59d515d5d1",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_8e7fa096ca59d515d5d1_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T06:00:03Z",
+        "captured_at_utc": "2026-03-28T06:00:04Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T080000Z",
+      "run_identity": "run_1a71b55764b3f57c5dc7",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_1a71b55764b3f57c5dc7_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T08:00:02Z",
+        "captured_at_utc": "2026-03-28T08:00:02Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T100000Z",
+      "run_identity": "run_104914ce3bd91d07e47d",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_104914ce3bd91d07e47d_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T10:00:02Z",
+        "captured_at_utc": "2026-03-28T10:00:02Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T120000Z",
+      "run_identity": "run_a626320f6d521d274485",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_a626320f6d521d274485_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T12:00:02Z",
+        "captured_at_utc": "2026-03-28T12:00:05Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T140000Z",
+      "run_identity": "run_099bc0024c3405c86932",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_099bc0024c3405c86932_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T14:00:03Z",
+        "captured_at_utc": "2026-03-28T14:00:04Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1979 (char 1978)"
+      },
+      "results0_scalar_fields": {
+        "title": "Continuation of the National Emergency With Respect to Trade Practices That Contribute to Large and Persistent Annual United States Goods Trade Deficits",
+        "type": "Presidential Document",
+        "document_number": "2026-06079",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/27/2026-06079/continuation-of-the-national-emergency-with-respect-to-trade-practices-that-contribute-to-large-and",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06079.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06079.pdf?1774538108",
+        "publication_date": "2026-03-27"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T160000Z",
+      "run_identity": "run_fdfb1c2d0cc8030a7dd3",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_fdfb1c2d0cc8030a7dd3_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T16:00:02Z",
+        "captured_at_utc": "2026-03-28T16:00:02Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1996 (char 1995)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": null,
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T180000Z",
+      "run_identity": "run_2d21b5d145c47a645a98",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_2d21b5d145c47a645a98_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T18:00:04Z",
+        "captured_at_utc": "2026-03-28T18:00:04Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1996 (char 1995)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": null,
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T200000Z",
+      "run_identity": "run_a0ee9dc1952fb54dd477",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_a0ee9dc1952fb54dd477_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T20:00:02Z",
+        "captured_at_utc": "2026-03-28T20:00:03Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1994 (char 1993)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06133.pdf?1774615521",
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260328T220000Z",
+      "run_identity": "run_f2f669041c28fc3d27bc",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_f2f669041c28fc3d27bc_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-28T22:00:03Z",
+        "captured_at_utc": "2026-03-28T22:00:04Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1994 (char 1993)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06133.pdf?1774615521",
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260329T000000Z",
+      "run_identity": "run_01e11f16ddfc5f686c21",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_01e11f16ddfc5f686c21_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-29T00:00:03Z",
+        "captured_at_utc": "2026-03-29T00:00:04Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1994 (char 1993)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06133.pdf?1774615521",
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260329T020000Z",
+      "run_identity": "run_3e01c683d7231b5ec144",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_3e01c683d7231b5ec144_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-29T02:00:03Z",
+        "captured_at_utc": "2026-03-29T02:00:04Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1994 (char 1993)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06133.pdf?1774615521",
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260329T040000Z",
+      "run_identity": "run_ca039e29f24ab762a144",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_ca039e29f24ab762a144_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-29T04:00:02Z",
+        "captured_at_utc": "2026-03-29T04:00:03Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1994 (char 1993)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06133.pdf?1774615521",
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260329T060000Z",
+      "run_identity": "run_ed23de87bae02d5ede53",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_ed23de87bae02d5ede53_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-29T06:00:04Z",
+        "captured_at_utc": "2026-03-29T06:00:04Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1994 (char 1993)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06133.pdf?1774615521",
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260329T080000Z",
+      "run_identity": "run_53963bb55b0dc8a56d29",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_53963bb55b0dc8a56d29_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-29T08:00:04Z",
+        "captured_at_utc": "2026-03-29T08:00:05Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1994 (char 1993)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06133.pdf?1774615521",
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    },
+    {
+      "task_id": "t21_fr_full_20260329T100000Z",
+      "run_identity": "run_115d0b704a582a6ccf76",
+      "artifact_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\lane_b_real_observation\\run_115d0b704a582a6ccf76_tranche21_fr_slot_snapshot.json",
+      "collector_fields": {
+        "actual_started_at_utc": "2026-03-29T10:00:03Z",
+        "captured_at_utc": "2026-03-29T10:00:03Z",
+        "endpoint_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+        "source_class": "lane_b_federal_register_public_api",
+        "observed_result_type": "normalized_signal_event",
+        "source_observation_success": true,
+        "collector_execution_success": true
+      },
+      "snapshot_fields": {
+        "response_sha256_present": true,
+        "response_preview_utf8_present": true,
+        "preview_len_chars": 2000,
+        "json_shape_valid": true,
+        "full_preview_json_parse_ok": false,
+        "full_preview_json_parse_error": "Unterminated string starting at: line 1 column 1994 (char 1993)"
+      },
+      "results0_scalar_fields": {
+        "title": "Streamlining the Census Bureau's Foreign Trade Regulations",
+        "type": "Rule",
+        "document_number": "2026-06133",
+        "html_url": "https://www.federalregister.gov/documents/2026/03/30/2026-06133/streamlining-the-census-bureaus-foreign-trade-regulations",
+        "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-03-30/pdf/2026-06133.pdf",
+        "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-06133.pdf?1774615521",
+        "publication_date": "2026-03-30"
+      },
+      "results0_token_fields_present": {
+        "abstract": true,
+        "agencies": true,
+        "excerpts": true
+      }
+    }
+  ]
+}
