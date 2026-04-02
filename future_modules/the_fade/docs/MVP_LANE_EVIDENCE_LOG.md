@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 226  
+**Prompt #:** 235  
 **Phase #:** 2  
-**Tranche #:** 54  
+**Tranche #:** 56  
 
-Updated: 2026-04-01T19:06:53+00:00
+Updated: 2026-04-01T22:47:35+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T54 executed on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts, and Prompt **#226** T54 Lane B stale/outage residual policy coverage trace — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T56 executed on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts, Prompt **#226** T54 Lane B stale/outage residual policy coverage trace, and Prompt **#235** T56 Lane B minimal conflict freshness-consumption truth pass — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 56 (Prompt #235):** Lane B **minimal conflict freshness-consumption truth** bounded audit is **on disk** — `scripts/audit_lane_b_minimal_conflict_freshness_consumption_truth.py` + `examples/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_cases.json` + `outputs/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_lane_b_minimal_conflict_freshness_consumption_truth_audit.{json,md}`. **Local code-path inspection plus bounded replay only**; proves the current minimal `lane_b_real_observation_slice.py conflict` path reads `source_lane`, `semantic_role`/`role`, and `direction_hint`, but **not** freshness-like fields, so valid stale-labeled context still reaches the conflict branch there. This narrows the exact T47/T52 truth gap by showing stale-first omission remains wrapper-only relative to the current minimal path. **Not** live FR conflict freshness evidence; **not** MVP approval; **not** Phase **3**.
 
 **Tranche 54 (Prompt #226):** Lane B **stale/outage residual policy coverage** bounded **fixture** audit is **on disk** — `scripts/audit_lane_b_stale_outage_residual_policy_coverage_trace.py` + `examples/lane_b_stale_outage_residual_policy_bootstrap/tranche54_cases.json` + `outputs/lane_b_stale_outage_residual_policy_bootstrap/tranche54_lane_b_stale_outage_residual_policy_coverage_trace_audit.{json,md}`. **Local fixtures plus prior T35/T45 outputs only**; explicitly covers the residual escalation-policy classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE` left uncovered in the stored FR slice after T35 and not already covered by T45. **Not** live FR outage evidence; **not** production closure for standard **#4**; **not** MVP approval; **not** Phase **3**.
 
@@ -458,6 +460,35 @@ Evidence captured in this tranche:
 **What this proves now:** the exact residual escalation-policy classes left after T35 and not already covered by T45 are now covered by explicit bounded local traces; `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE` are named non-silent policy routes; across T45 plus T54, every current `escalation_policy.json` `failure_type` row now has at least one bounded local fixture coverage example.
 
 **What this does not prove:** live FR outage evidence, production-scale system closure for standard **#4**, that the counted FR full-window slice itself exercised these residual policy classes, MVP approval, or Phase 3 readiness.
+
+## Lane B — Tranche 56 minimal conflict freshness-consumption truth pass (Prompt #235)
+
+**Scope:** THE FADE-local bounded code-path inspection plus replay of the real `lane_b_real_observation_slice.py conflict` subcommand only (no network, no live FR collection, no rerun of Tranche 21 collection).
+
+**Grounding:** `lane_b_real_observation_slice.py`, `fusion_policy.json`, `lane_registry.json`, and the on-disk T47/T52 audit outputs.
+
+**Artifacts:**
+- Script: `future_modules/the_fade/scripts/audit_lane_b_minimal_conflict_freshness_consumption_truth.py`
+- Fixtures: `future_modules/the_fade/examples/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_cases.json`
+- Outputs: `future_modules/the_fade/outputs/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_lane_b_minimal_conflict_freshness_consumption_truth_audit.json` and `.md`
+
+**Exact gap addressed:** T47 documented that stale context age was not evaluated in the minimal `conflict` slice, and T52 proved stale-first omission only in a bounded wrapper. T56 targets the remaining exact truth question: whether the current minimal `lane_b_real_observation_slice.py conflict` path itself consumes freshness-related fields or performs stale-context omission.
+
+**Explicit checks evaluated:**
+1. Static inspection of `cmd_conflict` JSON-key reads
+2. Fresh-vs-stale replay pair with contra mismatch direction
+3. Fresh-vs-stale replay pair with aligned support direction
+
+**Case verdict summary:** all bounded checks passed with explicit fields:
+- `lane_get_keys`
+- `contra_get_keys`
+- `freshness_keys_read_by_cmd_conflict`
+- `same_stable_packet_projection`
+- `minimal_conflict_stale_omission_present`
+
+**What this proves now:** the current minimal `lane_b_real_observation_slice.py conflict` path reads `source_lane`, `semantic_role`/`role`, and `direction_hint`, but **not** freshness-like fields; fresh-vs-stale replay pairs with identical directional inputs emit the same conflict-packet content; valid stale-labeled context is still consumed by the minimal path rather than omitted there. This means T52 stale-first omission remains truthful as bounded wrapper evidence, not as proof of minimal-path freshness consumption.
+
+**What this does not prove:** live FR conflict freshness behavior, full conflict/runtime closure across permutations, MVP approval, or Phase 3 readiness.
 
 ### Stale/outage behavior
 - evidence_summary: Tranche 12 captured **simulated harness rehearsal** stdout for Protocol A (see "Lane B simulated harness rehearsal (Tranche 12)" below). Inputs were **operator-authored**; the harness fetched **no external vendor data**. That output does **not** demonstrate real lane stale/outage `system behavior` for the gate; it only shows the harness can emit a constrained record when given those inputs. **Tranche 16 (Prompt #52)** added a **non-simulated** lane B `observe` run plus real `scout_failure` outcomes where HTTPS returned **403** (SEC.gov / issuer IR in this environment), and one **successful** `normalized_signal_event` from a **live** public regulatory disclosure API (Federal Register JSON). See "Lane B first honest non-simulated observation run (Tranche 16)" below.

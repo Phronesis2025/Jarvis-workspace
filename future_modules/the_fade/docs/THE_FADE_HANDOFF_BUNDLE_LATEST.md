@@ -1,16 +1,16 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 226  
+**Prompt #:** 235  
 **Phase #:** 2  
-**Tranche #:** 54  
-**Updated:** 2026-04-01T19:06:53+00:00
+**Tranche #:** 56  
+**Updated:** 2026-04-01T22:47:35+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T54 execution)
+## New chat checkpoint (post–T56 execution)
 
-- **Where you are:** Phase **2**; **Lane B** deepest but **partial** / **not** approved; **Lane E** & **Lane C** bootstraps **paused**; **T45** + **T47** + **T50** + adopted pre-existing **T52** + **T54** Lane B **fixture** audits **on disk**; **approval** still **`mvp_lane_approval.json`** = **`false`**; **Phase 3** **blocked**.
+- **Where you are:** Phase **2**; **Lane B** deepest but **partial** / **not** approved; **Lane E** & **Lane C** bootstraps **paused**; **T45** + **T47** + **T50** + adopted pre-existing **T52** + **T54** + **T56** Lane B bounded audits **on disk**; **T56** proves the current minimal `lane_b_real_observation_slice.py conflict` path does **not** read freshness-like fields and does **not** stale-omit context itself; **approval** still **`mvp_lane_approval.json`** = **`false`**; **Phase 3** **blocked**.
 - **What to do next:** Open a **new governed prompt** to pick the **next honest Phase 2 move**.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
@@ -44,6 +44,7 @@
 | T50 status                   | **Executed** — Lane B normalization viability / silent-drop **fixture** trace (`audit_lane_b_normalization_viability_silent_drop_trace.py` + `tranche50_*`); representative outcomes explicit; **no** silent drop observed in bounded cases; **not** full normalization closure; **not** live integration |
 | T52 status                   | **Adopted as pre-existing bounded evidence** — Lane B stale-context conflict omission **fixture** trace (`audit_lane_b_stale_context_conflict_omission_trace.py` + `tranche52_*`); stale-context omission explicit; stale context does **not** override primary truth in bounded cases; fresh valid context remains in conflict branch; **does not** prove minimal `conflict` freshness consumption; **not** live integration |
 | T54 status                   | **Executed** — Lane B stale/outage residual policy coverage **fixture** trace (`audit_lane_b_stale_outage_residual_policy_coverage_trace.py` + `tranche54_*`); explicitly covers residual escalation-policy classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE` after T35/T45; **not** live FR outage evidence; **not** production closure for standard **#4** |
+| T56 status                   | **Executed** — Lane B minimal conflict freshness-consumption truth pass (`audit_lane_b_minimal_conflict_freshness_consumption_truth.py` + `tranche56_*`); proves the current minimal `conflict` path reads `source_lane`, `semantic_role`/`role`, and `direction_hint`, but **not** freshness-like fields, so stale-first omission remains wrapper-only relative to that path; **not** live FR conflict freshness evidence; **not** full conflict/runtime closure |
 
 ---
 
@@ -61,7 +62,7 @@
 | Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
 | Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T54 executed on disk** (includes Prompt **#192** T45 + Prompt **#200** T47 + Prompt **#213** T50 + Prompt **#221** adopted pre-existing T52 + Prompt **#226** T54 Lane B fixture traces) |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T56 executed on disk** (includes Prompt **#192** T45 + Prompt **#200** T47 + Prompt **#213** T50 + Prompt **#221** adopted pre-existing T52 + Prompt **#226** T54 + Prompt **#235** T56 Lane B bounded traces) |
 | Tranche 40 governance/registry closure | `config/mvp_lane_evidence_registry.json` reconciled to executed T31-T39 + T39A truth; no new lane evidence, no approval change |
 | Tranche 41 Lane C FOLLOW + stale-policy trace audit | `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}` |
 | Tranche 42 Lane C FOLLOW conflict-mismatch trace audit | `scripts/audit_lane_c_follow_conflict_trace.py` + `examples/lane_c_market_context_bootstrap/tranche42_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.{json,md}` |
@@ -72,6 +73,7 @@
 | Tranche 50 Lane B normalization viability / silent-drop trace (Prompt **#213**, executed) | `scripts/audit_lane_b_normalization_viability_silent_drop_trace.py` + `examples/lane_b_normalization_bootstrap/tranche50_cases.json` + `outputs/lane_b_normalization_bootstrap/tranche50_lane_b_normalization_viability_silent_drop_trace_audit.{json,md}` — **local fixtures only**; representative outcomes explicit; **no** silent drop observed in bounded cases; **not** full normalization closure; **not** approval |
 | Tranche 52 Lane B stale-context conflict omission trace (adopted in Prompt **#221**) | `scripts/audit_lane_b_stale_context_conflict_omission_trace.py` + `examples/lane_b_stale_context_conflict_bootstrap/tranche52_cases.json` + `outputs/lane_b_stale_context_conflict_bootstrap/tranche52_lane_b_stale_context_conflict_omission_trace_audit.{json,md}` — **pre-existing local fixtures only**; stale-context omission explicit; stale context does **not** override primary truth in bounded cases; fresh valid context remains in the conflict branch; **does not** prove minimal `conflict` freshness consumption; **not** approval |
 | Tranche 54 Lane B stale/outage residual policy coverage trace (Prompt **#226**, executed) | `scripts/audit_lane_b_stale_outage_residual_policy_coverage_trace.py` + `examples/lane_b_stale_outage_residual_policy_bootstrap/tranche54_cases.json` + `outputs/lane_b_stale_outage_residual_policy_bootstrap/tranche54_lane_b_stale_outage_residual_policy_coverage_trace_audit.{json,md}` — **local fixtures plus prior T35/T45 outputs only**; explicit bounded coverage for residual escalation-policy classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`; **not** live FR outage evidence; **not** approval |
+| Tranche 56 Lane B minimal conflict freshness-consumption truth pass (Prompt **#235**, executed) | `scripts/audit_lane_b_minimal_conflict_freshness_consumption_truth.py` + `examples/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_cases.json` + `outputs/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_lane_b_minimal_conflict_freshness_consumption_truth_audit.{json,md}` — **local code-path inspection plus bounded replay only**; proves the current minimal `conflict` path does **not** consume freshness-like fields and does **not** stale-omit valid context itself; **not** live FR conflict freshness evidence; **not** approval |
 | Tranche 33 freshness policy comparator (script) | `future_modules/the_fade/scripts/compare_tranche31_freshness_policies.py` (no network) |
 | Tranche 33 policy comparison output | `.../outputs/lane_b_real_observation/tranche33_freshness_policy_comparison.json` and `.md` |
 | Tranche 33 freshness policy decision (Prompt #132) | `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json` — **adopt** `strict_midnight_utc`; **park** freshness-only tranches |

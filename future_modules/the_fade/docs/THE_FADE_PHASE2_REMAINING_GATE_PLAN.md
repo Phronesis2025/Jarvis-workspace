@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-01 (Tranche **54**: Prompt **#226** Lane B stale/outage residual policy coverage trace execution)  
+**Updated:** 2026-04-01 (Tranche **56**: Prompt **#235** Lane B minimal conflict freshness-consumption truth pass execution)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -32,7 +32,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 - **Lane B freshness:** **10**/**22** **cannot_classify_honestly** under adopted policy — dimension **partial**, not closed.
 - **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`. Tranche **50** adds a **bounded** normalization viability / silent-drop trace with explicit representative outcomes, but **does not** prove full live normalization breadth or runtime completeness.
 - **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4**. Tranche **54** adds bounded explicit policy-row coverage for residual escalation classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`, but the dimension remains **partial** because live FR outage evidence and system closure are still not proved.
-- **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), and adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases. This still does **not** prove that the current minimal `lane_b_real_observation_slice.py conflict` subcommand itself consumes freshness fields, and it is **not** full fusion-runtime closure.
+- **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases, and Tranche **56** adds a **bounded** minimal-path truth pass (`tranche56_*`) proving the current `lane_b_real_observation_slice.py conflict` subcommand itself does **not** read freshness-like fields and does **not** stale-omit valid context. Full conflict/runtime closure is still **not** proved.
 - **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
 
 ---
@@ -53,7 +53,7 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 2. **Normalization viability** — **Lane B:** **partial** (Tranche **34** + **Tranche 50** bounded silent-drop trace); full live breadth and full silent-drop guarantees **not** established.
 3. **Freshness discipline** — **Lane B:** **policy locked** but outcome **partial** (**10** unresolved rows).
 4. **Reliability** — strong for **FR window slice**; **not** a license to ignore other dimensions or other lanes.
-5. **No context-only domination** — Lane B / fusion still **partial** even after bounded T47/T52 local traces; Lane E likewise remains **not** fully proven at gate bar across permutations.
+5. **No context-only domination** — Lane B / fusion still **partial** even after bounded T47/T52/T56 local traces; T56 clarifies that stale-first omission is wrapper-only relative to the current minimal path. Lane E likewise remains **not** fully proven at gate bar across permutations.
 6. **Other MVP lanes (A, C, E)** — **not** evidenced to MVP bar.
 
 ---
@@ -236,6 +236,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as run):** THE FADE-local fixtures plus prior on-disk T35/T45 audit outputs only; **no** network; **no** live FR collection; **no** rerun of Tranche 21 collection. Target only the residual escalation-policy classes still not evidenced in the stored FR slice after T35 and not already covered by T45.
 
 **Outcome (on disk):** `scripts/audit_lane_b_stale_outage_residual_policy_coverage_trace.py` + `examples/lane_b_stale_outage_residual_policy_bootstrap/tranche54_cases.json` + `outputs/lane_b_stale_outage_residual_policy_bootstrap/tranche54_lane_b_stale_outage_residual_policy_coverage_trace_audit.{json,md}`. Bounded cases explicitly cover `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`, reducing the exact residual standard **#4** policy-row coverage gap after T35/T45. **Not** approval; **not** Phase **3**; **not** live FR outage evidence; **not** production-scale stale/outage closure.
+
+### Executed — **Tranche 56** (Prompt **#235**, Lane B minimal conflict freshness-consumption truth pass)
+
+**Name:** Lane B **minimal conflict freshness-consumption truth** bounded audit.
+
+**Scope (as run):** THE FADE-local code-path inspection plus bounded replay of the real `lane_b_real_observation_slice.py conflict` subcommand using local fixtures only; **no** network; **no** live FR collection; **no** rerun of Tranche 21 collection. Target only the exact truth question of whether the current minimal `conflict` path itself consumes freshness-related fields or performs stale-context omission.
+
+**Outcome (on disk):** `scripts/audit_lane_b_minimal_conflict_freshness_consumption_truth.py` + `examples/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_cases.json` + `outputs/lane_b_minimal_conflict_freshness_truth_bootstrap/tranche56_lane_b_minimal_conflict_freshness_consumption_truth_audit.{json,md}`. Static inspection plus bounded fresh-vs-stale replay pairs prove the current minimal `conflict` path reads `source_lane`, `semantic_role`/`role`, and `direction_hint`, but **not** freshness-like fields, and valid stale-labeled context still emits the same conflict packet content when directional inputs match. This narrows the exact T47/T52 truth gap by proving stale-first omission remains wrapper-only relative to the current minimal path. **Not** approval; **not** Phase **3**; **not** live FR conflict freshness evidence; **not** full conflict/runtime closure.
 
 ---
 

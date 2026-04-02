@@ -1,0 +1,197 @@
+{
+  "_meta": {
+    "title": "tranche56_lane_b_minimal_conflict_freshness_consumption_truth_audit",
+    "phase_number": 2,
+    "tranche_number": 56,
+    "prompt_number": 235,
+    "generated_at_utc": "2026-04-01T22:47:35Z",
+    "scope": "local code-path inspection plus bounded local replay only; no network",
+    "implementation_reference": "future_modules/the_fade/scripts/lane_b_real_observation_slice.py :: cmd_conflict"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "note": "This audit does not grant approval and does not unlock Phase 3."
+  },
+  "static_inspection": {
+    "cmd_conflict_source_excerpt": "def cmd_conflict(args: argparse.Namespace) -> int:\n    task_id = args.task_id\n    ticker = args.ticker\n    out_dir = Path(args.out_dir) if args.out_dir else DEFAULT_OUT\n    lane_path = Path(args.lane_b_artifact).resolve()\n    contra_path = Path(args.contra).resolve()\n\n    if not lane_path.is_file():\n        print(f\"Missing lane B artifact: {lane_path}\", file=sys.stderr)\n        return 2\n    if not contra_path.is_file():\n        print(f\"Missing contra file: {contra_path}\", file=sys.stderr)\n        return 2\n\n    lane = _load_json(lane_path)\n    contra = _load_json(contra_path)\n\n    if lane.get(\"source_lane\") != LANE_B:\n        print(\"Lane B artifact must have source_lane lane_b_official_disclosure.\", file=sys.stderr)\n        return 2\n    role = contra.get(\"semantic_role\") or contra.get(\"role\")\n    if role != CONTEXT_ROLE:\n        print(f\"Contra file must declare semantic_role {CONTEXT_ROLE!r}.\", file=sys.stderr)\n        return 2\n\n    ld = lane.get(\"direction_hint\")\n    cd = contra.get(\"direction_hint\")\n    wb, we = _read_fusion_weights()\n\n    mismatch = ld is not None and cd is not None and ld != cd\n    primary = \"lane_b_official_disclosure\"\n    summary = (\n        f\"fusion_policy lane_weight_hints: {LANE_B}={wb}, {CONTEXT_ROLE}={we}; \"\n        f\"precedence: primary={primary}; context cannot override lane B. \"\n        f\"direction_hint lane_b={ld!r} context_role={cd!r} mismatch={mismatch}.\"\n    )\n    reasons = [\n        \"lane_b_vs_context_role_under_fusion_policy\",\n        f\"direction_hint_mismatch={mismatch}\",\n    ]\n\n    pkt = {\n        \"conflict_packet_id\": f\"cf_{task_id}_{_sha256_bytes(summary.encode())[:12]}\",\n        \"task_id\": task_id,\n        \"ticker\": ticker,\n        \"created_at\": _now_iso(),\n        \"summary\": summary,\n        \"conflict_reasons\": reasons,\n        \"evidence_paths\": [str(lane_path), str(contra_path)],\n        \"notes\": \"THE FADE local slice; no research_swarm/ read.\",\n    }\n    _write_json(out_dir / f\"{task_id}_conflict_packet.json\", pkt)\n    print(json.dumps(pkt, indent=2))\n    return 0",
+    "lane_get_keys": [
+      "direction_hint",
+      "source_lane"
+    ],
+    "contra_get_keys": [
+      "direction_hint",
+      "role",
+      "semantic_role"
+    ],
+    "freshness_keys_checked": [
+      "context_age_hours",
+      "event_time",
+      "freshness_hours",
+      "freshness_window_hours",
+      "ingested_at",
+      "is_stale",
+      "lag_class",
+      "publication_date",
+      "stale"
+    ],
+    "freshness_keys_read_by_cmd_conflict": []
+  },
+  "replay_results": [
+    {
+      "case_id": "t56_01_fresh_contra_mismatch",
+      "intent": "Fresh valid contra context reaches the minimal conflict branch.",
+      "pair_group": "contra_mismatch_pair",
+      "freshness_profile": "fresh",
+      "freshness_fields_present": {
+        "context_age_hours": 4.0,
+        "event_time": "2026-03-29T08:00:00Z",
+        "freshness_hours": 4.0,
+        "freshness_window_hours": 48.0,
+        "ingested_at": "2026-03-29T12:00:00Z",
+        "lag_class": "fresh"
+      },
+      "direction_hint_context": "bearish",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"conflict_packet_id\": \"cf_t56_01_fresh_contra_mismatch_11b082ccdff0\",\n  \"task_id\": \"t56_01_fresh_contra_mismatch\",\n  \"ticker\": \"FADE\",\n  \"created_at\": \"2026-04-01T22:47:34Z\",\n  \"summary\": \"fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bearish' mismatch=True.\",\n  \"conflict_reasons\": [\n    \"lane_b_vs_context_role_under_fusion_policy\",\n    \"direction_hint_mismatch=True\"\n  ],\n  \"evidence_paths\": [\n    \"C:\\\\Users\\\\phron\\\\AppData\\\\Local\\\\Temp\\\\t56_conflict_zpb_cddn\\\\t56_01_fresh_contra_mismatch_lane_b_artifact.json\",\n    \"C:\\\\Users\\\\phron\\\\AppData\\\\Local\\\\Temp\\\\t56_conflict_zpb_cddn\\\\t56_01_fresh_contra_mismatch_contra.json\"\n  ],\n  \"notes\": \"THE FADE local slice; no research_swarm/ read.\"\n}",
+      "conflict_packet_emitted": true,
+      "stale_omission_observed": false,
+      "stable_packet_projection": {
+        "summary": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bearish' mismatch=True.",
+        "conflict_reasons": [
+          "lane_b_vs_context_role_under_fusion_policy",
+          "direction_hint_mismatch=True"
+        ],
+        "notes": "THE FADE local slice; no research_swarm/ read."
+      }
+    },
+    {
+      "case_id": "t56_02_stale_contra_mismatch_same_direction",
+      "intent": "Stale-labeled valid contra context keeps the same direction inputs but should still reach the minimal conflict branch if freshness is ignored.",
+      "pair_group": "contra_mismatch_pair",
+      "freshness_profile": "stale",
+      "freshness_fields_present": {
+        "context_age_hours": 200.0,
+        "event_time": "2026-03-21T04:00:00Z",
+        "freshness_hours": 200.0,
+        "freshness_window_hours": 48.0,
+        "ingested_at": "2026-03-29T12:00:00Z",
+        "is_stale": true,
+        "lag_class": "stale"
+      },
+      "direction_hint_context": "bearish",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"conflict_packet_id\": \"cf_t56_02_stale_contra_mismatch_same_direction_11b082ccdff0\",\n  \"task_id\": \"t56_02_stale_contra_mismatch_same_direction\",\n  \"ticker\": \"FADE\",\n  \"created_at\": \"2026-04-01T22:47:34Z\",\n  \"summary\": \"fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bearish' mismatch=True.\",\n  \"conflict_reasons\": [\n    \"lane_b_vs_context_role_under_fusion_policy\",\n    \"direction_hint_mismatch=True\"\n  ],\n  \"evidence_paths\": [\n    \"C:\\\\Users\\\\phron\\\\AppData\\\\Local\\\\Temp\\\\t56_conflict_u1s05hh1\\\\t56_02_stale_contra_mismatch_same_direction_lane_b_artifact.json\",\n    \"C:\\\\Users\\\\phron\\\\AppData\\\\Local\\\\Temp\\\\t56_conflict_u1s05hh1\\\\t56_02_stale_contra_mismatch_same_direction_contra.json\"\n  ],\n  \"notes\": \"THE FADE local slice; no research_swarm/ read.\"\n}",
+      "conflict_packet_emitted": true,
+      "stale_omission_observed": false,
+      "stable_packet_projection": {
+        "summary": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bearish' mismatch=True.",
+        "conflict_reasons": [
+          "lane_b_vs_context_role_under_fusion_policy",
+          "direction_hint_mismatch=True"
+        ],
+        "notes": "THE FADE local slice; no research_swarm/ read."
+      }
+    },
+    {
+      "case_id": "t56_03_fresh_aligned_support",
+      "intent": "Fresh aligned context reaches the minimal conflict branch with mismatch false.",
+      "pair_group": "aligned_support_pair",
+      "freshness_profile": "fresh",
+      "freshness_fields_present": {
+        "context_age_hours": 2.0,
+        "event_time": "2026-03-29T10:00:00Z",
+        "freshness_hours": 2.0,
+        "freshness_window_hours": 48.0,
+        "ingested_at": "2026-03-29T12:00:00Z",
+        "lag_class": "fresh"
+      },
+      "direction_hint_context": "bullish",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"conflict_packet_id\": \"cf_t56_03_fresh_aligned_support_21492de85205\",\n  \"task_id\": \"t56_03_fresh_aligned_support\",\n  \"ticker\": \"FADE\",\n  \"created_at\": \"2026-04-01T22:47:35Z\",\n  \"summary\": \"fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bullish' mismatch=False.\",\n  \"conflict_reasons\": [\n    \"lane_b_vs_context_role_under_fusion_policy\",\n    \"direction_hint_mismatch=False\"\n  ],\n  \"evidence_paths\": [\n    \"C:\\\\Users\\\\phron\\\\AppData\\\\Local\\\\Temp\\\\t56_conflict_ujggnisb\\\\t56_03_fresh_aligned_support_lane_b_artifact.json\",\n    \"C:\\\\Users\\\\phron\\\\AppData\\\\Local\\\\Temp\\\\t56_conflict_ujggnisb\\\\t56_03_fresh_aligned_support_contra.json\"\n  ],\n  \"notes\": \"THE FADE local slice; no research_swarm/ read.\"\n}",
+      "conflict_packet_emitted": true,
+      "stale_omission_observed": false,
+      "stable_packet_projection": {
+        "summary": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bullish' mismatch=False.",
+        "conflict_reasons": [
+          "lane_b_vs_context_role_under_fusion_policy",
+          "direction_hint_mismatch=False"
+        ],
+        "notes": "THE FADE local slice; no research_swarm/ read."
+      }
+    },
+    {
+      "case_id": "t56_04_stale_aligned_support_same_direction",
+      "intent": "Stale-labeled aligned context keeps the same direction inputs and should still emit the same minimal conflict packet if freshness is ignored.",
+      "pair_group": "aligned_support_pair",
+      "freshness_profile": "stale",
+      "freshness_fields_present": {
+        "context_age_hours": 120.0,
+        "event_time": "2026-03-24T12:00:00Z",
+        "freshness_hours": 120.0,
+        "freshness_window_hours": 48.0,
+        "ingested_at": "2026-03-29T12:00:00Z",
+        "is_stale": true,
+        "lag_class": "stale"
+      },
+      "direction_hint_context": "bullish",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"conflict_packet_id\": \"cf_t56_04_stale_aligned_support_same_direction_21492de85205\",\n  \"task_id\": \"t56_04_stale_aligned_support_same_direction\",\n  \"ticker\": \"FADE\",\n  \"created_at\": \"2026-04-01T22:47:35Z\",\n  \"summary\": \"fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bullish' mismatch=False.\",\n  \"conflict_reasons\": [\n    \"lane_b_vs_context_role_under_fusion_policy\",\n    \"direction_hint_mismatch=False\"\n  ],\n  \"evidence_paths\": [\n    \"C:\\\\Users\\\\phron\\\\AppData\\\\Local\\\\Temp\\\\t56_conflict_6u1jvh00\\\\t56_04_stale_aligned_support_same_direction_lane_b_artifact.json\",\n    \"C:\\\\Users\\\\phron\\\\AppData\\\\Local\\\\Temp\\\\t56_conflict_6u1jvh00\\\\t56_04_stale_aligned_support_same_direction_contra.json\"\n  ],\n  \"notes\": \"THE FADE local slice; no research_swarm/ read.\"\n}",
+      "conflict_packet_emitted": true,
+      "stale_omission_observed": false,
+      "stable_packet_projection": {
+        "summary": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='bullish' context_role='bullish' mismatch=False.",
+        "conflict_reasons": [
+          "lane_b_vs_context_role_under_fusion_policy",
+          "direction_hint_mismatch=False"
+        ],
+        "notes": "THE FADE local slice; no research_swarm/ read."
+      }
+    }
+  ],
+  "pair_comparisons": [
+    {
+      "pair_group": "contra_mismatch_pair",
+      "fresh_case_id": "t56_01_fresh_contra_mismatch",
+      "stale_case_id": "t56_02_stale_contra_mismatch_same_direction",
+      "fresh_conflict_packet_emitted": true,
+      "stale_conflict_packet_emitted": true,
+      "same_stable_packet_projection": true,
+      "pair_pass": true,
+      "explanation": "Fresh and stale inputs with identical direction hints produced the same bounded conflict packet content, so freshness-like fields did not affect this minimal path."
+    },
+    {
+      "pair_group": "aligned_support_pair",
+      "fresh_case_id": "t56_03_fresh_aligned_support",
+      "stale_case_id": "t56_04_stale_aligned_support_same_direction",
+      "fresh_conflict_packet_emitted": true,
+      "stale_conflict_packet_emitted": true,
+      "same_stable_packet_projection": true,
+      "pair_pass": true,
+      "explanation": "Fresh and stale inputs with identical direction hints produced the same bounded conflict packet content, so freshness-like fields did not affect this minimal path."
+    }
+  ],
+  "overall_verdict": {
+    "all_checks_passed": true,
+    "minimal_conflict_consumes_freshness_fields": false,
+    "minimal_conflict_stale_omission_present": false,
+    "minimal_conflict_emits_conflict_packet_for_stale_labeled_valid_context": true,
+    "wrapper_only_stale_omission_remains_true": true,
+    "proved_now": [
+      "The on-disk minimal cmd_conflict implementation reads source_lane, semantic_role/role, and direction_hint, but no freshness-like fields.",
+      "Fresh-vs-stale local replay pairs with identical directional inputs produce the same bounded conflict packet content.",
+      "Valid stale-labeled context is not omitted by the minimal path itself; wrapper-based stale omission remains separate from current minimal-path behavior."
+    ],
+    "not_proved_now": [
+      "Live Federal Register conflict freshness behavior.",
+      "Whole conflict-runtime closure across all permutations.",
+      "MVP approval or Phase 3 readiness."
+    ]
+  }
+}

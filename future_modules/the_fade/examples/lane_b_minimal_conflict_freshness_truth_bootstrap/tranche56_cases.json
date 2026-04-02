@@ -1,0 +1,114 @@
+{
+  "_meta": {
+    "title": "tranche56_lane_b_minimal_conflict_freshness_truth_cases",
+    "phase_number": 2,
+    "tranche_number": 56,
+    "prompt_number": 235,
+    "scope": "local fixtures only; no network"
+  },
+  "ticker": "FADE",
+  "lane_b_artifact_template": {
+    "event_id": "evt_t56_lane_b_primary",
+    "task_id": "t56_lane_b_primary",
+    "ticker": "FADE",
+    "asset_type": "other",
+    "source_lane": "lane_b_official_disclosure",
+    "source_name": "lane_b_fixture_source",
+    "direction_hint": "bullish",
+    "event_time": "2026-03-29T12:00:00Z",
+    "ingested_at": "2026-03-29T12:05:00Z",
+    "freshness_hours": 0.0833,
+    "raw_text": "Lane B fixture primary disclosure",
+    "parsed_summary": "Lane B fixture primary disclosure",
+    "evidence_url": "",
+    "evidence_path": "fixture://lane_b_primary",
+    "trust_tier": "operator_capture",
+    "lag_class": "fresh",
+    "parser_confidence": 0.9,
+    "notes": "Tranche 56 fixture primary artifact"
+  },
+  "comparison_pairs": [
+    {
+      "pair_group": "contra_mismatch_pair",
+      "fresh_case_id": "t56_01_fresh_contra_mismatch",
+      "stale_case_id": "t56_02_stale_contra_mismatch_same_direction"
+    },
+    {
+      "pair_group": "aligned_support_pair",
+      "fresh_case_id": "t56_03_fresh_aligned_support",
+      "stale_case_id": "t56_04_stale_aligned_support_same_direction"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "t56_01_fresh_contra_mismatch",
+      "pair_group": "contra_mismatch_pair",
+      "freshness_profile": "fresh",
+      "intent": "Fresh valid contra context reaches the minimal conflict branch.",
+      "contra": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bearish",
+        "context_age_hours": 4.0,
+        "freshness_hours": 4.0,
+        "freshness_window_hours": 48.0,
+        "lag_class": "fresh",
+        "event_time": "2026-03-29T08:00:00Z",
+        "ingested_at": "2026-03-29T12:00:00Z",
+        "notes": "Fresh contra context fixture"
+      }
+    },
+    {
+      "case_id": "t56_02_stale_contra_mismatch_same_direction",
+      "pair_group": "contra_mismatch_pair",
+      "freshness_profile": "stale",
+      "intent": "Stale-labeled valid contra context keeps the same direction inputs but should still reach the minimal conflict branch if freshness is ignored.",
+      "contra": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bearish",
+        "context_age_hours": 200.0,
+        "freshness_hours": 200.0,
+        "freshness_window_hours": 48.0,
+        "lag_class": "stale",
+        "event_time": "2026-03-21T04:00:00Z",
+        "ingested_at": "2026-03-29T12:00:00Z",
+        "is_stale": true,
+        "notes": "Stale contra context fixture"
+      }
+    },
+    {
+      "case_id": "t56_03_fresh_aligned_support",
+      "pair_group": "aligned_support_pair",
+      "freshness_profile": "fresh",
+      "intent": "Fresh aligned context reaches the minimal conflict branch with mismatch false.",
+      "contra": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bullish",
+        "context_age_hours": 2.0,
+        "freshness_hours": 2.0,
+        "freshness_window_hours": 48.0,
+        "lag_class": "fresh",
+        "event_time": "2026-03-29T10:00:00Z",
+        "ingested_at": "2026-03-29T12:00:00Z",
+        "notes": "Fresh aligned support fixture"
+      }
+    },
+    {
+      "case_id": "t56_04_stale_aligned_support_same_direction",
+      "pair_group": "aligned_support_pair",
+      "freshness_profile": "stale",
+      "intent": "Stale-labeled aligned context keeps the same direction inputs and should still emit the same minimal conflict packet if freshness is ignored.",
+      "contra": {
+        "semantic_role": "lane_e_research_swarm_context",
+        "direction_hint": "bullish",
+        "context_age_hours": 120.0,
+        "freshness_hours": 120.0,
+        "freshness_window_hours": 48.0,
+        "lag_class": "stale",
+        "event_time": "2026-03-24T12:00:00Z",
+        "ingested_at": "2026-03-29T12:00:00Z",
+        "is_stale": true,
+        "notes": "Stale aligned support fixture"
+      }
+    }
+  ]
+}
