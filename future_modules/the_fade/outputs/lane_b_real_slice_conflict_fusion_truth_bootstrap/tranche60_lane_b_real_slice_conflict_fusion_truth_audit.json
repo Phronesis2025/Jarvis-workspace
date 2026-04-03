@@ -1,0 +1,621 @@
+{
+  "_meta": {
+    "title": "tranche60_lane_b_real_slice_conflict_fusion_truth_audit",
+    "phase_number": 2,
+    "tranche_number": 60,
+    "prompt_number": 255,
+    "scope": "stored 22-slot Lane B full-window JSONL + per-run snapshots only; local contra file only; no network; no new collection",
+    "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json"
+  },
+  "truth_lock": {
+    "phase_2_active": true,
+    "approval_remains_false": true,
+    "approved_mvp_lanes_empty": true,
+    "phase_3_blocked": true,
+    "lane_b_deepest_but_partial": true,
+    "lane_e_paused": true,
+    "lane_c_paused": true,
+    "note": "T60 does not grant approval, does not unpause lanes, does not unlock Phase 3, and does not treat prior fixture/stored-slice tranches as live collection."
+  },
+  "population": {
+    "counted_rows": 22,
+    "window_start_utc": "2026-03-27T16:00:00Z",
+    "window_end_utc": "2026-03-29T16:00:00Z",
+    "excluded_task_id": "t30_valid_002",
+    "contra_fixture_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\inputs\\lane_b_real_evidence\\context_only_contra.example.json",
+    "contra_direction_hint": "bearish"
+  },
+  "cmd_conflict_contract": {
+    "lane_b_json_required_keys": [
+      "source_lane must equal lane_b_official_disclosure"
+    ],
+    "lane_b_json_optional_for_logic": [
+      "direction_hint — if absent, mismatch vs contra cannot become True (code uses ld is not None and cd is not None and ld != cd)"
+    ],
+    "contra_json_required": [
+      "semantic_role or role must equal lane_e_research_swarm_context",
+      "direction_hint optional for mismatch math; contra example uses bearish"
+    ],
+    "fusion_policy_read_only_fields_used": [
+      "lane_weight_hints.lane_b_official_disclosure",
+      "lane_weight_hints.lane_e_research_swarm_context"
+    ],
+    "fields_not_read_by_minimal_conflict": [
+      "freshness_hours",
+      "lag_class",
+      "ingested_at",
+      "event_time",
+      "raw_text",
+      "evidence_url",
+      "response_preview_utf8",
+      "any snapshot-only collector fields"
+    ]
+  },
+  "fusion_policy_lane_weights": {
+    "lane_b_official_disclosure": 1.0,
+    "lane_e_research_swarm_context": 0.2
+  },
+  "conflict_relevant_fields_on_disk": {
+    "jsonl_row_fields_conflict_adjacent": [
+      "actual_started_at_utc",
+      "artifact_path",
+      "captured_at_utc",
+      "collector_execution_success",
+      "endpoint_url",
+      "observed_result_type",
+      "run_identity",
+      "scheduled_slot_utc",
+      "source_class",
+      "source_observation_success",
+      "task_id",
+      "window_end_utc",
+      "window_start_utc"
+    ],
+    "collector_snapshot_field_union_sorted": [
+      "artifact_version",
+      "captured_at_utc",
+      "collector_execution_success",
+      "collector_exit_semantics",
+      "duplicate_check_status",
+      "endpoint_url",
+      "execution_vs_scheduled_slot_seconds",
+      "execution_within_window",
+      "http_status",
+      "json_shape_valid",
+      "max_slot_drift_seconds",
+      "response_content_type",
+      "response_preview_utf8",
+      "response_sha256",
+      "run_identity",
+      "scheduled_delay_seconds",
+      "slot_identity",
+      "slot_timing_status",
+      "source_observation_success",
+      "task_id",
+      "timing_valid_for_counted_slot_use"
+    ],
+    "literal_normalized_signal_event_files_for_task_ids": "not_present — the 22-slot population stores per-run *_tranche21_fr_slot_snapshot.json rows in JSONL, not lane_b_real_observation_slice observe output files.",
+    "direction_hint_present_as_snapshot_top_level_key": false,
+    "direction_hint_snapshot_rows": 0,
+    "source_lane_present_as_snapshot_top_level_key": false,
+    "source_lane_snapshot_rows": 0,
+    "per_row": [
+      {
+        "task_id": "t21_fr_full_20260327T160000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260327T180000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260327T200000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260327T220000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T000000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T020000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T040000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T060000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T080000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T100000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T120000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T140000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T160000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T180000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T200000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260328T220000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260329T000000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260329T020000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260329T040000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260329T060000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260329T080000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      },
+      {
+        "task_id": "t21_fr_full_20260329T100000Z",
+        "jsonl_conflict_adjacent_fields_present": {
+          "actual_started_at_utc": true,
+          "artifact_path": true,
+          "captured_at_utc": true,
+          "collector_execution_success": true,
+          "endpoint_url": true,
+          "observed_result_type": true,
+          "run_identity": true,
+          "scheduled_slot_utc": true,
+          "source_class": true,
+          "source_observation_success": true,
+          "task_id": true,
+          "window_end_utc": true,
+          "window_start_utc": true
+        },
+        "snapshot_has_response_sha256": true,
+        "snapshot_has_response_preview_utf8": true
+      }
+    ]
+  },
+  "supportable_from_real_slice_alone": [
+    "task_id, run identity, endpoint_url, timing fields, HTTP outcome, and response_sha256 are present for all 22 rows and can anchor an audit-derived event_id formula consistent with observe (evt_{task_id}_{sha256[:12]}).",
+    "The slice labels observed_result_type=normalized_signal_event at collector metadata level; this is not the same object shape as lane_b_real_observation_slice observe JSON output files on disk.",
+    "Fusion precedence wording in cmd_conflict is read-only from fusion_policy.json and is independent of the FR slice contents."
+  ],
+  "honest_boundaries": [
+    "The stored slice does not preserve lane_b observe-output JSON files; cmd_conflict requires a lane B artifact file with source_lane set — that file must be synthesized or produced out-of-band; synthesis is not 'evidence from the slice' except for task_id + response_sha256-backed event_id.",
+    "direction_hint is not stored in collector JSONL or snapshot fields; mismatch vs a bearish local contra is False if direction_hint is omitted from the lane artifact, even though the contra is directional — this is an honest mechanical boundary of the minimal conflict implementation.",
+    "If direction_hint is filled with observe's default 'neutral', mismatch becomes True vs bearish contra — but that default is tool policy, not something the 22-slot slice bytes prove about Federal Register content.",
+    "cmd_conflict does not read freshness, lag_class, publication_date, or preview text — so the real slice cannot improve T56's 'no freshness consumption in minimal path' conclusion; it also cannot prove stale-first omission behavior (T52 remains wrapper/fixture scoped).",
+    "Context-only contra remains THE FADE-local / example provenance — not live Research Swarm integration; no claim that external contra matches production Lane E behavior."
+  ],
+  "replay_scenarios": {
+    "representative_task_id": "t21_fr_full_20260327T160000Z",
+    "analytic_all_22_rows": {
+      "if_lane_artifact_omits_direction_hint": {
+        "direction_hint_mismatch_vs_contra": false
+      },
+      "if_lane_artifact_uses_observe_default_neutral_only": {
+        "direction_hint_mismatch_vs_contra": true
+      }
+    },
+    "subprocess_samples": {
+      "A_no_direction_hint_on_lane_artifact": {
+        "exit_code": 0,
+        "stdout_json_parse_ok": false,
+        "stdout_obj": null,
+        "stderr_head": "",
+        "conflict_packet_path": "C:\\Users\\phron\\AppData\\Local\\Temp\\t60_conflict_t9f2ko9w\\out_a\\t21_fr_full_20260327T160000Z_conflict_packet.json",
+        "conflict_packet": {
+          "conflict_packet_id": "cf_t21_fr_full_20260327T160000Z_16a0ee91592c",
+          "task_id": "t21_fr_full_20260327T160000Z",
+          "ticker": "FR",
+          "created_at": "2026-04-02T19:48:59Z",
+          "summary": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b=None context_role='bearish' mismatch=False.",
+          "conflict_reasons": [
+            "lane_b_vs_context_role_under_fusion_policy",
+            "direction_hint_mismatch=False"
+          ],
+          "evidence_paths": [
+            "C:\\Users\\phron\\AppData\\Local\\Temp\\t60_conflict_t9f2ko9w\\lane_no_direction.json",
+            "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\inputs\\lane_b_real_evidence\\context_only_contra.example.json"
+          ],
+          "notes": "THE FADE local slice; no research_swarm/ read."
+        }
+      },
+      "B_direction_hint_neutral_policy_fill_not_from_slice": {
+        "exit_code": 0,
+        "stdout_json_parse_ok": false,
+        "stdout_obj": null,
+        "stderr_head": "",
+        "conflict_packet_path": "C:\\Users\\phron\\AppData\\Local\\Temp\\t60_conflict_t9f2ko9w\\out_b\\t21_fr_full_20260327T160000Z_conflict_packet.json",
+        "conflict_packet": {
+          "conflict_packet_id": "cf_t21_fr_full_20260327T160000Z_015e5148ff6d",
+          "task_id": "t21_fr_full_20260327T160000Z",
+          "ticker": "FR",
+          "created_at": "2026-04-02T19:48:59Z",
+          "summary": "fusion_policy lane_weight_hints: lane_b_official_disclosure=1.0, lane_e_research_swarm_context=0.2; precedence: primary=lane_b_official_disclosure; context cannot override lane B. direction_hint lane_b='neutral' context_role='bearish' mismatch=True.",
+          "conflict_reasons": [
+            "lane_b_vs_context_role_under_fusion_policy",
+            "direction_hint_mismatch=True"
+          ],
+          "evidence_paths": [
+            "C:\\Users\\phron\\AppData\\Local\\Temp\\t60_conflict_t9f2ko9w\\lane_neutral.json",
+            "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\inputs\\lane_b_real_evidence\\context_only_contra.example.json"
+          ],
+          "notes": "THE FADE local slice; no research_swarm/ read."
+        }
+      }
+    }
+  },
+  "gate_impact": {
+    "conflict_handling": "partial_unchanged — T60 adds an explicit real-slice boundary: collector artifacts alone do not contain the lane JSON shape cmd_conflict consumes, and directionality for mismatch is not evidenced from the slice without policy fill-in.",
+    "context_dominance_risk": "partial_unchanged — for synthesized lane artifacts that include direction_hint neutral + local bearish contra, the minimal slice still emits explicit primary=lane_b and context weight 0.2 language; this does not prove production fusion runtime or live Lane E dominance testing.",
+    "relation_to_T47_T52_T56_T58": "T47/T52/T56 remain the bounded fixture/code-path evidence; T58 remains the normalization real-slice boundary; T60 states the parallel conflict/fusion truth boundary on the same stored 22-slot population without claiming new live collection."
+  }
+}

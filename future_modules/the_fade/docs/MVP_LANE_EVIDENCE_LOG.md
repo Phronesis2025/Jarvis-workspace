@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 246  
+**Prompt #:** 255  
 **Phase #:** 2  
-**Tranche #:** 58  
+**Tranche #:** 60  
 
-Updated: 2026-04-02T13:20:40+00:00
+Updated: 2026-04-02T19:45:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T58 executed on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts, Prompt **#226** T54 Lane B stale/outage residual policy coverage trace, Prompt **#235** T56 Lane B minimal conflict freshness-consumption truth pass, and Prompt **#246** T58 Lane B real-slice normalization truth pass — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T60 executed on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts, Prompt **#226** T54 Lane B stale/outage residual policy coverage trace, Prompt **#235** T56 Lane B minimal conflict freshness-consumption truth pass, Prompt **#246** T58 Lane B real-slice normalization truth pass, and Prompt **#255** T60 Lane B real-slice conflict/fusion truth pass — **no** network in those audits). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 60 (Prompt #255):** Lane B **real-slice conflict / fusion truth** bounded audit is **on disk** — `scripts/audit_lane_b_real_slice_conflict_fusion_truth.py` + `outputs/lane_b_real_slice_conflict_fusion_truth_bootstrap/tranche60_lane_b_real_slice_conflict_fusion_truth_audit.{json,md}`. **Stored 22-slot FR slice only** plus THE FADE-local `inputs/lane_b_real_evidence/context_only_contra.example.json` (**no** new fixture; **no** network). Proves JSONL + per-run snapshots carry conflict-adjacent collector identity/timing/endpoint/`response_sha256`/preview material but **do not** store observe-output `{task_id}_normalized_signal_event.json` files and **do not** store `source_lane` or `direction_hint` as snapshot top-level keys; `cmd_conflict` mismatch vs bearish local contra is **`False`** if `direction_hint` is omitted on the lane artifact, and becomes **`True`** only when `direction_hint` is policy-filled (e.g. observe default `neutral`) — the default is **tool policy**, not something the slice bytes prove about FR content. Bounded replay still emits explicit primary=lane_b + `fusion_policy.json` weight wording. **Does not** prove production fusion runtime, live Lane E integration, or gate closure for **conflict_handling** / **context_dominance_risk**. **Not** MVP approval; **not** Phase **3**.
 
 **Tranche 58 (Prompt #246):** Lane B **real-slice normalization truth** bounded audit is **on disk** — `scripts/audit_lane_b_real_slice_normalization_truth.py` + `outputs/lane_b_real_slice_normalization_truth_bootstrap/tranche58_lane_b_real_slice_normalization_truth_audit.{json,md}`. **Stored 22-slot FR slice only**; proves exact collector retention plus partial normalization support on the real stored slice (`task_id`, timing, evidence URL/path, `response_sha256`, and `results[0]` identity fields), but **not** full `normalized_signal_event` materialization without policy fill-ins or invented values. Silent-drop risk is reduced at the collector-retention layer but still **not** ruled out for full normalized-event materialization from the stored slice alone. **Not** MVP approval; **not** Phase **3**.
 
