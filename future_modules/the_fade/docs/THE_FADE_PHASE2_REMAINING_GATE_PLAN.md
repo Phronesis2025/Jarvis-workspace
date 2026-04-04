@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-04 (Tranche **62**: Prompt **#283** Lane B Protocol A controlled stale/unavailable timestamped pass)  
+**Updated:** 2026-04-04T13:26:53+00:00 (Tranche **63**: Prompt **#288** Lane B real `lane_b_real_observation_slice.py observe` pass — **success-only** on that run)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -31,7 +31,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 
 - **Lane B freshness:** **10**/**22** **cannot_classify_honestly** under adopted policy — dimension **partial**, not closed.
 - **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`. Tranche **50** adds a **bounded** normalization viability / silent-drop trace with explicit representative outcomes, and Tranche **58** adds a **stored real-slice truth pass** proving exact collector retention plus partial normalization support across the 22-slot FR slice. Full normalized-event materialization, full live breadth, and runtime completeness are still **not** proved.
-- **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4**. Tranche **54** adds bounded explicit policy-row coverage for residual escalation classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`. Tranche **62** (Prompt **#283**) adds **one** **Protocol A controlled harness** observation with explicit UTC timestamps and operator-declared **`observed_behavior`** (**no** vendor HTTP) — **partial** incremental evidence only; live FR outage evidence and production-scale system closure are still **not** proved.
+- **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4**. Tranche **54** adds bounded explicit policy-row coverage for residual escalation classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`. Tranche **62** (Prompt **#283**) adds **one** **Protocol A controlled harness** observation with explicit UTC timestamps and operator-declared **`observed_behavior`** (**no** vendor HTTP) — **partial** incremental evidence only. Tranche **63** (Prompt **#288**) adds **one** **real** **`lane_b_real_observation_slice.py observe`** HTTPS attempt to Federal Register **`documents.json`** — **success-only** on that run (`normalized_signal_event`, HTTP **200**); **does not** evidence observe-path **`scout_failure`**, timeout, or empty-row on that attempt; live FR outage statistics and production-scale system closure are still **not** proved.
 - **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases, Tranche **56** adds a **bounded** minimal-path truth pass (`tranche56_*`) proving the current `lane_b_real_observation_slice.py conflict` subcommand itself does **not** read freshness-like fields and does **not** stale-omit valid context, Tranche **60** adds a **stored real-slice** conflict/fusion boundary pass (`tranche60_*`) proving the 22-slot collector artifacts do **not** include observe-output lane JSON files or top-level `source_lane` / `direction_hint` snapshot keys, so `cmd_conflict` mismatch vs local contra is **not** slice-derived without policy-filled `direction_hint`, and Tranche **61** (Prompt **#276**) locks **operator-facing replay policy** in `lane_b_phase2_conflict_replay_policy_decision.json` requiring explicit labeling of slice-derived vs policy_fill vs unknown for replay on that stored slice (still **not** gate closure). Full conflict/runtime closure is still **not** proved.
 - **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
 
@@ -276,6 +276,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as run):** `lane_b_controlled_evidence_harness.py` **Protocol A** only; operator-authored inputs `examples/lane_b_controlled_evidence_harness_inputs/t62_protocol_a_lane_b_evidence.json` + `t62_protocol_a_scenario.json`. **No** network; **no** `lane_b_real_observation_slice.py` observe/conflict; **no** Tranche 21 collector; **no** `mvp_lane_approval.json` edit.
 
 **Outcome (on disk):** Harness stdout captured to `outputs/lane_b_real_observation/t62_protocol_a_lane_b_controlled_observation.json` (directory `*.json` gitignored — full JSON also embedded in `MVP_LANE_EVIDENCE_LOG.md`). Observation includes **`observed_at`**, **`evidence_item_timestamp`**, **`stale_window_definition`**, **`unavailable_condition_definition`**, **`observed_behavior`** (`escalate` for this pass), and harness **`input_fingerprint`**. **Does not** prove live outage, production scout runtime, or standard **#4** closure at scale; **not** approval; **not** Phase **3**.
+
+### Executed — **Tranche 63** (Prompt **#288**, Lane B real observe-path pass)
+
+**Name:** Lane B **real `observe` tool path** — **one** bounded HTTPS execution via **`lane_b_real_observation_slice.py observe`** to Federal Register API.
+
+**Scope (as run):** **Network** — read-only GET pattern to `https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest`; **`--task-id`** `t63_real_observe_20260404T130000Z`; **`--timeout`** `45`; output under `outputs/lane_b_real_observation/`. **No** controlled harness substitution; **no** `mvp_lane_approval.json` edit.
+
+**Outcome (on disk):** `t63_real_observe_20260404T130000Z_normalized_signal_event.json` (gitignored — summary embedded in `MVP_LANE_EVIDENCE_LOG.md`). **Observed outcome class:** **success-only** — HTTP **200**, `normalized_signal_event` materialized, **`lag_class`:** `fresh`, response **`sha256`** in `notes`. **Does not** prove **`scout_failure`**, client timeout, empty/no-row, or other non-success observe paths on this run; **does not** close standard **#4**; **not** approval; **not** Phase **3**.
 
 ---
 

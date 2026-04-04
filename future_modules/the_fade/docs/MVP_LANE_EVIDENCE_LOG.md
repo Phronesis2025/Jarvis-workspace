@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 283  
+**Prompt #:** 288  
 **Phase #:** 2  
-**Tranche #:** 62  
+**Tranche #:** 63  
 
-Updated: 2026-04-04T12:55:36+00:00
+Updated: 2026-04-04T13:26:53+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T61 executed on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts, Prompt **#226** T54 Lane B stale/outage residual policy coverage trace, Prompt **#235** T56 Lane B minimal conflict freshness-consumption truth pass, Prompt **#246** T58 Lane B real-slice normalization truth pass, Prompt **#255** T60 Lane B real-slice conflict/fusion truth pass, and Prompt **#276** T61 Lane B conflict-replay `direction_hint` policy decision — **no** network in T45–T60 audits; T61 is config/docs/registry policy only; **T62** (Prompt **#283**) is **one** bounded **Protocol A** controlled harness observation with explicit UTC timestamps (**no** vendor fetch; **not** production runtime proof). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T63 executed on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts, Prompt **#226** T54 Lane B stale/outage residual policy coverage trace, Prompt **#235** T56 Lane B minimal conflict freshness-consumption truth pass, Prompt **#246** T58 Lane B real-slice normalization truth pass, Prompt **#255** T60 Lane B real-slice conflict/fusion truth pass, and Prompt **#276** T61 Lane B conflict-replay `direction_hint` policy decision — **no** network in T45–T60 audits; T61 is config/docs/registry policy only; **T62** (Prompt **#283**) is **one** bounded **Protocol A** controlled harness observation with explicit UTC timestamps (**no** vendor fetch; **not** production runtime proof). **T63** (Prompt **#288**) is **one** bounded **`lane_b_real_observation_slice.py observe`** pass over HTTPS to Federal Register API (**network**); this run was **success-only** (`normalized_signal_event`, HTTP **200**); **does not** evidence observe-path **`scout_failure`**, timeout, or empty-row on this attempt; **does not** close MVP **`stale_outage_behavior`** / standard **#4**. Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 63 (Prompt #288):** Lane B **real observe-path** — **one** bounded **`lane_b_real_observation_slice.py observe`** execution (**HTTPS** to Federal Register **`documents.json`**). **Raw artifact (local):** `future_modules/the_fade/outputs/lane_b_real_observation/t63_real_observe_20260404T130000Z_normalized_signal_event.json` — note `outputs/lane_b_real_observation/.gitignore` ignores `*.json`, so the **committed record** is this log’s **command + UTC window + embedded summary** below (**Lane B — Tranche 63**). **Observed outcome class:** **success-only** (`normalized_signal_event`, HTTP **200**, ~**310** ms latency per artifact `notes`; **not** `scout_failure`). **Adds** an honest **live** success-path datapoint for the real observe tool; **does not** prove stale/outage / non-success observe behavior on this run; **does not** close standard **#4**; **does not** grant approval; **`mvp_lane_approval.json`** unchanged.
 
 **Tranche 62 (Prompt #283):** Lane B **Protocol A — controlled stale/unavailable timestamped pass** (**one** execution). **Harness:** `future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py` **Protocol A** with inputs `future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/t62_protocol_a_lane_b_evidence.json` and `t62_protocol_a_scenario.json`. **Raw JSON mirror** (same bytes as harness stdout): `future_modules/the_fade/outputs/lane_b_real_observation/t62_protocol_a_lane_b_controlled_observation.json` — note `outputs/lane_b_real_observation/.gitignore` ignores `*.json`, so the **authoritative committed record** is the **embedded observation JSON** under **Lane B — Tranche 62 Protocol A controlled pass** below. **Classification:** **controlled** operator-declared replay per **`LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1`**; satisfies Protocol A **minimum bar** for a **timestamped** pass with explicit **`observed_behavior`** and stale/unavailable **definitions** (not “no incident observed”). **Does not** prove live Federal Register outage, **`lane_b_real_observation_slice.py`** production stale/outage handling, or MVP **`stale_outage_behavior`** / standard **#4** at scale; **does not** grant approval; **`mvp_lane_approval.json`** unchanged.
 
@@ -741,9 +743,48 @@ What is still missing before approval could be considered:
 - reliability: **Tranche 18** documented the Tranche 16 micro-sample explicitly; **no** honest 0.8 comparison yet -- need defined pre-audit window + comparable draws (see "Lane B reliability window evidence (Tranche 18)")
 - freshness: finalize and fully apply freshness window classification
 - normalization_viability: expand silent-drop coverage
-- stale_outage_behavior: Tranche 16 recorded **bounded real** slice behavior (see Tranche 16 section); full pre-audit outage statistics still outstanding
+- stale_outage_behavior: Tranche 16 recorded **bounded real** slice behavior (see Tranche 16 section); **T63** added **one** real observe **success-only** attempt — **no** `scout_failure`/timeout/empty on that run; full pre-audit outage statistics and non-success observe-path evidence still outstanding
 - conflict_handling: broaden conflict-case permutations and record explicit safe precedence checks aligned to the Phase 2 gate standard
 - context_dominance_risk: Tranche 16 recorded **bounded real** slice behavior (see Tranche 16 section); broader adversarial coverage still outstanding
+
+## Lane B — Tranche 63 real observe-path pass (Prompt #288)
+
+**Scope:** **One** bounded **`lane_b_real_observation_slice.py observe`** execution — **real** HTTPS to Federal Register API (**not** controlled harness; **not** Tranche 21 slot collector).
+
+**Exact UTC window (operator instrumentation, PowerShell):** **Start** `2026-04-04T13:26:53.0463465Z` — **End** `2026-04-04T13:26:53.9504472Z`. **Single attempt**; Python process **exit code 0**.
+
+**Command (repo root):**
+
+```text
+python future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe --task-id t63_real_observe_20260404T130000Z --ticker FR --url "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest" --out-dir future_modules/the_fade/outputs/lane_b_real_observation --timeout 45
+```
+
+**Raw artifact path (local; directory `*.json` gitignored):**  
+`future_modules/the_fade/outputs/lane_b_real_observation/t63_real_observe_20260404T130000Z_normalized_signal_event.json`
+
+**Observed outcome class:** **success-only** — file **`t63_real_observe_20260404T130000Z_normalized_signal_event.json`** produced (**not** `{task_id}_scout_failure.json`).
+
+**Embedded summary** (full `raw_text` / long `parsed_summary` omitted — see on-disk file):
+
+```json
+{
+  "event_id": "evt_t63_real_observe_20260404T130000Z_c4178bd83b09",
+  "task_id": "t63_real_observe_20260404T130000Z",
+  "ticker": "FR",
+  "source_lane": "lane_b_official_disclosure",
+  "event_time": "2026-04-04T13:26:53Z",
+  "ingested_at": "2026-04-04T13:26:53Z",
+  "evidence_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=1&order=newest",
+  "trust_tier": "operator_capture",
+  "lag_class": "fresh",
+  "parser_confidence": 0.35,
+  "notes": "lane_b_real_observation observe; sha256=c4178bd83b0975bcdbd1dfda872c1d787fd87d898e47c2a24eec79ccdb7b38b5; http_status=200 latency_ms=309.8"
+}
+```
+
+**What this adds:** Honest record that the **on-disk** observe path successfully fetched FR **`documents.json`**, normalized to **`normalized_signal_event`**, and recorded HTTP **200** + response **`sha256`** in `notes` for this attempt.
+
+**What this does not prove:** **`scout_failure`**, client timeout, empty/no-row, or other non-success observe outcomes on this run; stale/outage downgrade-escalate behavior under real failure; standard **#4** closure; MVP approval; Phase **3**.
 
 ## Real evidence path spec (Tranche 14)
 
