@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 276  
+**Prompt #:** 283  
 **Phase #:** 2  
-**Tranche #:** 61  
-**Updated:** 2026-04-02T20:30:00+00:00
+**Tranche #:** 62  
+**Updated:** 2026-04-04T12:55:36+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T61 execution)
+## New chat checkpoint (post–T62 execution)
 
-- **Where you are:** Phase **2**; **Lane B** deepest but **partial** / **not** approved; **Lane E** & **Lane C** bootstraps **paused**; **T45** + **T47** + **T50** + adopted pre-existing **T52** + **T54** + **T56** + **T58** + **T60** Lane B bounded audits **on disk** plus **T61** conflict-replay policy (`lane_b_phase2_conflict_replay_policy_decision.json`); **T56** proves the current minimal `lane_b_real_observation_slice.py conflict` path does **not** read freshness-like fields and does **not** stale-omit context itself; **T58** proves the stored 22-slot Federal Register slice preserves exact collector retention plus partial normalization support, but full `normalized_signal_event` materialization remains unproved because the stored slice never wrote full normalized events, raw-body preservation is truncated, and several required normalized fields are absent or only partially evidenced; **T60** proves the same stored slice does **not** include observe-output lane JSON files or top-level `source_lane` / `direction_hint` snapshot keys, and documents the **`cmd_conflict`** mismatch boundary vs THE FADE-local contra with/without policy-filled `direction_hint`; **T61** **locks operator-facing labeling** (slice-derived vs policy_fill vs unknown) for **`cmd_conflict`** replay on that stored slice — **not** **conflict_handling** / **context_dominance_risk** closure; **approval** still **`mvp_lane_approval.json`** = **`false`**; **Phase 3** **blocked**.
-- **What to do next:** Open a **new governed prompt** to pick the **next honest Phase 2 move** after **T61**.
+- **Where you are:** Phase **2**; **Lane B** deepest but **partial** / **not** approved; **Lane E** & **Lane C** bootstraps **paused**; **T45** + **T47** + **T50** + adopted pre-existing **T52** + **T54** + **T56** + **T58** + **T60** Lane B bounded audits **on disk** plus **T61** conflict-replay policy (`lane_b_phase2_conflict_replay_policy_decision.json`) plus **T62** **Protocol A controlled harness** stale/unavailable **timestamped** observation (Prompt **#283**; **no** vendor fetch; log + local outputs mirror); **T56** proves the current minimal `lane_b_real_observation_slice.py conflict` path does **not** read freshness-like fields and does **not** stale-omit context itself; **T58** proves the stored 22-slot Federal Register slice preserves exact collector retention plus partial normalization support, but full `normalized_signal_event` materialization remains unproved because the stored slice never wrote full normalized events, raw-body preservation is truncated, and several required normalized fields are absent or only partially evidenced; **T60** proves the same stored slice does **not** include observe-output lane JSON files or top-level `source_lane` / `direction_hint` snapshot keys, and documents the **`cmd_conflict`** mismatch boundary vs THE FADE-local contra with/without policy-filled `direction_hint`; **T61** **locks operator-facing labeling** (slice-derived vs policy_fill vs unknown) for **`cmd_conflict`** replay on that stored slice — **not** **conflict_handling** / **context_dominance_risk** closure; **T62** is **controlled Protocol A only** — **partial** for stale/outage honesty, **not** live outage or production runtime; **approval** still **`mvp_lane_approval.json`** = **`false`**; **Phase 3** **blocked**.
+- **What to do next:** Open a **new governed prompt** to pick the **next honest Phase 2 move** after **T62**.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -48,6 +48,7 @@
 | T58 status                   | **Executed** — Lane B real-slice normalization truth pass (`audit_lane_b_real_slice_normalization_truth.py` + `tranche58_*`); proves the stored 22-slot FR slice preserves exact collector retention plus partial normalization support, but **not** full `normalized_signal_event` materialization without policy fill-ins or invented values; silent-drop risk is reduced at the collector-retention layer but still **not** ruled out for full normalized-event materialization |
 | T60 status                   | **Executed** — Lane B real-slice conflict / fusion truth pass (`audit_lane_b_real_slice_conflict_fusion_truth.py` + `tranche60_*`); stored 22-slot slice + local `context_only_contra.example.json`; proves collector artifacts lack observe lane JSON and lack top-level `source_lane` / `direction_hint`; bounded `cmd_conflict` replay documents mismatch boundary; **not** full conflict closure; **not** live Lane E |
 | T61 status                   | **Executed** — Lane B conflict-replay `direction_hint` policy (`lane_b_phase2_conflict_replay_policy_decision.json`); operator-facing replay labeling only for stored-slice **`cmd_conflict`** replay; **not** gate dimension closure; **not** approval |
+| T62 status                   | **Executed** — Lane B Protocol A controlled harness pass (Prompt **#283**); `lane_b_controlled_evidence_harness.py` Protocol A + `t62_protocol_a_*.json`; timestamped `LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1` observation; **no** vendor HTTP; **not** production stale/outage closure; **not** approval |
 
 ---
 
@@ -65,10 +66,11 @@
 | Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
 | Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T61 executed on disk** (includes Prompt **#192** T45 + Prompt **#200** T47 + Prompt **#213** T50 + Prompt **#221** adopted pre-existing T52 + Prompt **#226** T54 + Prompt **#235** T56 + Prompt **#246** T58 + Prompt **#255** T60 Lane B bounded traces + Prompt **#276** T61 conflict-replay policy) |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T62 executed on disk** (includes Prompt **#192** T45 + Prompt **#200** T47 + Prompt **#213** T50 + Prompt **#221** adopted pre-existing T52 + Prompt **#226** T54 + Prompt **#235** T56 + Prompt **#246** T58 + Prompt **#255** T60 Lane B bounded traces + Prompt **#276** T61 conflict-replay policy + Prompt **#283** T62 Protocol A controlled pass) |
 | Tranche 58 Lane B real-slice normalization truth pass (Prompt **#246**, executed) | `scripts/audit_lane_b_real_slice_normalization_truth.py` + `outputs/lane_b_real_slice_normalization_truth_bootstrap/tranche58_lane_b_real_slice_normalization_truth_audit.{json,md}` — **stored 22-slot FR slice only**; exact collector retention plus partial normalization support are evidenced, but full normalized-event materialization remains unproved; **not** approval |
 | Tranche 60 Lane B real-slice conflict / fusion truth pass (Prompt **#255**, executed) | `scripts/audit_lane_b_real_slice_conflict_fusion_truth.py` + `outputs/lane_b_real_slice_conflict_fusion_truth_bootstrap/tranche60_lane_b_real_slice_conflict_fusion_truth_audit.{json,md}` — **stored 22-slot FR slice + local contra example**; conflict/fusion boundary on disk; **not** approval |
 | Tranche 61 Lane B conflict-replay `direction_hint` policy (Prompt **#276**, executed) | `config/lane_b_phase2_conflict_replay_policy_decision.json` — operator-facing replay labeling for **`cmd_conflict`** on stored 22-slot collector artifacts; **not** gate closure; **not** approval |
+| Tranche 62 Lane B Protocol A controlled pass (Prompt **#283**, executed) | `scripts/lane_b_controlled_evidence_harness.py` + `examples/lane_b_controlled_evidence_harness_inputs/t62_protocol_a_lane_b_evidence.json` + `t62_protocol_a_scenario.json` + log embed; local mirror `outputs/lane_b_real_observation/t62_protocol_a_lane_b_controlled_observation.json` (gitignored `*.json`); **controlled** only; **not** approval |
 | Tranche 40 governance/registry closure | `config/mvp_lane_evidence_registry.json` reconciled to executed T31-T39 + T39A truth; no new lane evidence, no approval change |
 | Tranche 41 Lane C FOLLOW + stale-policy trace audit | `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}` |
 | Tranche 42 Lane C FOLLOW conflict-mismatch trace audit | `scripts/audit_lane_c_follow_conflict_trace.py` + `examples/lane_c_market_context_bootstrap/tranche42_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.{json,md}` |
@@ -199,7 +201,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ## Exact next authorized move
 
-1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — bounded lane pauses remain locked, work is now **through T60 on disk**, and the next move requires a **new governed Phase 2 decision** rather than resuming an old prompt by default.
+1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — bounded lane pauses remain locked, work is now **through T62 on disk**, and the next move requires a **new governed Phase 2 decision** rather than resuming an old prompt by default.
 2. **Hold at the Phase 2 gate checkpoint** — **promising-but-unapproved**; FR slice is **not** approval.
 3. Update **`mvp_lane_approval.json`** **only** with explicit operator signoff + matching evidence.
 4. Continue git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.

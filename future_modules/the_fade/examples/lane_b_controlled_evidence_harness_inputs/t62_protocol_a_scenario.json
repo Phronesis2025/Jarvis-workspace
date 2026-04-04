@@ -1,0 +1,11 @@
+{
+  "_meta": {
+    "title": "t62_protocol_a_scenario",
+    "tranche": 62,
+    "prompt": 283,
+    "controlled_pass": true
+  },
+  "stale_window_definition": "T62: evidence_item_timestamp >48h before harness observed_at => stale for this controlled Protocol A pass.",
+  "unavailable_condition_definition": "T62 controlled: operator-declared lane B source unavailable (simulated outage) for replay window.",
+  "observed_behavior": "escalate"
+}

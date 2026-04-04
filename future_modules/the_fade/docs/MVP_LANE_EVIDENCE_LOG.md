@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 276  
+**Prompt #:** 283  
 **Phase #:** 2  
-**Tranche #:** 61  
+**Tranche #:** 62  
 
-Updated: 2026-04-02T20:30:00+00:00
+Updated: 2026-04-04T12:55:36+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T61 executed on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts, Prompt **#226** T54 Lane B stale/outage residual policy coverage trace, Prompt **#235** T56 Lane B minimal conflict freshness-consumption truth pass, Prompt **#246** T58 Lane B real-slice normalization truth pass, Prompt **#255** T60 Lane B real-slice conflict/fusion truth pass, and Prompt **#276** T61 Lane B conflict-replay `direction_hint` policy decision — **no** network in T45–T60 audits; T61 is config/docs/registry policy only). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T61 executed on disk** (includes Prompt **#192** T45 Lane B failure-path fixture trace, Prompt **#200** T47 Lane B conflict/fusion precedence fixture trace, Prompt **#213** T50 Lane B normalization viability / silent-drop fixture trace, Prompt **#221** adoption of pre-existing T52 Lane B stale-context conflict omission trace artifacts, Prompt **#226** T54 Lane B stale/outage residual policy coverage trace, Prompt **#235** T56 Lane B minimal conflict freshness-consumption truth pass, Prompt **#246** T58 Lane B real-slice normalization truth pass, Prompt **#255** T60 Lane B real-slice conflict/fusion truth pass, and Prompt **#276** T61 Lane B conflict-replay `direction_hint` policy decision — **no** network in T45–T60 audits; T61 is config/docs/registry policy only; **T62** (Prompt **#283**) is **one** bounded **Protocol A** controlled harness observation with explicit UTC timestamps (**no** vendor fetch; **not** production runtime proof). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 62 (Prompt #283):** Lane B **Protocol A — controlled stale/unavailable timestamped pass** (**one** execution). **Harness:** `future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py` **Protocol A** with inputs `future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/t62_protocol_a_lane_b_evidence.json` and `t62_protocol_a_scenario.json`. **Raw JSON mirror** (same bytes as harness stdout): `future_modules/the_fade/outputs/lane_b_real_observation/t62_protocol_a_lane_b_controlled_observation.json` — note `outputs/lane_b_real_observation/.gitignore` ignores `*.json`, so the **authoritative committed record** is the **embedded observation JSON** under **Lane B — Tranche 62 Protocol A controlled pass** below. **Classification:** **controlled** operator-declared replay per **`LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1`**; satisfies Protocol A **minimum bar** for a **timestamped** pass with explicit **`observed_behavior`** and stale/unavailable **definitions** (not “no incident observed”). **Does not** prove live Federal Register outage, **`lane_b_real_observation_slice.py`** production stale/outage handling, or MVP **`stale_outage_behavior`** / standard **#4** at scale; **does not** grant approval; **`mvp_lane_approval.json`** unchanged.
 
 **Tranche 61 (Prompt #276):** Lane B **Phase 2 conflict-replay `direction_hint` policy** is **locked** in **`future_modules/the_fade/config/lane_b_phase2_conflict_replay_policy_decision.json`**. **Governance / operator-facing policy only** — applies to replaying **`lane_b_real_observation_slice.py conflict`** using **collector-only** artifacts from the **stored 22-slot** Federal Register full-window slice. **Locks:** classify values as **slice-derived bytes** vs **policy_fill** vs **unknown/omit**; the stored slice **does not** evidence **`direction_hint`** or observe-output lane JSON (per **T60**); **`direction_hint` may be omitted** when not evidenced; any fill from replay/observe defaults **must** be labeled **policy_fill**, **not** FR-derived truth; any **`cmd_conflict`** mismatch conclusion that depends on policy-filled **`direction_hint`** **must** be labeled accordingly. **Does not** close **`conflict_handling`** or **`context_dominance_risk`**; **does not** grant MVP approval; **does not** unlock Phase **3**; **no** new live FR collection; **no** new collector runs. **`mvp_lane_approval.json`** unchanged.
 
@@ -670,6 +672,43 @@ This protocol defines the **minimum controlled evidence** required to clear the 
 ## Protocol execution status (Tranche 10)
 
 Outcome: **SIMULATED REHEARSAL EXECUTED (TRANCHE 12 -- HARNESS ONLY)** (no approval flip; see Tranche 12 section -- **not** real lane evidence for gate dimensions).
+
+## Lane B — Tranche 62 Protocol A controlled pass (Prompt #283)
+
+**Scope:** **One** bounded **Protocol A** execution per **`Lane B controlled evidence protocol`** / **`LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1`** on disk. **Controlled** — harness validates inputs and emits a single observation; **no** external vendor HTTP.
+
+**Command (repo root):**
+
+```text
+python future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py --protocol A --lane-b-evidence future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/t62_protocol_a_lane_b_evidence.json --protocol-a-scenario future_modules/the_fade/examples/lane_b_controlled_evidence_harness_inputs/t62_protocol_a_scenario.json
+```
+
+**Exact harness observation JSON (stdout captured to local mirror path; copy for git-tracked truth):**
+
+```json
+{
+  "_meta": {
+    "title": "lane_b_controlled_evidence_observation",
+    "harness": "lane_b_controlled_evidence_harness",
+    "protocol": "LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1"
+  },
+  "observed_at": "2026-04-04T12:55:36.355841+00:00",
+  "lane_id": "lane_b_official_disclosure",
+  "result": {
+    "scenario_name": "LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1",
+    "evidence_item_timestamp": "2026-03-27T16:00:00+00:00",
+    "stale_window_definition": "T62: evidence_item_timestamp >48h before harness observed_at => stale for this controlled Protocol A pass.",
+    "unavailable_condition_definition": "T62 controlled: operator-declared lane B source unavailable (simulated outage) for replay window.",
+    "observed_behavior": "escalate",
+    "input_fingerprint": "796256d2194ad4de4d0c8ce526e1ca178b8b66bf0397496da9434646d96e4d6f"
+  },
+  "notes": "Harness output is constrained to protocol-bounded fields; no external data was fetched. This is not an approval statement."
+}
+```
+
+**What this adds:** A **post–T61** **timestamped** controlled observation with explicit **`evidence_item_timestamp`**, **`stale_window_definition`**, **`unavailable_condition_definition`**, and **`observed_behavior`** (`escalate`) — addressing the Protocol A **still_insufficient** failure mode “replay without timestamps or without explicit behavior outcomes.” **Partial only** for **`stale_outage_behavior`** at MVP bar: **not** production scout runtime, **not** live outage statistics, **not** standard **#4** closure.
+
+**What this does not prove:** Live FR or SEC availability; automated downgrade/escalate/omit in **`lane_b_real_observation_slice.py`** under real HTTP failure; gate sufficiency; MVP approval; Phase 3 readiness.
 
 Execution path now exists (bounded harness):
 - Harness script: `future_modules/the_fade/scripts/lane_b_controlled_evidence_harness.py`

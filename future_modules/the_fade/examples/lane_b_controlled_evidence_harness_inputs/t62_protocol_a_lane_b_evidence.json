@@ -1,0 +1,10 @@
+{
+  "_meta": {
+    "title": "t62_protocol_a_lane_b_evidence",
+    "tranche": 62,
+    "prompt": 283,
+    "controlled_pass": true
+  },
+  "lane_id": "lane_b_official_disclosure",
+  "evidence_item_timestamp": "2026-03-27T16:00:00+00:00"
+}

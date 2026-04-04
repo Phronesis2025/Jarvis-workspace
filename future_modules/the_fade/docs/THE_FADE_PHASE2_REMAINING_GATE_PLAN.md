@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-02 (Tranche **61**: Prompt **#276** Lane B conflict-replay `direction_hint` policy decision)  
+**Updated:** 2026-04-04 (Tranche **62**: Prompt **#283** Lane B Protocol A controlled stale/unavailable timestamped pass)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -31,7 +31,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 
 - **Lane B freshness:** **10**/**22** **cannot_classify_honestly** under adopted policy — dimension **partial**, not closed.
 - **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`. Tranche **50** adds a **bounded** normalization viability / silent-drop trace with explicit representative outcomes, and Tranche **58** adds a **stored real-slice truth pass** proving exact collector retention plus partial normalization support across the 22-slot FR slice. Full normalized-event materialization, full live breadth, and runtime completeness are still **not** proved.
-- **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4**. Tranche **54** adds bounded explicit policy-row coverage for residual escalation classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`, but the dimension remains **partial** because live FR outage evidence and system closure are still not proved.
+- **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4**. Tranche **54** adds bounded explicit policy-row coverage for residual escalation classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`. Tranche **62** (Prompt **#283**) adds **one** **Protocol A controlled harness** observation with explicit UTC timestamps and operator-declared **`observed_behavior`** (**no** vendor HTTP) — **partial** incremental evidence only; live FR outage evidence and production-scale system closure are still **not** proved.
 - **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases, Tranche **56** adds a **bounded** minimal-path truth pass (`tranche56_*`) proving the current `lane_b_real_observation_slice.py conflict` subcommand itself does **not** read freshness-like fields and does **not** stale-omit valid context, Tranche **60** adds a **stored real-slice** conflict/fusion boundary pass (`tranche60_*`) proving the 22-slot collector artifacts do **not** include observe-output lane JSON files or top-level `source_lane` / `direction_hint` snapshot keys, so `cmd_conflict` mismatch vs local contra is **not** slice-derived without policy-filled `direction_hint`, and Tranche **61** (Prompt **#276**) locks **operator-facing replay policy** in `lane_b_phase2_conflict_replay_policy_decision.json` requiring explicit labeling of slice-derived vs policy_fill vs unknown for replay on that stored slice (still **not** gate closure). Full conflict/runtime closure is still **not** proved.
 - **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
 
@@ -268,6 +268,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as run):** **Governance / operator policy only** — new machine-readable file `config/lane_b_phase2_conflict_replay_policy_decision.json` plus aligned updates to `MVP_LANE_EVIDENCE_LOG.md`, `mvp_lane_evidence_registry.json` (Lane B notes + `_meta`), `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`, and this plan. **No** new live Federal Register collection; **no** Tranche 21 scheduler rerun; **no** script edits; **no** new output artifacts under `outputs/`; **no** `mvp_lane_approval.json` edit.
 
 **Outcome (on disk):** `lane_b_phase2_conflict_replay_policy_decision.json` **locks** explicit classification: **slice-derived bytes** vs **policy_fill** vs **unknown/omit**; restates T60 truth that the stored slice **does not** prove **`direction_hint`** and **does not** include observe-output lane JSON or top-level **`source_lane`/`direction_hint`** on snapshots; **`direction_hint` may be omitted** when not evidenced; policy-filled values (including observe defaults) **must** be labeled **policy_fill**, **not** FR-derived truth; mismatch conclusions that depend on policy fill **must** be labeled accordingly. **Does not** close **`conflict_handling`** or **`context_dominance_risk`**; **not** approval; **not** Phase **3**.
+
+### Executed — **Tranche 62** (Prompt **#283**, Lane B Protocol A controlled stale/unavailable timestamped pass)
+
+**Name:** Lane B **`LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1`** — **one** bounded **Protocol A** harness execution with explicit UTC timestamps.
+
+**Scope (as run):** `lane_b_controlled_evidence_harness.py` **Protocol A** only; operator-authored inputs `examples/lane_b_controlled_evidence_harness_inputs/t62_protocol_a_lane_b_evidence.json` + `t62_protocol_a_scenario.json`. **No** network; **no** `lane_b_real_observation_slice.py` observe/conflict; **no** Tranche 21 collector; **no** `mvp_lane_approval.json` edit.
+
+**Outcome (on disk):** Harness stdout captured to `outputs/lane_b_real_observation/t62_protocol_a_lane_b_controlled_observation.json` (directory `*.json` gitignored — full JSON also embedded in `MVP_LANE_EVIDENCE_LOG.md`). Observation includes **`observed_at`**, **`evidence_item_timestamp`**, **`stale_window_definition`**, **`unavailable_condition_definition`**, **`observed_behavior`** (`escalate` for this pass), and harness **`input_fingerprint`**. **Does not** prove live outage, production scout runtime, or standard **#4** closure at scale; **not** approval; **not** Phase **3**.
 
 ---
 
