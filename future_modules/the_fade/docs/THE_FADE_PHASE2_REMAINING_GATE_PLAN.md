@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-04T13:26:53+00:00 (Tranche **63**: Prompt **#288** Lane B real `lane_b_real_observation_slice.py observe` pass — **success-only** on that run)  
+**Updated:** 2026-04-04T23:21:19+00:00 (Tranche **64**: implementation rollout Prompt **#294** — Lane A bounded evidence charter + doc lock; charter decision **#293**)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -34,6 +34,8 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 - **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4**. Tranche **54** adds bounded explicit policy-row coverage for residual escalation classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`. Tranche **62** (Prompt **#283**) adds **one** **Protocol A controlled harness** observation with explicit UTC timestamps and operator-declared **`observed_behavior`** (**no** vendor HTTP) — **partial** incremental evidence only. Tranche **63** (Prompt **#288**) adds **one** **real** **`lane_b_real_observation_slice.py observe`** HTTPS attempt to Federal Register **`documents.json`** — **success-only** on that run (`normalized_signal_event`, HTTP **200**); **does not** evidence observe-path **`scout_failure`**, timeout, or empty-row on that attempt; live FR outage statistics and production-scale system closure are still **not** proved.
 - **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases, Tranche **56** adds a **bounded** minimal-path truth pass (`tranche56_*`) proving the current `lane_b_real_observation_slice.py conflict` subcommand itself does **not** read freshness-like fields and does **not** stale-omit valid context, Tranche **60** adds a **stored real-slice** conflict/fusion boundary pass (`tranche60_*`) proving the 22-slot collector artifacts do **not** include observe-output lane JSON files or top-level `source_lane` / `direction_hint` snapshot keys, so `cmd_conflict` mismatch vs local contra is **not** slice-derived without policy-filled `direction_hint`, and Tranche **61** (Prompt **#276**) locks **operator-facing replay policy** in `lane_b_phase2_conflict_replay_policy_decision.json` requiring explicit labeling of slice-derived vs policy_fill vs unknown for replay on that stored slice (still **not** gate closure). Full conflict/runtime closure is still **not** proved.
 - **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
+- **Lane A (post–T64):** Bounded **charter** on disk (`docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`); **no** observation data yet; **`evidence_status` `not_started`** until **T65**. **Not** approval; **not** Phase **3**.
+- **Lane B (post–T64):** Existing partial evidence remains on disk; **new Lane B evidence tranches are frozen by default** — reopen **only** under a **new governed Lane B charter** naming scope and bounds.
 
 ---
 
@@ -285,6 +287,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 
 **Outcome (on disk):** `t63_real_observe_20260404T130000Z_normalized_signal_event.json` (gitignored — summary embedded in `MVP_LANE_EVIDENCE_LOG.md`). **Observed outcome class:** **success-only** — HTTP **200**, `normalized_signal_event` materialized, **`lag_class`:** `fresh`, response **`sha256`** in `notes`. **Does not** prove **`scout_failure`**, client timeout, empty/no-row, or other non-success observe paths on this run; **does not** close standard **#4**; **not** approval; **not** Phase **3**.
 
+### Executed — **Tranche 64** (implementation rollout Prompt **#294**, Lane A bounded evidence charter + doc lock; charter decision **#293**)
+
+**Name:** Lane A **`lane_a_public_signal`** — Phase **2** **bounded evidence charter** and **control-doc / registry reconciliation**; **Lane B default freeze** declaration.
+
+**Scope (as run):** New file `docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` plus updates to `mvp_lane_evidence_registry.json`, `MVP_LANE_EVIDENCE_LOG.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, this plan, and `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`. **No** network observation; **no** new Lane A `outputs/`; **no** execution code; **no** `mvp_lane_approval.json` edit; **no** Lane C / Lane E unpause.
+
+**Outcome (on disk):** Charter locks **one** read-only HTTPS public source class; URL **`TBD`** until named before **T65**; **T65** = **one** bounded observe-or-honest-failure pass targeting **reliability** + **normalization_viability** first. Lane A **`evidence_status` remains `not_started`**. **Lane B:** new tranches **paused by default** until a **new Lane B charter** reopens scope. **Not** approval; **not** Phase **3**.
+
 ---
 
 ## Do NOT work on yet (unless a new governed prompt explicitly rescopes)
@@ -296,6 +306,7 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 - **Research swarm** or **stock module** scope outside `future_modules/the_fade/`.
 - **`mvp_lane_approval.json`** edits without operator evidence + signoff.
 - **Ad-hoc** future tranches not listed above — **freeze** unless a new governed prompt explicitly adds them.
+- **New Lane B evidence tranches** — **frozen by default** post–T64; reopen only via **new governed Lane B charter**.
 
 ---
 
