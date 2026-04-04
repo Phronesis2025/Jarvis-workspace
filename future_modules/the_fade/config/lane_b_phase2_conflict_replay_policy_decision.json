@@ -1,0 +1,47 @@
+{
+  "_meta": {
+    "title": "lane_b_phase2_conflict_replay_policy_decision",
+    "prompt_number": 276,
+    "phase_number": 2,
+    "tranche_number": 61,
+    "lane_id": "lane_b_official_disclosure",
+    "decision_date_iso": "2026-04-02",
+    "binding_mvp_approval_file": "future_modules/the_fade/config/mvp_lane_approval.json",
+    "this_file_is_not_mvp_approval": true,
+    "mvp_approval_unchanged": true,
+    "phase_3_blocked": true
+  },
+  "policy_scope": {
+    "phase_2_operator_facing_replay_policy_only": true,
+    "applies_to": "Replaying lane_b_real_observation_slice.py conflict against collector-only artifacts from the stored 22-slot Federal Register full-window slice (tranche21_fr_slot_runs.jsonl rows + per-run snapshot JSONs for window_start_utc=2026-03-27T16:00:00Z and window_end_utc=2026-03-29T16:00:00Z; task_id t30_valid_002 excluded from full-window population per existing governance).",
+    "does_not_apply_to": "New live Federal Register collection, new Tranche 21 scheduled runs, production fusion runtime, scanner/dashboard work, or full observe-output pipelines that materialize evidenced lane JSON on disk."
+  },
+  "truth_from_tranche_60": {
+    "stored_slice_does_not_prove_direction_hint": true,
+    "stored_slice_does_not_include_observe_output_lane_json_files": true,
+    "stored_per_run_snapshots_do_not_include_top_level_source_lane_key": true,
+    "stored_per_run_snapshots_do_not_include_top_level_direction_hint_key": true,
+    "evidence_reference": "future_modules/the_fade/outputs/lane_b_real_slice_conflict_fusion_truth_bootstrap/tranche60_lane_b_real_slice_conflict_fusion_truth_audit.json"
+  },
+  "value_classification": {
+    "slice_derived_bytes": "Values read directly from stored collector JSONL fields and/or per-run snapshot JSON without synthetic field injection for replay.",
+    "policy_fill": "Values supplied only by operator replay steps, tool defaults, or synthetic lane JSON assembly for cmd_conflict that are not present as named top-level keys on the stored per-run snapshot and not present in observe-output lane JSON files on disk for that task_id.",
+    "unknown_omit": "direction_hint (and any conflict-relevant field not evidenced on the stored collector artifact) may be omitted; omission records unknown for mismatch math, not a claim that the Federal Register content lacks directionality."
+  },
+  "direction_hint_rules": {
+    "may_be_omitted_when_not_evidence": true,
+    "if_filled_from_replay_or_observe_defaults_must_be_labeled_policy_fill": true,
+    "policy_fill_is_not_fr_derived_truth": true,
+    "non_binding_example": "Observe-default neutral used only to exercise cmd_conflict is tool policy per T60 bounded replay documentation; must be labeled policy_fill when cited in operator reports."
+  },
+  "cmd_conflict_mismatch_labeling": {
+    "when_mismatch_depends_on_policy_filled_direction_hint": "Any directional mismatch=true narrative must state explicitly that mismatch arithmetic depended on policy_fill or synthetic lane assembly, not on slice-derived direction_hint.",
+    "when_direction_hint_omitted": "Per minimal cmd_conflict code truth, mismatch may be false when lane or contra direction_hint is absent; report as mechanical boundary / unknown inputs, not as Federal Register directional verdict."
+  },
+  "gate_closure_denials": {
+    "does_not_close_conflict_handling_dimension": true,
+    "does_not_close_context_dominance_risk_dimension": true,
+    "does_not_change_mvp_approval": true,
+    "does_not_unlock_phase_3": true
+  }
+}
