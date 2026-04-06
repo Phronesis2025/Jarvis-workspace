@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 311,
+    "prompt_number": 314,
     "phase_number": 2,
-    "tranche_number": 68
+    "tranche_number": 69
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 68,
+  "tranche": 69,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -112,7 +112,7 @@
     },
     {
       "lane_id": "lane_e_research_swarm_context",
-      "status": "evidence_in_progress_partial",
+      "status": "deferred_pending_evidence",
       "required_evidence": [
         "reliability",
         "freshness",
@@ -121,17 +121,16 @@
         "conflict_handling",
         "context_dominance_risk"
       ],
-      "evidence_status": "partial",
+      "evidence_status": "not_started",
       "dimension_evidence_status": {
         "reliability": "not_started",
-        "freshness": "partial",
-        "normalization_viability": "partial",
-        "stale_outage_behavior": "partial",
-        "conflict_handling": "partial",
-        "context_dominance_risk": "partial"
+        "freshness": "not_started",
+        "normalization_viability": "not_started",
+        "stale_outage_behavior": "not_started",
+        "conflict_handling": "not_started",
+        "context_dominance_risk": "not_started"
       },
-      "last_evidence_recorded_at": "2026-03-31T15:09:40+00:00",
-      "notes": "Lane E bounded bootstrap evidence is executed in Tranches 37-39 using THE FADE-local fixtures only: context non-dominance, freshness/omission trace, and normalization/omission-reason trace. Tranche 39A locks PATH B post-T39 stop: Lane E bootstrap is paused for now after bounded value capture. Lane E remains partial and not gate-closed; no live Research Swarm integration is evidenced. T44 (Prompt #187) is registry/doc governance reconciliation only — no new Lane E evidence. Tranche 66 (Prompt #302): Lane E remains **paused**; **not** reopened."
+      "notes": "**Historical (on disk, THE FADE-local fixtures only — not live HTTPS):** Tranches **37–39** bounded audits (`audit_lane_e_*` + `examples/lane_e_context_bootstrap/`) — **not** live Research Swarm integration. Tranche **39A** PATH B: Lane E bootstrap **paused** after bounded value capture. **T69** (Prompt **#314**): bounded **live** evidence charter on disk — `docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` — **`lane_id` `lane_e_research_swarm_context`**; **one** read-only HTTPS research/context source class; URL **`TBD`** until named before first observe; **no** auth; **no** multi-feed. **Registry `evidence_status` `not_started`** for the **first live HTTPS observe slice** under this charter (fixture-era dimension **partial** depth is **not** carried forward at lane level — **honest reset** for **live** bar). **`last_evidence_recorded_at` omitted** until a **live** observe artifact exists. **Next:** **T70** — **one** bounded Lane E **observe-or-honest-failure** pass (**reliability** + **normalization_viability** first). **Does not** grant MVP approval. `mvp_lane_approval.json` unchanged."
     }
   ],
   "evidence_collection_rules": {
@@ -146,6 +145,6 @@
       "context_dominance_risk": "Record checks that context-only reads do not dominate primary lane truth."
     }
   },
-  "notes": "Reconciled through Tranche 68 (Prompt #311): **T68** Lane C slice-1 **STOP** governance lock (docs + registry notes only; **no** new collection); Lane C **`evidence_status` `partial`** unchanged; **`mvp_lane_approval.json` unchanged** (`approved:false`). Prior: T67 first Lane C live observe, etc. Keep `approved:false` until evidence demonstrates the full gate standard."
+  "notes": "Reconciled through Tranche 69 (Prompt #314): **T69** — Lane E bounded **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** on disk; Lane E **`evidence_status` `not_started`** for **live** HTTPS slice; **`mvp_lane_approval.json` unchanged** (`approved:false`). Prior: T68 Lane C slice-1 stop, T67 Lane C live observe, etc. Keep `approved:false` until evidence demonstrates the full gate standard."
 }
 
