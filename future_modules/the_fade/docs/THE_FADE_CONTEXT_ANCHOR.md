@@ -1,14 +1,14 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 302  
+**Prompt #:** 307  
 **Phase #:** 2  
-**Tranche #:** 66
+**Tranche #:** 67
 
-Updated: 2026-04-06T13:25:45+00:00
+Updated: 2026-04-06T14:40:00+00:00
 
 ## Current checkpoint (start here)
 
-**Plain English:** Phase **2** is **active**. **Lane B** is **deepest** but **partial** and **not** approved; **new Lane B evidence tranches are frozen by default** — reopen **only** under a **new governed Lane B charter**. **Lane E** remains **paused** (**T39A**). **Lane A** **slice-1 stopped** (**T66**): T64–T65 complete; **`evidence_status` `partial`**; **no** further Lane A work unless a **new Lane A charter**. **Lane C** is the **active next lane**: **T66** (Prompt **#302**) adds **`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`** only — **no** live observation; URL **`TBD`**; registry Lane C **`not_started`** for **live** slice; **next** = **T67** **one** bounded Lane C observe-or-honest-failure pass (**reliability** + **normalization_viability** first). **T41**–**T42** Lane C **local fixtures** stay on disk — **not** live market integration. **T40** / **T44** governance closures, **T45**–**T63** Lane B traces on disk (including **T63** real observe **success-only** pass), plus **T64**–**T65** Lane A line, unchanged in substance. **`mvp_lane_approval.json`** remains **`approved: false`**; **Phase 3** remains **blocked**.
+**Plain English:** Phase **2** is **active**. **Lane B** is **deepest** but **partial** and **not** approved; **new Lane B evidence tranches are frozen by default** — reopen **only** under a **new governed Lane B charter**. **Lane E** remains **paused** (**T39A**). **Lane A** **slice-1 stopped** (**T66**): T64–T65 complete; **`evidence_status` `partial`**; **no** further Lane A work unless a **new Lane A charter**. **Lane C:** **T66** charter on disk + **T67** (Prompt **#307**) **first** bounded live observe — **success-only** on that run; URL locked in **`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`** §2 (`https://api.frankfurter.app/latest?from=USD`); registry Lane C **`evidence_status` `partial`** (**reliability** + **normalization_viability** first-touch **`partial`**; other dimensions **not_started**). **T41**–**T42** Lane C **local fixtures** stay on disk as **non-live** history. **T40** / **T44** governance closures, **T45**–**T63** Lane B traces on disk (including **T63** real observe **success-only** pass), plus **T64**–**T65** Lane A line, unchanged in substance. **`mvp_lane_approval.json`** remains **`approved: false`**; **Phase 3** remains **blocked**.
 
 ## One-screen truth (new chat fast-start)
 
@@ -16,7 +16,7 @@ Updated: 2026-04-06T13:25:45+00:00
 - **What THE FADE is:** A **future-module** scout-layer design and evidence area under `future_modules/the_fade/`. It is **not** a live product, **not** integrated into production Jarvis, and has **no** Phase 3 scanner/runtime.
 - **Current gate phase:** **Phase 2 only** — MVP lane approval and source reliability pre-audit.
 - **Approval authority:** `future_modules/the_fade/config/mvp_lane_approval.json` — on disk: **`approved: false`**, **`approved_mvp_lanes: []`**. Do not assume approval changed unless that file does.
-- **Current lane posture:** `lane_e_research_swarm_context` **paused** (T39A). `lane_b_official_disclosure` deepest but unapproved — **new Lane B tranches frozen by default** (reopen via new Lane B charter). `lane_a_public_signal` — **slice-1 STOP** (T66); **`partial`**; further Lane A only under **new Lane A charter**. `lane_c_market_context` — **active next**; **T66** charter on disk (`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`); **`evidence_status` `not_started`** for **live** observe slice; **T67** = first bounded observe-or-honest-failure pass.
+- **Current lane posture:** `lane_e_research_swarm_context` **paused** (T39A). `lane_b_official_disclosure` deepest but unapproved — **new Lane B tranches frozen by default** (reopen via new Lane B charter). `lane_a_public_signal` — **slice-1 STOP** (T66); **`partial`**; further Lane A only under **new Lane A charter**. `lane_c_market_context` — **T66** charter + **T67** first live observe on disk; **`evidence_status` `partial`** (**one** bounded success-only attempt recorded); **not** gate-closed.
 - **Current gate outcome note:** operator **full-dimension gate review** has been reviewed at this checkpoint. The FR slice is strong, but whole-gate approval is **still not justified**; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
 - **Final signoff lock (Prompt #113):** review completed with no approval flip -- lane B stays **promising-but-unapproved**, `t30_valid_002` stays excluded from the 22-slot full-window tally, and Phase 3 stays blocked.
 - **Tranche 31 freshness pass (Prompt #121 — executed):** Lane B Federal Register **freshness discipline** applied to the **22** full-window JSONL lines (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly** (advance `publication_date` vs observation under date-only UTC midnight model). **Not** approval; **not** Phase 3. Detail: `MVP_LANE_EVIDENCE_LOG.md`.
@@ -47,7 +47,8 @@ Updated: 2026-04-06T13:25:45+00:00
 - **Tranche 63 — Lane B real observe-path pass (Prompt #288 — executed):** `lane_b_real_observation_slice.py observe` — **one** HTTPS fetch to FR **`documents.json`**; **success-only** (`normalized_signal_event`, HTTP **200**); local `t63_*_normalized_signal_event.json` under `outputs/lane_b_real_observation/` (gitignored — log embed); **not** `scout_failure`/timeout/empty on this run; **not** stale/outage closure; **not** approval; **not** Phase **3**.
 - **Tranche 64 — Lane A bounded evidence charter + doc lock (Prompt #294 executed; charter decision #293):** `docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` — `lane_a_public_signal`; **Lane B default freeze** for new tranches; **not** approval; **not** Phase **3**.
 - **Tranche 65 — Lane A first bounded live observe (Prompt #298):** `lane_b_real_observation_slice.py observe` with **`--source-lane lane_a_public_signal`** → Coinbase public **`exchange-rates`** JSON; **success-only** on this run; **not** other failure modes; **not** Lane A gate closure; **not** approval.
-- **Tranche 66 — Lane A slice-1 stop + Lane C charter (Prompt #302):** `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; Lane A stop in `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` §9; **no** observation; **not** approval.
+- **Tranche 66 — Lane A slice-1 stop + Lane C charter (Prompt #302):** `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; Lane A stop in `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` §9; **no** observation in T66; **not** approval.
+- **Tranche 67 — Lane C first bounded live observe (Prompt #307):** `lane_b_real_observation_slice.py observe` + **`--source-lane lane_c_market_context`**; Frankfurter URL lock; **success-only** on this run; **not** approval.
 - **Remaining Phase 2 plan (Prompt #134 — LOCKED):** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — **through T66 executed on disk**; Phase **2** still active; approval false.
 
 ## Federal Register full Tranche 21 window — on-disk collector state (verified)
@@ -92,7 +93,7 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 ## Exact next authorized move
 
 1. **Hold at the Phase 2 checkpoint:** outcome is **promising-but-unapproved**; do **not** treat the FR slice as whole-gate approval.
-2. **After T62 on disk:** the next starting point is **choose the next honest bounded Phase 2 step** under a **new** governed prompt (read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** + **`JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`** for locked context only).
+2. **After T67 on disk:** the next starting point is **choose the next honest bounded Phase 2 step** under a **new** governed prompt (read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** + **`JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`** for locked context only).
 3. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
 4. **Operator signoff only for approval:** `mvp_lane_approval.json` changes only with matching evidence and explicit fields; until then **do not** flip approval and **do not** start Phase 3.
 
@@ -103,5 +104,5 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 - **Do not overclaim approval** — binding authority is `mvp_lane_approval.json`.
 - **Canon** — eight `JARVIS_THE_FADE_*.md` files stay under `future_modules/stock_module/` per `docs/CANON_INDEX.md`; do not move or delete.
 - **Process anchor** — `future_modules/stock_module/JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md` is the master checklist; align execution to it.
-- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**through T62 executed on disk**; governed PATH B lane pauses remain locked; Phase 2 still active).
+- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**through T67 executed on disk**; governed PATH B lane pauses remain locked; Phase 2 still active).
 - **`JARVIS_CODEBASE_STRUCTURE.md`** — unrelated drift; not THE FADE state.

@@ -1,8 +1,8 @@
 # Lane C — Phase 2 bounded evidence charter (Tranche 66)
 
-**Tranche:** 66  
+**Tranche:** 66 (charter) / **T67** first live observe (Prompt **#307**)  
 **T66 implementation rollout (canonical):** Prompt **#302**  
-**Updated:** 2026-04-06T20:30:00+00:00
+**Updated:** 2026-04-06T14:40:00+00:00
 
 This file **does not** grant MVP approval, **does not** change `approved` in `mvp_lane_approval.json`, and **does not** unblock Phase 3.
 
@@ -12,14 +12,14 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 
 - **`lane_id`:** `lane_c_market_context`
 - **Conceptual tie only:** Aligns with the **`market_data_lane`** / `lane_c_market_context` role in `future_modules/the_fade/config/mvp_lane_approval.json` as a **placeholder** — **no edit** to that file in T66.
-- **Registry:** Lane C **`evidence_status` `not_started`** for the **first live HTTPS observe slice** under this charter until **T67** (or a future governed tranche) produces a first observation record. **Prior** T41/T42 **local fixture** audits remain on disk; they are **not** live market-data integration.
+- **Registry:** Lane C **`evidence_status` `partial`** after **T67** (Prompt **#307**) first live HTTPS observe slice; **Prior** T41/T42 **local fixture** audits remain on disk; they are **not** live market-data integration.
 
 ---
 
 ## 2. Source class (bounded)
 
-- **Exactly one** read-only **HTTPS** public **market-context** endpoint class (e.g. public JSON over TLS suitable for market context — indices, quotes, or similar **single** resource class).
-- **Exact URL:** **`TBD`** until the operator names it **before** executing the first bounded observe pass. **No fabricated URL.**
+- **Exactly one** read-only **HTTPS** public **market-context** endpoint class (e.g. public JSON over TLS suitable for market context — indices, quotes, FX/rates, or similar **single** resource class).
+- **Exact URL (T67 source lock):** **`https://api.frankfurter.app/latest?from=USD`** — public **Frankfurter** JSON (ECB reference rates; **GET**, no API key). **Locked in T67** (Prompt **#307**). **No fabricated URL.** Distinct from Lane A (T65) Coinbase URL.
 - **Operator responsibility:** ToS, rate limits, and lawful read-only use are **operator-owned**; this charter does not perform legal review.
 - **No authentication** in repo (no API keys, no credential flows).
 - **No multi-feed aggregation** or fan-in.
@@ -34,18 +34,18 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 
 ---
 
-## 4. T67 first execution hook (next tranche)
+## 4. T67 first execution hook (executed)
 
-- **One** bounded **observe-or-honest-failure** pass against the charter URL (after `TBD` is resolved).
+- **Executed (Prompt #307):** **one** bounded **observe-or-honest-failure** pass against the URL in §2 — **success-only** on that run (`normalized_signal_event`, HTTP **200**); committed record in `MVP_LANE_EVIDENCE_LOG.md`; raw JSON under `outputs/lane_c_market_context/` (gitignored `*.json`).
 - **Dimensions touched first:** **`reliability`** (single attempt, explicit success vs failure) and **`normalization_viability`** (explicit `normalized_signal_event` vs explicit `scout_failure` / failure path — no silent drop).
 - Tooling for observe may reuse or minimally adapt existing THE FADE observe patterns under a **future governed prompt** — **out of scope for T66**.
 
 ---
 
-## 5. Expected first observe artifacts (post-T67, when executed)
+## 5. Expected first observe artifacts (T67 executed)
 
-- **One** committed record in `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md` (command, UTC window, outcome class, summary as appropriate).
-- **Optional** local output under `future_modules/the_fade/outputs/lane_c_market_context/` when created in a future tranche, with `*.json` gitignored if mirroring Lane A/B output discipline.
+- **Committed record** in `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md` (Prompt **#307**): command, UTC window, outcome class **success-only** on that run.
+- **Local output** under `future_modules/the_fade/outputs/lane_c_market_context/` with `*.json` gitignored (mirrors Lane A/B output discipline).
 
 ---
 

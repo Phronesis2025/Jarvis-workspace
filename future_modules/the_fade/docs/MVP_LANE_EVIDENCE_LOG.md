@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 302  
+**Prompt #:** 307  
 **Phase #:** 2  
-**Tranche #:** 66  
+**Tranche #:** 67  
 
-Updated: 2026-04-06T20:30:00+00:00
+Updated: 2026-04-06T14:40:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T66 executed on disk** (includes T45–T63 Lane B + **T64**–**T65** Lane A + **T66** Lane C charter + Lane A slice-1 stop lock). **T66** (Prompt **#302**) — **governance/doc only:** `docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; **no** Lane C network observation; Lane A **slice-1 STOP** (further Lane A only under **new Lane A charter**); **Lane B default freeze** unchanged; **Lane E paused** unchanged. **Next:** **T67** — **one** bounded Lane C **observe-or-honest-failure** pass per Lane C charter (**reliability** + **normalization_viability** first); name HTTPS URL before execute. **Does not** grant approval; **`mvp_lane_approval.json`** unchanged.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T67 executed on disk** (includes T45–T63 Lane B + **T64**–**T65** Lane A + **T66** Lane C charter + Lane A slice-1 stop + **T67** Lane C first live observe). **T67** (Prompt **#307**) — **one** bounded Lane C **`lane_b_real_observation_slice.py observe`** pass (**Frankfurter** URL lock in `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §2); **success-only** on this run; Lane A **slice-1 STOP** unchanged; **Lane B default freeze** unchanged; **Lane E paused** unchanged. **Does not** grant approval; **`mvp_lane_approval.json`** unchanged.
 
 ## Approval authority (binding)
 
@@ -79,7 +79,13 @@ Use this format per lane. Fill the fields with operator observations; if somethi
 
 ## Status (current)
 
-**Tranche 66 (Prompt #302):** **Governance / doc lock only** — **no** new live observation. **Lane C:** bounded evidence charter on disk — **`future_modules/the_fade/docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`** (`lane_id` **`lane_c_market_context`**); **one** read-only HTTPS **market-context** source class; URL **`TBD`** until named before first observe; **no** auth; **no** multi-feed. **Lane A:** **slice-1 STOP** — further Lane A tranches only under **new explicit Lane A charter**; charter update in `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` §9. **Lane B:** **default freeze** unchanged. **Lane E:** **paused**; **not** reopened. **Registry:** Lane C **`evidence_status` `not_started`** for **live** observe slice; Lane A stays **`partial`**. **Next:** **T67** first Lane C bounded observe-or-honest-failure pass. **Does not** grant MVP approval; **does not** unblock Phase **3**.
+**Tranche 67 (Prompt #307):** Lane C **first bounded live observe-or-honest-failure pass** — **one** read-only HTTPS GET, **no** auth. **Tool:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe` with **`--source-lane lane_c_market_context`** (emitted `normalized_signal_event` records **`lane_c_market_context`**). **URL (T67 charter lock):** `https://api.frankfurter.app/latest?from=USD` (Frankfurter public ECB-based JSON; documented in `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §2). **Command:**
+
+`python future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe --task-id t67_lane_c_first_observe --ticker MARKET_CONTEXT --url "https://api.frankfurter.app/latest?from=USD" --out-dir future_modules/the_fade/outputs/lane_c_market_context --source-lane lane_c_market_context --source-name frankfurter_ecb_public_latest --timeout 30`
+
+**UTC window (wall-clock echoes bracketing the process):** start **`2026-04-06T14:22:09.046Z`** — end **`2026-04-06T14:22:13.432Z`**. **Artifact `ingested_at`:** **`2026-04-06T14:22:09Z`** (per written JSON). **Raw artifact (local):** `future_modules/the_fade/outputs/lane_c_market_context/t67_lane_c_first_observe_normalized_signal_event.json` — `outputs/lane_c_market_context/.gitignore` ignores `*.json`; **committed record** is this log + registry + charter. **Observed outcome class:** **success-only** — HTTP **200**, **`normalized_signal_event`** written, latency **~3706.7** ms in artifact `notes`. **Does not** prove **`scout_failure`**, timeout, or empty-body on this run; **does not** close freshness, stale/outage, conflict, or context-dominance dimensions for Lane C; **does not** grant MVP approval; **`mvp_lane_approval.json`** unchanged.
+
+**Tranche 66 (Prompt #302):** **Governance / doc lock only** — **no** new live observation in T66. **Lane C:** bounded evidence charter on disk — **`future_modules/the_fade/docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`** (`lane_id` **`lane_c_market_context`**). **Lane A:** **slice-1 STOP** — further Lane A tranches only under **new explicit Lane A charter**; charter update in `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` §9. **Lane B:** **default freeze** unchanged. **Lane E:** **paused**; **not** reopened. **Registry (post-T66, pre-T67):** Lane C **`evidence_status` `not_started`** for **live** observe slice — superseded by **T67** above. **Does not** grant MVP approval; **does not** unblock Phase **3**.
 
 **Tranche 65 (Prompt #298):** Lane A **first bounded live observe-or-honest-failure pass** — **one** read-only HTTPS GET, **no** auth. **Tool:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe` with **`--source-lane lane_a_public_signal`** (minimal flag so emitted `normalized_signal_event` records **`lane_a_public_signal`**, not Lane B). **URL (charter lock):** `https://api.coinbase.com/v2/exchange-rates?currency=BTC`. **Command:**
 

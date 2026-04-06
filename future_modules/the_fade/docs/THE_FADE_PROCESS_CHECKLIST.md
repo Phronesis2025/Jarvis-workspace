@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 302  
+**Prompt #:** 307  
 **Phase #:** 2  
-**Tranche #:** 66
+**Tranche #:** 67
 
-Updated: 2026-04-06T13:25:45+00:00
+Updated: 2026-04-06T14:40:00+00:00
 
 ## You are here
 
-- **Checkpoint:** **T45**–**T63** Lane B on disk; **T64**–**T65** Lane A (charter + **one** live observe **success-only**); **T66** (Prompt **#302**) **governance only** — Lane A **slice-1 STOP** (`LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` §9); **Lane C** charter **`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`**; **no** Lane C observation in T66; Lane C registry **`not_started`** for **live** slice; **Lane C active next**. **Lane B default freeze** unchanged. **Lane E paused** unchanged (**T39A**). **Phase 2** still **active**; **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Next:** **T67** — **one** bounded Lane C **observe-or-honest-failure** pass (name URL first; **reliability** + **normalization_viability** first).
+- **Checkpoint:** **T45**–**T63** Lane B on disk; **T64**–**T65** Lane A (charter + **one** live observe **success-only**); **T66** (Prompt **#302**) **governance** — Lane A **slice-1 STOP** (`LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` §9); **Lane C** charter **`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`**; **T67** (Prompt **#307**) **one** bounded Lane C live observe — **success-only** on this run; Lane C registry **`partial`**. **Lane B default freeze** unchanged. **Lane E paused** unchanged (**T39A**). **Phase 2** still **active**; **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Next:** further Lane C / Phase **2** steps only under **new** governed prompts — **not** approval; **not** Phase **3** by default.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
@@ -74,7 +74,8 @@ Updated: 2026-04-06T13:25:45+00:00
 21. **Tranche 63 executed (Prompt #288):** Lane B **real `observe`** pass — **one** bounded HTTPS call via `lane_b_real_observation_slice.py`; **success-only** (`normalized_signal_event`, HTTP **200**). **No** approval; **No** Phase **3**; **no** stale/outage non-success closure.
 22. **Tranche 64 executed (Prompt #294):** Lane A **charter + doc lock** — `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; **Lane B default freeze**. **No** approval; **No** Phase **3**.
 23. **Tranche 65 executed (Prompt #298):** Lane A **first bounded live observe** — `lane_b_real_observation_slice.py observe` with **`--source-lane lane_a_public_signal`**; charter URL lock; **success-only** on this run. **No** approval; **No** Phase **3**.
-24. **Tranche 66 executed (Prompt #302):** Lane A **slice-1 STOP** + Lane C **bounded evidence charter** — `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; **no** observation. **No** approval; **No** Phase **3**.
+24. **Tranche 66 executed (Prompt #302):** Lane A **slice-1 STOP** + Lane C **bounded evidence charter** — `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; **no** observation in T66. **No** approval; **No** Phase **3**.
+25. **Tranche 67 executed (Prompt #307):** Lane C **first bounded live observe** — `lane_b_real_observation_slice.py observe` + **`--source-lane lane_c_market_context`**; Frankfurter URL lock (`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §2); **success-only** on this run. **No** approval; **No** Phase **3**.
 
 ## Phase 1 — completed
 
