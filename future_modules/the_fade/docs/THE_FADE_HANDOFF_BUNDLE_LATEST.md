@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 321  
+**Prompt #:** 329  
 **Phase #:** 2  
-**Tranche #:** 71  
-**Updated:** 2026-04-06T18:00:00+00:00
+**Tranche #:** 76  
+**Updated:** 2026-04-07T00:00:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T71 Lane E slice-1 stop)
+## New chat checkpoint (post–T76 Lane B scoped MVP governance acceptance pack)
 
-- **Where you are:** Phase **2**; **Lane B** frozen by default for **new** tranches (reopen via **Lane B charter**). **Lane A** **slice-1 STOP** (**T66**): **`partial`**. **Lane C** **slice-1 STOP** (**T68**): **`partial`**. **Lane E** — **T71** (Prompt **#321**) **slice-1 STOP** (`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` §12); **T70** live **`scout_failure`** on record; registry **`partial`** **preserved, not closed**; **no** further Lane E **live** tranches without **new Lane E charter**. **No** MVP lane **automatically active**. **Approval** **`false`**; **Phase 3** **blocked**.
-- **What to do next:** **Operator-governed** Phase **2** decision only — next-lane charter, formal HOLD, or approval-scope work (**not** assumed here). **Not** approval; **not** Phase **3**. **Do not** open new Lane B tranches without a **Lane B charter**.
+- **Where you are:** Phase **2**; **post–T76** (Prompt **#329**). **`config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + **`docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** on disk — **`subset_acceptance_established`** for **`freshness`**, **`normalization_viability`**, **`conflict_handling`**, **`context_dominance_risk`** under explicit limits; **`stale_outage_behavior` not** accepted; **`primary_lane_eligibility_met` remains false**. **No** new evidence in T76. **`mvp_lane_approval.json`** **`approved: false`** — **no** approval flip authorized. **Lanes A/C/E** **stopped** — **no** support-lane reopen. **Phase 3** **blocked**.
+- **What to do next:** **Operator-governed** next Phase **2** decision only — **not** assumed here; **do not** flip approval without explicit future tranche.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -36,7 +36,7 @@
 | Live / integrated            | **No** — early-stage future module under `future_modules/the_fade/`                                                               |
 | Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
 | Approval                     | **`mvp_lane_approval.json`:** `approved: false`, `approved_mvp_lanes: []` (verify on disk)                                        |
-| Lane posture                 | **Lane E** **slice-1 STOP** (T71, charter §12); **T70** **`scout_failure`** on record; registry **`partial`** preserved. T37–T39 fixtures **not** live HTTPS. **No** default active lane. **Lane B** deepest but unapproved — **new Lane B tranches frozen by default** (reopen via Lane B charter). **Lane A** slice-1 **STOP** (T66); **`partial`**. **Lane C** slice-1 **STOP** (T68); **`partial`** |
+| Lane posture                 | **T76** governance acceptance pack **completed** (`lane_b_t76_scoped_mvp_governance_acceptance_pack.json` + memo). **Lanes A/C/E** **stopped**. **`mvp_lane_approval.json`** **`approved: false`** — **no** flip authorized |
 | Phase 3                      | **Blocked**                                                                                                                       |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
 | T45 status                   | **Executed** — Lane B failure-path / stale-outage **fixture** trace (`audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_*`); **not** gate closure; **not** live integration |
@@ -58,6 +58,10 @@
 | T69 status                   | **Executed** — Lane E bounded evidence charter (Prompt **#314**); `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`; **no** live observe in T69; **not** approval |
 | T70 status                   | **Executed** — Lane E first bounded live observe (Prompt **#317**); `lane_b_real_observation_slice.py observe` + **`lane_e_research_swarm_context`**; Crossref URL lock; **`scout_failure`** (HTTP **404**) on this run; registry **`partial`**; **not** approval |
 | T71 status                   | **Executed** — Lane E slice-1 STOP governance lock (Prompt **#321**); `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` §12; **no** collection; **`partial`** preserved; **no** default next lane; **not** approval |
+| T73 status                   | **Executed** — MVP approval-scope decision lock (Prompt **#325**); first policy shape (**superseded in-file by T74**) |
+| T74 status                   | **Executed** — Amend MVP approval scope to scoped MVP path (Prompt **#326**); **same** `phase2_mvp_approval_scope_decision.json` **amended**; **no** evidence collection; **no** registry lane/dimension rewrites; **`mvp_lane_approval.json` unchanged**; **not** approval; **not** Phase **3** |
+| T75 status                   | **Executed** — Lane B primary-eligibility charter (**#327**; repaired **#328**); governance-acceptance pack objective (**four** dimensions); **no** evidence in repair; **`mvp_lane_approval.json` unchanged**; **not** approval; **not** Phase **3** |
+| T76 status                   | **Executed** — Lane B scoped MVP governance acceptance pack (**#329**); **`subset_acceptance_established`** for **four** dimensions; **`stale_outage_behavior` not** accepted; **`primary_lane_eligibility_met` remains false**; **no** new evidence; **`mvp_lane_approval.json` unchanged**; **not** approval; **not** Phase **3** |
 
 ---
 
@@ -73,6 +77,7 @@
 | Legacy lane B observe tool     | `future_modules/the_fade/scripts/lane_b_real_observation_slice.py`                                      |
 | Approval authority             | `future_modules/the_fade/config/mvp_lane_approval.json`                                                 |
 | Evidence registry              | `future_modules/the_fade/config/mvp_lane_evidence_registry.json`                                        |
+| MVP approval-scope decision (T73→T74) | `future_modules/the_fade/config/phase2_mvp_approval_scope_decision.json` — **T74** amended (**#326**) |
 | Reliability protocol text      | `future_modules/the_fade/docs/MVP_SOURCE_RELIABILITY_AUDIT.md`                                          |
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
 | Lane A Phase 2 charter (T64) + URL lock (T65)   | `future_modules/the_fade/docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` — §2 **T65** source URL locked |
@@ -80,7 +85,11 @@
 | Lane C Phase 2 charter (T66) + T67 URL + T68 slice-1 stop | `future_modules/the_fade/docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` — §2 URL (T67); §11 slice-1 STOP (T68) |
 | Lane C observe outputs (gitignored `*.json`) | `future_modules/the_fade/outputs/lane_c_market_context/` — see `MVP_LANE_EVIDENCE_LOG.md` Tranches **67**–**68** |
 | Lane E Phase 2 charter (T69) + T70 URL + T71 slice-1 stop §12 | `future_modules/the_fade/docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` — §2 Crossref URL (T70); §12 slice-1 STOP (T71); `outputs/lane_e_research_swarm_context/` (`*.json` gitignored — see `MVP_LANE_EVIDENCE_LOG.md`) |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T71 executed on disk** |
+| Lane B primary-eligibility charter (T75; repaired #328) + T76 acceptance pack | `LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md` — **implemented** as **`lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + memo (**four** dimensions; **not** `stale_outage_behavior`) |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T76 executed on disk** |
+| **T73 / T74 MVP approval-scope decision (one file)** | `future_modules/the_fade/config/phase2_mvp_approval_scope_decision.json` — **scoped MVP path** (T74) |
+| **T75 Lane B primary-eligibility charter** | `future_modules/the_fade/docs/LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md` (**#327**; repaired **#328**) — **Lane B–only** next **governance** class (**acceptance pack**) |
+| **T76 Lane B scoped MVP governance acceptance pack** | `future_modules/the_fade/config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json` + `future_modules/the_fade/docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md` (**#329**) — **`subset_acceptance_established`**; **`stale_outage_behavior` not** accepted; **`primary_lane_eligibility_met` remains false** |
 | Tranche 58 Lane B real-slice normalization truth pass (Prompt **#246**, executed) | `scripts/audit_lane_b_real_slice_normalization_truth.py` + `outputs/lane_b_real_slice_normalization_truth_bootstrap/tranche58_lane_b_real_slice_normalization_truth_audit.{json,md}` — **stored 22-slot FR slice only**; exact collector retention plus partial normalization support are evidenced, but full normalized-event materialization remains unproved; **not** approval |
 | Tranche 60 Lane B real-slice conflict / fusion truth pass (Prompt **#255**, executed) | `scripts/audit_lane_b_real_slice_conflict_fusion_truth.py` + `outputs/lane_b_real_slice_conflict_fusion_truth_bootstrap/tranche60_lane_b_real_slice_conflict_fusion_truth_audit.{json,md}` — **stored 22-slot FR slice + local contra example**; conflict/fusion boundary on disk; **not** approval |
 | Tranche 61 Lane B conflict-replay `direction_hint` policy (Prompt **#276**, executed) | `config/lane_b_phase2_conflict_replay_policy_decision.json` — operator-facing replay labeling for **`cmd_conflict`** on stored 22-slot collector artifacts; **not** gate closure; **not** approval |
@@ -94,6 +103,10 @@
 | Tranche 69 Lane E bounded evidence charter (Prompt **#314**, executed) | `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`; **no** live observe in T69; **not** approval |
 | Tranche 70 Lane E first bounded live observe (Prompt **#317**, executed) | `lane_b_real_observation_slice.py observe` + **`lane_e_research_swarm_context`**; Crossref URL lock; **`scout_failure`** on this run; **not** approval |
 | Tranche 71 Lane E slice-1 stop governance lock (Prompt **#321**, executed) | `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` §12; **no** collection; **`partial`** preserved; **not** approval |
+| Tranche 73 MVP approval-scope decision lock (Prompt **#325**, executed) | `config/phase2_mvp_approval_scope_decision.json` — first lock (**policy superseded in-file by T74**) |
+| Tranche 74 Amend MVP approval scope to scoped MVP path (Prompt **#326**, executed) | **Same** `config/phase2_mvp_approval_scope_decision.json` **amended**; **no** evidence collection; **no** registry lane/dimension rewrites; **`mvp_lane_approval.json` unchanged**; **not** approval; **not** Phase **3** |
+| Tranche 75 Lane B primary-eligibility charter (Prompt **#327**; repaired **#328**) | `docs/LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`; **governance-acceptance pack** objective; **`stale_outage_behavior` out of scope**; **`mvp_lane_approval.json` unchanged**; **not** approval; **not** Phase **3** |
+| Tranche 76 Lane B scoped MVP governance acceptance pack (Prompt **#329**) | `config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json` + `docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`; **governance only**; **no** new evidence; **`subset_acceptance_established`** for **four** dimensions; **`stale_outage_behavior` not** accepted; **`primary_lane_eligibility_met` remains false**; **`mvp_lane_approval.json` unchanged**; **not** approval; **not** Phase **3** |
 | Tranche 40 governance/registry closure | `config/mvp_lane_evidence_registry.json` reconciled to executed T31-T39 + T39A truth; no new lane evidence, no approval change |
 | Tranche 41 Lane C FOLLOW + stale-policy trace audit | `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}` |
 | Tranche 42 Lane C FOLLOW conflict-mismatch trace audit | `scripts/audit_lane_c_follow_conflict_trace.py` + `examples/lane_c_market_context_bootstrap/tranche42_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.{json,md}` |

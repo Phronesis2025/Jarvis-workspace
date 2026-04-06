@@ -1,0 +1,66 @@
+{
+  "decision_id": "THE_FADE_PHASE2_T76_LANE_B_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_PACK",
+  "phase": 2,
+  "tranche": 76,
+  "prompt_number": 329,
+  "lane_id": "lane_b_official_disclosure",
+  "status": "locked",
+  "effective_utc": "2026-04-07T00:00:00Z",
+  "label": "THE_FADE_PHASE2_T76_LANE_B_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_PACK",
+  "authoring_note": "Governance-only tranche: no new evidence collected; cites existing on-disk artifacts per MVP_LANE_EVIDENCE_LOG.md and mvp_lane_evidence_registry.json.",
+  "scope": {
+    "included_dimensions": [
+      "freshness",
+      "normalization_viability",
+      "conflict_handling",
+      "context_dominance_risk"
+    ],
+    "excluded_dimensions": [
+      "stale_outage_behavior"
+    ],
+    "scope_statement": "This pack addresses only the four included_dimensions for lane_b_official_disclosure. It does not address any other MVP dimension (including reliability), does not address stale_outage_behavior, and does not address any other lane.",
+    "no_other_lanes": true
+  },
+  "per_dimension": {
+    "freshness": {
+      "factual_basis_on_disk": "Tranches 31–32 classified the 22-slot Federal Register full-window rows under operator-facing policy; Prompt #132 adopted strict_midnight_utc in lane_b_phase2_freshness_policy_decision.json. Registry and log document 12 fresh / 0 stale / 10 cannot_classify_honestly for that window (t30_valid_002 excluded from tally per existing discipline).",
+      "accepted_for_scoped_mvp_path": true,
+      "accepted_only_as": "Operator accepts using the adopted freshness interpretation and the documented honest partiality (cannot_classify rows) as the scoped MVP stance for Lane B on this evidence window — not as proof of freshness closure on all possible FR rows or future windows.",
+      "residual_limits_not_accepted_away": "Full freshness closure on all documents; alternate calendar policies as primary; using freshness alone as proof of whole gate; production-scale freshness monitoring.",
+      "operator_facing_reason": "Acceptable for scoped MVP documentation because policy is explicit on disk and limitations are named, not hidden.",
+      "overclaim_guard": "dimension_evidence_status remains partial in registry; this acceptance is governance labeling of existing partial evidence, not a claim of full gate closure."
+    },
+    "normalization_viability": {
+      "factual_basis_on_disk": "Tranches 34, 50, 58 document normalization breadth and silent-drop traces on bounded cases and stored 22-slot slice: collector retention and partial normalization support evidenced; full normalized_signal_event materialization from stored preview remains explicitly out of bounds per audits.",
+      "accepted_for_scoped_mvp_path": true,
+      "accepted_only_as": "Operator accepts documenting normalization behavior as evidenced for the bounded FR slice and fixture sets on disk — with explicit known limits (preview truncation, policy fill-ins) — as sufficient for scoped MVP **narrative** for this dimension at current evidence depth.",
+      "residual_limits_not_accepted_away": "Full API body parse on all rows; full live breadth; runtime-wide silent-drop proof beyond bounded audits.",
+      "operator_facing_reason": "Acceptable because residual limits are already written in audit outcomes; acceptance makes the stance explicit for primary_lane_rule requirement (b) for this dimension only at scoped MVP bar.",
+      "overclaim_guard": "Registry partial preserved; no claim that normalization_viability is production-closed."
+    },
+    "conflict_handling": {
+      "factual_basis_on_disk": "Tranches 47, 52, 56, 60, 61 add local and stored-slice boundaries: fusion_policy alignment, stale-context omission in bounded fixtures, minimal conflict path truth, conflict-replay direction_hint policy JSON for stored slice.",
+      "accepted_for_scoped_mvp_path": true,
+      "accepted_only_as": "Operator accepts the documented bounded conflict/fusion semantics and replay labeling for Phase 2 scoped MVP — not full production conflict coverage or live fusion runtime proof.",
+      "residual_limits_not_accepted_away": "Full live FR conflict permutations; minimal path consuming freshness in production; complete conflict_handling closure.",
+      "operator_facing_reason": "Acceptable because the on-disk record already states gaps; this pack records operator acceptance of that bounded stance for scoped MVP.",
+      "overclaim_guard": "partial remains; T56/T60 gaps remain acknowledged in log."
+    },
+    "context_dominance_risk": {
+      "factual_basis_on_disk": "Tranche 60 and related artifacts document context-only vs primary boundaries on stored slice; lane_b_phase2_conflict_replay_policy_decision.json constrains replay labeling; context-only contra example is local.",
+      "accepted_for_scoped_mvp_path": true,
+      "accepted_only_as": "Operator accepts the documented non-dominance / boundary statements for scoped MVP at the evidenced depth — not proof that context cannot dominate in all production paths.",
+      "residual_limits_not_accepted_away": "Live multi-source fusion at scale; Research Swarm integration; universal non-dominance proof.",
+      "operator_facing_reason": "Acceptable as explicit governance stance matching existing documented limits.",
+      "overclaim_guard": "partial remains."
+    }
+  },
+  "explicit_non_acceptance": {
+    "stale_outage_behavior": "NOT settled, NOT accepted, NOT closed by this pack. Lane B standard #4 / stale-outage system behavior remains partial per prior audits (e.g. T35, T45, T54, T62, T63 narrative). Primary-lane eligibility cannot rest on this dimension without future governed work.",
+    "reliability": "NOT addressed by this pack. Reliability evidence (e.g. FR 22-slot slice) exists separately; this tranche does not add acceptance or closure for reliability.",
+    "primary_lane_eligibility_met_after_this_pack": false,
+    "primary_lane_eligibility_rationale": "phase2_mvp_approval_scope_decision.json primary_lane_rule requires every MVP dimension to have evidence at bar OR explicit governance treatment. This pack provides explicit governance treatment for four dimensions only. stale_outage_behavior and reliability (and any remaining primary_lane_rule gaps) are not satisfied by this pack alone. Therefore primary_lane_eligibility_met remains false after T76."
+  },
+  "overall_outcome": "subset_acceptance_established",
+  "overall_outcome_meaning": "A bounded governance acceptance record is established on disk for the four included dimensions under explicit residual limits. This is not an approval flip and not a claim that primary_lane_eligibility_met is true."
+}

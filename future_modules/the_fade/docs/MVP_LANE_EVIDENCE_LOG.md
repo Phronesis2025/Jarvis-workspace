@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 321  
+**Prompt #:** 329  
 **Phase #:** 2  
-**Tranche #:** 71  
+**Tranche #:** 76  
 
-Updated: 2026-04-06T18:00:00+00:00
+Updated: 2026-04-07T00:00:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T71 executed on disk** (includes T45–T63 Lane B + **T64**–**T68** Lane A/C lines + **T69**–**T71** Lane E charter / live observe / slice-1 stop). **T71** (Prompt **#321**) — **governance / doc lock only** — **Lane E slice-1 STOP**; **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** §12; **no** new live observation. **Lane E** registry **`evidence_status` `partial`** (**preserved, not closed** at MVP bar). **No** MVP lane is **active-by-default** for the next bounded slice — next spend requires **operator-governed** next-lane or approval-scope decision. Lane A **slice-1 STOP** unchanged; **Lane B default freeze** unchanged; Lane C **slice-1 STOP** unchanged. **Does not** grant approval; **`mvp_lane_approval.json`** unchanged; **does not** unblock Phase **3**.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T76 executed on disk** (includes **T74** scoped MVP path + **T75** Lane B **primary-eligibility charter** **#327** + **T76** Lane B **scoped MVP governance acceptance pack** **#329**). **T75** (canonical **Prompt #327** / Tranche **#75**) — **`LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`** authorizes **only** the **bounded** **Lane B** **governance** tranche implemented as **T76**: **`lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + **`LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **`freshness`**, **`normalization_viability`**, **`conflict_handling`**, **`context_dominance_risk`** only; **`stale_outage_behavior` out of scope**; **no** live collection; **no** new execution code; **no** new evidence collected in T76; **no** registry lane/dimension status rewrites in T76. **Lanes A/C/E** **stopped**. **`mvp_lane_approval.json`** unchanged; **no** approval flip; **does not** unblock Phase **3**.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,14 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 75 (Prompt #327; charter repaired Prompt #328):** **Governance / charter only** — **no** new evidence collection; **no** approval flip; **no** Phase **3** unlock; **no** support-lane reopen. **`LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`** — **Lane B** only — **next** bounded tranche = **one governance-acceptance pack** for **`freshness`**, **`normalization_viability`**, **`conflict_handling`**, **`context_dominance_risk`**; **`stale_outage_behavior` explicitly not** in this pack. **Does not** authorize **`mvp_lane_approval.json`** edit.
+
+**Tranche 76 (Prompt #329):** **Governance / acceptance-pack only** — **no** new evidence; **no** approval flip; **no** Phase **3** unlock; **no** support-lane reopen. **`config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + **`docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **`overall_outcome`:** **`subset_acceptance_established`** for the **four** named dimensions under explicit residual limits; **`stale_outage_behavior` not** accepted; **`primary_lane_eligibility_met` remains false** after this pack. **`mvp_lane_approval.json` unchanged**.
+
+**Tranche 74 (Prompt #326):** **Governance / doc lock only** — **`phase2_mvp_approval_scope_decision.json`** **amended** to **scoped MVP approval-eligibility**; **`posture` = `subset-of-lanes-eligible`**. Per-lane registry statuses **unchanged** in T74.
+
+**Tranche 73 (Prompt #325):** **Governance / doc lock only** — first approval-scope lock (**policy shape superseded by T74** in the same JSON file). **No** new evidence in T73.
 
 **Tranche 71 (Prompt #321):** **Governance / doc lock only** — **no** new live observation. **Lane E slice-1 STOP** — no further Lane E **live** evidence tranches unless a **new explicit Lane E charter** (governed prompt); see **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** §12. Registry Lane E **`evidence_status` `partial`** (**unchanged** — **not** closure at MVP bar; **not** approval; **not** Phase **3**). **Lane A** slice-1 STOP unchanged; **Lane B** default freeze unchanged; **Lane C** slice-1 STOP unchanged.
 

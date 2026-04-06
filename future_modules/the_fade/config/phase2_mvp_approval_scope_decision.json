@@ -1,0 +1,115 @@
+{
+  "decision_id": "THE_FADE_PHASE2_T74_AMEND_MVP_APPROVAL_SCOPE_TO_SCOPED_MVP_PATH",
+  "phase": 2,
+  "tranche": 74,
+  "prompt_number": 326,
+  "status": "locked",
+  "effective_utc": "2026-04-06T21:00:00Z",
+  "label": "THE_FADE_PHASE2_T74_AMEND_MVP_APPROVAL_SCOPE_TO_SCOPED_MVP_PATH",
+  "canonical_file_role": "Single machine-readable Phase 2 MVP approval-scope decision on disk. T73 (Prompt #325) previously locked all-lanes-required + full six-dimension closure; T74 (Prompt #326) supersedes that policy shape only inside this file — not a second decision file.",
+  "current_approval_truth": {
+    "binding_authority_path": "future_modules/the_fade/config/mvp_lane_approval.json",
+    "approved": false,
+    "approved_mvp_lanes": [],
+    "note": "Mirrors binding file as of T74. T74 does not edit mvp_lane_approval.json and does not flip approval."
+  },
+  "approval_scope_policy": {
+    "posture": "subset-of-lanes-eligible",
+    "eligibility_rule_single_reading": "A future approval flip (editing mvp_lane_approval.json to set approved:true and/or to make approved_mvp_lanes non-empty) becomes ELIGIBLE only if ALL of the following are true at flip time: (1) lane_b_official_disclosure satisfies primary_lane_rule in this file; (2) at least TWO distinct lanes from support_lane_pool satisfy support_lane_rule in this file; (3) a later governed approval-decision tranche documents explicit operator signoff on disk (governed prompt + aligned control docs). If any condition fails, the flip is not eligible under this scoped MVP path.",
+    "support_lane_pool": [
+      "lane_a_public_signal",
+      "lane_c_market_context",
+      "lane_e_research_swarm_context"
+    ],
+    "postures_not_in_effect": [
+      "all-lanes-required",
+      "no-approval-flip-until-future-governance"
+    ]
+  },
+  "primary_lane_rule": {
+    "lane_id": "lane_b_official_disclosure",
+    "role": "required_primary_approval_anchor",
+    "stricter_than_support_lanes": true,
+    "requirements": [
+      "In mvp_lane_evidence_registry.json at flip time, lane_b_official_disclosure must have no dimension_evidence_status value equal to not_started for any of the six MVP dimensions.",
+      "For every MVP dimension, Lane B must have either (a) on-disk evidence that satisfies the operator at the Phase 2 MVP source-reliability audit bar for that dimension, or (b) an explicit operator-accepted governance treatment on disk (charter clause, decision JSON, or evidence log entry) that names the residual gap and accepts it for this scoped MVP path.",
+      "Lane B must be the lane the operator explicitly treats as the primary disclosure anchor in the approval-decision tranche — not merely the historically deepest or most interesting lane."
+    ],
+    "as_of_t74_on_disk_assessment": {
+      "registry_reference": "mvp_lane_evidence_registry.json lane_b_official_disclosure.dimension_evidence_status",
+      "has_not_started_dimension": false,
+      "primary_lane_eligibility_met": false,
+      "honest_reason_not_met": "All six dimensions remain partial in the registry; residual gaps are not closed at full gate bar and there is no on-disk operator-accepted governance treatment that formally accepts each residual gap for scoped MVP approval. Therefore primary_lane_rule is NOT satisfied as of T74."
+    }
+  },
+  "support_lane_rule": {
+    "applies_to_lanes": [
+      "lane_a_public_signal",
+      "lane_c_market_context",
+      "lane_e_research_swarm_context"
+    ],
+    "counts_toward_eligibility_only_if_all_true": [
+      "Exactly one bounded live observe-or-honest-failure HTTPS slice has executed for that lane against a charter-locked or log-locked source URL (normalized_signal_event or scout_failure both count as honest slice outcomes).",
+      "mvp_lane_evidence_registry.json shows evidence_status at least partial for that lane.",
+      "An explicit slice stop, default freeze for new live evidence, or stop-for-now lock for that lane exists on disk (e.g., charter stop clause or equivalent governance doc).",
+      "Six-dimension full closure for that support lane is NOT required for this scoped MVP path — slice-1 minimum only."
+    ],
+    "explicit_non_claim": "Satisfying support_lane_rule does not assert that the support lane is mature on all MVP dimensions; it only satisfies the slice-1 minimum for counting toward the two-of-three support-lane requirement."
+  },
+  "dimension_policy": {
+    "mode": "primary_lane_strict_plus_support_lane_slice1_minimum",
+    "scoped_mvp_approval_eligibility_meaning": "Primary lane (lane_b_official_disclosure) must satisfy primary_lane_rule (strict bar: no not_started; every dimension closed at bar or explicitly accepted on disk). Each lane counted toward the two support lanes must satisfy support_lane_rule (bounded live slice + partial + stop/freeze lock) only. Full six-dimension closure across all four deferred lanes is NOT required for approval eligibility under this amended scope. This is not a claim that every deferred lane is production-mature.",
+    "six_dimensions": [
+      "reliability",
+      "freshness",
+      "normalization_viability",
+      "stale_outage_behavior",
+      "conflict_handling",
+      "context_dominance_risk"
+    ],
+    "superseded_policy_shapes": [
+      "all_six_dimensions_full_closure_required_across_all_four_lanes_before_flip",
+      "all-lanes-required before flip"
+    ]
+  },
+  "lane_posture_policy": {
+    "lane_a_public_signal": "stopped_for_now_slice_1_stop_T66_reopen_only_new_lane_a_charter",
+    "lane_b_official_disclosure": "frozen_by_default_for_new_evidence_tranches_reopen_only_new_lane_b_charter",
+    "lane_c_market_context": "stopped_for_now_slice_1_stop_T68_reopen_only_new_lane_c_charter",
+    "lane_e_research_swarm_context": "stopped_for_now_slice_1_stop_T71_reopen_only_new_lane_e_charter",
+    "no_lane_reopens_without_new_explicit_charter": true,
+    "no_lane_automatically_active_post_T71": true,
+    "t74_note": "T74 does not reopen any lane; posture unchanged from T71-era stops and Lane B default freeze."
+  },
+  "explicit_deferrals": {
+    "deferred_from_scoped_mvp_path": [
+      "Full six-dimension MVP closure on all support lanes (A/C/E)",
+      "Multi-lane runtime fusion completeness",
+      "Phase 3 universe scanner, runtime, dashboard, and production integration"
+    ],
+    "not_sufficient_for_approval": [
+      "Another random evidence slice without a new explicit charter for that lane",
+      "Support-lane activity or slice history without primary_lane_rule satisfaction for Lane B",
+      "Silent or verbal-only operator acceptance not written into on-disk governance (charter, decision file, evidence log, or checklist)",
+      "Strong Lane B slices alone while primary_lane_rule remains unsatisfied",
+      "Approval flip without meeting approval_scope_policy.eligibility_rule_single_reading"
+    ]
+  },
+  "next_tranche_authorization_rule": {
+    "allowed_next_tranche_classes": [
+      "Exactly one new explicit Lane B charter tranche naming one sharply bounded objective tied to satisfying primary_lane_rule (authoring and/or bounded execution only as that charter permits)",
+      "Exactly one approval-decision tranche only if scoped-MVP eligibility per this file is already satisfied on disk and the governed prompt contains explicit operator signoff",
+      "Exactly one governance hold tranche (doc-only pause; no collection)"
+    ],
+    "forbidden_next_without_new_governance": [
+      "New live evidence on lanes A/C/E by default (charter-first; no ad-hoc observe passes)",
+      "Multi-lane simultaneous reopen or multi-lane live collection",
+      "Phase 3 implementation or Phase 3 scoping work",
+      "mvp_lane_approval.json approval flip without satisfying approval_scope_policy and primary_lane_rule and support_lane_rule as written in this amended file",
+      "Second concurrent Lane B charter or overlapping bounded objectives without a new tranche that explicitly rescopes"
+    ]
+  },
+  "anti_drift_rule": {
+    "statement": "No Phase 3 work (scanner, runtime, dashboard, production integration) before an explicit governed approval-decision tranche that either (a) satisfies this file's scoped MVP eligibility preconditions and edits mvp_lane_approval.json with explicit operator signoff, or (b) amends governance in writing without starting Phase 3. This rule does not reintroduce all-lanes-required or full six-dimension closure across all four lanes as a precondition for Phase 3 — only the no-Phase-3-until-explicit-approval-decision discipline."
+  }
+}

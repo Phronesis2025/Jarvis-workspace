@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-06T18:00:00+00:00 (Tranche **71**, rollout **Prompt #321** — Lane E slice-1 STOP governance lock; **no** collection; **`mvp_lane_approval.json` unchanged**)  
+**Updated:** 2026-04-07T00:00:00+00:00 (Tranche **76** **Prompt #329** — Lane B **`lane_b_t76_scoped_mvp_governance_acceptance_pack`** governance-only; **no** collection; **`mvp_lane_approval.json` unchanged**)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -35,8 +35,12 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 - **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases, Tranche **56** adds a **bounded** minimal-path truth pass (`tranche56_*`) proving the current `lane_b_real_observation_slice.py conflict` subcommand itself does **not** read freshness-like fields and does **not** stale-omit valid context, Tranche **60** adds a **stored real-slice** conflict/fusion boundary pass (`tranche60_*`) proving the 22-slot collector artifacts do **not** include observe-output lane JSON files or top-level `source_lane` / `direction_hint` snapshot keys, so `cmd_conflict` mismatch vs local contra is **not** slice-derived without policy-filled `direction_hint`, and Tranche **61** (Prompt **#276**) locks **operator-facing replay policy** in `lane_b_phase2_conflict_replay_policy_decision.json` requiring explicit labeling of slice-derived vs policy_fill vs unknown for replay on that stored slice (still **not** gate closure). Full conflict/runtime closure is still **not** proved.
 - **Lane A (post–T66):** **Slice-1 STOP** — T64–T65 complete; **`evidence_status` `partial`**; further Lane A only under **new Lane A charter** (`LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` §9). **Not** approval; **not** Phase **3**.
 - **Lane C (post–T68):** Bounded **live** evidence charter on disk (`docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`) + **T67** first live observe + **T68** (Prompt **#311**) **slice-1 STOP** (§11) — URL locked §2 (`https://api.frankfurter.app/latest?from=USD`); registry **`evidence_status` `partial`** (**`partiality` preserved, not closed**); further Lane C live evidence **only** under **new explicit Lane C charter**. **Historical** T41/T42 local fixtures on disk — **not** live integration. **Not** approval; **not** Phase **3**.
+- **T73 (historical policy, superseded in-file by T74):** **`config/phase2_mvp_approval_scope_decision.json`** first locked **all-lanes-required** + full six-dimension closure (Prompt **#325**).
+- **T74 (current policy in same file):** **`config/phase2_mvp_approval_scope_decision.json`** **amended** to **scoped MVP path** — **`subset-of-lanes-eligible`**; **Lane B** = **primary** strict anchor; **≥2** of **A/C/E** = **support** slice-1 minimum (**not** six-dimension closure on support lanes); flip **eligibility** does **not** require all four lanes fully mature; **explicit operator signoff** still required in a later approval-decision tranche. **Governance only** — **no** new evidence; **no** registry lane/dimension rewrites; **`mvp_lane_approval.json` unchanged**; **no** lane reopen. Next tranche must follow **amended** **`next_tranche_authorization_rule`** / **`anti_drift_rule`** (**no** Phase **3** before explicit approval-decision tranche; **does not** sneak all-lanes/full-closure back as the rule).
 - **Lane E (post–T71):** Bounded **live** evidence charter on disk (`docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`) — **T70** (Prompt **#317**) **one** live **`observe`** → **`scout_failure`** (HTTP **404**) on Crossref URL §2; **T71** (Prompt **#321**) **slice-1 STOP** §12 — **no** further Lane E **live** tranches unless **new explicit Lane E charter**; registry **`evidence_status` `partial`** (**`partiality` preserved, not closed**); dimensions unchanged from T70. **Historical** Tranches **37–39** THE FADE-local fixtures on disk — **not** this live HTTPS slice. **Not** approval; **not** Phase **3**. **No** default next active lane.
 - **Lane B (post–T64):** Existing partial evidence remains on disk; **new Lane B evidence tranches are frozen by default** — reopen **only** under a **new governed Lane B charter** naming scope and bounds.
+- **T75 (post–T74; charter repaired Prompt #328):** **`docs/LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`** — **Lane B** **only** for the **next bounded governance** tranche; **one** objective **(B)** — **governance-acceptance pack** for **`freshness`**, **`normalization_viability`**, **`conflict_handling`**, **`context_dominance_risk`**; **`stale_outage_behavior` out of scope**; **no** approval flip in T75; **no** A/C/E reopen.
+- **T76 (Prompt #329):** **`config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + **`docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **governance only**; **`subset_acceptance_established`** for the **four** named dimensions under explicit limits; **`stale_outage_behavior` not** accepted; **`primary_lane_eligibility_met` remains false**; **no** new evidence; **`mvp_lane_approval.json` unchanged**; **no** A/C/E reopen.
 
 ---
 
@@ -327,6 +331,38 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as run):** Add **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** §12; updates to `mvp_lane_evidence_registry.json`, `MVP_LANE_EVIDENCE_LOG.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, this plan, and `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`. **No** network observation; **no** execution code; **no** `mvp_lane_approval.json` edit; **no** Lane A/B/C reopen; **no** new lane started.
 
 **Outcome (on disk):** **Lane E slice-1 STOP** — further Lane E **live** evidence **only** under **new explicit Lane E charter**. Registry Lane E **`evidence_status` remains `partial`**; dimension states **unchanged** from T70. **`partiality` preserved, not closed** — **not** MVP bar; **not** approval; **not** Phase **3**. **No** default next active MVP lane — **operator-governed** next Phase **2** decision required.
+
+### Executed — **Tranche 73** (Prompt **#325**, MVP approval-scope decision lock)
+
+**Name:** Phase **2** **MVP approval-scope governance lock** — machine-readable decision file only.
+
+**Scope (as run):** New file `future_modules/the_fade/config/phase2_mvp_approval_scope_decision.json`; updates to `mvp_lane_evidence_registry.json` (**`_meta` / top-level `tranche` / `notes` only** — **no** lane `evidence_status` or `dimension_evidence_status` rewrites), `MVP_LANE_EVIDENCE_LOG.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, this plan, and `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`. **No** network observation; **no** execution code; **no** `mvp_lane_approval.json` **`approved` / `approved_mvp_lanes`** edits; **no** lane reopen.
+
+**Outcome (on disk):** First approval-scope lock (**all-lanes-required** + full closure) — **superseded in-file by T74** (see below). **Not** approval; **not** Phase **3** unlock.
+
+### Executed — **Tranche 74** (Prompt **#326**, amend MVP approval scope to scoped MVP path)
+
+**Name:** **Amend** `phase2_mvp_approval_scope_decision.json` — **subset-of-lanes-eligible** scoped MVP **approval-eligibility** rule.
+
+**Scope (as run):** **Edit only** `future_modules/the_fade/config/phase2_mvp_approval_scope_decision.json` (replace T73 policy shape); updates to `mvp_lane_evidence_registry.json` (**`_meta` / top-level `tranche` / `notes` only**), `MVP_LANE_EVIDENCE_LOG.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, this plan, and `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`. **No** network observation; **no** execution code; **no** `mvp_lane_approval.json` **`approved` / `approved_mvp_lanes`** edits; **no** lane reopen.
+
+**Outcome (on disk):** **Single-reading** scoped path: **primary_lane_rule** for **`lane_b_official_disclosure`** (stricter; **not** met as of T74 — registry all **`partial`**); **support_lane_rule** for **≥2** of **A/C/E** (bounded live slice + **`partial`** + slice stop — **does not** require six-dimension closure); **`dimension_policy.mode`** = **`primary_lane_strict_plus_support_lane_slice1_minimum`**; **`next_tranche_authorization_rule`** tightened to **Lane B charter** **or** **hold** **or** **approval-decision** when preconditions met; **`anti_drift_rule`** preserves **no Phase 3** before explicit approval-decision tranche **without** reintroducing all-lanes/full-closure. **Not** approval; **not** Phase **3** unlock.
+
+### Executed — **Tranche 75** (Prompt **#327**, Lane B primary-eligibility charter; **repaired** Prompt **#328**)
+
+**Name:** **`LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`** — **one** bounded **Lane B** objective tied to **`primary_lane_rule`**.
+
+**Scope (as run):** `future_modules/the_fade/docs/LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md` (**repaired**); updates to `mvp_lane_evidence_registry.json` (**`notes` only**), `MVP_LANE_EVIDENCE_LOG.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, this plan, and `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`. **No** network observation; **no** execution code; **no** `mvp_lane_approval.json` **`approved` / `approved_mvp_lanes`** edits; **no** Lane A/C/E reopen.
+
+**Outcome (on disk):** **Objective class (B):** **one** bounded **governance-acceptance pack** for **`freshness`**, **`normalization_viability`**, **`conflict_handling`**, **`context_dominance_risk`**; **`stale_outage_behavior` explicitly out of scope** (prior stored-slice stale/outage audit objective **removed**). **Lane B** **only** for next bounded **governance** class. **Not** approval; **not** Phase **3** unlock; **no** support-lane live work. **Delivered artifact filenames:** see **Tranche 76** (Prompt **#329**) — on-disk pack uses **`lane_b_t76_*`** paths.
+
+### Executed — **Tranche 76** (Prompt **#329**, Lane B scoped MVP governance acceptance pack)
+
+**Name:** **`THE_FADE_PHASE2_T76_LANE_B_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_PACK`** — governance-only acceptance record for the **four** charter dimensions.
+
+**Scope (as run):** New files `future_modules/the_fade/config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json` + `future_modules/the_fade/docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`; updates to `mvp_lane_evidence_registry.json` (**`_meta` / top-level `tranche` / `notes` + Lane B `notes` append** — **no** `dimension_evidence_status` rewrites), `MVP_LANE_EVIDENCE_LOG.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, this plan, and `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`. **No** network observation; **no** execution code; **no** `mvp_lane_approval.json` **`approved` / `approved_mvp_lanes`** edits; **no** Lane A/C/E reopen.
+
+**Outcome (on disk):** **`overall_outcome`:** **`subset_acceptance_established`** for **`freshness`**, **`normalization_viability`**, **`conflict_handling`**, **`context_dominance_risk`** under explicit residual limits; **`stale_outage_behavior` not** accepted; **`primary_lane_eligibility_met_after_this_pack`:** **`false`**. **Not** approval; **not** Phase **3** unlock.
 
 ---
 
