@@ -4,9 +4,9 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-06T19:40:51+00:00 (post–**T80** **#336**; **Prompt #337** — machine-readable timestamp normalization + **`deferred_lanes: []`** alignment across binding file, registry **`approval_state`**, and **`current_approval_truth`**; **not** Phase **3**; **not** production maturity)  
+**Updated:** 2026-04-06T22:00:00+00:00 (post–**T82** **#342** — **`phase2_mvp_approval_scope_decision.json`** post-T80 Phase 3 entry governance lock: **`phase3_entry_planning_only_definition`**, **`post_t82_on_disk_governance_lock`**, amended **`next_tranche_authorization_rule`**; **scoped MVP approval** (**T80**) **unchanged**; **no** lane reopen; **not** Phase **3** implementation; **not** production maturity)  
 
-**Authority:** Binding **scoped** MVP approval state is **`mvp_lane_approval.json`** (updated in **T80**). This plan file is a **locked historical sequence** and honest partiality accounting — it is **not** the approval flip mechanism.
+**Authority:** Binding **scoped** MVP approval state is **`mvp_lane_approval.json`** (updated in **T80**; **not** edited in **T82**). This plan file is a **locked historical sequence** and honest partiality accounting — it is **not** the approval flip mechanism.
 
 ---
 
@@ -43,6 +43,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 - **T76 (Prompt #329):** **`config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + **`docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **governance only**; **`subset_acceptance_established`** for the **four** named dimensions under explicit limits; **`stale_outage_behavior` not** accepted at T76 alone; **no** new evidence; **`mvp_lane_approval.json` unchanged**; **no** A/C/E reopen.
 - **T78 (Prompt #334):** **`config/lane_b_t78_scoped_mvp_governance_acceptance_pack.json`** + **`docs/LANE_B_T78_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **governance only**; **`reliability`** + **`stale_outage_behavior`**; **does not** revisit T76 four dimensions; **`subset_acceptance_established`**; **`primary_lane_eligibility_met_after_this_pack`:** **`true`** **with T76** per pack rationale; **no** new evidence in T78; **no** A/C/E reopen.
 - **T80 (Prompt #336):** **`config/t80_scoped_mvp_approval_decision.json`** — **`scoped_mvp_approval_decision`:** **`YES`**; **`mvp_lane_approval.json`** **`approved: true`** with four named lanes; **`phase2_mvp_approval_scope_decision.json`** reconciled (**`as_of_t80_on_disk_assessment`**; **`as_of_t74_on_disk_assessment`** historical only). **Approval-decision only** — **no** new evidence; **no** execution code; **no** lane reopen. **Scoped MVP approval granted** — **not** Phase **3** readiness; **not** production maturity.
+- **T82 (Prompt #342):** **`config/phase2_mvp_approval_scope_decision.json`** — **`post_t82_on_disk_governance_lock`**, **`phase3_entry_planning_only_definition`**, amended **`next_tranche_authorization_rule`** / **`anti_drift_rule`**. **Governance lock only** — **no** `mvp_lane_approval.json` change; **no** registry change; **no** lane reopen; **no** code; **no** evidence. **Splits** pre-T80 combined ban: **one** future **Phase 3 entry planning only** tranche is **explicitly allowed**; **Phase 3 implementation**, scanner/runtime/dashboard **coding**, **provider integration**, **lane reopen**, **evidence collection** remain **forbidden** as **next** moves without further governance.
 
 ---
 
@@ -50,7 +51,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 
 - **Full strict `MVP_SOURCE_RELIABILITY_AUDIT.md` closure** on **every** dimension for **every** lane as **production-mature** — **not** claimed; registry **`dimension_evidence_status`** partialities below remain honest.
 - **`approved: true` under the scoped T74 path** — **justified and recorded** in **T80** (`mvp_lane_approval.json` + signoff artifact); this is **distinct** from the bullet above.
-- **Phase 3** universe scanner / runtime / dashboard / production integration — **not** started; **not** authorized by **T80**.
+- **Phase 3 implementation** (universe scanner / runtime / dashboard / production integration / provider wiring) — **not** started; **not** authorized by **T80** or **T82**; **T82** authorizes only a **future** **Phase 3 entry planning only** tranche per **`phase3_entry_planning_only_definition`**.
 - **Merging** unrelated historical samples into one reliability statistic — **still not** justified (per existing audit discipline).
 
 ---

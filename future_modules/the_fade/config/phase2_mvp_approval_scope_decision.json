@@ -120,17 +120,47 @@
     "allowed_next_tranche_classes": [
       "Exactly one new explicit Lane B charter tranche naming one sharply bounded objective tied to satisfying primary_lane_rule (authoring and/or bounded execution only as that charter permits)",
       "Exactly one approval-decision tranche only if scoped-MVP eligibility per this file is already satisfied on disk and the governed prompt contains explicit operator signoff",
-      "Exactly one governance hold tranche (doc-only pause; no collection)"
+      "Exactly one governance hold tranche (doc-only pause; no collection)",
+      "Exactly one bounded Phase 3 entry planning only tranche as defined in phase3_entry_planning_only_definition (post-T82; docs and/or one machine-readable planning/governance artifact only; no implementation)"
     ],
     "forbidden_next_without_new_governance": [
       "New live evidence on lanes A/C/E by default (charter-first; no ad-hoc observe passes)",
       "Multi-lane simultaneous reopen or multi-lane live collection",
-      "Phase 3 implementation or Phase 3 scoping work",
+      "Phase 3 implementation (universe scanner, runtime, dashboard, or production integration in executable form)",
+      "Scanner, runtime, or dashboard coding or wiring toward production under THE FADE Phase 3",
+      "Provider integration for MVP lanes (concrete provider wiring, credentials, live adapters) without a later explicit implementation governance tranche",
+      "Lane reopen for new live evidence without a new explicit charter for that lane",
+      "Evidence collection tranches (new observes, new slices, new audits) framed as Phase 3 entry planning",
       "mvp_lane_approval.json approval flip without satisfying approval_scope_policy and primary_lane_rule and support_lane_rule as written in this amended file",
       "Second concurrent Lane B charter or overlapping bounded objectives without a new tranche that explicitly rescopes"
-    ]
+    ],
+    "t82_note": "Tranche 82 (Prompt #342) splits pre-T80 combined ban on Phase 3 work: Phase 3 entry planning only is now an explicit allowed_next class; Phase 3 implementation and coding remain forbidden until a later explicit governance step."
+  },
+  "phase3_entry_planning_only_definition": {
+    "tranche_lock_reference": "T82 Prompt #342 post-T80 Phase 3 entry governance lock",
+    "single_meaning": "After T82, one future governed tranche may perform Phase 3 entry planning only as defined here. This does not authorize Phase 3 implementation.",
+    "permitted_in_planning_tranche_only": [
+      "Markdown or text control docs under future_modules/the_fade/docs/ and/or future_modules/stock_module/ canon checklists, scoped by the governed prompt",
+      "At most one new narrow machine-readable JSON under future_modules/the_fade/config/ if the governed prompt explicitly authorizes it (scope statement, milestones, non-executable boundaries only)",
+      "Updates to existing governance JSON listed in the governed prompt (e.g. this file) only as explicitly scoped"
+    ],
+    "explicitly_forbidden_inside_planning_tranche": [
+      "Production or development runtime code (scanner, worker, scheduler, dashboard UI/backend)",
+      "Executable scripts added or changed for Phase 3 execution paths (observation collectors, live pipelines)",
+      "Provider integration: API clients, secrets, deployment config, or wiring mvp_lane_approval.json provider placeholders into live systems",
+      "Lane reopen: new live HTTPS observes, new charter-less collection, or relaxing lane_posture_policy stops",
+      "Evidence collection: new Phase 2 evidence slices, new audit executions, or registry dimension_evidence_status rewrites under the guise of planning"
+    ],
+    "non_claims": "Phase 3 entry planning only does not assert production readiness, does not clear registry partialities, does not unlock support-lane live work, and does not substitute for a future explicit Phase 3 implementation governance tranche."
+  },
+  "post_t82_on_disk_governance_lock": {
+    "tranche": 82,
+    "prompt_number": 342,
+    "label": "THE_FADE_PHASE2_T82_POST_T80_PHASE3_ENTRY_GOVERNANCE_LOCK",
+    "effective_utc": "2026-04-06T22:00:00Z",
+    "statement": "Scoped MVP approval (T80) remains in force and is not production maturity. Lane posture unchanged: A/C/E stopped-for-now; Lane B frozen by default for new evidence without new charter. Registry partialities remain honest partial. This lock amends next_tranche_authorization_rule so Phase 3 entry planning only is explicitly allowed as one bounded next class; Phase 3 implementation, scanner/runtime/dashboard coding, provider integration, lane reopen, and evidence collection remain forbidden without future explicit governance."
   },
   "anti_drift_rule": {
-    "statement": "No Phase 3 work (scanner, runtime, dashboard, production integration) before an explicit governed approval-decision tranche that either (a) satisfies this file's scoped MVP eligibility preconditions and edits mvp_lane_approval.json with explicit operator signoff, or (b) amends governance in writing without starting Phase 3. This rule does not reintroduce all-lanes-required or full six-dimension closure across all four lanes as a precondition for Phase 3 — only the no-Phase-3-until-explicit-approval-decision discipline."
+    "statement": "Pre-T80: No Phase 3 implementation before scoped MVP approval (T80) and explicit operator signoff on mvp_lane_approval.json per eligibility_rule_single_reading. Post-T80 and post-T82: Phase 3 implementation (scanner, runtime, dashboard, production integration, provider wiring) remains forbidden until a later explicit implementation governance tranche — not satisfied by Phase 3 entry planning only. One bounded Phase 3 entry planning only tranche is permitted per phase3_entry_planning_only_definition. This rule does not reintroduce all-lanes-required or full six-dimension closure across all four lanes."
   }
 }

@@ -1,14 +1,14 @@
 # THE FADE Context Anchor
 
-**Prompt #:** 337  
+**Prompt #:** 342  
 **Phase #:** 2  
-**Tranche #:** 80 (repair only)
+**Tranche #:** 82
 
-Updated: 2026-04-06T19:40:51+00:00
+Updated: 2026-04-06T22:00:00+00:00
 
 ## Current checkpoint (start here)
 
-**Plain English:** Phase **2** is **active**. **Post–T80** (Prompt **#336**): **`config/t80_scoped_mvp_approval_decision.json`** records **`scoped_mvp_approval_decision`:** **`YES`**. **`phase2_mvp_approval_scope_decision.json`** carries **`as_of_t80_on_disk_assessment`** (conjuncts **(1)(2)(3)** **true**); **`as_of_t74_on_disk_assessment`** is **historical only** for current eligibility. **`mvp_lane_approval.json`** is **`approved: true`** with **`approved_mvp_lanes`:** **`lane_b_official_disclosure`**, **`lane_a_public_signal`**, **`lane_c_market_context`**, **`lane_e_research_swarm_context`** (verify order on disk), **`deferred_lanes: []`**. **`mvp_lane_evidence_registry.json`** **`approval_state.deferred_lanes`** matches (**`[]`**). **Prompt #337 (repair only):** **`effective_utc` / `approved_at`** timestamps normalized to **2026-04-06T19:40:51Z** (not future-dated). **T80** did **not** collect evidence, **not** add execution code, **not** reopen any lane. **Scoped MVP approval** is **granted** under the **T74+T76+T78+T80** bounded path — **not** Phase **3** readiness, **not** production maturity, **not** universe scanner / runtime / dashboard authorization. **Phase 3** implementation remains **not started**.
+**Plain English:** Phase **2** is **active**. **Post–T82** (Prompt **#342**): **`phase2_mvp_approval_scope_decision.json`** includes **`post_t82_on_disk_governance_lock`** and **`phase3_entry_planning_only_definition`**. **Scoped MVP approval** (**T80** / **`t80_scoped_mvp_approval_decision.json`**) **remains in force** — **not** production readiness; registry **partialities** unchanged as honest record; **Lanes A/C/E** **stopped-for-now**; **Lane B** primary anchor + **default freeze** for new evidence without new charter — **no** lane reopen in **T82**. **T82** is **governance/doc lock only** — **no** code, **no** evidence. **Next honest allowed class:** **one** bounded **Phase 3 entry planning only** tranche (docs and/or one narrow machine-readable planning artifact per **`phase3_entry_planning_only_definition`**). **Phase 3 implementation** (scanner, runtime, dashboard, provider integration, production wiring) **still forbidden** until a **later explicit** implementation governance tranche — **not** implied by planning-only. **Prompt #337** timestamp repair and **T80** conjunct truth unchanged in meaning.
 
 ## One-screen truth (new chat fast-start)
 
@@ -16,7 +16,7 @@ Updated: 2026-04-06T19:40:51+00:00
 - **What THE FADE is:** A **future-module** scout-layer design and evidence area under `future_modules/the_fade/`. It is **not** a live product, **not** integrated into production Jarvis, and has **no** Phase 3 scanner/runtime.
 - **Current gate phase:** **Phase 2 only** — MVP lane approval and source reliability pre-audit.
 - **Approval authority:** `future_modules/the_fade/config/mvp_lane_approval.json` — **post–T80:** **`approved: true`** and four named MVP lanes (verify on disk). **`config/t80_scoped_mvp_approval_decision.json`** is the explicit operator signoff artifact for this flip.
-- **Approval-scope decision (T74+T80):** `future_modules/the_fade/config/phase2_mvp_approval_scope_decision.json` — **scoped MVP path** (`subset-of-lanes-eligible`; **primary_lane_strict_plus_support_lane_slice1_minimum**); use **`as_of_t80_on_disk_assessment`** for current conjunct truth; **`as_of_t74_on_disk_assessment`** is **superseded** for eligibility reading.
+- **Approval-scope decision (T74+T80+T82):** `future_modules/the_fade/config/phase2_mvp_approval_scope_decision.json` — **scoped MVP path**; **`as_of_t80_on_disk_assessment`** for post-approval conjunct truth; **`post_t82_on_disk_governance_lock`** + **`next_tranche_authorization_rule`** — **Phase 3 entry planning only** explicitly **allowed** as **one** bounded next class; **Phase 3 implementation** explicitly **forbidden** without later governance; read **`phase3_entry_planning_only_definition`** for single meaning.
 - **Lane B primary-eligibility charter (T75, repaired #328):** `future_modules/the_fade/docs/LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md` — **only** Lane B next bounded class; **governance-acceptance pack** for **four** dimensions (**not** `stale_outage_behavior`); **no** `mvp_lane_approval.json` flip.
 - **Lane B T76 governance acceptance pack (Prompt #329):** `future_modules/the_fade/config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json` + `future_modules/the_fade/docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md` — **subset** acceptance for **four** dimensions; **unchanged** by T78.
 - **Lane B T78 governance acceptance pack (Prompt #334):** `future_modules/the_fade/config/lane_b_t78_scoped_mvp_governance_acceptance_pack.json` + `future_modules/the_fade/docs/LANE_B_T78_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md` — **`reliability`** + **`stale_outage_behavior`**; **`primary_lane_eligibility_met_after_this_pack`:** **`true`** **with T76** per pack rationale.
@@ -94,31 +94,33 @@ Source: append-only log `future_modules/the_fade/outputs/lane_b_real_observation
 - **Tranche 33 freshness policy decision** — **Prompt #132**; `future_modules/the_fade/config/lane_b_phase2_freshness_policy_decision.json` (**adopt** `strict_midnight_utc`; **park** freshness-only tranches).
 - **Tranche 34 normalization breadth audit** — **Prompt #133**; `future_modules/the_fade/scripts/audit_lane_b_normalization_breadth.py` + outputs `tranche34_normalization_breadth_audit.*`.
 - **Tranche 80 scoped MVP approval decision** — **Prompt #336**; `t80_scoped_mvp_approval_decision.json` + **`mvp_lane_approval.json`** update + **`phase2_mvp_approval_scope_decision.json`** **`as_of_t80_on_disk_assessment`** — **governance / approval record only** (**no** new evidence; **no** code).
+- **Tranche 82 post-T80 Phase 3 entry governance lock** — **Prompt #342**; **`phase2_mvp_approval_scope_decision.json`** — **`phase3_entry_planning_only_definition`**, **`post_t82_on_disk_governance_lock`**, amended **`next_tranche_authorization_rule`** / **`anti_drift_rule`**; **no** lane reopen; **no** code.
 
 ## What is not done
 
-- **Phase 3** — universe scanner / runtime / dashboard / production integration — **not** started; **not** authorized by **T80**.
+- **Phase 3 implementation** — universe scanner / runtime / dashboard / production integration / provider wiring — **not** started; **not** authorized by **T80** or **T82** (implementation remains for a **later** explicit governance tranche).
 - **Full strict-dimensional production closure** — registry partialities and **`MVP_SOURCE_RELIABILITY_AUDIT.md`** gaps remain honestly documented; **scoped MVP approval does not erase them**.
-- **Formal documentation pass** — governed log/audit reconciliation for the full FR window remains as prior prompts; **T80** adds approval-decision artifacts only.
+- **Formal documentation pass** — governed log/audit reconciliation for the full FR window remains as prior prompts.
 
 ## What remains blocked
 
-- **Phase 3 implementation** — **no** scanner/runtime/dashboard build in **T80**; future Phase **3** work only under **new governed scope** (T80 is **not** that scope).
+- **Phase 3 implementation** — **still blocked** after **T82**; **T82** only authorizes a **future** **Phase 3 entry planning only** tranche per **`phase3_entry_planning_only_definition`**, **not** executable Phase **3**.
 
 ## Exact next authorized move
 
-1. **Post–T80 on disk:** **Scoped MVP approval** is **recorded** — verify **`mvp_lane_approval.json`**, **`t80_scoped_mvp_approval_decision.json`**, and **`phase2_mvp_approval_scope_decision.json`** **`as_of_t80_on_disk_assessment`**. **Do not** treat approval as Phase **3** readiness or production maturity.
-2. **Lane posture unchanged for reopen:** **Lane E** **slice-1 STOP** — **no** further Lane E **live** tranches unless **new Lane E charter**. **Lane A** / **Lane C** **stopped**. **Lane B** **frozen by default** for **new evidence** tranches unless **new Lane B charter**. **No** MVP lane **automatically active** for ad-hoc live collection.
-3. Read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** + **`JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`** for locked historical sequence and honest partiality accounting.
-4. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
-5. **Further `mvp_lane_approval.json` edits** — only under **new** explicit governed tranches; **T80** already applied the scoped MVP flip — **do not** revert casually or start Phase **3** without new scope.
+1. **Post–T82 on disk:** Verify **`phase2_mvp_approval_scope_decision.json`** **`post_t82_on_disk_governance_lock`** + **`phase3_entry_planning_only_definition`**. **Scoped MVP approval** (**T80**) **remains**; **do not** treat as production maturity.
+2. **Optional next class:** **One** governed **Phase 3 entry planning only** tranche — **docs** and/or **one** narrow planning JSON **only**; **no** scanner/runtime/dashboard code; **no** provider integration; **no** lane reopen; **no** evidence collection.
+3. **Lane posture unchanged for reopen:** **Lane E** **slice-1 STOP** — **no** further Lane E **live** tranches unless **new Lane E charter**. **Lane A** / **Lane C** **stopped**. **Lane B** **frozen by default** for **new evidence** tranches unless **new Lane B charter**. **No** MVP lane **automatically active** for ad-hoc live collection.
+4. Read **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** + **`JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`** for locked historical sequence and honest partiality accounting.
+5. **Record future guardrails only:** auth primitives / permission layers, isolated sub-account / restricted permissions, MCP-first infra filter / anti-affiliate rule, sim-first bridge, and position sizing / drawdown emphasis remain future-control notes only.
+6. **Further `mvp_lane_approval.json` edits** — only under **new** explicit governed tranches; **T80** already applied the scoped MVP flip — **do not** revert casually or ship Phase **3** implementation without a **later** explicit implementation governance tranche.
 
 ## Strict rules for the next chat
 
-- **THE FADE only** — no research swarm builds, no stock module expansion, no scanner/dashboard/runtime unless explicitly prompted.
+- **THE FADE only** — no research swarm builds, no stock module expansion; **T82** allows only a **future** **Phase 3 entry planning only** tranche (docs / narrow planning JSON) — **not** scanner/dashboard/runtime **implementation** unless a **later** explicit governance tranche authorizes it.
 - **Do not restart from theory** — start from this anchor + `THE_FADE_HANDOFF_BUNDLE_LATEST.md` + on-disk JSONL / `mvp_lane_approval.json`.
 - **Do not overclaim maturity** — binding **scoped** approval is `mvp_lane_approval.json` + **`t80_scoped_mvp_approval_decision.json`**; **do not** equate with Phase **3** or production closure.
 - **Canon** — eight `JARVIS_THE_FADE_*.md` files stay under `future_modules/stock_module/` per `docs/CANON_INDEX.md`; do not move or delete.
 - **Process anchor** — `future_modules/stock_module/JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md` is the master checklist; align execution to it.
-- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**through T80 executed on disk**; A/B/C/E slice-1 stops and B freeze locked; Phase 2 governance context still active).
+- **Phase 2 execution order** — `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (**through T82 post-T80 Phase 3 entry governance lock on disk**; A/B/C/E slice-1 stops and B freeze locked; Phase 2 governance context still active).
 - **`JARVIS_CODEBASE_STRUCTURE.md`** — unrelated drift; not THE FADE state.
