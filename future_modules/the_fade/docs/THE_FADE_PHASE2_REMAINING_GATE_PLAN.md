@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-05T01:40:00+00:00 (Tranche **65**: Prompt **#298** — Lane A first bounded live observe-or-honest-failure pass; Tranche **64** charter remains `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`)  
+**Updated:** 2026-04-06T13:25:45+00:00 (Tranche **66**, canonical rollout **Prompt #302**; repair **Prompt #303** removed erroneous Lane C `last_evidence_recorded_at` only — **no** Lane C observation)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -33,8 +33,8 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 - **Lane B normalization:** Full API document **not** in stored previews — **breadth partial** per `tranche34_normalization_breadth_audit.*`. Tranche **50** adds a **bounded** normalization viability / silent-drop trace with explicit representative outcomes, and Tranche **58** adds a **stored real-slice truth pass** proving exact collector retention plus partial normalization support across the 22-slot FR slice. Full normalized-event materialization, full live breadth, and runtime completeness are still **not** proved.
 - **Lane B stale/outage system behavior:** Not evidenced at **production-equivalent** / **scale** required by approval standard **#4**. Tranche **54** adds bounded explicit policy-row coverage for residual escalation classes `UNDEFINED_DIRECTION_MODEL` and `MISSING_REQUIRED_LANE`. Tranche **62** (Prompt **#283**) adds **one** **Protocol A controlled harness** observation with explicit UTC timestamps and operator-declared **`observed_behavior`** (**no** vendor HTTP) — **partial** incremental evidence only. Tranche **63** (Prompt **#288**) adds **one** **real** **`lane_b_real_observation_slice.py observe`** HTTPS attempt to Federal Register **`documents.json`** — **success-only** on that run (`normalized_signal_event`, HTTP **200**); **does not** evidence observe-path **`scout_failure`**, timeout, or empty-row on that attempt; live FR outage statistics and production-scale system closure are still **not** proved.
 - **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases, Tranche **56** adds a **bounded** minimal-path truth pass (`tranche56_*`) proving the current `lane_b_real_observation_slice.py conflict` subcommand itself does **not** read freshness-like fields and does **not** stale-omit valid context, Tranche **60** adds a **stored real-slice** conflict/fusion boundary pass (`tranche60_*`) proving the 22-slot collector artifacts do **not** include observe-output lane JSON files or top-level `source_lane` / `direction_hint` snapshot keys, so `cmd_conflict` mismatch vs local contra is **not** slice-derived without policy-filled `direction_hint`, and Tranche **61** (Prompt **#276**) locks **operator-facing replay policy** in `lane_b_phase2_conflict_replay_policy_decision.json` requiring explicit labeling of slice-derived vs policy_fill vs unknown for replay on that stored slice (still **not** gate closure). Full conflict/runtime closure is still **not** proved.
-- **Lanes A, C, E:** **Not** at Lane B evidence depth for MVP promotion.
-- **Lane A (post–T65):** Bounded **charter** on disk (`docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`); **T65** (Prompt **#298**) adds **one** live **`lane_b_real_observation_slice.py observe`** pass with **`--source-lane lane_a_public_signal`** to locked public JSON **`https://api.coinbase.com/v2/exchange-rates?currency=BTC`** — **success-only** on that run; registry **`evidence_status` `partial`** (dimensions **reliability** + **normalization_viability** touched first — still **not** other dimensions). **Not** approval; **not** Phase **3**.
+- **Lane A (post–T66):** **Slice-1 STOP** — T64–T65 complete; **`evidence_status` `partial`**; further Lane A only under **new Lane A charter** (`LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` §9). **Not** approval; **not** Phase **3**.
+- **Lane C (post–T66):** Bounded **live** evidence charter on disk (`docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`); **active Phase 2 focus lane**; URL **`TBD`**; registry **`evidence_status` `not_started`** for **live** slice; **T67** = first bounded observe-or-honest-failure pass (**reliability** + **normalization_viability** first). **Historical** T41/T42 local fixtures on disk — **not** live integration. **Not** approval; **not** Phase **3**.
 - **Lane B (post–T64):** Existing partial evidence remains on disk; **new Lane B evidence tranches are frozen by default** — reopen **only** under a **new governed Lane B charter** naming scope and bounds.
 
 ---
@@ -56,7 +56,7 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 3. **Freshness discipline** — **Lane B:** **policy locked** but outcome **partial** (**10** unresolved rows).
 4. **Reliability** — strong for **FR window slice**; **not** a license to ignore other dimensions or other lanes.
 5. **No context-only domination** — Lane B / fusion still **partial** even after bounded T47/T52/T56 local traces, the T60 real-slice conflict/fusion boundary, and the T61 conflict-replay policy file (labeling only); T56 clarifies that stale-first omission is wrapper-only relative to the current minimal path; T60 clarifies that the stored 22-slot slice does not by itself supply `cmd_conflict` lane JSON or direction fields; T61 locks operator-facing replay labeling for policy_fill vs slice-derived vs unknown on that stored slice. Lane E likewise remains **not** fully proven at gate bar across permutations.
-6. **Other MVP lanes (A, C, E)** — Lane A has **one** live observe datapoint (**T65**) but remains **partial** vs full gate bar; C/E **not** evidenced to MVP bar.
+6. **Other MVP lanes (A, C, E)** — Lane A **slice-1 stopped**; **`partial`**, not MVP bar. Lane C **charter only** (**T66**); **`not_started`** for **live** slice until **T67**. Lane E **paused**.
 
 ---
 
@@ -302,6 +302,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as run):** Read-only GET to **`https://api.coinbase.com/v2/exchange-rates?currency=BTC`**; **`--task-id`** `t65_lane_a_first_observe`; **`--timeout`** `30`; output under `outputs/lane_a_public_signal/` (`*.json` gitignored). Minimal script change: optional **`--source-lane`** on **`observe`** so emitted JSON records **`lane_a_public_signal`** (default preserves Lane B). **No** `mvp_lane_approval.json` edit; **no** new Lane B tranches.
 
 **Outcome (on disk):** `t65_lane_a_first_observe_normalized_signal_event.json` (local; gitignored — full command/window/outcome in `MVP_LANE_EVIDENCE_LOG.md`). **Observed outcome class:** **success-only** — HTTP **200**, `normalized_signal_event`. **Does not** prove **`scout_failure`**, timeout, or empty-body on this run; **does not** close Lane A freshness, stale/outage, conflict, or context-dominance; **not** approval; **not** Phase **3**.
+
+### Executed — **Tranche 66** (Prompt **#302**, Lane A slice-1 stop + Lane C bounded evidence charter)
+
+**Name:** **Governance / doc lock** — Lane A **slice-1 STOP** + first **`lane_c_market_context`** Phase **2** **bounded evidence charter**.
+
+**Scope (as run):** New file `docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; Lane A charter §9 stop in `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; updates to `mvp_lane_evidence_registry.json`, `MVP_LANE_EVIDENCE_LOG.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, this plan, and `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`. **No** network observation; **no** Lane C execution code; **no** `mvp_lane_approval.json` edit; **no** Lane B reopen; **no** Lane E unpause.
+
+**Outcome (on disk):** Lane C charter locks **one** read-only HTTPS **market-context** source class; URL **`TBD`** until named before **T67**; **T67** = **one** bounded observe-or-honest-failure pass (**reliability** + **normalization_viability** first). Lane A further work **only** under **new Lane A charter**. Lane B freeze + Lane E pause **unchanged**. **Not** approval; **not** Phase **3**.
 
 ---
 

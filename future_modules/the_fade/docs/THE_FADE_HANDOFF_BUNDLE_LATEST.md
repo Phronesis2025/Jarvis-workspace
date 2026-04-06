@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 298  
+**Prompt #:** 302  
 **Phase #:** 2  
-**Tranche #:** 65  
-**Updated:** 2026-04-05T01:40:00+00:00
+**Tranche #:** 66  
+**Updated:** 2026-04-06T13:25:45+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T65 execution)
+## New chat checkpoint (post–T66 governance)
 
-- **Where you are:** Phase **2**; **Lane B** deepest but **partial** / **not** approved — **new Lane B evidence tranches frozen by default** (reopen only via **new governed Lane B charter**); **Lane A** **T64 charter** + **T65** (Prompt **#298**) **one** live **`lane_b_real_observation_slice.py observe`** with **`--source-lane lane_a_public_signal`** to **`https://api.coinbase.com/v2/exchange-rates?currency=BTC`** — **success-only** on that run (`normalized_signal_event`, HTTP **200**); local `outputs/lane_a_public_signal/*.json` gitignored; registry Lane A **`evidence_status` `partial`** — **not** gate closure; **Lane E** & **Lane C** bootstraps **paused**; **T45**–**T63** Lane B line unchanged on disk; **approval** still **`mvp_lane_approval.json`** = **`false`**; **Phase 3** **blocked**.
-- **What to do next:** Further Lane A / Phase **2** work **only** under new governed prompts. **Do not** open new Lane B tranches without a **Lane B charter**.
+- **Where you are:** Phase **2**; **Lane B** frozen by default for **new** tranches (reopen via **Lane B charter**). **Lane A** **slice-1 STOP** (**T66**): **`partial`**; further Lane A only under **new Lane A charter**. **Lane C** **active next**: **`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`** on disk — **one** HTTPS **market-context** source class; URL **`TBD`**; **no** T66 observation; registry Lane C **`not_started`** for **live** slice. **Lane E** **paused** (**T39A**). **Approval** **`false`**; **Phase 3** **blocked**.
+- **What to do next:** **T67** — **one** bounded Lane C **observe-or-honest-failure** pass (**reliability** + **normalization_viability** first); **name URL** before execute. **Do not** open new Lane B tranches without a **Lane B charter**.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -36,7 +36,7 @@
 | Live / integrated            | **No** — early-stage future module under `future_modules/the_fade/`                                                               |
 | Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
 | Approval                     | **`mvp_lane_approval.json`:** `approved: false`, `approved_mvp_lanes: []` (verify on disk)                                        |
-| Lane posture                 | `lane_e_research_swarm_context` bootstrap paused under T39A PATH B stop after bounded T37/T38/T39; `lane_c_market_context` paused under T43 PATH B stop after bounded T41/T42; lane B remains deepest evidenced but still not MVP-approved — **new Lane B tranches frozen by default** (reopen via new Lane B charter); `lane_a_public_signal` **T64 charter** + **T65** one live observe **success-only** datapoint; registry **`partial`** (not MVP-complete) |
+| Lane posture                 | **Lane E** paused (T39A). **Lane B** deepest but unapproved — **new Lane B tranches frozen by default** (reopen via Lane B charter). **Lane A** slice-1 **STOP** (T66); **`partial`**; new Lane A charter required for more. **Lane C** **active next** — T66 charter (`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`); **`not_started`** for **live** slice; T41/T42 local fixtures on disk are **not** live integration |
 | Phase 3                      | **Blocked**                                                                                                                       |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
 | T45 status                   | **Executed** — Lane B failure-path / stale-outage **fixture** trace (`audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_*`); **not** gate closure; **not** live integration |
@@ -52,6 +52,7 @@
 | T63 status                   | **Executed** — Lane B real observe-path pass (Prompt **#288**); `lane_b_real_observation_slice.py observe` to FR **`documents.json`**; **success-only** (`normalized_signal_event`, HTTP **200**); artifact `t63_real_observe_20260404T130000Z_normalized_signal_event.json` (local; gitignored); **not** scout_failure/timeout/empty on this run; **not** stale/outage closure; **not** approval |
 | T64 status                   | **Executed** — Lane A charter + doc lock (Prompt **#294**); `docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; **Lane B default freeze**; **not** approval |
 | T65 status                   | **Executed** — Lane A first bounded live observe (Prompt **#298**); `lane_b_real_observation_slice.py observe` + **`--source-lane lane_a_public_signal`**; Coinbase public JSON URL (charter lock); **success-only** on this run; **not** approval |
+| T66 status                   | **Executed** — Lane A slice-1 stop + Lane C charter (Prompt **#302**); `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; **no** observation; **not** approval |
 
 ---
 
@@ -71,7 +72,8 @@
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
 | Lane A Phase 2 charter (T64) + URL lock (T65)   | `future_modules/the_fade/docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` — §2 **T65** source URL locked |
 | Lane A observe outputs (gitignored `*.json`)   | `future_modules/the_fade/outputs/lane_a_public_signal/` — see `MVP_LANE_EVIDENCE_LOG.md` Tranche **65** |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T65 executed on disk** |
+| Lane C Phase 2 charter (T66)   | `future_modules/the_fade/docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` — market-context HTTPS class; URL **TBD** until before first observe |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T66 executed on disk** |
 | Tranche 58 Lane B real-slice normalization truth pass (Prompt **#246**, executed) | `scripts/audit_lane_b_real_slice_normalization_truth.py` + `outputs/lane_b_real_slice_normalization_truth_bootstrap/tranche58_lane_b_real_slice_normalization_truth_audit.{json,md}` — **stored 22-slot FR slice only**; exact collector retention plus partial normalization support are evidenced, but full normalized-event materialization remains unproved; **not** approval |
 | Tranche 60 Lane B real-slice conflict / fusion truth pass (Prompt **#255**, executed) | `scripts/audit_lane_b_real_slice_conflict_fusion_truth.py` + `outputs/lane_b_real_slice_conflict_fusion_truth_bootstrap/tranche60_lane_b_real_slice_conflict_fusion_truth_audit.{json,md}` — **stored 22-slot FR slice + local contra example**; conflict/fusion boundary on disk; **not** approval |
 | Tranche 61 Lane B conflict-replay `direction_hint` policy (Prompt **#276**, executed) | `config/lane_b_phase2_conflict_replay_policy_decision.json` — operator-facing replay labeling for **`cmd_conflict`** on stored 22-slot collector artifacts; **not** gate closure; **not** approval |
@@ -79,6 +81,7 @@
 | Tranche 63 Lane B real observe-path pass (Prompt **#288**, executed) | `scripts/lane_b_real_observation_slice.py observe` — one HTTPS fetch to FR **`documents.json`**; **success-only** on this run; local `outputs/lane_b_real_observation/t63_real_observe_20260404T130000Z_normalized_signal_event.json` (gitignored `*.json`); log embed in `MVP_LANE_EVIDENCE_LOG.md`; **not** scout_failure closure; **not** approval |
 | Tranche 64 Lane A charter + doc lock (Prompt **#294**, executed) | `docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; **Lane B default freeze**; **not** approval |
 | Tranche 65 Lane A first bounded live observe (Prompt **#298**, executed) | `lane_b_real_observation_slice.py observe` + **`--source-lane lane_a_public_signal`**; charter URL; **success-only** on this run; **not** approval |
+| Tranche 66 Lane A stop + Lane C charter (Prompt **#302**, executed) | `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; Lane A §9 stop; **no** observation; **not** approval |
 | Tranche 40 governance/registry closure | `config/mvp_lane_evidence_registry.json` reconciled to executed T31-T39 + T39A truth; no new lane evidence, no approval change |
 | Tranche 41 Lane C FOLLOW + stale-policy trace audit | `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}` |
 | Tranche 42 Lane C FOLLOW conflict-mismatch trace audit | `scripts/audit_lane_c_follow_conflict_trace.py` + `examples/lane_c_market_context_bootstrap/tranche42_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.{json,md}` |
@@ -209,7 +212,7 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 
 ## Exact next authorized move
 
-1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — bounded lane pauses remain locked, work is now **through T65 on disk**; further steps **only** under new governed prompts (**do not** default into new Lane B work without a **Lane B charter**).
+1. **Follow the locked plan:** `THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` — work is **through T66 on disk**; **next** = **T67** Lane C first bounded observe (**URL TBD**). **Do not** default into new Lane B work without a **Lane B charter**.
 2. **Hold at the Phase 2 gate checkpoint** — **promising-but-unapproved**; FR slice is **not** approval.
 3. Update **`mvp_lane_approval.json`** **only** with explicit operator signoff + matching evidence.
 4. Continue git work on **`the-fade-phase1-tranche1-foundation`** unless governance changes branch policy.

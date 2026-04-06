@@ -3,7 +3,7 @@
 **Tranche:** 64  
 **T64 implementation rollout (canonical):** Prompt **#294**  
 **Governing charter decision (prose only):** Prompt **#293**  
-**Updated:** 2026-04-05T01:40:00+00:00
+**Updated:** 2026-04-06T20:30:00+00:00
 
 This file **does not** grant MVP approval, **does not** change `approved` in `mvp_lane_approval.json`, and **does not** unblock Phase 3.
 
@@ -72,3 +72,11 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 - No change to `mvp_lane_approval.json`.
 - No Phase 3 scanner, runtime, or dashboard execution.
 - **No execution code** added in T64 (no new scripts, no changes to observe/collect tools for Lane A in this tranche).
+
+---
+
+## 9. Lane A slice-1 stop (Tranche 66 — Prompt #302)
+
+- **Slice-1 stopped for now** — T64 charter + T65 (**Prompt #298**) **one** bounded live observe complete; Lane A remains **`evidence_status` `partial`** in the registry, **not** MVP-closed.
+- **Further Lane A evidence** (additional tranches, new sources, or expanded dimensions) **only** under a **new explicit Lane A charter** issued by a **governed prompt**.
+- This section **does not** retract T65 artifacts or log entries; it **locks focus rotation** honestly.
