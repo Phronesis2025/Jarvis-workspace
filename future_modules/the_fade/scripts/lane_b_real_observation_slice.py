@@ -6,7 +6,8 @@ Implements `docs/LANE_B_MINIMAL_REAL_EVIDENCE_PATH_SPEC.md`:
   observe — fetch/read one real HTTPS URL or local file → scout_failure | normalized_signal_event
   conflict — lane B artifact + one THE FADE-local context_only_contra JSON → conflict_packet
 
-No research_swarm/, no scanner, no dashboard. Lane B only.
+`observe` supports `--source-lane` (default Lane B) so Phase 2 Lane A charter passes can emit
+`source_lane: lane_a_public_signal` without a second tool. No research_swarm/, no scanner, no dashboard.
 """
 from __future__ import annotations
 
@@ -23,6 +24,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
 LANE_B = "lane_b_official_disclosure"
+LANE_A = "lane_a_public_signal"
 CONTEXT_ROLE = "lane_e_research_swarm_context"
 MODULE_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUT = MODULE_ROOT / "outputs" / "lane_b_real_observation"
@@ -66,6 +68,7 @@ def cmd_observe(args: argparse.Namespace) -> int:
     out_dir = Path(args.out_dir) if args.out_dir else DEFAULT_OUT
     stale_after_h = float(args.stale_after_hours)
     source_name = args.source_name or "lane_b_operator_source"
+    source_lane = args.source_lane
 
     created_at = _now_iso()
     ingested_at = created_at
@@ -96,6 +99,7 @@ def cmd_observe(args: argparse.Namespace) -> int:
                 error_type="SOURCE_UNAVAILABLE",
                 error_summary=f"file_read_failed: {e}",
                 raw_context_path=evidence_path,
+                source_lane=source_lane,
             )
             _write_json(out_dir / f"{task_id}_scout_failure.json", fail)
             print(json.dumps(fail, indent=2))
@@ -122,6 +126,7 @@ def cmd_observe(args: argparse.Namespace) -> int:
                 error_type="SOURCE_UNAVAILABLE",
                 error_summary=f"http_error status={e.code} url={url} latency_ms={latency_ms:.1f}",
                 raw_context_path=evidence_url,
+                source_lane=source_lane,
             )
             _write_json(out_dir / f"{task_id}_scout_failure.json", fail)
             print(json.dumps(fail, indent=2))
@@ -135,6 +140,7 @@ def cmd_observe(args: argparse.Namespace) -> int:
                 error_type="SOURCE_UNAVAILABLE",
                 error_summary=f"fetch_failed: {e!s} url={url} latency_ms={latency_ms:.1f}",
                 raw_context_path=evidence_url,
+                source_lane=source_lane,
             )
             _write_json(out_dir / f"{task_id}_scout_failure.json", fail)
             print(json.dumps(fail, indent=2))
@@ -148,6 +154,7 @@ def cmd_observe(args: argparse.Namespace) -> int:
                 error_type="SOURCE_UNAVAILABLE",
                 error_summary=f"http_status={http_status} url={url} latency_ms={latency_ms:.1f}",
                 raw_context_path=evidence_url,
+                source_lane=source_lane,
             )
             _write_json(out_dir / f"{task_id}_scout_failure.json", fail)
             print(json.dumps(fail, indent=2))
@@ -160,6 +167,7 @@ def cmd_observe(args: argparse.Namespace) -> int:
                 error_type="SOURCE_UNAVAILABLE",
                 error_summary=f"empty_body url={url} latency_ms={latency_ms:.1f}",
                 raw_context_path=evidence_url,
+                source_lane=source_lane,
             )
             _write_json(out_dir / f"{task_id}_scout_failure.json", fail)
             print(json.dumps(fail, indent=2))
@@ -189,7 +197,7 @@ def cmd_observe(args: argparse.Namespace) -> int:
     freshness_hours = max(0.0, (ing_dt - ev_dt).total_seconds() / 3600.0)
 
     lag_class = "fresh"
-    notes = f"lane_b_real_observation observe; sha256={body_hash}"
+    notes = f"lane_b_real_observation observe; source_lane={source_lane}; sha256={body_hash}"
     if args.file:
         notes += f"; file_mtime_used_for_event_time"
     else:
@@ -202,7 +210,7 @@ def cmd_observe(args: argparse.Namespace) -> int:
         "task_id": task_id,
         "ticker": ticker,
         "asset_type": "other",
-        "source_lane": LANE_B,
+        "source_lane": source_lane,
         "source_name": source_name,
         "direction_hint": "neutral",
         "event_time": event_time_s,
@@ -230,8 +238,9 @@ def _scout_failure(
     error_type: str,
     error_summary: str,
     raw_context_path: str,
+    source_lane: Optional[str] = None,
 ) -> Dict[str, Any]:
-    return {
+    out: Dict[str, Any] = {
         "failure_id": f"fail_{task_id}_{_sha256_bytes(error_summary.encode())[:12]}",
         "stage": "lane_b_real_observation",
         "task_id": task_id,
@@ -243,6 +252,9 @@ def _scout_failure(
         "escalation_required": False,
         "resolved": False,
     }
+    if source_lane:
+        out["source_lane"] = source_lane
+    return out
 
 
 def cmd_conflict(args: argparse.Namespace) -> int:
@@ -314,6 +326,11 @@ def main(argv: Optional[list[str]] = None) -> int:
     o.add_argument("--stale-after-hours", type=float, default=48.0)
     o.add_argument("--timeout", type=int, default=30)
     o.add_argument("--out-dir", default="")
+    o.add_argument(
+        "--source-lane",
+        default=LANE_B,
+        help=f"Emitted on observe output (default {LANE_B}; use {LANE_A} for Lane A charter passes).",
+    )
 
     c = sub.add_parser("conflict", help="Lane B artifact + local context_only_contra → conflict_packet")
     c.add_argument("--task-id", required=True)

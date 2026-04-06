@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 294,
+    "prompt_number": 298,
     "phase_number": 2,
-    "tranche_number": 64
+    "tranche_number": 65
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 64,
+  "tranche": 65,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -52,8 +52,17 @@
         "conflict_handling",
         "context_dominance_risk"
       ],
-      "evidence_status": "not_started",
-      "notes": "Tranche 64 (Prompt #294 — canonical T64 doc-lock rollout): bounded Phase 2 evidence charter on disk — `docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` (governing charter decision: Prompt #293, prose only). Single read-only HTTPS public source class; URL `TBD` until named before T65. T65 = first bounded observe-or-honest-failure pass; initial dimensions **reliability** + **normalization_viability** only. **No** observation data collected in T64. `evidence_status` stays **not_started** until T65. `mvp_lane_approval.json` unchanged."
+      "evidence_status": "partial",
+      "dimension_evidence_status": {
+        "reliability": "partial",
+        "freshness": "not_started",
+        "normalization_viability": "partial",
+        "stale_outage_behavior": "not_started",
+        "conflict_handling": "not_started",
+        "context_dominance_risk": "not_started"
+      },
+      "last_evidence_recorded_at": "2026-04-05T01:32:07+00:00",
+      "notes": "Tranche 64 (Prompt #294): bounded charter `docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` (decision #293). Tranche 65 (Prompt #298): **one** live bounded **`lane_b_real_observation_slice.py observe`** pass with `--source-lane lane_a_public_signal` to locked HTTPS JSON `https://api.coinbase.com/v2/exchange-rates?currency=BTC` (no auth; operator ToS/rate limits operator-owned). Outcome **success-only** on this run: `t65_lane_a_first_observe_normalized_signal_event.json` under `outputs/lane_a_public_signal/` (directory `*.json` gitignored — committed record in `MVP_LANE_EVIDENCE_LOG.md`). **Does not** prove observe-path failure modes on this run, other dimensions, multi-attempt reliability, stale/outage, conflict, or context dominance; **does not** close Lane A or grant MVP approval. `mvp_lane_approval.json` unchanged."
     },
     {
       "lane_id": "lane_b_official_disclosure",

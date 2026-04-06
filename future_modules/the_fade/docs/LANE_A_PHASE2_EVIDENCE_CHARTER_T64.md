@@ -3,7 +3,7 @@
 **Tranche:** 64  
 **T64 implementation rollout (canonical):** Prompt **#294**  
 **Governing charter decision (prose only):** Prompt **#293**  
-**Updated:** 2026-04-04T23:21:19+00:00
+**Updated:** 2026-04-05T01:40:00+00:00
 
 This file **does not** grant MVP approval, **does not** change `approved` in `mvp_lane_approval.json`, and **does not** unblock Phase 3.
 
@@ -13,15 +13,15 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 
 - **`lane_id`:** `lane_a_public_signal`
 - **Conceptual tie only:** Aligns with the **`curated_public_signal_lane`** block in `future_modules/the_fade/config/mvp_lane_approval.json` (`TBD_CURATED_PUBLIC_SIGNAL_PROVIDER`) as a **placeholder** — **no edit** to that file in T64.
-- **Registry:** Lane A remains `evidence_status: not_started` until **T65** produces a first observation record.
+- **Registry:** After **T65**, Lane A is `evidence_status: partial` (first pass only; not gate closure). Prior to T65 execution, registry stayed `not_started`.
 
 ---
 
 ## 2. Source class (bounded)
 
 - **Exactly one** read-only **HTTPS** public endpoint class (e.g. public JSON or RSS over TLS).
-- **Exact URL:** **`TBD`** until the operator names it **before** executing **T65**. **No fabricated URL.**
-- **Operator responsibility:** ToS, rate limits, and lawful read-only use are **operator-owned**; this charter does not perform legal review.
+- **Exact URL (T65 source lock):** `https://api.coinbase.com/v2/exchange-rates?currency=BTC` — **public JSON** (GET, no API key for this endpoint). **Locked in T65** (Prompt **#298**).
+- **Operator responsibility:** ToS, rate limits, and lawful read-only use (including provider-specific rules for this URL) are **operator-owned**; this charter does not perform legal review.
 
 ---
 
@@ -33,9 +33,9 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 
 ---
 
-## 4. T65 first evidence hook (next tranche)
+## 4. T65 first evidence hook (executed — Prompt #298)
 
-- **One** bounded **observe-or-honest-failure** pass against the charter URL (after `TBD` is resolved).
+- **One** bounded **observe-or-honest-failure** pass against the charter URL — **executed**; see `MVP_LANE_EVIDENCE_LOG.md` (**Tranche 65**) and local artifact under `outputs/lane_a_public_signal/` (gitignored `*.json`).
 - **Dimensions touched first:** **`reliability`** (single attempt, explicit success vs failure) and **`normalization_viability`** (explicit `normalized_signal_event` vs explicit `scout_failure` / failure path — no silent drop).
 - **Execution code:** **Out of scope for T64**; T65 may add or adapt tooling under a future governed prompt.
 
@@ -43,8 +43,8 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 
 ## 5. Expected T65 artifacts
 
-- **One** committed record in `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md` (command, UTC window, outcome class, redacted/summary JSON as appropriate).
-- **Optional** local output under `future_modules/the_fade/outputs/lane_a_public_signal/` **when created in T65**, with `*.json` gitignored if mirroring Lane B output discipline.
+- **One** committed record in `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md` (command, UTC window, outcome class, redacted/summary JSON as appropriate). **On disk after T65 (Prompt #298).**
+- Local output under `future_modules/the_fade/outputs/lane_a_public_signal/` with `*.json` gitignored (mirrors Lane B output discipline).
 
 ---
 

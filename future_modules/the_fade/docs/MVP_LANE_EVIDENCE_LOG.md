@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 294  
+**Prompt #:** 298  
 **Phase #:** 2  
-**Tranche #:** 64  
+**Tranche #:** 65  
 
-Updated: 2026-04-04T23:21:19+00:00
+Updated: 2026-04-05T01:40:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T64 executed on disk** (includes T45–T63 Lane B artifacts as before). **T64** (implementation rollout Prompt **#294**; governing charter decision **#293** in prose only) is **Lane A charter + doc lock only** — `docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; **no** Lane A network observation in T64; **Lane B default freeze** for **new** tranches (reopen only via **new governed Lane B charter**). **T63** (Prompt **#288**) remains **one** bounded **`lane_b_real_observation_slice.py observe`** success-only pass (**does not** close **`stale_outage_behavior`** / standard **#4**). Post-T39 and post-T42 **PATH B** decision stops remain locked (Lane E/Lane C bounded bootstraps paused). **Tranche 40 and Tranche 44 are governance/registry alignment only** (T44 adds no new lane evidence); **Tranches 41–42 are bounded Lane C policy tracing only** (no live market-data integration). **Next:** **T65** — Lane A **first bounded observe-or-honest-failure** pass per charter (**reliability** + **normalization_viability** first). **Do not** treat this log as a license for ad-hoc tranche chains outside that plan.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T65 executed on disk** (includes T45–T63 Lane B artifacts + **T64** charter + **T65** Lane A first observe). **T64** (Prompt **#294**; charter **#293**) — `docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; **T65** (Prompt **#298**) — **one** Lane A live observe pass; URL locked in charter; **Lane B default freeze** for **new** tranches (reopen only via **new governed Lane B charter**). **T63** (Prompt **#288**) remains **one** bounded Lane B **`observe`** success-only pass (**does not** close **`stale_outage_behavior`** / standard **#4**). Post-T39 and post-T42 **PATH B** stops remain locked. **Next:** further Lane A / Phase **2** work **only** under governed prompts (no ad-hoc tranche chains).
 
 ## Approval authority (binding)
 
@@ -79,11 +79,17 @@ Use this format per lane. Fill the fields with operator observations; if somethi
 
 ## Status (current)
 
-**Tranche 64 (implementation Prompt #294; charter decision #293):** Lane A **bounded evidence charter + control-doc lock** only. **Charter:** `future_modules/the_fade/docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` — `lane_id` **`lane_a_public_signal`**; conceptual tie to **`curated_public_signal_lane`** placeholder in `mvp_lane_approval.json` only (**no** edit to that file); **one** read-only HTTPS public source class; URL **`TBD`** until named before **T65**; **no** observation execution in T64; **no** Lane A data collected. **Lane B:** **default freeze** on **new** evidence tranches (reopen only via **new governed Lane B charter**). **Registry:** Lane A **`evidence_status` remains `not_started`** until T65. **Does not** grant approval; **does not** unblock Phase **3**.
+**Tranche 65 (Prompt #298):** Lane A **first bounded live observe-or-honest-failure pass** — **one** read-only HTTPS GET, **no** auth. **Tool:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe` with **`--source-lane lane_a_public_signal`** (minimal flag so emitted `normalized_signal_event` records **`lane_a_public_signal`**, not Lane B). **URL (charter lock):** `https://api.coinbase.com/v2/exchange-rates?currency=BTC`. **Command:**
+
+`python future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe --task-id t65_lane_a_first_observe --ticker PUBLIC_SIGNAL --url "https://api.coinbase.com/v2/exchange-rates?currency=BTC" --out-dir future_modules/the_fade/outputs/lane_a_public_signal --source-lane lane_a_public_signal --source-name coinbase_public_exchange_rates --timeout 30`
+
+**UTC window (wall-clock echoes bracketing the process):** start **`2026-04-05T01:32:06.848Z`** — end **`2026-04-05T01:32:07.946Z`**. **Artifact `ingested_at`:** **`2026-04-05T01:32:07Z`** (per written JSON). **Raw artifact (local):** `future_modules/the_fade/outputs/lane_a_public_signal/t65_lane_a_first_observe_normalized_signal_event.json` — `outputs/lane_a_public_signal/.gitignore` ignores `*.json`; **committed record** is this log + registry + charter. **Observed outcome class:** **success-only** — HTTP **200**, **`normalized_signal_event`** written, latency **~389.5** ms in artifact `notes`. **Does not** prove **`scout_failure`**, timeout, or empty-body on this run; **does not** close freshness, stale/outage, conflict, or context-dominance dimensions for Lane A; **does not** grant MVP approval; **`mvp_lane_approval.json`** unchanged.
+
+**Tranche 64 (implementation Prompt #294; charter decision #293):** Lane A **bounded evidence charter + control-doc lock** only. **Charter:** `future_modules/the_fade/docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` — `lane_id` **`lane_a_public_signal`**; **T65** locked the URL (see charter §2). **Lane B:** **default freeze** on **new** evidence tranches. **Does not** grant approval; **does not** unblock Phase **3**.
 
 ### Lane A — Tranche 64 charter (on-disk reference)
 
-Authoritative charter text: **`future_modules/the_fade/docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`**. **T65** next: **one** bounded observe-or-honest-failure pass; dimensions **reliability** + **normalization_viability** first; committed log embed; optional `outputs/lane_a_public_signal/` in T65 when created.
+Authoritative charter text: **`future_modules/the_fade/docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`**. **T65 executed (Prompt #298):** first observe pass recorded above; registry Lane A **`evidence_status` → `partial`** for **one** attempt only.
 
 **Tranche 63 (Prompt #288):** Lane B **real observe-path** — **one** bounded **`lane_b_real_observation_slice.py observe`** execution (**HTTPS** to Federal Register **`documents.json`**). **Raw artifact (local):** `future_modules/the_fade/outputs/lane_b_real_observation/t63_real_observe_20260404T130000Z_normalized_signal_event.json` — note `outputs/lane_b_real_observation/.gitignore` ignores `*.json`, so the **committed record** is this log’s **command + UTC window + embedded summary** below (**Lane B — Tranche 63**). **Observed outcome class:** **success-only** (`normalized_signal_event`, HTTP **200**, ~**310** ms latency per artifact `notes`; **not** `scout_failure`). **Adds** an honest **live** success-path datapoint for the real observe tool; **does not** prove stale/outage / non-success observe behavior on this run; **does not** close standard **#4**; **does not** grant approval; **`mvp_lane_approval.json`** unchanged.
 
