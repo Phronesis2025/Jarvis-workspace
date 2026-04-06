@@ -1,8 +1,8 @@
 # Lane C — Phase 2 bounded evidence charter (Tranche 66)
 
-**Tranche:** 66 (charter) / **T67** first live observe (Prompt **#307**)  
+**Tranche:** 66 (charter) / **T67** first live observe (Prompt **#307**) / **T68** slice-1 stop governance lock (Prompt **#311**)  
 **T66 implementation rollout (canonical):** Prompt **#302**  
-**Updated:** 2026-04-06T14:40:00+00:00
+**Updated:** 2026-04-06T18:15:00+00:00
 
 This file **does not** grant MVP approval, **does not** change `approved` in `mvp_lane_approval.json`, and **does not** unblock Phase 3.
 
@@ -12,7 +12,7 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 
 - **`lane_id`:** `lane_c_market_context`
 - **Conceptual tie only:** Aligns with the **`market_data_lane`** / `lane_c_market_context` role in `future_modules/the_fade/config/mvp_lane_approval.json` as a **placeholder** — **no edit** to that file in T66.
-- **Registry:** Lane C **`evidence_status` `partial`** after **T67** (Prompt **#307**) first live HTTPS observe slice; **Prior** T41/T42 **local fixture** audits remain on disk; they are **not** live market-data integration.
+- **Registry:** Lane C **`evidence_status` `partial`** after **T67** (Prompt **#307**) first live HTTPS observe slice; **T68** (Prompt **#311**) locks **slice-1 STOP** — **`partiality` preserved, not closed**; **Prior** T41/T42 **local fixture** audits remain on disk; they are **not** live market-data integration.
 
 ---
 
@@ -88,3 +88,14 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 - **No Lane E** tranches, unpause, or integration work.
 - **No change** to `mvp_lane_approval.json`.
 - **No Phase 3** scanner, runtime, or dashboard execution.
+
+---
+
+## 11. Lane C slice-1 stop (T68 governance lock)
+
+**Tranche:** 68 (Prompt **#311**) — **governance / doc lock only**; **no** network collection; **no** new live observe.
+
+- **Slice-1 stopped for now** — T66 charter + **T67** first bounded live observe are complete on disk; **no** further Lane C live evidence tranches unless a **new explicit Lane C charter** (governed prompt) names scope and bounds.
+- **Registry truth:** Lane C **`evidence_status` `partial`** is **preserved, not closed** — **`partial`** means **not** MVP-closed at the full gate bar; **do not** read **`partial`** as approval or as “done.”
+- **No claim** of MVP approval, **no** claim of lane closure, **no** Phase 3 readiness, **no** approval flip — binding authority remains **`mvp_lane_approval.json`** (**`approved: false`** on disk until explicitly changed).
+- **Lane A / B / E posture (unchanged):** Lane A **slice-1 STOP** (see §6); Lane B **frozen by default** for new tranches (§7); Lane E **paused** (§8).

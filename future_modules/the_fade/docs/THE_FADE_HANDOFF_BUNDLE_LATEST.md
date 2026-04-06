@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 307  
+**Prompt #:** 311  
 **Phase #:** 2  
-**Tranche #:** 67  
-**Updated:** 2026-04-06T14:40:00+00:00
+**Tranche #:** 68  
+**Updated:** 2026-04-06T18:15:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T66 governance)
+## New chat checkpoint (post–T68 governance)
 
-- **Where you are:** Phase **2**; **Lane B** frozen by default for **new** tranches (reopen via **Lane B charter**). **Lane A** **slice-1 STOP** (**T66**): **`partial`**; further Lane A only under **new Lane A charter**. **Lane C:** **`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`** + **T67** first live observe on disk — URL locked §2; registry Lane C **`partial`** (**one** bounded attempt, **success-only** on that run). **Lane E** **paused** (**T39A**). **Approval** **`false`**; **Phase 3** **blocked**.
-- **What to do next:** Further Phase **2** steps under **new** governed prompts only — **not** approval; **not** Phase **3** unlock by default. **Do not** open new Lane B tranches without a **Lane B charter**.
+- **Where you are:** Phase **2**; **Lane B** frozen by default for **new** tranches (reopen via **Lane B charter**). **Lane A** **slice-1 STOP** (**T66**): **`partial`**; further Lane A only under **new Lane A charter**. **Lane C:** **`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`** + **T67** live observe + **T68** **slice-1 STOP** (§11) — registry Lane C **`partial`** (**preserved, not closed**; **do not** read **`partial`** as done). **Lane E** **paused** (**T39A**). **Approval** **`false`**; **Phase 3** **blocked**.
+- **What to do next:** **No** lane is automatically active next. Next bounded Phase **2** spend requires **operator-governed lane authorization** — typically a **new charter** for the lane you choose (**Lane C** live work needs a **new Lane C charter**). **Not** approval; **not** Phase **3** unlock. **Do not** open new Lane B tranches without a **Lane B charter**.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -54,6 +54,7 @@
 | T65 status                   | **Executed** — Lane A first bounded live observe (Prompt **#298**); `lane_b_real_observation_slice.py observe` + **`--source-lane lane_a_public_signal`**; Coinbase public JSON URL (charter lock); **success-only** on this run; **not** approval |
 | T66 status                   | **Executed** — Lane A slice-1 stop + Lane C charter (Prompt **#302**); `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; **no** observation in T66; **not** approval |
 | T67 status                   | **Executed** — Lane C first bounded live observe (Prompt **#307**); Frankfurter URL lock; **success-only** on this run; **not** approval |
+| T68 status                   | **Executed** — Lane C slice-1 **STOP** governance lock (Prompt **#311**); `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §11; **no** collection; **`partial`** preserved, not closed; **not** approval |
 
 ---
 
@@ -73,9 +74,9 @@
 | Evidence log                   | `future_modules/the_fade/docs/MVP_LANE_EVIDENCE_LOG.md`                                                 |
 | Lane A Phase 2 charter (T64) + URL lock (T65)   | `future_modules/the_fade/docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` — §2 **T65** source URL locked |
 | Lane A observe outputs (gitignored `*.json`)   | `future_modules/the_fade/outputs/lane_a_public_signal/` — see `MVP_LANE_EVIDENCE_LOG.md` Tranche **65** |
-| Lane C Phase 2 charter (T66) + T67 URL lock | `future_modules/the_fade/docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` — §2 **`https://api.frankfurter.app/latest?from=USD`** (T67) |
-| Lane C observe outputs (gitignored `*.json`) | `future_modules/the_fade/outputs/lane_c_market_context/` — see `MVP_LANE_EVIDENCE_LOG.md` Tranche **67** |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T67 executed on disk** |
+| Lane C Phase 2 charter (T66) + T67 URL + T68 slice-1 stop | `future_modules/the_fade/docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` — §2 URL (T67); §11 slice-1 STOP (T68) |
+| Lane C observe outputs (gitignored `*.json`) | `future_modules/the_fade/outputs/lane_c_market_context/` — see `MVP_LANE_EVIDENCE_LOG.md` Tranches **67**–**68** |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T68 executed on disk** |
 | Tranche 58 Lane B real-slice normalization truth pass (Prompt **#246**, executed) | `scripts/audit_lane_b_real_slice_normalization_truth.py` + `outputs/lane_b_real_slice_normalization_truth_bootstrap/tranche58_lane_b_real_slice_normalization_truth_audit.{json,md}` — **stored 22-slot FR slice only**; exact collector retention plus partial normalization support are evidenced, but full normalized-event materialization remains unproved; **not** approval |
 | Tranche 60 Lane B real-slice conflict / fusion truth pass (Prompt **#255**, executed) | `scripts/audit_lane_b_real_slice_conflict_fusion_truth.py` + `outputs/lane_b_real_slice_conflict_fusion_truth_bootstrap/tranche60_lane_b_real_slice_conflict_fusion_truth_audit.{json,md}` — **stored 22-slot FR slice + local contra example**; conflict/fusion boundary on disk; **not** approval |
 | Tranche 61 Lane B conflict-replay `direction_hint` policy (Prompt **#276**, executed) | `config/lane_b_phase2_conflict_replay_policy_decision.json` — operator-facing replay labeling for **`cmd_conflict`** on stored 22-slot collector artifacts; **not** gate closure; **not** approval |
@@ -85,6 +86,7 @@
 | Tranche 65 Lane A first bounded live observe (Prompt **#298**, executed) | `lane_b_real_observation_slice.py observe` + **`--source-lane lane_a_public_signal`**; charter URL; **success-only** on this run; **not** approval |
 | Tranche 66 Lane A stop + Lane C charter (Prompt **#302**, executed) | `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; Lane A §9 stop; **no** observation in T66; **not** approval |
 | Tranche 67 Lane C first bounded live observe (Prompt **#307**, executed) | `lane_b_real_observation_slice.py observe` + **`--source-lane lane_c_market_context`**; Frankfurter URL lock; **success-only** on this run; **not** approval |
+| Tranche 68 Lane C slice-1 stop governance lock (Prompt **#311**, executed) | `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §11; **no** collection; **`partial`** preserved; **not** approval |
 | Tranche 40 governance/registry closure | `config/mvp_lane_evidence_registry.json` reconciled to executed T31-T39 + T39A truth; no new lane evidence, no approval change |
 | Tranche 41 Lane C FOLLOW + stale-policy trace audit | `scripts/audit_lane_c_follow_stale_policy_trace.py` + `examples/lane_c_market_context_bootstrap/tranche41_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche41_lane_c_follow_stale_policy_trace_audit.{json,md}` |
 | Tranche 42 Lane C FOLLOW conflict-mismatch trace audit | `scripts/audit_lane_c_follow_conflict_trace.py` + `examples/lane_c_market_context_bootstrap/tranche42_cases.json` + `outputs/lane_c_market_context_bootstrap/tranche42_lane_c_follow_conflict_trace_audit.{json,md}` |
