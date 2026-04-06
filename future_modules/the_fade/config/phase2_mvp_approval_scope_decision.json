@@ -9,9 +9,15 @@
   "canonical_file_role": "Single machine-readable Phase 2 MVP approval-scope decision on disk. T73 (Prompt #325) previously locked all-lanes-required + full six-dimension closure; T74 (Prompt #326) supersedes that policy shape only inside this file — not a second decision file.",
   "current_approval_truth": {
     "binding_authority_path": "future_modules/the_fade/config/mvp_lane_approval.json",
-    "approved": false,
-    "approved_mvp_lanes": [],
-    "note": "Mirrors binding file as of T74. T74 does not edit mvp_lane_approval.json and does not flip approval."
+    "approved": true,
+    "approved_mvp_lanes": [
+      "lane_b_official_disclosure",
+      "lane_a_public_signal",
+      "lane_c_market_context",
+      "lane_e_research_swarm_context"
+    ],
+    "deferred_lanes": [],
+    "note": "Mirrors binding mvp_lane_approval.json after T80 (Prompt #336) and Prompt #337 repair: approved:true, approved_mvp_lanes as listed, deferred_lanes []. Scoped MVP approval per t80_scoped_mvp_approval_decision.json (YES); not Phase 3 readiness."
   },
   "approval_scope_policy": {
     "posture": "subset-of-lanes-eligible",
@@ -40,6 +46,21 @@
       "has_not_started_dimension": false,
       "primary_lane_eligibility_met": false,
       "honest_reason_not_met": "All six dimensions remain partial in the registry; residual gaps are not closed at full gate bar and there is no on-disk operator-accepted governance treatment that formally accepts each residual gap for scoped MVP approval. Therefore primary_lane_rule is NOT satisfied as of T74."
+    },
+    "as_of_t74_historical_note": "This block is a frozen snapshot as of Tranche 74 only. For any flip-time or post-T80 eligibility reading, use as_of_t80_on_disk_assessment only. Do not treat as_of_t74_on_disk_assessment as current truth after T76/T78 governance acceptance packs and T80 approval decision.",
+    "as_of_t80_on_disk_assessment": {
+      "tranche": 80,
+      "prompt_number": 336,
+      "effective_utc": "2026-04-06T19:40:51Z",
+      "conjunct_1_primary_lane_rule_satisfied": true,
+      "conjunct_1_rationale": "lane_b_official_disclosure has no not_started dimensions in mvp_lane_evidence_registry.json. Per-dimension (a)|(b) satisfied: explicit scoped MVP governance (b) for all six MVP dimensions via lane_b_t76_scoped_mvp_governance_acceptance_pack.json (four dimensions) plus lane_b_t78_scoped_mvp_governance_acceptance_pack.json (reliability, stale_outage_behavior). Registry dimension_evidence_status remains partial; (b) does not require closure at production bar.",
+      "conjunct_2_support_lane_rule_satisfied": true,
+      "conjunct_2_rationale": "At least two of three support lanes meet support_lane_rule: lane_a_public_signal (T65 live slice + T66 slice-1 STOP + partial), lane_c_market_context (T67 + T68 + partial), lane_e_research_swarm_context (T70 honest scout_failure + T71 + partial). Minimum two satisfied; all three in fact qualify.",
+      "conjunct_3_explicit_operator_signoff_satisfied": true,
+      "conjunct_3_artifact": "future_modules/the_fade/config/t80_scoped_mvp_approval_decision.json",
+      "scoped_mvp_path_eligible_for_approval_decision_at_t80": true,
+      "scoped_mvp_approval_granted_at_t80": true,
+      "non_claims": "This assessment does not assert Phase 3 readiness, production maturity, or full six-dimension closure on support lanes."
     }
   },
   "support_lane_rule": {

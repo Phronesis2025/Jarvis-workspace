@@ -1,21 +1,21 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 329  
+**Prompt #:** 337  
 **Phase #:** 2  
-**Tranche #:** 76
+**Tranche #:** 80 (repair only)
 
-Updated: 2026-04-07T00:00:00+00:00
+Updated: 2026-04-06T19:40:51+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T76** (Prompt **#329**). **T45**–**T63** Lane B on disk; **T64**–**T68** Lane A/C lines; **T69**–**T71** Lane E; **T73**/**T74** approval-scope decision; **T75** **`LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`** (**repaired** Prompt **#328**); **T76** **`lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + **`LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **governance only**; **four** dimensions only; **`stale_outage_behavior` not** accepted; **no** new evidence; **no** **`mvp_lane_approval.json`** flip authorized; **no** support-lane reopen. **Lanes A/C/E** **stopped**. **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Not** approval; **not** Phase **3**.
+- **Checkpoint:** **Post–T80** (Prompt **#336**) + **Prompt #337** machine-readable repair. **Scoped MVP approval** — **`scoped_mvp_approval_decision`:** **`YES`**; **`mvp_lane_approval.json`** **`approved: true`**, four lanes, **`deferred_lanes: []`**; **`mvp_lane_evidence_registry.json`** **`approval_state.deferred_lanes: []`**; **`phase2_mvp_approval_scope_decision.json`** **`current_approval_truth`** mirrors binding file (**includes `deferred_lanes: []`**). **#337:** T80 **`effective_utc`**, **`as_of_t80.effective_utc`**, **`approved_at`** → **2026-04-06T19:40:51Z**. **T80:** **no** new evidence; **no** execution code; **no** lane reopen. **Not** Phase **3** readiness; **not** production maturity. **Phase 3** implementation **not** started.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
 - **Formal markdown evidence log / audit:** **Reconciled** (Prompt **#102**) — `MVP_LANE_EVIDENCE_LOG.md`, `MVP_SOURCE_RELIABILITY_AUDIT.md` match JSONL truth; **not** an approval change.
-- **Approval:** `mvp_lane_approval.json` still **`approved: false`**, **`approved_mvp_lanes: []`** unless and until that file is edited.
-- **Phase 3:** **Blocked.**
-- **Operator gate review decision (Prompt #113 lock):** FR full-window evidence is a **strong positive slice** only; whole-gate approval is **still not justified** on current live evidence; `mvp_lane_approval.json` remains false and Phase 3 remains blocked.
+- **Approval:** `mvp_lane_approval.json` — **post–T80:** **`approved: true`** and **`approved_mvp_lanes`** per **Prompt #336** (verify on disk).
+- **Phase 3:** **Not started** — **T80** does **not** implement scanner/runtime/dashboard.
+- **Operator gate review decision (Prompt #113 lock — historical slice context):** FR full-window evidence remains a **strong positive slice** only for **strict** whole-gate reading; **post–T80**, **scoped** MVP approval is **separately** recorded in **`mvp_lane_approval.json`** + **`t80_scoped_mvp_approval_decision.json`** — **not** Phase **3** readiness.
 - **Tranche 31 freshness discipline (Prompt #121 — executed):** **22** full-window lines classified (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly**. See `MVP_LANE_EVIDENCE_LOG.md` — **not** approval; **not** Phase 3.
 - **Tranche 32 — freshness ambiguity resolution (Prompt #129 — executed):** **10**-row cohort reviewed — stored snapshots **plus** one bounded read-only GET to `https://www.federalregister.gov/api/v1/documents/2026-06133.json`. Under the **same** Tranche **31** midnight-UTC rule, **all 10** remain **still cannot classify honestly** (explicit limitation documented in `MVP_LANE_EVIDENCE_LOG.md`); **not** approval; **not** Phase 3.
 - **Tranche 33 — freshness policy decision (Prompt #132 — executed):** **Adopt** **`strict_midnight_utc`** as **operator-facing** Lane B Phase **2** freshness interpretation (`lane_b_phase2_freshness_policy_decision.json`). **Park** further **freshness-only** tranches. **Not** approval; **not** Phase 3.
@@ -88,7 +88,9 @@ Updated: 2026-04-07T00:00:00+00:00
 30. **Tranche 73 executed (Prompt #325):** MVP **approval-scope decision lock** — `phase2_mvp_approval_scope_decision.json` (**policy superseded in-file by T74**).
 31. **Tranche 74 executed (Prompt #326):** **Amend** approval scope to **scoped MVP path** — **same** `phase2_mvp_approval_scope_decision.json`; **no** evidence collection; **no** registry lane/dimension status edits; **`mvp_lane_approval.json` unchanged**; next tranche must follow **amended** **next_tranche_authorization_rule** + **anti_drift_rule**; **No** approval; **No** Phase **3**.
 32. **Tranche 75 executed (Prompt #327; charter repaired Prompt #328):** **Lane B primary-eligibility charter** — `LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`; objective **(B)** governance-acceptance pack (**four** dimensions; **not** `stale_outage_behavior`); **governance only**; **no** evidence collection; **no** registry lane/dimension status edits; **`mvp_lane_approval.json` unchanged**; **No** approval; **No** Phase **3**.
-33. **Tranche 76 executed (Prompt #329):** **Lane B scoped MVP governance acceptance pack** — `lane_b_t76_scoped_mvp_governance_acceptance_pack.json` + `LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`; **`subset_acceptance_established`** for **four** dimensions under explicit limits; **`stale_outage_behavior` not** accepted; **`primary_lane_eligibility_met` remains false**; **no** evidence collection; **no** registry lane/dimension status edits; **`mvp_lane_approval.json` unchanged**; **No** approval; **No** Phase **3**.
+33. **Tranche 76 executed (Prompt #329):** **Lane B scoped MVP governance acceptance pack** — `lane_b_t76_scoped_mvp_governance_acceptance_pack.json` + `LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`; **`subset_acceptance_established`** for **four** dimensions under explicit limits; **`stale_outage_behavior` not** accepted at T76 alone; **no** evidence collection; **no** registry lane/dimension status edits; **`mvp_lane_approval.json` unchanged**; **No** approval; **No** Phase **3**.
+34. **Tranche 78 executed (Prompt #334):** **Lane B reliability + stale_outage scoped MVP governance acceptance pack** — `lane_b_t78_scoped_mvp_governance_acceptance_pack.json` + `LANE_B_T78_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`; **`subset_acceptance_established`**; **does not** revisit T76 four dimensions; **`primary_lane_eligibility_met_after_this_pack`:** **`true`** **with T76**; **no** evidence collection; **no** registry `dimension_evidence_status` edits.
+35. **Tranche 80 executed (Prompt #336):** **Scoped MVP approval decision** — `t80_scoped_mvp_approval_decision.json` (**`scoped_mvp_approval_decision`:** **`YES`**) + `mvp_lane_approval.json` **`approved: true`** + `phase2_mvp_approval_scope_decision.json` **`as_of_t80_on_disk_assessment`**; **no** evidence; **no** code; **no** lane reopen; **scoped MVP approval granted**; **not** Phase **3** readiness; **not** production maturity.
 
 ## Phase 1 — completed
 
@@ -107,8 +109,9 @@ Updated: 2026-04-07T00:00:00+00:00
 ## Phase 2 — open (right now)
 
 1. ~~**Document the full FR window**~~ **DONE** (Prompt **#102**) — governed log + audit reconciled to JSONL.
-2. **Operator approval decision** — **reviewed at this checkpoint**; current outcome is **hold approval false** because the FR slice is strong but the full-dimensional gate is still not closed on live evidence.
-3. **Lane registry / escalation** — only **after** approval, per existing rules.
+2. ~~**Operator scoped MVP approval decision**~~ **DONE** (Prompt **#336** / **T80**) — binding flip on **`mvp_lane_approval.json`** with explicit signoff artifact; **not** Phase **3**; **not** full production maturity claim.
+3. **Phase 3 universe scanner / runtime / dashboard** — **not** started; requires **future** governed scope beyond **T80**.
+4. **Lane registry / escalation** — follow existing rules; **no** automatic lane reopen from **T80**.
 
 ## MASTER Phase 2 — bounded phase ladder (current marks)
 
@@ -156,11 +159,14 @@ Updated: 2026-04-07T00:00:00+00:00
 | Tranche 73 — **MVP approval-scope decision lock** | **EXECUTED** (Prompt **#325**) — first scope lock (**superseded in-file by T74**) |
 | Tranche 74 — **Amend MVP approval scope to scoped MVP path** | **EXECUTED** (Prompt **#326**) — `phase2_mvp_approval_scope_decision.json` **amended** (**subset-of-lanes-eligible**; primary Lane B + support slice-1 minimum); **governance only**; **`mvp_lane_approval.json` unchanged**; **not** approval; **not** Phase **3** |
 | Tranche 75 — **Lane B primary-eligibility charter** | **EXECUTED** (Prompt **#327**; repaired **#328**) — `LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`; **governance-acceptance pack** for **four** dimensions; **`stale_outage_behavior` out of scope**; **`mvp_lane_approval.json` unchanged**; **not** approval; **not** Phase **3** |
-| MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
+| Tranche 76 — **Lane B scoped MVP governance acceptance pack** | **EXECUTED** (Prompt **#329**) — `lane_b_t76_scoped_mvp_governance_acceptance_pack.json` + memo; **four** dimensions; **`mvp_lane_approval.json` unchanged** in T76 |
+| Tranche 78 — **Lane B reliability + stale_outage scoped MVP pack** | **EXECUTED** (Prompt **#334**) — `lane_b_t78_scoped_mvp_governance_acceptance_pack.json` + memo; **`primary_lane_eligibility_met` with T76** |
+| Tranche 80 — **Scoped MVP approval decision** | **EXECUTED** (Prompt **#336**) — `t80_scoped_mvp_approval_decision.json` + `mvp_lane_approval.json` **`approved: true`**; **not** Phase **3**; **not** production maturity |
+| MVP approval (scoped path) | **GRANTED on disk** — verify `mvp_lane_approval.json` + `t80_scoped_mvp_approval_decision.json` |
 
 ## MASTER Phase 3 — Universe scanner
 
-- **NOT STARTED** — blocked until Phase 2 gate satisfied and documented.
+- **NOT STARTED** — **T80** records **scoped** Phase **2** MVP approval only; Phase **3** scanner/runtime/dashboard require a **separate** governed scope.
 
 ## MASTER Phase 4+
 
@@ -168,24 +174,24 @@ Updated: 2026-04-07T00:00:00+00:00
 
 ## Exact current next step (authorized only)
 
-1. **Post–T75 repaired on disk:** read **`LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`**, **`phase2_mvp_approval_scope_decision.json`**, **`THE_FADE_CONTEXT_ANCHOR.md`**, **`MVP_LANE_EVIDENCE_LOG.md`**, **`mvp_lane_evidence_registry.json`**. **Lane B** **only** — **next** bounded tranche = **governance-acceptance pack** (`lane_b_t75_scoped_mvp_governance_acceptance_pack.json` + `LANE_B_T75_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`); **no** live collection. **No** **`mvp_lane_approval.json`** flip. **Lanes A/C/E** **stopped**.
-2. **Hold at the Phase 2 checkpoint** — **promising-but-unapproved**; **no** Phase **3** unlock from FR slice alone.
-3. Keep **`mvp_lane_approval.json`** unchanged until whole-gate evidence + explicit operator signoff.
+1. **Post–T80 on disk:** verify **`t80_scoped_mvp_approval_decision.json`**, **`mvp_lane_approval.json`**, **`phase2_mvp_approval_scope_decision.json`** (**`as_of_t80_on_disk_assessment`**), **`THE_FADE_CONTEXT_ANCHOR.md`**, **`MVP_LANE_EVIDENCE_LOG.md`**, **`mvp_lane_evidence_registry.json`**. **Do not** treat **T80** as Phase **3** authorization.
+2. **Lane posture:** **Lanes A/C/E** **stopped**; **Lane B** **frozen by default** for new live evidence — **no** reopen from **T80**.
+3. **Phase 3:** **not** started — only under **new** governed prompt explicitly scoping scanner/runtime/dashboard work.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
-5. **No** Phase **3** work without a new governed scope.
 
 ## Do not
 
 - Start Phase 3 scanner/runtime/dashboard without a new governed prompt.
-- Flip `approved: true` without matching on-disk evidence and operator fields.
+- Treat **`approved: true`** as Phase **3** readiness or as erasing registry partialities / strict audit gaps.
 - Count `t30_valid_002` as part of the 22-slot full window unless explicitly justified.
 
 ## Operator gate review outcome — 2026-03-30
 
-- **Decision outcome:** Lane B remains **promising-but-unapproved** at this checkpoint.
+- **Post–T80 supersession (Prompt #336):** Binding **scoped** MVP approval is **`approved: true`** on **`mvp_lane_approval.json`** with **`t80_scoped_mvp_approval_decision.json`** — **not** erasing the **#113** caution about **strict** whole-gate / production maturity; **not** Phase **3** authorization.
+- **Decision outcome (historical #113 checkpoint):** Lane B **promising-but-unapproved** at **that** date for **strict** whole-gate reading.
 - **Why:** the Federal Register full-window slice is a strong positive slice (**22 counted / 22 successes / 0 failures**) but the whole-gate approval is still incomplete across all live dimensions.
 - **Final signoff lock (Prompt #113):** outcome re-checked and locked with no approval flip; `t30_valid_002` remains excluded from the full-window tally; `mvp_lane_approval.json` remains unchanged.
 - **Current-review-now principles applied:** critic / adversarial review, audit-before-trust, and risk-first scrutiny against over-reading the FR slice statistic.
 - **Accepted future guardrails only:** auth primitives / permission layers; isolated sub-account / restricted permissions; MCP-first infra filter / anti-affiliate rule; sim-first / dry-run-first bridge; position sizing / drawdown emphasis.
 - **Parking lot only:** any concrete critic-agent build, MCP tooling build, exchange integration, live execution, or other execution-adjacent implementation work.
-- **State impact:** `mvp_lane_approval.json` remains **false**; **Phase 3 remains blocked**; no new active build scope is introduced here.
+- **State impact at #113:** `mvp_lane_approval.json` **false**; Phase **3** not started. **Current disk after T80:** see **You are here** above.

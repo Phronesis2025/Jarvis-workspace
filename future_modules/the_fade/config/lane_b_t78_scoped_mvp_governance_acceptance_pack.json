@@ -1,0 +1,56 @@
+{
+  "decision_id": "THE_FADE_PHASE2_T78_LANE_B_RELIABILITY_AND_STALE_OUTAGE_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_PACK",
+  "phase": 2,
+  "tranche": 78,
+  "prompt_number": 334,
+  "lane_id": "lane_b_official_disclosure",
+  "status": "locked",
+  "effective_utc": "2026-04-08T00:00:00Z",
+  "label": "THE_FADE_PHASE2_T78_LANE_B_RELIABILITY_AND_STALE_OUTAGE_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_PACK",
+  "authoring_note": "Governance-only tranche: no new evidence collected; cites existing on-disk artifacts per MVP_LANE_EVIDENCE_LOG.md and mvp_lane_evidence_registry.json. Governing decision context: Prompt #333 Lane B primary-eligibility review.",
+  "t76_non_revisit_statement": "This pack does NOT revisit, revise, or supersede the Tranche 76 scoped MVP governance acceptance for: freshness, normalization_viability, conflict_handling, context_dominance_risk. Those remain governed solely by lane_b_t76_scoped_mvp_governance_acceptance_pack.json and LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md.",
+  "scope": {
+    "included_dimensions": [
+      "reliability",
+      "stale_outage_behavior"
+    ],
+    "excluded_dimensions": [
+      "freshness",
+      "normalization_viability",
+      "conflict_handling",
+      "context_dominance_risk"
+    ],
+    "scope_statement": "This pack addresses only reliability and stale_outage_behavior for lane_b_official_disclosure. It does not address the four T76-accepted dimensions (listed in excluded_dimensions), does not address any other MVP dimension, and does not address any other lane.",
+    "no_other_lanes": true
+  },
+  "per_dimension": {
+    "reliability": {
+      "factual_basis_on_disk": "Tranche 21 Federal Register full-window collector evidence: append-only JSONL and per-run snapshots document 22 counted full-window slot runs with source_observation_success true and timing_valid_for_counted_slot_use true (t30_valid_002 excluded from full-window tally per existing discipline). Honest success ratio 22/22 vs required_reliability_threshold (0.8) is documented in control docs and MVP_LANE_EVIDENCE_LOG.md. Registry lists reliability as partial — strong slice, not claimed as universal outage-proof reliability.",
+      "accepted_for_scoped_mvp_path": true,
+      "accepted_only_as": "Operator accepts using this documented FR pre-audit window slice and count discipline as the scoped MVP reliability stance for Lane B — not as proof of reliability across all future windows, all endpoints, or all failure modes.",
+      "residual_limits_not_accepted_away": "Multi-window statistical closure; non-FR sources mixed into one statistic; proof that observe-path failure modes are fully enumerated; production-scale outage dominance proof.",
+      "operator_facing_reason": "The on-disk slice is explicit, counted, and already reconciled to the gate log; this acceptance records (b) under primary_lane_rule without pretending the registry dimension is fully closed at production bar.",
+      "overclaim_guard": "dimension_evidence_status may remain partial in registry; this is governance treatment (b), not a claim that reliability is done for all time."
+    },
+    "stale_outage_behavior": {
+      "factual_basis_on_disk": "Bounded artifacts on disk: Tranche 35 stale/outage and escalation alignment audit on FR full-window slice; Tranche 45 local failure-path / stale-outage fixture trace; Tranche 54 residual escalation-policy coverage for UNDEFINED_DIRECTION_MODEL and MISSING_REQUIRED_LANE; Tranche 62 Protocol A controlled LANE_B_STALE_UNAVAILABLE_CONTROLLED_REPLAY_V1 observation (no vendor HTTP); Tranche 63 one real observe success-only to FR documents.json (does not evidence scout_failure on that run). Narrative in registry notes and MVP_LANE_EVIDENCE_LOG.md records explicit handling classes and honest gaps vs standard #4 at production scale.",
+      "accepted_for_scoped_mvp_path": true,
+      "accepted_only_as": "Operator accepts documenting stale/unavailable and escalation-aligned behavior as evidenced by the bounded fixture traces, controlled replay, policy-row coverage, and the success-only real observe record — as sufficient scoped MVP governance stance for this dimension at current depth, with explicit named limits.",
+      "residual_limits_not_accepted_away": "Production-equivalent stale/outage statistics; live FR outage matrix closure; proof that every escalation path is exercised on real vendor traffic; full standard #4 system closure.",
+      "operator_facing_reason": "Without signing away production closure, the operator can still record that existing bounded evidence plus explicit policy traces are the honest Phase 2 story for scoped MVP documentation under primary_lane_rule (b).",
+      "overclaim_guard": "Registry partial preserved; no claim of outage-proofing or silent-fabrication impossibility at scale."
+    }
+  },
+  "explicit_non_acceptance": {
+    "no_approval_flip": "This pack does not edit mvp_lane_approval.json and does not authorize approved: true or non-empty approved_mvp_lanes.",
+    "no_phase_3_readiness": "Phase 3 remains blocked; no universe scanner, runtime, dashboard, or production integration claim.",
+    "no_support_lane_reopening": "Lanes A, C, and E remain stopped per existing charters; this tranche does not reopen support-lane evidence work.",
+    "no_production_outage_proof": "No claim that Lane B is production outage-proof or that standard #4 is fully closed at system scale.",
+    "no_registry_dimension_closure_claim": "Unless dimension_evidence_status is honestly updated elsewhere, this pack does not assert that any dimension is fully closed — only that explicit governance treatment (b) is on disk for the two included dimensions.",
+    "full_scoped_mvp_flip_eligibility_note": "approval_scope_policy.eligibility_rule_single_reading in phase2_mvp_approval_scope_decision.json requires (1) primary_lane_rule, (2) at least two support lanes meeting support_lane_rule, and (3) a later approval-decision tranche with explicit operator signoff. This T78 pack addresses only the Lane B primary dimension leg for (1) when combined with T76; it does not by itself satisfy (2) or (3)."
+  },
+  "overall_outcome": "subset_acceptance_established",
+  "overall_outcome_meaning": "A bounded governance acceptance record is established on disk for reliability and stale_outage_behavior under explicit residual limits. T76 dimensions are not revisited.",
+  "primary_lane_eligibility_met_after_this_pack": true,
+  "primary_lane_eligibility_rationale": "phase2_mvp_approval_scope_decision.json primary_lane_rule requires every MVP dimension to have (a) evidence at bar or (b) explicit operator-accepted governance treatment naming the residual gap for scoped MVP. Tranche 76 provides (b) for freshness, normalization_viability, conflict_handling, and context_dominance_risk. This Tranche 78 pack provides (b) for reliability and stale_outage_behavior. Lane B has no not_started dimensions in the registry. Therefore, for the purpose of primary_lane_rule per-dimension (a)|(b), primary_lane_eligibility_met is true on disk after T76 plus T78. Registry dimension_evidence_status may remain partial; (b) does not require flipping those fields to closed. Full approval flip eligibility still requires support_lane_rule and a governed approval-decision tranche per eligibility_rule_single_reading."
+}

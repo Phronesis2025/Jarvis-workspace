@@ -1,18 +1,18 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 329  
+**Prompt #:** 337  
 **Phase #:** 2  
-**Tranche #:** 76  
+**Tranche #:** 80 (repair only)  
 
-Updated: 2026-04-07T00:00:00+00:00
+Updated: 2026-04-06T19:40:51+00:00
 
 ## Purpose
 
 This document is an operator-facing place to record lane-level evidence against the **Phase 2 MVP approval gate** standard.
 
-This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
+This log is **narrative / operator-facing** only. **Binding** scoped MVP approval state after **Tranche 80** is in **`mvp_lane_approval.json`** (see **`t80_scoped_mvp_approval_decision.json`**). This log **does not** by itself flip approval.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T76 executed on disk** (includes **T74** scoped MVP path + **T75** Lane B **primary-eligibility charter** **#327** + **T76** Lane B **scoped MVP governance acceptance pack** **#329**). **T75** (canonical **Prompt #327** / Tranche **#75**) — **`LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`** authorizes **only** the **bounded** **Lane B** **governance** tranche implemented as **T76**: **`lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + **`LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **`freshness`**, **`normalization_viability`**, **`conflict_handling`**, **`context_dominance_risk`** only; **`stale_outage_behavior` out of scope**; **no** live collection; **no** new execution code; **no** new evidence collected in T76; **no** registry lane/dimension status rewrites in T76. **Lanes A/C/E** **stopped**. **`mvp_lane_approval.json`** unchanged; **no** approval flip; **does not** unblock Phase **3**.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T80 executed on disk** (includes **T74**–**T76** governance chain + **T78** Lane B **`reliability`** + **`stale_outage_behavior`** governance acceptance pack **#334** + **T80** approval-decision **#336**). **T78** — **`lane_b_t78_scoped_mvp_governance_acceptance_pack.json`** + **`LANE_B_T78_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **two** dimensions only; **does not** revisit T76 four dimensions. **T80** — **`t80_scoped_mvp_approval_decision.json`** — **no** new evidence; **no** execution code; **no** registry `dimension_evidence_status` rewrites; **scoped MVP approval granted** under **`phase2_mvp_approval_scope_decision.json`** (**`as_of_t80_on_disk_assessment`**; **`as_of_t74_on_disk_assessment`** historical only); **`mvp_lane_approval.json`** **`approved: true`** with four named lanes; **not** Phase **3** readiness; **not** production maturity. **Lanes A/C/E** **stopped** (charter locks unchanged — **no** lane reopen).
 
 ## Approval authority (binding)
 
@@ -20,7 +20,7 @@ The only binding approval gate is:
 
 `future_modules/the_fade/config/mvp_lane_approval.json`
 
-Until that file is updated to `approved: true`, **no MVP lanes are approved**.
+**Post–T80:** verify `approved`, `approved_mvp_lanes`, and `deferred_lanes` on disk (`true`, four lanes, **`deferred_lanes: []`**). **Prompt #337:** `t80_scoped_mvp_approval_decision.effective_utc`, `phase2_mvp_approval_scope_decision` **`as_of_t80_on_disk_assessment.effective_utc`**, and `mvp_lane_approval.approved_at` normalized to **2026-04-06T19:40:51Z** (repair-session UTC); **`mvp_lane_evidence_registry.approval_state.deferred_lanes`** aligned to **`[]`** — **no** decision reversal.
 
 ## Evidence-tracking authority
 
@@ -81,7 +81,11 @@ Use this format per lane. Fill the fields with operator observations; if somethi
 
 **Tranche 75 (Prompt #327; charter repaired Prompt #328):** **Governance / charter only** — **no** new evidence collection; **no** approval flip; **no** Phase **3** unlock; **no** support-lane reopen. **`LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`** — **Lane B** only — **next** bounded tranche = **one governance-acceptance pack** for **`freshness`**, **`normalization_viability`**, **`conflict_handling`**, **`context_dominance_risk`**; **`stale_outage_behavior` explicitly not** in this pack. **Does not** authorize **`mvp_lane_approval.json`** edit.
 
-**Tranche 76 (Prompt #329):** **Governance / acceptance-pack only** — **no** new evidence; **no** approval flip; **no** Phase **3** unlock; **no** support-lane reopen. **`config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + **`docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **`overall_outcome`:** **`subset_acceptance_established`** for the **four** named dimensions under explicit residual limits; **`stale_outage_behavior` not** accepted; **`primary_lane_eligibility_met` remains false** after this pack. **`mvp_lane_approval.json` unchanged**.
+**Tranche 76 (Prompt #329):** **Governance / acceptance-pack only** — **no** new evidence; **no** approval flip; **no** Phase **3** unlock; **no** support-lane reopen. **`config/lane_b_t76_scoped_mvp_governance_acceptance_pack.json`** + **`docs/LANE_B_T76_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **`overall_outcome`:** **`subset_acceptance_established`** for the **four** named dimensions under explicit residual limits; **`stale_outage_behavior` not** accepted at T76 alone; **`primary_lane_eligibility_met` remains false** after T76 only. **`mvp_lane_approval.json` unchanged**.
+
+**Tranche 78 (Prompt #334):** **Governance / acceptance-pack only** — **no** new evidence; **no** approval flip **in T78**; **no** Phase **3** unlock **in T78**; **no** support-lane reopen. **`config/lane_b_t78_scoped_mvp_governance_acceptance_pack.json`** + **`docs/LANE_B_T78_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`** — **`reliability`** + **`stale_outage_behavior`** only; **does not** alter T76 acceptance for **`freshness`**, **`normalization_viability`**, **`conflict_handling`**, **`context_dominance_risk`**; **`overall_outcome`:** **`subset_acceptance_established`**; **`primary_lane_eligibility_met_after_this_pack`:** **`true`** when read **with T76** (per pack **`primary_lane_eligibility_rationale`**).
+
+**Tranche 80 (Prompt #336):** **Approval-decision tranche only** — **no** new evidence collection; **no** execution code; **no** support-lane reopen. **`config/t80_scoped_mvp_approval_decision.json`** — **`scoped_mvp_approval_decision`:** **`YES`**; **`config/phase2_mvp_approval_scope_decision.json`** reconciled with **`as_of_t80_on_disk_assessment`** (conjuncts **(1)(2)(3)** **true**); **`as_of_t74_on_disk_assessment`** explicitly **historical / superseded** for current eligibility. **`config/mvp_lane_approval.json`** **`approved: true`**, **`approved_mvp_lanes`** exactly **B, A, C, E** (ordered as on disk). **Scoped MVP approval granted** under bounded policy — **not** Phase **3** readiness; **not** production maturity. **Prompt #337 (repair only):** **`t80.effective_utc`**, **`as_of_t80.effective_utc`**, **`mvp_lane_approval.approved_at`** → **2026-04-06T19:40:51Z**; **`mvp_lane_evidence_registry.approval_state.deferred_lanes`** and **`phase2_mvp_approval_scope_decision.current_approval_truth.deferred_lanes`** → **`[]`**; **YES** unchanged.
 
 **Tranche 74 (Prompt #326):** **Governance / doc lock only** — **`phase2_mvp_approval_scope_decision.json`** **amended** to **scoped MVP approval-eligibility**; **`posture` = `subset-of-lanes-eligible`**. Per-lane registry statuses **unchanged** in T74.
 

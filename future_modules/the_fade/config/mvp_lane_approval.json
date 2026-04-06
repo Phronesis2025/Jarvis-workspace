@@ -1,40 +1,40 @@
 {
   "_meta": {
     "title": "mvp_lane_approval",
-    "prompt_number": 14,
+    "prompt_number": 337,
     "phase_number": 2,
-    "tranche_number": 2
+    "tranche_number": 80
   },
   "phase": 2,
-  "tranche": 2,
+  "tranche": 80,
   "module": "the_fade",
-  "approved": false,
-  "approved_by": null,
-  "approved_at": null,
+  "approved": true,
+  "approved_by": "operator_explicit_signoff_T80_Prompt_336",
+  "approved_at": "2026-04-06T19:40:51Z",
   "plan_lock_id": "THE_FADE_PHASE0_FINAL_LOCK",
-  "approved_mvp_lanes": [],
-  "deferred_lanes": [
-    "lane_a_public_signal",
+  "approved_mvp_lanes": [
     "lane_b_official_disclosure",
+    "lane_a_public_signal",
     "lane_c_market_context",
     "lane_e_research_swarm_context"
   ],
+  "deferred_lanes": [],
   "required_reliability_threshold": 0.8,
-  "notes": "Operator decision: defer MVP lane approval. Approval remains NOT granted; no MVP lanes approved yet. More lane-level reliability/freshness/normalization and stale/outage behavior evidence is required before changing `approved` or selecting MVP lanes.",
+  "notes": "Tranche 80 (Prompt #336): Scoped MVP approval GRANTED under phase2_mvp_approval_scope_decision.json (subset-of-lanes-eligible) and t80_scoped_mvp_approval_decision.json (scoped_mvp_approval_decision=YES). This is bounded scoped MVP approval — not Phase 3 readiness, not production maturity, not full six-dimension closure on all lanes. Lane charter stops (A/C/E slice-1 STOP; B default freeze for new evidence) remain; no lane reopened by this flip. Prompt #337: approved_at normalized to repair-session UTC (not future-dated); machine-readable posture unchanged (approved:true, deferred_lanes:[]).",
   "official_disclosure_lane": {
     "provider_key": "TBD_OFFICIAL_DISCLOSURE_PROVIDER",
-    "description": "Candidate official/disclosure evidence source for MVP slot (not approved yet).",
-    "integration_boundary": "Defined later after approval; this is a placeholder only."
+    "description": "Official/disclosure lane slot — scoped MVP approved (T80); concrete provider integration still TBD.",
+    "integration_boundary": "Placeholder until provider wiring is governed and implemented; not Phase 3."
   },
   "market_data_lane": {
     "provider_key": "TBD_MARKET_DATA_PROVIDER",
-    "description": "Candidate market-data context source for MVP slot (not approved yet).",
-    "integration_boundary": "Defined later after approval; this is a placeholder only."
+    "description": "Market-context lane slot — scoped MVP approved (T80); concrete provider integration still TBD.",
+    "integration_boundary": "Placeholder until provider wiring is governed and implemented; not Phase 3."
   },
   "curated_public_signal_lane": {
     "provider_key": "TBD_CURATED_PUBLIC_SIGNAL_PROVIDER",
-    "description": "Candidate curated public-signal evidence source for MVP slot (not approved yet).",
-    "integration_boundary": "Defined later after approval; this is a placeholder only."
+    "description": "Public-signal lane slot — scoped MVP approved (T80); concrete provider integration still TBD.",
+    "integration_boundary": "Placeholder until provider wiring is governed and implemented; not Phase 3."
   },
   "research_swarm_context": {
     "mode": "read_only",

@@ -1,0 +1,35 @@
+{
+  "decision_id": "THE_FADE_PHASE2_T80_SCOPED_MVP_APPROVAL_DECISION",
+  "phase": 2,
+  "tranche": 80,
+  "prompt_number": 336,
+  "decision_type": "scoped_mvp_approval_decision",
+  "status": "locked",
+  "effective_utc": "2026-04-06T19:40:51Z",
+  "label": "THE_FADE_PHASE2_T80_SCOPED_MVP_APPROVAL_DECISION_TRANCHE",
+  "scoped_mvp_approval_decision": "YES",
+  "eligibility_conjuncts_this_tranche": {
+    "conjunct_1_primary_lane_rule": true,
+    "conjunct_2_support_lane_rule_minimum_two_of_three": true,
+    "conjunct_3_explicit_operator_signoff": true
+  },
+  "approval_grant_statement": "Under phase2_mvp_approval_scope_decision.json (subset-of-lanes-eligible) and eligibility_rule_single_reading, the operator explicitly grants scoped MVP approval by setting scoped_mvp_approval_decision to YES. Binding lane list is applied in mvp_lane_approval.json in the same tranche.",
+  "explicit_non_claims": {
+    "not_phase_3_readiness": "This decision is NOT Phase 3 readiness, NOT universe scanner/runtime/dashboard authorization, and NOT production maturity of any lane.",
+    "not_full_closure": "Support lanes remain slice-1 minimum and partial on most dimensions; primary lane registry dimensions may remain partial with governance (b) acceptance.",
+    "not_lane_reopen": "This tranche does not reopen any lane for new live evidence; charter stops and default freezes remain in force unless a future governed charter rescopes."
+  },
+  "anti_drift": {
+    "no_lane_reopen": true,
+    "no_phase_3_implementation_in_this_tranche": true,
+    "no_new_evidence_collection_in_this_tranche": true,
+    "no_execution_code_added_in_this_tranche": true
+  },
+  "primary_disclosure_anchor": "lane_b_official_disclosure",
+  "approved_mvp_lanes_ordered": [
+    "lane_b_official_disclosure",
+    "lane_a_public_signal",
+    "lane_c_market_context",
+    "lane_e_research_swarm_context"
+  ]
+}
