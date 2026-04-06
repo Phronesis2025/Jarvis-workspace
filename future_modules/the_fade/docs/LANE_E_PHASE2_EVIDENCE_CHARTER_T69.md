@@ -1,8 +1,8 @@
 # Lane E — Phase 2 bounded evidence charter (Tranche 69)
 
-**Tranche:** 69 (charter) / **T70** first live observe (Prompt **#317**)  
+**Tranche:** 69 (charter) / **T70** live observe (Prompt **#317**) / **T71** slice-1 stop (Prompt **#321**)  
 **T69 implementation rollout (canonical):** Prompt **#314**  
-**Updated:** 2026-04-06T16:05:00+00:00
+**Updated:** 2026-04-06T18:00:00+00:00
 
 This file **does not** grant MVP approval, **does not** change `approved` in `mvp_lane_approval.json`, and **does not** unblock Phase 3.
 
@@ -12,7 +12,7 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 
 - **`lane_id`:** `lane_e_research_swarm_context`
 - **Conceptual tie only:** Aligns with the **`lane_e_research_swarm_context`** role in `future_modules/the_fade/config/mvp_lane_approval.json` as a **placeholder** — **no edit** to that file in T69.
-- **Registry:** Lane E **`evidence_status` `partial`** after **T70** (Prompt **#317**) — **one** live HTTPS attempt with explicit **`scout_failure`** artifact (HTTP **404** on the locked URL for that run). **Prior** Tranches **37–39** **local fixture** audits remain on disk; they are **not** live Research Swarm / external HTTPS integration.
+- **Registry:** Lane E **`evidence_status` `partial`** — **T70** live HTTPS attempt with explicit **`scout_failure`** (HTTP **404**); **T71** (Prompt **#321**) **slice-1 STOP** — **`partiality` preserved, not closed**. **Prior** Tranches **37–39** **local fixture** audits remain on disk; they are **not** live Research Swarm / external HTTPS integration.
 
 ---
 
@@ -51,8 +51,8 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 
 ## 6. Lane E posture (this charter)
 
-- **Active lane by charter** — **`lane_e_research_swarm_context`** remains the bounded **live** HTTPS research/context focus.
-- **First live observe attempted (T70)** — **one** pass executed; registry lane **`evidence_status`** moves to **`partial`** with explicit **failure** artifact on this run (**not** success-only closure).
+- **Slice-1 stopped for now (T71)** — **`lane_e_research_swarm_context`** **live** HTTPS slice-1 is **STOP**ped per §12; **`partial`** is **preserved**, **not** MVP-closed.
+- **First live observe (T70)** — **one** pass executed; explicit **failure** artifact on that run (**not** success-only closure). **No** further **live** Lane E tranches under this slice without a **new explicit Lane E charter**.
 
 ---
 
@@ -78,7 +78,8 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 ## 10. T69 stop line
 
 - This charter file exists on disk.
-- **T70** (Prompt **#317**) executed the **first** Lane E live HTTPS observe under this charter — see §2–§6 and `MVP_LANE_EVIDENCE_LOG.md`.
+- **T70** (Prompt **#317**) executed the **first** Lane E live HTTPS observe under this charter — see §2–§5 and `MVP_LANE_EVIDENCE_LOG.md`.
+- **T71** (Prompt **#321**) **slice-1 STOP** — see §12; **no** further **live** Lane E tranches without **new Lane E charter**.
 - Lane A stop, Lane B freeze, and Lane C slice-1 stop language remain reflected in those control docs.
 - **Not required in T69:** numeric Lane E **live** evidence, approval, Phase 3, Lane A/B/C reopen, or execution code.
 
@@ -91,3 +92,12 @@ This file **does not** grant MVP approval, **does not** change `approved` in `mv
 - **No Lane A reopen**, **no Lane B reopen**, **no Lane C reopen** beyond the stop/freeze lines above.
 - **No change** to `mvp_lane_approval.json`.
 - **No Phase 3** scanner, runtime, or dashboard execution.
+
+---
+
+## 12. Lane E slice-1 stop (Tranche 71, Prompt **#321**)
+
+- **Governance / doc lock only** — **no** network collection; **no** new live observation in **T71**.
+- **Lane E slice-1 STOP for now** — **no** further Lane E **live** HTTPS evidence tranches unless a **new explicit Lane E charter** (governed prompt) names scope, bounds, and URL/source class.
+- **`partiality` is preserved, not closed** — registry Lane E **`evidence_status` remains `partial`**; **do not** read **`partial`** as MVP gate closure or approval.
+- **Does not** grant MVP approval, **does not** change `approved` in `mvp_lane_approval.json`, **does not** unblock Phase **3**, **does not** start another lane, **does not** reopen Lane A, Lane B, or Lane C.

@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 317  
+**Prompt #:** 321  
 **Phase #:** 2  
-**Tranche #:** 70
+**Tranche #:** 71
 
-Updated: 2026-04-06T16:05:00+00:00
+Updated: 2026-04-06T18:00:00+00:00
 
 ## You are here
 
-- **Checkpoint:** **T45**–**T63** Lane B on disk; **T64**–**T68** Lane A/C lines; **T69** (Prompt **#314**) Lane E charter; **T70** (Prompt **#317**) — **one** Lane E live **`observe`** executed → **`scout_failure`** (HTTP **404**) on locked Crossref URL; registry Lane E **`partial`**. **Lane A** slice-1 STOP; **Lane B** default freeze; **Lane C** slice-1 STOP. **Phase 2** still **active**; **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Not** approval; **not** Phase **3**.
+- **Checkpoint:** **T45**–**T63** Lane B on disk; **T64**–**T68** Lane A/C lines; **T69**–**T71** Lane E (charter / **T70** live observe / **T71** slice-1 STOP). **T71** (Prompt **#321**) — **governance only** — **Lane E slice-1 STOP** (`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` §12); registry Lane E **`partial`** preserved; **no** default next lane. **Lane A** slice-1 STOP; **Lane B** default freeze; **Lane C** slice-1 STOP. **Phase 2** still **active**; **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Not** approval; **not** Phase **3**.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
@@ -50,6 +50,7 @@ Updated: 2026-04-06T16:05:00+00:00
 - **Tranche 68 — Lane C slice-1 stop (Prompt #311 — executed):** `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §11; **no** collection; **`partial`** preserved; **not** approval; **not** Phase **3**.
 - **Tranche 69 — Lane E bounded evidence charter (Prompt #314 — executed):** `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`; **no** live observe in T69; **not** approval; **not** Phase **3**.
 - **Tranche 70 — Lane E first bounded live observe (Prompt #317 — executed):** `observe` + **`lane_e_research_swarm_context`**; Crossref URL lock; **`scout_failure`** (HTTP **404**) on this run; registry **`partial`**; **not** approval; **not** Phase **3**.
+- **Tranche 71 — Lane E slice-1 stop governance lock (Prompt #321 — executed):** `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` §12; **no** collection; **`partial`** preserved, not closed; **no** default next lane; **not** approval; **not** Phase **3**.
 
 ## Locked remaining Phase 2 sequence (authoritative)
 
@@ -83,6 +84,7 @@ Updated: 2026-04-06T16:05:00+00:00
 26. **Tranche 68 executed (Prompt #311):** Lane C **slice-1 STOP** governance lock — `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §11; **no** collection; **`partial`** preserved, not closed. **No** approval; **No** Phase **3**.
 27. **Tranche 69 executed (Prompt #314):** Lane E bounded evidence charter — `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`; **no** live observe in T69; **No** approval; **No** Phase **3**.
 28. **Tranche 70 executed (Prompt #317):** Lane E first bounded live observe — `lane_b_real_observation_slice.py observe` + **`--source-lane lane_e_research_swarm_context`**; Crossref URL lock (charter §2); outcome **`scout_failure`** on that run; registry **`partial`**; **No** approval; **No** Phase **3**.
+29. **Tranche 71 executed (Prompt #321):** Lane E slice-1 STOP governance lock — `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` §12; **no** live collection; **`partial`** preserved; **No** approval; **No** Phase **3**.
 
 ## Phase 1 — completed
 
@@ -146,6 +148,7 @@ Updated: 2026-04-06T16:05:00+00:00
 | Tranche 68 — **Lane C slice-1 stop** | **EXECUTED** (Prompt **#311**) — `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §11; **no** collection; **`partial`** preserved; **not** approval |
 | Tranche 69 — **Lane E bounded evidence charter** | **EXECUTED** (Prompt **#314**) — `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`; **no** live observe in T69; **not** approval |
 | Tranche 70 — **Lane E first bounded live observe** | **EXECUTED** (Prompt **#317**) — `observe` + **`lane_e_research_swarm_context`**; Crossref URL lock; **`scout_failure`** (HTTP **404**) on this run; registry **`partial`**; **not** approval |
+| Tranche 71 — **Lane E slice-1 stop governance lock** | **EXECUTED** (Prompt **#321**) — charter §12; **no** collection; **`partial`** preserved; **no** default next lane; **not** approval |
 | MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
 
 ## MASTER Phase 3 — Universe scanner
@@ -158,7 +161,7 @@ Updated: 2026-04-06T16:05:00+00:00
 
 ## Exact current next step (authorized only)
 
-1. **Post–T70 on disk:** read **`THE_FADE_CONTEXT_ANCHOR.md`**, **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`**, **`MVP_LANE_EVIDENCE_LOG.md`** (Tranche **70**), and **`mvp_lane_evidence_registry.json`**. **Lane E** first live pass = **`scout_failure`** on locked URL (**not** success-only). **No** further **bounded** Lane E steps are authorized here beyond what a **new governed prompt** names. Lane A / Lane C **stopped** per charters; Lane B **frozen by default**.
+1. **Post–T71 on disk:** read **`THE_FADE_CONTEXT_ANCHOR.md`**, **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** §12, **`MVP_LANE_EVIDENCE_LOG.md`**, **`mvp_lane_evidence_registry.json`**. **Lane E slice-1 STOP** — **no** further **live** Lane E tranches without **new Lane E charter**. **No** MVP lane **automatically active**. Next move = **operator-governed** Phase **2** decision (not assumed here). Lane A / Lane C **stopped**; Lane B **frozen by default**.
 2. **Hold at the Phase 2 checkpoint** — **promising-but-unapproved**; **no** Phase **3** unlock from FR slice alone.
 3. Keep **`mvp_lane_approval.json`** unchanged until whole-gate evidence + explicit operator signoff.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.

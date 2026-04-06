@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 317  
+**Prompt #:** 321  
 **Phase #:** 2  
-**Tranche #:** 70  
+**Tranche #:** 71  
 
-Updated: 2026-04-06T16:05:00+00:00
+Updated: 2026-04-06T18:00:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T70 executed on disk** (includes T45–T63 Lane B + **T64**–**T68** Lane A/C lines + **T69** Lane E charter + **T70** Lane E first live observe). **T70** (Prompt **#317**) — **one** bounded **`lane_b_real_observation_slice.py observe`** with **`--source-lane lane_e_research_swarm_context`**; Crossref Works URL lock in **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** §2; outcome **`scout_failure`** (HTTP **404**) on that run — see **Status** below. **Lane E** registry **`evidence_status` `partial`** (**not** gate-closed). Lane A **slice-1 STOP** unchanged; **Lane B default freeze** unchanged; Lane C **slice-1 STOP** unchanged. **Does not** grant approval; **`mvp_lane_approval.json`** unchanged; **does not** unblock Phase **3**.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T71 executed on disk** (includes T45–T63 Lane B + **T64**–**T68** Lane A/C lines + **T69**–**T71** Lane E charter / live observe / slice-1 stop). **T71** (Prompt **#321**) — **governance / doc lock only** — **Lane E slice-1 STOP**; **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** §12; **no** new live observation. **Lane E** registry **`evidence_status` `partial`** (**preserved, not closed** at MVP bar). **No** MVP lane is **active-by-default** for the next bounded slice — next spend requires **operator-governed** next-lane or approval-scope decision. Lane A **slice-1 STOP** unchanged; **Lane B default freeze** unchanged; Lane C **slice-1 STOP** unchanged. **Does not** grant approval; **`mvp_lane_approval.json`** unchanged; **does not** unblock Phase **3**.
 
 ## Approval authority (binding)
 
@@ -78,6 +78,8 @@ Use this format per lane. Fill the fields with operator observations; if somethi
   - notes:
 
 ## Status (current)
+
+**Tranche 71 (Prompt #321):** **Governance / doc lock only** — **no** new live observation. **Lane E slice-1 STOP** — no further Lane E **live** evidence tranches unless a **new explicit Lane E charter** (governed prompt); see **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** §12. Registry Lane E **`evidence_status` `partial`** (**unchanged** — **not** closure at MVP bar; **not** approval; **not** Phase **3**). **Lane A** slice-1 STOP unchanged; **Lane B** default freeze unchanged; **Lane C** slice-1 STOP unchanged.
 
 **Tranche 70 (Prompt #317):** Lane E **first bounded live observe-or-honest-failure pass** — **one** read-only HTTPS GET, **no** auth in repo. **Tool:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe` with **`--source-lane lane_e_research_swarm_context`** (emitted failure records **`lane_e_research_swarm_context`**). **URL (T70 charter lock):** `https://api.crossref.org/works/10.1038/d41586-019-02658-z` (Crossref public Works API JSON; documented in `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` §2). **Command:**
 
