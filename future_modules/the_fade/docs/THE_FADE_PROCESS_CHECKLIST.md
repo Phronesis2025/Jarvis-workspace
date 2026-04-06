@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 314  
+**Prompt #:** 317  
 **Phase #:** 2  
-**Tranche #:** 69
+**Tranche #:** 70
 
-Updated: 2026-04-06T19:00:00+00:00
+Updated: 2026-04-06T16:05:00+00:00
 
 ## You are here
 
-- **Checkpoint:** **T45**–**T63** Lane B on disk; **T64**–**T68** Lane A/C lines; **T69** (Prompt **#314**) — **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** — Lane E **active next by charter only**; registry **`not_started`** for **first live HTTPS observe slice**; **no** live observe in T69. **Lane A** slice-1 STOP; **Lane B** default freeze; **Lane C** slice-1 STOP. **Phase 2** still **active**; **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Next:** **T70** — **one** bounded Lane E **observe-or-honest-failure** pass; **not** approval; **not** Phase **3**.
+- **Checkpoint:** **T45**–**T63** Lane B on disk; **T64**–**T68** Lane A/C lines; **T69** (Prompt **#314**) Lane E charter; **T70** (Prompt **#317**) — **one** Lane E live **`observe`** executed → **`scout_failure`** (HTTP **404**) on locked Crossref URL; registry Lane E **`partial`**. **Lane A** slice-1 STOP; **Lane B** default freeze; **Lane C** slice-1 STOP. **Phase 2** still **active**; **`mvp_lane_approval.json`** **`approved: false`**; **Phase 3** **blocked**. **Not** approval; **not** Phase **3**.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
@@ -46,6 +46,10 @@ Updated: 2026-04-06T19:00:00+00:00
 - **Tranche 64 — Lane A bounded evidence charter + doc lock (Prompt #294 — executed):** `docs/LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; **Lane B default freeze** for new tranches; **not** approval; **not** Phase **3**.
 - **Tranche 65 — Lane A first bounded live observe (Prompt #298 — executed):** `lane_b_real_observation_slice.py observe` + **`--source-lane lane_a_public_signal`**; Coinbase public JSON URL (charter lock); **success-only** on this run; local `outputs/lane_a_public_signal/*.json` gitignored; **not** approval; **not** Phase **3**.
 - **Tranche 66 — Lane A slice-1 stop + Lane C charter (Prompt #302 — executed):** `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; Lane A stop §9 in `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; **no** live collection; **not** approval; **not** Phase **3**.
+- **Tranche 67 — Lane C first bounded live observe (Prompt #307 — executed):** `lane_b_real_observation_slice.py observe` + **`lane_c_market_context`**; Frankfurter URL lock; **success-only** on this run; **not** approval; **not** Phase **3**.
+- **Tranche 68 — Lane C slice-1 stop (Prompt #311 — executed):** `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §11; **no** collection; **`partial`** preserved; **not** approval; **not** Phase **3**.
+- **Tranche 69 — Lane E bounded evidence charter (Prompt #314 — executed):** `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`; **no** live observe in T69; **not** approval; **not** Phase **3**.
+- **Tranche 70 — Lane E first bounded live observe (Prompt #317 — executed):** `observe` + **`lane_e_research_swarm_context`**; Crossref URL lock; **`scout_failure`** (HTTP **404**) on this run; registry **`partial`**; **not** approval; **not** Phase **3**.
 
 ## Locked remaining Phase 2 sequence (authoritative)
 
@@ -77,7 +81,8 @@ Updated: 2026-04-06T19:00:00+00:00
 24. **Tranche 66 executed (Prompt #302):** Lane A **slice-1 STOP** + Lane C **bounded evidence charter** — `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; **no** observation in T66. **No** approval; **No** Phase **3**.
 25. **Tranche 67 executed (Prompt #307):** Lane C **first bounded live observe** — `lane_b_real_observation_slice.py observe` + **`--source-lane lane_c_market_context`**; Frankfurter URL lock (`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §2); **success-only** on this run. **No** approval; **No** Phase **3**.
 26. **Tranche 68 executed (Prompt #311):** Lane C **slice-1 STOP** governance lock — `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §11; **no** collection; **`partial`** preserved, not closed. **No** approval; **No** Phase **3**.
-27. **Tranche 69 executed (Prompt #314):** Lane E bounded evidence charter — `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`; **no** live observe; **`not_started`** for first live slice; **No** approval; **No** Phase **3**.
+27. **Tranche 69 executed (Prompt #314):** Lane E bounded evidence charter — `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`; **no** live observe in T69; **No** approval; **No** Phase **3**.
+28. **Tranche 70 executed (Prompt #317):** Lane E first bounded live observe — `lane_b_real_observation_slice.py observe` + **`--source-lane lane_e_research_swarm_context`**; Crossref URL lock (charter §2); outcome **`scout_failure`** on that run; registry **`partial`**; **No** approval; **No** Phase **3**.
 
 ## Phase 1 — completed
 
@@ -137,6 +142,10 @@ Updated: 2026-04-06T19:00:00+00:00
 | Tranche 64 — **Lane A bounded evidence charter + doc lock** | **EXECUTED** (Prompt **#294**) — `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; **Lane B default freeze**; **not** approval |
 | Tranche 65 — **Lane A first bounded live observe** | **EXECUTED** (Prompt **#298**) — `observe` + **`--source-lane lane_a_public_signal`**; Coinbase public JSON (charter lock); **success-only** on this run; **not** approval |
 | Tranche 66 — **Lane A slice-1 stop + Lane C charter** | **EXECUTED** (Prompt **#302**) — `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; Lane A stop §9; **no** observation; **not** approval |
+| Tranche 67 — **Lane C first bounded live observe** | **EXECUTED** (Prompt **#307**) — `observe` + **`lane_c_market_context`**; Frankfurter URL; **success-only** on this run; **not** approval |
+| Tranche 68 — **Lane C slice-1 stop** | **EXECUTED** (Prompt **#311**) — `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §11; **no** collection; **`partial`** preserved; **not** approval |
+| Tranche 69 — **Lane E bounded evidence charter** | **EXECUTED** (Prompt **#314**) — `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`; **no** live observe in T69; **not** approval |
+| Tranche 70 — **Lane E first bounded live observe** | **EXECUTED** (Prompt **#317**) — `observe` + **`lane_e_research_swarm_context`**; Crossref URL lock; **`scout_failure`** (HTTP **404**) on this run; registry **`partial`**; **not** approval |
 | MVP approval                                                                  | **REVIEWED — STILL OPEN / NOT GRANTED** (`approved: false` on disk) |
 
 ## MASTER Phase 3 — Universe scanner
@@ -149,7 +158,7 @@ Updated: 2026-04-06T19:00:00+00:00
 
 ## Exact current next step (authorized only)
 
-1. **Post–T66 on disk:** read **`THE_FADE_CONTEXT_ANCHOR.md`**, **`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`**, and **`MVP_LANE_EVIDENCE_LOG.md`** (Tranche **66**). **Next:** **T67** — first bounded Lane C observe-or-honest-failure pass (URL **`TBD`** until named). Lane A **stopped** for slice-1 unless **new Lane A charter**. **Do not** start new Lane B tranches without a **new Lane B charter**.
+1. **Post–T70 on disk:** read **`THE_FADE_CONTEXT_ANCHOR.md`**, **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`**, **`MVP_LANE_EVIDENCE_LOG.md`** (Tranche **70**), and **`mvp_lane_evidence_registry.json`**. **Lane E** first live pass = **`scout_failure`** on locked URL (**not** success-only). **No** further **bounded** Lane E steps are authorized here beyond what a **new governed prompt** names. Lane A / Lane C **stopped** per charters; Lane B **frozen by default**.
 2. **Hold at the Phase 2 checkpoint** — **promising-but-unapproved**; **no** Phase **3** unlock from FR slice alone.
 3. Keep **`mvp_lane_approval.json`** unchanged until whole-gate evidence + explicit operator signoff.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.

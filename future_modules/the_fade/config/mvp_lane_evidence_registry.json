@@ -1,13 +1,13 @@
 {
   "_meta": {
     "title": "mvp_lane_evidence_registry",
-    "prompt_number": 314,
+    "prompt_number": 317,
     "phase_number": 2,
-    "tranche_number": 69
+    "tranche_number": 70
   },
   "module": "the_fade",
   "phase": 2,
-  "tranche": 69,
+  "tranche": 70,
   "approval_state": {
     "approval_authority": "future_modules/the_fade/config/mvp_lane_approval.json",
     "approved": false,
@@ -121,16 +121,17 @@
         "conflict_handling",
         "context_dominance_risk"
       ],
-      "evidence_status": "not_started",
+      "evidence_status": "partial",
       "dimension_evidence_status": {
-        "reliability": "not_started",
+        "reliability": "partial",
         "freshness": "not_started",
-        "normalization_viability": "not_started",
+        "normalization_viability": "partial",
         "stale_outage_behavior": "not_started",
         "conflict_handling": "not_started",
         "context_dominance_risk": "not_started"
       },
-      "notes": "**Historical (on disk, THE FADE-local fixtures only — not live HTTPS):** Tranches **37–39** bounded audits (`audit_lane_e_*` + `examples/lane_e_context_bootstrap/`) — **not** live Research Swarm integration. Tranche **39A** PATH B: Lane E bootstrap **paused** after bounded value capture. **T69** (Prompt **#314**): bounded **live** evidence charter on disk — `docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` — **`lane_id` `lane_e_research_swarm_context`**; **one** read-only HTTPS research/context source class; URL **`TBD`** until named before first observe; **no** auth; **no** multi-feed. **Registry `evidence_status` `not_started`** for the **first live HTTPS observe slice** under this charter (fixture-era dimension **partial** depth is **not** carried forward at lane level — **honest reset** for **live** bar). **`last_evidence_recorded_at` omitted** until a **live** observe artifact exists. **Next:** **T70** — **one** bounded Lane E **observe-or-honest-failure** pass (**reliability** + **normalization_viability** first). **Does not** grant MVP approval. `mvp_lane_approval.json` unchanged."
+      "last_evidence_recorded_at": "2026-04-06T15:31:07+00:00",
+      "notes": "**Historical (on disk, THE FADE-local fixtures only — not live HTTPS):** Tranches **37–39** bounded audits (`audit_lane_e_*` + `examples/lane_e_context_bootstrap/`) — **not** live Research Swarm integration. Tranche **39A** PATH B: Lane E bootstrap **paused** after bounded value capture. **T69** (Prompt **#314**): bounded **live** evidence charter — `docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`. **T70** (Prompt **#317**): **one** bounded **`lane_b_real_observation_slice.py observe`** pass with **`--source-lane lane_e_research_swarm_context`** to locked HTTPS URL **`https://api.crossref.org/works/10.1038/d41586-019-02658-z`** (Crossref public Works API; **GET**, no auth in repo; operator ToS/rate limits operator-owned). **Observed outcome class:** **`scout_failure`** — HTTP **404**, `error_type` **`SOURCE_UNAVAILABLE`**; local artifact `t70_lane_e_first_observe_scout_failure.json` under `outputs/lane_e_research_swarm_context/` (`*.json` gitignored — committed record in `MVP_LANE_EVIDENCE_LOG.md`). **First-touch dimensions on this run:** **reliability** + **normalization_viability** → **`partial`** (single attempt; explicit failure path materialized — **not** success-only). **Does not** prove HTTP **200** / `normalized_signal_event` for this URL on this run, multi-attempt reliability, freshness, stale/outage, conflict, or context dominance; **does not** close Lane E or grant MVP approval. `mvp_lane_approval.json` unchanged."
     }
   ],
   "evidence_collection_rules": {
@@ -145,6 +146,6 @@
       "context_dominance_risk": "Record checks that context-only reads do not dominate primary lane truth."
     }
   },
-  "notes": "Reconciled through Tranche 69 (Prompt #314): **T69** — Lane E bounded **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** on disk; Lane E **`evidence_status` `not_started`** for **live** HTTPS slice; **`mvp_lane_approval.json` unchanged** (`approved:false`). Prior: T68 Lane C slice-1 stop, T67 Lane C live observe, etc. Keep `approved:false` until evidence demonstrates the full gate standard."
+  "notes": "Reconciled through Tranche 70 (Prompt #317): **T70** — Lane E **first** bounded **live** observe-or-honest-failure pass executed; Crossref URL lock in charter §2; outcome **`scout_failure`** (HTTP **404**) with explicit on-disk failure JSON (gitignored); Lane E **`evidence_status` → `partial`**; **`mvp_lane_approval.json` unchanged** (`approved:false`). Prior: T69 Lane E charter, T68 Lane C stop, etc. Keep `approved:false` until evidence demonstrates the full gate standard."
 }
 

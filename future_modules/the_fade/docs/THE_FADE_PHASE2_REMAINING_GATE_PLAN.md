@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-06T19:00:00+00:00 (Tranche **69**, rollout **Prompt #314** — Lane E bounded evidence charter; **no** live observe; **`mvp_lane_approval.json` unchanged**)  
+**Updated:** 2026-04-06T16:05:00+00:00 (Tranche **70**, rollout **Prompt #317** — Lane E first bounded live observe; **`scout_failure`** on locked Crossref URL for that run; **`mvp_lane_approval.json` unchanged**)  
 
 **Authority:** This file **does not** change `mvp_lane_approval.json`. Binding approval remains that file only.
 
@@ -35,7 +35,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 - **Lane B conflict / context-dominance:** **Partial** — Tranche **47** adds a **bounded** local fixture precedence trace (`tranche47_*`), adopted pre-existing Tranche **52** adds a **bounded** stale-context omission wrapper trace (`tranche52_*`) showing explicit stale-first omission before conflict handling in local cases, Tranche **56** adds a **bounded** minimal-path truth pass (`tranche56_*`) proving the current `lane_b_real_observation_slice.py conflict` subcommand itself does **not** read freshness-like fields and does **not** stale-omit valid context, Tranche **60** adds a **stored real-slice** conflict/fusion boundary pass (`tranche60_*`) proving the 22-slot collector artifacts do **not** include observe-output lane JSON files or top-level `source_lane` / `direction_hint` snapshot keys, so `cmd_conflict` mismatch vs local contra is **not** slice-derived without policy-filled `direction_hint`, and Tranche **61** (Prompt **#276**) locks **operator-facing replay policy** in `lane_b_phase2_conflict_replay_policy_decision.json` requiring explicit labeling of slice-derived vs policy_fill vs unknown for replay on that stored slice (still **not** gate closure). Full conflict/runtime closure is still **not** proved.
 - **Lane A (post–T66):** **Slice-1 STOP** — T64–T65 complete; **`evidence_status` `partial`**; further Lane A only under **new Lane A charter** (`LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md` §9). **Not** approval; **not** Phase **3**.
 - **Lane C (post–T68):** Bounded **live** evidence charter on disk (`docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`) + **T67** first live observe + **T68** (Prompt **#311**) **slice-1 STOP** (§11) — URL locked §2 (`https://api.frankfurter.app/latest?from=USD`); registry **`evidence_status` `partial`** (**`partiality` preserved, not closed**); further Lane C live evidence **only** under **new explicit Lane C charter**. **Historical** T41/T42 local fixtures on disk — **not** live integration. **Not** approval; **not** Phase **3**.
-- **Lane E (post–T69):** Bounded **live** evidence charter on disk (`docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`) — **one** HTTPS research/context source class; URL **`TBD`**; registry **`evidence_status` `not_started`** for **first live HTTPS observe slice**; **next** = **T70** **one** bounded **observe-or-honest-failure** pass (**reliability** + **normalization_viability** first). **Historical** Tranches **37–39** THE FADE-local fixtures on disk — **not** live HTTPS integration. **Active next by charter only** — **not** approval; **not** Phase **3**.
+- **Lane E (post–T70):** Bounded **live** evidence charter on disk (`docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`) — **T70** (Prompt **#317**) **one** bounded **`lane_b_real_observation_slice.py observe`** with **`--source-lane lane_e_research_swarm_context`** to Crossref Works URL locked §2; **observed outcome** **`scout_failure`** (HTTP **404**) on that run — explicit failure JSON under `outputs/lane_e_research_swarm_context/` (**gitignored** `*.json` — log embed); registry **`evidence_status` `partial`**; **`reliability`** + **`normalization_viability`** → **`partial`**. **Historical** Tranches **37–39** THE FADE-local fixtures on disk — **not** this live HTTPS slice. **Not** approval; **not** Phase **3**.
 - **Lane B (post–T64):** Existing partial evidence remains on disk; **new Lane B evidence tranches are frozen by default** — reopen **only** under a **new governed Lane B charter** naming scope and bounds.
 
 ---
@@ -57,7 +57,7 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 3. **Freshness discipline** — **Lane B:** **policy locked** but outcome **partial** (**10** unresolved rows).
 4. **Reliability** — strong for **FR window slice**; **not** a license to ignore other dimensions or other lanes.
 5. **No context-only domination** — Lane B / fusion still **partial** even after bounded T47/T52/T56 local traces, the T60 real-slice conflict/fusion boundary, and the T61 conflict-replay policy file (labeling only); T56 clarifies that stale-first omission is wrapper-only relative to the current minimal path; T60 clarifies that the stored 22-slot slice does not by itself supply `cmd_conflict` lane JSON or direction fields; T61 locks operator-facing replay labeling for policy_fill vs slice-derived vs unknown on that stored slice. Lane E likewise remains **not** fully proven at gate bar across permutations.
-6. **Other MVP lanes (A, C, E)** — Lane A **slice-1 stopped**; **`partial`**, not MVP bar. Lane C **slice-1 stopped** (**T68**); **`partial`**, not MVP bar — **do not** mistake **`partial`** for closure. Lane E **active next by charter only** (**T69**); **`not_started`** for **live** HTTPS slice until **T70**; **not** MVP bar.
+6. **Other MVP lanes (A, C, E)** — Lane A **slice-1 stopped**; **`partial`**, not MVP bar. Lane C **slice-1 stopped** (**T68**); **`partial`**, not MVP bar — **do not** mistake **`partial`** for closure. Lane E (**T69** charter + **T70** first live observe): **`evidence_status` `partial`** after **one** attempt with **`scout_failure`** on the locked URL for that run — **not** MVP bar; **not** success-only closure.
 
 ---
 
@@ -311,6 +311,14 @@ Per `MVP_SOURCE_RELIABILITY_AUDIT.md` approval standard — **all** must pass fo
 **Scope (as run):** New file `docs/LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`; Lane A charter §9 stop in `LANE_A_PHASE2_EVIDENCE_CHARTER_T64.md`; updates to `mvp_lane_evidence_registry.json`, `MVP_LANE_EVIDENCE_LOG.md`, `THE_FADE_CONTEXT_ANCHOR.md`, `THE_FADE_PROCESS_CHECKLIST.md`, `THE_FADE_HANDOFF_BUNDLE_LATEST.md`, this plan, and `JARVIS_THE_FADE_MASTER_BUILD_CHECKLIST.md`. **No** network observation; **no** Lane C execution code; **no** `mvp_lane_approval.json` edit; **no** Lane B reopen; **no** Lane E unpause.
 
 **Outcome (on disk):** Lane C charter locks **one** read-only HTTPS **market-context** source class; URL **`TBD`** until named before **T67**; **T67** = **one** bounded observe-or-honest-failure pass (**reliability** + **normalization_viability** first). Lane A further work **only** under **new Lane A charter**. Lane B freeze + Lane E pause **unchanged**. **Not** approval; **not** Phase **3**.
+
+### Executed — **Tranche 70** (Prompt **#317**, Lane E first bounded live observe-or-honest-failure pass)
+
+**Name:** Lane E **`lane_e_research_swarm_context`** — **one** bounded **HTTPS** **`observe`** execution (reuse `lane_b_real_observation_slice.py` with **`--source-lane lane_e_research_swarm_context`**).
+
+**Scope (as run):** Read-only GET to **`https://api.crossref.org/works/10.1038/d41586-019-02658-z`** (Crossref public Works API; **no** auth in repo); **`--task-id`** `t70_lane_e_first_observe`; **`--timeout`** `30`; **`--source-name`** `crossref_public_works_api`; output under `outputs/lane_e_research_swarm_context/` (`*.json` gitignored). Charter §2 URL lock in `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`. **No** `mvp_lane_approval.json` edit; **no** Lane A/B/C reopen.
+
+**Outcome (on disk):** `t70_lane_e_first_observe_scout_failure.json` (local; gitignored — full command/window/outcome in `MVP_LANE_EVIDENCE_LOG.md`). **Observed outcome class:** **`scout_failure`** — HTTP **404**, `error_type` **`SOURCE_UNAVAILABLE`**. Registry Lane E **`evidence_status` → `partial`**; **`reliability`** + **`normalization_viability`** → **`partial`**. **Does not** prove HTTP **200** / `normalized_signal_event` for this URL on this run; **does not** close remaining Lane E dimensions; **not** approval; **not** Phase **3**.
 
 ---
 

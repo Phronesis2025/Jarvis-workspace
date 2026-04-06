@@ -1,10 +1,10 @@
 # MVP Lane Evidence Log (Phase 2)
 
-**Prompt #:** 314  
+**Prompt #:** 317  
 **Phase #:** 2  
-**Tranche #:** 69  
+**Tranche #:** 70  
 
-Updated: 2026-04-06T19:00:00+00:00
+Updated: 2026-04-06T16:05:00+00:00
 
 ## Purpose
 
@@ -12,7 +12,7 @@ This document is an operator-facing place to record lane-level evidence against 
 
 This log does **NOT** grant approval and does **NOT** change `approved` in `mvp_lane_approval.json`.
 
-**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T69 executed on disk** (includes T45–T63 Lane B + **T64**–**T68** Lane A/C lines + **T69** Lane E bounded evidence charter). **T69** (Prompt **#314**) — **governance/doc only:** **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** — **`lane_e_research_swarm_context`**; **one** HTTPS research/context source class; URL **`TBD`**; **no** live observation in T69. **Lane E** is **active next by charter only**; registry **`not_started`** for **first live HTTPS observe slice**; **next** = **T70** **one** bounded Lane E **observe-or-honest-failure** pass (**reliability** + **normalization_viability** first). Lane A **slice-1 STOP** unchanged; **Lane B default freeze** unchanged; Lane C **slice-1 STOP** unchanged. **Does not** grant approval; **`mvp_lane_approval.json`** unchanged; **does not** unblock Phase **3**.
+**Execution discipline (Prompt #134):** Remaining Phase **2** work order is **locked** in **`THE_FADE_PHASE2_REMAINING_GATE_PLAN.md`** — **through T70 executed on disk** (includes T45–T63 Lane B + **T64**–**T68** Lane A/C lines + **T69** Lane E charter + **T70** Lane E first live observe). **T70** (Prompt **#317**) — **one** bounded **`lane_b_real_observation_slice.py observe`** with **`--source-lane lane_e_research_swarm_context`**; Crossref Works URL lock in **`LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** §2; outcome **`scout_failure`** (HTTP **404**) on that run — see **Status** below. **Lane E** registry **`evidence_status` `partial`** (**not** gate-closed). Lane A **slice-1 STOP** unchanged; **Lane B default freeze** unchanged; Lane C **slice-1 STOP** unchanged. **Does not** grant approval; **`mvp_lane_approval.json`** unchanged; **does not** unblock Phase **3**.
 
 ## Approval authority (binding)
 
@@ -79,7 +79,13 @@ Use this format per lane. Fill the fields with operator observations; if somethi
 
 ## Status (current)
 
-**Tranche 69 (Prompt #314):** **Governance / doc lock only** — **no** new live observation. **Lane E** bounded evidence charter on disk — **`future_modules/the_fade/docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`** (`lane_id` **`lane_e_research_swarm_context`**); **one** read-only HTTPS **research/context** source class; URL **`TBD`** until named before first observe; **no** auth; **no** multi-feed. **Lane E** is **active next by charter only**; registry **`evidence_status` `not_started`** for **first live HTTPS observe slice** (T37–T39 **local fixture** audits remain on disk — **not** live integration). **Next:** **T70** — **one** bounded Lane E **observe-or-honest-failure** pass. **Lane A** slice-1 STOP unchanged; **Lane B** default freeze unchanged; **Lane C** slice-1 STOP unchanged. **Does not** grant MVP approval; **does not** unblock Phase **3**.
+**Tranche 70 (Prompt #317):** Lane E **first bounded live observe-or-honest-failure pass** — **one** read-only HTTPS GET, **no** auth in repo. **Tool:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe` with **`--source-lane lane_e_research_swarm_context`** (emitted failure records **`lane_e_research_swarm_context`**). **URL (T70 charter lock):** `https://api.crossref.org/works/10.1038/d41586-019-02658-z` (Crossref public Works API JSON; documented in `LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` §2). **Command:**
+
+`python future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe --task-id t70_lane_e_first_observe --ticker RESEARCH_CONTEXT --url "https://api.crossref.org/works/10.1038/d41586-019-02658-z" --out-dir future_modules/the_fade/outputs/lane_e_research_swarm_context --source-lane lane_e_research_swarm_context --source-name crossref_public_works_api --timeout 30`
+
+**UTC window (PowerShell wall-clock bracketing the process):** start **`2026-04-06T15:31:07.114Z`** — end **`2026-04-06T15:31:07.747Z`**. **Failure artifact `created_at`:** **`2026-04-06T15:31:07Z`** (per written JSON). **Raw artifact (local):** `future_modules/the_fade/outputs/lane_e_research_swarm_context/t70_lane_e_first_observe_scout_failure.json` — `outputs/lane_e_research_swarm_context/.gitignore` ignores `*.json`; **committed record** is this log + registry + charter. **Observed outcome class:** **`scout_failure`** — HTTP **404**, `error_type` **`SOURCE_UNAVAILABLE`**, latency **~312.9** ms per `error_summary`; **not** `normalized_signal_event` on this run. **Registry:** Lane E **`evidence_status` `partial`**; **`reliability`** + **`normalization_viability`** → **`partial`** (single attempt; explicit failure path). **Does not** prove success-path observe for this URL, multi-attempt reliability, freshness, stale/outage, conflict, or context-dominance dimensions for Lane E; **does not** close Lane E or grant MVP approval; **`mvp_lane_approval.json`** unchanged.
+
+**Tranche 69 (Prompt #314):** **Governance / doc lock only** — **no** live observation in T69. **Lane E** bounded evidence charter on disk — **`future_modules/the_fade/docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md`**. **Superseded for live slice** by **T70** above. **Does not** grant MVP approval; **does not** unblock Phase **3**.
 
 **Tranche 68 (Prompt #311):** **Governance / doc lock only** — **no** new live observation. **Lane C slice-1 STOP** — no further Lane C live evidence tranches unless a **new explicit Lane C charter** (governed prompt); see **`LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md`** §11. Registry Lane C **`evidence_status` `partial`** (**unchanged** — **not** closure at MVP bar). **Lane A** slice-1 STOP unchanged; **Lane B** default freeze unchanged. **Does not** grant MVP approval; **does not** unblock Phase **3**.
 **Tranche 67 (Prompt #307):** Lane C **first bounded live observe-or-honest-failure pass** — **one** read-only HTTPS GET, **no** auth. **Tool:** `future_modules/the_fade/scripts/lane_b_real_observation_slice.py observe` with **`--source-lane lane_c_market_context`** (emitted `normalized_signal_event` records **`lane_c_market_context`**). **URL (T67 charter lock):** `https://api.frankfurter.app/latest?from=USD` (Frankfurter public ECB-based JSON; documented in `LANE_C_PHASE2_EVIDENCE_CHARTER_T66.md` §2). **Command:**
