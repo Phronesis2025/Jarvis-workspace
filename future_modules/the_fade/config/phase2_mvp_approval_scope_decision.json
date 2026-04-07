@@ -160,6 +160,22 @@
     "effective_utc": "2026-04-06T22:00:00Z",
     "statement": "Scoped MVP approval (T80) remains in force and is not production maturity. Lane posture unchanged: A/C/E stopped-for-now; Lane B frozen by default for new evidence without new charter. Registry partialities remain honest partial. This lock amends next_tranche_authorization_rule so Phase 3 entry planning only is explicitly allowed as one bounded next class; Phase 3 implementation, scanner/runtime/dashboard coding, provider integration, lane reopen, and evidence collection remain forbidden without future explicit governance."
   },
+  "post_t83_phase3_entry_planning_package": {
+    "tranche": 83,
+    "prompt_number": 345,
+    "effective_utc": "2026-04-06T23:45:00Z",
+    "label": "THE_FADE_PHASE3_ENTRY_T83_FOUNDATION_PLANNING_LOCK",
+    "planning_note": "Phase 3 entry planning package on disk: future_modules/the_fade/docs/THE_FADE_PHASE3_ENTRY_PLAN_T83.md and future_modules/the_fade/docs/THE_FADE_PHASE3_IMPLEMENTATION_BOUNDARY_T83.md. Defines Phase 3 entry as planning-only (no implementation, no provider wiring, no lane reopen, no evidence collection) and names exactly one candidate first implementation slice at planning level: static universe-scanner I/O contract artifacts only under future_modules/the_fade/ (no executable scan loop, network I/O, dashboard, provider integration, or registry/lane edits). Does not authorize Phase 3 implementation or production work. Scoped MVP approval (T80) remains binding; a later explicit Phase 3 implementation governance tranche is required before any executable Phase 3 code. This note is planning record only: it does not change status, current_approval_truth, approval_scope_policy, primary_lane_rule, support_lane_rule, dimension_policy, lane_posture_policy, or next_tranche_authorization_rule semantics beyond documenting that the T83 planning package exists.",
+    "non_claims": "T83 does not implement Phase 3, does not reopen lanes, does not authorize productionization, and does not substitute for a future implementation signoff tranche."
+  },
+  "post_t84_first_implementation_slice_governance": {
+    "tranche": 84,
+    "prompt_number": 346,
+    "effective_utc": "2026-04-07T14:00:00Z",
+    "label": "THE_FADE_PHASE3_T84_FIRST_IMPLEMENTATION_GOVERNANCE_LOCK",
+    "implementation_governance_note": "First Phase 3 implementation slice is now governed on disk (not built): future_modules/the_fade/docs/THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_GOVERNANCE.md and future_modules/the_fade/docs/THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_ACCEPTANCE_CRITERIA.md. Exactly one future implementation tranche is authorized to add only static universe-scanner I/O contract artifacts under future_modules/the_fade/ (schema/spec files, static example payloads, non-executing typed contract stubs per those docs). Forbidden in that tranche: executable scanner logic, scheduled jobs, network calls, external APIs, dashboard surfaces, production wiring, provider credentials/env plumbing, multi-slice bundling, lane/registry/charter edits, evidence collection. T84 is governance/doc lock only — no code in T84; no lane reopen; no broader Phase 3 buildout authorization. Scoped MVP approval (T80) unchanged; lane_posture_policy unchanged; post_t82_on_disk_governance_lock and phase3_entry_planning_only_definition history unchanged. This block is an implementation-governance record only: it does not change status, current_approval_truth, approval_scope_policy, primary_lane_rule, support_lane_rule, dimension_policy, or lane_posture_policy.",
+    "non_claims": "T84 does not implement the slice, does not authorize runtime/dashboard/providers, does not authorize a second slice without new governance, and does not substitute for honest execution of acceptance criteria in the future build tranche."
+  },
   "anti_drift_rule": {
     "statement": "Pre-T80: No Phase 3 implementation before scoped MVP approval (T80) and explicit operator signoff on mvp_lane_approval.json per eligibility_rule_single_reading. Post-T80 and post-T82: Phase 3 implementation (scanner, runtime, dashboard, production integration, provider wiring) remains forbidden until a later explicit implementation governance tranche — not satisfied by Phase 3 entry planning only. One bounded Phase 3 entry planning only tranche is permitted per phase3_entry_planning_only_definition. This rule does not reintroduce all-lanes-required or full six-dimension closure across all four lanes."
   }

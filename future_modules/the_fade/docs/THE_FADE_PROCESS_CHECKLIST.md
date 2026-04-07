@@ -1,20 +1,20 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 342  
-**Phase #:** 2  
-**Tranche #:** 82
+**Prompt #:** 346  
+**Phase #:** 3 — **implementation governance** (T84 **docs only**)  
+**Tranche #:** 84
 
-Updated: 2026-04-06T22:00:00+00:00
+Updated: 2026-04-07T14:00:00+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T82** (Prompt **#342**). **Scoped MVP approval** (**T80**) **remains** — **`mvp_lane_approval.json`** **`approved: true`** (unchanged by **T82**). **`phase2_mvp_approval_scope_decision.json`** amended: **`post_t82_on_disk_governance_lock`**, **`phase3_entry_planning_only_definition`**, **`next_tranche_authorization_rule`** now allows **one** bounded **Phase 3 entry planning only** future tranche; **forbids** Phase **3** implementation, scanner/runtime/dashboard coding, provider integration, lane reopen, evidence collection as **next** moves without further governance. **T82:** governance/doc lock **only** — **no** code; **no** evidence; **no** lane reopen. **Registry partialities** unchanged. **Phase 3** implementation **still not** started.
+- **Checkpoint:** **Post–T84** (Prompt **#346**). **Scoped MVP approval** (**T80**) **remains** — **`mvp_lane_approval.json`** **`approved: true`**. **First Phase 3 implementation slice governed** on disk: **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_GOVERNANCE.md`**, **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_ACCEPTANCE_CRITERIA.md`**; **`phase2_mvp_approval_scope_decision.json`** **`post_t84_first_implementation_slice_governance`** (**note only** — **no** approval or lane-posture change; **T82** planning history **unchanged**). **T84:** **governance/docs only** — **no** code in **T84**; **no** evidence; **no** lane reopen. **Actual** Phase **3** **build** **not** done — **one** **future** tranche may add **only** **static** universe-scanner **I/O contract** artifacts per **T84**; **executable** scanner/runtime/dashboard/providers **still forbidden** outside that **single** bounded slice. **Registry partialities** unchanged.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
 - **Formal markdown evidence log / audit:** **Reconciled** (Prompt **#102**) — `MVP_LANE_EVIDENCE_LOG.md`, `MVP_SOURCE_RELIABILITY_AUDIT.md` match JSONL truth; **not** an approval change.
 - **Approval:** `mvp_lane_approval.json` — **post–T80:** **`approved: true`** and **`approved_mvp_lanes`** per **Prompt #336** (verify on disk).
-- **Phase 3:** **Implementation not started** — **T82** authorizes only a **future** **Phase 3 entry planning only** tranche (per **`phase3_entry_planning_only_definition`**); **not** scanner/runtime/dashboard/provider build.
+- **Phase 3:** **Slice not built** — **T84** **governs** **one** **future** **static contract** tranche; **no** executable Phase **3** in **T84**; broader build **blocked** without **new** governance after that slice.
 - **Operator gate review decision (Prompt #113 lock — historical slice context):** FR full-window evidence remains a **strong positive slice** only for **strict** whole-gate reading; **post–T80**, **scoped** MVP approval is **separately** recorded in **`mvp_lane_approval.json`** + **`t80_scoped_mvp_approval_decision.json`** — **not** Phase **3** readiness.
 - **Tranche 31 freshness discipline (Prompt #121 — executed):** **22** full-window lines classified (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly**. See `MVP_LANE_EVIDENCE_LOG.md` — **not** approval; **not** Phase 3.
 - **Tranche 32 — freshness ambiguity resolution (Prompt #129 — executed):** **10**-row cohort reviewed — stored snapshots **plus** one bounded read-only GET to `https://www.federalregister.gov/api/v1/documents/2026-06133.json`. Under the **same** Tranche **31** midnight-UTC rule, **all 10** remain **still cannot classify honestly** (explicit limitation documented in `MVP_LANE_EVIDENCE_LOG.md`); **not** approval; **not** Phase 3.
@@ -92,6 +92,8 @@ Updated: 2026-04-06T22:00:00+00:00
 34. **Tranche 78 executed (Prompt #334):** **Lane B reliability + stale_outage scoped MVP governance acceptance pack** — `lane_b_t78_scoped_mvp_governance_acceptance_pack.json` + `LANE_B_T78_SCOPED_MVP_GOVERNANCE_ACCEPTANCE_MEMO.md`; **`subset_acceptance_established`**; **does not** revisit T76 four dimensions; **`primary_lane_eligibility_met_after_this_pack`:** **`true`** **with T76**; **no** evidence collection; **no** registry `dimension_evidence_status` edits.
 35. **Tranche 80 executed (Prompt #336):** **Scoped MVP approval decision** — `t80_scoped_mvp_approval_decision.json` (**`scoped_mvp_approval_decision`:** **`YES`**) + `mvp_lane_approval.json` **`approved: true`** + `phase2_mvp_approval_scope_decision.json` **`as_of_t80_on_disk_assessment`**; **no** evidence; **no** code; **no** lane reopen; **scoped MVP approval granted**; **not** Phase **3** readiness; **not** production maturity.
 36. **Tranche 82 executed (Prompt #342):** **Post-T80 Phase 3 entry governance lock** — `phase2_mvp_approval_scope_decision.json` **`phase3_entry_planning_only_definition`**, **`post_t82_on_disk_governance_lock`**, amended **`next_tranche_authorization_rule`** / **`anti_drift_rule`**; **no** `mvp_lane_approval.json` edit; **no** registry edit; **no** lane reopen; **no** code; **no** evidence; **Phase 3 entry planning only** explicitly **allowed** as **one** future bounded class; **Phase 3 implementation** **still forbidden** until later governance.
+37. **Tranche 83 executed (Prompt #345):** **Phase 3 entry planning lock** — **`THE_FADE_PHASE3_ENTRY_PLAN_T83.md`** + **`THE_FADE_PHASE3_IMPLEMENTATION_BOUNDARY_T83.md`**; **`post_t83_phase3_entry_planning_package`** in **`phase2_mvp_approval_scope_decision.json`**; **planning only**; **no** implementation; **no** lane reopen; **no** code; **no** evidence; **later explicit implementation governance** required before executable Phase **3**.
+38. **Tranche 84 executed (Prompt #346):** **First implementation slice governance lock** — **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_GOVERNANCE.md`** + **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t84_first_implementation_slice_governance`**; **governance only**; **no** code in **T84**; **no** lane reopen; **one** **future** tranche **only** for **static** scanner I/O contracts per **T84**.
 
 ## Phase 1 — completed
 
@@ -111,7 +113,7 @@ Updated: 2026-04-06T22:00:00+00:00
 
 1. ~~**Document the full FR window**~~ **DONE** (Prompt **#102**) — governed log + audit reconciled to JSONL.
 2. ~~**Operator scoped MVP approval decision**~~ **DONE** (Prompt **#336** / **T80**) — binding flip on **`mvp_lane_approval.json`** with explicit signoff artifact; **not** Phase **3**; **not** full production maturity claim.
-3. **Phase 3 universe scanner / runtime / dashboard (implementation)** — **not** started; **T82** permits only a **future** **Phase 3 entry planning only** tranche first; implementation requires **later** explicit governance.
+3. **Phase 3 universe scanner / runtime / dashboard (implementation)** — **not** started; **T84** **governs** **one** **future** tranche that may add **only** **static** scanner I/O contract artifacts; **executable** Phase **3** / runtime / dashboard / providers **remain blocked** (the **T84** slice is **non-executing** by definition).
 4. **Lane registry / escalation** — follow existing rules; **no** automatic lane reopen from **T80**.
 
 ## MASTER Phase 2 — bounded phase ladder (current marks)
@@ -167,7 +169,7 @@ Updated: 2026-04-06T22:00:00+00:00
 
 ## MASTER Phase 3 — Universe scanner
 
-- **NOT STARTED** — **T80** records **scoped** Phase **2** MVP approval only; Phase **3** scanner/runtime/dashboard require a **separate** governed scope.
+- **IMPLEMENTATION NOT STARTED** (no **T84** code) — **T80** scoped MVP; **T83** entry planning; **T84** **locks** **one** **future** **static** scanner I/O contract tranche; **executable** Phase **3** / dashboard / providers **blocked** until **new** governance after that slice is **honestly** handled.
 
 ## MASTER Phase 4+
 
@@ -175,14 +177,14 @@ Updated: 2026-04-06T22:00:00+00:00
 
 ## Exact current next step (authorized only)
 
-1. **Post–T82 on disk:** verify **`t80_scoped_mvp_approval_decision.json`**, **`mvp_lane_approval.json`**, **`phase2_mvp_approval_scope_decision.json`** (**`as_of_t80_on_disk_assessment`**, **`post_t82_on_disk_governance_lock`**, **`phase3_entry_planning_only_definition`**), **`THE_FADE_CONTEXT_ANCHOR.md`**, **`MVP_LANE_EVIDENCE_LOG.md`**, **`mvp_lane_evidence_registry.json`**. **Do not** treat **T80**/**T82** as Phase **3** **implementation** authorization; **T82** permits only a **future** **planning-only** tranche class.
+1. **Post–T84 on disk:** verify **`t80_scoped_mvp_approval_decision.json`**, **`mvp_lane_approval.json`**, **`phase2_mvp_approval_scope_decision.json`** (**includes** **`post_t84_first_implementation_slice_governance`**), **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_GOVERNANCE.md`**, **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_ACCEPTANCE_CRITERIA.md`**, **`THE_FADE_CONTEXT_ANCHOR.md`**, **`MVP_LANE_EVIDENCE_LOG.md`**, **`mvp_lane_evidence_registry.json`**. **Do not** treat **T80**/**T84** as authorization for **executable** Phase **3** beyond **T84**’s **static** slice.
 2. **Lane posture:** **Lanes A/C/E** **stopped**; **Lane B** **frozen by default** for new live evidence — **no** reopen from **T80**.
-3. **Phase 3:** **not** started — only under **new** governed prompt explicitly scoping scanner/runtime/dashboard work.
+3. **Phase 3:** **T84** authorizes **only** **one** **future** **static contract** tranche — **not** full scanner/runtime/dashboard without **new** governance.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
 
 ## Do not
 
-- Start Phase 3 scanner/runtime/dashboard without a new governed prompt.
+- Start **executable** Phase **3** scanner/runtime/dashboard, or ship work **outside** **T84**’s **single** **static** contract slice, without a **new** governed prompt.
 - Treat **`approved: true`** as Phase **3** readiness or as erasing registry partialities / strict audit gaps.
 - Count `t30_valid_002` as part of the 22-slot full window unless explicitly justified.
 
