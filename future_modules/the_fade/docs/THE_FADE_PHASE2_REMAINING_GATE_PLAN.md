@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-08T16:30:00+00:00 (post–**T85** **#350** — **static** universe-scanner **I/O contract** package on disk **`contracts/phase3_universe_scanner_io/`** + **`post_t85_static_universe_scanner_io_contract_slice`**; **not** executable scanner; **scoped MVP approval** (**T80**) **unchanged**; **no** lane reopen; **executable** Phase **3** **still blocked** without **new** governance; **not** production maturity)  
+**Updated:** 2026-04-07T12:32:37+00:00 (post–**T86** **#354** — **T85** **static** contract package on disk + **`post_t86_second_slice_governance_offline_validation`** second-slice boundary (**offline** validation **only**; **no** validator code in **T86**); **scoped MVP approval** (**T80**) **unchanged**; **no** lane reopen; **executable** Phase **3** **still blocked**; **only** **one** **future** **T86** validation tranche **authorized** for Phase **3** implementation; **not** production maturity)  
 
 **Authority:** Binding **scoped** MVP approval state is **`mvp_lane_approval.json`** (updated in **T80**; **not** edited in **T82**). This plan file is a **locked historical sequence** and honest partiality accounting — it is **not** the approval flip mechanism.
 
@@ -19,6 +19,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 ## Done / locked (do not re-open without governance)
 
 - **Lane B FR full Tranche 21 window** on disk: **22**/**22** successes, **`t30_valid_002`** excluded from full-window tally; governed doc reconciliation (Prompt **#102**).
+- **Phase 3 T86 second-slice governance (Prompt #354):** **`THE_FADE_T86_SECOND_SLICE_GOVERNANCE_OFFLINE_VALIDATION.md`** + **`THE_FADE_T86_SECOND_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t86_second_slice_governance_offline_validation`** — **offline** validation boundary **locked**; **no** validator code in **T86**; **no** lane reopen.
 - **Reliability slice (Lane B, FR window):** honest **22/22** statistic vs count floor; **not** whole-gate approval by itself.
 - **Freshness (Lane B):** Tranches **31–32** executed; **Prompt #132** **adopts** **`strict_midnight_utc`**; **10**/**22** **`cannot_classify_honestly`** accepted; **freshness-only** tranches **parked** — `lane_b_phase2_freshness_policy_decision.json`.
 - **Freshness policy exploration:** Tranche **33** comparator on disk; **no** alternate policy adopted as primary.

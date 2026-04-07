@@ -1,20 +1,20 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 350  
-**Phase #:** 3 — **first implementation slice** (T85 **static contracts**)  
-**Tranche #:** 85
+**Prompt #:** 354  
+**Phase #:** 3 — **second implementation slice governance** (T86 **offline validation boundary**)  
+**Tranche #:** 86
 
-Updated: 2026-04-08T16:30:00+00:00
+Updated: 2026-04-07T12:32:37+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T85** (Prompt **#350**). **Scoped MVP approval** (**T80**) **remains** — **`mvp_lane_approval.json`** **`approved: true`**. **Static** universe-scanner **I/O contract** package on disk: **`future_modules/the_fade/contracts/phase3_universe_scanner_io/`**; **`phase2_mvp_approval_scope_decision.json`** **`post_t85_static_universe_scanner_io_contract_slice`** (**note only** — **no** approval or lane-posture change). **T85:** **schemas**, **examples**, **`.pyi`**, **README** — **not** a runnable scanner; **no** network; **no** lane reopen; **no** registry edits. **Executable** Phase **3** **still forbidden** without **new** governance. **Registry partialities** unchanged.
+- **Checkpoint:** **Post–T86** (Prompt **#354**). **Scoped MVP approval** (**T80**) **remains** — **`mvp_lane_approval.json`** **`approved: true`**. **T85** **static** contract package on disk: **`contracts/phase3_universe_scanner_io/`**; **`post_t85_static_universe_scanner_io_contract_slice`**. **T86** **governs** the **second** slice — **offline-only** validation of that package; **`post_t86_second_slice_governance_offline_validation`**; **`THE_FADE_T86_*`** governance + acceptance docs — **no** validator **code** in **T86**; **executable** validation **not** done **yet**. **Scanner execution**, **network**, **orchestration**, **dashboard**, **providers**, **lane reopen**, **registry edits** **still forbidden**. **Only** **one** **future** tranche may implement **T86** offline validation. **Registry partialities** unchanged.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
 - **Formal markdown evidence log / audit:** **Reconciled** (Prompt **#102**) — `MVP_LANE_EVIDENCE_LOG.md`, `MVP_SOURCE_RELIABILITY_AUDIT.md` match JSONL truth; **not** an approval change.
 - **Approval:** `mvp_lane_approval.json` — **post–T80:** **`approved: true`** and **`approved_mvp_lanes`** per **Prompt #336** (verify on disk).
-- **Phase 3:** **Static contract slice on disk** (**T85**) — **executable** scanner/runtime/dashboard/providers **not** started; broader build **blocked** without **new** governance.
+- **Phase 3:** **Static contract slice on disk** (**T85**); **second slice governed** (**T86** — offline validation **only**, **not** built **in T86**); **executable** scanner/runtime/dashboard/providers **not** started; **only** **T86** validation tranche **authorized next** for Phase **3** implementation — **nothing** broader **without** **new** governance.
 - **Operator gate review decision (Prompt #113 lock — historical slice context):** FR full-window evidence remains a **strong positive slice** only for **strict** whole-gate reading; **post–T80**, **scoped** MVP approval is **separately** recorded in **`mvp_lane_approval.json`** + **`t80_scoped_mvp_approval_decision.json`** — **not** Phase **3** readiness.
 - **Tranche 31 freshness discipline (Prompt #121 — executed):** **22** full-window lines classified (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly**. See `MVP_LANE_EVIDENCE_LOG.md` — **not** approval; **not** Phase 3.
 - **Tranche 32 — freshness ambiguity resolution (Prompt #129 — executed):** **10**-row cohort reviewed — stored snapshots **plus** one bounded read-only GET to `https://www.federalregister.gov/api/v1/documents/2026-06133.json`. Under the **same** Tranche **31** midnight-UTC rule, **all 10** remain **still cannot classify honestly** (explicit limitation documented in `MVP_LANE_EVIDENCE_LOG.md`); **not** approval; **not** Phase 3.
@@ -95,6 +95,7 @@ Updated: 2026-04-08T16:30:00+00:00
 37. **Tranche 83 executed (Prompt #345):** **Phase 3 entry planning lock** — **`THE_FADE_PHASE3_ENTRY_PLAN_T83.md`** + **`THE_FADE_PHASE3_IMPLEMENTATION_BOUNDARY_T83.md`**; **`post_t83_phase3_entry_planning_package`** in **`phase2_mvp_approval_scope_decision.json`**; **planning only**; **no** implementation; **no** lane reopen; **no** code; **no** evidence; **later explicit implementation governance** required before executable Phase **3**.
 38. **Tranche 84 executed (Prompt #346):** **First implementation slice governance lock** — **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_GOVERNANCE.md`** + **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t84_first_implementation_slice_governance`**; **governance only**; **no** code in **T84**; **no** lane reopen; **one** **future** tranche **only** for **static** scanner I/O contracts per **T84**.
 39. **Tranche 85 executed (Prompt #350):** **Static universe-scanner I/O contract slice** — **`contracts/phase3_universe_scanner_io/`**; **`post_t85_static_universe_scanner_io_contract_slice`**; **static** artifacts **only**; **not** executable scanner; **no** lane reopen.
+40. **Tranche 86 executed (Prompt #354):** **Second implementation slice governance** — **`THE_FADE_T86_SECOND_SLICE_GOVERNANCE_OFFLINE_VALIDATION.md`** + **`THE_FADE_T86_SECOND_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t86_second_slice_governance_offline_validation`**; **governance only** — **no** validator code; **no** lane reopen; **one** **future** **offline** validation tranche **authorized**.
 
 ## Phase 1 — completed
 
@@ -114,7 +115,7 @@ Updated: 2026-04-08T16:30:00+00:00
 
 1. ~~**Document the full FR window**~~ **DONE** (Prompt **#102**) — governed log + audit reconciled to JSONL.
 2. ~~**Operator scoped MVP approval decision**~~ **DONE** (Prompt **#336** / **T80**) — binding flip on **`mvp_lane_approval.json`** with explicit signoff artifact; **not** Phase **3**; **not** full production maturity claim.
-3. **Phase 3 universe scanner / runtime / dashboard (executable implementation)** — **not** started; **T85** **static** I/O contracts exist under **`contracts/phase3_universe_scanner_io/`**; **executable** Phase **3** **blocked** until **new** governance.
+3. **Phase 3 universe scanner / runtime / dashboard (executable implementation)** — **not** started; **T85** **static** I/O contracts exist; **T86** **authorizes** **only** a **future** **offline** validator tranche — **not** scanner execution; **executable** Phase **3** **blocked** beyond **that** slice **without** **new** governance.
 4. **Lane registry / escalation** — follow existing rules; **no** automatic lane reopen from **T80**.
 
 ## MASTER Phase 2 — bounded phase ladder (current marks)
@@ -170,7 +171,7 @@ Updated: 2026-04-08T16:30:00+00:00
 
 ## MASTER Phase 3 — Universe scanner
 
-- **EXECUTABLE PHASE 3 NOT STARTED** — **T80** scoped MVP; **T83–T84** planning/governance; **T85** **static** scanner I/O contracts on disk; **executable** Phase **3** / dashboard / providers **blocked** until **new** governance.
+- **EXECUTABLE PHASE 3 NOT STARTED** — **T80** scoped MVP; **T83–T84** planning/governance; **T85** **static** scanner I/O contracts on disk; **T86** **offline** validation slice **governed** (**validator not** built **in T86**); **executable** Phase **3** / dashboard / providers **blocked**; **only** **T86** validation tranche **next** for Phase **3** code **without** **new** governance.
 
 ## MASTER Phase 4+
 
@@ -178,14 +179,14 @@ Updated: 2026-04-08T16:30:00+00:00
 
 ## Exact current next step (authorized only)
 
-1. **Post–T85 on disk:** verify **`post_t85_static_universe_scanner_io_contract_slice`**, **`contracts/phase3_universe_scanner_io/README.md`**, **`t80_scoped_mvp_approval_decision.json`**, **`mvp_lane_approval.json`**, **`THE_FADE_CONTEXT_ANCHOR.md`**, **`MVP_LANE_EVIDENCE_LOG.md`**, **`mvp_lane_evidence_registry.json`**. **Do not** treat **T85** as **executable** Phase **3** authorization.
+1. **Post–T86 on disk:** verify **`post_t85_static_universe_scanner_io_contract_slice`**, **`post_t86_second_slice_governance_offline_validation`**, **`THE_FADE_T86_SECOND_SLICE_GOVERNANCE_OFFLINE_VALIDATION.md`**, **`contracts/phase3_universe_scanner_io/README.md`**, **`t80_scoped_mvp_approval_decision.json`**, **`mvp_lane_approval.json`**, **`THE_FADE_CONTEXT_ANCHOR.md`**, **`MVP_LANE_EVIDENCE_LOG.md`**, **`mvp_lane_evidence_registry.json`**. **Do not** treat **T85/T86** as **scanner** or **runtime** authorization.
 2. **Lane posture:** **Lanes A/C/E** **stopped**; **Lane B** **frozen by default** for new live evidence — **no** reopen from **T80**.
-3. **Phase 3:** **T85** **static** contracts exist — **executable** scanner/runtime/dashboard **still** need **new** governance.
+3. **Phase 3:** **T85** **static** contracts exist; **T86** **governs** **offline** validation **only** — **implement** validator **only** under **that** boundary; scanner/runtime/dashboard **still** need **new** governance **after** validation slice **if** ever.
 4. Ignore **`JARVIS_CODEBASE_STRUCTURE.md`** drift for THE FADE work.
 
 ## Do not
 
-- Start **executable** Phase **3** scanner/runtime/dashboard, or ship work **outside** **T85**’s **static** contract package intent, without a **new** governed prompt.
+- Start **executable** Phase **3** scanner/runtime/dashboard, or ship work **outside** **T85**/**T86** boundaries (e.g. **tiny scanner**, **network**, **second surface**), without a **new** governed prompt.
 - Treat **`approved: true`** as Phase **3** readiness or as erasing registry partialities / strict audit gaps.
 - Count `t30_valid_002` as part of the 22-slot full window unless explicitly justified.
 
