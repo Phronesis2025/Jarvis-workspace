@@ -1,16 +1,16 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 354  
-**Phase #:** 3 — **second implementation slice governance** (T86 **offline validation boundary**)  
-**Tranche #:** 86  
-**Updated:** 2026-04-07T12:32:37+00:00
+**Prompt #:** 360  
+**Phase #:** 3 — **first live ingress slice build** (T89 Federal Register ingress)  
+**Tranche #:** 89  
+**Updated:** 2026-04-07T14:31:39+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T86 second-slice governance — offline validation only)
+## New chat checkpoint (post–T89 first live Federal Register ingress slice)
 
-- **Where you are:** Phase **2** for **binding approval**; **post–T86** (Prompt **#354**). **Scoped MVP approval** (**T80**) **remains**: **`t80_scoped_mvp_approval_decision.json`** **`YES`**; **`mvp_lane_approval.json`** **`approved: true`**. **T85** **static** contract package on disk: **`contracts/phase3_universe_scanner_io/`**; **`post_t85_static_universe_scanner_io_contract_slice`**. **T86** **governs** the **second** slice — **offline-only** validation of that package; **`post_t86_second_slice_governance_offline_validation`**; **governance docs** **`THE_FADE_T86_*`** — **no** validator **code** in **T86**. **Not** a working scanner — **no** executable scan loop, **no** network, **no** runtime orchestration. **Executable** Phase **3**, dashboard, providers, lane reopen, evidence collection **remain forbidden**. **Only** **one** **future** tranche may add **T86** offline validation artifacts. **Registry partialities** unchanged. **Not** production maturity; **not** broad Phase **3** buildout.
+- **Where you are:** Phase **2** for **binding approval**; **post–T89** (Prompt **#360**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T85** static contract package and **T87** offline validator harness are on disk. **T88** governance lock plus **T89** implementation now exist for the first live ingress slice: one Federal Register read-only ingress tool writes one schema-valid `UniverseScannerRequest` packet under `future_modules/the_fade/inputs/phase3_universe_scanner_requests/`; recorded in **`post_t89_first_live_federal_register_ingress_slice`**. Scanner/request-to-result/runtime/provider/dashboard work remains blocked without new governance.
 - **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`** + **`THE_FADE_T86_SECOND_SLICE_GOVERNANCE_OFFLINE_VALIDATION.md`** + **`THE_FADE_T86_SECOND_SLICE_ACCEPTANCE_CRITERIA.md`**. **Next** **implementation** work: **at most** **one** tranche for **offline** validator per **T86** — **not** in **T86** itself.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
@@ -37,7 +37,7 @@
 | Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
 | Approval                     | **`mvp_lane_approval.json`:** **`approved: true`**; **`approved_mvp_lanes`** = B, A, C, E (verify on disk). Signoff: **`config/t80_scoped_mvp_approval_decision.json`**                                        |
 | Lane posture                 | **T76** + **T78** Lane B governance packs on disk (`lane_b_t76_*`, `lane_b_t78_*`). **T80** scoped MVP approval **on disk**. **T82** governance lock — **no** lane reopen. **Lanes A/C/E** **stopped**. **Lane B** default freeze for **new** live evidence tranches unchanged |
-| Phase 3                      | **Static I/O contracts on disk** (**T85**); **second slice governed** (**T86** — offline validation **only**; **validator not** built **in T86**); **executable** scanner/runtime/dashboard/providers **blocked**; **only** **T86** validation tranche **authorized next** for Phase **3** code — broader build needs **new** governance                                                                                                                       |
+| Phase 3                      | **T85** static I/O contracts on disk; **T87** offline validator harness on disk; **T88** first live ingress slice now governed (not implemented) for one future Federal Register ingress tool writing one request packet; scanner/runtime/dashboard/providers remain blocked pending new governance |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
 | T45 status                   | **Executed** — Lane B failure-path / stale-outage **fixture** trace (`audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_*`); **not** gate closure; **not** live integration |
 | T47 status                   | **Executed** — Lane B conflict / fusion **precedence** **fixture** trace (`audit_lane_b_conflict_fusion_precedence_trace.py` + `tranche47_*`); **not** full conflict closure; **not** live integration |
@@ -69,6 +69,8 @@
 | T84 status                   | **Executed** — First implementation slice governance (**#346**); **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_GOVERNANCE.md`** + **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t84_first_implementation_slice_governance`**; **governance only**; **no** code in **T84**; **one** **future** **static contract** tranche authorized |
 | T85 status                   | **Executed** — Static universe-scanner I/O contract slice (**#350**); **`contracts/phase3_universe_scanner_io/`**; **`post_t85_static_universe_scanner_io_contract_slice`**; **static** only; **not** runnable scanner |
 | T86 status                   | **Executed** — Second implementation slice governance (**#354**); **`THE_FADE_T86_SECOND_SLICE_GOVERNANCE_OFFLINE_VALIDATION.md`** + **`THE_FADE_T86_SECOND_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t86_second_slice_governance_offline_validation`**; **governance only** — **no** validator code; **one** **future** **offline** validation tranche **authorized** |
+| T87 status                   | **Executed** — Offline contract validation harness build (**#358**); **`contracts/phase3_universe_scanner_io/tools/validate_universe_scanner_io_contracts.py`** + **`contracts/phase3_universe_scanner_io/tools/README.md`**; **`post_t87_offline_contract_validation_harness`**; local validation only; no scanner/runtime/provider/dashboard work |
+| T88 status                   | **Executed** — First live ingress slice governance lock (**#359**); **`THE_FADE_T88_FIRST_LIVE_INGRESS_SLICE_GOVERNANCE.md`** + **`THE_FADE_T88_FIRST_LIVE_INGRESS_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t88_first_live_ingress_slice_governance`**; governance only; no ingress code in T88 |
 
 ---
 

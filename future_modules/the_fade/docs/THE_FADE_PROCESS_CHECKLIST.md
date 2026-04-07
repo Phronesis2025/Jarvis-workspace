@@ -1,20 +1,20 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 354  
-**Phase #:** 3 — **second implementation slice governance** (T86 **offline validation boundary**)  
-**Tranche #:** 86
+**Prompt #:** 360  
+**Phase #:** 3 — **first live ingress slice build** (T89 Federal Register ingress)  
+**Tranche #:** 89
 
-Updated: 2026-04-07T12:32:37+00:00
+Updated: 2026-04-07T14:31:39+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T86** (Prompt **#354**). **Scoped MVP approval** (**T80**) **remains** — **`mvp_lane_approval.json`** **`approved: true`**. **T85** **static** contract package on disk: **`contracts/phase3_universe_scanner_io/`**; **`post_t85_static_universe_scanner_io_contract_slice`**. **T86** **governs** the **second** slice — **offline-only** validation of that package; **`post_t86_second_slice_governance_offline_validation`**; **`THE_FADE_T86_*`** governance + acceptance docs — **no** validator **code** in **T86**; **executable** validation **not** done **yet**. **Scanner execution**, **network**, **orchestration**, **dashboard**, **providers**, **lane reopen**, **registry edits** **still forbidden**. **Only** **one** **future** tranche may implement **T86** offline validation. **Registry partialities** unchanged.
+- **Checkpoint:** **Post–T89** (Prompt **#360**). **Scoped MVP approval** (**T80**) remains binding. **T85** static contracts and **T87** offline validator harness remain on disk. **T88** governance lock and **T89** implementation for first live ingress slice are on disk: **`future_modules/the_fade/ingress/federal_register/build_universe_scanner_request_from_federal_register.py`** + **`future_modules/the_fade/ingress/federal_register/README.md`** + **`post_t89_first_live_federal_register_ingress_slice`** note. T89 is limited to one Federal Register read-only ingress tool producing one schema-valid request packet. Scanner execution, request-to-result semantics, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
 - **Formal markdown evidence log / audit:** **Reconciled** (Prompt **#102**) — `MVP_LANE_EVIDENCE_LOG.md`, `MVP_SOURCE_RELIABILITY_AUDIT.md` match JSONL truth; **not** an approval change.
 - **Approval:** `mvp_lane_approval.json` — **post–T80:** **`approved: true`** and **`approved_mvp_lanes`** per **Prompt #336** (verify on disk).
-- **Phase 3:** **Static contract slice on disk** (**T85**); **second slice governed** (**T86** — offline validation **only**, **not** built **in T86**); **executable** scanner/runtime/dashboard/providers **not** started; **only** **T86** validation tranche **authorized next** for Phase **3** implementation — **nothing** broader **without** **new** governance.
+- **Phase 3:** **Static contract slice on disk** (**T85**); **second slice governed** (**T86**) and now **implemented** as offline validator harness (**T87**) — contract validation only. **Executable** scanner/runtime/dashboard/providers **not** started; broader work still requires **new** governance.
 - **Operator gate review decision (Prompt #113 lock — historical slice context):** FR full-window evidence remains a **strong positive slice** only for **strict** whole-gate reading; **post–T80**, **scoped** MVP approval is **separately** recorded in **`mvp_lane_approval.json`** + **`t80_scoped_mvp_approval_decision.json`** — **not** Phase **3** readiness.
 - **Tranche 31 freshness discipline (Prompt #121 — executed):** **22** full-window lines classified (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly**. See `MVP_LANE_EVIDENCE_LOG.md` — **not** approval; **not** Phase 3.
 - **Tranche 32 — freshness ambiguity resolution (Prompt #129 — executed):** **10**-row cohort reviewed — stored snapshots **plus** one bounded read-only GET to `https://www.federalregister.gov/api/v1/documents/2026-06133.json`. Under the **same** Tranche **31** midnight-UTC rule, **all 10** remain **still cannot classify honestly** (explicit limitation documented in `MVP_LANE_EVIDENCE_LOG.md`); **not** approval; **not** Phase 3.
@@ -96,6 +96,8 @@ Updated: 2026-04-07T12:32:37+00:00
 38. **Tranche 84 executed (Prompt #346):** **First implementation slice governance lock** — **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_GOVERNANCE.md`** + **`THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t84_first_implementation_slice_governance`**; **governance only**; **no** code in **T84**; **no** lane reopen; **one** **future** tranche **only** for **static** scanner I/O contracts per **T84**.
 39. **Tranche 85 executed (Prompt #350):** **Static universe-scanner I/O contract slice** — **`contracts/phase3_universe_scanner_io/`**; **`post_t85_static_universe_scanner_io_contract_slice`**; **static** artifacts **only**; **not** executable scanner; **no** lane reopen.
 40. **Tranche 86 executed (Prompt #354):** **Second implementation slice governance** — **`THE_FADE_T86_SECOND_SLICE_GOVERNANCE_OFFLINE_VALIDATION.md`** + **`THE_FADE_T86_SECOND_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t86_second_slice_governance_offline_validation`**; **governance only** — **no** validator code; **no** lane reopen; **one** **future** **offline** validation tranche **authorized**.
+41. **Tranche 87 executed (Prompt #358):** **Offline contract validation harness build** — **`contracts/phase3_universe_scanner_io/tools/validate_universe_scanner_io_contracts.py`** + **`contracts/phase3_universe_scanner_io/tools/README.md`**; **`post_t87_offline_contract_validation_harness`**; local validation only; **no** scanner runtime; **no** lane reopen.
+42. **Tranche 88 executed (Prompt #359):** **First live ingress slice governance lock** — **`THE_FADE_T88_FIRST_LIVE_INGRESS_SLICE_GOVERNANCE.md`** + **`THE_FADE_T88_FIRST_LIVE_INGRESS_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t88_first_live_ingress_slice_governance`**; governance only; no ingress code in T88; one future Federal Register ingress slice authorized.
 
 ## Phase 1 — completed
 
