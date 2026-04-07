@@ -1,0 +1,8 @@
+{
+  "request_id": 999,
+  "as_of_utc": "2026-04-07T14:36:43.655979Z",
+  "universe_source_ref": "fixture",
+  "contract_version": "1.0.0",
+  "scan_policy_version": "t91_fixture",
+  "candidate_symbols": ["X"]
+}

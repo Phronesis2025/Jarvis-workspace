@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 360  
-**Phase #:** 3 — **first live ingress slice build** (T89 Federal Register ingress)  
-**Tranche #:** 89  
-**Updated:** 2026-04-07T14:31:39+00:00
+**Prompt #:** 368 (repair **#369**)  
+**Phase #:** 3 — **post-ingress-validation governance** (T93 offline result-packet validation boundary)  
+**Tranche #:** 93  
+**Updated:** 2026-04-07T19:29:42+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T89 first live Federal Register ingress slice)
+## New chat checkpoint (post–T93 offline result-packet validation governance)
 
-- **Where you are:** Phase **2** for **binding approval**; **post–T89** (Prompt **#360**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T85** static contract package and **T87** offline validator harness are on disk. **T88** governance lock plus **T89** implementation now exist for the first live ingress slice: one Federal Register read-only ingress tool writes one schema-valid `UniverseScannerRequest` packet under `future_modules/the_fade/inputs/phase3_universe_scanner_requests/`; recorded in **`post_t89_first_live_federal_register_ingress_slice`**. Scanner/request-to-result/runtime/provider/dashboard work remains blocked without new governance.
-- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`** + **`THE_FADE_T86_SECOND_SLICE_GOVERNANCE_OFFLINE_VALIDATION.md`** + **`THE_FADE_T86_SECOND_SLICE_ACCEPTANCE_CRITERIA.md`**. **Next** **implementation** work: **at most** **one** tranche for **offline** validator per **T86** — **not** in **T86** itself.
+- **Where you are:** Phase **2** for **binding approval**; **post–T93** (Prompt **#368**; **#369** **Model B** repair). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T91** ingress-request validator on disk; **T93** governance for **offline `UniverseScannerResult` validation** (**`post_t93_offline_validation_of_universe_scanner_result_packets_governance`**). **Valid root seeds:** **≤3** static hand-placed/copy-only **or** none; **validator must not write** JSON. **`validate_universe_scanner_result_packets.py`** is **not** built in **T93**. Scanner/request-to-result/result **production** path/runtime/provider/dashboard work remains blocked; broader Phase **3** implementation remains unauthorized without new governance.
+- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`** + **`THE_FADE_T93_OFFLINE_VALIDATION_OF_UNIVERSE_SCANNER_RESULT_PACKETS_GOVERNANCE.md`**. **Next** **implementation** work (when executed): **at most** **one** tranche adding **only** **`validate_universe_scanner_result_packets.py`** per **T93** — **not** result generation.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -37,7 +37,7 @@
 | Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
 | Approval                     | **`mvp_lane_approval.json`:** **`approved: true`**; **`approved_mvp_lanes`** = B, A, C, E (verify on disk). Signoff: **`config/t80_scoped_mvp_approval_decision.json`**                                        |
 | Lane posture                 | **T76** + **T78** Lane B governance packs on disk (`lane_b_t76_*`, `lane_b_t78_*`). **T80** scoped MVP approval **on disk**. **T82** governance lock — **no** lane reopen. **Lanes A/C/E** **stopped**. **Lane B** default freeze for **new** live evidence tranches unchanged |
-| Phase 3                      | **T85** static I/O contracts on disk; **T87** offline validator harness on disk; **T88** first live ingress slice now governed (not implemented) for one future Federal Register ingress tool writing one request packet; scanner/runtime/dashboard/providers remain blocked pending new governance |
+| Phase 3                      | **T85** static I/O contracts on disk; **T87** contract-tree validator on disk; **T89** Federal Register ingress on disk; **T91** ingress-request validator on disk; **T93** governs result-packet offline validation (**not** implemented in T93); scanner/runtime/dashboard/providers remain blocked pending new governance |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
 | T45 status                   | **Executed** — Lane B failure-path / stale-outage **fixture** trace (`audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_*`); **not** gate closure; **not** live integration |
 | T47 status                   | **Executed** — Lane B conflict / fusion **precedence** **fixture** trace (`audit_lane_b_conflict_fusion_precedence_trace.py` + `tranche47_*`); **not** full conflict closure; **not** live integration |
@@ -71,6 +71,10 @@
 | T86 status                   | **Executed** — Second implementation slice governance (**#354**); **`THE_FADE_T86_SECOND_SLICE_GOVERNANCE_OFFLINE_VALIDATION.md`** + **`THE_FADE_T86_SECOND_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t86_second_slice_governance_offline_validation`**; **governance only** — **no** validator code; **one** **future** **offline** validation tranche **authorized** |
 | T87 status                   | **Executed** — Offline contract validation harness build (**#358**); **`contracts/phase3_universe_scanner_io/tools/validate_universe_scanner_io_contracts.py`** + **`contracts/phase3_universe_scanner_io/tools/README.md`**; **`post_t87_offline_contract_validation_harness`**; local validation only; no scanner/runtime/provider/dashboard work |
 | T88 status                   | **Executed** — First live ingress slice governance lock (**#359**); **`THE_FADE_T88_FIRST_LIVE_INGRESS_SLICE_GOVERNANCE.md`** + **`THE_FADE_T88_FIRST_LIVE_INGRESS_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t88_first_live_ingress_slice_governance`**; governance only; no ingress code in T88 |
+| T89 status                   | **Executed** — First live Federal Register ingress slice (**#360**); **`ingress/federal_register/build_universe_scanner_request_from_federal_register.py`** + **`ingress/federal_register/README.md`**; **`post_t89_first_live_federal_register_ingress_slice`**; read-only FR fetch + schema-valid request packet path; not scanner execution |
+| T90 status                   | **Executed** — Offline ingress-request validation governance (**#365**); **`THE_FADE_T90_OFFLINE_VALIDATION_OF_INGRESS_REQUEST_PACKETS_GOVERNANCE.md`** + **`THE_FADE_T90_OFFLINE_VALIDATION_OF_INGRESS_REQUEST_PACKETS_ACCEPTANCE_CRITERIA.md`**; **`post_t90_offline_validation_of_ingress_request_packets_governance`**; governance only; **`validate_ingress_request_packets.py`** not built in T90 |
+| T91 status                   | **Executed** — Ingress-request offline validator (**#366**); **`contracts/phase3_universe_scanner_io/tools/validate_ingress_request_packets.py`** + **`README_ingress_request_packets.md`**; **`post_t91_offline_ingress_request_packet_validator`**; optional **`inputs/phase3_universe_scanner_requests/fixtures_invalid/`**; not scanner execution |
+| T93 status                   | **Executed** — Offline result-packet validation governance (**#368**, **#369** Model B); **`THE_FADE_T93_OFFLINE_VALIDATION_OF_UNIVERSE_SCANNER_RESULT_PACKETS_GOVERNANCE.md`** + **`THE_FADE_T93_OFFLINE_VALIDATION_OF_UNIVERSE_SCANNER_RESULT_PACKETS_ACCEPTANCE_CRITERIA.md`**; **`post_t93_offline_validation_of_universe_scanner_result_packets_governance`**; **≤3** static valid-root seeds **or** zero; validator must not write JSON; governance only; **`validate_universe_scanner_result_packets.py`** not built in T93 |
 
 ---
 
@@ -96,7 +100,7 @@
 | Lane C observe outputs (gitignored `*.json`) | `future_modules/the_fade/outputs/lane_c_market_context/` — see `MVP_LANE_EVIDENCE_LOG.md` Tranches **67**–**68** |
 | Lane E Phase 2 charter (T69) + T70 URL + T71 slice-1 stop §12 | `future_modules/the_fade/docs/LANE_E_PHASE2_EVIDENCE_CHARTER_T69.md` — §2 Crossref URL (T70); §12 slice-1 STOP (T71); `outputs/lane_e_research_swarm_context/` (`*.json` gitignored — see `MVP_LANE_EVIDENCE_LOG.md`) |
 | Lane B primary-eligibility charter (T75) + T76 + T78 acceptance packs | `LANE_B_PRIMARY_ELIGIBILITY_CHARTER_T75.md`; **T76** four dimensions; **T78** **`reliability`** + **`stale_outage_behavior`** (`lane_b_t78_*`) — **does not** revisit T76 four |
-| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T86 second-slice governance on disk** |
+| **Locked Phase 2 remaining plan** | `future_modules/the_fade/docs/THE_FADE_PHASE2_REMAINING_GATE_PLAN.md` (Prompt **#134**) — **through T93 offline result-packet validation governance on disk** |
 | **Phase 3 static I/O contract package (T85)** | `future_modules/the_fade/contracts/phase3_universe_scanner_io/` |
 | **T86 second-slice governance (offline validation boundary)** | `future_modules/the_fade/docs/THE_FADE_T86_SECOND_SLICE_GOVERNANCE_OFFLINE_VALIDATION.md` + `THE_FADE_T86_SECOND_SLICE_ACCEPTANCE_CRITERIA.md`; **`phase2_mvp_approval_scope_decision.json`** **`post_t86_second_slice_governance_offline_validation`** |
 | **T73 / T74 MVP approval-scope decision (one file)** | `future_modules/the_fade/config/phase2_mvp_approval_scope_decision.json` — **scoped MVP path** (T74) |
@@ -222,18 +226,18 @@ python future_modules/the_fade/scripts/run_tranche21_fr_slot.py --task-id <UNIQU
 ## Current blockers / gaps
 
 1. ~~**Governed markdown lag**~~ **Closed** (Prompt **#102**): `MVP_LANE_EVIDENCE_LOG.md` + `MVP_SOURCE_RELIABILITY_AUDIT.md` reconciled to `tranche21_fr_slot_runs.jsonl`.
-2. **Approval decision** — reviewed at this checkpoint; **whole-gate approval is still not justified** on current live evidence; **`mvp_lane_approval.json`** remains **`approved: false`**.
+2. **Approval decision** — **T80** scoped MVP approval is **on disk** (**`mvp_lane_approval.json`** **`approved: true`** — verify); **whole-gate strict dimensional closure** is **still not** the same claim as scoped approval — registry partialities remain honestly documented.
 3. **Phase 3** — remains blocked.
 
 ## Operator gate review outcome — 2026-03-30
 
-- **Decision outcome:** Lane B remains **promising-but-unapproved** at this checkpoint.
+- **Decision outcome (2026-03-30 snapshot):** Lane B FR slice **strong**; **strict** whole-gate approval **not** justified by that slice alone.
 - **Why:** the FR full-window reliability slice is strong (**22 counted / 22 successes / 0 failures**) but still does **not** close the whole-dimensional MVP gate by itself.
-- **Final signoff lock (Prompt #113):** outcome confirmed without changes to approval state; `mvp_lane_approval.json` remains `approved: false`, and `t30_valid_002` remains excluded from the full-window 22-slot tally.
+- **Final signoff lock (Prompt #113):** outcome confirmed for that review; **`t30_valid_002`** remains excluded from the full-window 22-slot tally. **Later T80** records **scoped** MVP approval separately — see **`mvp_lane_approval.json`** on disk.
 - **Review-quality controls used now:** critic / adversarial review, audit-before-trust, and risk-first scrutiny.
 - **Accepted future guardrails only:** auth primitives / permission layers; isolated sub-account / restricted permissions; MCP-first infra filter / anti-affiliate rule; sim-first / dry-run-first bridge; position sizing / drawdown emphasis.
 - **Parking lot only:** any concrete critic-agent build, MCP tooling build, exchange/live-execution integration, or other execution-adjacent implementation work.
-- **What this does not change:** `mvp_lane_approval.json` remains **false** and **Phase 3 remains blocked**.
+- **What this does not change (historical review date):** that **2026-03-30** review did **not** justify **strict** whole-gate closure by itself; **post–T80**, the **scoped** approval flip is recorded separately — **Phase 3 executable** scanner/runtime remains **blocked** without new governance.
 
 ---
 
