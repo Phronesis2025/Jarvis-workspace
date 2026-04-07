@@ -1,0 +1,9 @@
+{
+  "request_id": "a1b2c3d4-e5f6-47a8-9c0d-ef1234567890",
+  "as_of_utc": "2026-04-08T16:30:00Z",
+  "universe_source_ref": "fade:universe:example-equities-v0",
+  "contract_version": "1.0.0",
+  "scan_policy_version": "policy-static-contract-only-v1",
+  "candidate_symbols": ["EXAMPLE", "DEMO"],
+  "operator_notes": "Illustrative example only. No scanner execution."
+}

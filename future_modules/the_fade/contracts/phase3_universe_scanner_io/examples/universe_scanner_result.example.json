@@ -1,0 +1,21 @@
+{
+  "request_id": "a1b2c3d4-e5f6-47a8-9c0d-ef1234567890",
+  "produced_at_utc": "2026-04-08T16:30:01Z",
+  "scanner_status": "pending",
+  "contract_version": "1.0.0",
+  "candidate_outputs": [
+    {
+      "symbol": "EXAMPLE",
+      "row_status": "deferred",
+      "omission_reason": "static_contract_example_not_evaluated"
+    },
+    {
+      "symbol": "DEMO",
+      "row_status": "excluded",
+      "omission_reason": "static_contract_example_not_evaluated"
+    }
+  ],
+  "warnings": ["This file is a static example only; no live scan was performed."],
+  "exclusions": [],
+  "notes": "Placeholder result shape for contract testing and documentation."
+}

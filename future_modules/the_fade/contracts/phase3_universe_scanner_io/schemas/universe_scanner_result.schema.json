@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "the-fade:contracts:phase3_universe_scanner_io:universe_scanner_result",
+  "title": "UniverseScannerResult",
+  "description": "Bounded output contract for a future universe-scanner result packet (static definition only; no runtime).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Must match the originating UniverseScannerRequest.request_id."
+    },
+    "produced_at_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this result packet was produced (RFC 3339)."
+    },
+    "scanner_status": {
+      "type": "string",
+      "enum": ["pending", "completed", "partial", "failed"],
+      "description": "Coarse lifecycle status for the scan outcome."
+    },
+    "contract_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of the I/O contract used for this result."
+    },
+    "candidate_outputs": {
+      "type": "array",
+      "description": "Per-candidate rows at static contract level only.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["symbol", "row_status"],
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "minLength": 1
+          },
+          "row_status": {
+            "type": "string",
+            "enum": ["included", "excluded", "deferred"]
+          },
+          "normalized_label": {
+            "type": "string",
+            "description": "Optional static label slot for normalized classification text."
+          },
+          "omission_reason": {
+            "type": "string",
+            "description": "Optional explicit reason when excluded or deferred."
+          }
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Non-fatal issues or caveats."
+    },
+    "exclusions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Symbols or groups omitted from candidate_outputs."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional packet-level notes."
+    }
+  },
+  "required": [
+    "request_id",
+    "produced_at_utc",
+    "scanner_status",
+    "contract_version",
+    "candidate_outputs"
+  ]
+}

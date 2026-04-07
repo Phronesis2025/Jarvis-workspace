@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "the-fade:contracts:phase3_universe_scanner_io:universe_scanner_request",
+  "title": "UniverseScannerRequest",
+  "description": "Bounded input contract for a future universe-scanner pass (static definition only; no runtime).",
+  "allOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Stable id for this request packet."
+        },
+        "as_of_utc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "As-of instant for the scan intent (RFC 3339)."
+        },
+        "universe_source_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Opaque reference to a universe definition or upstream packet (not a live URL in this contract)."
+        },
+        "contract_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "Semantic version of this I/O contract package."
+        },
+        "scan_policy_version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Opaque id for scan policy revision when a policy exists."
+        },
+        "candidate_symbols": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true,
+          "description": "Explicit symbol list input (use this or candidate_source_packet_ref)."
+        },
+        "candidate_source_packet_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Opaque reference to a pre-built candidate list elsewhere on disk (use this or candidate_symbols)."
+        },
+        "operator_notes": {
+          "type": "string",
+          "description": "Optional free-text operator context."
+        }
+      },
+      "required": [
+        "request_id",
+        "as_of_utc",
+        "universe_source_ref",
+        "contract_version",
+        "scan_policy_version"
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "required": ["candidate_symbols"],
+          "properties": {
+            "candidate_symbols": { "type": "array", "minItems": 1 }
+          }
+        },
+        {
+          "required": ["candidate_source_packet_ref"]
+        }
+      ]
+    }
+  ]
+}

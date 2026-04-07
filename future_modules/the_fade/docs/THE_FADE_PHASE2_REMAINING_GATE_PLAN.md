@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-07T14:00:00+00:00 (post–**T84** **#346** — first Phase **3** **implementation slice** **governed** on disk + **`post_t84_first_implementation_slice_governance`** in **`phase2_mvp_approval_scope_decision.json`**; **T84** **docs only** — **slice not built**; **scoped MVP approval** (**T80**) **unchanged**; **no** lane reopen; **not** broad Phase **3** buildout; **not** production maturity)  
+**Updated:** 2026-04-08T16:30:00+00:00 (post–**T85** **#350** — **static** universe-scanner **I/O contract** package on disk **`contracts/phase3_universe_scanner_io/`** + **`post_t85_static_universe_scanner_io_contract_slice`**; **not** executable scanner; **scoped MVP approval** (**T80**) **unchanged**; **no** lane reopen; **executable** Phase **3** **still blocked** without **new** governance; **not** production maturity)  
 
 **Authority:** Binding **scoped** MVP approval state is **`mvp_lane_approval.json`** (updated in **T80**; **not** edited in **T82**). This plan file is a **locked historical sequence** and honest partiality accounting — it is **not** the approval flip mechanism.
 
@@ -46,6 +46,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 - **T82 (Prompt #342):** **`config/phase2_mvp_approval_scope_decision.json`** — **`post_t82_on_disk_governance_lock`**, **`phase3_entry_planning_only_definition`**, amended **`next_tranche_authorization_rule`** / **`anti_drift_rule`**. **Governance lock only** — **no** `mvp_lane_approval.json` change; **no** registry change; **no** lane reopen; **no** code; **no** evidence. **Splits** pre-T80 combined ban: **one** future **Phase 3 entry planning only** tranche is **explicitly allowed**; **Phase 3 implementation**, scanner/runtime/dashboard **coding**, **provider integration**, **lane reopen**, **evidence collection** remain **forbidden** as **next** moves without further governance.
 - **T83 (Prompt #345):** **`docs/THE_FADE_PHASE3_ENTRY_PLAN_T83.md`** + **`docs/THE_FADE_PHASE3_IMPLEMENTATION_BOUNDARY_T83.md`**; **`post_t83_phase3_entry_planning_package`** in **`phase2_mvp_approval_scope_decision.json`**. **Planning only** — **no** implementation code; **no** lane reopen; **no** registry/`mvp_lane_approval.json` edit; **no** evidence. Defines Phase **3** **entry** boundary and **one** candidate first implementation slice (**static** scanner I/O contract only, when a **later** implementation tranche authorizes). **Executable** Phase **3** still requires **later explicit implementation governance**.
 - **T84 (Prompt #346):** **`docs/THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_GOVERNANCE.md`** + **`docs/THE_FADE_T84_FIRST_IMPLEMENTATION_SLICE_ACCEPTANCE_CRITERIA.md`**; **`post_t84_first_implementation_slice_governance`** in **`phase2_mvp_approval_scope_decision.json`**. **Implementation governance only** — **no** code in **T84**; **no** lane reopen; **no** registry/`mvp_lane_approval.json` edit. **Converts** T83 candidate into **one** **governed** first slice: **only** **static** universe-scanner I/O contract artifacts in **one** **future** tranche; **forbids** executable scanner, jobs, network, dashboard, providers, production wiring, multi-slice bundling in that tranche. **Broader** Phase **3** **blocked** until **new** governance after that slice.
+- **T85 (Prompt #350):** **`contracts/phase3_universe_scanner_io/`** (schemas, examples, `.pyi`, README); **`post_t85_static_universe_scanner_io_contract_slice`** in **`phase2_mvp_approval_scope_decision.json`**. **Static** contract slice **only** — **no** executable scanner, **no** network, **no** lane reopen, **no** registry/`mvp_lane_approval.json` edit. **Executable** Phase **3** **still blocked** until **new** governance.
 
 ---
 
@@ -53,7 +54,7 @@ Phase 2 work stayed bounded but became **reactive tranche-by-tranche**. This doc
 
 - **Full strict `MVP_SOURCE_RELIABILITY_AUDIT.md` closure** on **every** dimension for **every** lane as **production-mature** — **not** claimed; registry **`dimension_evidence_status`** partialities below remain honest.
 - **`approved: true` under the scoped T74 path** — **justified and recorded** in **T80** (`mvp_lane_approval.json` + signoff artifact); this is **distinct** from the bullet above.
-- **Phase 3 implementation** (executable scanner / runtime / dashboard / production integration / provider wiring) — **not** started; **T84** **governs** **only** **one** **future** **static contract** tranche — **not** the tranche **executed** on disk in **T84**; **broader** Phase **3** requires **new** governance after that slice is **honestly** delivered or stopped.
+- **Phase 3 executable implementation** (scanner loop / runtime / dashboard / production integration / provider wiring) — **not** started; **T85** delivers **only** **static** I/O **contracts**; **broader** Phase **3** requires **new** governance.
 - **Merging** unrelated historical samples into one reliability statistic — **still not** justified (per existing audit discipline).
 
 ---
