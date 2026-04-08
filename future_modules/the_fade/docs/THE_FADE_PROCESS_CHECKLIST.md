@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 400  
-**Phase #:** 3 — **local pipeline implementation** (T108 operator review gate signal built)  
-**Tranche #:** 108
+**Prompt #:** 403  
+**Phase #:** 3 — **local pipeline implementation** (post–T110 local operator review queue built)  
+**Tranche #:** 110
 
-Updated: 2026-04-08T21:15:00+00:00
+Updated: 2026-04-08T23:00:00+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T108 build** (Prompt **#400**). **Scoped MVP approval** (**T80**) remains binding. **`review/local_run/build_operator_review_gate_signal_from_run_folder.py`** on disk → per-run **`operator_review_gate.json`** (T107-governed mechanical gate; JSON read boundary only). AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
+- **Checkpoint:** **Post–T110 build** (Prompt **#403**). **Scoped MVP approval** (**T80**) remains binding. **T108** gate script + per-run **`operator_review_gate.json`** on disk. **T109** queue governance + **T110** **`review/local_run/build_operator_review_queue.py`** on disk → **`outputs/local_happy_path_runs/operator_review_queue.json`** (mechanical index; gate + `run_summary.json` only; **no** scanner/runtime). AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
