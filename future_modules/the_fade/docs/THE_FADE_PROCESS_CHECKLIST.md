@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 394  
-**Phase #:** 3 — **local pipeline implementation** (T104 source snapshot preservation slice built)  
-**Tranche #:** 104
+**Prompt #:** 397  
+**Phase #:** 3 — **local pipeline implementation** (T106 source-backed operator review slice built)  
+**Tranche #:** 106
 
-Updated: 2026-04-08T16:59:20+00:00
+Updated: 2026-04-08T18:08:38+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T104 build** (Prompt **#394**). **Scoped MVP approval** (**T80**) remains binding. Existing bounded chain on disk remains unchanged (T89 ingress, T91 request validator, T96 bridge, T94 result validator, T98 happy-path runner, T100 operator wrapper + repair, T102 factual `operator_review.md` builder) and now includes **T104** source snapshot preservation at `review/local_run/build_source_snapshot_from_run_folder.py` producing one `source_snapshot.json` per run folder (run-folder read boundary only; no new network). AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
+- **Checkpoint:** **Post–T106 build** (Prompt **#397**). **Scoped MVP approval** (**T80**) remains binding. Bounded chain through **T104** unchanged; **T106** adds `review/local_run/build_source_backed_operator_review_from_run_folder.py` producing one `source_backed_operator_review.md` per run folder (five-file read boundary; `results_count` only from `source_snapshot.json` when int; no network). AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.

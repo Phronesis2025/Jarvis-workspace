@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-08T16:59:20+00:00 (post–**T104** **#394** — **source snapshot preservation** script **`build_source_snapshot_from_run_folder.py`** is on disk and writes **`source_snapshot.json`** per run folder; T103 governance docs remain the boundary reference; T102 factual review remains on disk; scoped MVP approval unchanged; no lane reopen; AI/scanner/real scan/runtime/provider/dashboard still blocked; broader implementation remains unauthorized without new governance)  
+**Updated:** 2026-04-08T18:08:38+00:00 (post–**T106** **#397** — **source-backed operator review** script **`build_source_backed_operator_review_from_run_folder.py`** is on disk and writes **`source_backed_operator_review.md`** per run folder; T105 governance docs remain boundary reference; T104 snapshot + T102 review remain on disk; scoped MVP approval unchanged; no lane reopen; AI/scanner/real scan/runtime/provider/dashboard still blocked; broader implementation remains unauthorized without new governance)  
 
 **Authority:** Binding **scoped** MVP approval state is **`mvp_lane_approval.json`** (updated in **T80**; **not** edited in **T82**). This plan file is a **locked historical sequence** and honest partiality accounting — it is **not** the approval flip mechanism.
 
