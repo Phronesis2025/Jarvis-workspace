@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 403  
-**Phase #:** 3 — **local pipeline implementation** (post–T110 local operator review queue built)  
-**Tranche #:** 110  
-**Updated:** 2026-04-08T23:00:00+00:00
+**Prompt #:** 405  
+**Phase #:** 3 — **local pipeline implementation** (post–T111 first operator-meaningful filtering signal governed)  
+**Tranche #:** 111  
+**Updated:** 2026-04-08T22:28:11+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T110 local operator review queue build)
+## New chat checkpoint (post–T111 first operator-meaningful filtering signal governance)
 
-- **Where you are:** Phase **2** for **binding approval**; **post–T110 build** (Prompt **#403**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T108** gate chain on disk. **T109** queue governance + **T110** **`review/local_run/build_operator_review_queue.py`** on disk; aggregate **`outputs/local_happy_path_runs/operator_review_queue.json`** — mechanical read-only index (**not** a scanner).
-- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Any next build spend must be newly governed; do not widen into AI/scanner/runtime/provider/dashboard without authorization. AI/scanner/runtime/provider/dashboard expansion remains blocked; broader Phase **3** implementation remains unauthorized without new governance.
+- **Where you are:** Phase **2** for **binding approval**; **post–T111 governance** (Prompt **#405**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T110** queue on disk. **T111** governs **exactly one** future **`review/local_run/build_operator_attention_signal_from_run_folder.py`** → per-run **`operator_attention_signal.json`** — **governance on disk only**; **no** attention-signal script in **T111**.
+- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Any next build spend must be newly governed; do not widen into AI/scanner/runtime/provider/dashboard without authorization. Only the **single** T111-authorized attention-signal slice is permitted for that next mechanical build tranche.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -37,7 +37,7 @@
 | Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
 | Approval                     | **`mvp_lane_approval.json`:** **`approved: true`**; **`approved_mvp_lanes`** = B, A, C, E (verify on disk). Signoff: **`config/t80_scoped_mvp_approval_decision.json`**                                        |
 | Lane posture                 | **T76** + **T78** Lane B governance packs on disk (`lane_b_t76_*`, `lane_b_t78_*`). **T80** scoped MVP approval **on disk**. **T82** governance lock — **no** lane reopen. **Lanes A/C/E** **stopped**. **Lane B** default freeze for **new** live evidence tranches unchanged |
-| Phase 3                      | **T85** static I/O contracts on disk; **T87** contract-tree validator on disk; **T89** Federal Register ingress on disk; **T91** ingress-request validator on disk; **T94** result-packet validator on disk; **T95** bridge governance + **T96** **`build_universe_scanner_result_from_single_request.py`** on disk; **T98** local happy-path runner on disk; **T108** gate script + per-run **`operator_review_gate.json`** on disk; **T109** queue governance + **T110** **`build_operator_review_queue.py`** + **`operator_review_queue.json`** on disk; scanner/runtime/dashboard/providers remain blocked pending new governance |
+| Phase 3                      | **T85** static I/O contracts on disk; **T87** contract-tree validator on disk; **T89** Federal Register ingress on disk; **T91** ingress-request validator on disk; **T94** result-packet validator on disk; **T95** bridge governance + **T96** **`build_universe_scanner_result_from_single_request.py`** on disk; **T98** local happy-path runner on disk; **T108** gate script + per-run **`operator_review_gate.json`** on disk; **T109** queue governance + **T110** **`build_operator_review_queue.py`** + **`operator_review_queue.json`** on disk; **T111** first operator-meaningful filtering signal **governed** (**`build_operator_attention_signal_from_run_folder.py`** **not** built until later tranche); scanner/runtime/dashboard/providers remain blocked pending new governance |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
 | T45 status                   | **Executed** — Lane B failure-path / stale-outage **fixture** trace (`audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_*`); **not** gate closure; **not** live integration |
 | T47 status                   | **Executed** — Lane B conflict / fusion **precedence** **fixture** trace (`audit_lane_b_conflict_fusion_precedence_trace.py` + `tranche47_*`); **not** full conflict closure; **not** live integration |
@@ -84,6 +84,7 @@
 | T108 status                  | **Executed (implementation)** — Operator review gate signal build (**#400**); **`review/local_run/build_operator_review_gate_signal_from_run_folder.py`**; **`post_t108_operator_review_gate_signal_build`**; per-run **`operator_review_gate.json`**; **not** scanner/runtime/provider/dashboard |
 | T109 status                  | **Executed (governance only)** — Local operator review queue (**#402**); **`THE_FADE_T109_LOCAL_OPERATOR_REVIEW_QUEUE_GOVERNANCE.md`** + **`THE_FADE_T109_LOCAL_OPERATOR_REVIEW_QUEUE_ACCEPTANCE_CRITERIA.md`**; **`post_t109_local_operator_review_queue_governance`** |
 | T110 status                  | **Executed (implementation)** — Local operator review queue build (**#403**); **`review/local_run/build_operator_review_queue.py`**; **`post_t110_local_operator_review_queue_build`**; **`outputs/local_happy_path_runs/operator_review_queue.json`**; **not** scanner/runtime/provider/dashboard |
+| T111 status                  | **Executed (governance only)** — First operator-meaningful filtering signal (**#405**); **`THE_FADE_T111_FIRST_OPERATOR_MEANINGFUL_FILTERING_SIGNAL_GOVERNANCE.md`** + **`THE_FADE_T111_FIRST_OPERATOR_MEANINGFUL_FILTERING_SIGNAL_ACCEPTANCE_CRITERIA.md`**; **`post_t111_first_operator_meaningful_filtering_signal_governance`**; **one** future tranche may add **`build_operator_attention_signal_from_run_folder.py`** + **`operator_attention_signal.json`** only; **no** attention script in T111 |
 
 ---
 
