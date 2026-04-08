@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "repo_intake_input.schema.json",
+  "title": "Repo Intake Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_url",
+    "profile",
+    "operator_note"
+  ],
+  "properties": {
+    "repo_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://github\\.com/.+/.+$"
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "generic_repo_triage",
+        "workflow_tooling",
+        "prediction_market_execution"
+      ]
+    },
+    "operator_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "depth_mode": {
+      "type": "string",
+      "enum": [
+        "triage_only",
+        "triage_plus_deep_review"
+      ]
+    },
+    "keywords_of_interest": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "known_bad_signals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  }
+}

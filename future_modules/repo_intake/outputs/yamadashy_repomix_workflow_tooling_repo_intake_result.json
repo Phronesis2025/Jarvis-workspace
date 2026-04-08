@@ -1,0 +1,50 @@
+{
+  "repo_url": "https://github.com/yamadashy/repomix",
+  "repo_name": "yamadashy/repomix",
+  "profile_used": "workflow_tooling",
+  "summary_of_what_it_is": "\ud83d\udce6 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like Claude, ChatGPT, DeepSeek, Perplexity, Gemini, Gemma, Llama, Grok, and more.",
+  "classification": "materially_useful",
+  "confidence": 0.93,
+  "repo_reality_score": 50,
+  "our_fit_score": 34,
+  "novelty_flag": 8,
+  "fatal_flags_triggered": [],
+  "top_positive_signals": [
+    "README exists and provides inspectable context.",
+    "Top-level code artifacts are present.",
+    "Config/build files suggest implementable structure.",
+    "Test-related files/directories appear present.",
+    "Language footprint detected (6 languages)."
+  ],
+  "top_negative_signals": [
+    "No major negative signal found in bounded static pass."
+  ],
+  "danger_flags": [],
+  "top_files_to_inspect": [
+    ".dockerignore",
+    "Dockerfile",
+    "README.md",
+    "package-lock.json",
+    "package.json",
+    "src"
+  ],
+  "best_fit_for_us": "Workflow/operator support",
+  "what_to_steal": [
+    "Bounded workflow and scoring patterns",
+    "Clear evidence-first repo review mechanics"
+  ],
+  "what_not_to_steal": [
+    "Unbounded autonomous behavior",
+    "Any approach requiring direct repo code execution for triage"
+  ],
+  "deeper_review_recommended": true,
+  "deeper_review_questions": [
+    "What claims require non-execution evidence before deeper review?",
+    "Which components are reusable without importing full repo complexity?"
+  ],
+  "worker_status": "triage_complete",
+  "stop_condition": null,
+  "escalation_triggered": false,
+  "escalation_reasons": [],
+  "final_disposition": "materially_useful"
+}

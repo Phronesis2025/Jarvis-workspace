@@ -1,0 +1,55 @@
+{
+  "repo_url": "https://github.com/polymarket/agents",
+  "repo_name": "polymarket/agents",
+  "profile_used": "prediction_market_execution",
+  "summary_of_what_it_is": "Trade autonomously on Polymarket using AI Agents",
+  "classification": "marginal",
+  "confidence": 0.57,
+  "repo_reality_score": 30,
+  "our_fit_score": 28,
+  "novelty_flag": 4,
+  "fatal_flags_triggered": [
+    "no_paper_mode"
+  ],
+  "top_positive_signals": [
+    "README exists and provides inspectable context.",
+    "Config/build files suggest implementable structure.",
+    "Test-related files/directories appear present.",
+    "Language footprint detected (3 languages).",
+    "Repository has a recorded update timestamp."
+  ],
+  "top_negative_signals": [
+    "Little or no top-level code surface detected.",
+    "Fatal flag: no_paper_mode"
+  ],
+  "danger_flags": [
+    "Fatal: no_paper_mode"
+  ],
+  "top_files_to_inspect": [
+    "Dockerfile",
+    "README.md",
+    "docs",
+    "requirements.txt"
+  ],
+  "best_fit_for_us": "Pattern extraction for prediction-market execution research",
+  "what_to_steal": [
+    "Bounded workflow and scoring patterns",
+    "Clear evidence-first repo review mechanics"
+  ],
+  "what_not_to_steal": [
+    "Unbounded autonomous behavior",
+    "Any approach requiring direct repo code execution for triage"
+  ],
+  "deeper_review_recommended": true,
+  "deeper_review_questions": [
+    "What claims require non-execution evidence before deeper review?",
+    "Which components are reusable without importing full repo complexity?"
+  ],
+  "worker_status": "escalated",
+  "stop_condition": null,
+  "escalation_triggered": true,
+  "escalation_reasons": [
+    "fatal flag triggered but repo still appears strategically interesting"
+  ],
+  "final_disposition": "marginal"
+}

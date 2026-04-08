@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "repo_url": "https://github.com/yamadashy/repomix",
+      "profile": "workflow_tooling",
+      "operator_note": "Batch example item 1.",
+      "depth_mode": "triage_only"
+    },
+    {
+      "repo_url": "https://github.com/polymarket/agents",
+      "profile": "prediction_market_execution",
+      "operator_note": "Batch example item 2.",
+      "depth_mode": "triage_only"
+    },
+    {
+      "repo_url": "https://github.com/warproxxx/poly-maker",
+      "profile": "prediction_market_execution",
+      "operator_note": "Batch example item 3.",
+      "depth_mode": "triage_only"
+    }
+  ]
+}

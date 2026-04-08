@@ -1,0 +1,14 @@
+{
+  "repo_url": "https://github.com/pallets/flask",
+  "profile": "generic_repo_triage",
+  "operator_note": "Quick bounded triage example run.",
+  "depth_mode": "triage_only",
+  "keywords_of_interest": [
+    "workflow",
+    "docs",
+    "risk"
+  ],
+  "known_bad_signals": [
+    "guaranteed alpha"
+  ]
+}

@@ -1,0 +1,6 @@
+﻿{
+  "repo_url": "https://github.com/polymarket/agents",
+  "profile": "prediction_market_execution",
+  "operator_note": "Validation batch 001 target 2.",
+  "depth_mode": "triage_only"
+}

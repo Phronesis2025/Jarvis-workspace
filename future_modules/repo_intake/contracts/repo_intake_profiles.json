@@ -1,0 +1,284 @@
+{
+  "contract_version": "1.0",
+  "worker_name": "repo_intake_triage_worker",
+  "status": "design_locked_not_active",
+  "purpose": "Bounded operator-support worker for GitHub repo triage and deeper-review recommendation.",
+  "classification_scale": [
+    "materially_useful",
+    "marginal",
+    "too_fuzzy",
+    "reject"
+  ],
+  "shared_output_fields": [
+    "repo_url",
+    "repo_name",
+    "profile_used",
+    "summary_of_what_it_is",
+    "classification",
+    "confidence",
+    "repo_reality_score",
+    "our_fit_score",
+    "novelty_flag",
+    "fatal_flags_triggered",
+    "top_positive_signals",
+    "top_negative_signals",
+    "danger_flags",
+    "top_files_to_inspect",
+    "best_fit_for_us",
+    "what_to_steal",
+    "what_not_to_steal",
+    "deeper_review_recommended",
+    "deeper_review_questions"
+  ],
+  "shared_thresholds": {
+    "materially_useful": {
+      "min_repo_reality_score": 32,
+      "min_our_fit_score": 24,
+      "fatal_flags_allowed": false
+    },
+    "marginal": {
+      "min_repo_reality_score": 24,
+      "min_our_fit_score": 16
+    },
+    "too_fuzzy": {
+      "notes": [
+        "evidence too thin",
+        "fit unclear",
+        "danger too high",
+        "novel but weakly verified"
+      ]
+    },
+    "reject": {
+      "notes": [
+        "weak repo substance",
+        "hype dominates mechanism",
+        "clear danger with weak controls",
+        "no real problem solved for us"
+      ]
+    }
+  },
+  "shared_scoring_model": {
+    "repo_reality_score_max": 50,
+    "our_fit_score_max": 40,
+    "novelty_flag_max": 10,
+    "novelty_flag_counts_toward_total": false
+  },
+  "worker_workflow_contract": {
+    "worker_statuses": [
+      "queued",
+      "triage_in_progress",
+      "triage_complete",
+      "deep_review_requested",
+      "deep_review_in_progress",
+      "deep_review_complete",
+      "escalated",
+      "rejected"
+    ],
+    "final_dispositions": [
+      "materially_useful",
+      "marginal",
+      "too_fuzzy",
+      "reject"
+    ],
+    "stop_conditions": [
+      "repo URL invalid or unreachable",
+      "repo cannot be classified with available evidence",
+      "repo appears unsafe to inspect further",
+      "repo requires code execution to verify core claims",
+      "repo scope exceeds bounded intake review"
+    ],
+    "escalation_conditions": [
+      "novelty_flag high but fit unclear",
+      "repo appears materially useful but classification confidence is low",
+      "conflicting evidence between README/docs and code",
+      "fatal flag triggered but repo still appears strategically interesting"
+    ],
+    "minimum_workflow": [
+      "intake",
+      "triage",
+      "optional_deep_review",
+      "final_disposition"
+    ]
+  },
+  "profiles": {
+    "generic_repo_triage": {
+      "purpose": "Fast first-pass repo judgment.",
+      "repo_reality_dimensions": [
+        {
+          "name": "code_substance",
+          "max_score": 15,
+          "description": "How much real implementation surface exists."
+        },
+        {
+          "name": "repo_clarity",
+          "max_score": 10,
+          "description": "How clearly the repo communicates what it is and what it does."
+        },
+        {
+          "name": "evidence_quality",
+          "max_score": 10,
+          "description": "How much repo value is directly verifiable from code and docs."
+        },
+        {
+          "name": "maintenance_seriousness",
+          "max_score": 5,
+          "description": "Whether the repo looks like a real maintained project rather than a shell."
+        },
+        {
+          "name": "safety_boundedness",
+          "max_score": 10,
+          "description": "Whether scope and behavior appear bounded and sane."
+        }
+      ],
+      "our_fit_dimensions": [
+        {
+          "name": "problem_relevance",
+          "max_score": 15,
+          "description": "Whether it solves a real operator/build/research problem for us."
+        },
+        {
+          "name": "reuse_potential",
+          "max_score": 10,
+          "description": "Whether useful patterns can be extracted without inheriting the whole repo."
+        },
+        {
+          "name": "workflow_runtime_clarity",
+          "max_score": 10,
+          "description": "Whether it is clear if the repo is workflow-only or architecture-relevant."
+        },
+        {
+          "name": "complexity_penalty",
+          "max_penalty": 5,
+          "description": "Subtract for bloated setup or maintenance burden."
+        }
+      ],
+      "fatal_flags": [
+        "readme_hype_with_weak_code",
+        "obvious_secret_sloppiness",
+        "fake_pnl_as_proof",
+        "no_clear_mechanism",
+        "docs_bundle_masks_thin_repo"
+      ]
+    },
+    "workflow_tooling": {
+      "purpose": "Judge tools that improve build/review/research workflow.",
+      "repo_reality_dimensions": [
+        {
+          "name": "operator_leverage_surface",
+          "max_score": 15,
+          "description": "Whether the tool clearly reduces real workflow friction."
+        },
+        {
+          "name": "local_first_replaceability",
+          "max_score": 10,
+          "description": "Whether it is local-first or at least replaceable without hard lock-in."
+        },
+        {
+          "name": "repo_substance",
+          "max_score": 10,
+          "description": "Whether enough real implementation surface exists."
+        },
+        {
+          "name": "evidence_quality",
+          "max_score": 10,
+          "description": "Whether its main value is directly verifiable."
+        },
+        {
+          "name": "safety_privacy_discipline",
+          "max_score": 5,
+          "description": "Whether it respects local review and privacy concerns."
+        }
+      ],
+      "our_fit_dimensions": [
+        {
+          "name": "friction_reduction_for_us",
+          "max_score": 15,
+          "description": "How much it reduces real operator/review/build pain."
+        },
+        {
+          "name": "integration_ease",
+          "max_score": 10,
+          "description": "How easy it is to adopt without stack soup."
+        },
+        {
+          "name": "reusable_pattern_value",
+          "max_score": 10,
+          "description": "How much portable value can be stolen from it."
+        },
+        {
+          "name": "lockin_complexity_penalty",
+          "max_penalty": 5,
+          "description": "Subtract for heavy platform dependence or setup drag."
+        }
+      ],
+      "fatal_flags": [
+        "cloud_lockin_disguised_as_utility",
+        "weak_repo_strong_marketing",
+        "tool_tries_to_be_entire_stack",
+        "no_clear_operator_pain_solved"
+      ]
+    },
+    "prediction_market_execution": {
+      "purpose": "Judge repos that touch prediction-market execution, orderbooks, market making, arbitrage, or skills.",
+      "repo_reality_dimensions": [
+        {
+          "name": "execution_market_surface",
+          "max_score": 15,
+          "description": "Whether the repo shows real market-data and execution plumbing."
+        },
+        {
+          "name": "safety_risk_discipline",
+          "max_score": 15,
+          "description": "Whether paper/live separation, risk controls, replay, or kill logic exist."
+        },
+        {
+          "name": "data_microstructure_realism",
+          "max_score": 10,
+          "description": "Whether the repo appears to understand actual market mechanics."
+        },
+        {
+          "name": "evidence_quality",
+          "max_score": 10,
+          "description": "Whether claims are directly supported by repo evidence."
+        },
+        {
+          "name": "danger_penalty",
+          "max_penalty": 10,
+          "description": "Subtract for hype, recklessness, weak controls, or copy-trading focus."
+        }
+      ],
+      "our_fit_dimensions": [
+        {
+          "name": "pattern_extraction_value",
+          "max_score": 15,
+          "description": "How much useful execution or microstructure learning can be extracted."
+        },
+        {
+          "name": "research_workflow_relevance",
+          "max_score": 10,
+          "description": "How much it helps prediction-market understanding, replay, truth mapping, or evaluation."
+        },
+        {
+          "name": "portability",
+          "max_score": 10,
+          "description": "How portable its useful parts are into our workflow or later side lanes."
+        },
+        {
+          "name": "prematurity_penalty",
+          "max_penalty": 5,
+          "description": "Subtract if the value is too coupled to live trading we should not touch yet."
+        }
+      ],
+      "fatal_flags": [
+        "copy_trading_main_value_prop",
+        "direct_secret_or_key_sloppiness",
+        "no_paper_mode",
+        "no_risk_controls",
+        "pnl_flex_as_proof",
+        "live_execution_without_kill_logic",
+        "magical_ai_makes_money_framing",
+        "no_clear_separation_between_data_auth_execution_and_monitoring"
+      ]
+    }
+  }
+}

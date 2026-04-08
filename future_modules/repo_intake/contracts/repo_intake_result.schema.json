@@ -1,0 +1,288 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "repo_intake_result.schema.json",
+  "title": "Repo Intake Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_url",
+    "repo_name",
+    "profile_used",
+    "summary_of_what_it_is",
+    "classification",
+    "confidence",
+    "repo_reality_score",
+    "our_fit_score",
+    "novelty_flag",
+    "fatal_flags_triggered",
+    "top_positive_signals",
+    "top_negative_signals",
+    "danger_flags",
+    "top_files_to_inspect",
+    "best_fit_for_us",
+    "what_to_steal",
+    "what_not_to_steal",
+    "deeper_review_recommended",
+    "deeper_review_questions",
+    "worker_status",
+    "stop_condition",
+    "escalation_triggered",
+    "escalation_reasons",
+    "final_disposition"
+  ],
+  "properties": {
+    "repo_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "repo_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_used": {
+      "type": "string",
+      "enum": [
+        "generic_repo_triage",
+        "workflow_tooling",
+        "prediction_market_execution"
+      ]
+    },
+    "summary_of_what_it_is": {
+      "type": "string",
+      "minLength": 1
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "materially_useful",
+        "marginal",
+        "too_fuzzy",
+        "reject"
+      ]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "repo_reality_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 50
+    },
+    "our_fit_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40
+    },
+    "novelty_flag": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "fatal_flags_triggered": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "top_positive_signals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "top_negative_signals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "danger_flags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "top_files_to_inspect": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "best_fit_for_us": {
+      "type": "string",
+      "minLength": 1
+    },
+    "what_to_steal": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "what_not_to_steal": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "deeper_review_recommended": {
+      "type": "boolean"
+    },
+    "deeper_review_questions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "worker_status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "triage_in_progress",
+        "triage_complete",
+        "deep_review_requested",
+        "deep_review_in_progress",
+        "deep_review_complete",
+        "escalated",
+        "rejected"
+      ]
+    },
+    "stop_condition": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        null,
+        "repo URL invalid or unreachable",
+        "repo cannot be classified with available evidence",
+        "repo appears unsafe to inspect further",
+        "repo requires code execution to verify core claims",
+        "repo scope exceeds bounded intake review"
+      ]
+    },
+    "escalation_triggered": {
+      "type": "boolean"
+    },
+    "escalation_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "novelty_flag high but fit unclear",
+          "repo appears materially useful but classification confidence is low",
+          "conflicting evidence between README/docs and code",
+          "fatal flag triggered but repo still appears strategically interesting"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "final_disposition": {
+      "type": "string",
+      "enum": [
+        "materially_useful",
+        "marginal",
+        "too_fuzzy",
+        "reject"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "classification": {
+            "const": "materially_useful"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "repo_reality_score": {
+            "minimum": 32
+          },
+          "our_fit_score": {
+            "minimum": 24
+          },
+          "fatal_flags_triggered": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "classification": {
+            "const": "marginal"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "repo_reality_score": {
+            "minimum": 24
+          },
+          "our_fit_score": {
+            "minimum": 16
+          }
+        }
+      }
+    },
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "classification": {
+              "const": "materially_useful"
+            },
+            "final_disposition": {
+              "const": "materially_useful"
+            }
+          }
+        },
+        {
+          "properties": {
+            "classification": {
+              "const": "marginal"
+            },
+            "final_disposition": {
+              "const": "marginal"
+            }
+          }
+        },
+        {
+          "properties": {
+            "classification": {
+              "const": "too_fuzzy"
+            },
+            "final_disposition": {
+              "const": "too_fuzzy"
+            }
+          }
+        },
+        {
+          "properties": {
+            "classification": {
+              "const": "reject"
+            },
+            "final_disposition": {
+              "const": "reject"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
