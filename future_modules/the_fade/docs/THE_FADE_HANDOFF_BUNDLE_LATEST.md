@@ -1,16 +1,16 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 391  
-**Phase #:** 3 — **local pipeline implementation** (T102 factual post-run operator review built)  
-**Tranche #:** 102  
-**Updated:** 2026-04-08T15:02:57+00:00
+**Prompt #:** 394  
+**Phase #:** 3 — **local pipeline implementation** (T104 source snapshot preservation built)  
+**Tranche #:** 104  
+**Updated:** 2026-04-08T16:59:20+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T102 factual post-run review build)
+## New chat checkpoint (post–T104 source snapshot preservation build)
 
-- **Where you are:** Phase **2** for **binding approval**; **post–T102 build** (Prompt **#391**). **Scoped MVP approval** (**T80**) remains: `approved: true`. Existing bounded local chain remains on disk (T89 ingress, T91 validator, T96 bridge, T94 validator, T98 runner, T100 operator wrapper + repair) and now includes factual post-run review implementation at `future_modules/the_fade/review/local_run/build_operator_review_from_run_folder.py` producing one `operator_review.md` per run folder.
+- **Where you are:** Phase **2** for **binding approval**; **post–T104 build** (Prompt **#394**). **Scoped MVP approval** (**T80**) remains: `approved: true`. Existing bounded local chain remains on disk (T89 ingress, T91 validator, T96 bridge, T94 validator, T98 runner, T100 operator wrapper + repair, T102 factual review, T104 **`source_snapshot.json`** builder). **`build_source_snapshot_from_run_folder.py`** exists on disk.
 - **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Any next build spend must be newly governed; do not widen into AI/scanner/runtime/provider/dashboard without authorization.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 

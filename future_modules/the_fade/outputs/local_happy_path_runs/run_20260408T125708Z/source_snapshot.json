@@ -1,0 +1,23 @@
+{
+  "source_name": "Federal Register",
+  "universe_source_ref": "federal_register:documents_api_v1",
+  "candidate_source_packet_ref": "federal_register_query:https://www.federalregister.gov/api/v1/documents.json?per_page=5&order=newest",
+  "scan_policy_version": "federal_register_ingress_t89_v1",
+  "request_id": "913fe5fb-9662-4ff4-8ff5-474871762d10",
+  "contract_version": "1.0.0",
+  "as_of_utc": "2026-04-08T12:57:09.987991Z",
+  "operator_notes": "T89 ingress packet from Federal Register only; results_count=5; no scanner execution.",
+  "results_count": 5,
+  "run_linkage": {
+    "run_id": "20260408T125708Z",
+    "started_at_utc": "2026-04-08T12:57:08Z",
+    "finished_at_utc": "2026-04-08T12:57:10Z",
+    "status": "PASS"
+  },
+  "result_envelope_context_only": {
+    "produced_at_utc": "2026-04-08T12:57:10Z",
+    "scanner_status": "pending",
+    "note": "Result fields are mechanical bridge/envelope context from the copied result JSON only; not a universe scanner execution or decision."
+  },
+  "explicit_statement": "This artifact is a factual source snapshot derived only from on-disk run-folder files. It is not a scanner decision artifact, not ranking or scoring, and not a recommendation."
+}
