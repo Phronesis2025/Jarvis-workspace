@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 387  
-**Phase #:** 3 — **local pipeline governance** (T100 clean-next-run behavior repaired)  
-**Tranche #:** 100  
-**Updated:** 2026-04-08T12:55:36+00:00
+**Prompt #:** 391  
+**Phase #:** 3 — **local pipeline implementation** (T102 factual post-run operator review built)  
+**Tranche #:** 102  
+**Updated:** 2026-04-08T15:02:57+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T100 clean-next-run behavior repair)
+## New chat checkpoint (post–T102 factual post-run review build)
 
-- **Where you are:** Phase **2** for **binding approval**; **post–T100 repair** (Prompt **#387**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **`bridge/first_request_to_result/build_universe_scanner_result_from_single_request.py`** on disk (**`post_t96_first_request_to_result_bridge`**). Mechanical bridge only — **not** a scanner. **T98** runner remains the wrapped execution surface. **T100** wrapper remains at **`operator/local_run/run_clean_local_happy_path.py`** and now has preflight root-state checks + transient root cleanup after successful runs (**`post_t100_repair_clean_next_run_behavior`**). Honest caveat: one-time legacy root clutter may still require manual cleanup before first repaired run. Scanner/runtime/provider/dashboard and result **production** path remain blocked pending new governance.
-- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Next build spend, if any, requires new explicit governance; do not widen into scanner/runtime/provider/dashboard without authorization.
+- **Where you are:** Phase **2** for **binding approval**; **post–T102 build** (Prompt **#391**). **Scoped MVP approval** (**T80**) remains: `approved: true`. Existing bounded local chain remains on disk (T89 ingress, T91 validator, T96 bridge, T94 validator, T98 runner, T100 operator wrapper + repair) and now includes factual post-run review implementation at `future_modules/the_fade/review/local_run/build_operator_review_from_run_folder.py` producing one `operator_review.md` per run folder.
+- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Any next build spend must be newly governed; do not widen into AI/scanner/runtime/provider/dashboard without authorization.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---

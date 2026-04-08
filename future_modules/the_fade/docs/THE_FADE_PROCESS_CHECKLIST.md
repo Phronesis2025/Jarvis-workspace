@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 387  
-**Phase #:** 3 — **local pipeline governance** (T100 clean-next-run behavior repaired)  
-**Tranche #:** 100
+**Prompt #:** 391  
+**Phase #:** 3 — **local pipeline implementation** (T102 factual post-run review slice built)  
+**Tranche #:** 102
 
-Updated: 2026-04-08T12:55:36+00:00
+Updated: 2026-04-08T15:02:57+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T100 repair** (Prompt **#387**). **Scoped MVP approval** (**T80**) remains binding. **T94** result-packet validator on disk; **T95** bridge governance on disk; **T96** bridge on disk; **T98** happy-path runner on disk; **T100** operator wrapper on disk. Repair outcome: wrapper now preflights root-state before running T98 and fails early with clear operator message when root is not acceptable; after successful run it copies request/result artifacts to the run folder and removes transient root request/result artifacts from that run only. Honest caveat: one-time legacy root clutter may still require manual cleanup before the first repaired run. Scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
+- **Checkpoint:** **Post–T102 build** (Prompt **#391**). **Scoped MVP approval** (**T80**) remains binding. Existing bounded chain on disk remains unchanged (T89 ingress, T91 request validator, T96 bridge, T94 result validator, T98 happy-path runner, T100 operator wrapper + repair) and now includes factual post-run review surface implementation at `future_modules/the_fade/review/local_run/build_operator_review_from_run_folder.py`. The review surface is bounded to one run folder input per invocation and one `operator_review.md` output with factual extraction + transparent counts only. AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.

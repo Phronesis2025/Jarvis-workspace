@@ -4,7 +4,7 @@
 **Phase #:** 2  
 **Tranche #:** 34A (plan lock only — no execution in #134)  
 
-**Updated:** 2026-04-08T12:55:36+00:00 (post–**T100 repair** **#387** — clean-next-run behavior repaired in **`operator/local_run/run_clean_local_happy_path.py`** with preflight root-state checks and post-success transient root cleanup for request/result created by that run; one-time legacy root clutter may still require manual cleanup before first repaired run; scoped MVP approval unchanged; no lane reopen; scanner/real scan/runtime/provider/dashboard still blocked; broader implementation remains unauthorized without new governance)  
+**Updated:** 2026-04-08T15:02:57+00:00 (post–**T102** **#391** — factual post-run operator review surface is now built on disk at **`future_modules/the_fade/review/local_run/build_operator_review_from_run_folder.py`** and writes one bounded **`operator_review.md`** per run folder from factual on-disk data; scoped MVP approval unchanged; no lane reopen; AI/scanner/real scan/runtime/provider/dashboard still blocked; broader implementation remains unauthorized without new governance)  
 
 **Authority:** Binding **scoped** MVP approval state is **`mvp_lane_approval.json`** (updated in **T80**; **not** edited in **T82**). This plan file is a **locked historical sequence** and honest partiality accounting — it is **not** the approval flip mechanism.
 
