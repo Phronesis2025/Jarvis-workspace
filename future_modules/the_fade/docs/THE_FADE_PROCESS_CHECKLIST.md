@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 405  
-**Phase #:** 3 — **local pipeline implementation** (post–T111 first operator-meaningful filtering signal governed)  
-**Tranche #:** 111
+**Prompt #:** 407  
+**Phase #:** 3 — **local pipeline implementation** (post–T112 first operator-meaningful filtering signal built)  
+**Tranche #:** 112
 
-Updated: 2026-04-08T22:28:11+00:00
+Updated: 2026-04-08T23:55:00+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T111 governance** (Prompt **#405**). **Scoped MVP approval** (**T80**) remains binding. **T110** queue on disk. **T111** governs **only** a future single-script slice: **`review/local_run/build_operator_attention_signal_from_run_folder.py`** → per-run **`operator_attention_signal.json`** (mechanical attention signal; reads gate + **`source_snapshot.json`** + optional **`run_summary.json`** per **`THE_FADE_T111_*`**; **no** AI/scanner/ranking). **Executable** attention script **not** in **T111**. AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
+- **Checkpoint:** **Post–T112 build** (Prompt **#407**). **Scoped MVP approval** (**T80**) remains binding. **T111** governance + **T112** **`review/local_run/build_operator_attention_signal_from_run_folder.py`** on disk → per-run **`operator_attention_signal.json`** (mechanical attention signal; gate + **`source_snapshot.json`** + **`run_summary.json`** when present per **`THE_FADE_T111_*`**; **no** AI/scanner/ranking/runtime). AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
