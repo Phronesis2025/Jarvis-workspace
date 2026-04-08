@@ -1,20 +1,20 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 375  
-**Phase #:** 3 — **request-to-result governance** (T95 bridge slice governed; executable bridge **not** in T95)  
-**Tranche #:** 95
+**Prompt #:** 378  
+**Phase #:** 3 — **request-to-result bridge build** (T96 first bridge on disk)  
+**Tranche #:** 96
 
-Updated: 2026-04-07T22:05:00+00:00
+Updated: 2026-04-07T23:58:00+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T95** (Prompt **#375**). **Scoped MVP approval** (**T80**) remains binding. **T94** result-packet validator on disk. **T95** **governs** the **first** mechanical request→result bridge (**`THE_FADE_T95_FIRST_REQUEST_TO_RESULT_BRIDGE_*`**, **`post_t95_first_request_to_result_bridge_governance`**): **one** future tranche, **fixed** script path under **`bridge/first_request_to_result/`**, **one** request **in** / **one** result **out**, **`pending`** + **deferred** rows only — **bridge code not built in T95**. Scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; only that **single** bridge implementation tranche is next-authorized for request→result **mechanics**, not a scanner.
+- **Checkpoint:** **Post–T96** (Prompt **#378**). **Scoped MVP approval** (**T80**) remains binding. **T94** result-packet validator on disk; **T95** bridge governance on disk; **`bridge/first_request_to_result/build_universe_scanner_result_from_single_request.py`** **implemented** (**T96**, **`post_t96_first_request_to_result_bridge`**) — mechanical **one** request **in** / **one** result **out**, **`pending`** + **deferred** placeholders per **T95**; optional **`bridge/first_request_to_result/README.md`**. **T96 verification artifact:** **one** **`bridge_universe_scanner_result_*.json`** already on disk under **`outputs/phase3_universe_scanner_results/`** — **bounded local tranche** output from the verification run only; **not** a scanner claim; **no** broader authorization. Scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
 - **Formal markdown evidence log / audit:** **Reconciled** (Prompt **#102**) — `MVP_LANE_EVIDENCE_LOG.md`, `MVP_SOURCE_RELIABILITY_AUDIT.md` match JSONL truth; **not** an approval change.
 - **Approval:** `mvp_lane_approval.json` — **post–T80:** **`approved: true`** and **`approved_mvp_lanes`** per **Prompt #336** (verify on disk).
-- **Phase 3:** **Static contract slice** (**T85**); **contract-tree** validator (**T87**); **live ingress** (**T89**); **ingress-request offline validator** (**T91**); **result-packet offline validator** (**T94**); **first request→result bridge** **governed** (**T95** — **not** built in T95). **Executable** scanner/runtime/dashboard/providers **not** started; broader work still requires **new** governance.
+- **Phase 3:** **Static contract slice** (**T85**); **contract-tree** validator (**T87**); **live ingress** (**T89**); **ingress-request offline validator** (**T91**); **result-packet offline validator** (**T94**); **first request→result bridge** (**T96** — mechanical only). **Executable** scanner/runtime/dashboard/providers **not** started; broader work still requires **new** governance.
 - **Operator gate review decision (Prompt #113 lock — historical slice context):** FR full-window evidence remains a **strong positive slice** only for **strict** whole-gate reading; **post–T80**, **scoped** MVP approval is **separately** recorded in **`mvp_lane_approval.json`** + **`t80_scoped_mvp_approval_decision.json`** — **not** Phase **3** readiness.
 - **Tranche 31 freshness discipline (Prompt #121 — executed):** **22** full-window lines classified (**`t30_valid_002`** excluded): **12** **fresh**, **0** **stale**, **10** **cannot classify honestly**. See `MVP_LANE_EVIDENCE_LOG.md` — **not** approval; **not** Phase 3.
 - **Tranche 32 — freshness ambiguity resolution (Prompt #129 — executed):** **10**-row cohort reviewed — stored snapshots **plus** one bounded read-only GET to `https://www.federalregister.gov/api/v1/documents/2026-06133.json`. Under the **same** Tranche **31** midnight-UTC rule, **all 10** remain **still cannot classify honestly** (explicit limitation documented in `MVP_LANE_EVIDENCE_LOG.md`); **not** approval; **not** Phase 3.

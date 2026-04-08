@@ -1,0 +1,16 @@
+{
+  "request_id": "7111fe54-c2b0-44dd-a96c-8e30f97cd7bc",
+  "produced_at_utc": "2026-04-08T01:05:10Z",
+  "scanner_status": "pending",
+  "contract_version": "1.0.0",
+  "candidate_outputs": [
+    {
+      "symbol": "BRIDGE_OPAQUE_CANDIDATE_REF",
+      "row_status": "deferred",
+      "omission_reason": "bridge_T95_placeholder_not_a_scan_opaque_candidate_ref"
+    }
+  ],
+  "warnings": [
+    "T96 mechanical bridge output only \u2014 not a universe scanner execution."
+  ]
+}
