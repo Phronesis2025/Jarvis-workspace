@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 368 (repair **#369**)  
-**Phase #:** 3 — **post-ingress-validation governance** (T93 offline result-packet validation boundary)  
-**Tranche #:** 93  
-**Updated:** 2026-04-07T19:29:42+00:00
+**Prompt #:** 375  
+**Phase #:** 3 — **request-to-result governance** (T95 first bridge slice governed)  
+**Tranche #:** 95  
+**Updated:** 2026-04-07T22:05:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T93 offline result-packet validation governance)
+## New chat checkpoint (post–T95 first request→result bridge governance)
 
-- **Where you are:** Phase **2** for **binding approval**; **post–T93** (Prompt **#368**; **#369** **Model B** repair). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T91** ingress-request validator on disk; **T93** governance for **offline `UniverseScannerResult` validation** (**`post_t93_offline_validation_of_universe_scanner_result_packets_governance`**). **Valid root seeds:** **≤3** static hand-placed/copy-only **or** none; **validator must not write** JSON. **`validate_universe_scanner_result_packets.py`** is **not** built in **T93**. Scanner/request-to-result/result **production** path/runtime/provider/dashboard work remains blocked; broader Phase **3** implementation remains unauthorized without new governance.
-- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`** + **`THE_FADE_T93_OFFLINE_VALIDATION_OF_UNIVERSE_SCANNER_RESULT_PACKETS_GOVERNANCE.md`**. **Next** **implementation** work (when executed): **at most** **one** tranche adding **only** **`validate_universe_scanner_result_packets.py`** per **T93** — **not** result generation.
+- **Where you are:** Phase **2** for **binding approval**; **post–T95** (Prompt **#375**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T94** result-packet validator on disk. **T95** governs **exactly one** future implementation tranche for **`bridge/first_request_to_result/build_universe_scanner_result_from_single_request.py`** — mechanical **one** request **in** / **one** result **out**; **no** bridge code in **T95**. Scanner/runtime/provider/dashboard and result **production** path remain blocked; **only** that **single** bridge slice is authorized next for request→result **mechanics** (see **`THE_FADE_T95_FIRST_REQUEST_TO_RESULT_BRIDGE_GOVERNANCE.md`**).
+- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`** + **`THE_FADE_T95_FIRST_REQUEST_TO_RESULT_BRIDGE_GOVERNANCE.md`**. Do **not** implement the bridge until a **future** prompt executes the **T95-authorized** tranche.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -37,7 +37,7 @@
 | Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
 | Approval                     | **`mvp_lane_approval.json`:** **`approved: true`**; **`approved_mvp_lanes`** = B, A, C, E (verify on disk). Signoff: **`config/t80_scoped_mvp_approval_decision.json`**                                        |
 | Lane posture                 | **T76** + **T78** Lane B governance packs on disk (`lane_b_t76_*`, `lane_b_t78_*`). **T80** scoped MVP approval **on disk**. **T82** governance lock — **no** lane reopen. **Lanes A/C/E** **stopped**. **Lane B** default freeze for **new** live evidence tranches unchanged |
-| Phase 3                      | **T85** static I/O contracts on disk; **T87** contract-tree validator on disk; **T89** Federal Register ingress on disk; **T91** ingress-request validator on disk; **T93** governs result-packet offline validation (**not** implemented in T93); scanner/runtime/dashboard/providers remain blocked pending new governance |
+| Phase 3                      | **T85** static I/O contracts on disk; **T87** contract-tree validator on disk; **T89** Federal Register ingress on disk; **T91** ingress-request validator on disk; **T94** result-packet validator on disk; **T95** first request→result bridge **governed** (executable bridge **not** in T95); scanner/runtime/dashboard/providers remain blocked pending new governance |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
 | T45 status                   | **Executed** — Lane B failure-path / stale-outage **fixture** trace (`audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_*`); **not** gate closure; **not** live integration |
 | T47 status                   | **Executed** — Lane B conflict / fusion **precedence** **fixture** trace (`audit_lane_b_conflict_fusion_precedence_trace.py` + `tranche47_*`); **not** full conflict closure; **not** live integration |
@@ -75,6 +75,8 @@
 | T90 status                   | **Executed** — Offline ingress-request validation governance (**#365**); **`THE_FADE_T90_OFFLINE_VALIDATION_OF_INGRESS_REQUEST_PACKETS_GOVERNANCE.md`** + **`THE_FADE_T90_OFFLINE_VALIDATION_OF_INGRESS_REQUEST_PACKETS_ACCEPTANCE_CRITERIA.md`**; **`post_t90_offline_validation_of_ingress_request_packets_governance`**; governance only; **`validate_ingress_request_packets.py`** not built in T90 |
 | T91 status                   | **Executed** — Ingress-request offline validator (**#366**); **`contracts/phase3_universe_scanner_io/tools/validate_ingress_request_packets.py`** + **`README_ingress_request_packets.md`**; **`post_t91_offline_ingress_request_packet_validator`**; optional **`inputs/phase3_universe_scanner_requests/fixtures_invalid/`**; not scanner execution |
 | T93 status                   | **Executed** — Offline result-packet validation governance (**#368**, **#369** Model B); **`THE_FADE_T93_OFFLINE_VALIDATION_OF_UNIVERSE_SCANNER_RESULT_PACKETS_GOVERNANCE.md`** + **`THE_FADE_T93_OFFLINE_VALIDATION_OF_UNIVERSE_SCANNER_RESULT_PACKETS_ACCEPTANCE_CRITERIA.md`**; **`post_t93_offline_validation_of_universe_scanner_result_packets_governance`**; **≤3** static valid-root seeds **or** zero; validator must not write JSON; governance only; **`validate_universe_scanner_result_packets.py`** not built in T93 |
+| T94 status                   | **Executed** — Offline result-packet validator (**#374**); **`contracts/phase3_universe_scanner_io/tools/validate_universe_scanner_result_packets.py`** + **`README_universe_scanner_result_packets.md`**; **`post_t94_offline_universe_scanner_result_packet_validator`**; **`outputs/phase3_universe_scanner_results/`** root + optional **`fixtures_invalid/`**; **not** scanner or request→result |
+| T95 status                   | **Executed** — First request→result bridge governance (**#375**); **`THE_FADE_T95_FIRST_REQUEST_TO_RESULT_BRIDGE_GOVERNANCE.md`** + **`THE_FADE_T95_FIRST_REQUEST_TO_RESULT_BRIDGE_ACCEPTANCE_CRITERIA.md`**; **`post_t95_first_request_to_result_bridge_governance`**; **one** future tranche → **`bridge/first_request_to_result/build_universe_scanner_result_from_single_request.py`**; **no** bridge code in T95; **not** scanner |
 
 ---
 
