@@ -1,0 +1,13 @@
+{
+  "run_id": "20260408T125708Z",
+  "review_gate_status": "open_for_operator_review",
+  "review_gate_reasons": [],
+  "explicit_non_scanner_statement": "This artifact is a mechanical operator triage signal derived only from local run-folder JSON files. It is not a universe scanner execution result and not a scanner decision artifact.",
+  "explicit_non_trading_signal_statement": "This artifact is not a trading signal, investment recommendation, or prioritization of markets or instruments.",
+  "request_id": "913fe5fb-9662-4ff4-8ff5-474871762d10",
+  "source_name": "Federal Register",
+  "results_count": 5,
+  "scanner_status": "pending",
+  "candidate_outputs_count": 1,
+  "deferred_count": 1
+}
