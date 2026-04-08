@@ -1,0 +1,13 @@
+{
+  "run_id": "20260408T125708Z",
+  "started_at_utc": "2026-04-08T12:57:08Z",
+  "finished_at_utc": "2026-04-08T12:57:10Z",
+  "status": "PASS",
+  "wrapped_runner_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\runner\\local_happy_path\\run_local_end_to_end_happy_path.py",
+  "source_request_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\inputs\\phase3_universe_scanner_requests\\fr_universe_scanner_request_20260408T125709Z.json",
+  "source_result_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\phase3_universe_scanner_results\\bridge_universe_scanner_result_913fe5fb96624ff48ff5474871762d10_20260408T125710Z.json",
+  "copied_request_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\local_happy_path_runs\\run_20260408T125708Z\\fr_universe_scanner_request_20260408T125709Z.json",
+  "copied_result_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\local_happy_path_runs\\run_20260408T125708Z\\bridge_universe_scanner_result_913fe5fb96624ff48ff5474871762d10_20260408T125710Z.json",
+  "cleaned_root_request_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\inputs\\phase3_universe_scanner_requests\\fr_universe_scanner_request_20260408T125709Z.json",
+  "cleaned_root_result_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\phase3_universe_scanner_results\\bridge_universe_scanner_result_913fe5fb96624ff48ff5474871762d10_20260408T125710Z.json"
+}
