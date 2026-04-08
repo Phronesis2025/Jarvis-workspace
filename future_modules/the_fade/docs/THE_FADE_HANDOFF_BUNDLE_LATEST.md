@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 378  
-**Phase #:** 3 — **request-to-result bridge build** (T96 first bridge on disk)  
-**Tranche #:** 96  
-**Updated:** 2026-04-07T23:58:00+00:00
+**Prompt #:** 381  
+**Phase #:** 3 — **local pipeline governance** (T97 local happy-path runner slice governed; runner not built in T97)  
+**Tranche #:** 97  
+**Updated:** 2026-04-08T11:48:34+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T96 first request→result bridge)
+## New chat checkpoint (post–T97 local happy-path runner governance)
 
-- **Where you are:** Phase **2** for **binding approval**; **post–T96** (Prompt **#378**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **`bridge/first_request_to_result/build_universe_scanner_result_from_single_request.py`** on disk (**`post_t96_first_request_to_result_bridge`**). Mechanical bridge only — **not** a scanner. **Verification disk truth:** **one** **`bridge_universe_scanner_result_*.json`** in **`outputs/phase3_universe_scanner_results/`** from the T96 verification run — **bounded local tranche artifact**; **not** scanner execution; **does not** expand authorization. Scanner/runtime/provider/dashboard and result **production** path remain blocked pending new governance.
-- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Next spend requires **new** governed prompts — **do not** widen into scanner/runtime without explicit authorization.
+- **Where you are:** Phase **2** for **binding approval**; **post–T97** (Prompt **#381**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **`bridge/first_request_to_result/build_universe_scanner_result_from_single_request.py`** on disk (**`post_t96_first_request_to_result_bridge`**). Mechanical bridge only — **not** a scanner. **Verification disk truth:** **one** **`bridge_universe_scanner_result_*.json`** in **`outputs/phase3_universe_scanner_results/`** from the T96 verification run — **bounded local tranche artifact**; **not** scanner execution; **does not** expand authorization. **T97** adds **`THE_FADE_T97_LOCAL_END_TO_END_HAPPY_PATH_RUNNER_*.md`** + **`post_t97_local_end_to_end_happy_path_runner_governance`** — **one** future tranche may implement **`runner/local_happy_path/run_local_end_to_end_happy_path.py`** only (**not** built in T97). Scanner/runtime/provider/dashboard and result **production** path remain blocked pending new governance.
+- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Next **honest** build spend on this line is **only** the **governed** single-runner tranche — **do not** widen into scanner/runtime without explicit authorization.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -37,7 +37,7 @@
 | Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
 | Approval                     | **`mvp_lane_approval.json`:** **`approved: true`**; **`approved_mvp_lanes`** = B, A, C, E (verify on disk). Signoff: **`config/t80_scoped_mvp_approval_decision.json`**                                        |
 | Lane posture                 | **T76** + **T78** Lane B governance packs on disk (`lane_b_t76_*`, `lane_b_t78_*`). **T80** scoped MVP approval **on disk**. **T82** governance lock — **no** lane reopen. **Lanes A/C/E** **stopped**. **Lane B** default freeze for **new** live evidence tranches unchanged |
-| Phase 3                      | **T85** static I/O contracts on disk; **T87** contract-tree validator on disk; **T89** Federal Register ingress on disk; **T91** ingress-request validator on disk; **T94** result-packet validator on disk; **T95** bridge governance + **T96** **`build_universe_scanner_result_from_single_request.py`** on disk; scanner/runtime/dashboard/providers remain blocked pending new governance |
+| Phase 3                      | **T85** static I/O contracts on disk; **T87** contract-tree validator on disk; **T89** Federal Register ingress on disk; **T91** ingress-request validator on disk; **T94** result-packet validator on disk; **T95** bridge governance + **T96** **`build_universe_scanner_result_from_single_request.py`** on disk; **T97** local happy-path **runner** slice **governed** (**`runner/local_happy_path/run_local_end_to_end_happy_path.py`** **not** on disk yet); scanner/runtime/dashboard/providers remain blocked pending new governance |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
 | T45 status                   | **Executed** — Lane B failure-path / stale-outage **fixture** trace (`audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_*`); **not** gate closure; **not** live integration |
 | T47 status                   | **Executed** — Lane B conflict / fusion **precedence** **fixture** trace (`audit_lane_b_conflict_fusion_precedence_trace.py` + `tranche47_*`); **not** full conflict closure; **not** live integration |
@@ -78,6 +78,7 @@
 | T94 status                   | **Executed** — Offline result-packet validator (**#374**); **`contracts/phase3_universe_scanner_io/tools/validate_universe_scanner_result_packets.py`** + **`README_universe_scanner_result_packets.md`**; **`post_t94_offline_universe_scanner_result_packet_validator`**; **`outputs/phase3_universe_scanner_results/`** root + optional **`fixtures_invalid/`**; **not** scanner or request→result |
 | T95 status                   | **Executed** — First request→result bridge governance (**#375**); **`THE_FADE_T95_FIRST_REQUEST_TO_RESULT_BRIDGE_GOVERNANCE.md`** + **`THE_FADE_T95_FIRST_REQUEST_TO_RESULT_BRIDGE_ACCEPTANCE_CRITERIA.md`**; **`post_t95_first_request_to_result_bridge_governance`**; **no** bridge code in T95; **not** scanner |
 | T96 status                   | **Executed** — First mechanical bridge (**#378**); **`bridge/first_request_to_result/build_universe_scanner_result_from_single_request.py`** + **`README.md`**; **`post_t96_first_request_to_result_bridge`**; **not** scanner; **not** production pipeline |
+| T97 status                   | **Executed (governance only)** — Local end-to-end happy-path runner slice (**#381**); **`THE_FADE_T97_LOCAL_END_TO_END_HAPPY_PATH_RUNNER_GOVERNANCE.md`** + **`THE_FADE_T97_LOCAL_END_TO_END_HAPPY_PATH_RUNNER_ACCEPTANCE_CRITERIA.md`**; **`post_t97_local_end_to_end_happy_path_runner_governance`**; **no** runner code in T97; **one** future tranche authorized for **`runner/local_happy_path/run_local_end_to_end_happy_path.py`** only |
 
 ---
 
