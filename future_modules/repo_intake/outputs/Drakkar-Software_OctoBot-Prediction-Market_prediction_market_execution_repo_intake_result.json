@@ -1,40 +1,40 @@
 {
-  "repo_url": "https://github.com/polymarket/agents",
-  "repo_name": "polymarket/agents",
+  "repo_url": "https://github.com/Drakkar-Software/OctoBot-Prediction-Market",
+  "repo_name": "Drakkar-Software/OctoBot-Prediction-Market",
   "profile_used": "prediction_market_execution",
   "profile_selected_automatically": true,
-  "auto_profile_confidence": 0.79,
+  "auto_profile_confidence": 0.94,
   "auto_profile_reasons": [
     "Strong prediction-market execution signals take precedence.",
-    "Matched strong terms: polymarket, clob, execution"
+    "Matched strong terms: polymarket, kalshi, arbitrage, copy trading, copy-trading, trading bot"
   ],
-  "summary_of_what_it_is": "Trade autonomously on Polymarket using AI Agents",
+  "summary_of_what_it_is": "Polymarket open source trading bot to automate copy trading and arbitrage strategies on crypto prediction markets for free, with simple interface.",
   "classification": "marginal",
-  "confidence": 0.57,
-  "repo_reality_score": 30,
-  "our_fit_score": 28,
-  "novelty_flag": 4,
+  "confidence": 0.68,
+  "repo_reality_score": 32,
+  "our_fit_score": 36,
+  "novelty_flag": 2,
   "fatal_flags_triggered": [
-    "no_paper_mode"
+    "copy_trading_main_value_prop"
   ],
   "top_positive_signals": [
     "README exists and provides inspectable context.",
+    "Top-level code artifacts are present.",
     "Config/build files suggest implementable structure.",
     "Test-related files/directories appear present.",
-    "Language footprint detected (3 languages).",
-    "Repository has a recorded update timestamp."
+    "Language footprint detected (2 languages)."
   ],
   "top_negative_signals": [
-    "Little or no top-level code surface detected.",
-    "Fatal flag: no_paper_mode"
+    "No major negative signal found in bounded static pass.",
+    "Fatal flag: copy_trading_main_value_prop"
   ],
   "danger_flags": [
-    "Fatal: no_paper_mode"
+    "Fatal: copy_trading_main_value_prop"
   ],
   "top_files_to_inspect": [
     "Dockerfile",
     "README.md",
-    "docs",
+    "dev_requirements.txt",
     "requirements.txt"
   ],
   "best_fit_for_us": "Pattern extraction for prediction-market execution research",

@@ -1,40 +1,41 @@
 {
-  "repo_url": "https://github.com/amadeusprotocol/polymarket-trading-bot",
-  "repo_name": "amadeusprotocol/polymarket-trading-bot",
+  "repo_url": "https://github.com/dylanpersonguy/Polymarket-Trading-Bot",
+  "repo_name": "dylanpersonguy/Polymarket-Trading-Bot",
   "profile_used": "prediction_market_execution",
   "profile_selected_automatically": true,
   "auto_profile_confidence": 0.98,
   "auto_profile_reasons": [
     "Strong prediction-market execution signals take precedence.",
-    "Matched strong terms: polymarket, arbitrage, copy trading, copy-trading, trading bot, clob, execution"
+    "Matched strong terms: polymarket, arbitrage, copy-trading, trading bot, market making, market-making, execution"
   ],
-  "summary_of_what_it_is": "polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot",
-  "classification": "too_fuzzy",
-  "confidence": 0.41,
-  "repo_reality_score": 17,
-  "our_fit_score": 34,
-  "novelty_flag": 4,
+  "summary_of_what_it_is": "\ud83e\udd16 The most advanced open-source Polymarket trading bot. 7 automated strategies (arbitrage, convergence, market making, momentum, AI forecast), whale tracker with copy-trade simulator, real-time dashboard, parallel market scanner, paper trading mode. 53K+ lines of TypeScript. Contact @DylanForexia on Telegram for custom bots.",
+  "classification": "marginal",
+  "confidence": 0.78,
+  "repo_reality_score": 41,
+  "our_fit_score": 36,
+  "novelty_flag": 8,
   "fatal_flags_triggered": [
-    "copy_trading_main_value_prop",
-    "direct_secret_or_key_sloppiness"
+    "copy_trading_main_value_prop"
   ],
   "top_positive_signals": [
     "README exists and provides inspectable context.",
+    "Top-level code artifacts are present.",
     "Config/build files suggest implementable structure.",
-    "Language footprint detected (1 languages).",
-    "Repository has a recorded update timestamp."
+    "Test-related files/directories appear present.",
+    "Language footprint detected (4 languages)."
   ],
   "top_negative_signals": [
-    "Little or no top-level code surface detected.",
-    "Fatal flag: copy_trading_main_value_prop",
-    "Fatal flag: direct_secret_or_key_sloppiness"
+    "No major negative signal found in bounded static pass.",
+    "Fatal flag: copy_trading_main_value_prop"
   ],
   "danger_flags": [
-    "Fatal: copy_trading_main_value_prop",
-    "Fatal: direct_secret_or_key_sloppiness"
+    "Fatal: copy_trading_main_value_prop"
   ],
   "top_files_to_inspect": [
+    ".dockerignore",
+    "Dockerfile",
     "README.md",
+    "docs",
     "package-lock.json",
     "package.json",
     "src"
@@ -57,7 +58,8 @@
   "stop_condition": null,
   "escalation_triggered": true,
   "escalation_reasons": [
+    "novelty_flag high but fit unclear",
     "fatal flag triggered but repo still appears strategically interesting"
   ],
-  "final_disposition": "too_fuzzy"
+  "final_disposition": "marginal"
 }

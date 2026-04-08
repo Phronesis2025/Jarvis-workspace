@@ -1,0 +1,56 @@
+{
+  "batch_id": "repo_intake_batch_20260408_133155Z",
+  "generated_at_utc": "2026-04-08T13:31:55.876193+00:00",
+  "total_items": 3,
+  "success_count": 3,
+  "failure_count": 0,
+  "successful_items": [
+    {
+      "repo_name": "aulekator/Polymarket-BTC-15-Minute-Trading-Bot",
+      "profile_used": "generic_repo_triage",
+      "classification": "marginal",
+      "repo_reality_score": 47,
+      "our_fit_score": 16,
+      "novelty_flag": 6,
+      "fatal_flags_triggered": [
+        "obvious_secret_sloppiness"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "CrewSX/polymarket-trading-bot",
+      "profile_used": "generic_repo_triage",
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "Anoto-ecossistem/polymarket-copy-bot",
+      "profile_used": "generic_repo_triage",
+      "classification": "reject",
+      "repo_reality_score": 12,
+      "our_fit_score": 6,
+      "novelty_flag": 2,
+      "fatal_flags_triggered": [
+        "no_clear_mechanism",
+        "obvious_secret_sloppiness"
+      ],
+      "deeper_review_recommended": false
+    }
+  ],
+  "failed_items": [],
+  "grouped": {
+    "materially_useful": [],
+    "marginal": [
+      "aulekator/Polymarket-BTC-15-Minute-Trading-Bot"
+    ],
+    "too_fuzzy": [],
+    "reject": [
+      "CrewSX/polymarket-trading-bot",
+      "Anoto-ecossistem/polymarket-copy-bot"
+    ]
+  }
+}

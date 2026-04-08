@@ -1,43 +1,43 @@
 {
-  "repo_url": "https://github.com/polymarket/agents",
-  "repo_name": "polymarket/agents",
-  "profile_used": "prediction_market_execution",
-  "profile_selected_automatically": true,
-  "auto_profile_confidence": 0.79,
+  "repo_url": "https://github.com/pallets/flask",
+  "repo_name": "pallets/flask",
+  "profile_used": "generic_repo_triage",
+  "profile_selected_automatically": false,
+  "auto_profile_confidence": 1.0,
   "auto_profile_reasons": [
-    "Strong prediction-market execution signals take precedence.",
-    "Matched strong terms: polymarket, clob, execution"
+    "Profile was explicitly provided by operator input."
   ],
-  "summary_of_what_it_is": "Trade autonomously on Polymarket using AI Agents",
-  "classification": "marginal",
-  "confidence": 0.57,
-  "repo_reality_score": 30,
-  "our_fit_score": 28,
+  "summary_of_what_it_is": "The Python micro framework for building web applications.",
+  "classification": "too_fuzzy",
+  "confidence": 0.32,
+  "repo_reality_score": 22,
+  "our_fit_score": 14,
   "novelty_flag": 4,
   "fatal_flags_triggered": [
-    "no_paper_mode"
+    "no_clear_mechanism"
   ],
   "top_positive_signals": [
     "README exists and provides inspectable context.",
     "Config/build files suggest implementable structure.",
     "Test-related files/directories appear present.",
-    "Language footprint detected (3 languages).",
+    "Language footprint detected (4 languages).",
     "Repository has a recorded update timestamp."
   ],
   "top_negative_signals": [
     "Little or no top-level code surface detected.",
-    "Fatal flag: no_paper_mode"
+    "Fatal flag: no_clear_mechanism"
   ],
   "danger_flags": [
-    "Fatal: no_paper_mode"
+    "Fatal: no_clear_mechanism"
   ],
   "top_files_to_inspect": [
-    "Dockerfile",
+    ".readthedocs.yaml",
     "README.md",
     "docs",
-    "requirements.txt"
+    "pyproject.toml",
+    "src"
   ],
-  "best_fit_for_us": "Pattern extraction for prediction-market execution research",
+  "best_fit_for_us": "Workflow/operator support",
   "what_to_steal": [
     "Bounded workflow and scoring patterns",
     "Clear evidence-first repo review mechanics"
@@ -57,5 +57,5 @@
   "escalation_reasons": [
     "fatal flag triggered but repo still appears strategically interesting"
   ],
-  "final_disposition": "marginal"
+  "final_disposition": "too_fuzzy"
 }

@@ -2,6 +2,11 @@
   "repo_url": "https://github.com/yamadashy/repomix",
   "repo_name": "yamadashy/repomix",
   "profile_used": "workflow_tooling",
+  "profile_selected_automatically": false,
+  "auto_profile_confidence": 1.0,
+  "auto_profile_reasons": [
+    "Profile was explicitly provided by operator input."
+  ],
   "summary_of_what_it_is": "\ud83d\udce6 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like Claude, ChatGPT, DeepSeek, Perplexity, Gemini, Gemma, Llama, Grok, and more.",
   "classification": "materially_useful",
   "confidence": 0.93,

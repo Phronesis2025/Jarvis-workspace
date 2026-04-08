@@ -1,0 +1,64 @@
+{
+  "batch_id": "repo_intake_batch_20260408_171325Z",
+  "generated_at_utc": "2026-04-08T17:13:26.227095+00:00",
+  "total_items": 2,
+  "evaluated_count": 1,
+  "fetch_limited_count": 1,
+  "failure_count": 0,
+  "evaluated_items": [
+    {
+      "repo_name": "pallets/flask",
+      "profile_used": "generic_repo_triage",
+      "profile_selected_automatically": false,
+      "auto_profile_confidence": 1.0,
+      "auto_profile_reasons": [
+        "Profile was explicitly provided by operator input."
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 22,
+      "our_fit_score": 14,
+      "novelty_flag": 4,
+      "fatal_flags_triggered": [
+        "no_clear_mechanism"
+      ],
+      "deeper_review_recommended": true,
+      "stop_condition": null,
+      "fetch_evaluation_skipped": false,
+      "run_id": "repo_intake_batch_20260408_171325Z",
+      "output_json": "future_modules\\repo_intake\\outputs\\pallets_flask_generic_repo_triage_repo_intake_batch_20260408_171325Z_repo_intake_result.json",
+      "output_md": "future_modules\\repo_intake\\reports\\pallets_flask_generic_repo_triage_repo_intake_batch_20260408_171325Z_repo_intake_report.md"
+    }
+  ],
+  "fetch_limited_items": [
+    {
+      "repo_name": "zz_nonexistent_org_zz12345/repo_intake_fake_unreachable",
+      "profile_used": "generic_repo_triage",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.5,
+      "auto_profile_reasons": [
+        "No strong profile-specific signal dominance detected.",
+        "Falling back to generic first-pass triage profile."
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false,
+      "stop_condition": "repo URL invalid or unreachable",
+      "fetch_evaluation_skipped": true,
+      "run_id": "repo_intake_batch_20260408_171325Z",
+      "output_json": "future_modules\\repo_intake\\outputs\\zz_nonexistent_org_zz12345_repo_intake_fake_unreachable_generic_repo_triage_repo_intake_batch_20260408_171325Z_repo_intake_result.json",
+      "output_md": "future_modules\\repo_intake\\reports\\zz_nonexistent_org_zz12345_repo_intake_fake_unreachable_generic_repo_triage_repo_intake_batch_20260408_171325Z_repo_intake_report.md"
+    }
+  ],
+  "failed_items": [],
+  "grouped": {
+    "materially_useful": [],
+    "marginal": [],
+    "too_fuzzy": [
+      "pallets/flask"
+    ],
+    "reject": []
+  }
+}

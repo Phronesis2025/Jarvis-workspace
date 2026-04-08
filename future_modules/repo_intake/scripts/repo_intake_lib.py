@@ -2,6 +2,7 @@ import base64
 import json
 import re
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.error import HTTPError, URLError
@@ -33,6 +34,27 @@ class RepoIntakeError(Exception):
 
 def load_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def new_run_id() -> str:
+    """UTC run token for audit-safe artifact names and result bodies."""
+    return datetime.now(timezone.utc).strftime("run_%Y%m%d_%H%M%SZ")
+
+
+def _safe_str(value: Any) -> str:
+    if value is None:
+        return ""
+    return str(value)
+
+
+def _safe_description(metadata: Dict[str, Any]) -> str:
+    return _safe_str(metadata.get("description"))
+
+
+def _safe_topics_text(topics: Any) -> str:
+    if isinstance(topics, list):
+        return " ".join(_safe_str(t) for t in topics)
+    return _safe_str(topics)
 
 
 def parse_github_repo(repo_url: str) -> Tuple[str, str]:
@@ -90,6 +112,8 @@ def validate_input(input_data: Dict[str, Any], schema: Dict[str, Any]) -> None:
     props = schema.get("properties", {})
 
     for field in required:
+        if field == "profile":
+            continue
         if field not in input_data:
             raise RepoIntakeError(f"Missing required input field: {field}")
 
@@ -97,12 +121,13 @@ def validate_input(input_data: Dict[str, Any], schema: Dict[str, Any]) -> None:
     if unknown:
         raise RepoIntakeError(f"Unknown input fields: {sorted(unknown)}")
 
-    profile = input_data.get("profile")
-    allowed_profiles = set(props["profile"]["enum"])
-    if profile not in allowed_profiles or profile not in SUPPORTED_PROFILES:
-        raise RepoIntakeError(
-            f"Unsupported profile '{profile}'. Supported: {sorted(SUPPORTED_PROFILES)}"
-        )
+    profile = str(input_data.get("profile", "") or "").strip()
+    if profile and profile.lower() != "auto":
+        allowed_profiles = set(props["profile"]["enum"])
+        if profile not in allowed_profiles or profile not in SUPPORTED_PROFILES:
+            raise RepoIntakeError(
+                f"Unsupported profile '{profile}'. Supported: {sorted(SUPPORTED_PROFILES)}"
+            )
 
     note = input_data.get("operator_note", "")
     if not isinstance(note, str) or not note.strip():
@@ -212,12 +237,13 @@ def _fatal_flags(profile: str, text: str, counts: Dict[str, int]) -> List[str]:
 
 
 def _score(snapshot: RepoSnapshot, profile: str) -> Tuple[int, int, int, List[str], List[str], List[str]]:
+    desc = _safe_description(snapshot.metadata)
     text = (
         snapshot.readme_text
         + "\n"
-        + snapshot.metadata.get("description", "")
+        + desc
         + "\n"
-        + " ".join(e.get("name", "") for e in snapshot.root_entries)
+        + " ".join(_safe_str(e.get("name")) for e in snapshot.root_entries)
     )
     counts = _count_entries(snapshot.root_entries)
     has_readme = bool(snapshot.readme_text.strip())
@@ -407,15 +433,130 @@ def _top_files(root_entries: List[Dict[str, Any]]) -> List[str]:
     return preferred[:8]
 
 
+def _auto_select_profile(snapshot: RepoSnapshot) -> Tuple[str, float, List[str]]:
+    repo_name = snapshot.repo.lower()
+    description = _safe_description(snapshot.metadata)
+    topics_text = _safe_topics_text(snapshot.metadata.get("topics", []))
+    root_names = " ".join(_safe_str(e.get("name")) for e in snapshot.root_entries)
+    evidence_text = f"{repo_name}\n{description}\n{topics_text}\n{snapshot.readme_text}\n{root_names}".lower()
+
+    workflow_terms = [
+        "workflow",
+        "triage",
+        "review",
+        "automation",
+        "developer tool",
+        "cli",
+        "pack repository",
+        "codebase",
+    ]
+    prediction_terms = [
+        "prediction",
+        "polymarket",
+        "kalshi",
+        "orderbook",
+        "market making",
+        "market-making",
+        "execution",
+        "arb",
+        "arbitrage",
+        "trading",
+        "trading bot",
+        "copy trading",
+        "copy-trading",
+        "copytrading",
+        "position",
+        "positions",
+        "clob",
+        "order",
+        "microstructure",
+    ]
+    strong_prediction_terms = [
+        "polymarket",
+        "kalshi",
+        "arbitrage",
+        "copy trading",
+        "copy-trading",
+        "copytrading",
+        "trading bot",
+        "orderbook",
+        "market making",
+        "market-making",
+        "position",
+        "positions",
+        "clob",
+        "execution",
+    ]
+    strong_workflow_terms = [
+        "repo analysis",
+        "indexing",
+        "search",
+        "memory",
+        "context",
+        "mcp",
+        "developer tool",
+        "workflow",
+        "review",
+        "triage",
+    ]
+
+    workflow_hits = [t for t in workflow_terms if t in evidence_text]
+    prediction_hits = [t for t in prediction_terms if t in evidence_text]
+    strong_prediction_hits = [t for t in strong_prediction_terms if t in evidence_text]
+    strong_workflow_hits = [t for t in strong_workflow_terms if t in evidence_text]
+
+    # Hard precedence rule: strong prediction-market signals win over generic tooling.
+    if len(strong_prediction_hits) >= 2:
+        confidence = min(0.98, 0.64 + (0.05 * len(strong_prediction_hits)))
+        reasons = [
+            "Strong prediction-market execution signals take precedence.",
+            f"Matched strong terms: {', '.join(strong_prediction_hits[:8])}",
+        ]
+        return "prediction_market_execution", round(confidence, 2), reasons
+
+    if prediction_hits and len(prediction_hits) >= max(2, len(workflow_hits)):
+        confidence = min(0.95, 0.55 + (0.06 * len(prediction_hits)))
+        reasons = [
+            "Detected prediction-market/mechanics keywords.",
+            f"Matched terms: {', '.join(prediction_hits[:6])}",
+        ]
+        return "prediction_market_execution", round(confidence, 2), reasons
+
+    if workflow_hits and len(workflow_hits) >= 2 and len(strong_prediction_hits) == 0:
+        confidence = min(0.9, 0.52 + (0.06 * len(workflow_hits)))
+        reasons = [
+            "Detected workflow/tooling-oriented keywords.",
+            f"Matched terms: {', '.join(workflow_hits[:6])}",
+        ]
+        return "workflow_tooling", round(confidence, 2), reasons
+
+    if strong_workflow_hits and len(strong_workflow_hits) >= 2 and not prediction_hits:
+        confidence = min(0.86, 0.52 + (0.05 * len(strong_workflow_hits)))
+        reasons = [
+            "Detected repo-analysis/workflow helper signals.",
+            f"Matched terms: {', '.join(strong_workflow_hits[:6])}",
+        ]
+        return "workflow_tooling", round(confidence, 2), reasons
+
+    reasons = [
+        "No strong profile-specific signal dominance detected.",
+        "Falling back to generic first-pass triage profile.",
+    ]
+    return "generic_repo_triage", 0.5, reasons
+
+
 def run_repo_intake(
     workspace_root: Path,
     input_data: Dict[str, Any],
+    run_id: Optional[str] = None,
 ) -> Tuple[Dict[str, Any], Path, Path]:
     contracts_dir = workspace_root / "future_modules" / "repo_intake" / "contracts"
     outputs_dir = workspace_root / "future_modules" / "repo_intake" / "outputs"
     reports_dir = workspace_root / "future_modules" / "repo_intake" / "reports"
     outputs_dir.mkdir(parents=True, exist_ok=True)
     reports_dir.mkdir(parents=True, exist_ok=True)
+
+    effective_run_id = run_id if run_id else new_run_id()
 
     input_schema = load_json(contracts_dir / "repo_intake_input.schema.json")
     profiles_contract = load_json(contracts_dir / "repo_intake_profiles.json")
@@ -437,16 +578,34 @@ def run_repo_intake(
         )
         stop_condition = "repo URL invalid or unreachable"
 
-    profile = input_data["profile"]
+    requested_profile = str(input_data.get("profile", "") or "").strip()
+    auto_requested = (not requested_profile) or requested_profile.lower() == "auto"
+    profile_selected_automatically = False
+    auto_profile_confidence = 0.0
+    auto_profile_reasons: List[str] = []
+
+    if auto_requested:
+        profile_selected_automatically = True
+        profile, auto_profile_confidence, auto_profile_reasons = _auto_select_profile(snapshot)
+    else:
+        profile = requested_profile
+        auto_profile_confidence = 1.0
+        auto_profile_reasons = ["Profile was explicitly provided by operator input."]
+
     thresholds = profiles_contract["shared_thresholds"]
 
     if stop_condition:
         repo_reality, our_fit, novelty = 0, 0, 0
         fatal_flags = []
-        positives = ["Input accepted but remote repository could not be reached."]
-        negatives = ["Unable to fetch bounded static evidence from GitHub."]
-        classification = "reject"
-        confidence = 0.1
+        positives = [
+            "Repository URL accepted, but bounded GitHub evidence could not be fetched.",
+            "No scoring was performed; this is not a content-based judgment.",
+        ]
+        negatives = [
+            "Triage cannot proceed without reachable metadata/README/root listing from GitHub.",
+        ]
+        classification = "too_fuzzy"
+        confidence = 0.05
     else:
         repo_reality, our_fit, novelty, fatal_flags, positives, negatives = _score(snapshot, profile)
         classification = classify_result(repo_reality, our_fit, fatal_flags, thresholds)
@@ -459,7 +618,7 @@ def run_repo_intake(
         escalation_reasons.append(
             "repo appears materially useful but classification confidence is low"
         )
-    if snapshot.readme_text and len(snapshot.root_entries) == 0:
+    if not stop_condition and snapshot.readme_text and len(snapshot.root_entries) == 0:
         escalation_reasons.append("conflicting evidence between README/docs and code")
     if fatal_flags and classification != "reject":
         escalation_reasons.append(
@@ -467,21 +626,41 @@ def run_repo_intake(
         )
 
     escalation_triggered = bool(escalation_reasons)
-    deeper_review_recommended = classification in {"materially_useful", "marginal"} or escalation_triggered
+    if stop_condition:
+        deeper_review_recommended = False
+        escalation_triggered = False
+        escalation_reasons = []
+    else:
+        deeper_review_recommended = classification in {"materially_useful", "marginal"} or escalation_triggered
     status = "triage_complete"
-    if escalation_triggered:
+    if not stop_condition and escalation_triggered:
         status = "escalated"
-    if classification == "reject":
+    if not stop_condition and classification == "reject":
         status = "rejected"
 
     final_disposition = classification
     repo_name = f"{snapshot.owner}/{snapshot.repo}"
+    if stop_condition:
+        summary_text = (
+            "Fetch failed: bounded GitHub evidence could not be retrieved. "
+            "This repo was not content-evaluated. Classification is too_fuzzy due to "
+            "missing evidence only, not a judgment of repo substance."
+        )
+    else:
+        summary_text = _safe_description(snapshot.metadata) or (
+            "Bounded static triage summary only; no runtime execution performed."
+        )
+
     result = {
+        "run_id": effective_run_id,
         "repo_url": snapshot.repo_url,
         "repo_name": repo_name,
         "profile_used": profile,
-        "summary_of_what_it_is": snapshot.metadata.get("description")
-        or "Bounded static triage summary only; no runtime execution performed.",
+        "profile_selected_automatically": profile_selected_automatically,
+        "auto_profile_confidence": auto_profile_confidence,
+        "auto_profile_reasons": auto_profile_reasons,
+        "summary_of_what_it_is": summary_text,
+        "fetch_evaluation_skipped": bool(stop_condition),
         "classification": classification,
         "confidence": confidence,
         "repo_reality_score": repo_reality,
@@ -518,8 +697,8 @@ def run_repo_intake(
     }
 
     slug = f"{snapshot.owner}_{snapshot.repo}_{profile}"
-    output_json = outputs_dir / f"{slug}_repo_intake_result.json"
-    output_md = reports_dir / f"{slug}_repo_intake_report.md"
+    output_json = outputs_dir / f"{slug}_{effective_run_id}_repo_intake_result.json"
+    output_md = reports_dir / f"{slug}_{effective_run_id}_repo_intake_report.md"
     output_json.write_text(json.dumps(result, indent=2), encoding="utf-8")
     output_md.write_text(render_report(result), encoding="utf-8")
     return result, output_json, output_md
@@ -529,8 +708,12 @@ def render_report(result: Dict[str, Any]) -> str:
     lines = [
         f"# Repo Intake Report: {result['repo_name']}",
         "",
+        f"- Run ID: `{result['run_id']}`",
+        f"- Fetch evaluation skipped: {result.get('fetch_evaluation_skipped', False)}",
         f"- Repo URL: {result['repo_url']}",
         f"- Profile: {result['profile_used']}",
+        f"- Profile Selected Automatically: {result['profile_selected_automatically']}",
+        f"- Auto Profile Confidence: {result['auto_profile_confidence']}",
         f"- Classification: **{result['classification']}**",
         f"- Confidence: {result['confidence']}",
         f"- Repo Reality Score: {result['repo_reality_score']}/50",
@@ -540,8 +723,15 @@ def render_report(result: Dict[str, Any]) -> str:
         "## Summary",
         result["summary_of_what_it_is"],
         "",
-        "## Positive Signals",
+        "## Auto Profile Reasons",
     ]
+    lines.extend([f"- {x}" for x in result["auto_profile_reasons"]])
+    lines.extend(
+        [
+            "",
+        "## Positive Signals",
+        ]
+    )
     lines.extend([f"- {x}" for x in result["top_positive_signals"]])
     lines.append("")
     lines.append("## Negative Signals")

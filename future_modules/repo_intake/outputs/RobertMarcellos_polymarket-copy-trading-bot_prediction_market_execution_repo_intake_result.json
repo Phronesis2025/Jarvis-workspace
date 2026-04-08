@@ -1,0 +1,45 @@
+{
+  "repo_url": "https://github.com/RobertMarcellos/polymarket-copy-trading-bot",
+  "repo_name": "RobertMarcellos/polymarket-copy-trading-bot",
+  "profile_used": "prediction_market_execution",
+  "profile_selected_automatically": true,
+  "auto_profile_confidence": 0.74,
+  "auto_profile_reasons": [
+    "Strong prediction-market execution signals take precedence.",
+    "Matched strong terms: polymarket, copy-trading"
+  ],
+  "summary_of_what_it_is": "Bounded static triage summary only; no runtime execution performed.",
+  "classification": "reject",
+  "confidence": 0.1,
+  "repo_reality_score": 0,
+  "our_fit_score": 0,
+  "novelty_flag": 0,
+  "fatal_flags_triggered": [],
+  "top_positive_signals": [
+    "Input accepted but remote repository could not be reached."
+  ],
+  "top_negative_signals": [
+    "Unable to fetch bounded static evidence from GitHub."
+  ],
+  "danger_flags": [],
+  "top_files_to_inspect": [],
+  "best_fit_for_us": "Pattern extraction for prediction-market execution research",
+  "what_to_steal": [
+    "Bounded workflow and scoring patterns",
+    "Clear evidence-first repo review mechanics"
+  ],
+  "what_not_to_steal": [
+    "Unbounded autonomous behavior",
+    "Any approach requiring direct repo code execution for triage"
+  ],
+  "deeper_review_recommended": false,
+  "deeper_review_questions": [
+    "What claims require non-execution evidence before deeper review?",
+    "Which components are reusable without importing full repo complexity?"
+  ],
+  "worker_status": "rejected",
+  "stop_condition": "repo URL invalid or unreachable",
+  "escalation_triggered": false,
+  "escalation_reasons": [],
+  "final_disposition": "reject"
+}

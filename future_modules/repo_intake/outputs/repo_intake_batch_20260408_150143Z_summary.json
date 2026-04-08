@@ -1,0 +1,90 @@
+{
+  "batch_id": "repo_intake_batch_20260408_150143Z",
+  "generated_at_utc": "2026-04-08T15:01:43.330450+00:00",
+  "total_items": 4,
+  "success_count": 4,
+  "failure_count": 0,
+  "successful_items": [
+    {
+      "repo_name": "Trum3it/polymarket-arbitrage-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.95,
+      "auto_profile_reasons": [
+        "Detected prediction-market/mechanics keywords.",
+        "Matched terms: prediction, polymarket, execution, arb, trading, position"
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 17,
+      "our_fit_score": 36,
+      "novelty_flag": 2,
+      "fatal_flags_triggered": [
+        "no_risk_controls"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "ImMike/polymarket-arbitrage",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.95,
+      "auto_profile_reasons": [
+        "Detected prediction-market/mechanics keywords.",
+        "Matched terms: prediction, polymarket, orderbook, market making, execution, arb"
+      ],
+      "classification": "materially_useful",
+      "repo_reality_score": 47,
+      "our_fit_score": 38,
+      "novelty_flag": 8,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "gamma-trade-lab/polymarket-copy-trading-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.95,
+      "auto_profile_reasons": [
+        "Detected prediction-market/mechanics keywords.",
+        "Matched terms: polymarket, market making, execution, arb, trading, position"
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 17,
+      "our_fit_score": 36,
+      "novelty_flag": 8,
+      "fatal_flags_triggered": [
+        "copy_trading_main_value_prop"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "vhrlyz/Polymarket-copy-trading-bot",
+      "profile_used": "workflow_tooling",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.7,
+      "auto_profile_reasons": [
+        "Detected workflow/tooling-oriented keywords.",
+        "Matched terms: review, automation, cli"
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 12,
+      "our_fit_score": 26,
+      "novelty_flag": 2,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    }
+  ],
+  "failed_items": [],
+  "grouped": {
+    "materially_useful": [
+      "ImMike/polymarket-arbitrage"
+    ],
+    "marginal": [],
+    "too_fuzzy": [
+      "Trum3it/polymarket-arbitrage-bot",
+      "gamma-trade-lab/polymarket-copy-trading-bot",
+      "vhrlyz/Polymarket-copy-trading-bot"
+    ],
+    "reject": []
+  }
+}

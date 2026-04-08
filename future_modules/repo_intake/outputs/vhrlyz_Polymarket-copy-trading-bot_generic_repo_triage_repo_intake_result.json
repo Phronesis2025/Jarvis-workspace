@@ -1,0 +1,54 @@
+{
+  "repo_url": "https://github.com/vhrlyz/Polymarket-copy-trading-bot",
+  "repo_name": "vhrlyz/Polymarket-copy-trading-bot",
+  "profile_used": "generic_repo_triage",
+  "summary_of_what_it_is": "\ud83e\ude99 Mirror Polymarket wallets to automate trades with controlled exposure and risk management, following proven strategies for smarter decision-making.",
+  "classification": "reject",
+  "confidence": 0.11,
+  "repo_reality_score": 6,
+  "our_fit_score": 18,
+  "novelty_flag": 2,
+  "fatal_flags_triggered": [
+    "no_clear_mechanism",
+    "obvious_secret_sloppiness"
+  ],
+  "top_positive_signals": [
+    "README exists and provides inspectable context.",
+    "Config/build files suggest implementable structure.",
+    "Language footprint detected (1 languages).",
+    "Repository has a recorded update timestamp."
+  ],
+  "top_negative_signals": [
+    "Little or no top-level code surface detected.",
+    "Fatal flag: no_clear_mechanism",
+    "Fatal flag: obvious_secret_sloppiness"
+  ],
+  "danger_flags": [
+    "Fatal: no_clear_mechanism",
+    "Fatal: obvious_secret_sloppiness"
+  ],
+  "top_files_to_inspect": [
+    "README.md",
+    "requirements.txt",
+    "src"
+  ],
+  "best_fit_for_us": "Workflow/operator support",
+  "what_to_steal": [
+    "Bounded workflow and scoring patterns",
+    "Clear evidence-first repo review mechanics"
+  ],
+  "what_not_to_steal": [
+    "Unbounded autonomous behavior",
+    "Any approach requiring direct repo code execution for triage"
+  ],
+  "deeper_review_recommended": false,
+  "deeper_review_questions": [
+    "What claims require non-execution evidence before deeper review?",
+    "Which components are reusable without importing full repo complexity?"
+  ],
+  "worker_status": "rejected",
+  "stop_condition": null,
+  "escalation_triggered": false,
+  "escalation_reasons": [],
+  "final_disposition": "reject"
+}

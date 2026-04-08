@@ -1,41 +1,39 @@
 {
-  "repo_url": "https://github.com/polymarket/agents",
-  "repo_name": "polymarket/agents",
+  "repo_url": "https://github.com/vhrlyz/Polymarket-copy-trading-bot",
+  "repo_name": "vhrlyz/Polymarket-copy-trading-bot",
   "profile_used": "prediction_market_execution",
   "profile_selected_automatically": true,
-  "auto_profile_confidence": 0.79,
+  "auto_profile_confidence": 0.98,
   "auto_profile_reasons": [
     "Strong prediction-market execution signals take precedence.",
-    "Matched strong terms: polymarket, clob, execution"
+    "Matched strong terms: polymarket, copy trading, copy-trading, copytrading, trading bot, market-making, clob"
   ],
-  "summary_of_what_it_is": "Trade autonomously on Polymarket using AI Agents",
-  "classification": "marginal",
-  "confidence": 0.57,
-  "repo_reality_score": 30,
-  "our_fit_score": 28,
-  "novelty_flag": 4,
+  "summary_of_what_it_is": "\ud83e\ude99 Mirror Polymarket wallets to automate trades with controlled exposure and risk management, following proven strategies for smarter decision-making.",
+  "classification": "reject",
+  "confidence": 0.2,
+  "repo_reality_score": 5,
+  "our_fit_score": 20,
+  "novelty_flag": 2,
   "fatal_flags_triggered": [
-    "no_paper_mode"
+    "copy_trading_main_value_prop"
   ],
   "top_positive_signals": [
     "README exists and provides inspectable context.",
     "Config/build files suggest implementable structure.",
-    "Test-related files/directories appear present.",
-    "Language footprint detected (3 languages).",
+    "Language footprint detected (1 languages).",
     "Repository has a recorded update timestamp."
   ],
   "top_negative_signals": [
     "Little or no top-level code surface detected.",
-    "Fatal flag: no_paper_mode"
+    "Fatal flag: copy_trading_main_value_prop"
   ],
   "danger_flags": [
-    "Fatal: no_paper_mode"
+    "Fatal: copy_trading_main_value_prop"
   ],
   "top_files_to_inspect": [
-    "Dockerfile",
     "README.md",
-    "docs",
-    "requirements.txt"
+    "requirements.txt",
+    "src"
   ],
   "best_fit_for_us": "Pattern extraction for prediction-market execution research",
   "what_to_steal": [
@@ -46,16 +44,14 @@
     "Unbounded autonomous behavior",
     "Any approach requiring direct repo code execution for triage"
   ],
-  "deeper_review_recommended": true,
+  "deeper_review_recommended": false,
   "deeper_review_questions": [
     "What claims require non-execution evidence before deeper review?",
     "Which components are reusable without importing full repo complexity?"
   ],
-  "worker_status": "escalated",
+  "worker_status": "rejected",
   "stop_condition": null,
-  "escalation_triggered": true,
-  "escalation_reasons": [
-    "fatal flag triggered but repo still appears strategically interesting"
-  ],
-  "final_disposition": "marginal"
+  "escalation_triggered": false,
+  "escalation_reasons": [],
+  "final_disposition": "reject"
 }

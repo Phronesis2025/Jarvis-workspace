@@ -1,0 +1,48 @@
+{
+  "run_id": "repo_intake_batch_20260408_171325Z",
+  "repo_url": "https://github.com/zz_nonexistent_org_zz12345/repo_intake_fake_unreachable",
+  "repo_name": "zz_nonexistent_org_zz12345/repo_intake_fake_unreachable",
+  "profile_used": "generic_repo_triage",
+  "profile_selected_automatically": true,
+  "auto_profile_confidence": 0.5,
+  "auto_profile_reasons": [
+    "No strong profile-specific signal dominance detected.",
+    "Falling back to generic first-pass triage profile."
+  ],
+  "summary_of_what_it_is": "Fetch failed: bounded GitHub evidence could not be retrieved. This repo was not content-evaluated. Classification is too_fuzzy due to missing evidence only, not a judgment of repo substance.",
+  "fetch_evaluation_skipped": true,
+  "classification": "too_fuzzy",
+  "confidence": 0.05,
+  "repo_reality_score": 0,
+  "our_fit_score": 0,
+  "novelty_flag": 0,
+  "fatal_flags_triggered": [],
+  "top_positive_signals": [
+    "Repository URL accepted, but bounded GitHub evidence could not be fetched.",
+    "No scoring was performed; this is not a content-based judgment."
+  ],
+  "top_negative_signals": [
+    "Triage cannot proceed without reachable metadata/README/root listing from GitHub."
+  ],
+  "danger_flags": [],
+  "top_files_to_inspect": [],
+  "best_fit_for_us": "Workflow/operator support",
+  "what_to_steal": [
+    "Bounded workflow and scoring patterns",
+    "Clear evidence-first repo review mechanics"
+  ],
+  "what_not_to_steal": [
+    "Unbounded autonomous behavior",
+    "Any approach requiring direct repo code execution for triage"
+  ],
+  "deeper_review_recommended": false,
+  "deeper_review_questions": [
+    "What claims require non-execution evidence before deeper review?",
+    "Which components are reusable without importing full repo complexity?"
+  ],
+  "worker_status": "triage_complete",
+  "stop_condition": "repo URL invalid or unreachable",
+  "escalation_triggered": false,
+  "escalation_reasons": [],
+  "final_disposition": "too_fuzzy"
+}

@@ -1,21 +1,21 @@
-# Repo Intake Report: amadeusprotocol/polymarket-trading-bot
+# Repo Intake Report: echandsome/Polymarket-betting-bot
 
-- Repo URL: https://github.com/amadeusprotocol/polymarket-trading-bot
+- Repo URL: https://github.com/echandsome/Polymarket-betting-bot
 - Profile: prediction_market_execution
 - Profile Selected Automatically: True
-- Auto Profile Confidence: 0.98
+- Auto Profile Confidence: 0.84
 - Classification: **too_fuzzy**
-- Confidence: 0.41
+- Confidence: 0.51
 - Repo Reality Score: 17/50
-- Our Fit Score: 34/40
-- Novelty Flag: 4/10
+- Our Fit Score: 36/40
+- Novelty Flag: 6/10
 
 ## Summary
-polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot
+A comprehensive TypeScript/Node.js backend system for automated trading on Polymarket. This platform supports two types of trading bots: Copy Trading Bots and Strategy Bots with odds-based strategies.
 
 ## Auto Profile Reasons
 - Strong prediction-market execution signals take precedence.
-- Matched strong terms: polymarket, arbitrage, copy trading, copy-trading, trading bot, clob, execution
+- Matched strong terms: polymarket, copy trading, trading bot, clob
 
 ## Positive Signals
 - README exists and provides inspectable context.
@@ -25,11 +25,9 @@ polymarket trading bot polymarket trading bot polymarket trading bot polymarket 
 
 ## Negative Signals
 - Little or no top-level code surface detected.
-- Fatal flag: copy_trading_main_value_prop
 - Fatal flag: direct_secret_or_key_sloppiness
 
 ## Danger Flags
-- Fatal: copy_trading_main_value_prop
 - Fatal: direct_secret_or_key_sloppiness
 
 ## Top Files To Inspect

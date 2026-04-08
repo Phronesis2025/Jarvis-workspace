@@ -1,0 +1,93 @@
+{
+  "batch_id": "repo_intake_batch_20260408_154046Z",
+  "generated_at_utc": "2026-04-08T15:40:46.844203+00:00",
+  "total_items": 4,
+  "success_count": 4,
+  "failure_count": 0,
+  "successful_items": [
+    {
+      "repo_name": "Trum3it/polymarket-arbitrage-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.89,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, arbitrage, position, clob, execution"
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 17,
+      "our_fit_score": 36,
+      "novelty_flag": 2,
+      "fatal_flags_triggered": [
+        "no_risk_controls"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "ImMike/polymarket-arbitrage",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.98,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, kalshi, arbitrage, orderbook, market making, market-making, position, clob"
+      ],
+      "classification": "materially_useful",
+      "repo_reality_score": 47,
+      "our_fit_score": 38,
+      "novelty_flag": 8,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "gamma-trade-lab/polymarket-copy-trading-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.98,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, arbitrage, copy trading, copy-trading, trading bot, market making, position, execution"
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 17,
+      "our_fit_score": 36,
+      "novelty_flag": 8,
+      "fatal_flags_triggered": [
+        "copy_trading_main_value_prop"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "vhrlyz/Polymarket-copy-trading-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.98,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, copy trading, copy-trading, copytrading, trading bot, market-making, clob"
+      ],
+      "classification": "reject",
+      "repo_reality_score": 5,
+      "our_fit_score": 20,
+      "novelty_flag": 2,
+      "fatal_flags_triggered": [
+        "copy_trading_main_value_prop"
+      ],
+      "deeper_review_recommended": false
+    }
+  ],
+  "failed_items": [],
+  "grouped": {
+    "materially_useful": [
+      "ImMike/polymarket-arbitrage"
+    ],
+    "marginal": [],
+    "too_fuzzy": [
+      "Trum3it/polymarket-arbitrage-bot",
+      "gamma-trade-lab/polymarket-copy-trading-bot"
+    ],
+    "reject": [
+      "vhrlyz/Polymarket-copy-trading-bot"
+    ]
+  }
+}

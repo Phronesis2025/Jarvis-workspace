@@ -1,41 +1,41 @@
-# Repo Intake Report: warproxxx/poly-maker
+# Repo Intake Report: Poly-Mike/polymarket-arbitrage-trading-bot
 
-- Repo URL: https://github.com/warproxxx/poly-maker
+- Repo URL: https://github.com/Poly-Mike/polymarket-arbitrage-trading-bot
 - Profile: prediction_market_execution
 - Profile Selected Automatically: True
-- Auto Profile Confidence: 0.89
+- Auto Profile Confidence: 0.98
 - Classification: **marginal**
-- Confidence: 0.6
-- Repo Reality Score: 34/50
-- Our Fit Score: 34/40
-- Novelty Flag: 2/10
+- Confidence: 0.61
+- Repo Reality Score: 26/50
+- Our Fit Score: 36/40
+- Novelty Flag: 6/10
 
 ## Summary
-An automated market making bot for Polymarket that provides liquidity by maintaining orders on both sides of the order book with customizable parameters   configured via Google Sheets.
+polymarket arbitrage bot polymarket arbitrage bot polymarket arbitrage bot polymarket arbitrage bot polymarket arbitrage bot 
 
 ## Auto Profile Reasons
 - Strong prediction-market execution signals take precedence.
-- Matched strong terms: polymarket, trading bot, market making, position, positions
+- Matched strong terms: polymarket, arbitrage, trading bot, position, positions, clob, execution
 
 ## Positive Signals
 - README exists and provides inspectable context.
-- Top-level code artifacts are present.
 - Config/build files suggest implementable structure.
-- Language footprint detected (2 languages).
+- Language footprint detected (1 languages).
 - Repository has a recorded update timestamp.
 
 ## Negative Signals
-- No major negative signal found in bounded static pass.
+- Little or no top-level code surface detected.
 - Fatal flag: direct_secret_or_key_sloppiness
-- Fatal flag: no_paper_mode
 
 ## Danger Flags
 - Fatal: direct_secret_or_key_sloppiness
-- Fatal: no_paper_mode
 
 ## Top Files To Inspect
 - README.md
-- pyproject.toml
+- docs
+- package-lock.json
+- package.json
+- src
 
 ## Disposition
 - Final Disposition: **marginal**

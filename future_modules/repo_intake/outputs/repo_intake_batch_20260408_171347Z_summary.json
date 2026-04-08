@@ -1,0 +1,43 @@
+{
+  "batch_id": "repo_intake_batch_20260408_171347Z",
+  "generated_at_utc": "2026-04-08T17:13:48.577319+00:00",
+  "total_items": 1,
+  "evaluated_count": 1,
+  "fetch_limited_count": 0,
+  "failure_count": 0,
+  "evaluated_items": [
+    {
+      "repo_name": "discountry/polymarket-trading-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.84,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, trading bot, orderbook, clob"
+      ],
+      "classification": "marginal",
+      "repo_reality_score": 35,
+      "our_fit_score": 28,
+      "novelty_flag": 4,
+      "fatal_flags_triggered": [
+        "direct_secret_or_key_sloppiness"
+      ],
+      "deeper_review_recommended": true,
+      "stop_condition": null,
+      "fetch_evaluation_skipped": false,
+      "run_id": "repo_intake_batch_20260408_171347Z",
+      "output_json": "future_modules\\repo_intake\\outputs\\discountry_polymarket-trading-bot_prediction_market_execution_repo_intake_batch_20260408_171347Z_repo_intake_result.json",
+      "output_md": "future_modules\\repo_intake\\reports\\discountry_polymarket-trading-bot_prediction_market_execution_repo_intake_batch_20260408_171347Z_repo_intake_report.md"
+    }
+  ],
+  "fetch_limited_items": [],
+  "failed_items": [],
+  "grouped": {
+    "materially_useful": [],
+    "marginal": [
+      "discountry/polymarket-trading-bot"
+    ],
+    "too_fuzzy": [],
+    "reject": []
+  }
+}

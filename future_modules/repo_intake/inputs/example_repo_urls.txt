@@ -1,0 +1,21 @@
+# One GitHub repo URL per line
+https://github.com/echandsome/Polymarket-betting-bot
+https://github.com/discountry/polymarket-trading-bot
+https://github.com/amadeusprotocol/polymarket-trading-bot
+https://github.com/dylanpersonguy/Polymarket-Trading-Bot
+https://github.com/ent0n29/polybot
+https://github.com/warproxxx/poly-maker
+https://github.com/polymarket/agents
+https://github.com/Drakkar-Software/OctoBot-Prediction-Market
+https://github.com/Poly-Mike/polymarket-arbitrage-trading-bot
+https://github.com/CarlosIbCu/polymarket-kalshi-btc-arbitrage-bot
+https://github.com/luckeyfaraday/polymarket-bot
+https://github.com/Anoto-ecossistem/polymarket-copy-bot
+https://github.com/aulekator/Polymarket-BTC-15-Minute-Trading-Bot
+https://github.com/Poly-Tutor/polymarket-arbitrage-trading-bot-tools
+https://github.com/MrFadiAi/Polymarket-bot
+https://github.com/Trum3it/polymarket-arbitrage-bot
+https://github.com/ImMike/polymarket-arbitrage
+https://github.com/gamma-trade-lab/polymarket-copy-trading-bot
+https://github.com/zydomus219/Polymarket-betting-bot
+https://github.com/RobertMarcellos/polymarket-copy-trading-bot

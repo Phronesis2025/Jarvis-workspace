@@ -1,43 +1,37 @@
 {
-  "repo_url": "https://github.com/amadeusprotocol/polymarket-trading-bot",
-  "repo_name": "amadeusprotocol/polymarket-trading-bot",
+  "repo_url": "https://github.com/CarlosIbCu/polymarket-kalshi-btc-arbitrage-bot",
+  "repo_name": "CarlosIbCu/polymarket-kalshi-btc-arbitrage-bot",
   "profile_used": "prediction_market_execution",
   "profile_selected_automatically": true,
-  "auto_profile_confidence": 0.98,
+  "auto_profile_confidence": 0.94,
   "auto_profile_reasons": [
     "Strong prediction-market execution signals take precedence.",
-    "Matched strong terms: polymarket, arbitrage, copy trading, copy-trading, trading bot, clob, execution"
+    "Matched strong terms: polymarket, kalshi, arbitrage, position, positions, clob"
   ],
-  "summary_of_what_it_is": "polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot",
+  "summary_of_what_it_is": "Real-time arbitrage bot detecting risk-free opportunities in Bitcoin 1-Hour Price markets between Polymarket and Kalshi",
   "classification": "too_fuzzy",
-  "confidence": 0.41,
+  "confidence": 0.51,
   "repo_reality_score": 17,
-  "our_fit_score": 34,
+  "our_fit_score": 36,
   "novelty_flag": 4,
   "fatal_flags_triggered": [
-    "copy_trading_main_value_prop",
-    "direct_secret_or_key_sloppiness"
+    "no_paper_mode"
   ],
   "top_positive_signals": [
     "README exists and provides inspectable context.",
     "Config/build files suggest implementable structure.",
-    "Language footprint detected (1 languages).",
+    "Language footprint detected (4 languages).",
     "Repository has a recorded update timestamp."
   ],
   "top_negative_signals": [
     "Little or no top-level code surface detected.",
-    "Fatal flag: copy_trading_main_value_prop",
-    "Fatal flag: direct_secret_or_key_sloppiness"
+    "Fatal flag: no_paper_mode"
   ],
   "danger_flags": [
-    "Fatal: copy_trading_main_value_prop",
-    "Fatal: direct_secret_or_key_sloppiness"
+    "Fatal: no_paper_mode"
   ],
   "top_files_to_inspect": [
-    "README.md",
-    "package-lock.json",
-    "package.json",
-    "src"
+    "README.md"
   ],
   "best_fit_for_us": "Pattern extraction for prediction-market execution research",
   "what_to_steal": [

@@ -12,10 +12,14 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run bounded repo intake triage for a batch of repositories."
     )
-    parser.add_argument(
+    source_group = parser.add_mutually_exclusive_group(required=True)
+    source_group.add_argument(
         "--input",
-        required=True,
         help="Path to batch input JSON with an `items` list.",
+    )
+    source_group.add_argument(
+        "--txt",
+        help="Path to .txt file containing one GitHub repo URL per line.",
     )
     parser.add_argument(
         "--workspace-root",
@@ -37,35 +41,106 @@ def _load_batch_input(path: Path) -> List[Dict[str, Any]]:
     return items
 
 
+def _load_txt_batch_input(path: Path) -> List[Dict[str, Any]]:
+    lines = path.read_text(encoding="utf-8-sig").splitlines()
+    items: List[Dict[str, Any]] = []
+    for raw in lines:
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        items.append(
+            {
+                "repo_url": line,
+                "profile": "auto",
+                "operator_note": "Auto-generated from txt batch input",
+                "depth_mode": "triage_only",
+            }
+        )
+    if not items:
+        raise RepoIntakeError("TXT batch input has no usable repo URLs.")
+    return items
+
+
+def _row_from_result(
+    result: Dict[str, Any], output_json: Path, output_md: Path, workspace_root: Path
+) -> Dict[str, Any]:
+    def rel(p: Path) -> str:
+        try:
+            return str(p.relative_to(workspace_root))
+        except ValueError:
+            return str(p)
+
+    return {
+        "repo_name": result["repo_name"],
+        "profile_used": result["profile_used"],
+        "profile_selected_automatically": result["profile_selected_automatically"],
+        "auto_profile_confidence": result["auto_profile_confidence"],
+        "auto_profile_reasons": result["auto_profile_reasons"],
+        "classification": result["classification"],
+        "repo_reality_score": result["repo_reality_score"],
+        "our_fit_score": result["our_fit_score"],
+        "novelty_flag": result["novelty_flag"],
+        "fatal_flags_triggered": result["fatal_flags_triggered"],
+        "deeper_review_recommended": result["deeper_review_recommended"],
+        "stop_condition": result["stop_condition"],
+        "fetch_evaluation_skipped": result.get("fetch_evaluation_skipped", False),
+        "run_id": result["run_id"],
+        "output_json": rel(output_json),
+        "output_md": rel(output_md),
+    }
+
+
 def _build_markdown_report(summary: Dict[str, Any]) -> str:
+    bid = summary["batch_id"]
     lines = [
-        f"# Repo Intake Batch Summary: {summary['batch_id']}",
+        f"# Repo Intake Batch Summary: {bid}",
         "",
         f"- Generated At (UTC): {summary['generated_at_utc']}",
+        f"- Batch / Run ID: `{bid}`",
         f"- Total Items: {summary['total_items']}",
-        f"- Success Count: {summary['success_count']}",
-        f"- Failure Count: {summary['failure_count']}",
+        f"- Evaluated (full static pass): {summary['evaluated_count']}",
+        f"- Fetch-limited (no GitHub evidence): {summary['fetch_limited_count']}",
+        f"- Failed (errors): {summary['failure_count']}",
         "",
-        "## Successful Items",
+        "## Evaluated items (content-scored)",
         "",
-        "| Repo | Profile | Classification | Repo Reality | Our Fit | Novelty | Fatal Flags | Deeper Review |",
-        "|---|---|---|---:|---:|---:|---|---|",
+        "| Repo | Run ID | Profile | Classification | Reality | Fit | Artifacts |",
+        "|---|---|---|---|---:|---:|---|",
     ]
-    for row in summary["successful_items"]:
-        fatal = ", ".join(row["fatal_flags_triggered"]) if row["fatal_flags_triggered"] else "none"
+    for row in summary["evaluated_items"]:
+        arts = f"`{row['output_json']}` / `{row['output_md']}`"
         lines.append(
-            f"| `{row['repo_name']}` | `{row['profile_used']}` | `{row['classification']}` | "
-            f"{row['repo_reality_score']} | {row['our_fit_score']} | {row['novelty_flag']} | "
-            f"{fatal} | `{row['deeper_review_recommended']}` |"
+            f"| `{row['repo_name']}` | `{row['run_id']}` | `{row['profile_used']}` | "
+            f"`{row['classification']}` | {row['repo_reality_score']} | {row['our_fit_score']} | {arts} |"
         )
-
-    if not summary["successful_items"]:
-        lines.append("| none | none | none | 0 | 0 | 0 | none | `False` |")
+    if not summary["evaluated_items"]:
+        lines.append("| none | — | — | — | — | — | — |")
 
     lines.extend(
         [
             "",
-            "## Failed Items",
+            "## Fetch-limited items (not content-evaluated)",
+            "",
+            "These completed without exceptions but GitHub evidence could not be fetched. "
+            "They are **not** genuine rejects; classification is `too_fuzzy` due to missing evidence only.",
+            "",
+            "| Repo | Stop condition | Run ID | Artifacts |",
+            "|---|---|---|---|",
+        ]
+    )
+    for row in summary["fetch_limited_items"]:
+        sc = row.get("stop_condition") or "unknown"
+        arts = f"`{row['output_json']}` / `{row['output_md']}`"
+        lines.append(
+            f"| `{row['repo_name']}` | `{sc}` | `{row['run_id']}` | {arts} |"
+        )
+    if not summary["fetch_limited_items"]:
+        lines.append("| none | — | — | — |")
+
+    lines.extend(
+        [
+            "",
+            "## Failed Items (processing errors)",
             "",
             "| Repo URL | Profile | Status | Error Message |",
             "|---|---|---|---|",
@@ -82,7 +157,7 @@ def _build_markdown_report(summary: Dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## Grouped by Classification",
+            "## Grouped by Classification (evaluated items only)",
             "",
             f"- `materially_useful`: {len(summary['grouped']['materially_useful'])}",
             f"- `marginal`: {len(summary['grouped']['marginal'])}",
@@ -107,14 +182,18 @@ def _build_markdown_report(summary: Dict[str, Any]) -> str:
 
 def main() -> int:
     args = parse_args()
-    input_path = Path(args.input).resolve()
+    input_value = args.input if args.input else args.txt
+    input_path = Path(input_value).resolve()
     workspace_root = Path(args.workspace_root).resolve()
     if not input_path.exists():
         print(f"ERROR: input file not found: {input_path}")
         return 1
 
     try:
-        items = _load_batch_input(input_path)
+        if args.txt:
+            items = _load_txt_batch_input(input_path)
+        else:
+            items = _load_batch_input(input_path)
     except (RepoIntakeError, json.JSONDecodeError) as exc:
         print(f"ERROR: {exc}")
         return 1
@@ -124,27 +203,29 @@ def main() -> int:
     outputs_dir.mkdir(parents=True, exist_ok=True)
     reports_dir.mkdir(parents=True, exist_ok=True)
 
-    successful_items: List[Dict[str, Any]] = []
+    batch_id = datetime.now(timezone.utc).strftime("repo_intake_batch_%Y%m%d_%H%M%SZ")
+
+    evaluated_items: List[Dict[str, Any]] = []
+    fetch_limited_items: List[Dict[str, Any]] = []
     failed_items: List[Dict[str, Any]] = []
     grouped = {"materially_useful": [], "marginal": [], "too_fuzzy": [], "reject": []}
 
     for idx, item in enumerate(items, start=1):
         try:
-            result, _, _ = run_repo_intake(workspace_root, item)
-            successful_items.append(
-                {
-                    "repo_name": result["repo_name"],
-                    "profile_used": result["profile_used"],
-                    "classification": result["classification"],
-                    "repo_reality_score": result["repo_reality_score"],
-                    "our_fit_score": result["our_fit_score"],
-                    "novelty_flag": result["novelty_flag"],
-                    "fatal_flags_triggered": result["fatal_flags_triggered"],
-                    "deeper_review_recommended": result["deeper_review_recommended"],
-                }
+            result, output_json, output_md = run_repo_intake(
+                workspace_root, item, run_id=batch_id
             )
-            grouped[result["classification"]].append(result["repo_name"])
-            print(f"[{idx}/{len(items)}] {result['repo_name']}: {result['classification']}")
+            row = _row_from_result(result, output_json, output_md, workspace_root)
+            if result.get("stop_condition"):
+                fetch_limited_items.append(row)
+                print(
+                    f"[{idx}/{len(items)}] {result['repo_name']}: FETCH-LIMITED "
+                    f"(too_fuzzy, {result['stop_condition']})"
+                )
+            else:
+                evaluated_items.append(row)
+                grouped[result["classification"]].append(result["repo_name"])
+                print(f"[{idx}/{len(items)}] {result['repo_name']}: {result['classification']}")
         except Exception as exc:
             repo_url = ""
             profile_used = None
@@ -162,14 +243,15 @@ def main() -> int:
             )
             print(f"[{idx}/{len(items)}] FAILED {repo_url or 'unknown_repo'}: {exc}")
 
-    batch_id = datetime.now(timezone.utc).strftime("repo_intake_batch_%Y%m%d_%H%M%SZ")
     summary = {
         "batch_id": batch_id,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "total_items": len(items),
-        "success_count": len(successful_items),
+        "evaluated_count": len(evaluated_items),
+        "fetch_limited_count": len(fetch_limited_items),
         "failure_count": len(failed_items),
-        "successful_items": successful_items,
+        "evaluated_items": evaluated_items,
+        "fetch_limited_items": fetch_limited_items,
         "failed_items": failed_items,
         "grouped": grouped,
     }

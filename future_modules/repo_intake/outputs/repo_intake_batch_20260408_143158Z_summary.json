@@ -1,0 +1,75 @@
+{
+  "batch_id": "repo_intake_batch_20260408_143158Z",
+  "generated_at_utc": "2026-04-08T14:31:58.976881+00:00",
+  "total_items": 3,
+  "success_count": 3,
+  "failure_count": 0,
+  "successful_items": [
+    {
+      "repo_name": "yamadashy/repomix",
+      "profile_used": "workflow_tooling",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.88,
+      "auto_profile_reasons": [
+        "Detected workflow/tooling-oriented keywords.",
+        "Matched terms: workflow, review, automation, cli, pack repository, codebase"
+      ],
+      "classification": "materially_useful",
+      "repo_reality_score": 50,
+      "our_fit_score": 34,
+      "novelty_flag": 8,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "warproxxx/poly-maker",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.91,
+      "auto_profile_reasons": [
+        "Detected prediction-market/mechanics keywords.",
+        "Matched terms: prediction, polymarket, market making, trading, position, order"
+      ],
+      "classification": "marginal",
+      "repo_reality_score": 34,
+      "our_fit_score": 34,
+      "novelty_flag": 2,
+      "fatal_flags_triggered": [
+        "direct_secret_or_key_sloppiness",
+        "no_paper_mode"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "pallets/flask",
+      "profile_used": "generic_repo_triage",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.5,
+      "auto_profile_reasons": [
+        "No strong profile-specific signal dominance detected.",
+        "Falling back to generic first-pass triage profile."
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 22,
+      "our_fit_score": 14,
+      "novelty_flag": 4,
+      "fatal_flags_triggered": [
+        "no_clear_mechanism"
+      ],
+      "deeper_review_recommended": true
+    }
+  ],
+  "failed_items": [],
+  "grouped": {
+    "materially_useful": [
+      "yamadashy/repomix"
+    ],
+    "marginal": [
+      "warproxxx/poly-maker"
+    ],
+    "too_fuzzy": [
+      "pallets/flask"
+    ],
+    "reject": []
+  }
+}

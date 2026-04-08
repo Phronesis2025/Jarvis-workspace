@@ -1,21 +1,20 @@
 {
-  "repo_url": "https://github.com/amadeusprotocol/polymarket-trading-bot",
-  "repo_name": "amadeusprotocol/polymarket-trading-bot",
+  "repo_url": "https://github.com/Poly-Mike/polymarket-arbitrage-trading-bot",
+  "repo_name": "Poly-Mike/polymarket-arbitrage-trading-bot",
   "profile_used": "prediction_market_execution",
   "profile_selected_automatically": true,
   "auto_profile_confidence": 0.98,
   "auto_profile_reasons": [
     "Strong prediction-market execution signals take precedence.",
-    "Matched strong terms: polymarket, arbitrage, copy trading, copy-trading, trading bot, clob, execution"
+    "Matched strong terms: polymarket, arbitrage, trading bot, position, positions, clob, execution"
   ],
-  "summary_of_what_it_is": "polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot polymarket trading bot",
-  "classification": "too_fuzzy",
-  "confidence": 0.41,
-  "repo_reality_score": 17,
-  "our_fit_score": 34,
-  "novelty_flag": 4,
+  "summary_of_what_it_is": "polymarket arbitrage bot polymarket arbitrage bot polymarket arbitrage bot polymarket arbitrage bot polymarket arbitrage bot ",
+  "classification": "marginal",
+  "confidence": 0.61,
+  "repo_reality_score": 26,
+  "our_fit_score": 36,
+  "novelty_flag": 6,
   "fatal_flags_triggered": [
-    "copy_trading_main_value_prop",
     "direct_secret_or_key_sloppiness"
   ],
   "top_positive_signals": [
@@ -26,15 +25,14 @@
   ],
   "top_negative_signals": [
     "Little or no top-level code surface detected.",
-    "Fatal flag: copy_trading_main_value_prop",
     "Fatal flag: direct_secret_or_key_sloppiness"
   ],
   "danger_flags": [
-    "Fatal: copy_trading_main_value_prop",
     "Fatal: direct_secret_or_key_sloppiness"
   ],
   "top_files_to_inspect": [
     "README.md",
+    "docs",
     "package-lock.json",
     "package.json",
     "src"
@@ -59,5 +57,5 @@
   "escalation_reasons": [
     "fatal flag triggered but repo still appears strategically interesting"
   ],
-  "final_disposition": "too_fuzzy"
+  "final_disposition": "marginal"
 }

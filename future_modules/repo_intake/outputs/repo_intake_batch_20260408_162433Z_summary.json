@@ -1,0 +1,367 @@
+{
+  "batch_id": "repo_intake_batch_20260408_162433Z",
+  "generated_at_utc": "2026-04-08T16:24:33.844089+00:00",
+  "total_items": 20,
+  "success_count": 19,
+  "failure_count": 1,
+  "successful_items": [
+    {
+      "repo_name": "echandsome/Polymarket-betting-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.84,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, copy trading, trading bot, clob"
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 17,
+      "our_fit_score": 36,
+      "novelty_flag": 6,
+      "fatal_flags_triggered": [
+        "direct_secret_or_key_sloppiness"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "amadeusprotocol/polymarket-trading-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.98,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, arbitrage, copy trading, copy-trading, trading bot, clob, execution"
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 17,
+      "our_fit_score": 34,
+      "novelty_flag": 4,
+      "fatal_flags_triggered": [
+        "copy_trading_main_value_prop",
+        "direct_secret_or_key_sloppiness"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "dylanpersonguy/Polymarket-Trading-Bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.98,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, arbitrage, copy-trading, trading bot, market making, market-making, execution"
+      ],
+      "classification": "marginal",
+      "repo_reality_score": 41,
+      "our_fit_score": 36,
+      "novelty_flag": 8,
+      "fatal_flags_triggered": [
+        "copy_trading_main_value_prop"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "ent0n29/polybot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.84,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, arbitrage, market making, execution"
+      ],
+      "classification": "marginal",
+      "repo_reality_score": 26,
+      "our_fit_score": 38,
+      "novelty_flag": 8,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "warproxxx/poly-maker",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.89,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, trading bot, market making, position, positions"
+      ],
+      "classification": "marginal",
+      "repo_reality_score": 34,
+      "our_fit_score": 34,
+      "novelty_flag": 2,
+      "fatal_flags_triggered": [
+        "direct_secret_or_key_sloppiness",
+        "no_paper_mode"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "polymarket/agents",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.79,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, clob, execution"
+      ],
+      "classification": "marginal",
+      "repo_reality_score": 30,
+      "our_fit_score": 28,
+      "novelty_flag": 4,
+      "fatal_flags_triggered": [
+        "no_paper_mode"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "Drakkar-Software/OctoBot-Prediction-Market",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.94,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, kalshi, arbitrage, copy trading, copy-trading, trading bot"
+      ],
+      "classification": "marginal",
+      "repo_reality_score": 32,
+      "our_fit_score": 36,
+      "novelty_flag": 2,
+      "fatal_flags_triggered": [
+        "copy_trading_main_value_prop"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "Poly-Mike/polymarket-arbitrage-trading-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.98,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, arbitrage, trading bot, position, positions, clob, execution"
+      ],
+      "classification": "marginal",
+      "repo_reality_score": 26,
+      "our_fit_score": 36,
+      "novelty_flag": 6,
+      "fatal_flags_triggered": [
+        "direct_secret_or_key_sloppiness"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "CarlosIbCu/polymarket-kalshi-btc-arbitrage-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.94,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, kalshi, arbitrage, position, positions, clob"
+      ],
+      "classification": "too_fuzzy",
+      "repo_reality_score": 17,
+      "our_fit_score": 36,
+      "novelty_flag": 4,
+      "fatal_flags_triggered": [
+        "no_paper_mode"
+      ],
+      "deeper_review_recommended": true
+    },
+    {
+      "repo_name": "luckeyfaraday/polymarket-bot",
+      "profile_used": "generic_repo_triage",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.5,
+      "auto_profile_reasons": [
+        "No strong profile-specific signal dominance detected.",
+        "Falling back to generic first-pass triage profile."
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "Anoto-ecossistem/polymarket-copy-bot",
+      "profile_used": "generic_repo_triage",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.5,
+      "auto_profile_reasons": [
+        "No strong profile-specific signal dominance detected.",
+        "Falling back to generic first-pass triage profile."
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "aulekator/Polymarket-BTC-15-Minute-Trading-Bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.67,
+      "auto_profile_reasons": [
+        "Detected prediction-market/mechanics keywords.",
+        "Matched terms: polymarket, trading"
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "Poly-Tutor/polymarket-arbitrage-trading-bot-tools",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.74,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, arbitrage"
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "MrFadiAi/Polymarket-bot",
+      "profile_used": "generic_repo_triage",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.5,
+      "auto_profile_reasons": [
+        "No strong profile-specific signal dominance detected.",
+        "Falling back to generic first-pass triage profile."
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "Trum3it/polymarket-arbitrage-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.74,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, arbitrage"
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "ImMike/polymarket-arbitrage",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.74,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, arbitrage"
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "gamma-trade-lab/polymarket-copy-trading-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.74,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, copy-trading"
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "zydomus219/Polymarket-betting-bot",
+      "profile_used": "generic_repo_triage",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.5,
+      "auto_profile_reasons": [
+        "No strong profile-specific signal dominance detected.",
+        "Falling back to generic first-pass triage profile."
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    },
+    {
+      "repo_name": "RobertMarcellos/polymarket-copy-trading-bot",
+      "profile_used": "prediction_market_execution",
+      "profile_selected_automatically": true,
+      "auto_profile_confidence": 0.74,
+      "auto_profile_reasons": [
+        "Strong prediction-market execution signals take precedence.",
+        "Matched strong terms: polymarket, copy-trading"
+      ],
+      "classification": "reject",
+      "repo_reality_score": 0,
+      "our_fit_score": 0,
+      "novelty_flag": 0,
+      "fatal_flags_triggered": [],
+      "deeper_review_recommended": false
+    }
+  ],
+  "failed_items": [
+    {
+      "repo_url": "https://github.com/discountry/polymarket-trading-bot",
+      "profile_used": "auto",
+      "status": "failed",
+      "error_message": "can only concatenate str (not \"NoneType\") to str"
+    }
+  ],
+  "grouped": {
+    "materially_useful": [],
+    "marginal": [
+      "dylanpersonguy/Polymarket-Trading-Bot",
+      "ent0n29/polybot",
+      "warproxxx/poly-maker",
+      "polymarket/agents",
+      "Drakkar-Software/OctoBot-Prediction-Market",
+      "Poly-Mike/polymarket-arbitrage-trading-bot"
+    ],
+    "too_fuzzy": [
+      "echandsome/Polymarket-betting-bot",
+      "amadeusprotocol/polymarket-trading-bot",
+      "CarlosIbCu/polymarket-kalshi-btc-arbitrage-bot"
+    ],
+    "reject": [
+      "luckeyfaraday/polymarket-bot",
+      "Anoto-ecossistem/polymarket-copy-bot",
+      "aulekator/Polymarket-BTC-15-Minute-Trading-Bot",
+      "Poly-Tutor/polymarket-arbitrage-trading-bot-tools",
+      "MrFadiAi/Polymarket-bot",
+      "Trum3it/polymarket-arbitrage-bot",
+      "ImMike/polymarket-arbitrage",
+      "gamma-trade-lab/polymarket-copy-trading-bot",
+      "zydomus219/Polymarket-betting-bot",
+      "RobertMarcellos/polymarket-copy-trading-bot"
+    ]
+  }
+}

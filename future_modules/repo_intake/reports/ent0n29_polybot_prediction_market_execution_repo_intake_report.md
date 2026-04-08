@@ -1,45 +1,43 @@
-# Repo Intake Report: polymarket/agents
+# Repo Intake Report: ent0n29/polybot
 
-- Repo URL: https://github.com/polymarket/agents
+- Repo URL: https://github.com/ent0n29/polybot
 - Profile: prediction_market_execution
 - Profile Selected Automatically: True
-- Auto Profile Confidence: 0.79
+- Auto Profile Confidence: 0.84
 - Classification: **marginal**
-- Confidence: 0.57
-- Repo Reality Score: 30/50
-- Our Fit Score: 28/40
-- Novelty Flag: 4/10
+- Confidence: 0.71
+- Repo Reality Score: 26/50
+- Our Fit Score: 38/40
+- Novelty Flag: 8/10
 
 ## Summary
-Trade autonomously on Polymarket using AI Agents
+reverse-engineer every polymarket strategy and trade fast
 
 ## Auto Profile Reasons
 - Strong prediction-market execution signals take precedence.
-- Matched strong terms: polymarket, clob, execution
+- Matched strong terms: polymarket, arbitrage, market making, execution
 
 ## Positive Signals
 - README exists and provides inspectable context.
 - Config/build files suggest implementable structure.
-- Test-related files/directories appear present.
 - Language footprint detected (3 languages).
 - Repository has a recorded update timestamp.
 
 ## Negative Signals
 - Little or no top-level code surface detected.
-- Fatal flag: no_paper_mode
 
 ## Danger Flags
-- Fatal: no_paper_mode
+- none observed in bounded static pass
 
 ## Top Files To Inspect
-- Dockerfile
 - README.md
+- docker-compose.analytics.yaml
+- docker-compose.monitoring.yaml
 - docs
-- requirements.txt
 
 ## Disposition
 - Final Disposition: **marginal**
 - Worker Status: `escalated`
 - Deeper Review Recommended: `True`
 - Escalation Reasons:
-  - fatal flag triggered but repo still appears strategically interesting
+  - novelty_flag high but fit unclear

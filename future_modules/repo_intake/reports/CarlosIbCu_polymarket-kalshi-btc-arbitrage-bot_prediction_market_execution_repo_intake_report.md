@@ -1,27 +1,26 @@
-# Repo Intake Report: polymarket/agents
+# Repo Intake Report: CarlosIbCu/polymarket-kalshi-btc-arbitrage-bot
 
-- Repo URL: https://github.com/polymarket/agents
+- Repo URL: https://github.com/CarlosIbCu/polymarket-kalshi-btc-arbitrage-bot
 - Profile: prediction_market_execution
 - Profile Selected Automatically: True
-- Auto Profile Confidence: 0.79
-- Classification: **marginal**
-- Confidence: 0.57
-- Repo Reality Score: 30/50
-- Our Fit Score: 28/40
+- Auto Profile Confidence: 0.94
+- Classification: **too_fuzzy**
+- Confidence: 0.51
+- Repo Reality Score: 17/50
+- Our Fit Score: 36/40
 - Novelty Flag: 4/10
 
 ## Summary
-Trade autonomously on Polymarket using AI Agents
+Real-time arbitrage bot detecting risk-free opportunities in Bitcoin 1-Hour Price markets between Polymarket and Kalshi
 
 ## Auto Profile Reasons
 - Strong prediction-market execution signals take precedence.
-- Matched strong terms: polymarket, clob, execution
+- Matched strong terms: polymarket, kalshi, arbitrage, position, positions, clob
 
 ## Positive Signals
 - README exists and provides inspectable context.
 - Config/build files suggest implementable structure.
-- Test-related files/directories appear present.
-- Language footprint detected (3 languages).
+- Language footprint detected (4 languages).
 - Repository has a recorded update timestamp.
 
 ## Negative Signals
@@ -32,13 +31,10 @@ Trade autonomously on Polymarket using AI Agents
 - Fatal: no_paper_mode
 
 ## Top Files To Inspect
-- Dockerfile
 - README.md
-- docs
-- requirements.txt
 
 ## Disposition
-- Final Disposition: **marginal**
+- Final Disposition: **too_fuzzy**
 - Worker Status: `escalated`
 - Deeper Review Recommended: `True`
 - Escalation Reasons:
