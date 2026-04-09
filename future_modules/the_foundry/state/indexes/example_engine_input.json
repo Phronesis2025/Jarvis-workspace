@@ -1,0 +1,63 @@
+{
+  "source_record": {
+    "source_id": "src_demo_001",
+    "source_type": "article_text",
+    "source_lane": "article",
+    "input_mode": "manual_paste",
+    "title": "Example Foundry Intake Source",
+    "raw_input_ref": "local://example/raw",
+    "processed_output_ref": "local://example/processed",
+    "source_url_or_locator": "https://example.com/research-note",
+    "source_hash": "sha256:examplehash",
+    "ingestion_method": "manual",
+    "source_timestamp": "2026-04-09T00:00:00Z",
+    "created_at": "2026-04-09T00:00:00Z",
+    "reviewer_model": "human",
+    "review_version": "v1",
+    "extraction_version": "v1",
+    "review_status": "complete",
+    "extraction_status": "complete",
+    "review_summary": "Example summary for deterministic engine validation.",
+    "key_claims": [
+      "Claim one",
+      "Claim two"
+    ],
+    "quality_flags": [],
+    "processing_notes": "Example processing notes.",
+    "candidate_ids": [
+      "cand_demo_001"
+    ]
+  },
+  "candidate_ideas": [
+    {
+      "candidate_id": "cand_demo_001",
+      "source_id": "src_demo_001",
+      "source_lane": "article",
+      "title": "Structured scoring contract",
+      "summary": "Use explicit weighted scoring to rank ideas with auditability.",
+      "category": "scoring",
+      "claim": "Weighted scoring improves recommendation consistency.",
+      "implementation_implication": "Implement deterministic local scoring with fixed weights and gate handling.",
+      "problem_solved": "Inconsistent promotion decisions across operators.",
+      "proposed_pattern": "Compute weighted score from 8 dimensions and cap by hard gates.",
+      "idea_kind": "workflow",
+      "confidence": 4,
+      "evidence_strength": 4,
+      "transferability": 4,
+      "expected_upside": 4,
+      "risk_reduction_value": 4,
+      "implementation_cost": 2,
+      "novelty": 2,
+      "dependency_burden": 1,
+      "needs_validation": false,
+      "verification_gaps": [],
+      "duplicate_group_key": "scoring_contract_v1",
+      "dedupe_confidence": 0.9,
+      "registry_match_id": "",
+      "recommendation_state": "watchlist",
+      "recommendation_reason": "seed value; engine will overwrite",
+      "extraction_method": "manual_example",
+      "created_at": "2026-04-09T00:00:00Z"
+    }
+  ]
+}

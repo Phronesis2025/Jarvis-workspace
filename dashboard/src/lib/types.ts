@@ -124,3 +124,60 @@ export interface ModuleChecklistsData {
   generated_at: string;
   modules: ModuleChecklist[];
 }
+
+export type FoundryRegistryStatus =
+  | "active"
+  | "watchlist"
+  | "research_next"
+  | "implement_soon"
+  | "queued"
+  | "archived"
+  | "rejected";
+
+export type FoundryRegistryReviewState =
+  | "pending_review"
+  | "approved_registry"
+  | "rejected_registry"
+  | "needs_more_research";
+
+export interface FoundryRegistryIdea {
+  idea_id: string;
+  title: string;
+  summary: string;
+  category: string;
+  canonical_problem: string;
+  canonical_pattern: string;
+  dedupe_key: string;
+  source_refs: string[];
+  supporting_source_count: number;
+  contradicting_source_count: number;
+  confidence: number;
+  evidence_strength: number;
+  transferability: number;
+  expected_upside: number;
+  risk_reduction_value: number;
+  implementation_cost: number;
+  novelty: number;
+  dependency_burden: number;
+  score_breakdown: Record<string, number>;
+  weighted_score: number;
+  status: FoundryRegistryStatus;
+  review_state: FoundryRegistryReviewState;
+  promotion_reason: string;
+  review_notes: string;
+  implementation_notes: string;
+  dependencies: string[];
+  related_ideas: string[];
+  queue_eligibility: boolean;
+  queue_reason: string;
+  first_seen_at: string;
+  created_at: string;
+  last_updated: string;
+}
+
+export interface FoundryRegistryReviewData {
+  ideas: FoundryRegistryIdea[];
+  sourceLanesByIdeaId: Record<string, string[]>;
+  errors: string[];
+  dataRoot: string;
+}

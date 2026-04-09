@@ -15,10 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-[#0a0e17] text-slate-200 antialiased">
-        <header className="border-b border-cyan-500/20 bg-[#0a0e17] shadow-[0_0_24px_rgba(34,211,238,0.06)]">
+        <header className="sticky top-0 z-40 border-b border-slate-800 bg-[#0a0e17]/95 backdrop-blur">
           <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <h1 className="text-lg font-semibold tracking-tight text-cyan-100">
+            <div className="flex flex-col gap-3">
+              <h1 className="text-lg font-semibold tracking-tight text-white">
                 Jarvis Dashboard
               </h1>
               <NavBar />

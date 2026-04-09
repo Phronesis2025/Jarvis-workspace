@@ -15,6 +15,21 @@
   --hud-text-muted: #94a3b8;
 }
 
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: #0a0e17;
+    color: var(--hud-text);
+  }
+}
+
 /* HUD panel with luminous border */
 @layer components {
   .hud-panel {

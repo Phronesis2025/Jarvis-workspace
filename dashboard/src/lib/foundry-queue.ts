@@ -1,0 +1,342 @@
+import { readFile, readdir, writeFile, mkdir, stat } from "fs/promises";
+import { join } from "path";
+import type { FoundryRegistryIdea } from "@/lib/types";
+
+function workspaceRoot(): string {
+  return join(process.cwd(), "..");
+}
+
+function foundryStateRoot(): string {
+  return join(workspaceRoot(), "future_modules", "the_foundry", "state");
+}
+
+const QUEUE_REC_DIR = "queue_recommendations";
+const PERSISTED_DIR = "implementation_queue_items";
+
+export type FoundryQueueOperatorApproval = "pending" | "approved" | "rejected";
+export type FoundryQueueStatus =
+  | "proposed"
+  | "ready"
+  | "in_design"
+  | "in_build"
+  | "blocked"
+  | "done"
+  | "dropped";
+
+/** Locked Implementation Queue Item v1 shape (matches Foundry contract). */
+export interface FoundryImplementationQueueItem {
+  queue_id: string;
+  idea_id: string;
+  queue_rank: number;
+  priority_band: string;
+  why_now: string;
+  required_resources: string[];
+  expected_build_output: string;
+  owner: string;
+  operator_approval_state: FoundryQueueOperatorApproval;
+  approval_notes: string;
+  target_module: string;
+  effort_estimate: string;
+  dependency_status: string;
+  source_confidence_snapshot: number;
+  success_criteria: string[];
+  next_action: string;
+  status: FoundryQueueStatus;
+  blockers: string[];
+  created_at: string;
+  last_updated: string;
+}
+
+export interface FoundryQueueRow extends FoundryImplementationQueueItem {
+  idea_title: string | null;
+  idea_summary: string | null;
+  idea_registry_status: string | null;
+  /** Batch file stem when item came from recommendations only */
+  source_run_id?: string;
+  persisted_locally: boolean;
+}
+
+export interface FoundryImplementationQueueData {
+  items: FoundryQueueRow[];
+  errors: string[];
+  warnings: string[];
+  dataRoot: string;
+}
+
+const APPROVAL: FoundryQueueOperatorApproval[] = ["pending", "approved", "rejected"];
+const STATUSES: FoundryQueueStatus[] = [
+  "proposed",
+  "ready",
+  "in_design",
+  "in_build",
+  "blocked",
+  "done",
+  "dropped",
+];
+
+function isRecord(v: unknown): v is Record<string, unknown> {
+  return v !== null && typeof v === "object" && !Array.isArray(v);
+}
+
+function validateQueueItem(raw: unknown): FoundryImplementationQueueItem | null {
+  if (!isRecord(raw)) {
+    return null;
+  }
+  const r = raw;
+  if (typeof r.queue_id !== "string" || !r.queue_id.trim()) return null;
+  if (typeof r.idea_id !== "string" || !r.idea_id.trim()) return null;
+  if (typeof r.queue_rank !== "number" || r.queue_rank < 1 || !Number.isInteger(r.queue_rank)) return null;
+  if (typeof r.priority_band !== "string" || !r.priority_band.trim()) return null;
+  if (typeof r.why_now !== "string" || !r.why_now.trim()) return null;
+  if (!Array.isArray(r.required_resources) || r.required_resources.some((x) => typeof x !== "string")) return null;
+  if (typeof r.expected_build_output !== "string" || !r.expected_build_output.trim()) return null;
+  if (typeof r.owner !== "string" || !r.owner.trim()) return null;
+  if (typeof r.operator_approval_state !== "string" || !APPROVAL.includes(r.operator_approval_state as FoundryQueueOperatorApproval))
+    return null;
+  if (typeof r.approval_notes !== "string") return null;
+  if (typeof r.target_module !== "string" || !r.target_module.trim()) return null;
+  if (typeof r.effort_estimate !== "string" || !r.effort_estimate.trim()) return null;
+  if (typeof r.dependency_status !== "string" || !r.dependency_status.trim()) return null;
+  if (typeof r.source_confidence_snapshot !== "number" || r.source_confidence_snapshot < 0 || r.source_confidence_snapshot > 5)
+    return null;
+  if (!Array.isArray(r.success_criteria) || r.success_criteria.some((x) => typeof x !== "string")) return null;
+  if (typeof r.next_action !== "string" || !r.next_action.trim()) return null;
+  if (typeof r.status !== "string" || !STATUSES.includes(r.status as FoundryQueueStatus)) return null;
+  if (!Array.isArray(r.blockers) || r.blockers.some((x) => typeof x !== "string")) return null;
+  if (typeof r.created_at !== "string" || !r.created_at.trim()) return null;
+  if (typeof r.last_updated !== "string" || !r.last_updated.trim()) return null;
+
+  return {
+    queue_id: r.queue_id,
+    idea_id: r.idea_id,
+    queue_rank: r.queue_rank,
+    priority_band: r.priority_band,
+    why_now: r.why_now,
+    required_resources: r.required_resources as string[],
+    expected_build_output: r.expected_build_output,
+    owner: r.owner,
+    operator_approval_state: r.operator_approval_state as FoundryQueueOperatorApproval,
+    approval_notes: r.approval_notes,
+    target_module: r.target_module,
+    effort_estimate: r.effort_estimate,
+    dependency_status: r.dependency_status,
+    source_confidence_snapshot: r.source_confidence_snapshot,
+    success_criteria: r.success_criteria as string[],
+    next_action: r.next_action,
+    status: r.status as FoundryQueueStatus,
+    blockers: r.blockers as string[],
+    created_at: r.created_at,
+    last_updated: r.last_updated,
+  };
+}
+
+async function readJson<T>(path: string): Promise<T | null> {
+  try {
+    return JSON.parse(await readFile(path, "utf-8")) as T;
+  } catch {
+    return null;
+  }
+}
+
+async function loadRegistryContext(
+  ideaId: string
+): Promise<{ title: string | null; summary: string | null; status: string | null }> {
+  const path = join(foundryStateRoot(), "registry_ideas", `${ideaId}.json`);
+  const data = await readJson<FoundryRegistryIdea>(path);
+  if (!data) return { title: null, summary: null, status: null };
+  return {
+    title: typeof data.title === "string" ? data.title : null,
+    summary: typeof data.summary === "string" ? data.summary : null,
+    status: typeof data.status === "string" ? data.status : null,
+  };
+}
+
+/**
+ * Merge queue items from all batch files (newest file wins per queue_id),
+ * then overlay persisted copies from implementation_queue_items/ when present.
+ */
+export async function getFoundryImplementationQueueData(): Promise<FoundryImplementationQueueData> {
+  const stateRoot = foundryStateRoot();
+  const recDir = join(stateRoot, QUEUE_REC_DIR);
+  const persistDir = join(stateRoot, PERSISTED_DIR);
+  const errors: string[] = [];
+  const warnings: string[] = [];
+  const fromBatches = new Map<string, { item: FoundryImplementationQueueItem; runId: string }>();
+
+  try {
+    const names = await readdir(recDir);
+    const jsonFiles = names.filter((n) => n.endsWith(".json"));
+    const withMtime = await Promise.all(
+      jsonFiles.map(async (name) => {
+        const p = join(recDir, name);
+        const st = await stat(p);
+        return { path: p, name, mtime: st.mtimeMs };
+      })
+    );
+    withMtime.sort((a, b) => b.mtime - a.mtime);
+
+    for (const { path, name } of withMtime) {
+      const raw = await readJson<unknown>(path);
+      if (!isRecord(raw)) {
+        errors.push(`Malformed queue batch (not an object): ${name}`);
+        continue;
+      }
+      const runId = typeof raw.run_id === "string" ? raw.run_id : name.replace(/^queue_recommendations_|\.json$/g, "");
+      const items = raw.items;
+      if (!Array.isArray(items)) {
+        errors.push(`Malformed queue batch (missing items array): ${name}`);
+        continue;
+      }
+      for (let i = 0; i < items.length; i++) {
+        const validated = validateQueueItem(items[i]);
+        if (!validated) {
+          errors.push(`Invalid queue item in ${name} at index ${i}`);
+          continue;
+        }
+        if (!fromBatches.has(validated.queue_id)) {
+          fromBatches.set(validated.queue_id, { item: validated, runId });
+        }
+      }
+    }
+  } catch {
+    warnings.push("Queue recommendations folder missing or unreadable; no batch queue items loaded.");
+  }
+
+  const rows: FoundryQueueRow[] = [];
+  const allIds = new Set<string>(fromBatches.keys());
+
+  try {
+    const persistedNames = await readdir(persistDir);
+    for (const name of persistedNames.filter((n) => n.endsWith(".json"))) {
+      const id = name.replace(/\.json$/, "");
+      allIds.add(id);
+    }
+  } catch {
+    /* no persisted dir yet */
+  }
+
+  const sortedQueueIds = Array.from(allIds).sort((a, b) => a.localeCompare(b));
+  for (const queueId of sortedQueueIds) {
+    const persistedPath = join(persistDir, `${queueId}.json`);
+    const persistedRaw = await readJson<unknown>(persistedPath);
+    let canonical: FoundryImplementationQueueItem | null = null;
+    let persistedLocally = false;
+    let sourceRunId: string | undefined;
+
+    if (persistedRaw !== null) {
+      canonical = validateQueueItem(persistedRaw);
+      if (canonical) {
+        persistedLocally = true;
+      } else {
+        errors.push(`Malformed persisted queue item: ${queueId}.json`);
+      }
+    }
+
+    if (!canonical) {
+      const batch = fromBatches.get(queueId);
+      if (batch) {
+        canonical = batch.item;
+        sourceRunId = batch.runId;
+      }
+    }
+
+    if (!canonical) continue;
+
+    const reg = await loadRegistryContext(canonical.idea_id);
+    rows.push({
+      ...canonical,
+      idea_title: reg.title,
+      idea_summary: reg.summary,
+      idea_registry_status: reg.status,
+      source_run_id: sourceRunId,
+      persisted_locally: persistedLocally,
+    });
+  }
+
+  rows.sort((a, b) => a.queue_rank - b.queue_rank || a.queue_id.localeCompare(b.queue_id));
+
+  if (rows.length === 0 && fromBatches.size === 0 && errors.length === 0) {
+    warnings.push(
+      "No queue items found. Engine writes batches to queue_recommendations/; items appear when candidates score as queue_candidate."
+    );
+  }
+
+  return {
+    items: rows,
+    errors,
+    warnings,
+    dataRoot: `../future_modules/the_foundry/state`,
+  };
+}
+
+export interface FoundryQueueItemPatch {
+  operator_approval_state?: FoundryQueueOperatorApproval;
+  approval_notes?: string;
+  status?: FoundryQueueStatus;
+  blockers?: string[];
+  next_action?: string;
+}
+
+export async function updateFoundryQueueItem(
+  queueId: string,
+  patch: FoundryQueueItemPatch
+): Promise<{ item: FoundryImplementationQueueItem }> {
+  const trimmedId = queueId.trim();
+  if (!trimmedId) {
+    throw new Error("queue_id is required.");
+  }
+
+  const data = await getFoundryImplementationQueueData();
+  const current = data.items.find((r) => r.queue_id === trimmedId);
+  if (!current) {
+    throw new Error(`Unknown queue_id: ${trimmedId}`);
+  }
+
+  const next: FoundryImplementationQueueItem = {
+    queue_id: current.queue_id,
+    idea_id: current.idea_id,
+    queue_rank: current.queue_rank,
+    priority_band: current.priority_band,
+    why_now: current.why_now,
+    required_resources: [...current.required_resources],
+    expected_build_output: current.expected_build_output,
+    owner: current.owner,
+    operator_approval_state: patch.operator_approval_state ?? current.operator_approval_state,
+    approval_notes: patch.approval_notes !== undefined ? patch.approval_notes : current.approval_notes,
+    target_module: current.target_module,
+    effort_estimate: current.effort_estimate,
+    dependency_status: current.dependency_status,
+    source_confidence_snapshot: current.source_confidence_snapshot,
+    success_criteria: [...current.success_criteria],
+    next_action: patch.next_action !== undefined ? patch.next_action : current.next_action,
+    status: patch.status ?? current.status,
+    blockers: patch.blockers !== undefined ? [...patch.blockers] : [...current.blockers],
+    created_at: current.created_at,
+    last_updated: new Date().toISOString(),
+  };
+
+  if (typeof next.approval_notes !== "string") {
+    throw new Error("approval_notes must be a string.");
+  }
+  if (typeof next.next_action !== "string" || !next.next_action.trim()) {
+    throw new Error("next_action must be a non-empty string.");
+  }
+  if (!APPROVAL.includes(next.operator_approval_state)) {
+    throw new Error("Invalid operator_approval_state.");
+  }
+  if (!STATUSES.includes(next.status)) {
+    throw new Error("Invalid status.");
+  }
+
+  const validated = validateQueueItem(next);
+  if (!validated) {
+    throw new Error("Updated item failed contract validation.");
+  }
+
+  const persistDir = join(foundryStateRoot(), PERSISTED_DIR);
+  await mkdir(persistDir, { recursive: true });
+  const outPath = join(persistDir, `${trimmedId}.json`);
+  await writeFile(outPath, JSON.stringify(validated, null, 2) + "\n", "utf-8");
+
+  return { item: validated };
+}
