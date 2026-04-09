@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 409  
-**Phase #:** 3 — **local pipeline implementation** (post–T113 local operator attention queue governance lock)  
-**Tranche #:** 113
+**Prompt #:** 411  
+**Phase #:** 3 — **local pipeline implementation** (post–T114 local operator attention queue build)  
+**Tranche #:** 114
 
-Updated: 2026-04-09T00:25:00+00:00
+Updated: 2026-04-09T14:00:00+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T113 governance** (Prompt **#409**). **Scoped MVP approval** (**T80**) remains binding. **T113** governs exactly one future local attention-queue slice: **`review/local_run/build_operator_attention_queue.py`** writing **`outputs/local_happy_path_runs/operator_attention_queue.json`** from existing per-run attention artifacts only; executable attention-queue script is **not** built in T113. AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
+- **Checkpoint:** **Post–T114 build** (Prompt **#411**). **Scoped MVP approval** (**T80**) remains binding. **T113** (Prompt **#409**) governed exactly one attention-queue slice; **T114** delivered **`review/local_run/build_operator_attention_queue.py`** and **`outputs/local_happy_path_runs/operator_attention_queue.json`** — mechanical rows from **`operator_attention_signal.json`** only, timestamp-desc sort, no pipeline invocation. AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
