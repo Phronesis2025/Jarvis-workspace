@@ -1,6 +1,6 @@
 import {
   getResearchSwarmLatestRun,
-  getResearchSwarmLedgerRows,
+  getResearchSwarmAllLedgerRows,
 } from "@/lib/data";
 import { HudMetricCard } from "@/components/HudMetricCard";
 
@@ -25,8 +25,9 @@ function outcomeColor(outcome: string): string {
 export default async function ResearchSwarmPage() {
   const [summary, ledgerRows] = await Promise.all([
     getResearchSwarmLatestRun(),
-    getResearchSwarmLedgerRows(25),
+    getResearchSwarmAllLedgerRows(),
   ]);
+  const recentLedgerRows = ledgerRows.slice(0, 25);
 
   if (!summary) {
     return (
@@ -88,7 +89,7 @@ python run_phase_a_collector.py --urls-file ../docs/Example URLs.txt`}
         <HudMetricCard label="Supported" value={supported} />
         <HudMetricCard
           label="Unsupported"
-          value={summary.unsupported_video + summary.unsupported_other}
+          value={summary.unsupported}
         />
         <HudMetricCard
           label="Success"
@@ -97,8 +98,7 @@ python run_phase_a_collector.py --urls-file ../docs/Example URLs.txt`}
         />
         <HudMetricCard label="Partial" value={summary.partial} />
         <HudMetricCard label="Fail" value={summary.fail} />
-        <HudMetricCard label="Skipped (restricted)" value={summary.skipped_restricted} />
-        <HudMetricCard label="Skipped (unsupported)" value={summary.skipped_unsupported} />
+        <HudMetricCard label="Skipped" value={summary.skipped} />
       </div>
 
       <div className="hud-panel p-4">
@@ -113,12 +113,8 @@ python run_phase_a_collector.py --urls-file ../docs/Example URLs.txt`}
             Article: <span className="text-cyan-200">{summary.article}</span>
           </span>
           <span>
-            Unsupported video:{" "}
-            <span className="text-slate-500">{summary.unsupported_video}</span>
-          </span>
-          <span>
-            Unsupported other:{" "}
-            <span className="text-slate-500">{summary.unsupported_other}</span>
+            Unsupported:{" "}
+            <span className="text-slate-500">{summary.unsupported}</span>
           </span>
         </div>
       </div>
@@ -132,9 +128,9 @@ python run_phase_a_collector.py --urls-file ../docs/Example URLs.txt`}
 
       <div className="hud-panel p-4">
         <h3 className="mb-3 text-xs font-medium uppercase tracking-widest text-cyan-400/80">
-          Recent ledger items (latest {ledgerRows.length})
+          Recent ledger items (latest {recentLedgerRows.length})
         </h3>
-        {ledgerRows.length === 0 ? (
+        {recentLedgerRows.length === 0 ? (
           <p className="text-sm text-slate-500">No ledger entries yet.</p>
         ) : (
           <div className="overflow-x-auto">
@@ -156,7 +152,7 @@ python run_phase_a_collector.py --urls-file ../docs/Example URLs.txt`}
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-700/30">
-                {ledgerRows.map((row, i) => (
+                {recentLedgerRows.map((row, i) => (
                   <tr key={i} className="text-sm">
                     <td className={`whitespace-nowrap px-3 py-2 font-medium ${outcomeColor(row.outcome)}`}>
                       {row.outcome}
