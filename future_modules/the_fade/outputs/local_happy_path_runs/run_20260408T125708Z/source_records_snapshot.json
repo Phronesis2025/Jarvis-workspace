@@ -1,0 +1,119 @@
+{
+  "artifact_kind": "the_fade_t115_source_records_snapshot_v1",
+  "source_name": "Federal Register",
+  "run_folder_name": "run_20260408T125708Z",
+  "run_id": "20260408T125708Z",
+  "request_id": "913fe5fb-9662-4ff4-8ff5-474871762d10",
+  "candidate_source_packet_ref": "federal_register_query:https://www.federalregister.gov/api/v1/documents.json?per_page=5&order=newest",
+  "fetch_url_used": "https://www.federalregister.gov/api/v1/documents.json?per_page=5&order=newest",
+  "fetch_timestamp_utc": "2026-04-09T20:19:40Z",
+  "api_response_metadata": {
+    "results_length": 5,
+    "http_status": 200,
+    "count": 10000,
+    "total_pages": 50
+  },
+  "source_records": [
+    {
+      "title": "Continuing the Suspension of Duty-Free De Minimis Treatment for All Countries",
+      "type": "Presidential Document",
+      "document_number": "R1-2026-03829",
+      "publication_date": "2026-04-09",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-09/pdf/R1-2026-03829.pdf",
+      "html_url": "https://www.federalregister.gov/documents/2026/04/09/R1-2026-03829/continuing-the-suspension-of-duty-free-de-minimis-treatment-for-all-countries",
+      "agencies": [
+        {
+          "raw_name": "EXECUTIVE OFFICE OF THE PRESIDENT",
+          "name": "Executive Office of the President",
+          "id": 538,
+          "url": "https://www.federalregister.gov/agencies/executive-office-of-the-president",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/538",
+          "parent_id": null,
+          "slug": "executive-office-of-the-president"
+        }
+      ],
+      "abstract": null
+    },
+    {
+      "title": "Sequestration Order for Fiscal Year 2027 Pursuant to Section 251A of the Balanced Budget and Emergency Deficit Control Act, as Amended",
+      "type": "Presidential Document",
+      "document_number": "2026-06962",
+      "publication_date": "2026-04-09",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-09/pdf/2026-06962.pdf",
+      "html_url": "https://www.federalregister.gov/documents/2026/04/09/2026-06962/sequestration-order-for-fiscal-year-2027-pursuant-to-section-251a-of-the-balanced-budget-and",
+      "agencies": [
+        {
+          "raw_name": "EXECUTIVE OFFICE OF THE PRESIDENT",
+          "name": "Executive Office of the President",
+          "id": 538,
+          "url": "https://www.federalregister.gov/agencies/executive-office-of-the-president",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/538",
+          "parent_id": null,
+          "slug": "executive-office-of-the-president"
+        }
+      ],
+      "abstract": null
+    },
+    {
+      "title": "Urgent National Action To Save College Sports",
+      "type": "Presidential Document",
+      "document_number": "2026-06961",
+      "publication_date": "2026-04-09",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-09/pdf/2026-06961.pdf",
+      "html_url": "https://www.federalregister.gov/documents/2026/04/09/2026-06961/urgent-national-action-to-save-college-sports",
+      "agencies": [
+        {
+          "raw_name": "EXECUTIVE OFFICE OF THE PRESIDENT",
+          "name": "Executive Office of the President",
+          "id": 538,
+          "url": "https://www.federalregister.gov/agencies/executive-office-of-the-president",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/538",
+          "parent_id": null,
+          "slug": "executive-office-of-the-president"
+        }
+      ],
+      "abstract": null
+    },
+    {
+      "title": "Strengthening Actions Taken To Adjust Imports of Aluminum, Steel, and Copper Into the United States",
+      "type": "Presidential Document",
+      "document_number": "2026-06960",
+      "publication_date": "2026-04-09",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-09/pdf/2026-06960.pdf",
+      "html_url": "https://www.federalregister.gov/documents/2026/04/09/2026-06960/strengthening-actions-taken-to-adjust-imports-of-aluminum-steel-and-copper-into-the-united-states",
+      "agencies": [
+        {
+          "raw_name": "EXECUTIVE OFFICE OF THE PRESIDENT",
+          "name": "Executive Office of the President",
+          "id": 538,
+          "url": "https://www.federalregister.gov/agencies/executive-office-of-the-president",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/538",
+          "parent_id": null,
+          "slug": "executive-office-of-the-president"
+        }
+      ],
+      "abstract": null
+    },
+    {
+      "title": "Adjusting Imports of Pharmaceuticals and Pharmaceutical Ingredients Into the United States",
+      "type": "Presidential Document",
+      "document_number": "2026-06956",
+      "publication_date": "2026-04-09",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-09/pdf/2026-06956.pdf",
+      "html_url": "https://www.federalregister.gov/documents/2026/04/09/2026-06956/adjusting-imports-of-pharmaceuticals-and-pharmaceutical-ingredients-into-the-united-states",
+      "agencies": [
+        {
+          "raw_name": "EXECUTIVE OFFICE OF THE PRESIDENT",
+          "name": "Executive Office of the President",
+          "id": 538,
+          "url": "https://www.federalregister.gov/agencies/executive-office-of-the-president",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/538",
+          "parent_id": null,
+          "slug": "executive-office-of-the-president"
+        }
+      ],
+      "abstract": null
+    }
+  ],
+  "explicit_non_scanner_statement": "This is a factual Federal Register source-record snapshot for one local run folder. It is not scanner output, not ranking or scoring, not selection, and not a recommendation."
+}

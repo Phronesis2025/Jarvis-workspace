@@ -1,14 +1,14 @@
 # THE FADE Process Checklist
 
-**Prompt #:** 413  
-**Phase #:** 3 — **local pipeline governance** (post–T115 run-scoped source-record capture governance lock)  
-**Tranche #:** 115
+**Prompt #:** 415  
+**Phase #:** 3 — **local pipeline implementation** (post–T116 run-scoped source-record capture build)  
+**Tranche #:** 116
 
-Updated: 2026-04-09T18:30:00+00:00
+Updated: 2026-04-09T20:25:00+00:00
 
 ## You are here
 
-- **Checkpoint:** **Post–T115 governance** (Prompt **#413**). **Scoped MVP approval** (**T80**) remains binding. **T114** build remains on disk (**attention queue**). **T115** locks **one** future slice only: **`THE_FADE_T115_RUN_SCOPED_SOURCE_RECORD_CAPTURE_*`** + **`phase3_t115_run_scoped_source_record_capture.json`**; **`post_t115_run_scoped_source_record_capture_governance`** in **`phase2_mvp_approval_scope_decision.json`**. **Executable** **`build_source_records_snapshot_from_run_folder.py`** is **not** in **T115**. AI/LLM summarization, scanner execution, real scan semantics, result **production** path, runtime/provider/dashboard work, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
+- **Checkpoint:** **Post–T116 build** (Prompt **#415**). **Scoped MVP approval** (**T80**) remains binding. **T115** governance on disk; **T116** delivers **`review/local_run/build_source_records_snapshot_from_run_folder.py`** (+ optional **`README_source_records_snapshot.md`**): **one** bounded Federal Register GET per invocation → per-run **`source_records_snapshot.json`**; **`post_t116_run_scoped_source_record_capture_build`** in **`phase2_mvp_approval_scope_decision.json`**. **Not** universe-scanner execution, **not** ranking/scoring/selection, **not** runtime/dashboard **platform**. AI/LLM summarization, scanner loop semantics, result **production** pipeline, lane reopen, and registry/approval edits remain forbidden; broader Phase **3** implementation remains unauthorized without new governance.
 - **Phase:** 2 — MVP lane approval and source reliability gate.
 - **Branch:** `the-fade-phase1-tranche1-foundation` — expect **aligned with `origin`** after fetch/pull (verify).
 - **Lane B Federal Register — full Tranche 21 window:** **Collector run finished on disk.** Append-only log shows **22** counted full-window records (`window_start_utc=2026-03-27T16:00:00Z`, `window_end_utc=2026-03-29T16:00:00Z`), all **`source_observation_success: true`** and **`timing_valid_for_counted_slot_use: true`**. **One** additional JSONL line (`t30_valid_002`) is **out-of-window smoke** — **not** part of the **22**-slot full-window gate tally.
