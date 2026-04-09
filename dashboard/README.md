@@ -43,22 +43,27 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 ## Verification
 
 - **Lint:** Runs non-interactively and passes (`npm run lint`).
-- **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM on `.next` or `.next-build/trace`). Do not overclaim build success when environment-blocked.
+- **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM under `dashboard/.next`). Do not overclaim build success when environment-blocked.
 - **Local dev:** `npm run dev` on port 3001 serves the dashboard with correct shell/styling. Overview and Module Checklists both render as expected. Use `npm run dev` for local development; `npm run start` serves the production build (if build succeeds) and may behave differently.
 
 ## Troubleshooting
 
+- **Server Error: Cannot find module `./NNN.js` (webpack chunk):** If `.next` is **partially** updated (interrupted build, mixed compiles), Next can reference missing chunks. **Fix:** stop `npm run dev`, delete `dashboard/.next` (and remove any leftover `dashboard/.next-build` from older configs), then `npm run dev` or `npm run build` again. Do not commit build output.
+- **Build fails with EPERM / trace / file locked (Windows):** Close other terminals using the app, pause real-time antivirus on `dashboard/` briefly, or delete `.next` and rebuild. If it persists, run the build from **WSL** or **cmd** instead of a sandboxed shell.
 - **Overview stale data:** The Overview route uses `fetchCache = "force-no-store"` so Supabase reads are not cached. If Overview shows old values, restart the dev server and run a fresh export (`python scripts/export_dashboard_data.py` from the workspace root). **Overview is now trustworthy enough for live workflow monitoring** after restart and export refresh; exporter/live activity can be observed through the current read-only dashboard surfaces.
 
 ## Vercel deployment
 
-1. Push the repo to GitHub.
-2. Import the project in Vercel (or connect existing).
-3. Set root directory to `dashboard` if the dashboard lives in a subfolder.
-4. Add environment variables in Vercel project settings:
+Jarvis-workspace hosts the Next app under **`dashboard/`**. The production Vercel project is configured as follows:
+
+1. **Git:** **Production branch = `main`.** Feature branches get **Preview** deployments when pushed (default Vercel Git behavior).
+2. **Root Directory:** `dashboard` (the Next.js app root). Do **not** use a repo-root `vercel.json` that runs `cd dashboard && …` — that double-nests paths when Root Directory is already `dashboard`.
+3. **Build & Output:** Use Vercel defaults for Next.js (`npm install`, `npm run build` / `next build`). **Do not** set an **Output Directory** override unless you changed `distDir` in `next.config.js`. Wrong overrides cause errors such as missing `.next` / routes manifest (see [Vercel troubleshooting](https://github.com/vercel/vercel/blob/main/errors/now-next-routes-manifest.md)).
+4. **Foundry on Vercel:** Runtime code resolves the repo as the parent of `dashboard/`. Enable **include source files outside of the Root Directory in the Build Step** (or equivalent) so `../future_modules/the_foundry/` exists in the deployment, **or** rely on **Vercel Blob** for durable Foundry state (`FOUNDRY_STORAGE_DRIVER=blob`, `BLOB_READ_WRITE_TOKEN` — see Foundry docs).
+5. **Environment variables** (project settings):
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-5. Deploy. Vercel will build with `next build` and serve with `next start`.
+   - Optional Foundry: `FOUNDRY_STORAGE_DRIVER`, `BLOB_READ_WRITE_TOKEN`
 
 ## Pages
 
