@@ -1,0 +1,33 @@
+{
+  "slice_id": "THE_FADE_PHASE3_T115_RUN_SCOPED_SOURCE_RECORD_CAPTURE",
+  "tranche": 115,
+  "prompt_number": 413,
+  "effective_utc": "2026-04-09T18:30:00Z",
+  "status": "governance_locked_not_implemented",
+  "governance_docs": [
+    "future_modules/the_fade/docs/THE_FADE_T115_RUN_SCOPED_SOURCE_RECORD_CAPTURE_GOVERNANCE.md",
+    "future_modules/the_fade/docs/THE_FADE_T115_RUN_SCOPED_SOURCE_RECORD_CAPTURE_ACCEPTANCE_CRITERIA.md"
+  ],
+  "machine_readable_role": "Narrow pointer and duplicate pin for fixed paths; does not authorize execution by itself.",
+  "fixed_implementation_path": "future_modules/the_fade/review/local_run/build_source_records_snapshot_from_run_folder.py",
+  "fixed_output_artifact_basename": "source_records_snapshot.json",
+  "run_folder_parent": "future_modules/the_fade/outputs/local_happy_path_runs",
+  "run_folder_name_pattern": "run_<YYYYMMDDTHHMMSSZ>",
+  "allowed_reads_in_run_folder": [
+    "source_snapshot.json",
+    "fr_universe_scanner_request_*.json (exactly one match)",
+    "run_summary.json (optional, only if justified in implementation tranche)"
+  ],
+  "network": {
+    "max_http_gets_per_invocation": 1,
+    "method": "GET",
+    "host": "www.federalregister.gov",
+    "path_prefix": "/api/v1/documents.json",
+    "url_derivation": "candidate_source_packet_ref in request JSON only; strip federal_register_query: prefix if present"
+  },
+  "non_claims": [
+    "T115 does not implement the script",
+    "Does not authorize scanner, ranking, selection, or dashboard work",
+    "Does not modify mvp_lane_approval.json or mvp_lane_evidence_registry.json"
+  ]
+}
