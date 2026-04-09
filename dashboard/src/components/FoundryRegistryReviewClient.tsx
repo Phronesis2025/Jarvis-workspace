@@ -1,11 +1,21 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { FoundryRegistryIdea } from "@/lib/types";
+import type { FoundryRegistryIdea, FoundryScoringEvaluation } from "@/lib/types";
+import { RUBRIC_KEYS } from "@/lib/foundry-scoring";
 
 interface Props {
   ideas: FoundryRegistryIdea[];
   sourceLanesByIdeaId: Record<string, string[]>;
+  scoringEvaluationsByIdeaId: Record<string, FoundryScoringEvaluation | null>;
+}
+
+function rubricBand(w: number): string {
+  if (w < 35) return "discard";
+  if (w <= 49) return "watchlist";
+  if (w <= 64) return "research_next";
+  if (w <= 79) return "implement_soon";
+  return "queue_candidate";
 }
 
 function toSearchable(idea: FoundryRegistryIdea): string {
@@ -19,7 +29,9 @@ function toSearchable(idea: FoundryRegistryIdea): string {
     .toLowerCase();
 }
 
-export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId }: Props) {
+const SANDBOX_DEFAULT: Record<string, number> = Object.fromEntries(RUBRIC_KEYS.map((k) => [k, 2]));
+
+export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scoringEvaluationsByIdeaId }: Props) {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [sourceLaneFilter, setSourceLaneFilter] = useState<string>("all");
@@ -55,6 +67,39 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId }: Prop
     filtered.find((idea) => idea.idea_id === selectedIdeaId) ??
     filtered[0] ??
     null;
+
+  const persistedEval = selected ? scoringEvaluationsByIdeaId[selected.idea_id] : null;
+
+  const [sandboxRubric, setSandboxRubric] = useState<Record<string, number>>({ ...SANDBOX_DEFAULT });
+  const [sandboxPreview, setSandboxPreview] = useState<{ weighted_score: number; note?: string } | null>(null);
+  const [sandboxBusy, setSandboxBusy] = useState(false);
+  const [sandboxErr, setSandboxErr] = useState("");
+
+  async function runSandboxPreview() {
+    setSandboxBusy(true);
+    setSandboxErr("");
+    try {
+      const manual_rubric_scores: Record<string, number> = {};
+      for (const k of RUBRIC_KEYS) {
+        manual_rubric_scores[k] = sandboxRubric[k] ?? 2;
+      }
+      const res = await fetch("/api/foundry/score-preview", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ manual_rubric_scores }),
+      });
+      const data = (await res.json()) as { status: string; weighted_score?: number; note?: string; message?: string };
+      if (!res.ok || data.status !== "success" || data.weighted_score === undefined) {
+        throw new Error(data.message ?? "Preview failed.");
+      }
+      setSandboxPreview({ weighted_score: data.weighted_score, note: data.note });
+    } catch (e) {
+      setSandboxErr(e instanceof Error ? e.message : "Preview failed.");
+      setSandboxPreview(null);
+    } finally {
+      setSandboxBusy(false);
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -226,6 +271,127 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId }: Prop
               <div>
                 <div className="text-xs uppercase tracking-wider text-slate-500">Promotion reason</div>
                 <div>{selected.promotion_reason || "—"}</div>
+              </div>
+              <div className="rounded border border-cyan-500/20 bg-slate-950/60 p-3">
+                <div className="text-xs font-medium uppercase tracking-wider text-cyan-400/80">
+                  Persisted intake scoring audit (sidecar)
+                </div>
+                <p className="mt-1 text-xs text-slate-500">
+                  Registry JSON below is unchanged when you change filters. This panel shows what was saved at dashboard intake
+                  time (if any). No silent re-score on toggle.
+                </p>
+                {!persistedEval ? (
+                  <p className="mt-2 text-sm text-slate-500">
+                    No <span className="font-mono">scoring_evaluations/</span> file for this idea (pre-A/B intake or non-dashboard
+                    origin).
+                  </p>
+                ) : (
+                  <div className="mt-2 space-y-2 text-xs">
+                    <div>
+                      <span className="text-slate-500">Mode:</span>{" "}
+                      <span className="font-mono text-cyan-200/90">{persistedEval.scoring_mode_selected}</span> ·{" "}
+                      <span className="text-slate-500">method:</span>{" "}
+                      <span className="font-mono text-cyan-200/90">{persistedEval.evaluation_method}</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-500">Sidecar weighted_score:</span>{" "}
+                      <span className="text-cyan-200">{persistedEval.weighted_score.toFixed(2)}</span> · band:{" "}
+                      {rubricBand(persistedEval.weighted_score)} ·{" "}
+                      <span className="text-slate-500">engine_run_id:</span> {persistedEval.engine_run_id}
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full border border-cyan-500/15 text-left">
+                        <thead>
+                          <tr className="bg-slate-950">
+                            <th className="px-2 py-1 text-slate-500">Dim</th>
+                            <th className="px-2 py-1 text-slate-500">Final</th>
+                            <th className="px-2 py-1 text-slate-500">Reason</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {RUBRIC_KEYS.map((k) => (
+                            <tr key={k} className="border-t border-cyan-500/10">
+                              <td className="px-2 py-1 font-mono text-cyan-100/80">{k}</td>
+                              <td className="px-2 py-1">{persistedEval.final_scores[k]}</td>
+                              <td className="max-w-[200px] px-2 py-1 text-slate-400">
+                                {persistedEval.score_reasons?.[k] ?? "—"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="rounded border border-amber-500/25 bg-amber-500/5 p-3">
+                <div className="text-xs font-medium uppercase tracking-wider text-amber-200/90">
+                  Manual rubric sandbox (Option B preview only)
+                </div>
+                <p className="mt-1 text-xs text-slate-500">
+                  Try different 0–5 integers; preview uses the locked formula only. Does not write registry or sidecar files.
+                </p>
+                <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {RUBRIC_KEYS.map((key) => (
+                    <label key={key} className="flex items-center justify-between gap-2 text-xs text-slate-300">
+                      <span className="font-mono text-slate-400">{key}</span>
+                      <select
+                        value={sandboxRubric[key] ?? 2}
+                        onChange={(e) =>
+                          setSandboxRubric((prev) => ({ ...prev, [key]: Number.parseInt(e.target.value, 10) }))
+                        }
+                        className="rounded border border-cyan-500/20 bg-slate-950 px-2 py-1 text-slate-200"
+                      >
+                        {[0, 1, 2, 3, 4, 5].map((n) => (
+                          <option key={n} value={n}>
+                            {n}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => void runSandboxPreview()}
+                  disabled={sandboxBusy}
+                  className="mt-3 rounded bg-amber-700/90 px-3 py-1.5 text-xs font-medium text-white disabled:opacity-50"
+                >
+                  {sandboxBusy ? "Computing…" : "Preview weighted score"}
+                </button>
+                {sandboxErr && <p className="mt-2 text-xs text-amber-300">{sandboxErr}</p>}
+                {sandboxPreview && (
+                  <p className="mt-2 text-sm text-cyan-200">
+                    Preview weighted_score: {sandboxPreview.weighted_score.toFixed(2)} · band:{" "}
+                    {rubricBand(sandboxPreview.weighted_score)}
+                    {sandboxPreview.note ? <span className="block text-xs text-slate-500">{sandboxPreview.note}</span> : null}
+                  </p>
+                )}
+              </div>
+              <div>
+                <div className="text-xs uppercase tracking-wider text-slate-500">Eight dimensions (registry record)</div>
+                <div className="mt-1 grid grid-cols-2 gap-1 text-xs sm:grid-cols-4">
+                  <span className="text-slate-500">evidence_strength</span>
+                  <span>{selected.evidence_strength}</span>
+                  <span className="text-slate-500">transferability</span>
+                  <span>{selected.transferability}</span>
+                  <span className="text-slate-500">expected_upside</span>
+                  <span>{selected.expected_upside}</span>
+                  <span className="text-slate-500">risk_reduction_value</span>
+                  <span>{selected.risk_reduction_value}</span>
+                  <span className="text-slate-500">implementation_cost</span>
+                  <span>{selected.implementation_cost}</span>
+                  <span className="text-slate-500">novelty</span>
+                  <span>{selected.novelty}</span>
+                  <span className="text-slate-500">dependency_burden</span>
+                  <span>{selected.dependency_burden}</span>
+                  <span className="text-slate-500">confidence</span>
+                  <span>{selected.confidence}</span>
+                </div>
+                <div className="mt-1 text-xs text-slate-500">
+                  weighted_score: <span className="text-cyan-200">{selected.weighted_score.toFixed(2)}</span> · band:{" "}
+                  {rubricBand(selected.weighted_score)}
+                </div>
               </div>
               <div>
                 <div className="text-xs uppercase tracking-wider text-slate-500">Score breakdown</div>

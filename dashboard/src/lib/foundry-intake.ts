@@ -1,12 +1,35 @@
-import { readFile, readdir, writeFile, mkdir } from "fs/promises";
+import { readFile, writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { execFile } from "child_process";
 import { promisify } from "util";
-import type { FoundryRegistryIdea } from "@/lib/types";
+import {
+  createFoundryStorage,
+  foundryBlobPrefixes,
+  foundryStateRoot,
+  foundryUsesNodeEngine,
+  workspaceRoot,
+} from "@/lib/foundry-storage";
+import { runFoundryRegistryEngineNode } from "@/lib/foundry-registry-engine-node";
+import { loadMergedRegistryIdeas, loadMergedSourceLaneBySourceId } from "@/lib/foundry-read-merge";
+import {
+  buildManualAudit,
+  computeIntakeWeightedScorePreview,
+  deriveBoundedRubricProposal,
+  deriveHeuristicPrefillAudit,
+  type FoundryScoringMode,
+  type IntakeHeuristicDimensions,
+  validateManualRubricScores,
+  type FoundryScoringEvaluation,
+} from "@/lib/foundry-scoring";
+import { RUBRIC_KEYS, type FoundryLane } from "@/lib/foundry-rubric-anchors";
+import { writeScoringEvaluationSidecar } from "@/lib/foundry-scoring-persistence";
 
 const execFileAsync = promisify(execFile);
 
-export type FoundryLane = "article" | "github" | "x_post";
+export type { FoundryLane };
+
+export type { FoundryScoringMode, IntakeHeuristicDimensions };
+export { deriveIntakeHeuristicScores, computeIntakeWeightedScorePreview } from "@/lib/foundry-scoring";
 
 export interface FoundryTopIdea {
   idea_id: string;
@@ -22,6 +45,21 @@ export interface FoundryTopIdea {
   last_updated: string;
 }
 
+export interface FoundryIntakeScoringEvaluationPayload {
+  evaluation_id: string;
+  scoring_mode_selected: FoundryScoringMode;
+  evaluation_method: string;
+  final_scores: IntakeHeuristicDimensions;
+  heuristic_prefill_scores: IntakeHeuristicDimensions | null;
+  proposed_scores: IntakeHeuristicDimensions | null;
+  score_reasons: Record<string, string> | null;
+  evidence_support: Record<string, string> | null;
+  weighted_score: number;
+  sidecar_path: string;
+  /** Explicit rubric matrix version for Option A proposals. */
+  rubric_anchor_version?: string;
+}
+
 export interface FoundryIntakeResult {
   status: "success";
   lane: FoundryLane;
@@ -31,14 +69,7 @@ export interface FoundryIntakeResult {
   candidate_ideas: Array<Record<string, unknown>>;
   output_paths: Record<string, string>;
   top_10_lane_ideas: FoundryTopIdea[];
-}
-
-function workspaceRoot(): string {
-  return join(process.cwd(), "..");
-}
-
-function foundryStateRoot(): string {
-  return join(workspaceRoot(), "future_modules", "the_foundry", "state");
+  scoring_evaluation: FoundryIntakeScoringEvaluationPayload;
 }
 
 function normalize(value: string): string {
@@ -59,7 +90,7 @@ function laneMeta(lane: FoundryLane): { source_type: "article_text" | "github_re
   return { source_type: "x_post_brief", label: "X Post Intake" };
 }
 
-function validateInput(lane: FoundryLane, input: string): string | null {
+export function validateFoundryIntakeInput(lane: FoundryLane, input: string): string | null {
   const trimmed = input.trim();
   if (!trimmed) return "Input is required.";
   if (lane === "github") {
@@ -72,177 +103,39 @@ function validateInput(lane: FoundryLane, input: string): string | null {
   return null;
 }
 
+/** Pure preview for Option A: heuristic prefill + explicit-anchor proposal (no engine I/O). */
+export function buildFoundryOptionAPreview(lane: FoundryLane, input: string): {
+  status: "success";
+  lane: FoundryLane;
+  rubric_anchor_version: string;
+  proposal_evaluation_method: string;
+  heuristic_prefill_scores: IntakeHeuristicDimensions;
+  proposed_scores: IntakeHeuristicDimensions;
+  score_reasons: Record<string, string>;
+  evidence_support: Record<string, string>;
+} {
+  const err = validateFoundryIntakeInput(lane, input);
+  if (err) {
+    throw new Error(err);
+  }
+  const prefill = deriveHeuristicPrefillAudit(lane, input);
+  const proposal = deriveBoundedRubricProposal(lane, input);
+  return {
+    status: "success",
+    lane,
+    rubric_anchor_version: proposal.anchor_version,
+    proposal_evaluation_method: proposal.evaluation_method,
+    heuristic_prefill_scores: prefill.final_scores,
+    proposed_scores: proposal.proposed_scores,
+    score_reasons: proposal.score_reasons,
+    evidence_support: proposal.evidence_support,
+  };
+}
+
 function makeCandidateTitle(lane: FoundryLane, input: string): string {
   const trimmed = input.trim();
   if (lane === "github") return `GitHub pattern from ${trimmed.replace(/^https?:\/\//i, "")}`;
   return trimmed.split(/\s+/).slice(0, 8).join(" ");
-}
-
-/** 0–5 inclusive; deterministic rounding. */
-function clampInt0to5(n: number): number {
-  const r = Math.round(n);
-  if (r < 0) return 0;
-  if (r > 5) return 5;
-  return r;
-}
-
-/** Count how many distinct keywords appear at least once (substring match). */
-function keywordHitCount(lc: string, keywords: readonly string[]): number {
-  let hits = 0;
-  for (const kw of keywords) {
-    if (lc.includes(kw)) hits += 1;
-  }
-  return hits;
-}
-
-/**
- * Coarse 0–5 integers from cheap local signals only (length, lane, bullets, keyword families).
- * Not semantic evaluation — same input always yields same scores.
- */
-export type IntakeHeuristicDimensions = {
-  confidence: number;
-  evidence_strength: number;
-  transferability: number;
-  expected_upside: number;
-  risk_reduction_value: number;
-  implementation_cost: number;
-  novelty: number;
-  dependency_burden: number;
-};
-
-export function deriveIntakeHeuristicScores(lane: FoundryLane, rawInput: string): IntakeHeuristicDimensions {
-  const text = rawInput.trim();
-  const lc = text.toLowerCase();
-  const len = text.length;
-
-  const paragraphBreaks = (text.match(/\n\s*\n/g) ?? []).length;
-  const bulletLines = (text.match(/^\s*[-*•]\s+/gm) ?? []).length;
-  const numberedLines = (text.match(/^\s*\d+[.)]\s+/gm) ?? []).length;
-  const sentenceEnds = (text.match(/[.!?](?:\s|$)/g) ?? []).length;
-  const structuredUnits = bulletLines + numberedLines;
-
-  // evidence_strength: material + light structure (not “truth of claims”)
-  let evidence_strength = 1;
-  if (lane === "github") {
-    const pathPart = lc.replace(/^https?:\/\/(www\.)?github\.com\//i, "");
-    const segments = pathPart.split("/").filter(Boolean).length;
-    evidence_strength = clampInt0to5(2 + Math.min(3, Math.floor(segments / 2)));
-  } else {
-    if (len >= 3500) evidence_strength = 5;
-    else if (len >= 1800) evidence_strength = 4;
-    else if (len >= 900) evidence_strength = 3;
-    else if (len >= 300) evidence_strength = 2;
-    else evidence_strength = 1;
-    let bump = 0;
-    if (paragraphBreaks >= 2) bump += 1;
-    if (structuredUnits >= 2) bump += 1;
-    if (sentenceEnds >= 4) bump += 1;
-    evidence_strength = clampInt0to5(evidence_strength + bump);
-  }
-
-  // transferability: lane prior + “portable pattern” language
-  let transferability = lane === "github" ? 4 : lane === "article" ? 3 : 2;
-  transferability += Math.min(
-    2,
-    keywordHitCount(lc, ["pattern", "workflow", "framework", "reusable", "general-purpose", "portable", "library"])
-  );
-  if (len > 600) transferability += 1;
-  transferability = clampInt0to5(transferability);
-
-  // expected_upside
-  const upsideHits = keywordHitCount(lc, [
-    "improve",
-    "faster",
-    "speedup",
-    "reduce cost",
-    "scale",
-    "optimize",
-    "efficiency",
-    "gain",
-    "roi",
-    "latency",
-    "throughput",
-  ]);
-  let expected_upside = Math.min(3, upsideHits);
-  expected_upside += len > 1200 ? 2 : len > 400 ? 1 : 0;
-  expected_upside = clampInt0to5(expected_upside);
-
-  // risk_reduction_value
-  const riskHits = keywordHitCount(lc, [
-    "risk",
-    "mitigate",
-    "hedge",
-    "safety",
-    "control",
-    "audit",
-    "compliance",
-    "incident",
-    "loss",
-    "drawdown",
-    "failure mode",
-  ]);
-  let risk_reduction_value = Math.min(4, riskHits);
-  if (sentenceEnds >= 3) risk_reduction_value += 1;
-  risk_reduction_value = clampInt0to5(risk_reduction_value);
-
-  // implementation_cost: higher = more expensive (engine inverts in formula)
-  let implementation_cost = lane === "x_post" ? 3 : 2;
-  implementation_cost += Math.min(
-    3,
-    keywordHitCount(lc, ["kubernetes", "microservice", "rewrite", "legacy", "migration", "multi-team", "enterprise"])
-  );
-  if (structuredUnits >= 4) implementation_cost += 1;
-  implementation_cost = clampInt0to5(implementation_cost);
-
-  // novelty
-  let novelty = lane === "x_post" ? 1 : 2;
-  novelty += Math.min(
-    3,
-    keywordHitCount(lc, ["novel", "new approach", "first ", "state of the art", "sota", "unpublished", "breakthrough"])
-  );
-  if (len < 120 && lane !== "github") novelty -= 1;
-  novelty = clampInt0to5(novelty);
-
-  // dependency_burden: higher = heavier deps (engine inverts)
-  let dependency_burden = lane === "github" ? 2 : 1;
-  dependency_burden += Math.min(
-    3,
-    keywordHitCount(lc, ["dependency", "dependencies", "npm", "pip", "docker", "terraform", "cloud", "aws", "grpc"])
-  );
-  if (lane === "github" && (text.match(/\//g) ?? []).length >= 5) dependency_burden += 1;
-  dependency_burden = clampInt0to5(dependency_burden);
-
-  // confidence: faith in adapter/heuristic coverage given volume + structure (not model certainty)
-  let confidence = 1;
-  confidence += len > 2000 ? 2 : len > 800 ? 1 : 0;
-  if (paragraphBreaks >= 1) confidence += 1;
-  if (lane === "github") confidence += 1;
-  confidence = clampInt0to5(confidence);
-
-  return {
-    confidence,
-    evidence_strength,
-    transferability,
-    expected_upside,
-    risk_reduction_value,
-    implementation_cost,
-    novelty,
-    dependency_burden,
-  };
-}
-
-/** Mirrors `compute_weighted_score` in `foundry_registry_engine.py` (unchanged formula). */
-export function computeIntakeWeightedScorePreview(dims: IntakeHeuristicDimensions): number {
-  const rawSum =
-    dims.evidence_strength * 0.22 +
-    dims.transferability * 0.18 +
-    dims.expected_upside * 0.16 +
-    dims.risk_reduction_value * 0.14 +
-    (5 - dims.implementation_cost) * 0.1 +
-    dims.novelty * 0.08 +
-    (5 - dims.dependency_burden) * 0.07 +
-    dims.confidence * 0.05;
-  return Math.round((rawSum / 5) * 100 * 10000) / 10000;
 }
 
 function weightedScoreFromCandidateRecord(candidate: Record<string, unknown>): number | undefined {
@@ -265,7 +158,12 @@ function weightedScoreFromCandidateRecord(candidate: Record<string, unknown>): n
   return computeIntakeWeightedScorePreview(dims as IntakeHeuristicDimensions);
 }
 
-function buildInputPacket(lane: FoundryLane, rawInput: string): {
+function buildInputPacket(
+  lane: FoundryLane,
+  rawInput: string,
+  finalScores: IntakeHeuristicDimensions,
+  mode: FoundryScoringMode
+): {
   source_record: Record<string, unknown>;
   candidate_ideas: Array<Record<string, unknown>>;
   sourceId: string;
@@ -278,7 +176,21 @@ function buildInputPacket(lane: FoundryLane, rawInput: string): {
   const title = makeCandidateTitle(lane, rawInput);
   const { source_type } = laneMeta(lane);
   const rawSummary = rawInput.trim().slice(0, 280);
-  const scores = deriveIntakeHeuristicScores(lane, rawInput);
+
+  const quality_flags =
+    mode === "option_b_manual_matrix"
+      ? ["bounded_local_extraction_v1", "operator_manual_rubric_matrix_v1", "needs_validation"]
+      : [
+          "bounded_local_extraction_v1",
+          "deterministic_rubric_assisted_v1",
+          "deterministic_keyword_heuristic_scores_v1",
+          "needs_validation",
+        ];
+
+  const processing_notes =
+    mode === "option_b_manual_matrix"
+      ? "Operator supplied eight rubric integers (Option B); engine applies locked weighted formula only."
+      : "Option A: deterministic rubric-assisted scoring (length/lane/structure/keyword families) with per-dimension audit strings; not semantic truth.";
 
   const source_record = {
     source_id: sourceId,
@@ -293,20 +205,15 @@ function buildInputPacket(lane: FoundryLane, rawInput: string): {
     ingestion_method: "dashboard_form_submit",
     source_timestamp: createdAt,
     created_at: createdAt,
-    reviewer_model: "bounded_local_adapter_v1",
+    reviewer_model: mode === "option_b_manual_matrix" ? "operator_manual_rubric_v1" : "bounded_rubric_assisted_adapter_v1",
     review_version: "v1",
     extraction_version: "v1",
     review_status: "complete",
     extraction_status: "complete",
     review_summary: rawSummary || "No summary extracted.",
     key_claims: [rawSummary || "No claim extracted."],
-    quality_flags: [
-      "bounded_local_extraction_v1",
-      "deterministic_keyword_heuristic_scores_v1",
-      "needs_validation",
-    ],
-    processing_notes:
-      "Deterministic local intake: candidate text fields from raw input; eight scoring dimensions from bounded keyword/length/structure heuristic (not LLM, not semantic truth).",
+    quality_flags,
+    processing_notes,
     candidate_ids: [candidateId],
   };
 
@@ -324,14 +231,14 @@ function buildInputPacket(lane: FoundryLane, rawInput: string): {
       problem_solved: "Transforms raw intake into structured candidate for registry review.",
       proposed_pattern: "Intake -> deterministic adapter -> local registry engine -> review page.",
       idea_kind: lane === "github" ? "tooling" : "workflow",
-      confidence: scores.confidence,
-      evidence_strength: scores.evidence_strength,
-      transferability: scores.transferability,
-      expected_upside: scores.expected_upside,
-      risk_reduction_value: scores.risk_reduction_value,
-      implementation_cost: scores.implementation_cost,
-      novelty: scores.novelty,
-      dependency_burden: scores.dependency_burden,
+      confidence: finalScores.confidence,
+      evidence_strength: finalScores.evidence_strength,
+      transferability: finalScores.transferability,
+      expected_upside: finalScores.expected_upside,
+      risk_reduction_value: finalScores.risk_reduction_value,
+      implementation_cost: finalScores.implementation_cost,
+      novelty: finalScores.novelty,
+      dependency_burden: finalScores.dependency_burden,
       needs_validation: true,
       verification_gaps: ["bounded_local_extraction", "source_needs_manual_review"],
       duplicate_group_key: normalize(`${lane}_${title}`) || `${lane}_candidate`,
@@ -339,7 +246,8 @@ function buildInputPacket(lane: FoundryLane, rawInput: string): {
       registry_match_id: "",
       recommendation_state: "watchlist",
       recommendation_reason: "seed_value_will_be_overwritten_by_engine",
-      extraction_method: "bounded_local_adapter_v1",
+      extraction_method:
+        mode === "option_b_manual_matrix" ? "operator_manual_matrix_v1" : "deterministic_rubric_assisted_v1",
       created_at: createdAt,
     },
   ];
@@ -347,122 +255,220 @@ function buildInputPacket(lane: FoundryLane, rawInput: string): {
   return { source_record, candidate_ideas, sourceId, candidateId };
 }
 
-async function readJson<T>(path: string): Promise<T> {
-  return JSON.parse(await readFile(path, "utf-8")) as T;
+async function readJsonFile<T>(path: string): Promise<T | null> {
+  try {
+    return JSON.parse(await readFile(path, "utf-8")) as T;
+  } catch {
+    return null;
+  }
 }
 
 export async function getTopIdeasForLane(lane: FoundryLane): Promise<FoundryTopIdea[]> {
-  const stateRoot = foundryStateRoot();
-  const registryDir = join(stateRoot, "registry_ideas");
-  const sourceDir = join(stateRoot, "source_records");
-  const sourceLaneById = new Map<string, FoundryLane>();
-
-  try {
-    const sourceFiles = await readdir(sourceDir);
-    for (const file of sourceFiles.filter((f) => f.endsWith(".json"))) {
-      try {
-        const item = await readJson<Record<string, unknown>>(join(sourceDir, file));
-        if (typeof item.source_id === "string" && (item.source_lane === "article" || item.source_lane === "github" || item.source_lane === "x_post")) {
-          sourceLaneById.set(item.source_id, item.source_lane);
-        }
-      } catch {
-        // Ignore malformed source files for top-10 view.
-      }
-    }
-  } catch {
-    return [];
-  }
+  const store = await createFoundryStorage();
+  const mergeErrors: string[] = [];
+  const ideas = await loadMergedRegistryIdeas(store, mergeErrors);
+  const sourceLaneBySourceId = await loadMergedSourceLaneBySourceId(store, mergeErrors);
+  void mergeErrors;
 
   const rows: FoundryTopIdea[] = [];
-  try {
-    const registryFiles = await readdir(registryDir);
-    for (const file of registryFiles.filter((f) => f.endsWith(".json"))) {
-      try {
-        const idea = await readJson<FoundryRegistryIdea>(join(registryDir, file));
-        const ideaLanes = new Set(
-          (idea.source_refs ?? [])
-            .map((sourceId) => sourceLaneById.get(sourceId))
-            .filter((v): v is FoundryLane => Boolean(v))
-        );
-        if (!ideaLanes.has(lane)) continue;
-        rows.push({
-          idea_id: idea.idea_id,
-          title: idea.title,
-          category: idea.category,
-          status: idea.status,
-          weighted_score: idea.weighted_score,
-          supporting_source_count: idea.supporting_source_count,
-          confidence: idea.confidence,
-          expected_upside: idea.expected_upside,
-          implementation_cost: idea.implementation_cost,
-          risk_reduction_value: idea.risk_reduction_value,
-          last_updated: idea.last_updated,
-        });
-      } catch {
-        // Ignore malformed registry files for top-10 view.
-      }
-    }
-  } catch {
-    return [];
+  for (const idea of ideas) {
+    const ideaLanes = new Set(
+      (idea.source_refs ?? [])
+        .map((sourceId) => sourceLaneBySourceId[sourceId])
+        .filter((v): v is FoundryLane => Boolean(v))
+    );
+    if (!ideaLanes.has(lane)) continue;
+    rows.push({
+      idea_id: idea.idea_id,
+      title: idea.title,
+      category: idea.category,
+      status: idea.status,
+      weighted_score: idea.weighted_score,
+      supporting_source_count: idea.supporting_source_count,
+      confidence: idea.confidence,
+      expected_upside: idea.expected_upside,
+      implementation_cost: idea.implementation_cost,
+      risk_reduction_value: idea.risk_reduction_value,
+      last_updated: idea.last_updated,
+    });
   }
 
   return rows.sort((a, b) => b.weighted_score - a.weighted_score).slice(0, 10);
 }
 
-export async function runFoundryLaneIntake(lane: FoundryLane, input: string): Promise<FoundryIntakeResult> {
-  const validationError = validateInput(lane, input);
+export interface RunFoundryLaneIntakeOptions {
+  scoring_mode: FoundryScoringMode;
+  manual_rubric_scores?: unknown;
+  /** Option A: operator-locked 0..5 integers; omit to accept proposal exactly (smoke/tests only). */
+  option_a_locked_rubric_scores?: unknown;
+}
+
+function toPayload(doc: FoundryScoringEvaluation, sidecarPath: string): FoundryIntakeScoringEvaluationPayload {
+  return {
+    evaluation_id: doc.evaluation_id,
+    scoring_mode_selected: doc.scoring_mode_selected,
+    evaluation_method: doc.evaluation_method,
+    final_scores: doc.final_scores,
+    heuristic_prefill_scores: doc.heuristic_prefill_scores,
+    proposed_scores: doc.proposed_scores,
+    score_reasons: doc.score_reasons,
+    evidence_support: doc.evidence_support,
+    weighted_score: doc.weighted_score,
+    sidecar_path: sidecarPath,
+    rubric_anchor_version: doc.rubric_anchor_version,
+  };
+}
+
+export async function runFoundryLaneIntake(
+  lane: FoundryLane,
+  input: string,
+  options: RunFoundryLaneIntakeOptions
+): Promise<FoundryIntakeResult> {
+  const validationError = validateFoundryIntakeInput(lane, input);
   if (validationError) {
     throw new Error(validationError);
   }
 
-  const stateRoot = foundryStateRoot();
-  const packetDir = join(stateRoot, "indexes", "intake_packets");
-  await mkdir(packetDir, { recursive: true });
+  const mode = options.scoring_mode;
+  let finalScores: IntakeHeuristicDimensions;
+  let heuristicPrefill: IntakeHeuristicDimensions | null = null;
+  let proposed: IntakeHeuristicDimensions | null = null;
+  let scoreReasons: FoundryScoringEvaluation["score_reasons"] = null;
+  let evidenceSupport: FoundryScoringEvaluation["evidence_support"] = null;
+  let evaluationMethod: string;
+  let rubricAnchorVersion: string | undefined;
 
-  const { source_record, candidate_ideas, sourceId, candidateId } = buildInputPacket(lane, input);
-  const packet = { source_record, candidate_ideas };
-  const runId = runIdToken();
-  const packetPath = join(packetDir, `intake_${lane}_${runId}.json`);
-  await writeFile(packetPath, JSON.stringify(packet, null, 2) + "\n", "utf-8");
+  if (mode === "option_a_rubric_assisted") {
+    const prefillAudit = deriveHeuristicPrefillAudit(lane, input);
+    heuristicPrefill = { ...prefillAudit.final_scores };
 
-  const scriptPath = join(workspaceRoot(), "future_modules", "the_foundry", "scripts", "run_foundry_registry_engine.py");
-  try {
-    await execFileAsync(
-      "py",
-      ["-3", scriptPath, "--input", packetPath, "--workspace-root", workspaceRoot()],
-      { cwd: workspaceRoot() }
-    );
-  } catch (error) {
-    const reason = error instanceof Error ? error.message : "Unknown engine invocation failure.";
-    throw new Error(`Foundry engine run failed: ${reason}`);
+    const rubricProposal = deriveBoundedRubricProposal(lane, input);
+    proposed = { ...rubricProposal.proposed_scores };
+    rubricAnchorVersion = rubricProposal.anchor_version;
+
+    const locked =
+      options.option_a_locked_rubric_scores !== undefined
+        ? validateManualRubricScores(options.option_a_locked_rubric_scores)
+        : { ...rubricProposal.proposed_scores };
+
+    finalScores = locked;
+    scoreReasons = { ...rubricProposal.score_reasons };
+    evidenceSupport = { ...rubricProposal.evidence_support };
+    for (const k of RUBRIC_KEYS) {
+      if (finalScores[k] !== rubricProposal.proposed_scores[k]) {
+        scoreReasons[k] = `${rubricProposal.score_reasons[k]} | Operator locked at ${finalScores[k]} (proposed ${rubricProposal.proposed_scores[k]}).`;
+      }
+    }
+    evaluationMethod = "bounded_explicit_rubric_anchor_operator_locked_v1";
+  } else {
+    if (options.manual_rubric_scores === undefined) {
+      throw new Error("option_b_manual_matrix requires manual_rubric_scores (all eight integers 0..5).");
+    }
+    finalScores = validateManualRubricScores(options.manual_rubric_scores);
+    heuristicPrefill = null;
+    proposed = { ...finalScores };
+    const manual = buildManualAudit();
+    scoreReasons = manual.score_reasons;
+    evidenceSupport = manual.evidence_support;
+    evaluationMethod = "operator_manual_matrix_v1";
   }
 
+  const store = await createFoundryStorage();
+  const usedNode = foundryUsesNodeEngine();
+  const stateRoot = foundryStateRoot();
+  const wsRoot = workspaceRoot();
+
+  const { source_record, candidate_ideas, sourceId, candidateId } = buildInputPacket(lane, input, finalScores, mode);
+  const packet = { source_record, candidate_ideas };
+
+  let manifest: { run_id: string; output_paths: Record<string, string> };
+  let packetPathRel = "";
   const manifestPath = join(stateRoot, "indexes", "foundry_registry_manifest.json");
-  const manifest = await readJson<{ run_id: string; output_paths: Record<string, string> }>(manifestPath);
-  const sourceRecordPath = join(workspaceRoot(), manifest.output_paths.source_record);
+
+  if (usedNode) {
+    manifest = await runFoundryRegistryEngineNode(wsRoot, packet, store);
+  } else {
+    const packetDir = join(stateRoot, "indexes", "intake_packets");
+    await mkdir(packetDir, { recursive: true });
+    const packetRunId = runIdToken();
+    const packetPath = join(packetDir, `intake_${lane}_${packetRunId}.json`);
+    packetPathRel = packetPath;
+    await writeFile(packetPath, JSON.stringify(packet, null, 2) + "\n", "utf-8");
+
+    const scriptPath = join(wsRoot, "future_modules", "the_foundry", "scripts", "run_foundry_registry_engine.py");
+    try {
+      await execFileAsync("py", ["-3", scriptPath, "--input", packetPath, "--workspace-root", wsRoot], {
+        cwd: wsRoot,
+      });
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : "Unknown engine invocation failure.";
+      throw new Error(`Foundry engine run failed: ${reason}`);
+    }
+
+    const fromDisk = await readJsonFile<{ run_id: string; output_paths: Record<string, string> }>(manifestPath);
+    if (!fromDisk) {
+      throw new Error("Foundry engine did not write manifest (foundry_registry_manifest.json).");
+    }
+    manifest = fromDisk;
+  }
+
+  const sourceRecordPath = join(wsRoot, manifest.output_paths.source_record);
   const candidatePath = join(stateRoot, "candidate_ideas", `${candidateId}.json`);
 
-  const writtenSourceRecord = await readJson<Record<string, unknown>>(sourceRecordPath);
-  const writtenCandidate = await readJson<Record<string, unknown>>(candidatePath);
+  const writtenSourceRecord =
+    (await store.getJson<Record<string, unknown>>(`${foundryBlobPrefixes.sourceRecords}${sourceId}.json`)) ??
+    (await readJsonFile<Record<string, unknown>>(sourceRecordPath));
+  const writtenCandidate =
+    (await store.getJson<Record<string, unknown>>(`${foundryBlobPrefixes.candidateIdeas}${candidateId}.json`)) ??
+    (await readJsonFile<Record<string, unknown>>(candidatePath));
+
+  if (!writtenSourceRecord || !writtenCandidate) {
+    throw new Error("Foundry engine did not produce expected source/candidate records.");
+  }
+
   const previewScore = weightedScoreFromCandidateRecord(writtenCandidate);
   const candidateForResponse =
     previewScore !== undefined ? { ...writtenCandidate, weighted_score: previewScore } : writtenCandidate;
+
+  const { relativePath, evaluation } = await writeScoringEvaluationSidecar(
+    {
+      candidateId,
+      sourceId,
+      engineRunId: manifest.run_id,
+      mode,
+      heuristicPrefill,
+      proposed,
+      finalScores,
+      scoreReasons,
+      evidenceSupport,
+      evaluationMethod,
+      rubricAnchorVersion: mode === "option_a_rubric_assisted" ? rubricAnchorVersion : undefined,
+    },
+    store
+  );
+
   const top10 = await getTopIdeasForLane(lane);
+
+  const limitation_note =
+    mode === "option_a_rubric_assisted"
+      ? "Option A: explicit 0–5 rubric anchors → proposed scores + source-tied reasons/snippets; operator locks final integers before engine run. Heuristic prefill is separate (legacy buckets). Not semantic AI truth. Saved under scoring_evaluations/."
+      : "Option B: operator manual rubric matrix (0–5 integers). Engine applies the locked weighted formula only. Mode and values saved under scoring_evaluations/. Human review still required.";
 
   return {
     status: "success",
     lane,
     run_id: manifest.run_id,
-    limitation_note:
-      "Scores use a bounded deterministic heuristic (length, lane, bullets, simple keyword families). Same input → same numbers. Not semantic ranking; operator review still required.",
+    limitation_note,
     source_record: writtenSourceRecord,
     candidate_ideas: [candidateForResponse],
     output_paths: {
-      intake_packet: packetPath.replace(/\\/g, "/"),
+      intake_packet: usedNode ? "(node-engine; no local packet file)" : packetPathRel.replace(/\\/g, "/"),
       source_record: sourceRecordPath.replace(/\\/g, "/"),
       candidate_idea: candidatePath.replace(/\\/g, "/"),
       manifest: manifestPath.replace(/\\/g, "/"),
+      scoring_evaluation: relativePath.replace(/\\/g, "/"),
     },
     top_10_lane_ideas: top10,
+    scoring_evaluation: toPayload(evaluation, relativePath),
   };
 }

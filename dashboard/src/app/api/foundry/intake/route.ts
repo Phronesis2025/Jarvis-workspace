@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
-import { runFoundryLaneIntake, type FoundryLane } from "@/lib/foundry-intake";
+import { runFoundryLaneIntake, type FoundryLane, type FoundryScoringMode } from "@/lib/foundry-intake";
 
 interface IntakeBody {
   lane?: FoundryLane;
   input?: string;
+  scoring_mode?: FoundryScoringMode;
+  manual_rubric_scores?: unknown;
+  option_a_locked_rubric_scores?: unknown;
 }
 
 export async function POST(request: Request) {
@@ -23,8 +26,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ status: "error", message: "Input must be a string." }, { status: 400 });
   }
 
+  const scoring_mode: FoundryScoringMode =
+    body.scoring_mode === "option_b_manual_matrix" ? "option_b_manual_matrix" : "option_a_rubric_assisted";
+
   try {
-    const result = await runFoundryLaneIntake(lane, input);
+    const result = await runFoundryLaneIntake(lane, input, {
+      scoring_mode,
+      manual_rubric_scores: body.manual_rubric_scores,
+      option_a_locked_rubric_scores: body.option_a_locked_rubric_scores,
+    });
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unexpected intake failure.";

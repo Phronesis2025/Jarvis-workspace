@@ -1,6 +1,6 @@
 # JARVIS THE FOUNDRY — Handoff Bundle
-**Last Updated:** 2026-04-11  
-**Status:** Tranches 1–5 built; documentation aligned. Next step: commit/push (not new scope). Phase 6 optional — not started.
+**Last Updated:** 2026-04-13  
+**Status:** Tranches 1–5 built; **minimal Vercel persistence** documented (fs/Blob adapter + Node registry engine on hosted). Next step: stage/commit/push + hosted env + Vercel preview smoke. Phase 6 optional — not started.
 
 ---
 
@@ -22,7 +22,7 @@ The module will:
 - surface the best ideas in the dashboard
 - maintain an implementation queue (engine batch output + operator overlay persistence)
 
-**As built (Phases 1–5):** all five dashboard pages exist; local JSON under `future_modules/the_foundry/state/` remains canonical structured truth. There is **no** Phase 6 Supabase/automation expansion in progress.
+**As built (Phases 1–5):** all five dashboard pages exist; structured JSON remains canonical (same schemas **locally** under `future_modules/the_foundry/state/` and **hosted** under Vercel Blob keys `foundry/…` when configured). **Local `fs`:** valid dev; **not** durable on Vercel without Blob env. There is **no** Phase 6 Supabase/automation expansion in progress.
 
 ---
 
@@ -128,7 +128,9 @@ Locked build order:
 4. **X Post Intake**
 5. **Implementation Queue**
 
-**Supporting APIs (bounded, local-first):** `POST /api/foundry/intake`, `PATCH /api/foundry/queue-item` — not a workflow engine; validate and write exportable JSON only.
+**Supporting APIs (bounded):** `POST /api/foundry/intake`, `POST /api/foundry/option-a-preview` (Option A proposal only; no engine run), `PATCH /api/foundry/queue-item` — validate and persist via the **storage adapter** (local fs or Blob). Not a workflow engine.
+
+**Hosted persistence (honest):** set `FOUNDRY_STORAGE_DRIVER=blob` and `BLOB_READ_WRITE_TOKEN` on the Vercel project; Root Directory **`dashboard/`**; ensure the build sees `../future_modules/the_foundry/` (include source outside root if needed). Intake on Vercel uses the **Node** registry engine (no `py -3`).
 
 ---
 
@@ -193,9 +195,10 @@ Anti-hype rule:
 - cap at `watchlist` for hype-heavy items, bare tool mentions, unclear method, unresolved duplicates, or weak source-quality noise
 
 ### Intake scoring (dashboard) — current truth
-- **Deterministic heuristics** on **observable** pasted text / URL characteristics populate the eight rubric fields—**input-varying**, **bounded**, **not** LLM semantic ranking.
-- The **Python engine** still owns the **locked weighted formula** and gate/band logic when that code path runs.
-- Treat “ranked” in UI copy as **mechanical score order** from that pipeline, not deep semantic ordering of ideas.
+- **Option A:** **Explicit 0–5 rubric anchors** → bounded **proposal** (reasons + evidence); **heuristic prefill** is separate and **not** final truth; operator **locks** finals before submit. Canonical description: `docs/OPTION_A_RUBRIC_ANCHOR_MATRIX.md`.
+- **Option B:** operator-entered eight integers 0–5; **locked formula** only.
+- **Engine:** **Python** (`foundry_registry_engine.py`) for local runs when selected; **Node** (`dashboard/src/lib/foundry-registry-engine-node.ts`) on Vercel / Blob — **same** locked weighted formula and gate/band logic on the eight **final** integers.
+- Treat “ranked” in UI as **mechanical score order** from that pipeline, not deep semantic ordering of ideas.
 
 ---
 
@@ -216,25 +219,34 @@ For a post–Phase 5 chat, treat these as **largely settled** in `contracts/`, `
 
 ## 11. Recommended Storage Stance (Locked)
 
-Use structured **local exportable JSON** as **canonical machine truth** for Foundry structured state.
+Use structured **JSON** as **canonical machine truth** for Foundry structured state (exportable locally; durable on Vercel only when **Blob** + env are set).
 
 Markdown may exist as human-readable companion state/summaries.
 Dashboard is the operator UI surface.
 Supabase is **Phase 6 optional** as an operational read/write/read-model layer only — **not in use for Phases 1–5**.
 
-### Local state layout (`future_modules/the_foundry/state/`)
+### Runtime mapping (dashboard)
+
+| Mode | Driver / env | Persistence |
+|------|----------------|------------|
+| Local dev | `fs` (default) | Files under `future_modules/the_foundry/state/` |
+| Hosted (Vercel) | `FOUNDRY_STORAGE_DRIVER=blob` + `BLOB_READ_WRITE_TOKEN` | Vercel Blob, keys prefixed `foundry/` (mirror of `state/` layout) |
+
+### Local state layout (`future_modules/the_foundry/state/` — same as logical `foundry/` paths)
 
 - `source_records/` — source records
 - `candidate_ideas/` — candidates
 - `registry_ideas/` — registry ideas
 - `queue_recommendations/` — **engine batch output** (history; `run_id` + `items`)
 - `implementation_queue_items/` — **operator-owned overlay** (`<queue_id>.json`); Implementation Queue page writes here; merges over batch items for the same `queue_id`
-- `indexes/` — engine/index inputs
+- `indexes/` — engine/index inputs, manifest
+- `scoring_evaluations/` — intake scoring audit sidecars (Option A / Option B)
 
 Rules:
 - promotion/scoring/queue recommendation must read structured JSON, not prose
 - Phases 1–5: no database-only truth, no SQLite-first state
 - do not treat `queue_recommendations/` as the operator edit log — edits live in `implementation_queue_items/`
+- **Hosted honesty:** without Blob + token, do not assume durable serverless state; local `fs` is for dev/checkout only on Vercel
 
 ---
 
@@ -264,5 +276,6 @@ If the first deliverable tries to jump straight into flashy automation, it is dr
 ## 14. Post–Phase 5 Handoff Note
 
 - **Phases 1–5** are implemented per the master checklist and module spec.
+- **Minimal Vercel persistence** is implemented in `dashboard/`: storage adapter (fs/Blob), Node registry engine for hosted runtime, merge reads for seed + Blob.
 - **Phase 6** is explicitly optional and **not started**; do not assume Supabase or automation is approved or in progress.
-- **Next step after doc lock:** commit and push (and version any local JSON the operator wants in git), **not** open-ended new feature work unless re-scoped.
+- **Next step after doc lock:** **stage / commit / push**; configure Vercel env (`FOUNDRY_STORAGE_DRIVER=blob`, `BLOB_READ_WRITE_TOKEN`); run **preview smoke** (Option A intake, Option B intake, queue PATCH, registry page refresh). **Not** open-ended new feature work unless re-scoped.

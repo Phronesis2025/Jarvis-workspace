@@ -56,6 +56,7 @@ export default async function FoundryRegistryReviewPage() {
       <FoundryRegistryReviewClient
         ideas={data.ideas}
         sourceLanesByIdeaId={data.sourceLanesByIdeaId}
+        scoringEvaluationsByIdeaId={data.scoringEvaluationsByIdeaId}
       />
     </div>
   );

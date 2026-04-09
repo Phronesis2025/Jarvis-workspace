@@ -1,6 +1,6 @@
 # JARVIS THE FOUNDRY — Master Build Checklist
-**Last Updated:** 2026-04-11  
-**Status:** Phases 1–5 complete; post–Phase 5 doc/handoff refresh. Phase 6 not started.
+**Last Updated:** 2026-04-13  
+**Status:** Phases 1–5 complete; intake A/B scoring modes + `scoring_evaluations/` sidecar; **minimal Vercel persistence** (fs/Blob adapter + Node engine on hosted). Phase 6 not started.
 
 ---
 
@@ -60,6 +60,14 @@ A structured source input can become a scored candidate idea set and a reviewabl
 - Contracts: `future_modules/the_foundry/contracts/`
 - Local canonical state root: `future_modules/the_foundry/state/`
 - Example input: `future_modules/the_foundry/state/indexes/example_engine_input.json`
+- **Dashboard parity engine (hosted / Node):** `dashboard/src/lib/foundry-registry-engine-node.ts` — same locked formula and gates as Python; used when `VERCEL=1`, `FOUNDRY_STORAGE_DRIVER=blob`, or `FOUNDRY_ENGINE_RUNTIME=node`.
+
+### Hosting / persistence (dashboard — doc lock)
+- **Storage adapter:** `dashboard/src/lib/foundry-storage.ts` — `getJson` / `putJson` / `listJsonKeys` / `listJsonMeta` / `exists`; backends **fs** (default) and **Vercel Blob** (`@vercel/blob`).
+- **Hosted env (durable runtime):** `FOUNDRY_STORAGE_DRIVER=blob` + `BLOB_READ_WRITE_TOKEN`. Optional aliases for driver: `vercel_blob`, `vercel-blob`.
+- **Local dev:** omit driver or `FOUNDRY_STORAGE_DRIVER=fs`; intake may use **Python** engine (`py -3`) when Node path is not selected.
+- **Vercel:** Root Directory **`dashboard/`**; ensure repo layout exposes `../future_modules/the_foundry/` at runtime (include files outside root if required).
+- **Merge reads:** `dashboard/src/lib/foundry-read-merge.ts` (+ queue/registry loaders) — repo `state/` seed + Blob runtime for hosted dashboards.
 
 ---
 
@@ -79,8 +87,8 @@ The operator can clearly see the best ideas and why they rank high.
 ### Implemented route and read model
 - Dashboard route: `dashboard/src/app/foundry-registry-review/page.tsx`
 - Client view: `dashboard/src/components/FoundryRegistryReviewClient.tsx`
-- Read-only data loader: `dashboard/src/lib/data.ts#getFoundryRegistryReviewData`
-- Local inputs: `future_modules/the_foundry/state/registry_ideas/*.json` and `future_modules/the_foundry/state/source_records/*.json`
+- Read-only data loader: `dashboard/src/lib/data.ts#getFoundryRegistryReviewData` (storage adapter + seed/Blob merge when Blob driver)
+- Inputs: `foundry/registry_ideas/*` and `foundry/source_records/*` via adapter; local fs maps to `future_modules/the_foundry/state/…`
 
 ---
 
@@ -103,12 +111,20 @@ New inputs can be added quickly without leaving the dashboard.
 - `dashboard/src/app/foundry-x-post-intake/page.tsx`
 - `dashboard/src/app/api/foundry/intake/route.ts`
 - `dashboard/src/components/FoundryLaneIntakeClient.tsx`
-- `dashboard/src/lib/foundry-intake.ts`
+- `dashboard/src/lib/foundry-intake.ts` (Python engine locally when selected; Node engine on Vercel / Blob)
+- `dashboard/src/lib/foundry-scoring.ts` (client-safe scoring helpers; weighted preview matches Python engine)
+- `dashboard/src/lib/foundry-rubric-anchors.ts` (explicit 0–5 anchor strings + version id)
+- `dashboard/src/lib/foundry-rubric-proposal.ts` (Option A bounded anchor → proposal)
+- `dashboard/src/lib/foundry-scoring-persistence.ts` (server-only sidecar writes via storage adapter)
+- `dashboard/src/lib/foundry-storage.ts`, `dashboard/src/lib/foundry-read-merge.ts`, `dashboard/src/lib/foundry-registry-engine-node.ts`
+- `dashboard/src/app/api/foundry/score-preview/route.ts` (Option B manual rubric weighted preview; no disk writes)
+- `dashboard/src/app/api/foundry/option-a-preview/route.ts` (Option A proposal preview; no engine / no sidecar)
 
 ### Intake scoring truth (doc lock)
-- **Heuristic, deterministic, bounded:** the eight rubric integers on dashboard-produced candidates come from **observable input** signals, not LLM semantic ranking.
-- **Engine:** `foundry_registry_engine.py` still applies the **locked** weighted formula and gates when invoked on structured data.
-- **Not** full semantic judgment of idea content.
+- **Option A (`option_a_rubric_assisted`):** **Explicit-anchor rubric proposal** (see `docs/OPTION_A_RUBRIC_ANCHOR_MATRIX.md`) → proposed integers + reasons + source-tied evidence. **Heuristic prefill** (legacy buckets) is stored as `heuristic_prefill_scores` only—not final rubric truth. Operator **locks** final integers (`option_a_locked_rubric_scores`); engine uses **finals** only. Not LLM semantic ranking.
+- **Option B (`option_b_manual_matrix`):** operator supplies all eight integers 0–5; engine applies **locked formula** only.
+- **Persisted audit:** each intake run writes `scoring_evaluations/eval_<candidate_id>.json` at logical path `foundry/scoring_evaluations/…` (fs → `state/scoring_evaluations/`; Blob → same key under Blob). Fields: `scoring_mode_selected`, `evaluation_method`, `heuristic_prefill_scores`, `proposed_scores`, `final_scores`, `score_reasons`, `evidence_support`, `weighted_score`, and when applicable `rubric_anchor_version`. Flipping the UI toggle does not rewrite past files.
+- **Engine:** **Python** `foundry_registry_engine.py` locally when selected; **Node** `foundry-registry-engine-node.ts` on hosted — **locked weighted formula and gates unchanged**; operates on the eight **final** integers.
 
 ---
 
@@ -127,10 +143,10 @@ The module provides a clean next-best implementation queue, not just idea storag
 ### Implemented route, read model, and writes
 - Dashboard route: `dashboard/src/app/foundry-implementation-queue/page.tsx` → **`/foundry-implementation-queue`**
 - Client: `dashboard/src/components/FoundryImplementationQueueClient.tsx`
-- Queue loader + validation: `dashboard/src/lib/foundry-queue.ts`
+- Queue loader + validation: `dashboard/src/lib/foundry-queue.ts` (adapter + seed/Blob merge)
 - Operator PATCH API: `dashboard/src/app/api/foundry/queue-item/route.ts`
-- Reads: `future_modules/the_foundry/state/queue_recommendations/*.json` (engine batches) and `future_modules/the_foundry/state/registry_ideas/*.json` (enrichment only)
-- Writes: `future_modules/the_foundry/state/implementation_queue_items/<queue_id>.json` (operator overlay; full v1 item, contract-valid)
+- Reads: `foundry/queue_recommendations/*.json` (engine batches) and registry context from `foundry/registry_ideas/*` (enrichment)
+- Writes: `foundry/implementation_queue_items/<queue_id>.json` (operator overlay; full v1 item, contract-valid)
 
 ### Local state tree (reference)
 
@@ -142,6 +158,7 @@ The module provides a clean next-best implementation queue, not just idea storag
 - `queue_recommendations/` — engine batch JSON
 - `implementation_queue_items/` — operator-owned queue overlay
 - `indexes/`
+- `scoring_evaluations/` (intake sidecars)
 
 ---
 

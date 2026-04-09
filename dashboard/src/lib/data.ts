@@ -18,9 +18,13 @@ import type {
   DashboardPathfinderCase,
   DashboardExportLog,
   ModuleChecklistsData,
-  FoundryRegistryIdea,
   FoundryRegistryReviewData,
+  FoundryScoringEvaluation,
 } from "./types";
+import type { FoundryLane } from "./foundry-rubric-anchors";
+import { loadAllScoringEvaluationsByIdeaId } from "./foundry-scoring-persistence";
+import { createFoundryStorage } from "./foundry-storage";
+import { loadMergedRegistryIdeas, loadMergedSourceLaneBySourceId } from "./foundry-read-merge";
 
 export async function getTasks(): Promise<DashboardTaskState[]> {
   if (hasSupabase() && supabase) {
@@ -603,157 +607,37 @@ export function deriveMostUsefulFromLedger(
 
 const FOUNDRY_STATE_SEGMENTS = ["future_modules", "the_foundry", "state"] as const;
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return value !== null && typeof value === "object" && !Array.isArray(value);
-}
-
-function parseFoundryIdea(raw: unknown): FoundryRegistryIdea | null {
-  if (!isRecord(raw)) return null;
-  const requiredString = [
-    "idea_id",
-    "title",
-    "summary",
-    "category",
-    "canonical_problem",
-    "canonical_pattern",
-    "dedupe_key",
-    "status",
-    "review_state",
-    "promotion_reason",
-    "review_notes",
-    "implementation_notes",
-    "queue_reason",
-    "first_seen_at",
-    "created_at",
-    "last_updated",
-  ] as const;
-  for (const key of requiredString) {
-    if (typeof raw[key] !== "string") return null;
-  }
-
-  const requiredNumber = [
-    "supporting_source_count",
-    "contradicting_source_count",
-    "confidence",
-    "evidence_strength",
-    "transferability",
-    "expected_upside",
-    "risk_reduction_value",
-    "implementation_cost",
-    "novelty",
-    "dependency_burden",
-    "weighted_score",
-  ] as const;
-  for (const key of requiredNumber) {
-    if (typeof raw[key] !== "number" || Number.isNaN(raw[key])) return null;
-  }
-
-  const stringArrayKeys = ["source_refs", "dependencies", "related_ideas"] as const;
-  for (const key of stringArrayKeys) {
-    if (!Array.isArray(raw[key]) || raw[key].some((v) => typeof v !== "string")) return null;
-  }
-
-  if (!isRecord(raw.score_breakdown)) return null;
-  if (typeof raw.queue_eligibility !== "boolean") return null;
-
-  return {
-    idea_id: raw.idea_id as string,
-    title: raw.title as string,
-    summary: raw.summary as string,
-    category: raw.category as string,
-    canonical_problem: raw.canonical_problem as string,
-    canonical_pattern: raw.canonical_pattern as string,
-    dedupe_key: raw.dedupe_key as string,
-    source_refs: raw.source_refs as string[],
-    supporting_source_count: raw.supporting_source_count as number,
-    contradicting_source_count: raw.contradicting_source_count as number,
-    confidence: raw.confidence as number,
-    evidence_strength: raw.evidence_strength as number,
-    transferability: raw.transferability as number,
-    expected_upside: raw.expected_upside as number,
-    risk_reduction_value: raw.risk_reduction_value as number,
-    implementation_cost: raw.implementation_cost as number,
-    novelty: raw.novelty as number,
-    dependency_burden: raw.dependency_burden as number,
-    score_breakdown: raw.score_breakdown as Record<string, number>,
-    weighted_score: raw.weighted_score as number,
-    status: raw.status as FoundryRegistryIdea["status"],
-    review_state: raw.review_state as FoundryRegistryIdea["review_state"],
-    promotion_reason: raw.promotion_reason as string,
-    review_notes: raw.review_notes as string,
-    implementation_notes: raw.implementation_notes as string,
-    dependencies: raw.dependencies as string[],
-    related_ideas: raw.related_ideas as string[],
-    queue_eligibility: raw.queue_eligibility as boolean,
-    queue_reason: raw.queue_reason as string,
-    first_seen_at: raw.first_seen_at as string,
-    created_at: raw.created_at as string,
-    last_updated: raw.last_updated as string,
-  };
-}
-
 export async function getFoundryRegistryReviewData(): Promise<FoundryRegistryReviewData> {
-  const workspaceRoot = join(process.cwd(), "..");
-  const stateRoot = join(workspaceRoot, ...FOUNDRY_STATE_SEGMENTS);
-  const registryDir = join(stateRoot, "registry_ideas");
-  const sourceDir = join(stateRoot, "source_records");
+  const store = await createFoundryStorage();
   const errors: string[] = [];
-  const ideas: FoundryRegistryIdea[] = [];
-  const sourceLaneBySourceId: Record<string, string> = {};
-
-  try {
-    const sourceFiles = await readdir(sourceDir);
-    for (const fileName of sourceFiles.filter((f) => f.endsWith(".json"))) {
-      try {
-        const raw = JSON.parse(await readFile(join(sourceDir, fileName), "utf-8")) as Record<string, unknown>;
-        const sourceId = raw.source_id;
-        const sourceLane = raw.source_lane;
-        if (typeof sourceId === "string" && typeof sourceLane === "string") {
-          sourceLaneBySourceId[sourceId] = sourceLane;
-        }
-      } catch {
-        errors.push(`Malformed source record skipped: ${fileName}`);
-      }
-    }
-  } catch {
-    errors.push("Source records folder missing or unreadable.");
-  }
-
-  try {
-    const files = await readdir(registryDir);
-    for (const fileName of files.filter((f) => f.endsWith(".json"))) {
-      try {
-        const raw = JSON.parse(await readFile(join(registryDir, fileName), "utf-8"));
-        const idea = parseFoundryIdea(raw);
-        if (!idea) {
-          errors.push(`Malformed registry idea skipped: ${fileName}`);
-          continue;
-        }
-        ideas.push(idea);
-      } catch {
-        errors.push(`Malformed registry idea skipped: ${fileName}`);
-      }
-    }
-  } catch {
-    errors.push("Registry ideas folder missing or unreadable.");
-  }
-
+  const ideas = await loadMergedRegistryIdeas(store, errors);
   ideas.sort((a, b) => b.weighted_score - a.weighted_score);
+
+  const sourceLaneBySourceId = await loadMergedSourceLaneBySourceId(store, errors);
   const sourceLanesByIdeaId: Record<string, string[]> = {};
   for (const idea of ideas) {
     const lanes = Array.from(
       new Set(
         idea.source_refs
           .map((sourceId) => sourceLaneBySourceId[sourceId])
-          .filter((lane): lane is string => Boolean(lane))
+          .filter((lane): lane is FoundryLane =>
+            lane === "article" || lane === "github" || lane === "x_post"
+          )
       )
     );
     sourceLanesByIdeaId[idea.idea_id] = lanes;
   }
 
+  const scoringMap = await loadAllScoringEvaluationsByIdeaId(store);
+  const scoringEvaluationsByIdeaId: Record<string, FoundryScoringEvaluation | null> = {};
+  for (const idea of ideas) {
+    scoringEvaluationsByIdeaId[idea.idea_id] = scoringMap[idea.idea_id] ?? null;
+  }
+
   return {
     ideas,
     sourceLanesByIdeaId,
+    scoringEvaluationsByIdeaId,
     errors,
     dataRoot: `../${FOUNDRY_STATE_SEGMENTS.join("/")}`,
   };

@@ -1,6 +1,6 @@
 # JARVIS THE FOUNDRY — Module Specification
-**Last Updated:** 2026-04-11  
-**Status:** Contracts locked; Phases 1–5 built. Phase 6 optional — not started.  
+**Last Updated:** 2026-04-13  
+**Status:** Contracts locked; Phases 1–5 built. Dashboard: fs/Blob storage adapter + hosted Node engine path for Vercel. Phase 6 optional — not started.  
 **Type:** Official module definition
 
 ---
@@ -267,9 +267,10 @@ Anti-hype cap:
 - cap at `watchlist` if mostly hype, bare tool mention, unclear method, unresolved duplicate, or weak source-quality noise
 
 ### 6.1 Intake path vs engine (as implemented)
-- **Dashboard intake:** fills the eight dimension fields with **deterministic heuristics** from **observable** pasted text or URL traits. Scores **vary with input**; they are **not** semantic/LLM judgments of the idea.
-- **Registry engine (Python):** still computes **weighted_score** from those fields using the **locked formula** above, plus gates and recommendation bands—when the engine path runs on stored structured candidates.
-- This is **not** full semantic ranking across idea meaning; it is **bounded mechanical** scoring plus the **locked** downstream formula.
+- **Option A — rubric-assisted proposal + operator lock:** Dashboard uses **explicit 0–5 anchors** per dimension (canonical text: `docs/OPTION_A_RUBRIC_ANCHOR_MATRIX.md` and `dashboard/src/lib/foundry-rubric-anchors.ts`) to produce **proposed** scores, reasons, and evidence. **Heuristic prefill** (legacy buckets) is persisted separately and is **not** the rubric matrix outcome. The operator **locks** final integers before intake completes; those **final** values populate the candidate and feed the engine.
+- **Option B — manual matrix:** the operator supplies all eight integers 0–5; the engine applies the **locked formula** only.
+- **Registry engine:** **Python** (`foundry_registry_engine.py`) for local/offline runs; **Node** (`dashboard/src/lib/foundry-registry-engine-node.ts`) on Vercel / when Blob storage or `VERCEL=1` — **same locked formula**, gates, and bands on the eight **final** integers (parity path, not a second rubric).
+- This is **not** full semantic ranking of idea meaning; it is **bounded** rules, explicit anchors (Option A), or operator entry (Option B), plus the **locked** downstream formula.
 
 ---
 
@@ -353,19 +354,26 @@ Should show:
 - blockers and status
 - operator approval state, approval notes, and `next_action`
 
-**As built:** the queue page reads `state/queue_recommendations/*.json` and overlays `state/implementation_queue_items/<queue_id>.json` when present; bounded operator edits persist only to the overlay files (full Implementation Queue Item v1).
+**As built:** the queue page loads batch JSON and implementation-queue overlays through the dashboard storage layer — **filesystem** under `future_modules/the_foundry/state/` locally, or **Vercel Blob** keys under `foundry/…` when hosted; bounded operator edits persist to the overlay path for the active backend (full Implementation Queue Item v1). When Blob is enabled, repo-local JSON under `state/` may still be merged in as **seed/demo** only; runtime writes are durable only on Blob.
 
 ---
 
 ## 9. Storage Model
 
 ### Initial recommended model
-- **Local exportable JSON is canonical machine truth** for structured Foundry state.
+- **Structured JSON is canonical machine truth** (same shapes locally and hosted).
 - Dashboard is the operator UI surface.
 - Markdown can exist as companion human-readable state/summaries.
 - Promotion/scoring/queue recommendation must read structured JSON, not prose.
 
-### Local state directories (implemented)
+### Dashboard storage adapter (implemented)
+
+- **Module:** `dashboard/src/lib/foundry-storage.ts`
+- **Local:** `FOUNDRY_STORAGE_DRIVER` unset or `fs` — maps logical keys `foundry/…` to `future_modules/the_foundry/state/…`.
+- **Hosted durable:** `FOUNDRY_STORAGE_DRIVER=blob` (aliases: `vercel_blob`, `vercel-blob`) plus **`BLOB_READ_WRITE_TOKEN`** (Vercel Blob). Without these, serverless deployments do **not** get honest cross-request persistence.
+- **Merge reads (hosted):** registry, sources, scoring sidecars, and queue loaders can combine committed repo `state/` seed files with Blob-backed runtime records (runtime wins on the same id/key).
+
+### Local state directories (same layout as logical `foundry/` keys)
 
 Under `future_modules/the_foundry/state/`:
 
@@ -374,7 +382,14 @@ Under `future_modules/the_foundry/state/`:
 - `registry_ideas/` — canonical registry ideas for review.
 - `queue_recommendations/` — **engine batch output** (history/run artifacts); not the operator edit log.
 - `implementation_queue_items/` — **operator-owned persistence** for queue items keyed by `queue_id`; overrides batch fields for that id when file exists.
-- `indexes/` — engine/index inputs (e.g. example packets).
+- `indexes/` — engine/index inputs (e.g. example packets, manifest).
+- `scoring_evaluations/` — intake scoring audit sidecars (Option A and Option B).
+
+### Vercel deployment notes
+
+- **Root Directory:** `dashboard/` (Next.js app root).
+- **Monorepo:** build must see the parent folder so `../future_modules/the_foundry/` exists (use Vercel “include files outside root” or full-repo clone as appropriate).
+- **Hosted engine:** Node registry engine is used on Vercel (`VERCEL=1`); **no `py -3`** requirement in that runtime.
 
 ### Supabase stance
 Supabase is **Phase 6 optional** as an operational read/write/read-model layer only — **not started**.

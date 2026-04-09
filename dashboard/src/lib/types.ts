@@ -1,5 +1,9 @@
 /** Dashboard row types — match Supabase schema */
 
+import type { FoundryScoringEvaluation } from "./foundry-scoring";
+
+export type { FoundryScoringEvaluation };
+
 export type TaskStatus =
   | "ready"
   | "running"
@@ -175,9 +179,11 @@ export interface FoundryRegistryIdea {
   last_updated: string;
 }
 
+/** Registry review data includes optional scoring_evaluations sidecars per idea (dashboard intake). */
 export interface FoundryRegistryReviewData {
   ideas: FoundryRegistryIdea[];
   sourceLanesByIdeaId: Record<string, string[]>;
+  scoringEvaluationsByIdeaId: Record<string, FoundryScoringEvaluation | null>;
   errors: string[];
   dataRoot: string;
 }

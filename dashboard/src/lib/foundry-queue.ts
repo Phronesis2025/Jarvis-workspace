@@ -1,14 +1,12 @@
-import { readFile, readdir, writeFile, mkdir, stat } from "fs/promises";
+import { readFile, readdir, stat } from "fs/promises";
 import { join } from "path";
 import type { FoundryRegistryIdea } from "@/lib/types";
-
-function workspaceRoot(): string {
-  return join(process.cwd(), "..");
-}
-
-function foundryStateRoot(): string {
-  return join(workspaceRoot(), "future_modules", "the_foundry", "state");
-}
+import {
+  createFoundryStorage,
+  foundryBlobPrefixes,
+  foundryStateRoot,
+} from "@/lib/foundry-storage";
+import type { FoundryStorage } from "@/lib/foundry-storage";
 
 const QUEUE_REC_DIR = "queue_recommendations";
 const PERSISTED_DIR = "implementation_queue_items";
@@ -138,11 +136,51 @@ async function readJson<T>(path: string): Promise<T | null> {
   }
 }
 
+async function loadQueueBatchEntries(
+  store: FoundryStorage,
+  errors: string[],
+  warnings: string[]
+): Promise<Array<{ label: string; mtime: number; raw: unknown }>> {
+  const entries: Array<{ label: string; mtime: number; raw: unknown }> = [];
+
+  if (store.driver === "blob") {
+    const recDir = join(foundryStateRoot(), QUEUE_REC_DIR);
+    try {
+      const names = await readdir(recDir);
+      for (const name of names.filter((n) => n.endsWith(".json"))) {
+        const p = join(recDir, name);
+        const st = await stat(p);
+        const raw = await readJson<unknown>(p);
+        if (raw) entries.push({ label: name, mtime: st.mtimeMs, raw });
+      }
+    } catch {
+      /* no local seed */
+    }
+  }
+
+  try {
+    const metas = await store.listJsonMeta(foundryBlobPrefixes.queueRecommendations);
+    for (const { key, uploadedAtMs } of metas) {
+      const raw = await store.getJson<unknown>(key);
+      if (raw) entries.push({ label: key, mtime: uploadedAtMs, raw });
+    }
+  } catch {
+    warnings.push("Queue recommendations storage list failed; no batch queue items loaded.");
+  }
+
+  entries.sort((a, b) => b.mtime - a.mtime);
+  return entries;
+}
+
 async function loadRegistryContext(
+  store: FoundryStorage,
   ideaId: string
 ): Promise<{ title: string | null; summary: string | null; status: string | null }> {
-  const path = join(foundryStateRoot(), "registry_ideas", `${ideaId}.json`);
-  const data = await readJson<FoundryRegistryIdea>(path);
+  const key = `${foundryBlobPrefixes.registryIdeas}${ideaId}.json`;
+  let data = await store.getJson<FoundryRegistryIdea>(key);
+  if (!data && store.driver === "blob") {
+    data = await readJson<FoundryRegistryIdea>(join(foundryStateRoot(), "registry_ideas", `${ideaId}.json`));
+  }
   if (!data) return { title: null, summary: null, status: null };
   return {
     title: typeof data.title === "string" ? data.title : null,
@@ -151,74 +189,96 @@ async function loadRegistryContext(
   };
 }
 
+async function loadPersistedQueueRaw(
+  store: FoundryStorage,
+  queueId: string
+): Promise<unknown | null> {
+  const key = `${foundryBlobPrefixes.implementationQueueItems}${queueId}.json`;
+  const fromStore = await store.getJson<unknown>(key);
+  if (fromStore !== null) return fromStore;
+  if (store.driver === "blob") {
+    return readJson<unknown>(join(foundryStateRoot(), PERSISTED_DIR, `${queueId}.json`));
+  }
+  return null;
+}
+
 /**
  * Merge queue items from all batch files (newest file wins per queue_id),
  * then overlay persisted copies from implementation_queue_items/ when present.
+ * With Vercel Blob, repo-local seeds are merged under runtime keys (runtime wins on key collision).
  */
 export async function getFoundryImplementationQueueData(): Promise<FoundryImplementationQueueData> {
+  const store = await createFoundryStorage();
   const stateRoot = foundryStateRoot();
-  const recDir = join(stateRoot, QUEUE_REC_DIR);
   const persistDir = join(stateRoot, PERSISTED_DIR);
   const errors: string[] = [];
   const warnings: string[] = [];
   const fromBatches = new Map<string, { item: FoundryImplementationQueueItem; runId: string }>();
 
-  try {
-    const names = await readdir(recDir);
-    const jsonFiles = names.filter((n) => n.endsWith(".json"));
-    const withMtime = await Promise.all(
-      jsonFiles.map(async (name) => {
-        const p = join(recDir, name);
-        const st = await stat(p);
-        return { path: p, name, mtime: st.mtimeMs };
-      })
-    );
-    withMtime.sort((a, b) => b.mtime - a.mtime);
-
-    for (const { path, name } of withMtime) {
-      const raw = await readJson<unknown>(path);
-      if (!isRecord(raw)) {
-        errors.push(`Malformed queue batch (not an object): ${name}`);
-        continue;
-      }
-      const runId = typeof raw.run_id === "string" ? raw.run_id : name.replace(/^queue_recommendations_|\.json$/g, "");
-      const items = raw.items;
-      if (!Array.isArray(items)) {
-        errors.push(`Malformed queue batch (missing items array): ${name}`);
-        continue;
-      }
-      for (let i = 0; i < items.length; i++) {
-        const validated = validateQueueItem(items[i]);
-        if (!validated) {
-          errors.push(`Invalid queue item in ${name} at index ${i}`);
-          continue;
-        }
-        if (!fromBatches.has(validated.queue_id)) {
-          fromBatches.set(validated.queue_id, { item: validated, runId });
-        }
-      }
+  const batchEntries = await loadQueueBatchEntries(store, errors, warnings);
+  if (batchEntries.length === 0 && store.driver === "fs") {
+    try {
+      await stat(join(foundryStateRoot(), QUEUE_REC_DIR));
+    } catch {
+      warnings.push("Queue recommendations folder missing or unreadable; no batch queue items loaded.");
     }
-  } catch {
-    warnings.push("Queue recommendations folder missing or unreadable; no batch queue items loaded.");
   }
 
-  const rows: FoundryQueueRow[] = [];
+  for (const { label, raw } of batchEntries) {
+    if (!isRecord(raw)) {
+      errors.push(`Malformed queue batch (not an object): ${label}`);
+      continue;
+    }
+    const runId =
+      typeof raw.run_id === "string"
+        ? raw.run_id
+        : label.replace(/^queue_recommendations_|\.json$/g, "").replace(/.*\//, "");
+    const items = raw.items;
+    if (!Array.isArray(items)) {
+      errors.push(`Malformed queue batch (missing items array): ${label}`);
+      continue;
+    }
+    for (let i = 0; i < items.length; i++) {
+      const validated = validateQueueItem(items[i]);
+      if (!validated) {
+        errors.push(`Invalid queue item in ${label} at index ${i}`);
+        continue;
+      }
+      if (!fromBatches.has(validated.queue_id)) {
+        fromBatches.set(validated.queue_id, { item: validated, runId });
+      }
+    }
+  }
+
   const allIds = new Set<string>(fromBatches.keys());
 
   try {
-    const persistedNames = await readdir(persistDir);
-    for (const name of persistedNames.filter((n) => n.endsWith(".json"))) {
-      const id = name.replace(/\.json$/, "");
-      allIds.add(id);
+    const persistedKeys = await store.listJsonKeys(foundryBlobPrefixes.implementationQueueItems);
+    for (const key of persistedKeys) {
+      const base = key.split("/").pop() ?? "";
+      const id = base.replace(/\.json$/, "");
+      if (id) allIds.add(id);
     }
   } catch {
-    /* no persisted dir yet */
+    /* */
+  }
+
+  if (store.driver === "blob") {
+    try {
+      const persistedNames = await readdir(persistDir);
+      for (const name of persistedNames.filter((n) => n.endsWith(".json"))) {
+        allIds.add(name.replace(/\.json$/, ""));
+      }
+    } catch {
+      /* */
+    }
   }
 
   const sortedQueueIds = Array.from(allIds).sort((a, b) => a.localeCompare(b));
+  const rows: FoundryQueueRow[] = [];
+
   for (const queueId of sortedQueueIds) {
-    const persistedPath = join(persistDir, `${queueId}.json`);
-    const persistedRaw = await readJson<unknown>(persistedPath);
+    const persistedRaw = await loadPersistedQueueRaw(store, queueId);
     let canonical: FoundryImplementationQueueItem | null = null;
     let persistedLocally = false;
     let sourceRunId: string | undefined;
@@ -242,7 +302,7 @@ export async function getFoundryImplementationQueueData(): Promise<FoundryImplem
 
     if (!canonical) continue;
 
-    const reg = await loadRegistryContext(canonical.idea_id);
+    const reg = await loadRegistryContext(store, canonical.idea_id);
     rows.push({
       ...canonical,
       idea_title: reg.title,
@@ -333,10 +393,8 @@ export async function updateFoundryQueueItem(
     throw new Error("Updated item failed contract validation.");
   }
 
-  const persistDir = join(foundryStateRoot(), PERSISTED_DIR);
-  await mkdir(persistDir, { recursive: true });
-  const outPath = join(persistDir, `${trimmedId}.json`);
-  await writeFile(outPath, JSON.stringify(validated, null, 2) + "\n", "utf-8");
+  const store = await createFoundryStorage();
+  await store.putJson(`${foundryBlobPrefixes.implementationQueueItems}${trimmedId}.json`, validated);
 
   return { item: validated };
 }

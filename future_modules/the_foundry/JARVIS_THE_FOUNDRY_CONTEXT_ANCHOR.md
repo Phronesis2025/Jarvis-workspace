@@ -1,6 +1,6 @@
 # JARVIS THE FOUNDRY — Context Anchor
-**Last Updated:** 2026-04-11  
-**Status:** Phases 1–5 built (dashboard + local JSON). Phase 6 optional — not started.  
+**Last Updated:** 2026-04-13  
+**Status:** Phases 1–5 built (dashboard + JSON truth). **Minimal Vercel persistence tranche:** dashboard storage adapter (fs / Vercel Blob) + hosted-safe Node registry engine path. Phase 6 optional — not started.  
 **Purpose:** New-chat starting point for the research-intake, master-idea-registry, dashboard review, and implementation queue module.
 
 ---
@@ -186,10 +186,31 @@ Locked page build order (historical):
 ## 11. Locked Storage Stance
 
 ### Canonical stance
-- **Local exportable JSON remains canonical machine truth** for this module’s structured state.
+- **Structured JSON remains canonical machine truth** for this module’s state (same schemas in local and hosted modes).
 - Markdown may exist as human-readable companion state/summaries.
 - Dashboard is the operator UI surface (no Supabase or DB-first move in Phases 1–5).
 - Supabase is **Phase 6 optional** only, as an operational read/write/read-model layer — not started.
+
+### Runtime storage (dashboard — minimal hosting tranche)
+
+The dashboard uses a small **storage adapter** with two backends:
+
+| Backend | When | Durable serverless runtime? |
+|--------|------|----------------------------|
+| **Filesystem (`fs`)** | Default local dev (`FOUNDRY_STORAGE_DRIVER` unset or `fs`) | No — not honest persistence on Vercel serverless disk. |
+| **Vercel Blob (`blob`)** | Hosted: set `FOUNDRY_STORAGE_DRIVER=blob` and `BLOB_READ_WRITE_TOKEN` | **Yes** — reads/writes go to Blob; survives cold starts and redeploys. |
+
+Logical object keys use prefix `foundry/` and mirror the same relative layout as under `state/` (e.g. `foundry/registry_ideas/<idea_id>.json`, `foundry/scoring_evaluations/…`, `foundry/implementation_queue_items/…`).
+
+**Honest wording:** hosted durability is **real only** when Blob + env are configured. Local `fs` remains the valid dev path; it does not imply durable Vercel disk.
+
+### Registry engine runtime (dashboard)
+
+- **Local (default):** intake can run the **Python** registry engine via `run_foundry_registry_engine.py` (operator machine with `py -3` and repo checkout).
+- **Hosted (Vercel):** the dashboard uses a **Node/TypeScript** engine path (`dashboard/src/lib/foundry-registry-engine-node.ts`) that **mirrors** the locked Python behavior (same weighted formula, gates, bands, dedupe, outputs). The Vercel runtime **does not** depend on `py -3`.
+- **Triggers for Node engine:** `VERCEL=1`, or `FOUNDRY_STORAGE_DRIVER=blob`, or `FOUNDRY_ENGINE_RUNTIME=node`. Override with `FOUNDRY_ENGINE_RUNTIME=python` only when using **fs** storage locally.
+
+**Vercel project layout:** set the Vercel **Root Directory** to `dashboard/` so `process.cwd()` is the Next app; the code resolves workspace root as the parent of `dashboard/` (repo root must include `future_modules/the_foundry/`). If the platform omits files outside the root directory, enable **Include source files outside of the Root Directory in the Build Step** (or equivalent) so `../future_modules/...` exists at runtime for seed/merge reads.
 
 ### Local state layout (under `future_modules/the_foundry/state/`)
 
@@ -214,9 +235,10 @@ Scoring and registry promotion must use structured fields.
 Phases 1–5 do not use database-only truth or SQLite-first state.
 
 ### Intake scoring reality (dashboard path, as built)
-- **Bounded, deterministic, heuristic:** the eight rubric integers on candidates produced via dashboard intake are **derived from observable input characteristics** (e.g. length, lane, light structure, keyword signals)—**not** LLM semantic judgment of idea quality.
-- **Locked formula still authoritative in engine:** the Python registry engine continues to apply the **locked weighted score**, hard gates, bands, and anti-hype cap when that pipeline runs on structured candidates.
-- **Not full semantic ranking:** present intake scoring is **input-varying** mechanical scoring, not deep natural-language ranking of claims.
+- **Option A (`option_a_rubric_assisted`):** **Explicit 0–5 rubric anchors** (see `docs/OPTION_A_RUBRIC_ANCHOR_MATRIX.md`) drive a **bounded rubric proposal** (proposed integers + short reasons + source-tied evidence snippets). **Heuristic prefill** (legacy length/keyword buckets) is stored separately and is **not** final rubric truth. The operator **previews**, may **edit**, then **locks** final integers; the engine and weighted score use **only those locked finals**. Not LLM semantic judgment of idea quality.
+- **Option B (`option_b_manual_matrix`):** the operator enters all eight integers 0–5; the engine applies the **locked formula** only.
+- **Locked formula (unchanged):** the registry engine (Python locally or Node on hosted) computes **weighted_score** from the eight final integers using the **locked** weights, gates, bands, and anti-hype cap — **no formula drift** between paths.
+- **Not full semantic ranking:** bounded mechanical rules and explicit anchors—not deep NL “understanding” of claims.
 
 ---
 
@@ -233,7 +255,7 @@ Phases 1–5 do not use database-only truth or SQLite-first state.
 
 ## 13. Current Operator Decision
 
-Tranches 1–5 are implemented. The next sane step is **commit/push** of the repo state and any local JSON the operator chooses to version — not new feature work unless explicitly scoped.
+Tranches 1–5 are implemented; the **minimal Vercel persistence** path is documented and implemented in the dashboard (adapter + Node engine). The next sane step is **stage/commit/push**, configure hosted env (`FOUNDRY_STORAGE_DRIVER=blob`, `BLOB_READ_WRITE_TOKEN`), and run a **Vercel preview smoke** (intake Option A/B, queue PATCH, registry refresh) — not new feature work unless explicitly scoped.
 
 A fresh chat for Phase 6 or follow-on fixes should begin from:
 - this context anchor
