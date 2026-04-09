@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 407  
-**Phase #:** 3 — **local pipeline implementation** (post–T112 first operator-meaningful filtering signal built)  
-**Tranche #:** 112  
-**Updated:** 2026-04-08T23:55:00+00:00
+**Prompt #:** 409  
+**Phase #:** 3 — **local pipeline implementation** (post–T113 local operator attention queue governance lock)  
+**Tranche #:** 113  
+**Updated:** 2026-04-09T00:25:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T112 first operator-meaningful filtering signal build)
+## New chat checkpoint (post–T113 local operator attention queue governance lock)
 
-- **Where you are:** Phase **2** for **binding approval**; **post–T112 build** (Prompt **#407**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T111** attention-signal governance + **T112** **`review/local_run/build_operator_attention_signal_from_run_folder.py`** on disk; per-run **`operator_attention_signal.json`** — mechanical read-only triage label (**not** a scanner).
-- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Any next build spend must be newly governed; do not widen into AI/scanner/runtime/provider/dashboard without authorization. AI/scanner/runtime/provider/dashboard expansion remains blocked; broader Phase **3** implementation remains unauthorized without new governance.
+- **Where you are:** Phase **2** for **binding approval**; **post–T113 governance** (Prompt **#409**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T112** attention-signal build is on disk, and **T113** now governs one later attention-queue build slice only.
+- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. The only newly authorized future slice is one local **`build_operator_attention_queue.py`** implementation writing **`operator_attention_queue.json`**; do not widen into AI/scanner/runtime/provider/dashboard without new governance.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -86,6 +86,7 @@
 | T110 status                  | **Executed (implementation)** — Local operator review queue build (**#403**); **`review/local_run/build_operator_review_queue.py`**; **`post_t110_local_operator_review_queue_build`**; **`outputs/local_happy_path_runs/operator_review_queue.json`**; **not** scanner/runtime/provider/dashboard |
 | T111 status                  | **Executed (governance only)** — First operator-meaningful filtering signal (**#405**); **`THE_FADE_T111_FIRST_OPERATOR_MEANINGFUL_FILTERING_SIGNAL_GOVERNANCE.md`** + **`THE_FADE_T111_FIRST_OPERATOR_MEANINGFUL_FILTERING_SIGNAL_ACCEPTANCE_CRITERIA.md`**; **`post_t111_first_operator_meaningful_filtering_signal_governance`** |
 | T112 status                  | **Executed (implementation)** — First operator-meaningful filtering signal build (**#407**); **`review/local_run/build_operator_attention_signal_from_run_folder.py`**; **`post_t112_first_operator_meaningful_filtering_signal_build`**; per-run **`operator_attention_signal.json`**; **not** scanner/runtime/provider/dashboard |
+| T113 status                  | **Executed (governance only)** — Local operator attention queue governance lock (**#409**); **`THE_FADE_T113_LOCAL_OPERATOR_ATTENTION_QUEUE_GOVERNANCE.md`** + **`THE_FADE_T113_LOCAL_OPERATOR_ATTENTION_QUEUE_ACCEPTANCE_CRITERIA.md`**; **`post_t113_local_operator_attention_queue_governance`**; one later bounded queue build slice authorized only |
 
 ---
 
