@@ -1,0 +1,137 @@
+{
+  "artifact_kind": "the_fade_t115_source_records_snapshot_v1",
+  "source_name": "Federal Register",
+  "run_folder_name": "run_20260410T153739Z",
+  "run_id": "20260410T153739Z",
+  "request_id": "c4c61b02-b5eb-4836-8458-564f69e15b49",
+  "candidate_source_packet_ref": "federal_register_query:https://www.federalregister.gov/api/v1/documents.json?per_page=5&order=newest",
+  "fetch_url_used": "https://www.federalregister.gov/api/v1/documents.json?per_page=5&order=newest",
+  "fetch_timestamp_utc": "2026-04-10T15:37:49Z",
+  "api_response_metadata": {
+    "results_length": 5,
+    "http_status": 200,
+    "count": 10000,
+    "total_pages": 50
+  },
+  "source_records": [
+    {
+      "title": "Continuation of the National Emergency With Respect to Somalia",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07069.pdf",
+      "document_number": "2026-07069",
+      "publication_date": "2026-04-10",
+      "agencies": [
+        {
+          "raw_name": "EXECUTIVE OFFICE OF THE PRESIDENT",
+          "name": "Executive Office of the President",
+          "id": 538,
+          "url": "https://www.federalregister.gov/agencies/executive-office-of-the-president",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/538",
+          "parent_id": null,
+          "slug": "executive-office-of-the-president"
+        }
+      ],
+      "abstract": null,
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07069/continuation-of-the-national-emergency-with-respect-to-somalia",
+      "type": "Presidential Document"
+    },
+    {
+      "title": "Anti-Money Laundering and Countering the Financing of Terrorism Programs",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07033.pdf",
+      "document_number": "2026-07033",
+      "publication_date": "2026-04-10",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF THE TREASURY",
+          "name": "Treasury Department",
+          "id": 497,
+          "url": "https://www.federalregister.gov/agencies/treasury-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/497",
+          "parent_id": null,
+          "slug": "treasury-department"
+        },
+        {
+          "raw_name": "Financial Crimes Enforcement Network",
+          "name": "Financial Crimes Enforcement Network",
+          "id": 194,
+          "url": "https://www.federalregister.gov/agencies/financial-crimes-enforcement-network",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/194",
+          "parent_id": 497,
+          "slug": "financial-crimes-enforcement-network"
+        }
+      ],
+      "abstract": "Pursuant to the Department of the Treasury (Treasury) and FinCEN's efforts to modernize the Bank Secrecy Act (BSA) and to implement provisions of the Anti-Money Laundering Act of 2020 (AML Act), FinCEN is proposing a rule to fundamentally reform the requirements for financial institutions' anti-money laundering and countering the financing of terrorism (AML/CFT) programs. Among other changes, this proposed rule aims to ensure that financial institutions establish and maintain effective AML/CFT programs that better achieve the purposes of the BSA and lead to more effective outcomes for financial institutions as well as law enforcement and national security agencies. Through this rulemaking, consistent with its statutory authority as the administrator of the BSA, FinCEN is also proposing measures to modernize and reform Federal supervision of AML/CFT programs by enhancing FinCEN's role in AML/CFT supervision and enforcement in coordination with Federal banking regulators. In addition, FinCEN is proposing regulatory amendments to promote clarity and consistency across FinCEN's program rules for different types of financial institutions.",
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07033/anti-money-laundering-and-countering-the-financing-of-terrorism-programs",
+      "type": "Proposed Rule"
+    },
+    {
+      "title": "Environmental Technologies Trade Advisory Committee",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07032.pdf",
+      "document_number": "2026-07032",
+      "publication_date": "2026-04-10",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF COMMERCE",
+          "name": "Commerce Department",
+          "id": 54,
+          "url": "https://www.federalregister.gov/agencies/commerce-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/54",
+          "parent_id": null,
+          "slug": "commerce-department"
+        },
+        {
+          "raw_name": "International Trade Administration",
+          "name": "International Trade Administration",
+          "id": 261,
+          "url": "https://www.federalregister.gov/agencies/international-trade-administration",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/261",
+          "parent_id": 54,
+          "slug": "international-trade-administration"
+        }
+      ],
+      "abstract": "The Environmental Technologies Trade Advisory Committee (ETTAC) will hold an in-person meeting on Tuesday, April 28, 2026. The meeting is open to the public with registration instructions provided below. This notice sets forth the schedule and proposed topics for the meeting.",
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07032/environmental-technologies-trade-advisory-committee",
+      "type": "Notice"
+    },
+    {
+      "title": "Certain Glass Substrates for Liquid Crystal Displays, Products Containing the Same, and Methods for Manufacturing the Same II; Notice of Request for Submissions on the Public Interest",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07031.pdf",
+      "document_number": "2026-07031",
+      "publication_date": "2026-04-10",
+      "agencies": [
+        {
+          "raw_name": "INTERNATIONAL TRADE COMMISSION",
+          "name": "International Trade Commission",
+          "id": 262,
+          "url": "https://www.federalregister.gov/agencies/international-trade-commission",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/262",
+          "parent_id": null,
+          "slug": "international-trade-commission"
+        }
+      ],
+      "abstract": "Notice is hereby given that on April 7, 2026, the presiding administrative law judge (\"ALJ\") issued an Initial Determination on Violation of Section 337. The ALJ also issued a Recommended Determination on remedy and bonding should a violation be found in the above-captioned investigation. The Commission is soliciting submissions on public interest issues raised by the recommended relief should the Commission find a violation. This notice is soliciting comments from the public and interested government agencies only.",
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07031/certain-glass-substrates-for-liquid-crystal-displays-products-containing-the-same-and-methods-for",
+      "type": "Notice"
+    },
+    {
+      "title": "Notice Announcing Innovative Approaches to Literacy Program Competition",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07030.pdf",
+      "document_number": "2026-07030",
+      "publication_date": "2026-04-10",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF EDUCATION",
+          "name": "Education Department",
+          "id": 126,
+          "url": "https://www.federalregister.gov/agencies/education-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/126",
+          "parent_id": null,
+          "slug": "education-department"
+        }
+      ],
+      "abstract": "The Employment and Training Administration at U.S. Department of Labor (DOL) is soliciting applications in support of the administration of the Innovative Approaches to Literacy (IAL) program, Assistance Listing Number 84.215G, on behalf of the U.S. Department of Education (ED).",
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07030/notice-announcing-innovative-approaches-to-literacy-program-competition",
+      "type": "Notice"
+    }
+  ],
+  "explicit_non_scanner_statement": "This is a factual Federal Register source-record snapshot for one local run folder. It is not scanner output, not ranking or scoring, not selection, and not a recommendation."
+}

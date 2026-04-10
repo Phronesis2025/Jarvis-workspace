@@ -1,0 +1,9 @@
+{
+  "request_id": "c4c61b02-b5eb-4836-8458-564f69e15b49",
+  "as_of_utc": "2026-04-10T15:37:41.515931Z",
+  "universe_source_ref": "federal_register:documents_api_v1",
+  "contract_version": "1.0.0",
+  "scan_policy_version": "federal_register_ingress_t89_v1",
+  "candidate_source_packet_ref": "federal_register_query:https://www.federalregister.gov/api/v1/documents.json?per_page=5&order=newest",
+  "operator_notes": "T89 ingress packet from Federal Register only; results_count=5; no scanner execution."
+}
