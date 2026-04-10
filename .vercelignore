@@ -1,0 +1,7 @@
+# Shrinks repo context for Vercel CLI (e.g. prebuilt deploy) — not used by Next at runtime.
+.git
+logs
+**/node_modules
+dashboard/.next/cache
+future_modules/pathfinder
+future_modules/repo_intake
