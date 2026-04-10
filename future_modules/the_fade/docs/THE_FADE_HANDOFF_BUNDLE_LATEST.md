@@ -1,17 +1,17 @@
 # THE FADE Handoff Bundle (Latest)
 
-**Prompt #:** 415  
-**Phase #:** 3 — **local pipeline implementation** (post–T116 run-scoped source-record capture build)  
-**Tranche #:** 116  
-**Updated:** 2026-04-09T20:25:00+00:00
+**Prompt #:** 417  
+**Phase #:** 3 — **local pipeline implementation** (post–T117 first real scanner rule governance lock)  
+**Tranche #:** 117  
+**Updated:** 2026-04-09T22:00:00+00:00
 **Branch:** `the-fade-phase1-tranche1-foundation` (verify: `git branch --show-current`)
 
 ---
 
-## New chat checkpoint (post–T116 run-scoped source-record capture build)
+## New chat checkpoint (post–T117 first real scanner rule governance lock)
 
-- **Where you are:** Phase **2** for **binding approval**; **post–T116** (Prompt **#415**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T116** **`review/local_run/build_source_records_snapshot_from_run_folder.py`** on disk: **one** GET per run folder → **`source_records_snapshot.json`** (bounded factual API fields). **T114** attention queue artifacts remain on disk.
-- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Treat **T116** as **preservation of Federal Register rows for one run**, not scanner/ranking/runtime authorization; no further slice implied without new governance.
+- **Where you are:** Phase **2** for **binding approval**; **post–T117** (Prompt **#417**). **Scoped MVP approval** (**T80**) remains: `approved: true`. **T116** capture script on disk; **T117** **governs** the **first real mechanical scanner rule** over existing **`source_records_snapshot.json`** (paths/names pinned in T117 docs). **Executable** **`build_first_real_scanner_rule_from_run_folder.py`** is **not** required in T117 — **not built** until a **later** governed implementation tranche. **T114** attention queue artifacts remain on disk.
+- **What to do next:** Read **`THE_FADE_CONTEXT_ANCHOR.md`**. Next **authorized** code slice (if chosen) is **only** the **single** T117-pinned local rule script + **one** evaluation JSON per run folder — **no** network, **no** multi-rule engine, **no** ranking; anything else needs **new** governance.
 - **Authority:** `mvp_lane_approval.json` (verify on disk). No live Research Swarm / market-data integration **evidenced**.
 
 ---
@@ -37,7 +37,7 @@
 | Phase                        | **2** — MVP lane approval + source reliability pre-audit                                                                          |
 | Approval                     | **`mvp_lane_approval.json`:** **`approved: true`**; **`approved_mvp_lanes`** = B, A, C, E (verify on disk). Signoff: **`config/t80_scoped_mvp_approval_decision.json`**                                        |
 | Lane posture                 | **T76** + **T78** Lane B governance packs on disk (`lane_b_t76_*`, `lane_b_t78_*`). **T80** scoped MVP approval **on disk**. **T82** governance lock — **no** lane reopen. **Lanes A/C/E** **stopped**. **Lane B** default freeze for **new** live evidence tranches unchanged |
-| Phase 3                      | **T85** static I/O contracts on disk; **T87** contract-tree validator on disk; **T89** Federal Register ingress on disk; **T91** ingress-request validator on disk; **T94** result-packet validator on disk; **T95** bridge governance + **T96** **`build_universe_scanner_result_from_single_request.py`** on disk; **T98** local happy-path runner on disk; **T108** gate script + per-run **`operator_review_gate.json`** on disk; **T109** queue governance + **T110** **`build_operator_review_queue.py`** + **`operator_review_queue.json`** on disk; **T111** attention-signal governance + **T112** **`build_operator_attention_signal_from_run_folder.py`** + per-run **`operator_attention_signal.json`** on disk; **T113** attention-queue governance + **T114** **`build_operator_attention_queue.py`** + **`operator_attention_queue.json`** on disk; **T115** capture **governed** + **T116** **`build_source_records_snapshot_from_run_folder.py`** + **`README_source_records_snapshot.md`** (per-run **`source_records_snapshot.json`** when executed); scanner **loop**/runtime **platform**/dashboard **product**/providers **platform** remain blocked pending new governance |
+| Phase 3                      | **T85** static I/O contracts on disk; **T87** contract-tree validator on disk; **T89** Federal Register ingress on disk; **T91** ingress-request validator on disk; **T94** result-packet validator on disk; **T95** bridge governance + **T96** **`build_universe_scanner_result_from_single_request.py`** on disk; **T98** local happy-path runner on disk; **T108** gate script + per-run **`operator_review_gate.json`** on disk; **T109** queue governance + **T110** **`build_operator_review_queue.py`** + **`operator_review_queue.json`** on disk; **T111** attention-signal governance + **T112** **`build_operator_attention_signal_from_run_folder.py`** + per-run **`operator_attention_signal.json`** on disk; **T113** attention-queue governance + **T114** **`build_operator_attention_queue.py`** + **`operator_attention_queue.json`** on disk; **T115** capture **governed** + **T116** **`build_source_records_snapshot_from_run_folder.py`** + **`README_source_records_snapshot.md`** (per-run **`source_records_snapshot.json`** when executed); **T117** **first real scanner rule** **governed** on disk (**not** the rule script — **`build_first_real_scanner_rule_from_run_folder.py`** authorized for **one** future tranche only); scanner **loop**/runtime **platform**/dashboard **product**/providers **platform** remain blocked pending new governance |
 | Operator gate review outcome | **Reviewed at this checkpoint** — FR slice strong; whole-gate approval still not justified; no approval change; no Phase 3 unlock |
 | T45 status                   | **Executed** — Lane B failure-path / stale-outage **fixture** trace (`audit_lane_b_failure_path_stale_outage_trace.py` + `tranche45_*`); **not** gate closure; **not** live integration |
 | T47 status                   | **Executed** — Lane B conflict / fusion **precedence** **fixture** trace (`audit_lane_b_conflict_fusion_precedence_trace.py` + `tranche47_*`); **not** full conflict closure; **not** live integration |
@@ -88,6 +88,7 @@
 | T112 status                  | **Executed (implementation)** — First operator-meaningful filtering signal build (**#407**); **`review/local_run/build_operator_attention_signal_from_run_folder.py`**; **`post_t112_first_operator_meaningful_filtering_signal_build`**; per-run **`operator_attention_signal.json`**; **not** scanner/runtime/provider/dashboard |
 | T113 status                  | **Executed (governance only)** — Local operator attention queue governance lock (**#409**); **`THE_FADE_T113_LOCAL_OPERATOR_ATTENTION_QUEUE_GOVERNANCE.md`** + **`THE_FADE_T113_LOCAL_OPERATOR_ATTENTION_QUEUE_ACCEPTANCE_CRITERIA.md`**; **`post_t113_local_operator_attention_queue_governance`**; one later bounded queue build slice authorized only |
 | T114 status                  | **Executed (implementation)** — Local operator attention queue build (**#411**); **`review/local_run/build_operator_attention_queue.py`**; **`post_t114_local_operator_attention_queue_build`**; **`outputs/local_happy_path_runs/operator_attention_queue.json`**; **not** scanner/runtime/provider/dashboard |
+| T117 status                  | **Executed (governance only)** — First real scanner rule lock (**#417**); **`THE_FADE_T117_FIRST_REAL_SCANNER_RULE_GOVERNANCE.md`** + **`THE_FADE_T117_FIRST_REAL_SCANNER_RULE_ACCEPTANCE_CRITERIA.md`** + **`config/phase3_t117_first_real_scanner_rule.json`**; **`post_t117_first_real_scanner_rule_governance`**; **one** future tranche may add **`review/local_run/build_first_real_scanner_rule_from_run_folder.py`** + per-run **`first_real_scanner_rule_evaluation.json`** only as pinned; **not** full scanner engine; **not** ranking/runtime/dashboard |
 
 ---
 

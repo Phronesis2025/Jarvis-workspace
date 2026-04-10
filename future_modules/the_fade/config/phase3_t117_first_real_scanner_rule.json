@@ -1,0 +1,26 @@
+{
+  "slice_id": "THE_FADE_PHASE3_T117_FIRST_REAL_SCANNER_RULE",
+  "tranche": 117,
+  "prompt_number": 417,
+  "effective_utc": "2026-04-09T22:00:00Z",
+  "status": "governance_locked_not_implemented",
+  "governance_docs": [
+    "future_modules/the_fade/docs/THE_FADE_T117_FIRST_REAL_SCANNER_RULE_GOVERNANCE.md",
+    "future_modules/the_fade/docs/THE_FADE_T117_FIRST_REAL_SCANNER_RULE_ACCEPTANCE_CRITERIA.md"
+  ],
+  "machine_readable_role": "Narrow pointer for fixed paths and rule id; does not authorize execution by itself.",
+  "fixed_implementation_path": "future_modules/the_fade/review/local_run/build_first_real_scanner_rule_from_run_folder.py",
+  "fixed_output_artifact_basename": "first_real_scanner_rule_evaluation.json",
+  "required_input_basename": "source_records_snapshot.json",
+  "rule_id": "first_real_scanner_rule_t117_v1",
+  "rule_schema_version": "t117_v1",
+  "document_type_allowlist": ["Rule", "Proposed Rule", "Notice"],
+  "recency_window_utc_calendar_days_inclusive": 3,
+  "recency_window_definition": "D_pub must equal D_fetch, D_fetch-1 day, or D_fetch-2 days (UTC calendar), where D_fetch is the UTC date of fetch_timestamp_utc from source_records_snapshot.json",
+  "network_allowed": false,
+  "non_claims": [
+    "T117 does not implement the evaluation script",
+    "Does not authorize scanner engine, ranking, or dashboard work",
+    "Does not modify mvp_lane_approval.json or mvp_lane_evidence_registry.json"
+  ]
+}
