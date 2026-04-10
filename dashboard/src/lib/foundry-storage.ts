@@ -46,6 +46,12 @@ export function foundryStateRoot(): string {
 export function resolveFoundryStorageDriver(): FoundryStorageDriver {
   const d = process.env.FOUNDRY_STORAGE_DRIVER?.trim().toLowerCase();
   if (d === "blob" || d === "vercel_blob" || d === "vercel-blob") return "blob";
+  if (d === "fs") return "fs";
+  // Vercel serverless: repo-local `future_modules/...` is read-only; writes must use Blob.
+  // If the token is present but FOUNDRY_STORAGE_DRIVER was omitted, default to blob anyway.
+  if (process.env.VERCEL === "1" && process.env.BLOB_READ_WRITE_TOKEN?.trim()) {
+    return "blob";
+  }
   return "fs";
 }
 
