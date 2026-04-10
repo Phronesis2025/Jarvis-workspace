@@ -1,0 +1,40 @@
+{
+  "slice_id": "THE_FADE_PHASE3_T128_SCANNER_LANE_REOPEN_DECISION",
+  "tranche": 128,
+  "prompt_number": 440,
+  "effective_utc": "2026-04-10T19:00:00Z",
+  "status": "governance_locked_path_a_keep_lane_paused",
+  "chosen_path": "KEEP_THE_LANE_PAUSED",
+  "path_b_deferred": "REOPEN_THE_LANE_FOR_ONE_NARROW_NEW_QUESTION",
+  "prior_pause_anchor": {
+    "tranche": 127,
+    "prompt": 438,
+    "label": "THE_FADE_GOVERN_POST_T126_DECISION_LOCK",
+    "locked_path": "STOP_SCANNER_EXPANSION_FOR_NOW"
+  },
+  "usefulness_anchor": {
+    "tranche": 126,
+    "prompt": 437,
+    "label": "THE_FADE_RENEWED_USEFULNESS_DECISION_ON_CLEAN_4RUN_DIFFERENTIATED_EVIDENCE",
+    "doc": "future_modules/the_fade/docs/THE_FADE_T126_RENEWED_USEFULNESS_DECISION.md",
+    "outcome": "PARTIALLY_USEFUL"
+  },
+  "governance_docs": [
+    "future_modules/the_fade/docs/THE_FADE_T128_SCANNER_LANE_REOPEN_DECISION_GOVERNANCE.md",
+    "future_modules/the_fade/docs/THE_FADE_T128_SCANNER_LANE_REOPEN_DECISION_ACCEPTANCE_CRITERIA.md"
+  ],
+  "config_pointer_self": "future_modules/the_fade/config/phase3_t128_scanner_lane_reopen_decision_governance.json",
+  "next_lock_tranche": 441,
+  "next_lock_label": "git_lock_t128_governance_package_only",
+  "paths_allowed_in_441_commit_only": [
+    "future_modules/the_fade/docs/THE_FADE_T128_SCANNER_LANE_REOPEN_DECISION_GOVERNANCE.md",
+    "future_modules/the_fade/docs/THE_FADE_T128_SCANNER_LANE_REOPEN_DECISION_ACCEPTANCE_CRITERIA.md",
+    "future_modules/the_fade/config/phase3_t128_scanner_lane_reopen_decision_governance.json"
+  ],
+  "non_claims": [
+    "T128 does not implement #441",
+    "Does not reopen the scanner lane",
+    "Does not modify mvp_lane_approval.json or mvp_lane_evidence_registry.json",
+    "Does not retire the lane permanently"
+  ]
+}
