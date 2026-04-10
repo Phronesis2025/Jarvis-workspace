@@ -1,14 +1,15 @@
 {
   "artifact_kind": "the_fade_t120_first_real_scanner_reevidence_summary_v1",
-  "generated_at_utc": "2026-04-10T14:24:06Z",
+  "generated_at_utc": "2026-04-10T14:42:54Z",
   "runs_root": "C:/dev/jarvis-workspace/future_modules/the_fade/outputs/local_happy_path_runs",
-  "run_directories_scanned": 1,
-  "runs_with_source_records_snapshot": 1,
-  "runs_with_first_real_scanner_rule_evaluation": 1,
-  "t120_diversity_gate_satisfied": false,
-  "t120_diversity_gate_note": "Only 1 run(s) with snapshot+evaluation; T120 bar requires >=2 for full diversity gate.",
+  "run_directories_scanned": 2,
+  "runs_with_source_records_snapshot": 2,
+  "runs_with_first_real_scanner_rule_evaluation": 2,
+  "t120_diversity_gate_satisfied": true,
+  "t120_diversity_gate_note": "At least two runs differ on fetch_url_used, fetch_timestamp_utc, or api_results_length.",
   "aggregate_scanner_rule_reasons_histogram": {
-    "document_type_not_allowed": 5
+    "document_type_not_allowed": 6,
+    "meets_first_real_scanner_rule": 4
   },
   "per_run": [
     {
@@ -23,6 +24,21 @@
       "excluded_count": 5,
       "scanner_rule_reasons_histogram": {
         "document_type_not_allowed": 5
+      }
+    },
+    {
+      "run_folder": "run_20260410T143649Z",
+      "has_snapshot": true,
+      "has_evaluation": true,
+      "fetch_url_used": "https://www.federalregister.gov/api/v1/documents.json?per_page=5&order=newest",
+      "fetch_timestamp_utc": "2026-04-10T14:37:50Z",
+      "api_results_length": 5,
+      "source_records_input_count": 5,
+      "eligible_count": 4,
+      "excluded_count": 1,
+      "scanner_rule_reasons_histogram": {
+        "document_type_not_allowed": 1,
+        "meets_first_real_scanner_rule": 4
       }
     }
   ],
