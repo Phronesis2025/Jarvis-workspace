@@ -1,15 +1,15 @@
 {
   "artifact_kind": "the_fade_t120_first_real_scanner_reevidence_summary_v1",
-  "generated_at_utc": "2026-04-10T15:51:13Z",
+  "generated_at_utc": "2026-04-10T17:41:53Z",
   "runs_root": "C:/dev/jarvis-workspace/future_modules/the_fade/outputs/local_happy_path_runs",
-  "run_directories_scanned": 3,
-  "runs_with_source_records_snapshot": 3,
-  "runs_with_first_real_scanner_rule_evaluation": 3,
+  "run_directories_scanned": 4,
+  "runs_with_source_records_snapshot": 4,
+  "runs_with_first_real_scanner_rule_evaluation": 4,
   "t120_diversity_gate_satisfied": true,
   "t120_diversity_gate_note": "At least two runs differ on fetch_url_used, fetch_timestamp_utc, or api_results_length.",
   "aggregate_scanner_rule_reasons_histogram": {
-    "document_type_not_allowed": 7,
-    "meets_first_real_scanner_rule": 8
+    "document_type_not_allowed": 8,
+    "meets_first_real_scanner_rule": 17
   },
   "per_run": [
     {
@@ -54,6 +54,21 @@
       "scanner_rule_reasons_histogram": {
         "document_type_not_allowed": 1,
         "meets_first_real_scanner_rule": 4
+      }
+    },
+    {
+      "run_folder": "run_20260410T171258Z",
+      "has_snapshot": true,
+      "has_evaluation": true,
+      "fetch_url_used": "https://www.federalregister.gov/api/v1/documents.json?per_page=10&order=newest",
+      "fetch_timestamp_utc": "2026-04-10T17:14:33Z",
+      "api_results_length": 10,
+      "source_records_input_count": 10,
+      "eligible_count": 9,
+      "excluded_count": 1,
+      "scanner_rule_reasons_histogram": {
+        "document_type_not_allowed": 1,
+        "meets_first_real_scanner_rule": 9
       }
     }
   ],

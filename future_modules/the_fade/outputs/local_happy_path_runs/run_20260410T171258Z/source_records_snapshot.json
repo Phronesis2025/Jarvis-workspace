@@ -1,0 +1,249 @@
+{
+  "artifact_kind": "the_fade_t115_source_records_snapshot_v1",
+  "source_name": "Federal Register",
+  "run_folder_name": "run_20260410T171258Z",
+  "run_id": "20260410T171258Z",
+  "request_id": "dffc60bd-0685-4065-9ff3-ac5c34fd9ca3",
+  "candidate_source_packet_ref": "federal_register_query:https://www.federalregister.gov/api/v1/documents.json?per_page=10&order=newest",
+  "fetch_url_used": "https://www.federalregister.gov/api/v1/documents.json?per_page=10&order=newest",
+  "fetch_timestamp_utc": "2026-04-10T17:14:33Z",
+  "api_response_metadata": {
+    "results_length": 10,
+    "http_status": 200,
+    "count": 10000,
+    "total_pages": 50
+  },
+  "source_records": [
+    {
+      "title": "Continuation of the National Emergency With Respect to Somalia",
+      "agencies": [
+        {
+          "raw_name": "EXECUTIVE OFFICE OF THE PRESIDENT",
+          "name": "Executive Office of the President",
+          "id": 538,
+          "url": "https://www.federalregister.gov/agencies/executive-office-of-the-president",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/538",
+          "parent_id": null,
+          "slug": "executive-office-of-the-president"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07069/continuation-of-the-national-emergency-with-respect-to-somalia",
+      "abstract": null,
+      "document_number": "2026-07069",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07069.pdf",
+      "type": "Presidential Document"
+    },
+    {
+      "title": "Anti-Money Laundering and Countering the Financing of Terrorism Programs",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF THE TREASURY",
+          "name": "Treasury Department",
+          "id": 497,
+          "url": "https://www.federalregister.gov/agencies/treasury-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/497",
+          "parent_id": null,
+          "slug": "treasury-department"
+        },
+        {
+          "raw_name": "Financial Crimes Enforcement Network",
+          "name": "Financial Crimes Enforcement Network",
+          "id": 194,
+          "url": "https://www.federalregister.gov/agencies/financial-crimes-enforcement-network",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/194",
+          "parent_id": 497,
+          "slug": "financial-crimes-enforcement-network"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07033/anti-money-laundering-and-countering-the-financing-of-terrorism-programs",
+      "abstract": "Pursuant to the Department of the Treasury (Treasury) and FinCEN's efforts to modernize the Bank Secrecy Act (BSA) and to implement provisions of the Anti-Money Laundering Act of 2020 (AML Act), FinCEN is proposing a rule to fundamentally reform the requirements for financial institutions' anti-money laundering and countering the financing of terrorism (AML/CFT) programs. Among other changes, this proposed rule aims to ensure that financial institutions establish and maintain effective AML/CFT programs that better achieve the purposes of the BSA and lead to more effective outcomes for financial institutions as well as law enforcement and national security agencies. Through this rulemaking, consistent with its statutory authority as the administrator of the BSA, FinCEN is also proposing measures to modernize and reform Federal supervision of AML/CFT programs by enhancing FinCEN's role in AML/CFT supervision and enforcement in coordination with Federal banking regulators. In addition, FinCEN is proposing regulatory amendments to promote clarity and consistency across FinCEN's program rules for different types of financial institutions.",
+      "document_number": "2026-07033",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07033.pdf",
+      "type": "Proposed Rule"
+    },
+    {
+      "title": "Environmental Technologies Trade Advisory Committee",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF COMMERCE",
+          "name": "Commerce Department",
+          "id": 54,
+          "url": "https://www.federalregister.gov/agencies/commerce-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/54",
+          "parent_id": null,
+          "slug": "commerce-department"
+        },
+        {
+          "raw_name": "International Trade Administration",
+          "name": "International Trade Administration",
+          "id": 261,
+          "url": "https://www.federalregister.gov/agencies/international-trade-administration",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/261",
+          "parent_id": 54,
+          "slug": "international-trade-administration"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07032/environmental-technologies-trade-advisory-committee",
+      "abstract": "The Environmental Technologies Trade Advisory Committee (ETTAC) will hold an in-person meeting on Tuesday, April 28, 2026. The meeting is open to the public with registration instructions provided below. This notice sets forth the schedule and proposed topics for the meeting.",
+      "document_number": "2026-07032",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07032.pdf",
+      "type": "Notice"
+    },
+    {
+      "title": "Certain Glass Substrates for Liquid Crystal Displays, Products Containing the Same, and Methods for Manufacturing the Same II; Notice of Request for Submissions on the Public Interest",
+      "agencies": [
+        {
+          "raw_name": "INTERNATIONAL TRADE COMMISSION",
+          "name": "International Trade Commission",
+          "id": 262,
+          "url": "https://www.federalregister.gov/agencies/international-trade-commission",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/262",
+          "parent_id": null,
+          "slug": "international-trade-commission"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07031/certain-glass-substrates-for-liquid-crystal-displays-products-containing-the-same-and-methods-for",
+      "abstract": "Notice is hereby given that on April 7, 2026, the presiding administrative law judge (\"ALJ\") issued an Initial Determination on Violation of Section 337. The ALJ also issued a Recommended Determination on remedy and bonding should a violation be found in the above-captioned investigation. The Commission is soliciting submissions on public interest issues raised by the recommended relief should the Commission find a violation. This notice is soliciting comments from the public and interested government agencies only.",
+      "document_number": "2026-07031",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07031.pdf",
+      "type": "Notice"
+    },
+    {
+      "title": "Notice Announcing Innovative Approaches to Literacy Program Competition",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF EDUCATION",
+          "name": "Education Department",
+          "id": 126,
+          "url": "https://www.federalregister.gov/agencies/education-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/126",
+          "parent_id": null,
+          "slug": "education-department"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07030/notice-announcing-innovative-approaches-to-literacy-program-competition",
+      "abstract": "The Employment and Training Administration at U.S. Department of Labor (DOL) is soliciting applications in support of the administration of the Innovative Approaches to Literacy (IAL) program, Assistance Listing Number 84.215G, on behalf of the U.S. Department of Education (ED).",
+      "document_number": "2026-07030",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07030.pdf",
+      "type": "Notice"
+    },
+    {
+      "title": "Notice Announcing Teacher and School Leader Incentive Program Competition",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF EDUCATION",
+          "name": "Education Department",
+          "id": 126,
+          "url": "https://www.federalregister.gov/agencies/education-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/126",
+          "parent_id": null,
+          "slug": "education-department"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07029/notice-announcing-teacher-and-school-leader-incentive-program-competition",
+      "abstract": "The Employment and Training Administration at the U.S. Department of Labor (DOL) is soliciting applications in support of the administration of Teacher and School Leader Incentive Program (TSL), Assistance Listing Number 84.374A, on behalf of the U.S. Department of Education (ED).",
+      "document_number": "2026-07029",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07029.pdf",
+      "type": "Notice"
+    },
+    {
+      "title": "Agency Information Collection Activities; Comment Request; Application for Approval To Participate in Federal Student Aid Programs",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF EDUCATION",
+          "name": "Education Department",
+          "id": 126,
+          "url": "https://www.federalregister.gov/agencies/education-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/126",
+          "parent_id": null,
+          "slug": "education-department"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07028/agency-information-collection-activities-comment-request-application-for-approval-to-participate-in",
+      "abstract": "In accordance with the Paperwork Reduction Act (PRA) of 1995, the Department is proposing a revision of a currently approved information collection request (ICR).",
+      "document_number": "2026-07028",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07028.pdf",
+      "type": "Notice"
+    },
+    {
+      "title": "Notice Announcing Special Education Parent Information Centers-Community Parent Resource Centers Program Competition",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF EDUCATION",
+          "name": "Education Department",
+          "id": 126,
+          "url": "https://www.federalregister.gov/agencies/education-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/126",
+          "parent_id": null,
+          "slug": "education-department"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07027/notice-announcing-special-education-parent-information-centers-community-parent-resource-centers",
+      "abstract": "The Department of Education (ED) announces the opportunity to apply for competitive grants for the Fiscal Year (FY) 2026 for the Special Education Parent Information Centers--Community Parent Resource Centers, Assistance Listing Number 84.328C.",
+      "document_number": "2026-07027",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07027.pdf",
+      "type": "Notice"
+    },
+    {
+      "title": "Wild Bird Conservation Act; Receipt of Permit Application",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF THE INTERIOR",
+          "name": "Interior Department",
+          "id": 253,
+          "url": "https://www.federalregister.gov/agencies/interior-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/253",
+          "parent_id": null,
+          "slug": "interior-department"
+        },
+        {
+          "raw_name": "Fish and Wildlife Service",
+          "name": "Fish and Wildlife Service",
+          "id": 197,
+          "url": "https://www.federalregister.gov/agencies/fish-and-wildlife-service",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/197",
+          "parent_id": 253,
+          "slug": "fish-and-wildlife-service"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07026/wild-bird-conservation-act-receipt-of-permit-application",
+      "abstract": "We, the U.S. Fish and Wildlife Service (Service), invite the public to comment on an application for the approval of a cooperative breeding program under the Wild Bird Conservation Act (WBCA). With some exceptions, the WBCA prohibits the importation of exotic birds unless Federal authorization is issued that allows the activity. The regulations implementing WBCA also require that we invite public comment on each application received requesting the approval of a cooperative breeding program.",
+      "document_number": "2026-07026",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07026.pdf",
+      "type": "Notice"
+    },
+    {
+      "title": "Privacy Act of 1974; System of Records",
+      "agencies": [
+        {
+          "raw_name": "DEPARTMENT OF DEFENSE",
+          "name": "Defense Department",
+          "id": 103,
+          "url": "https://www.federalregister.gov/agencies/defense-department",
+          "json_url": "https://www.federalregister.gov/api/v1/agencies/103",
+          "parent_id": null,
+          "slug": "defense-department"
+        },
+        {
+          "raw_name": "Office of the Secretary"
+        }
+      ],
+      "html_url": "https://www.federalregister.gov/documents/2026/04/10/2026-07025/privacy-act-of-1974-system-of-records",
+      "abstract": "In accordance with the Privacy Act of 1974, the OIG is rescinding a SORN titled, \"Investigative Files,\" CIG-06. This system was established to conduct criminal investigations, crime prevention and criminal intelligence activities, to accomplish management studies involving the analysis, compilation of statistics, quality control, to ensure that completed investigations are legally sufficient and result in overall improvement in techniques, training and professionalism.",
+      "document_number": "2026-07025",
+      "publication_date": "2026-04-10",
+      "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07025.pdf",
+      "type": "Notice"
+    }
+  ],
+  "explicit_non_scanner_statement": "This is a factual Federal Register source-record snapshot for one local run folder. It is not scanner output, not ranking or scoring, not selection, and not a recommendation."
+}

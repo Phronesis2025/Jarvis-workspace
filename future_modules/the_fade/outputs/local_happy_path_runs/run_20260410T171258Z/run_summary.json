@@ -1,0 +1,13 @@
+{
+  "run_id": "20260410T171258Z",
+  "started_at_utc": "2026-04-10T17:12:39Z",
+  "finished_at_utc": "2026-04-10T17:12:57Z",
+  "status": "PASS",
+  "wrapped_runner_path": "manual: future_modules/the_fade/ingress/federal_register/build_universe_scanner_request_from_federal_register.py --per-page 10; future_modules/the_fade/bridge/first_request_to_result/build_universe_scanner_result_from_single_request.py (T125 #435 differentiated evidence)",
+  "source_request_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\inputs\\phase3_universe_scanner_requests\\fr_universe_scanner_request_20260410T171239Z.json",
+  "source_result_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\phase3_universe_scanner_results\\bridge_universe_scanner_result_dffc60bd068540659ff3ac5c34fd9ca3_20260410T171257Z.json",
+  "copied_request_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\local_happy_path_runs\\run_20260410T171258Z\\fr_universe_scanner_request_20260410T171239Z.json",
+  "copied_result_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\local_happy_path_runs\\run_20260410T171258Z\\bridge_universe_scanner_result_dffc60bd068540659ff3ac5c34fd9ca3_20260410T171257Z.json",
+  "cleaned_root_request_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\inputs\\phase3_universe_scanner_requests\\fr_universe_scanner_request_20260410T171239Z.json",
+  "cleaned_root_result_path": "C:\\dev\\jarvis-workspace\\future_modules\\the_fade\\outputs\\phase3_universe_scanner_results\\bridge_universe_scanner_result_dffc60bd068540659ff3ac5c34fd9ca3_20260410T171257Z.json"
+}
