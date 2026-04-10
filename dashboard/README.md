@@ -54,6 +54,8 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 
 ## Vercel deployment
 
+_Note:_ A docs-only push on a feature branch can intentionally trigger a fresh Vercel Preview without changing dashboard behavior.
+
 Jarvis-workspace hosts the Next app under **`dashboard/`**. The production Vercel project is configured as follows:
 
 1. **Git:** **Production branch = `main`.** Feature branches get **Preview** deployments when pushed (default Vercel Git behavior).
