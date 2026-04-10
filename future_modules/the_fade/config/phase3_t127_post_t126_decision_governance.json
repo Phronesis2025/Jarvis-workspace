@@ -1,0 +1,36 @@
+{
+  "slice_id": "THE_FADE_PHASE3_T127_POST_T126_DECISION_LOCK",
+  "tranche": 127,
+  "prompt_number": 438,
+  "effective_utc": "2026-04-10T18:30:00Z",
+  "status": "governance_locked_path_b_stop_scanner_expansion_for_now",
+  "chosen_path": "STOP_SCANNER_EXPANSION_FOR_NOW",
+  "path_a_deferred": "CONTINUE_DIFFERENTIATED_EVIDENCE",
+  "anchor_checkpoint": {
+    "prompt": 437,
+    "label": "THE_FADE_RENEWED_USEFULNESS_DECISION_ON_CLEAN_4RUN_DIFFERENTIATED_EVIDENCE",
+    "doc": "future_modules/the_fade/docs/THE_FADE_T126_RENEWED_USEFULNESS_DECISION.md",
+    "usefulness_outcome": "PARTIALLY_USEFUL",
+    "repair_before_expansion": false,
+    "scanner_expansion_now": false
+  },
+  "governance_docs": [
+    "future_modules/the_fade/docs/THE_FADE_T127_POST_T126_DECISION_GOVERNANCE.md",
+    "future_modules/the_fade/docs/THE_FADE_T127_POST_T126_DECISION_ACCEPTANCE_CRITERIA.md"
+  ],
+  "config_pointer_self": "future_modules/the_fade/config/phase3_t127_post_t126_decision_governance.json",
+  "next_lock_tranche": 439,
+  "next_lock_label": "git_lock_t127_governance_package_only",
+  "paths_allowed_in_439_commit_only": [
+    "future_modules/the_fade/docs/THE_FADE_T127_POST_T126_DECISION_GOVERNANCE.md",
+    "future_modules/the_fade/docs/THE_FADE_T127_POST_T126_DECISION_ACCEPTANCE_CRITERIA.md",
+    "future_modules/the_fade/config/phase3_t127_post_t126_decision_governance.json"
+  ],
+  "scanner_expansion_definition": "No new scanner rules, mandatory FR run churn, ranking/scoring/selection, or engine growth until a future governance prompt reopens work.",
+  "non_claims": [
+    "T127 does not implement #439",
+    "Does not authorize PATH A continued evidence",
+    "Does not modify mvp_lane_approval.json or mvp_lane_evidence_registry.json",
+    "Does not assert lane MVP readiness"
+  ]
+}
