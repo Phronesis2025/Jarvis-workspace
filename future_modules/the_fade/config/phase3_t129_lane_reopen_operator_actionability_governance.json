@@ -1,0 +1,36 @@
+{
+  "slice_id": "THE_FADE_PHASE3_T129_LANE_REOPEN_OPERATOR_ACTIONABILITY",
+  "tranche": 129,
+  "prompt_number": 442,
+  "effective_utc": "2026-04-10T19:30:00Z",
+  "status": "governance_locked_path_b_reopen_for_operator_actionability_docs_only",
+  "chosen_path": "REOPEN_FOR_ONE_BOUNDED_QUESTION",
+  "path_a_deferred": "KEEP_THE_LANE_PAUSED_FOR_THIS_QUESTION",
+  "single_reopen_basis": "lane_b_federal_register_operator_actionability_contract",
+  "reopen_means": "governed_markdown_only_no_scanner_code_no_new_evidence_mandatory",
+  "prior_pause_anchor": {
+    "tranche": 128,
+    "prompt": 440,
+    "label": "THE_FADE_GOVERN_SCANNER_LANE_REOPEN_DECISION",
+    "locked_path": "KEEP_THE_LANE_PAUSED",
+    "re_entry_note": "T128 section 8 allows future prompt to supersede with one bounded basis; T129 is that prompt for actionability documentation only."
+  },
+  "governance_docs": [
+    "future_modules/the_fade/docs/THE_FADE_T129_LANE_REOPEN_OPERATOR_ACTIONABILITY_GOVERNANCE.md",
+    "future_modules/the_fade/docs/THE_FADE_T129_LANE_REOPEN_OPERATOR_ACTIONABILITY_ACCEPTANCE_CRITERIA.md"
+  ],
+  "config_pointer_self": "future_modules/the_fade/config/phase3_t129_lane_reopen_operator_actionability_governance.json",
+  "next_lock_tranche": 443,
+  "next_lock_label": "git_lock_t129_governance_package_only",
+  "paths_allowed_in_443_commit_only": [
+    "future_modules/the_fade/docs/THE_FADE_T129_LANE_REOPEN_OPERATOR_ACTIONABILITY_GOVERNANCE.md",
+    "future_modules/the_fade/docs/THE_FADE_T129_LANE_REOPEN_OPERATOR_ACTIONABILITY_ACCEPTANCE_CRITERIA.md",
+    "future_modules/the_fade/config/phase3_t129_lane_reopen_operator_actionability_governance.json"
+  ],
+  "non_claims": [
+    "T129 does not implement #443",
+    "Does not modify T117 or T118",
+    "Does not modify mvp_lane_approval.json or mvp_lane_evidence_registry.json",
+    "Does not authorize second scanner rule or expansion"
+  ]
+}
