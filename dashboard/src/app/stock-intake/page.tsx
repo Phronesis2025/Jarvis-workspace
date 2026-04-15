@@ -35,21 +35,21 @@ export default async function StockIntakePage() {
   if (!hasData) {
     return (
       <div className="space-y-6">
-        <h2 className="text-xl font-semibold tracking-tight text-cyan-100">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">
           Stock Intake Review
         </h2>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-muted-foreground">
           This page shows which stock symbols were found in Research Swarm and
           the draft watchlist before anything runs through the Stock Module.
         </p>
         <div className="hud-panel p-6">
-          <p className="text-amber-400/90">
+          <p className="text-warning">
             No stock intake data found yet.
           </p>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-muted-foreground">
             Run the symbol review builder and create a draft watchlist packet:
           </p>
-          <pre className="mt-3 overflow-x-auto rounded bg-slate-900/50 p-3 font-mono text-xs text-slate-300">
+          <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-muted p-3 font-mono text-xs text-foreground">
             {`cd future_modules/research_swarm/scripts
 python build_stock_symbol_review.py
 
@@ -62,12 +62,12 @@ python build_stock_symbol_review.py
 
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between gap-4 border-b border-cyan-500/20 pb-4">
+      <div className="flex items-end justify-between gap-4 border-b border-border pb-4">
         <div>
-          <h2 className="text-xl font-semibold tracking-tight text-cyan-100">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground">
             Stock Intake Review
           </h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-muted-foreground">
             Stock symbols found in Research Swarm. This is a manual review step
             before anything becomes a real stock-module run.
           </p>
@@ -89,49 +89,49 @@ python build_stock_symbol_review.py
           variant={(draft?.symbols?.length ?? 0) > 0 ? "healthy" : "default"}
         />
         <div className="hud-metric p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">
             Manual review status
           </div>
-          <div className="mt-1 text-xl font-semibold text-amber-400/90">
+          <div className="mt-1 text-xl font-semibold text-warning">
             Required
           </div>
-          <p className="mt-0.5 text-[11px] text-slate-600">
+          <p className="mt-0.5 text-[11px] text-muted-foreground">
             A person still needs to approve this before it moves forward.
           </p>
         </div>
       </div>
 
       <div className="hud-panel p-4">
-        <h3 className="mb-1 text-xs font-medium uppercase tracking-widest text-cyan-400/80">
+        <h3 className="mb-1 text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Top candidate symbols
         </h3>
-        <p className="mb-3 text-xs text-slate-500">
+        <p className="mb-3 text-xs text-muted-foreground">
           Symbols extracted from Research Swarm. Sorted by how often they appear
           across different sources.
         </p>
         {symbols.length === 0 ? (
-          <p className="text-sm text-slate-500">No symbols in summary yet.</p>
+          <p className="text-sm text-muted-foreground">No symbols in summary yet.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-slate-600/50">
-                  <th className="pb-2 pr-3 font-medium text-cyan-400/90">
+                <tr className="border-b border-border">
+                  <th className="pb-2 pr-3 font-medium text-muted-foreground">
                     Symbol
                   </th>
-                  <th className="pb-2 pr-3 font-medium text-cyan-400/90">
+                  <th className="pb-2 pr-3 font-medium text-muted-foreground">
                     Seen In Sources
                   </th>
-                  <th className="pb-2 pr-3 font-medium text-cyan-400/90">
+                  <th className="pb-2 pr-3 font-medium text-muted-foreground">
                     Times Found
                   </th>
-                  <th className="pb-2 pr-3 font-medium text-cyan-400/90">
+                  <th className="pb-2 pr-3 font-medium text-muted-foreground">
                     Example Source
                   </th>
-                  <th className="pb-2 pr-3 font-medium text-cyan-400/90">
+                  <th className="pb-2 pr-3 font-medium text-muted-foreground">
                     Suggested Status
                   </th>
-                  <th className="pb-2 pr-3 font-medium text-cyan-400/90">
+                  <th className="pb-2 pr-3 font-medium text-muted-foreground">
                     Why It Matters
                   </th>
                 </tr>
@@ -154,18 +154,18 @@ python build_stock_symbol_review.py
                   return (
                     <tr
                       key={s.symbol}
-                      className="border-b border-slate-700/30"
+                      className="border-b border-border"
                     >
-                      <td className="py-2 pr-3 font-mono text-cyan-200">
+                      <td className="py-2 pr-3 font-mono text-primary">
                         {s.symbol}
                       </td>
-                      <td className="py-2 pr-3 text-slate-300">
+                      <td className="py-2 pr-3 text-foreground">
                         {s.source_count}
                       </td>
-                      <td className="py-2 pr-3 text-slate-300">
+                      <td className="py-2 pr-3 text-foreground">
                         {s.occurrence_count}
                       </td>
-                      <td className="max-w-[180px] truncate py-2 pr-3 text-slate-400">
+                      <td className="max-w-[180px] truncate py-2 pr-3 text-muted-foreground">
                         {typeof exampleUrl === "string" && exampleUrl !== "—"
                           ? shortenUrl(exampleUrl)
                           : exampleUrl}
@@ -174,14 +174,14 @@ python build_stock_symbol_review.py
                         <span
                           className={
                             inDraft
-                              ? "rounded bg-teal-500/20 px-1.5 py-0.5 text-xs text-teal-300"
-                              : "text-slate-400"
+                              ? "rounded-full border border-success/20 bg-success/15 px-2 py-0.5 text-xs text-success"
+                              : "text-muted-foreground"
                           }
                         >
                           {suggestedStatus}
                         </span>
                       </td>
-                      <td className="max-w-[200px] py-2 pr-3 text-xs text-slate-500">
+                      <td className="max-w-[200px] py-2 pr-3 text-xs text-muted-foreground">
                         {why}
                       </td>
                     </tr>
@@ -191,7 +191,7 @@ python build_stock_symbol_review.py
             </table>
           </div>
         )}
-        <div className="mt-3 grid gap-2 border-t border-slate-700/30 pt-3 text-[11px] text-slate-600 sm:grid-cols-2">
+        <div className="mt-3 grid gap-2 border-t border-border pt-3 text-[11px] text-muted-foreground sm:grid-cols-2">
           <span>
             <strong>Seen In Sources:</strong> How many different source links
             mentioned this symbol.
@@ -205,28 +205,28 @@ python build_stock_symbol_review.py
       </div>
 
       <div className="hud-panel p-4">
-        <h3 className="mb-1 text-xs font-medium uppercase tracking-widest text-cyan-400/80">
+        <h3 className="mb-1 text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Draft watchlist
         </h3>
-        <p className="mb-3 text-xs text-slate-500">
+        <p className="mb-3 text-xs text-muted-foreground">
           A small starter list of symbols being considered for the next stock
           research step.
         </p>
         {!draft || (draft.symbols?.length ?? 0) === 0 ? (
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-muted-foreground">
             No draft watchlist packet found.
           </p>
         ) : (
           <div className="space-y-3">
             <div>
-              <div className="text-xs text-slate-500">
+              <div className="text-xs text-muted-foreground">
                 Current draft symbols
               </div>
               <div className="mt-1 flex flex-wrap gap-2">
                 {(draft.symbols ?? []).map((sym) => (
                   <span
                     key={sym}
-                    className="rounded bg-cyan-500/15 px-2 py-1 font-mono text-sm text-cyan-200 ring-1 ring-cyan-500/30"
+                    className="rounded-full border border-primary/20 bg-primary/15 px-2.5 py-1 font-mono text-sm text-primary"
                   >
                     {sym}
                   </span>
@@ -235,25 +235,25 @@ python build_stock_symbol_review.py
             </div>
             {draft.watch_reason && (
               <div>
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-muted-foreground">
                   Why these were selected
                 </div>
-                <p className="mt-1 text-sm text-slate-300">
+                <p className="mt-1 text-sm text-foreground">
                   {draft.watch_reason}
                 </p>
               </div>
             )}
             {draft.notes && (
               <div>
-                <div className="text-xs text-slate-500">Review note</div>
-                <p className="mt-1 text-sm text-slate-300">{draft.notes}</p>
+                <div className="text-xs text-muted-foreground">Review note</div>
+                <p className="mt-1 text-sm text-foreground">{draft.notes}</p>
               </div>
             )}
-            <div className="rounded border border-amber-500/30 bg-amber-500/10 p-3">
-              <span className="text-sm font-medium text-amber-400/90">
+            <div className="rounded-lg border border-warning/20 bg-warning/15 p-3">
+              <span className="text-sm font-medium text-warning">
                 Manual review required
               </span>
-              <p className="mt-0.5 text-xs text-slate-500">
+              <p className="mt-0.5 text-xs text-muted-foreground">
                 A person still needs to approve this before it moves forward.
               </p>
             </div>
@@ -262,10 +262,10 @@ python build_stock_symbol_review.py
       </div>
 
       <div className="hud-panel p-4">
-        <h3 className="mb-1 text-xs font-medium uppercase tracking-widest text-cyan-400/80">
+        <h3 className="mb-1 text-xs font-medium uppercase tracking-widest text-muted-foreground">
           What happens next
         </h3>
-        <ol className="list-inside list-decimal space-y-2 text-sm text-slate-300">
+        <ol className="list-inside list-decimal space-y-2 text-sm text-foreground">
           <li>Review the candidate symbols above</li>
           <li>Confirm the draft watchlist</li>
           <li>Run the first stock research brief (one symbol at a time)</li>

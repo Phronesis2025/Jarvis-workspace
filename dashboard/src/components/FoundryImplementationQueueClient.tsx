@@ -150,31 +150,31 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
     <div className="space-y-6">
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <div className="hud-metric p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">Total queue items</div>
-          <div className="mt-1 text-xl font-semibold text-cyan-200">{summary.total}</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">Total queue items</div>
+          <div className="mt-1 text-xl font-semibold text-foreground">{summary.total}</div>
         </div>
         <div className="hud-metric p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">Ready</div>
-          <div className="mt-1 text-xl font-semibold text-cyan-200">{summary.ready}</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">Ready</div>
+          <div className="mt-1 text-xl font-semibold text-foreground">{summary.ready}</div>
         </div>
         <div className="hud-metric p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">Blocked</div>
-          <div className="mt-1 text-xl font-semibold text-cyan-200">{summary.blocked}</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">Blocked</div>
+          <div className="mt-1 text-xl font-semibold text-foreground">{summary.blocked}</div>
         </div>
         <div className="hud-metric p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">Pending approval</div>
-          <div className="mt-1 text-xl font-semibold text-cyan-200">{summary.pendingApproval}</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">Pending approval</div>
+          <div className="mt-1 text-xl font-semibold text-foreground">{summary.pendingApproval}</div>
         </div>
       </section>
 
       <section className="hud-panel p-4">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
           <label className="space-y-1 text-sm">
-            <span className="text-slate-400">Operator approval</span>
+            <span className="text-muted-foreground">Operator approval</span>
             <select
               value={approvalFilter}
               onChange={(e) => setApprovalFilter(e.target.value)}
-              className="w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+              className="w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
             >
               <option value="all">all</option>
               {APPROVAL_OPTIONS.map((o) => (
@@ -185,11 +185,11 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
             </select>
           </label>
           <label className="space-y-1 text-sm">
-            <span className="text-slate-400">Status</span>
+            <span className="text-muted-foreground">Status</span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+              className="w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
             >
               <option value="all">all</option>
               {STATUS_OPTIONS.map((o) => (
@@ -200,11 +200,11 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
             </select>
           </label>
           <label className="space-y-1 text-sm">
-            <span className="text-slate-400">Priority band</span>
+            <span className="text-muted-foreground">Priority band</span>
             <select
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value)}
-              className="w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+              className="w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
             >
               <option value="all">all</option>
               {priorityBands.map((p) => (
@@ -215,12 +215,12 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
             </select>
           </label>
           <label className="space-y-1 text-sm">
-            <span className="text-slate-400">Search</span>
+            <span className="text-muted-foreground">Search</span>
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="title, idea, why now, output, blockers"
-              className="w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200 placeholder:text-slate-500"
+              className="w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground placeholder:text-muted-foreground"
             />
           </label>
         </div>
@@ -228,7 +228,7 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
 
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="hud-panel overflow-x-auto p-0">
-          <table className="min-w-full divide-y divide-cyan-500/10">
+          <table className="min-w-full divide-y divide-border">
             <thead>
               <tr>
                 {[
@@ -245,41 +245,41 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
                   "created",
                   "updated",
                 ].map((h) => (
-                  <th key={h} className="px-2 py-2 text-left text-xs font-medium uppercase text-slate-400">
+                  <th key={h} className="px-2 py-2 text-left text-xs font-medium uppercase text-muted-foreground">
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-cyan-500/5">
+            <tbody className="divide-y divide-border">
               {filtered.map((row) => {
                 const active = selected?.queue_id === row.queue_id;
                 return (
                   <tr
                     key={row.queue_id}
                     onClick={() => setSelectedId(row.queue_id)}
-                    className={`cursor-pointer text-sm ${active ? "bg-cyan-500/10" : "hover:bg-slate-900/70"}`}
+                    className={`cursor-pointer text-sm ${active ? "bg-muted" : "hover:bg-muted/50"}`}
                   >
-                    <td className="whitespace-nowrap px-2 py-2 text-slate-200">{row.queue_rank}</td>
-                    <td className="max-w-[180px] truncate px-2 py-2 text-slate-200">
+                    <td className="whitespace-nowrap px-2 py-2 text-foreground">{row.queue_rank}</td>
+                    <td className="max-w-[180px] truncate px-2 py-2 text-foreground">
                       {row.idea_title ?? row.idea_id}
                     </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-slate-400">{row.priority_band}</td>
-                    <td className="max-w-[140px] truncate px-2 py-2 text-slate-400">{row.why_now}</td>
-                    <td className="max-w-[140px] truncate px-2 py-2 text-slate-400">{row.expected_build_output}</td>
-                    <td className="max-w-[100px] truncate px-2 py-2 text-slate-500">
+                    <td className="whitespace-nowrap px-2 py-2 text-muted-foreground">{row.priority_band}</td>
+                    <td className="max-w-[140px] truncate px-2 py-2 text-muted-foreground">{row.why_now}</td>
+                    <td className="max-w-[140px] truncate px-2 py-2 text-muted-foreground">{row.expected_build_output}</td>
+                    <td className="max-w-[100px] truncate px-2 py-2 text-muted-foreground">
                       {row.required_resources.length ? row.required_resources.join(", ") : "—"}
                     </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-slate-400">{row.operator_approval_state}</td>
-                    <td className="whitespace-nowrap px-2 py-2 text-slate-400">{row.status}</td>
-                    <td className="max-w-[100px] truncate px-2 py-2 text-amber-200/80">
+                    <td className="whitespace-nowrap px-2 py-2 text-muted-foreground">{row.operator_approval_state}</td>
+                    <td className="whitespace-nowrap px-2 py-2 text-muted-foreground">{row.status}</td>
+                    <td className="max-w-[100px] truncate px-2 py-2 text-warning">
                       {row.blockers.length ? row.blockers.join("; ") : "—"}
                     </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-cyan-200">{row.source_confidence_snapshot}</td>
-                    <td className="whitespace-nowrap px-2 py-2 text-xs text-slate-500">
+                    <td className="whitespace-nowrap px-2 py-2 text-foreground">{row.source_confidence_snapshot}</td>
+                    <td className="whitespace-nowrap px-2 py-2 text-xs text-muted-foreground">
                       {new Date(row.created_at).toLocaleString()}
                     </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-xs text-slate-500">
+                    <td className="whitespace-nowrap px-2 py-2 text-xs text-muted-foreground">
                       {new Date(row.last_updated).toLocaleString()}
                     </td>
                   </tr>
@@ -288,54 +288,54 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
             </tbody>
           </table>
           {filtered.length === 0 && (
-            <p className="p-4 text-sm text-amber-300">No queue items match the current filters.</p>
+            <p className="p-4 text-sm text-warning">No queue items match the current filters.</p>
           )}
         </div>
 
         <div className="space-y-4">
           {!selected ? (
-            <div className="hud-panel p-4 text-sm text-slate-500">Select a queue item for details.</div>
+            <div className="hud-panel p-4 text-sm text-muted-foreground">Select a queue item for details.</div>
           ) : (
             <>
-              <div className="hud-panel p-4 text-sm text-slate-300">
-                <h3 className="text-lg font-semibold text-cyan-100">
+              <div className="hud-panel p-4 text-sm text-foreground">
+                <h3 className="text-lg font-semibold text-foreground">
                   {selected.idea_title ?? selected.idea_id}
                 </h3>
-                <p className="mt-1 text-xs text-slate-500">
-                  queue_id: <span className="font-mono text-cyan-200/80">{selected.queue_id}</span> · idea_id:{" "}
-                  <span className="font-mono text-cyan-200/80">{selected.idea_id}</span>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  queue_id: <span className="font-mono text-primary/80">{selected.queue_id}</span> · idea_id:{" "}
+                  <span className="font-mono text-primary/80">{selected.idea_id}</span>
                 </p>
                 {selected.source_run_id && (
-                  <p className="mt-1 text-xs text-slate-500">Source batch run_id: {selected.source_run_id}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Source batch run_id: {selected.source_run_id}</p>
                 )}
                 {selected.persisted_locally && (
-                  <p className="mt-1 text-xs text-teal-400/90">Operator edits persisted locally (implementation_queue_items/).</p>
+                  <p className="mt-1 text-xs text-success">Operator edits persisted locally (implementation_queue_items/).</p>
                 )}
                 <div className="mt-3 space-y-2">
                   <div>
-                    <span className="text-slate-500">Why now:</span> {selected.why_now}
+                    <span className="text-muted-foreground">Why now:</span> {selected.why_now}
                   </div>
                   <div>
-                    <span className="text-slate-500">Expected build output:</span> {selected.expected_build_output}
+                    <span className="text-muted-foreground">Expected build output:</span> {selected.expected_build_output}
                   </div>
                   <div>
-                    <span className="text-slate-500">Required resources:</span>{" "}
+                    <span className="text-muted-foreground">Required resources:</span>{" "}
                     {selected.required_resources.length ? selected.required_resources.join(", ") : "—"}
                   </div>
                   <div>
-                    <span className="text-slate-500">Target module:</span> {selected.target_module}
+                    <span className="text-muted-foreground">Target module:</span> {selected.target_module}
                   </div>
                   <div>
-                    <span className="text-slate-500">Effort estimate:</span> {selected.effort_estimate}
+                    <span className="text-muted-foreground">Effort estimate:</span> {selected.effort_estimate}
                   </div>
                   <div>
-                    <span className="text-slate-500">Dependency status:</span> {selected.dependency_status}
+                    <span className="text-muted-foreground">Dependency status:</span> {selected.dependency_status}
                   </div>
                   <div>
-                    <span className="text-slate-500">Source confidence snapshot:</span> {selected.source_confidence_snapshot}
+                    <span className="text-muted-foreground">Source confidence snapshot:</span> {selected.source_confidence_snapshot}
                   </div>
                   <div>
-                    <span className="text-slate-500">Success criteria:</span>
+                    <span className="text-muted-foreground">Success criteria:</span>
                     <ul className="mt-1 list-disc pl-5">
                       {selected.success_criteria.map((c, i) => (
                         <li key={i}>{c}</li>
@@ -343,19 +343,19 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
                     </ul>
                   </div>
                   <div>
-                    <span className="text-slate-500">Next action:</span> {selected.next_action || "—"}
+                    <span className="text-muted-foreground">Next action:</span> {selected.next_action || "—"}
                   </div>
                   <div>
-                    <span className="text-slate-500">Status:</span> {selected.status}
+                    <span className="text-muted-foreground">Status:</span> {selected.status}
                   </div>
                   <div>
-                    <span className="text-slate-500">Operator approval:</span> {selected.operator_approval_state}
+                    <span className="text-muted-foreground">Operator approval:</span> {selected.operator_approval_state}
                   </div>
                   <div>
-                    <span className="text-slate-500">Approval notes:</span> {selected.approval_notes || "—"}
+                    <span className="text-muted-foreground">Approval notes:</span> {selected.approval_notes || "—"}
                   </div>
                   <div>
-                    <span className="text-slate-500">Blockers:</span>
+                    <span className="text-muted-foreground">Blockers:</span>
                     {selected.blockers.length ? (
                       <ul className="mt-1 list-disc pl-5">
                         {selected.blockers.map((b, i) => (
@@ -363,37 +363,37 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
                         ))}
                       </ul>
                     ) : (
-                      <span className="text-slate-500"> —</span>
+                      <span className="text-muted-foreground"> —</span>
                     )}
                   </div>
                   <div>
-                    <span className="text-slate-500">Created:</span> {new Date(selected.created_at).toLocaleString()}
+                    <span className="text-muted-foreground">Created:</span> {new Date(selected.created_at).toLocaleString()}
                   </div>
                   <div>
-                    <span className="text-slate-500">Last updated:</span> {new Date(selected.last_updated).toLocaleString()}
+                    <span className="text-muted-foreground">Last updated:</span> {new Date(selected.last_updated).toLocaleString()}
                   </div>
                 </div>
-                <div className="mt-4 border-t border-cyan-500/10 pt-3">
-                  <div className="text-xs font-medium uppercase tracking-wider text-slate-500">Registry context</div>
+                <div className="mt-4 border-t border-border pt-3">
+                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Registry context</div>
                   {selected.idea_summary ? (
-                    <p className="mt-1 text-slate-400">{selected.idea_summary}</p>
+                    <p className="mt-1 text-muted-foreground">{selected.idea_summary}</p>
                   ) : (
-                    <p className="mt-1 text-slate-500">No matching registry idea file or summary unavailable.</p>
+                    <p className="mt-1 text-muted-foreground">No matching registry idea file or summary unavailable.</p>
                   )}
                   {selected.idea_registry_status && (
-                    <p className="mt-1 text-xs text-slate-500">Registry status: {selected.idea_registry_status}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Registry status: {selected.idea_registry_status}</p>
                   )}
                 </div>
               </div>
 
               <form onSubmit={onSave} className="hud-panel space-y-3 p-4">
-                <h4 className="text-xs font-medium uppercase tracking-wider text-cyan-400/80">Operator updates (local JSON)</h4>
+                <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Operator updates (local JSON)</h4>
                 <label className="block text-sm">
-                  <span className="text-slate-400">operator_approval_state</span>
+                  <span className="text-muted-foreground">operator_approval_state</span>
                   <select
                     value={formApproval}
                     onChange={(e) => setFormApproval(e.target.value)}
-                    className="mt-1 w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+                    className="mt-1 w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
                   >
                     {APPROVAL_OPTIONS.map((o) => (
                       <option key={o} value={o}>
@@ -403,11 +403,11 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
                   </select>
                 </label>
                 <label className="block text-sm">
-                  <span className="text-slate-400">status</span>
+                  <span className="text-muted-foreground">status</span>
                   <select
                     value={formStatus}
                     onChange={(e) => setFormStatus(e.target.value)}
-                    className="mt-1 w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+                    className="mt-1 w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
                   >
                     {STATUS_OPTIONS.map((o) => (
                       <option key={o} value={o}>
@@ -417,36 +417,36 @@ export function FoundryImplementationQueueClient({ initialItems }: Props) {
                   </select>
                 </label>
                 <label className="block text-sm">
-                  <span className="text-slate-400">next_action</span>
+                  <span className="text-muted-foreground">next_action</span>
                   <input
                     value={formNext}
                     onChange={(e) => setFormNext(e.target.value)}
-                    className="mt-1 w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+                    className="mt-1 w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
                   />
                 </label>
                 <label className="block text-sm">
-                  <span className="text-slate-400">approval_notes</span>
+                  <span className="text-muted-foreground">approval_notes</span>
                   <textarea
                     value={formNotes}
                     onChange={(e) => setFormNotes(e.target.value)}
                     rows={3}
-                    className="mt-1 w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+                    className="mt-1 w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
                   />
                 </label>
                 <label className="block text-sm">
-                  <span className="text-slate-400">blockers (one per line)</span>
+                  <span className="text-muted-foreground">blockers (one per line)</span>
                   <textarea
                     value={formBlockers}
                     onChange={(e) => setFormBlockers(e.target.value)}
                     rows={3}
-                    className="mt-1 w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+                    className="mt-1 w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
                   />
                 </label>
-                {saveStatus === "error" && <p className="text-sm text-amber-300">{saveMessage}</p>}
+                {saveStatus === "error" && <p className="text-sm text-warning">{saveMessage}</p>}
                 <button
                   type="submit"
                   disabled={saveStatus === "saving"}
-                  className="rounded-full bg-cyan-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+                  className="rounded-full border border-primary/20 bg-primary/15 px-4 py-2 text-sm font-semibold text-primary disabled:opacity-60"
                 >
                   {saveStatus === "saving" ? "Saving…" : "Save to local queue item JSON"}
                 </button>

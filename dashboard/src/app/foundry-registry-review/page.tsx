@@ -10,17 +10,17 @@ export default async function FoundryRegistryReviewPage() {
   if (data.ideas.length === 0) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight text-cyan-100">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">
           Master Idea Registry Review
         </h2>
-        <div className="hud-panel p-4 text-sm text-amber-300">
+        <div className="hud-panel p-4 text-sm text-warning">
           No registry ideas found in local Foundry state.
-          <div className="mt-2 text-slate-400">
-            Expected JSON files under: <span className="font-mono text-cyan-200">{data.dataRoot}/registry_ideas</span>
+          <div className="mt-2 text-muted-foreground">
+            Expected JSON files under: <span className="font-mono text-primary">{data.dataRoot}/registry_ideas</span>
           </div>
         </div>
         {data.errors.length > 0 && (
-          <div className="hud-panel p-4 text-sm text-amber-300">
+          <div className="hud-panel p-4 text-sm text-warning">
             <div className="mb-2 font-semibold">State read errors</div>
             <ul className="list-disc space-y-1 pl-5">
               {data.errors.map((error) => (
@@ -36,15 +36,15 @@ export default async function FoundryRegistryReviewPage() {
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-1">
-        <h2 className="text-xl font-semibold tracking-tight text-cyan-100">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">
           Master Idea Registry Review
         </h2>
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-muted-foreground">
           Read-only review surface for Foundry Registry Ideas from local JSON state.
         </p>
       </div>
       {data.errors.length > 0 && (
-        <div className="rounded border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200">
+        <div className="rounded-lg border border-warning/20 bg-warning/15 p-3 text-sm text-warning">
           <div className="mb-1 font-semibold">Partial data warning</div>
           <ul className="list-disc space-y-1 pl-5">
             {data.errors.map((error) => (

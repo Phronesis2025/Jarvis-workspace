@@ -11,34 +11,34 @@ export const dynamic = "force-dynamic";
 function statusColor(s: ChecklistItemStatus): string {
   switch (s) {
     case "done":
-      return "text-teal-400";
+      return "text-success";
     case "in_progress":
-      return "text-cyan-400";
+      return "text-primary";
     case "not_started":
-      return "text-slate-500";
+      return "text-muted-foreground";
     case "blocked":
-      return "text-amber-400";
+      return "text-warning";
     case "deferred":
-      return "text-slate-500 italic";
+      return "text-muted-foreground italic";
     default:
-      return "text-slate-400";
+      return "text-muted-foreground";
   }
 }
 
 function statusBadge(s: ChecklistItemStatus): string {
   switch (s) {
     case "done":
-      return "border-teal-500/40 bg-teal-500/10 text-teal-400";
+      return "border-success/20 bg-success/15 text-success";
     case "in_progress":
-      return "border-cyan-500/40 bg-cyan-500/10 text-cyan-400";
+      return "border-primary/20 bg-primary/15 text-primary";
     case "not_started":
-      return "border-slate-500/30 bg-slate-500/10 text-slate-400";
+      return "border-border bg-muted text-muted-foreground";
     case "blocked":
-      return "border-amber-500/40 bg-amber-500/10 text-amber-400";
+      return "border-warning/20 bg-warning/15 text-warning";
     case "deferred":
-      return "border-slate-500/20 bg-slate-500/5 text-slate-500";
+      return "border-border bg-muted text-muted-foreground";
     default:
-      return "border-slate-500/30 bg-slate-500/10 text-slate-400";
+      return "border-border bg-muted text-muted-foreground";
   }
 }
 
@@ -48,10 +48,10 @@ function ChecklistItemRow({ item }: { item: ModuleChecklistItem }) {
       <span
         className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${
           item.status === "done"
-            ? "bg-teal-400"
+              ? "bg-success"
             : item.status === "in_progress" || item.status === "blocked"
-              ? "bg-amber-400"
-              : "bg-slate-600"
+                ? "bg-warning"
+                : "bg-muted-foreground"
         }`}
       />
       <div className="min-w-0 flex-1">
@@ -59,7 +59,7 @@ function ChecklistItemRow({ item }: { item: ModuleChecklistItem }) {
           {item.label}
         </span>
         {item.notes && (
-          <p className="mt-0.5 text-xs text-slate-500">{item.notes}</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">{item.notes}</p>
         )}
       </div>
       <span
@@ -85,19 +85,19 @@ function PhaseBlock({
 
   return (
     <div
-      className={`hud-panel p-4 ${isCurrentPhase ? "hud-panel-glow ring-1 ring-cyan-500/30" : ""}`}
+      className={`hud-panel p-4 ${isCurrentPhase ? "ring-1 ring-primary/20" : ""}`}
     >
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h4 className="text-sm font-medium text-cyan-200">
+          <h4 className="text-sm font-medium text-foreground">
             {phase.phase_name}
             {isCurrentPhase && (
-              <span className="ml-2 text-xs text-cyan-400/80">
+              <span className="ml-2 text-xs text-primary">
                 (current phase)
               </span>
             )}
           </h4>
-          <p className="mt-0.5 text-xs text-slate-500">{phase.goal}</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">{phase.goal}</p>
         </div>
         <div className="flex items-center gap-2">
           <span
@@ -105,18 +105,18 @@ function PhaseBlock({
           >
             {phase.status.replace("_", " ")}
           </span>
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-muted-foreground">
             {doneCount}/{phase.items.length}
           </span>
         </div>
       </div>
-      <div className="space-y-0 divide-y divide-slate-700/50">
+      <div className="space-y-0 divide-y divide-border">
         {phase.items.map((item) => (
           <ChecklistItemRow key={item.id} item={item} />
         ))}
       </div>
       {remaining > 0 && (
-        <p className="mt-2 text-xs text-slate-500">
+        <p className="mt-2 text-xs text-muted-foreground">
           {remaining} item{remaining === 1 ? "" : "s"} remaining
         </p>
       )}
@@ -138,10 +138,10 @@ function ModuleSection({ module: m }: { module: ModuleChecklist }) {
       <div className="hud-panel p-4">
         <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h2 className="text-lg font-semibold text-cyan-100">
+            <h2 className="text-lg font-semibold text-foreground">
               {m.module_name}
             </h2>
-            <p className="mt-1 text-sm text-slate-400">{m.purpose}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{m.purpose}</p>
           </div>
           <span
             className={`shrink-0 rounded border px-3 py-1.5 text-sm font-medium ${statusBadge(m.status)}`}
@@ -151,39 +151,39 @@ function ModuleSection({ module: m }: { module: ModuleChecklist }) {
         </div>
 
         <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <div className="rounded border border-cyan-500/20 bg-cyan-500/5 p-3">
-            <div className="text-xs uppercase tracking-wider text-cyan-400/80">
+          <div className="rounded-lg border border-border bg-muted p-3">
+            <div className="text-xs uppercase tracking-wider text-muted-foreground">
               Current phase
             </div>
-            <div className="mt-1 text-sm font-medium text-cyan-200">
+            <div className="mt-1 text-sm font-medium text-foreground">
               {currentPhase?.phase_name ?? m.current_phase}
             </div>
           </div>
-          <div className="rounded border border-cyan-500/20 bg-cyan-500/5 p-3">
-            <div className="text-xs uppercase tracking-wider text-cyan-400/80">
+          <div className="rounded-lg border border-border bg-muted p-3">
+            <div className="text-xs uppercase tracking-wider text-muted-foreground">
               Current step
             </div>
-            <div className="mt-1 text-sm font-medium text-cyan-200">
+            <div className="mt-1 text-sm font-medium text-foreground">
               {m.current_step.replace(/_/g, " ")}
             </div>
           </div>
         </div>
 
-        <div className="mb-4 rounded border border-slate-600/50 bg-slate-900/30 p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">
+        <div className="mb-4 rounded-lg border border-border bg-muted p-3">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">
             Final version
           </div>
-          <p className="mt-1 text-sm text-slate-300">
+          <p className="mt-1 text-sm text-foreground">
             {m.final_version_definition}
           </p>
         </div>
 
         <div className="mb-2 flex items-center gap-2 text-sm">
-          <span className="text-teal-400">{doneItems} done</span>
-          <span className="text-slate-500">•</span>
-          <span className="text-amber-400/90">{remainingItems} remaining</span>
-          <span className="text-slate-500">•</span>
-          <span className="text-slate-500">{totalItems} total</span>
+          <span className="text-success">{doneItems} done</span>
+          <span className="text-muted-foreground">•</span>
+          <span className="text-warning">{remainingItems} remaining</span>
+          <span className="text-muted-foreground">•</span>
+          <span className="text-muted-foreground">{totalItems} total</span>
         </div>
       </div>
 
@@ -206,12 +206,12 @@ export default async function ChecklistsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-cyan-100">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Module Checklists
         </h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <p className="mt-1 text-sm text-muted-foreground">
           Build-path view for each module. Rendered from{" "}
-          <code className="rounded bg-slate-800 px-1.5 py-0.5 font-mono text-xs text-cyan-300">
+          <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-primary">
             state/module_checklists.json
           </code>
           .
@@ -220,10 +220,10 @@ export default async function ChecklistsPage() {
 
       {!data ? (
         <div className="hud-panel p-6">
-          <p className="text-amber-400/90">
+          <p className="text-warning">
             Checklist data unavailable. Run the dashboard locally with the
             Jarvis workspace so{" "}
-            <code className="rounded bg-slate-800 px-1 py-0.5 font-mono text-xs">
+            <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs text-foreground">
               state/module_checklists.json
             </code>{" "}
             can be read.
@@ -232,7 +232,7 @@ export default async function ChecklistsPage() {
       ) : (
         <>
           {data.generated_at && (
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-muted-foreground">
               Generated: {new Date(data.generated_at).toISOString()}
             </p>
           )}

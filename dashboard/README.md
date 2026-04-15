@@ -1,5 +1,8 @@
 # Jarvis Dashboard v1
 
+Last updated: 2026-04-15  
+Last reviewed: 2026-04-15
+
 Read-only web dashboard for Jarvis system progress and workflow. Deploys on Vercel.
 
 ## Architecture
@@ -7,6 +10,14 @@ Read-only web dashboard for Jarvis system progress and workflow. Deploys on Verc
 - **Source of truth:** Local Jarvis JSON/Markdown files remain authoritative.
 - **Dashboard:** Read-only. Supabase is the read model / dashboard data store only.
 - **No write-back:** No editing, scheduling, or command execution from the UI.
+- **UI transplant stance:** `Lovable_UI/` was used as a visual/UI donor and reference set only. It is not the production app architecture, router, or data model.
+
+## Current UI transplant status
+
+- **Completed tranche:** shell transplant, home/overview -> Now, tasks -> Work, and runs -> execution/audit surface.
+- **Preserved on purpose:** real routes, route names, backend/data logic, Supabase behavior, Foundry behavior, and existing page entry points.
+- **Not done:** remaining surfaces are not fully migrated yet; no new Lovable-only routes such as `/modules`, `/history`, or `/rules` were added.
+- **Visual system:** the live dashboard is aligned toward the Lovable token system, but only within the existing Next.js dashboard shell and route structure.
 
 ## Required env vars
 
@@ -43,13 +54,15 @@ Open [http://localhost:3001](http://localhost:3001). The app uses mock data when
 ## Verification
 
 - **Lint:** Runs non-interactively and passes (`npm run lint`).
-- **Build:** May be environment-blocked on some Windows setups due to Next.js trace-file locking (EPERM under `dashboard/.next`). Do not overclaim build success when environment-blocked.
-- **Local dev:** `npm run dev` on port 3001 serves the dashboard with correct shell/styling. Overview and Module Checklists both render as expected. Use `npm run dev` for local development; `npm run start` serves the production build (if build succeeds) and may behave differently.
+- **Build:** Passes (`npm run build`).
+- **Local dev:** `npm run dev` on port 3001 serves the dashboard with correct shell/styling. Route-wide CSS asset reliability was hardened by separating dev/prod Next output directories.
+- **Build boundary:** `Lovable_UI/`, `_snapshots/`, and build artifacts are excluded from the real dashboard TypeScript/build scope so donor/reference files do not interfere with the Next app.
 
 ## Troubleshooting
 
 - **Server Error: Cannot find module `./NNN.js` (webpack chunk):** If `.next` is **partially** updated (interrupted build, mixed compiles), Next can reference missing chunks. **Fix:** stop `npm run dev`, delete `dashboard/.next` (and remove any leftover `dashboard/.next-build` from older configs), then `npm run dev` or `npm run build` again. Do not commit build output.
-- **Build fails with EPERM / trace / file locked (Windows):** Close other terminals using the app, pause real-time antivirus on `dashboard/` briefly, or delete `.next` and rebuild. If it persists, run the build from **WSL** or **cmd** instead of a sandboxed shell.
+- **Styles disappear or routes look unstyled after a build:** dev and production output must stay separated. The dashboard now uses `.next` for `next dev` and `.next-build` for `next build`; if styling still looks stale, stop `npm run dev`, delete both output folders, then restart dev.
+- **Build starts traversing `Lovable_UI/`:** the donor/reference app must stay outside the real dashboard build scope. Re-check `dashboard/tsconfig.json` excludes before changing broader build config.
 - **Overview stale data:** The Overview route uses `fetchCache = "force-no-store"` so Supabase reads are not cached. If Overview shows old values, restart the dev server and run a fresh export (`python scripts/export_dashboard_data.py` from the workspace root). **Overview is now trustworthy enough for live workflow monitoring** after restart and export refresh; exporter/live activity can be observed through the current read-only dashboard surfaces.
 
 ## Vercel deployment
@@ -69,9 +82,10 @@ Jarvis-workspace hosts the Next app under **`dashboard/`**. The production Verce
 
 ## Pages
 
-- **Overview:** Module-centered operations summary (Jarvis Core, WCS Code Module, Pathfinder, B1 Local Website Defect Watcher) with metrics, next steps, and Mermaid process diagrams. WCS module card includes a compact "Latest WCS run trust" section (build, smoke, page-smoke, route, stop reason). B1 module section shows bounded read-only watcher status, first site, proof summary, and a separate B1 process chart (Watcher Config → Route Checks → Evidence Capture → Noise Filter/Dedupe → Proposed Defect Packets → Operator Review). Exporter health surface shows dry-run availability, dry-run proof status, and live export as separate proof surface.
-- **Task Board:** Tasks grouped by status (ready, running, awaiting operator, blocked, escalated, done).
-- **Recent Runs:** Table of run_id, module, script, outcome, trust (B/S/P for WCS runs), stop_reason, llm_used, etc.
+- **Shell:** Sidebar + topbar transplant is complete. Existing routes remain unchanged and Foundry access is preserved inside the new shell.
+- **Overview / Now:** Home route now behaves as the Jarvis Now page while still using the real existing dashboard data. It remains the same `/` route.
+- **Task Board / Work:** `/tasks` now behaves as the Jarvis Work surface while preserving the current task source and status buckets.
+- **Recent Runs / Execution Audit:** `/runs` now behaves as the Jarvis execution/audit surface while preserving the existing run data and route.
 - **Pathfinder:** Table of Pathfinder cases with synthesis_source, confidence, backlog candidate.
 - **Research Swarm:** Route `/research-swarm`. Read-only Phase A collector review. Reads `phase_a_run_summary_*.json` and `phase_a_collection_ledger.jsonl` from `future_modules/research_swarm/outputs/`. Shows latest run ID, counts (raw, deduped, supported, unsupported, success, partial, fail, skipped), source-class breakdown, bottleneck summary, and recent ledger table. Empty state when no collector output exists (R55).
 - **Module Checklists:** Route `/checklists`. Read-only build-path view per module. Canonical source: `state/module_checklists.json` (and `state/MODULE_CHECKLISTS.md` for human view). Page shows module name, purpose, status, current phase/step, final version definition, phase-by-phase checklist, done vs remaining counts. Renders from canonical JSON when dashboard runs locally with workspace state; shows "unavailable" when file cannot be read (e.g. deployed without workspace). Local dev rendering verified (Overview and Checklists both render with correct shell/styling when `npm run dev` on port 3001).

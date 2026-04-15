@@ -10,15 +10,15 @@ export const fetchCache = "force-no-store";
 function outcomeColor(outcome: string): string {
   switch (outcome) {
     case "success":
-      return "text-teal-400";
+      return "text-success";
     case "partial":
-      return "text-amber-400";
+      return "text-warning";
     case "fail":
-      return "text-red-400";
+      return "text-destructive";
     case "skipped":
-      return "text-slate-500";
+      return "text-muted-foreground";
     default:
-      return "text-slate-400";
+      return "text-muted-foreground";
   }
 }
 
@@ -32,20 +32,20 @@ export default async function ResearchSwarmPage() {
   if (!summary) {
     return (
       <div className="space-y-6">
-        <h2 className="text-xl font-semibold tracking-tight text-cyan-100">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">
           Research Swarm
         </h2>
         <div className="hud-panel p-6">
-          <p className="text-amber-400/90">
+          <p className="text-warning">
             No Phase A collection run data found. Run the collector first:
           </p>
-          <pre className="mt-3 overflow-x-auto rounded bg-slate-900/50 p-3 font-mono text-xs text-slate-300">
+          <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-muted p-3 font-mono text-xs text-foreground">
             {`cd future_modules/research_swarm/scripts
 python run_phase_a_collector.py --urls-file ../docs/Example URLs.txt`}
           </pre>
-          <p className="mt-3 text-sm text-slate-500">
+          <p className="mt-3 text-sm text-muted-foreground">
             Outputs expected in{" "}
-            <code className="rounded bg-slate-800 px-1 py-0.5 font-mono text-xs">
+            <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs text-foreground">
               future_modules/research_swarm/outputs/
             </code>
           </p>
@@ -60,24 +60,24 @@ python run_phase_a_collector.py --urls-file ../docs/Example URLs.txt`}
 
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between gap-4 border-b border-cyan-500/20 pb-4">
-        <h2 className="text-xl font-semibold tracking-tight text-cyan-100">
+      <div className="flex items-end justify-between gap-4 border-b border-border pb-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">
           Research Swarm
         </h2>
-        <div className="text-right text-xs text-slate-500">
+        <div className="text-right text-xs text-muted-foreground">
           Run: {summary.run_id} | {new Date(summary.started_at).toLocaleString()}
         </div>
       </div>
 
-      <div className="rounded border border-cyan-500/20 bg-cyan-500/5 p-3">
-        <div className="text-xs font-medium uppercase tracking-wider text-cyan-400/80">
+      <div className="rounded-lg border border-border bg-card p-3">
+        <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Input
         </div>
-        <div className="mt-1 truncate text-sm text-slate-300">
+        <div className="mt-1 truncate text-sm text-foreground">
           {summary.urls_file ?? "—"}
         </div>
         {summary.queries_file && (
-          <div className="mt-1 text-xs text-slate-500">
+          <div className="mt-1 text-xs text-muted-foreground">
             Discovery: {summary.queries_file}
           </div>
         )}
@@ -102,66 +102,66 @@ python run_phase_a_collector.py --urls-file ../docs/Example URLs.txt`}
       </div>
 
       <div className="hud-panel p-4">
-        <h3 className="mb-2 text-xs font-medium uppercase tracking-widest text-cyan-400/80">
+        <h3 className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Source class breakdown
         </h3>
         <div className="flex flex-wrap gap-4 text-sm">
           <span>
-            GitHub: <span className="text-cyan-200">{summary.github}</span>
+            GitHub: <span className="text-foreground">{summary.github}</span>
           </span>
           <span>
-            Article: <span className="text-cyan-200">{summary.article}</span>
+            Article: <span className="text-foreground">{summary.article}</span>
           </span>
           <span>
             Unsupported:{" "}
-            <span className="text-slate-500">{summary.unsupported}</span>
+            <span className="text-muted-foreground">{summary.unsupported}</span>
           </span>
         </div>
       </div>
 
       <div className="hud-panel p-4">
-        <h3 className="mb-2 text-xs font-medium uppercase tracking-widest text-cyan-400/80">
+        <h3 className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Primary bottleneck / failure pattern
         </h3>
-        <p className="truncate text-sm text-slate-300">{bottleneck}</p>
+        <p className="truncate text-sm text-foreground">{bottleneck}</p>
       </div>
 
       <div className="hud-panel p-4">
-        <h3 className="mb-3 text-xs font-medium uppercase tracking-widest text-cyan-400/80">
+        <h3 className="mb-3 text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Recent ledger items (latest {recentLedgerRows.length})
         </h3>
         {recentLedgerRows.length === 0 ? (
-          <p className="text-sm text-slate-500">No ledger entries yet.</p>
+          <p className="text-sm text-muted-foreground">No ledger entries yet.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-slate-700/50">
+            <table className="min-w-full divide-y divide-border">
               <thead>
                 <tr>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-slate-500">
+                  <th className="px-3 py-2 text-left text-xs font-medium text-muted-foreground">
                     Outcome
                   </th>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-slate-500">
+                  <th className="px-3 py-2 text-left text-xs font-medium text-muted-foreground">
                     Class
                   </th>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-slate-500">
+                  <th className="px-3 py-2 text-left text-xs font-medium text-muted-foreground">
                     URL
                   </th>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-slate-500">
+                  <th className="px-3 py-2 text-left text-xs font-medium text-muted-foreground">
                     Usefulness
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-700/30">
+              <tbody className="divide-y divide-border">
                 {recentLedgerRows.map((row, i) => (
                   <tr key={i} className="text-sm">
                     <td className={`whitespace-nowrap px-3 py-2 font-medium ${outcomeColor(row.outcome)}`}>
                       {row.outcome}
                     </td>
-                    <td className="px-3 py-2 text-slate-400">{row.source_class}</td>
-                    <td className="max-w-[320px] truncate px-3 py-2 text-slate-300">
+                    <td className="px-3 py-2 text-muted-foreground">{row.source_class}</td>
+                    <td className="max-w-[320px] truncate px-3 py-2 text-foreground">
                       {row.source_url}
                     </td>
-                    <td className="px-3 py-2 text-slate-500">
+                    <td className="px-3 py-2 text-muted-foreground">
                       {row.usefulness ?? "—"}
                     </td>
                   </tr>

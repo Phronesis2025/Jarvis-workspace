@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
+import { AppTopBar } from "@/components/AppTopBar";
 
 export const metadata: Metadata = {
   title: "Jarvis Dashboard",
@@ -14,18 +15,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#0a0e17] text-slate-200 antialiased">
-        <header className="sticky top-0 z-40 border-b border-slate-800 bg-[#0a0e17]/95 backdrop-blur">
-          <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
-            <div className="flex flex-col gap-3">
-              <h1 className="text-lg font-semibold tracking-tight text-white">
-                Jarvis Dashboard
-              </h1>
-              <NavBar />
-            </div>
+      <body className="min-h-screen bg-background text-foreground antialiased">
+        <div className="min-h-screen lg:grid lg:grid-cols-[280px_minmax(0,1fr)]">
+          <aside className="border-b border-border bg-background lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
+            <NavBar />
+          </aside>
+          <div className="min-w-0">
+            <AppTopBar />
+            <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+              {children}
+            </main>
           </div>
-        </header>
-        <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">{children}</main>
+        </div>
       </body>
     </html>
   );

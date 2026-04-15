@@ -105,26 +105,26 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scorin
     <div className="space-y-6">
       <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="hud-metric p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">Total active ideas</div>
-          <div className="mt-1 text-xl font-semibold text-cyan-200">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">Total active ideas</div>
+          <div className="mt-1 text-xl font-semibold text-foreground">
             {ideas.filter((idea) => idea.status === "active").length}
           </div>
         </div>
         <div className="hud-metric p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">Total queued ideas</div>
-          <div className="mt-1 text-xl font-semibold text-cyan-200">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">Total queued ideas</div>
+          <div className="mt-1 text-xl font-semibold text-foreground">
             {ideas.filter((idea) => idea.status === "queued").length}
           </div>
         </div>
         <div className="hud-metric p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">Highest weighted score</div>
-          <div className="mt-1 text-xl font-semibold text-cyan-200">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">Highest weighted score</div>
+          <div className="mt-1 text-xl font-semibold text-foreground">
             {ideas.length > 0 ? ideas[0].weighted_score.toFixed(2) : "—"}
           </div>
         </div>
         <div className="hud-metric p-3">
-          <div className="text-xs uppercase tracking-wider text-slate-500">Needs more research</div>
-          <div className="mt-1 text-xl font-semibold text-cyan-200">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">Needs more research</div>
+          <div className="mt-1 text-xl font-semibold text-foreground">
             {ideas.filter((idea) => idea.review_state === "needs_more_research").length}
           </div>
         </div>
@@ -133,11 +133,11 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scorin
       <section className="hud-panel p-4">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4">
           <label className="space-y-1 text-sm">
-            <span className="text-slate-400">Status</span>
+            <span className="text-muted-foreground">Status</span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+              className="w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
             >
               <option value="all">all</option>
               {Array.from(new Set(ideas.map((idea) => idea.status))).sort().map((status) => (
@@ -148,11 +148,11 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scorin
             </select>
           </label>
           <label className="space-y-1 text-sm">
-            <span className="text-slate-400">Category</span>
+            <span className="text-muted-foreground">Category</span>
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+              className="w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
             >
               <option value="all">all</option>
               {categories.map((category) => (
@@ -163,11 +163,11 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scorin
             </select>
           </label>
           <label className="space-y-1 text-sm">
-            <span className="text-slate-400">Source lane</span>
+            <span className="text-muted-foreground">Source lane</span>
             <select
               value={sourceLaneFilter}
               onChange={(e) => setSourceLaneFilter(e.target.value)}
-              className="w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200"
+              className="w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground"
             >
               <option value="all">all</option>
               {sourceLanes.map((lane) => (
@@ -178,12 +178,12 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scorin
             </select>
           </label>
           <label className="space-y-1 text-sm">
-            <span className="text-slate-400">Search</span>
+            <span className="text-muted-foreground">Search</span>
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="title, summary, problem, pattern"
-              className="w-full rounded border border-cyan-500/20 bg-slate-950 px-2 py-2 text-slate-200 placeholder:text-slate-500"
+              className="w-full rounded-lg border border-input bg-muted px-2 py-2 text-foreground placeholder:text-muted-foreground"
             />
           </label>
         </div>
@@ -191,7 +191,7 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scorin
 
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="hud-panel overflow-x-auto p-0">
-          <table className="min-w-full divide-y divide-cyan-500/10">
+          <table className="min-w-full divide-y divide-border">
             <thead>
               <tr>
                 {[
@@ -206,31 +206,31 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scorin
                   "risk reduction value",
                   "last updated",
                 ].map((header) => (
-                  <th key={header} className="px-3 py-2 text-left text-xs font-medium uppercase text-slate-400">
+                  <th key={header} className="px-3 py-2 text-left text-xs font-medium uppercase text-muted-foreground">
                     {header}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-cyan-500/5">
+            <tbody className="divide-y divide-border">
               {filtered.map((idea) => {
                 const selectedRow = selected?.idea_id === idea.idea_id;
                 return (
                   <tr
                     key={idea.idea_id}
                     onClick={() => setSelectedIdeaId(idea.idea_id)}
-                    className={`cursor-pointer ${selectedRow ? "bg-cyan-500/10" : "hover:bg-slate-900/70"}`}
+                    className={`cursor-pointer ${selectedRow ? "bg-muted" : "hover:bg-muted/50"}`}
                   >
-                    <td className="px-3 py-2 text-sm text-slate-200">{idea.title}</td>
-                    <td className="px-3 py-2 text-sm text-slate-300">{idea.category}</td>
-                    <td className="px-3 py-2 text-sm text-slate-300">{idea.status}</td>
-                    <td className="px-3 py-2 text-sm text-cyan-200">{idea.weighted_score.toFixed(2)}</td>
-                    <td className="px-3 py-2 text-sm text-slate-300">{idea.supporting_source_count}</td>
-                    <td className="px-3 py-2 text-sm text-slate-300">{idea.confidence}</td>
-                    <td className="px-3 py-2 text-sm text-slate-300">{idea.expected_upside}</td>
-                    <td className="px-3 py-2 text-sm text-slate-300">{idea.implementation_cost}</td>
-                    <td className="px-3 py-2 text-sm text-slate-300">{idea.risk_reduction_value}</td>
-                    <td className="whitespace-nowrap px-3 py-2 text-sm text-slate-400">
+                    <td className="px-3 py-2 text-sm text-foreground">{idea.title}</td>
+                    <td className="px-3 py-2 text-sm text-muted-foreground">{idea.category}</td>
+                    <td className="px-3 py-2 text-sm text-muted-foreground">{idea.status}</td>
+                    <td className="px-3 py-2 text-sm text-foreground">{idea.weighted_score.toFixed(2)}</td>
+                    <td className="px-3 py-2 text-sm text-muted-foreground">{idea.supporting_source_count}</td>
+                    <td className="px-3 py-2 text-sm text-muted-foreground">{idea.confidence}</td>
+                    <td className="px-3 py-2 text-sm text-muted-foreground">{idea.expected_upside}</td>
+                    <td className="px-3 py-2 text-sm text-muted-foreground">{idea.implementation_cost}</td>
+                    <td className="px-3 py-2 text-sm text-muted-foreground">{idea.risk_reduction_value}</td>
+                    <td className="whitespace-nowrap px-3 py-2 text-sm text-muted-foreground">
                       {new Date(idea.last_updated).toLocaleString()}
                     </td>
                   </tr>
@@ -239,7 +239,7 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scorin
             </tbody>
           </table>
           {filtered.length === 0 && (
-            <div className="p-4 text-sm text-amber-300">
+            <div className="p-4 text-sm text-warning">
               No registry ideas match the current filters.
             </div>
           )}
@@ -247,18 +247,18 @@ export function FoundryRegistryReviewClient({ ideas, sourceLanesByIdeaId, scorin
 
         <div className="hud-panel p-4">
           {!selected ? (
-            <p className="text-sm text-slate-400">Select a registry idea to review details.</p>
+            <p className="text-sm text-muted-foreground">Select a registry idea to review details.</p>
           ) : (
-            <div className="space-y-4 text-sm text-slate-300">
+            <div className="space-y-4 text-sm text-foreground">
               <div>
-                <h3 className="text-lg font-semibold text-cyan-100">{selected.title}</h3>
-                <p className="mt-1 text-slate-300">{selected.summary}</p>
+                <h3 className="text-lg font-semibold text-foreground">{selected.title}</h3>
+                <p className="mt-1 text-foreground">{selected.summary}</p>
               </div>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                <div><span className="text-slate-500">Review state:</span> {selected.review_state}</div>
-                <div><span className="text-slate-500">Queue eligibility:</span> {selected.queue_eligibility ? "true" : "false"}</div>
-                <div><span className="text-slate-500">Status:</span> {selected.status}</div>
-                <div><span className="text-slate-500">Queue reason:</span> {selected.queue_reason}</div>
+                <div><span className="text-muted-foreground">Review state:</span> {selected.review_state}</div>
+                <div><span className="text-muted-foreground">Queue eligibility:</span> {selected.queue_eligibility ? "true" : "false"}</div>
+                <div><span className="text-muted-foreground">Status:</span> {selected.status}</div>
+                <div><span className="text-muted-foreground">Queue reason:</span> {selected.queue_reason}</div>
               </div>
               <div>
                 <div className="text-xs uppercase tracking-wider text-slate-500">Canonical problem</div>

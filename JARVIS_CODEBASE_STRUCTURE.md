@@ -2,7 +2,7 @@
 
 ## Live Doc Status
 
-- Last updated: 2026-03-18
+- Last updated: 2026-04-15
 
 ## Purpose
 
@@ -14,6 +14,7 @@ This document describes the layout and conventions of the Jarvis workspace so yo
 - **Markdown** = human-readable view (often rendered from JSON or written by scripts).
 - **scripts** = Python (and some PowerShell wrappers) that operate on **state** and **config**.
 - **One bounded WCS task at a time**; task artifacts live under `tasks\`, `results\`, `qa\`, and sometimes `logs\`.
+- **Hybrid cognition (v1):** Authoritative truth is written only by the **deterministic spine** and governed loop. **GPT** = planner/reviewer (no direct file writes). **Cursor Auto** = default builder; **Cursor Premium** = hard implementation/debugging only. **Ollama** = local drafts **only** under `scratch\model_drafts\` (non-authoritative). Full rules: **`JARVIS_HYBRID_OPERATING_DOCTRINE_v1.md`**.
 
 ---
 
@@ -30,14 +31,15 @@ jarvis-workspace/
 ├── scripts/          # Python foreman and support scripts (+ PS1 wrappers, docs)
 ├── state/            # Source-of-truth state (backlog, plan, run log, project status, registry)
 ├── tasks/            # Task packets (JSON + Markdown) per WCS task
-├── scratch/          # Ad-hoc working copies and rescue files (not part of official loop)
+├── scratch/          # Ad-hoc working copies; hybrid v1: put Ollama/GPT drafts under scratch/model_drafts/ (non-authoritative; parent may be gitignored)
 │
 ├── README_START_HERE.md
 ├── JARVIS_PHASE_CHECKLIST.md
 ├── JARVIS_AGENT_IDEA_BACKLOG.md
 ├── JARVIS_CODEBASE_STRUCTURE.md   # this file
+├── JARVIS_HYBRID_OPERATING_DOCTRINE_v1.md   # Locked hybrid roles + draft/promotion rules
 ├── JARVIS_LIVE_HANDOFF_BUNDLE.md
-├── JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md   # Attach to new chats for context
+├── JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md   # Canonical pointer: required new-chat attachments
 ├── JARVIS_TASK_EXECUTION_CHECKLIST.md
 └── JARVIS_SCRIPT_PROCESS_REFERENCE.md
 ```
@@ -56,6 +58,10 @@ jarvis-workspace/
 ### `dashboard/`
 
 - **Purpose:** Next.js read-only dashboard deployed on Vercel. Supabase is the read model; local JSON/Markdown remain source of truth. Run `scripts/export_dashboard_data.py` to refresh data.
+- **Current locked UI tranche:** shell transplant complete, home route upgraded into Now, `/tasks` upgraded into Work, and `/runs` upgraded into the execution/audit surface.
+- **UI donor/reference:** `dashboard/Lovable_UI/` is a visual donor/reference artifact only, not the production dashboard architecture.
+- **Preserved boundaries:** real routes, backend/data logic, Supabase/Foundry behavior, and page entry points were preserved; no new `/modules`, `/history`, or `/rules` routes were added.
+- **Reliability notes:** the real dashboard build excludes `Lovable_UI` and snapshot/build artifacts from TypeScript scope, and Next dev/build output directories are separated so local route styling remains stable after production builds.
 
 ### `future_modules/`
 
@@ -136,6 +142,7 @@ Scout path: **Scout run** → `logs\wcs_scout\<timestamp>\` → **normalizer** (
 
 - **First-time setup and one manual loop:** `README_START_HERE.md`
 - **Phase status and what’s done next:** `JARVIS_PHASE_CHECKLIST.md`
-- **New chat:** attach `JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md` and `JARVIS_TASK_EXECUTION_CHECKLIST.md`
+- **New chat:** use `JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md` (pointer) or attach directly: `JARVIS_LIVE_HANDOFF_BUNDLE.md`, `JARVIS_TASK_EXECUTION_CHECKLIST.md`, `JARVIS_HYBRID_OPERATING_DOCTRINE_v1.md`
+- **Hybrid doctrine:** `JARVIS_HYBRID_OPERATING_DOCTRINE_v1.md`
 - **Every registered file and its role:** `state\FILE_REGISTRY.md` (and `state\file_registry.json` for tooling)
 - **WCS repo path and local URL:** `README_START_HERE.md` (e.g. `C:\dev\wcsv2.0-new`, `http://localhost:3000`)

@@ -46,6 +46,10 @@ export function foundryStateRoot(): string {
 export function resolveFoundryStorageDriver(): FoundryStorageDriver {
   const d = process.env.FOUNDRY_STORAGE_DRIVER?.trim().toLowerCase();
   if (d === "blob" || d === "vercel_blob" || d === "vercel-blob") return "blob";
+  if (d === "fs") return "fs";
+  if (process.env.VERCEL === "1" && process.env.BLOB_READ_WRITE_TOKEN?.trim()) {
+    return "blob";
+  }
   return "fs";
 }
 
@@ -125,12 +129,33 @@ async function createFsStorage(): Promise<FoundryStorage> {
   };
 }
 
+/** Blob access must match the Vercel store (private stores reject `access: 'public'`). */
+function resolveFoundryBlobAccess(): "public" | "private" {
+  const a = process.env.FOUNDRY_BLOB_ACCESS?.trim().toLowerCase();
+  if (a === "public") return "public";
+  return "private";
+}
+
+async function readBlobStreamAsText(stream: ReadableStream<Uint8Array>): Promise<string> {
+  const reader = stream.getReader();
+  const decoder = new TextDecoder();
+  let out = "";
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (value?.length) out += decoder.decode(value, { stream: true });
+  }
+  out += decoder.decode();
+  return out;
+}
+
 async function createBlobStorage(): Promise<FoundryStorage> {
   const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token?.trim()) {
     throw new Error("BLOB_READ_WRITE_TOKEN is required when FOUNDRY_STORAGE_DRIVER=blob");
   }
-  const { put, list } = await import("@vercel/blob");
+  const blobAccess = resolveFoundryBlobAccess();
+  const { put, list, get } = await import("@vercel/blob");
 
   async function listAllBlobs(prefix: string) {
     const blobs: Awaited<ReturnType<typeof list>>["blobs"] = [];
@@ -147,18 +172,21 @@ async function createBlobStorage(): Promise<FoundryStorage> {
     driver: "blob",
     async getJson<T>(key: string): Promise<T | null> {
       assertFoundryKey(key);
-      const blobs = await listAllBlobs(key);
-      const exact = blobs.find((b) => b.pathname === key);
-      if (!exact) return null;
-      const res = await fetch(exact.downloadUrl);
-      if (!res.ok) return null;
-      return (await res.json()) as T;
+      try {
+        const result = await get(key, { access: blobAccess, token });
+        if (!result || result.statusCode !== 200 || !result.stream) return null;
+        const text = await readBlobStreamAsText(result.stream);
+        return JSON.parse(text) as T;
+      } catch {
+        return null;
+      }
     },
     async putJson(key: string, data: unknown): Promise<void> {
       assertFoundryKey(key);
       await put(key, JSON.stringify(data), {
-        access: "public",
+        access: blobAccess,
         addRandomSuffix: false,
+        allowOverwrite: true,
         token,
         contentType: "application/json",
       });

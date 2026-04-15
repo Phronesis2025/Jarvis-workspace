@@ -156,6 +156,17 @@
     "notes": "Working; copies optional implementation_instruction from backlog into packet when present"
   },
   {
+    "file": "jarvis_task_packet_scope.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\jarvis_task_packet_scope.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Shared executable file-scope derivation rules for task packets and bounded worker/commit gates",
+    "updated_by": "user",
+    "notes": "Used by generate_task_packet.py, worker_change_check.py, and commit_gate_check.py for consistent scope derivation. Hardening proof locked 2026-04-15 (#559): rejects traceability/evidence pollution tokens (evidence=..., scratch/**, metadata-like fragments) while preserving valid repo-relative scope paths. End-to-end regression proof locked 2026-04-15 (#561): packet generation negative/positive paths and both governed scope gates (worker_change_check, commit_gate_check) agree on rejection/acceptance behavior. Not a scanner/backlog redesign.",
+    "last_reviewed": "2026-04-15"
+  },
+  {
     "file": "generate_task_packet.ps1",
     "path": "C:\\dev\\jarvis-workspace\\scripts\\generate_task_packet.ps1",
     "category": "script",
@@ -353,8 +364,8 @@
     "owner": "user",
     "purpose": "Jarvis Dashboard v1 setup and deployment notes",
     "updated_by": "user",
-    "notes": "Read-only Next.js dashboard on Vercel; Supabase read model; exporter working; WCS trust visibility in Overview and Recent Runs (build, smoke, page-smoke, route, stop reason); Research Swarm page at /research-swarm (R55); no write-back, scheduling, or command execution",
-    "last_reviewed": "2026-03-21"
+    "notes": "Read-only Next.js dashboard on Vercel; Lovable_UI used as visual donor/reference only; shell + Now + Work + Runs tranche locked with routes/backend preserved; TypeScript/build scope excludes Lovable_UI and build artifacts; dev/build distDir separation keeps route CSS stable; no write-back, scheduling, or command execution",
+    "last_reviewed": "2026-04-15"
   },
   {
     "file": "dashboard/src/app/research-swarm/page.tsx",
@@ -639,6 +650,17 @@
     "notes": "WCS repo-side dependency in external WCS repo at C:\\dev\\wcsv2.0-new"
   },
   {
+    "file": "CLAUDE.md",
+    "path": "C:\\dev\\wcsv2.0-new\\CLAUDE.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "WCS repo-local AI-assisted coding discipline (bounded scope, verification)",
+    "updated_by": "user",
+    "notes": "Constraint file only; does not replace Jarvis task packets or QA. Adopted 2026-04-15.",
+    "last_reviewed": "2026-04-15"
+  },
+  {
     "file": "normalize_scout_to_backlog.py",
     "path": "C:\\dev\\jarvis-workspace\\scripts\\normalize_scout_to_backlog.py",
     "category": "script",
@@ -708,8 +730,8 @@
     "owner": "user",
     "purpose": "Live handoff bundle describing current Jarvis system truth, hardening state, and helper surfaces",
     "updated_by": "user",
-    "notes": "Aggregates current live system decisions; WCS trust-metrics export and dashboard surfacing recorded; clean build proof environment-blocked during pass",
-    "last_reviewed": "2026-03-18"
+    "notes": "Aggregates current live system decisions; dashboard UI transplant tranche locked (shell, Now, Work, Runs), Lovable donor/reference stance recorded, and dashboard reliability fixes documented (tsconfig exclusion for donor/build artifacts; next.config.js dev/prod distDir separation). Hybrid tranche 1 (2026-04-11), tranche 2 draft JSON extraction (2026-04-12), and tranche 3 draft JSON classification (2026-04-13) remain recorded in Hybrid section.",
+    "last_reviewed": "2026-04-15"
   },
   {
     "file": "JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md",
@@ -717,10 +739,76 @@
     "category": "doc",
     "source_type": "source_of_truth",
     "owner": "user",
-    "purpose": "Current new-chat handoff; attach to new chat for context continuity",
+    "purpose": "Canonical new-chat pointer; lists required attachments (live handoff, task checklist, hybrid doctrine)",
     "updated_by": "user",
-    "notes": "Regenerated from live docs; reflects current paths, proven capabilities, gaps, key scripts, and new-chat rule",
-    "last_reviewed": "2026-03-18"
+    "notes": "Tracked via .gitignore exception !JARVIS_NEW_CHAT_HANDOFF_BUNDLE_LATEST.md; other JARVIS_NEW_CHAT_HANDOFF_BUNDLE*.md remain ignored snapshots. Dated bundles from scripts/build_new_chat_handoff.py are optional history only.",
+    "last_reviewed": "2026-04-10"
+  },
+  {
+    "file": "JARVIS_HYBRID_OPERATING_DOCTRINE_v1.md",
+    "path": "C:\\dev\\jarvis-workspace\\JARVIS_HYBRID_OPERATING_DOCTRINE_v1.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Locked hybrid operating doctrine: spine authority, GPT planner/reviewer, Cursor Auto/Premium, Ollama draft-only, promotion rules",
+    "updated_by": "user",
+    "notes": "v1 locked 2026-04-10; referenced from v3 trio and live process docs",
+    "last_reviewed": "2026-04-10"
+  },
+  {
+    "file": "scratch/model_drafts/",
+    "path": "C:\\dev\\jarvis-workspace\\scratch\\model_drafts\\",
+    "category": "log",
+    "source_type": "generated",
+    "owner": "user",
+    "purpose": "Operator-local draft convention only (non-authoritative); Ollama/GPT output before manual or deterministic promotion",
+    "updated_by": "user",
+    "notes": "Not loop truth; registry uses category log as a loose label, not a runtime log stream. Parent scratch/ is gitignored; drafts usually untracked unless operator adds narrow exceptions. Excluded from reconcile and spine writers. Tranche 1 (2026-04-11): run_local_summary draft proved. Tranche 2 (2026-04-12): run_local_extract_json schema-validated *_extract.json proved. Tranche 3 (2026-04-13): run_local_classify_json enum-validated *_classify.json proved (e.g. sample_local_classify_input_*_classify.json); still non-authoritative.",
+    "last_reviewed": "2026-04-13"
+  },
+  {
+    "file": "future_modules/local_llm_worker/scripts/ollama_health_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\local_llm_worker\\scripts\\ollama_health_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Tranche-1 Ollama health probe; reads config; POST /api/generate; stdout PASS/FAIL only",
+    "updated_by": "user",
+    "notes": "Operator proof 2026-04-11: PASS locally. Not wired to jarvis.py or reconcile. Stdlib HTTP only.",
+    "last_reviewed": "2026-04-11"
+  },
+  {
+    "file": "future_modules/local_llm_worker/scripts/run_local_summary.py",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\local_llm_worker\\scripts\\run_local_summary.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Tranche-1 summarize input text file via Ollama; writes only under scratch/model_drafts/",
+    "updated_by": "user",
+    "notes": "Operator proof 2026-04-11: qwen2.5:7b; draft file created; prompt tightened earlier same window. No authoritative writes.",
+    "last_reviewed": "2026-04-11"
+  },
+  {
+    "file": "future_modules/local_llm_worker/scripts/run_local_extract_json.py",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\local_llm_worker\\scripts\\run_local_extract_json.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Tranche-2 draft JSON extraction via Ollama; validates schema; writes only under scratch/model_drafts/",
+    "updated_by": "user",
+    "notes": "Operator proof 2026-04-12: sample run produced valid extract JSON with required keys; no spine/reconcile. Stdlib HTTP only.",
+    "last_reviewed": "2026-04-12"
+  },
+  {
+    "file": "future_modules/local_llm_worker/scripts/run_local_classify_json.py",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\local_llm_worker\\scripts\\run_local_classify_json.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Tranche-3 draft JSON classification via Ollama; validates schema and string enums; writes only under scratch/model_drafts/",
+    "updated_by": "user",
+    "notes": "Operator proof 2026-04-13: sample run produced valid classify JSON with required keys and allowed enum values; no spine/reconcile. Stdlib HTTP only.",
+    "last_reviewed": "2026-04-13"
   },
   {
     "file": "manual_loop_checklist.md",
@@ -731,6 +819,17 @@
     "purpose": "Manual proof-loop checklist for running a WCS task through backlog, worker, QA, and reconcile",
     "updated_by": "user",
     "notes": "Operator runbook; should be aligned with actual script and state behavior to avoid drift"
+  },
+  {
+    "file": "WCS_MANUAL_PROMOTION_PROCEDURE_V1.md",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\WCS_MANUAL_PROMOTION_PROCEDURE_V1.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Canonical operator-only procedure for promoting reviewed WCS scanner candidates into authoritative backlog truth (manual spine edits only)",
+    "updated_by": "user",
+    "notes": "Requires scratch scan + promotion packet + merge-aid with disposition ready_for_manual_merge_review; forbids other dispositions; DAILY_REVIEW audit; render_master_backlog.py for MD alignment. Doc-only #544; no automated backlog writer. Proof locked 2026-04-15 (#546): #545 followed this procedure for one-item manual promotion only (WCS-062 from candidate_id 20260414T230751Z_0003_abd1bb) with traceability and audit note; not bulk promotion and not automated backlog writing. Governance hardening locked 2026-04-15 (#557): explicitly separates executable scope tokens from traceability tokens in notes to prevent evidence-path strings from being misread as packet file scope; WCS-062 resolved as deferred false-positive/stale-intake outcome (not executed). Footer caret-noise guard locked 2026-04-15 (#568/#569): §3 forbid rule for WCS-062/WCS-063-shaped footer email hydration + caret-color intake; not general scanner guidance.",
+    "last_reviewed": "2026-04-15"
   },
   {
     "file": "jarvis.py",
@@ -1079,6 +1178,39 @@
     "last_reviewed": "2026-03-17"
   },
   {
+    "file": "run_wcs_tranche_runner.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_tranche_runner.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Operator-triggered semi-automated tranche runner for bounded WCS task batches via governed prep/post wrappers",
+    "updated_by": "user",
+    "notes": "Boundary-safe modes: prep_handoff (prep only) and post_only (post only). Uses authoritative backlog selection, stops on first hard failure, and writes run summaries under scratch/tranche_runs/. Resumed post_only contract fix proven: when --draft-worker-result is forwarded in the same invocation, post_only can resume a prepped+implemented task without manual backlog-status hacks while still enforcing governed validation/reconcile in delegated post flow. Operator-triggered only; no scheduling, unattended mode, or concurrency.",
+    "last_reviewed": "2026-04-14"
+  },
+  {
+    "file": "run_wcs_guarded_scheduled_tranche_once.ps1",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_guarded_scheduled_tranche_once.ps1",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Guarded Windows wrapper for scheduled WCS prep_handoff tranche execution (max-tasks 1)",
+    "updated_by": "user",
+    "notes": "Runs exactly: py -3 scripts\\run_wcs_tranche_runner.py --workspace C:\\dev\\jarvis-workspace --max-tasks 1 --execution-boundary prep_handoff. Enforces no-overlap lock, supports kill switch file, and writes per-run audit artifacts (audit.json + stdout/stderr) under scratch/scheduled_tranche_runs/. Proof locked 2026-04-14: PASS path, lock-active skip, kill-switch skip. Task Scheduler launch proof locked 2026-04-14: one Start-ScheduledTask launch, run_id 20260414T210400Z, audit pass.",
+    "last_reviewed": "2026-04-14"
+  },
+  {
+    "file": "register_wcs_guarded_tranche_hourly_task.ps1",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\register_wcs_guarded_tranche_hourly_task.ps1",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Registers hourly Task Scheduler entry for guarded WCS prep_handoff wrapper",
+    "updated_by": "user",
+    "notes": "Creates/replaces task JarvisWcsGuardedPrepHandoffHourly, disabled by default unless -EnableAfterRegister is supplied. Schedules only prep_handoff wrapper; does not schedule post_only. param block must precede $ErrorActionPreference. Task Scheduler one-run proof locked 2026-04-14: Start-ScheduledTask after enable; example run_id 20260414T210400Z; task left disabled. Not proven: continuous unattended hourly production.",
+    "last_reviewed": "2026-04-14"
+  },
+  {
     "file": "capture_screenshot.js",
     "path": "C:\\dev\\jarvis-workspace\\scripts\\capture_screenshot.js",
     "category": "script",
@@ -1123,6 +1255,105 @@
     "last_reviewed": "2026-03-14"
   },
   {
+    "file": "run_wcs_issue_scan.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_issue_scan.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Bounded WCS website issue scan; discovery-only candidates under scratch/issue_scan_candidates/",
+    "updated_by": "user",
+    "notes": "Playwright via Node + WCS repo node_modules; allowlist JSON; no backlog/tasks/results/qa writes; exit 0 when scan completes even if zero candidates. Proof locked 2026-04-14: example run 20260414T230751Z exit 0. Noise filter locked 2026-04-15 (#572): console_error rows matching wcs_footer_hydration_caret_noise.matches_proven_false_positive_pattern are not emitted as candidates; counts and per-route summaries live in scan_meta.suppressed_footer_hydration_caret_noise; full console text remains in evidence/*_probe.json. Proof run 20260415T202657Z: candidates=0 suppressed=4; not proven: other hydration shapes or non-console defects.",
+    "last_reviewed": "2026-04-15"
+  },
+  {
+    "file": "run_wcs_candidate_promotion_packet.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_candidate_promotion_packet.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Builds scratch-only candidate promotion packets from issue scan artifacts",
+    "updated_by": "user",
+    "notes": "Reads candidates.json + scan_meta.json from scratch/issue_scan_candidates/<scan_run_id>; writes promotion_review.md + intake_payload.json under scratch/candidate_promotion_packets/<bundle_id>; non-authoritative and does not write backlog/tasks/results/qa. Proof locked 2026-04-15: example bundle 20260414T230751Z_promo_20260415T025919Z (exit 0).",
+    "last_reviewed": "2026-04-15"
+  },
+  {
+    "file": "run_wcs_promotion_packet_merge_aid.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_promotion_packet_merge_aid.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Dry-run merge-aid report for a scratch promotion packet (deterministic validation only)",
+    "updated_by": "user",
+    "notes": "Reads scratch/candidate_promotion_packets/<bundle_id>/intake_payload.json + promotion_review.md; writes merge_aid_report.json + merge_aid_report.md under scratch/candidate_merge_aid_reports/<report_id>/; no backlog/tasks/results/qa writes; exit 0 when report written. Proof locked 2026-04-15 (#542): bundle 20260414T230751Z_promo_20260415T025919Z -> merge_aid_20260415T040203Z ready_for_manual_merge_review; deterministic disposition and counts only. Not proven: authoritative backlog merge, task creation, or any spine truth write. Guard proof locked 2026-04-15 (#568/#569): per-item footer_email_hydration_caret_noise_suspected via wcs_footer_hydration_caret_noise.py; post-guard example run total=4 valid=0 flagged=4 disposition unchanged ready_for_manual_merge_review; not scanner-wide accuracy.",
+    "last_reviewed": "2026-04-15"
+  },
+  {
+    "file": "run_wcs_promotion_preflight_check.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_promotion_preflight_check.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only preflight validator for one promotion candidate before manual authoritative edits",
+    "updated_by": "user",
+    "notes": "Reads scan run, promotion packet, merge-aid report, and manual promotion procedure doc; checks deterministic linkage/readiness/evidence/title+description placeholder risk for one candidate; writes preflight_report.json + preflight_report.md under scratch/candidate_preflight_reports/<preflight_report_id>/; no backlog/tasks/results/qa writes. Proof run 2026-04-15 (#547): candidate 20260414T230751Z_0003_abd1bb -> disposition ready_for_manual_promotion. Proof locked 2026-04-15 (#548): read-only/manual-assist only; non-authoritative scratch output; not bulk promotion and not automated backlog writing. Guard proof locked 2026-04-15 (#568/#569): matching WCS-062/WCS-063-shaped suggested_description -> needs_operator_cleanup + footer_email_hydration_caret_noise_requires_operator_review; example candidate 20260414T230751Z_0002_162ec6; not general hydration detection.",
+    "last_reviewed": "2026-04-15"
+  },
+  {
+    "file": "run_wcs_promotion_session_preflight.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_promotion_session_preflight.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only session preflight wrapper for multiple promotion candidates from one artifact chain",
+    "updated_by": "user",
+    "notes": "Accepts repeatable --candidate-id and produces one session-level report under scratch/candidate_preflight_sessions/<session_report_id>/ with counts, per-candidate dispositions/findings, and overall session disposition; deterministic checks only; imports helper logic from run_wcs_promotion_preflight_check.py; no backlog/tasks/results/qa writes. Proof run 2026-04-15 (#549): two candidates (20260414T230751Z_0003_abd1bb, 20260414T230751Z_0002_162ec6) -> overall all_ready_for_manual_promotion. Proof locked 2026-04-15 (#550): read-only/manual-assist only; non-authoritative scratch output; no authoritative backlog/task creation proven. Guard locked 2026-04-15 (#568/#569): same footer caret-noise pattern as single-candidate preflight; pre-#568 session proofs are historical; not scanner-wide.",
+    "last_reviewed": "2026-04-15"
+  },
+  {
+    "file": "run_wcs_promotion_session_summary.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\run_wcs_promotion_session_summary.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Read-only session decision summary helper for an existing promotion session preflight report",
+    "updated_by": "user",
+    "notes": "Reads scratch/candidate_preflight_sessions/<session_report_id>/session_preflight_report.json and maps per-candidate dispositions deterministically: ready_for_manual_promotion->promote_now, needs_operator_cleanup->defer_for_cleanup, reject_for_now->reject_for_now; writes session_decision_summary.json + session_decision_summary.md under scratch/candidate_preflight_summaries/<summary_id>/ with bucket counts and overall recommendation; no backlog/tasks/results/qa writes. Proof run 2026-04-15 (#551): source preflight_session_20260415T125714Z -> safe_to_review_for_promotion. Proof locked 2026-04-15 (#552): read-only/manual-assist only; non-authoritative scratch output; no authoritative backlog/task creation proven.",
+    "last_reviewed": "2026-04-15"
+  },
+  {
+    "file": "wcs_footer_hydration_caret_noise.py",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\wcs_footer_hydration_caret_noise.py",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Narrow deterministic helper: detects WCS-062/WCS-063-shaped footer email hydration + caret-color intake text for merge-aid and preflight tagging",
+    "updated_by": "user",
+    "notes": "Imported by run_wcs_promotion_packet_merge_aid.py, run_wcs_promotion_preflight_check.py, run_wcs_promotion_session_preflight.py; pattern-only; not a scanner. Proof locked 2026-04-15 (#568/#569): encodes bounded deferred-intake pattern; does NOT prove scanner-wide false-positive handling or general hydration accuracy.",
+    "last_reviewed": "2026-04-15"
+  },
+  {
+    "file": "wcs_issue_scan_allowlist.json",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\wcs_issue_scan_allowlist.json",
+    "category": "config",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Allowlisted WCS routes for run_wcs_issue_scan.py",
+    "updated_by": "user",
+    "notes": "No crawling; routes only. Proof locked 2026-04-14 with run_wcs_issue_scan.py. Bounded scope expansion 2026-04-15 (#574): added public routes /teams and /news (src/app/teams/page.tsx, src/app/news/page.tsx) to surface signal beyond prior four-route allowlist; footer hydration suppression unchanged in scanner.",
+    "last_reviewed": "2026-04-15"
+  },
+  {
+    "file": "wcs_issue_scan_playwright.cjs",
+    "path": "C:\\dev\\jarvis-workspace\\scripts\\wcs_issue_scan_playwright.cjs",
+    "category": "script",
+    "source_type": "source_of_truth",
+    "owner": "jarvis_script",
+    "purpose": "Node Playwright probe for run_wcs_issue_scan.py",
+    "updated_by": "user",
+    "notes": "NODE_PATH=WCS/node_modules; single-page PNG + probe JSON. Proof locked 2026-04-14 (per-route evidence in issue scan runs).",
+    "last_reviewed": "2026-04-14"
+  },
+  {
     "file": "SIDE_QUEST_CONTEXT_ANCHOR_RESEARCH_SWARM_CURRENT.md",
     "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\docs\\SIDE_QUEST_CONTEXT_ANCHOR_RESEARCH_SWARM_CURRENT.md",
     "category": "doc",
@@ -1130,8 +1361,8 @@
     "owner": "user",
     "purpose": "Research Swarm side-quest context anchor for new-chat handoff",
     "updated_by": "user",
-    "notes": "Phase A unattended bounded collector; supported GitHub + article; acquisition reliability bottleneck; not integrated with Jarvis",
-    "last_reviewed": "2026-03-21"
+    "notes": "Phase A unattended bounded collector; supported GitHub + article; acquisition reliability bottleneck; not integrated with Jarvis. Analyst Failure Taxonomy v1 pointer added 2026-04-14.",
+    "last_reviewed": "2026-04-14"
   },
   {
     "file": "SIDE_QUEST_PROCESS_CHECKLIST_RESEARCH_SWARM.md",
@@ -1141,8 +1372,8 @@
     "owner": "user",
     "purpose": "Research Swarm side-quest process checklist",
     "updated_by": "user",
-    "notes": "Phase A collector done; evaluator/archivist manual; deferred: video, Jarvis",
-    "last_reviewed": "2026-03-21"
+    "notes": "Phase A collector done; evaluator/archivist manual; deferred: video, Jarvis. Analyst Failure Taxonomy v1 row + completed item 2026-04-14.",
+    "last_reviewed": "2026-04-14"
   },
   {
     "file": "SIDE_QUEST_HANDOFF_BUNDLE_RESEARCH_SWARM_LATEST.md",
@@ -1152,8 +1383,30 @@
     "owner": "user",
     "purpose": "Research Swarm side-quest handoff bundle for new chat",
     "updated_by": "user",
-    "notes": "Phase A collector, ops scripts, run commands; attach to new chat for context",
-    "last_reviewed": "2026-03-21"
+    "notes": "Phase A collector, ops scripts, run commands; attach to new chat for context. Analyst taxonomy paths added 2026-04-14.",
+    "last_reviewed": "2026-04-14"
+  },
+  {
+    "file": "JARVIS_ANALYST_FAILURE_TAXONOMY_V1.md",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\docs\\JARVIS_ANALYST_FAILURE_TAXONOMY_V1.md",
+    "category": "doc",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Manual-first failure attribution taxonomy for analyst-style Jarvis reviews",
+    "updated_by": "user",
+    "notes": "X/GitHub/Research Swarm QA; not WCS QA. Companion JSON in config/. No automation claimed.",
+    "last_reviewed": "2026-04-14"
+  },
+  {
+    "file": "jarvis_analyst_failure_taxonomy_v1.json",
+    "path": "C:\\dev\\jarvis-workspace\\future_modules\\research_swarm\\config\\jarvis_analyst_failure_taxonomy_v1.json",
+    "category": "config",
+    "source_type": "source_of_truth",
+    "owner": "user",
+    "purpose": "Machine-readable mirror of Analyst Failure Taxonomy v1",
+    "updated_by": "user",
+    "notes": "Governed adoption manual-first; automation gated on real review utility.",
+    "last_reviewed": "2026-04-14"
   },
   {
     "file": "run_phase_a_collector.py",

@@ -202,8 +202,8 @@ export function FoundryLaneIntakeClient({
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
-        <h2 className="text-xl font-semibold tracking-tight text-cyan-100">{pageTitle}</h2>
-        <p className="text-sm text-slate-400">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">{pageTitle}</h2>
+        <p className="text-sm text-muted-foreground">
           Option A: explicit 0–5 rubric anchors → proposal + source-tied reasons/snippets; you preview, then lock final integers
           (edit if needed) before intake runs. Heuristic prefill is shown separately and is not the matrix. Option B: you enter all
           eight 0–5 integers manually. Engine weighted formula is unchanged. Local JSON only; bounded rules—not semantic certainty.
@@ -213,70 +213,70 @@ export function FoundryLaneIntakeClient({
       <section className="hud-panel p-4">
         <form className="space-y-4" onSubmit={onSubmit} noValidate>
           <fieldset className="space-y-2">
-            <legend className="text-xs font-medium uppercase tracking-wider text-cyan-400/80">Scoring mode</legend>
-            <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-300">
+            <legend className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Scoring mode</legend>
+            <label className="flex cursor-pointer items-center gap-2 text-sm text-foreground">
               <input
                 type="radio"
                 name="scoring_mode"
                 checked={scoringMode === "option_a_rubric_assisted"}
                 onChange={() => setScoringMode("option_a_rubric_assisted")}
-                className="border-cyan-500/40"
+                className="border-input"
               />
               Option A — rubric-assisted (explicit anchors → proposal; operator locks final)
             </label>
-            <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-300">
+            <label className="flex cursor-pointer items-center gap-2 text-sm text-foreground">
               <input
                 type="radio"
                 name="scoring_mode"
                 checked={scoringMode === "option_b_manual_matrix"}
                 onChange={() => setScoringMode("option_b_manual_matrix")}
-                className="border-cyan-500/40"
+                className="border-input"
               />
               Option B — manual rubric matrix (operator 0–5 per dimension)
             </label>
           </fieldset>
 
           {scoringMode === "option_a_rubric_assisted" && (
-            <div className="space-y-3 rounded border border-cyan-500/20 bg-cyan-500/5 p-3">
-              <div className="text-xs font-medium uppercase tracking-wider text-cyan-200/90">Option A — preview & lock</div>
+            <div className="space-y-3 rounded-lg border border-border bg-card p-3">
+              <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Option A — preview & lock</div>
               <button
                 type="button"
                 disabled={previewBusy || status === "submitting"}
                 onClick={() => void runOptionAPreview()}
-                className="rounded border border-cyan-500/40 bg-slate-950 px-3 py-2 text-sm text-cyan-100 hover:bg-slate-900 disabled:opacity-50"
+                className="rounded-lg border border-primary/20 bg-primary/15 px-3 py-2 text-sm text-primary hover:bg-primary/20 disabled:opacity-50"
               >
                 {previewBusy ? "Building proposal…" : "Preview rubric proposal"}
               </button>
-              {previewError ? <p className="text-sm text-amber-300">{previewError}</p> : null}
+              {previewError ? <p className="text-sm text-warning">{previewError}</p> : null}
               {optionAPreview ? (
-                <div className="space-y-2 text-xs text-slate-400">
+                <div className="space-y-2 text-xs text-muted-foreground">
                   <p>
-                    <span className="text-slate-500">Matrix version:</span>{" "}
-                    <span className="font-mono text-cyan-200/90">{optionAPreview.rubric_anchor_version}</span> ·{" "}
-                    <span className="text-slate-500">proposal method:</span>{" "}
-                    <span className="font-mono text-cyan-200/90">{optionAPreview.proposal_evaluation_method}</span>
+                    <span className="text-muted-foreground">Matrix version:</span>{" "}
+                    <span className="font-mono text-primary/90">{optionAPreview.rubric_anchor_version}</span> ·{" "}
+                    <span className="text-muted-foreground">proposal method:</span>{" "}
+                    <span className="font-mono text-primary/90">{optionAPreview.proposal_evaluation_method}</span>
                   </p>
-                  <p className="text-slate-500">
+                  <p className="text-muted-foreground">
                     Heuristic prefill (legacy buckets, not rubric truth): shown per dimension as “prefill” in the table below.
                   </p>
                   <div className="overflow-x-auto">
-                    <table className="min-w-full border border-cyan-500/15 text-left">
+                    <table className="min-w-full border border-border text-left">
                       <thead>
-                        <tr className="bg-slate-950/80">
-                          <th className="px-2 py-1 text-slate-500">Dimension</th>
-                          <th className="px-2 py-1 text-slate-500">Prefill</th>
-                          <th className="px-2 py-1 text-slate-500">Proposed</th>
-                          <th className="px-2 py-1 text-slate-500">Locked (submit)</th>
-                          <th className="px-2 py-1 text-slate-500">Reason</th>
-                          <th className="px-2 py-1 text-slate-500">Evidence</th>
+                        <tr className="bg-muted">
+                          <th className="px-2 py-1 text-muted-foreground">Dimension</th>
+                          <th className="px-2 py-1 text-muted-foreground">Prefill</th>
+                          <th className="px-2 py-1 text-muted-foreground">Proposed</th>
+                          <th className="px-2 py-1 text-muted-foreground">Locked (submit)</th>
+                          <th className="px-2 py-1 text-muted-foreground">Reason</th>
+                          <th className="px-2 py-1 text-muted-foreground">Evidence</th>
                         </tr>
                       </thead>
                       <tbody>
                         {RUBRIC_KEYS.map((key) => (
-                          <tr key={key} className="border-t border-cyan-500/10">
-                            <td className="px-2 py-1 font-mono text-cyan-100/90">{key}</td>
-                            <td className="px-2 py-1 text-slate-500">{optionAPreview.heuristic_prefill_scores[key]}</td>
-                            <td className="px-2 py-1 text-slate-300">{optionAPreview.proposed_scores[key]}</td>
+                          <tr key={key} className="border-t border-border">
+                            <td className="px-2 py-1 font-mono text-primary/90">{key}</td>
+                            <td className="px-2 py-1 text-muted-foreground">{optionAPreview.heuristic_prefill_scores[key]}</td>
+                            <td className="px-2 py-1 text-foreground">{optionAPreview.proposed_scores[key]}</td>
                             <td className="px-2 py-1">
                               <select
                                 value={optionALocked?.[key] ?? optionAPreview.proposed_scores[key]}
@@ -286,7 +286,7 @@ export function FoundryLaneIntakeClient({
                                     [key]: Number.parseInt(e.target.value, 10),
                                   }))
                                 }
-                                className="rounded border border-cyan-500/30 bg-slate-950 px-1 py-0.5 text-slate-200"
+                                className="rounded border border-input bg-muted px-1 py-0.5 text-foreground"
                               >
                                 {[0, 1, 2, 3, 4, 5].map((n) => (
                                   <option key={n} value={n}>
@@ -295,8 +295,8 @@ export function FoundryLaneIntakeClient({
                                 ))}
                               </select>
                             </td>
-                            <td className="max-w-[200px] px-2 py-1 text-slate-500">{optionAPreview.score_reasons[key]}</td>
-                            <td className="max-w-[160px] truncate px-2 py-1 text-slate-600">
+                            <td className="max-w-[200px] px-2 py-1 text-muted-foreground">{optionAPreview.score_reasons[key]}</td>
+                            <td className="max-w-[160px] truncate px-2 py-1 text-muted-foreground">
                               {optionAPreview.evidence_support[key]}
                             </td>
                           </tr>
@@ -305,7 +305,7 @@ export function FoundryLaneIntakeClient({
                     </table>
                   </div>
                   {lockedWeightedPreview !== null ? (
-                    <p className="text-sm text-teal-200/90">
+                    <p className="text-sm text-success">
                       Locked weighted preview (same formula as engine): {lockedWeightedPreview.toFixed(2)} · band:{" "}
                       {rubricBand(lockedWeightedPreview)}
                     </p>
@@ -316,18 +316,18 @@ export function FoundryLaneIntakeClient({
           )}
 
           {scoringMode === "option_b_manual_matrix" && (
-            <div className="rounded border border-amber-500/20 bg-amber-500/5 p-3">
-              <div className="mb-2 text-xs font-medium uppercase tracking-wider text-amber-200/90">Manual rubric (0–5)</div>
+            <div className="rounded-lg border border-warning/20 bg-warning/15 p-3">
+              <div className="mb-2 text-xs font-medium uppercase tracking-wider text-warning">Manual rubric (0–5)</div>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {RUBRIC_KEYS.map((key) => (
-                  <label key={key} className="flex items-center justify-between gap-2 text-sm text-slate-300">
-                    <span className="font-mono text-xs text-slate-400">{key}</span>
+                  <label key={key} className="flex items-center justify-between gap-2 text-sm text-foreground">
+                    <span className="font-mono text-xs text-muted-foreground">{key}</span>
                     <select
                       value={manualRubric[key] ?? 2}
                       onChange={(e) =>
                         setManualRubric((prev) => ({ ...prev, [key]: Number.parseInt(e.target.value, 10) }))
                       }
-                      className="rounded border border-cyan-500/20 bg-slate-950 px-2 py-1 text-slate-200"
+                      className="rounded border border-input bg-muted px-2 py-1 text-foreground"
                     >
                       {[0, 1, 2, 3, 4, 5].map((n) => (
                         <option key={n} value={n}>
@@ -341,15 +341,15 @@ export function FoundryLaneIntakeClient({
             </div>
           )}
 
-          <label className="block text-sm text-slate-300">
-            <span className="mb-1 block text-slate-400">{inputLabel}</span>
+          <label className="block text-sm text-foreground">
+            <span className="mb-1 block text-muted-foreground">{inputLabel}</span>
             {inputType === "textarea" ? (
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={inputPlaceholder}
                 rows={8}
-                className="w-full rounded border border-cyan-500/20 bg-slate-950 px-3 py-2 text-slate-200 placeholder:text-slate-500"
+                className="w-full rounded-lg border border-input bg-muted px-3 py-2 text-foreground placeholder:text-muted-foreground"
               />
             ) : (
               <input
@@ -360,7 +360,7 @@ export function FoundryLaneIntakeClient({
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={inputPlaceholder}
-                className="w-full rounded border border-cyan-500/20 bg-slate-950 px-3 py-2 text-slate-200 placeholder:text-slate-500"
+                className="w-full rounded-lg border border-input bg-muted px-3 py-2 text-foreground placeholder:text-muted-foreground"
               />
             )}
           </label>
@@ -370,7 +370,7 @@ export function FoundryLaneIntakeClient({
               status === "submitting" ||
               (scoringMode === "option_a_rubric_assisted" && !optionALocked)
             }
-            className="rounded bg-cyan-600 px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg border border-primary/20 bg-primary/15 px-4 py-2 text-sm font-medium text-primary disabled:cursor-not-allowed disabled:opacity-60"
           >
             {status === "submitting" ? "Submitting..." : "Submit Intake"}
           </button>
@@ -378,14 +378,14 @@ export function FoundryLaneIntakeClient({
       </section>
 
       <section className="hud-panel p-4">
-        <h3 className="mb-2 text-xs font-medium uppercase tracking-widest text-cyan-400/80">Intake result status</h3>
-        {status === "idle" && <p className="text-sm text-slate-500">No intake submitted yet.</p>}
-        {status === "submitting" && <p className="text-sm text-cyan-300">Submitting intake and running local engine...</p>}
-        {status === "error" && <p className="text-sm text-amber-300">Error: {errorMessage}</p>}
+        <h3 className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">Intake result status</h3>
+        {status === "idle" && <p className="text-sm text-muted-foreground">No intake submitted yet.</p>}
+        {status === "submitting" && <p className="text-sm text-primary">Submitting intake and running local engine...</p>}
+        {status === "error" && <p className="text-sm text-warning">Error: {errorMessage}</p>}
         {status === "success" && result && (
-          <div className="space-y-2 text-sm text-slate-300">
-            <p className="text-teal-300">Success. Run ID: {result.run_id}</p>
-            <p className="text-slate-400">{result.limitation_note}</p>
+          <div className="space-y-2 text-sm text-foreground">
+            <p className="text-success">Success. Run ID: {result.run_id}</p>
+            <p className="text-muted-foreground">{result.limitation_note}</p>
             <p>
               <span className="text-slate-500">Persisted scoring mode:</span>{" "}
               <span className="font-mono text-cyan-200/90">{result.scoring_evaluation.scoring_mode_selected}</span> ·{" "}

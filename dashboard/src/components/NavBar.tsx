@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
 const navItems = [
   { href: "/", label: "Overview" },
@@ -25,101 +25,110 @@ const foundryItems = [
 
 export function NavBar() {
   const pathname = usePathname();
-  const foundryActive = foundryItems.some(({ href }) => pathname.startsWith(href));
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [foundryOpen, setFoundryOpen] = useState(true);
+  const foundryActive = useMemo(
+    () => foundryItems.some(({ href }) => pathname.startsWith(href)),
+    [pathname]
+  );
 
-  useEffect(() => {
-    function onPointerDown(event: MouseEvent) {
-      const target = event.target as Node;
-      if (dropdownRef.current && !dropdownRef.current.contains(target)) {
-        setOpen(false);
-      }
-    }
-    function onEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
-    }
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("keydown", onEscape);
-    return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("keydown", onEscape);
-    };
-  }, []);
+  function isActive(href: string): boolean {
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  }
 
   return (
-    <nav className="w-full">
-      <div className="flex w-full flex-wrap items-center gap-2">
-        <div className="flex flex-wrap items-center gap-2">
-        {navItems.map(({ href, label }) => {
-          const isActive =
-            href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(href);
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={`whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium transition-colors ${
-                isActive
-                  ? "bg-cyan-600 text-white shadow-sm"
-                  : "text-slate-300 hover:bg-slate-800/70 hover:text-white"
-              }`}
-              aria-current={isActive ? "page" : undefined}
-            >
-              {label}
-            </Link>
-          );
-        })}
+    <nav className="flex h-full flex-col">
+      <div className="border-b border-border px-4 py-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-sm font-semibold text-foreground">
+            J
+          </div>
+          <div>
+            <div className="text-sm font-semibold tracking-[0.18em] text-foreground">
+              JARVIS
+            </div>
+            <div className="mt-1 text-xs uppercase tracking-[0.24em] text-muted-foreground">
+              Operator Console
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <div className="relative shrink-0" ref={dropdownRef}>
-          <button
-            type="button"
-            aria-haspopup="menu"
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium transition-colors ${
-              foundryActive
-                ? "bg-cyan-600 text-white shadow-sm"
-                : "text-slate-300 hover:bg-slate-800/70 hover:text-white"
-            }`}
-          >
-            Foundry
-            <span className={`text-xs transition-transform ${open ? "rotate-180" : ""}`}>▼</span>
-          </button>
-          {open ? (
-            <div
-              role="menu"
-              className="absolute right-0 z-50 mt-2 min-w-[220px] rounded-xl border border-slate-700 bg-[#0f172a] p-1 shadow-lg"
-            >
-            {foundryItems.map(({ href, label }) => {
-              const isActive = pathname.startsWith(href);
+      <div className="flex-1 space-y-5 overflow-y-auto px-3 py-4">
+        <section className="space-y-2">
+          <div className="px-3 text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+            Primary Views
+          </div>
+          <div className="space-y-1">
+            {navItems.map(({ href, label }) => {
+              const active = isActive(href);
               return (
                 <Link
                   key={href}
                   href={href}
-                  role="menuitem"
-                  onClick={() => setOpen(false)}
-                  className={`block rounded px-3 py-2 text-sm transition-colors ${
-                    isActive
-                      ? "bg-cyan-600 text-white"
-                      : "text-slate-300 hover:bg-slate-800/70 hover:text-white"
-                  }`}
+                  className={`shell-nav-link ${active ? "shell-nav-link-active" : ""}`}
+                  aria-current={active ? "page" : undefined}
                 >
-                  {label}
+                  <span className="shell-nav-dot" aria-hidden="true" />
+                  <span className="truncate">{label}</span>
                 </Link>
               );
             })}
+          </div>
+        </section>
+
+        <section className="space-y-2">
+          <button
+            type="button"
+            onClick={() => setFoundryOpen((value) => !value)}
+            className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-[11px] font-medium uppercase tracking-[0.22em] transition-colors ${
+              foundryActive
+                ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+            }`}
+            aria-expanded={foundryOpen}
+          >
+            <span>Foundry</span>
+            <span className={`text-sm transition-transform ${foundryOpen ? "rotate-180" : ""}`}>
+              ^
+            </span>
+          </button>
+
+          {foundryOpen ? (
+            <div className="space-y-1">
+              {foundryItems.map(({ href, label }) => {
+                const active = isActive(href);
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`shell-nav-link shell-nav-link-subtle ${active ? "shell-nav-link-active" : ""}`}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    <span className="shell-nav-dot" aria-hidden="true" />
+                    <span className="truncate">{label}</span>
+                  </Link>
+                );
+              })}
             </div>
           ) : null}
+        </section>
+      </div>
+
+      <div className="border-t border-border p-3">
+        <div className="rounded-lg border border-border bg-card p-3">
+          <div className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+            Quick Access
+          </div>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Foundry intake remains available without changing any route behavior.
+          </p>
+          <Link
+            href="/foundry-article-intake"
+            className="mt-3 inline-flex w-full items-center justify-center rounded-lg border border-primary/20 bg-primary/15 px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/20"
+          >
+            Request Intake
+          </Link>
         </div>
-        </div>
-        <Link
-          href="/foundry-article-intake"
-          className="ml-auto shrink-0 rounded-full bg-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500"
-        >
-          Request Intake
-        </Link>
       </div>
     </nav>
   );

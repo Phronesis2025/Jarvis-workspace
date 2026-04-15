@@ -19,20 +19,20 @@ export function MermaidDiagram({ code }: { code: string }) {
           theme: "base",
           securityLevel: "loose",
           themeVariables: {
-            primaryColor: "#0f172a",
-            primaryTextColor: "#e2e8f0",
-            primaryBorderColor: "#22d3ee",
-            lineColor: "#22d3ee",
-            secondaryColor: "#1e293b",
-            tertiaryColor: "#334155",
-            background: "#020617",
-            mainBkg: "#0f172a",
-            nodeBorder: "#22d3ee",
-            clusterBkg: "#0f172a",
-            clusterBorder: "#22d3ee",
-            titleColor: "#22d3ee",
-            edgeLabelBackground: "#0f172a",
-            nodeTextColor: "#e2e8f0",
+            primaryColor: "#171c2e",
+            primaryTextColor: "#d8dfe8",
+            primaryBorderColor: "#2a3142",
+            lineColor: "#8be9f8",
+            secondaryColor: "#141926",
+            tertiaryColor: "#1f2534",
+            background: "#0c0f17",
+            mainBkg: "#171c2e",
+            nodeBorder: "#2a3142",
+            clusterBkg: "#141926",
+            clusterBorder: "#2a3142",
+            titleColor: "#8be9f8",
+            edgeLabelBackground: "#171c2e",
+            nodeTextColor: "#d8dfe8",
           },
         });
         return mermaid.render(idRef.current, code);
@@ -52,7 +52,7 @@ export function MermaidDiagram({ code }: { code: string }) {
 
   if (error) {
     return (
-      <div className="rounded border border-cyan-500/30 bg-slate-900/50 p-3 text-sm text-amber-400">
+      <div className="rounded-lg border border-border bg-card p-3 text-sm text-warning">
         Diagram unavailable: {error}
       </div>
     );

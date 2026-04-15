@@ -10,14 +10,14 @@ export function HudMetricCard({
 }) {
   const valueColor =
     variant === "healthy"
-      ? "text-teal-400"
+      ? "text-success"
       : variant === "warning"
-        ? "text-amber-400"
-        : "text-cyan-200";
+        ? "text-warning"
+        : "text-foreground";
 
   return (
     <div className="hud-metric p-3">
-      <div className="text-xs uppercase tracking-wider text-slate-500">
+      <div className="text-xs uppercase tracking-wider text-muted-foreground">
         {label}
       </div>
       <div className={`mt-1 text-xl font-semibold sm:text-2xl ${valueColor}`}>
